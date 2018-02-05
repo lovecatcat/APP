@@ -1,0 +1,391 @@
+/** 
+ *************
+ ** 模块样式(BL-mod)  **
+ ************* 
+**/
+
+
+/* 头部标题栏样式继承  */
+
+.BL-mod-headbar {
+	border-bottom: 1px solid #e7e7e7;
+	height: 4.5rem;
+	padding: 0;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+.BL-mod-headbar .headbar-search {
+	padding: .6875rem 1.4375rem;
+}
+
+.BL-mod-headbar .headbar-search .rings {
+	width: 2.1875rem;
+	height: 2.1875rem;
+	position: relative;
+	background-image: url(../images/icon/ico-ring.png);
+}
+
+.BL-mod-headbar .headbar-search .rings>span {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: .75rem;
+	height: .75rem;
+	background-color: #fb0000;
+	border-radius: 100%;
+	-webkit-border-radius: 100%;
+}
+
+.BL-mod-headbar .headbar-search .search {
+	height: 3.125rem;
+	width: 10rem;
+	border-radius: 1.5rem;
+	-webkit-border-radius: 1.5rem;
+	background-color: #ededed;
+	margin-left: 2rem;
+	overflow: hidden;
+}
+
+.BL-mod-headbar .headbar-search .search input[type="search"] {
+	color: #999999;
+	font-size: 1.3125rem;
+	height: 100%;
+	text-align: left;
+	text-indent: 1.5rem;
+	margin: 0;
+	background-color: rgba(0, 0, 0, 0);
+}
+
+.BL-mod-headbar .headbar-search .search .button {
+	border-left: 1px solid #c8c8c8;
+	padding-left: .75rem;
+	padding-right: 1.5rem;
+}
+
+.BL-mod-headbar .headbar-search .search .button span {
+	display: block;
+	width: 1.4375rem;
+	height: 1.4375rem;
+	background-image: url(../images/icon/ico-search.png);
+}
+
+.BL-mod-headbar .BL-icon {
+	height: 4.5rem;
+	line-height: 4.5rem;
+	padding: 0 .25rem;
+	position: absolute;
+	top: 0;
+	z-index: 10;
+}
+
+
+/* 首页底部导航tab样式继承  */
+
+.BL-mod-footNav {
+	height: 5.34375rem;
+	box-shadow: 0 0 1px rgba(0, 0, 0, .85);
+	-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, .85);
+}
+
+.BL-mod-footNav .footNav-item {
+	height: 2.75rem;
+}
+
+.BL-mod-footNav .footNav-icon {
+	display: block;
+	width: 2.25rem;
+	height: 2.25rem;
+	margin: 0 auto .53125rem;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	-webkit-background-size: 100%;
+}
+
+.BL-mod-footNav .footNav-icon~.footNav-label {
+	color: #999999;
+	font-size: 1.125rem;
+}
+
+.BL-mod-footNav .footNav-icon-hm {
+	background-image: url(../images/icon/nav-index.png);
+}
+
+.BL-mod-footNav .footNav-icon-prospect {
+	background-image: url(../images/icon/nav-prospect.png);
+}
+
+.BL-mod-footNav .footNav-icon-discover {
+	background-image: url(../images/icon/nav-discover.png);
+}
+
+.BL-mod-footNav .footNav-icon-user {
+	background-image: url(../images/icon/nav-user.png);
+}
+
+.BL-mod-footNav .footNav-item.mui-active .footNav-icon-hm {
+	background-image: url(../images/icon/nav-index-active.png);
+}
+
+.BL-mod-footNav .footNav-item.mui-active .footNav-icon-prospect {
+	background-image: url(../images/icon/nav-prospect-active.png);
+}
+
+.BL-mod-footNav .footNav-item.mui-active .footNav-icon-discover {
+	background-image: url(../images/icon/nav-discover-active.png);
+}
+
+.BL-mod-footNav .footNav-item.mui-active .footNav-icon-user {
+	background-image: url(../images/icon/nav-user-active.png);
+}
+
+.BL-mod-footNav .footNav-item.mui-active .footNav-label {
+	color: #3b9cf5;
+}
+
+
+/* 打卡模块样式  */
+
+.BL-mod-sign {
+	position: fixed;
+	right: 1.3125rem;
+	bottom: 7.65625rem;
+	z-index: 5001;
+}
+
+.BL-mod-sign .sign {
+	width: 7.9375rem;
+	height: 7.9375rem;
+	background-image: url(../images/icon/sign.png);
+}
+
+.BL-mod-sign .sign.active {
+	background-image: url(../images/icon/sign-active.png);
+}
+
+
+/* BL-segmented-control Tab切换按钮样式 */
+
+.BL-segmented-control {
+	background-color: #ffffff;
+	border: 0px solid #e5e5e5;
+}
+
+.BL-segmented-control .mui-control-item {
+	border: 0 none;
+	line-height: 5.0625rem;
+	color: #333333;
+	font-size: 1.625rem;
+}
+
+.BL-segmented-control .mui-control-item.mui-active {
+	background-color: #ffffff;
+	color: #3b9cf5;
+	border: 0 none;
+}
+
+.mui-slider-progress-bar {
+	border-bottom: 3px solid #3b9cf5;
+}
+
+.BL-slider-group {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 2;
+	width: 100%;
+	height: 100%;
+}
+
+.BL-slider-group .BL-slider-item {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	float: left;
+}
+
+
+/* 图片预览 */
+.mui-preview-image.mui-fullscreen {
+	position: fixed;
+	z-index: 20;
+	background-color: #000;
+}
+.mui-preview-header,
+.mui-preview-footer {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	z-index: 10;
+}
+.mui-preview-header {
+	height: 4.5rem;
+	top: 0;
+}
+.mui-preview-footer {
+	height: 1.5625rem;
+	bottom: 0rem;
+}
+.mui-preview-header .mui-preview-indicator {
+	display: block;
+	line-height: 4.5rem;
+	color: #fff;
+	text-align: center;
+	margin: 0 auto;
+	width: 10rem;
+	background-color: rgba(0, 0, 0, 0.4);
+	border-radius: .5rem;
+	font-size: 1.25rem;
+}
+.mui-preview-image {
+	display: none;
+	-webkit-animation-duration: 0.5s;
+	animation-duration: 0.5s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+.mui-preview-image.mui-preview-in {
+	-webkit-animation-name: fadeIn;
+	animation-name: fadeIn;
+}
+.mui-preview-image.mui-preview-out {
+	background: none;
+	-webkit-animation-name: fadeOut;
+	animation-name: fadeOut;
+}
+.mui-preview-image.mui-preview-out .mui-preview-header,
+.mui-preview-image.mui-preview-out .mui-preview-footer {
+	display: none;
+}
+.mui-zoom-scroller {
+	position: absolute;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	-webkit-backface-visibility: hidden;
+}
+.mui-zoom {
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+.mui-slider .mui-slider-group .mui-slider-item img {
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+}
+.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+	width: 100%;
+}
+.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+	display: inline-table;
+}
+.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+	display: table-cell;
+	vertical-align: middle;
+}
+.mui-preview-loading {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	display: none;
+}
+.mui-preview-loading.mui-active {
+	display: block;
+}
+.mui-preview-loading .mui-spinner-white {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -25px;
+	margin-top: -25px;
+	height: 50px;
+	width: 50px;
+}
+.mui-preview-image img.mui-transitioning {
+	-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+	transition: transform 0.5s ease, opacity 0.5s ease;
+}
+@-webkit-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@-webkit-keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+
+/* 底部悬浮栏[我要报名，我要投保] */
+.BL-footer{
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	z-index: 2;
+	height: 5.625rem;
+	width: 100%;
+}
+.BL-foot-integ{
+	padding-left: 1.25rem;
+}
+.BL-foot-integ .integ-number{
+	font-size: 2.5625rem;
+	line-height: 2.5625rem;
+	margin-right: 0.5rem;
+}
+.BL-foot-integ .integ-text{
+	font-size: 1.4375rem;
+}
+.BL-foot-integ .integ-number, .BL-foot-integ  .integ-text{
+	color: #ff6101;	
+}
+.BL-foot-btn-sign{
+	color: #ffffff;
+	font-size: 1.8125rem;
+	background-color: #3b9cf5;
+	width: 16.53125rem;
+	height: 5.625rem;
+	line-height: 5.625rem;
+	text-align: center;
+}
+

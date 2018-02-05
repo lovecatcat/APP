@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/module.css" rel="stylesheet" />
+		<link href="css/news.css" rel="stylesheet" />
+		<script src="js/config.js" type="text/javascript"></script>
+	</head>
+
+	<body class="BL-bg-f2f">
+		<header id="Js-header" class="mui-bar mui-bar-nav BL-mod-headbar BL-bg-fff">
+			<div class="BL-ub BL-ub-ac headbar-search">
+				<!--<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>-->
+				<div class="search BL-ub BL-ub-ac BL-ub-f1" style="margin-left: 0;">
+					<input type="search" name="Js-search" id="Js-search" placeholder="搜索关键词" class="BL-ub BL-ub-f1" />
+					<div class="button">
+						<span class="BL-bimg-contain">&nbsp;</span>
+					</div>
+				</div>
+			</div>
+		</header>
+		
+		<div id="Js-content" class="mui-content">
+			<div class="BL-pad-t-1">
+				<!--分类栏目 begin-->
+				<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
+					<div class="mui-scroll">
+						<a data-index="0" class="mui-control-item mui-active">
+							全部
+						</a>
+						<a data-index="1" class="mui-control-item">
+							云课堂
+						</a>
+						<a data-index="2" class="mui-control-item">
+							行业资讯
+						</a>
+						<a data-index="3" class="mui-control-item">
+							财经报道
+						</a>
+						<a data-index="4" class="mui-control-item">
+							精英榜
+						</a>
+					</div>
+				</div>
+				<!--分类栏目 end -->
+			</div>
+		</div>
+
+		
+		
+	</body>
+	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		mui.init();
+		
+		mui.preload({ // 预加载资讯详情页
+			url: 'news-detail.html',
+			id: 'news_detail', // id
+		});
+		
+		var winH = window.innerHeight / sizeObj.dpl;
+		var topHeight = document.querySelector('#Js-header').offsetHeight;
+		document.querySelector('#Js-content').style.paddingTop = topHeight + 'px'
+		var divHeight = document.querySelector('#Js-content').offsetHeight / sizeObj.dpl;
+		
+		mui.plusReady(function() {
+			/**
+			 * 当前窗口对象，即父窗口；
+			 */
+			var self = plus.webview.currentWebview();
+			// 子窗口地址数组
+			var subpages = ["news-all.html", "news-cloud.html", "news-business.html", "news-finance.html", "news-cream.html"];
+			// 子窗口ID数组
+			var subpageIds = ["news_all", "news_cloud", "news_business", "news_finance", "news_cream"];
+			// 子窗口样式
+			var subStyles = {
+				top: (divHeight + 1) + "px",
+				bottom: "0px",
+				height: (winH - divHeight) + 'px'
+			};
+			// 子窗口数量
+			var subLen = subpages.length;
+			// 子窗口对象数组
+			var subWvs = [];
+			// 底部选项
+			var tabs = document.querySelectorAll(".mui-control-item");
+			// 当前页面索引，初始化为0；
+			var activeIndex = 0;
+			// 目标页面索引，初始化为当前页面索引；
+			var targetIndex = activeIndex;
+			// 创建子页面
+			for(var i = 0; i < subLen; i++) {
+				/**
+				 * 创建窗口对象，并将索引做为额外的参数传递；
+				 */
+				var subWv = plus.webview.create(subpages[i], subpageIds[i], subStyles, {
+					index: i
+				});
+				// 窗口对象添加至数组
+				subWvs.push(subWv);
+				if(i > 0) {
+					/**
+					 * 隐藏非第一页的窗口对象
+					 */
+					subWv.hide();
+				}
+				/**
+				 * 向父窗口添加子窗口
+				 */
+				self.append(subWv);
+			};
+
+			// 底部选项卡点击切换事件
+			for(var j = 0, jlen = tabs.length; j < jlen; j++) {
+				tabs[j].addEventListener("tap", function() {
+					
+					// 获取当前结点的索引
+					targetIndex = this.getAttribute("data-index");
+					//获取当前是否高亮
+					targetActive = this.getAttribute("class");
+					if(targetActive.indexOf('mui-active') != -1){
+						return
+					};
+					// 转换为number类型
+					targetIndex = parseInt(targetIndex, 10);
+					if(targetIndex == activeIndex) {
+						return;
+					}
+					// 切换页面
+					switchPage(activeIndex, targetIndex);
+				});
+			};
+
+			/**
+			 * 切换页面
+			 * @param {String} _event 事件类型
+			 * @param {Number} _active 当前页面索引
+			 * @param {Number} _target 目标页面索引
+			 */
+			function switchPage(_active, _target) {
+				/**
+				 * 目标页面展示
+				 */
+				plus.webview.show(subWvs[_target], 'fade-in', 350);
+				//subWvs[_target].show();
+				// 之前展示的页面隐藏
+				subWvs[_active].hide();
+				// 更新当前页索引
+				activeIndex = _target;
+			};
+	
+			
+		})
+		
+	</script>
+
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/module.css" rel="stylesheet" />
+		<script src="js/config.js" type="text/javascript"></script>
+	</head>
+
+	<body class="BL-bg-f2f">
+
+		<!----------- 主导航  begin -------------->
+		<nav id="Js-nav" class="mui-bar mui-bar-tab BL-bg-fff BL-mod-footNav">
+			<a data-index="0" class="mui-tab-item footNav-item mui-active">
+				<span class="footNav-icon footNav-icon-hm"></span>
+				<span class="footNav-label">汇盟</span>
+			</a>
+			<a data-index="1" class="mui-tab-item footNav-item">
+				<span class="footNav-icon footNav-icon-prospect"></span>
+				<span class="footNav-label">计划书</span>
+			</a>
+			<a data-index="2" class="mui-tab-item footNav-item">
+				<span class="footNav-icon footNav-icon-discover"></span>
+				<span class="footNav-label">发现</span>
+			</a>
+			<a data-index="3" class="mui-tab-item footNav-item">
+				<span class="footNav-icon footNav-icon-user"></span>
+				<span class="footNav-label">我</span>
+			</a>
+		</nav>
+		<!----------- 主导航  end ---------------->
+
+	</body>
+	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var navHeight = document.querySelector('#Js-nav').offsetHeight / sizeObj.dpl;
+		//localStorage.setItem("navHeight", document.querySelector('#Js-nav').offsetHeight); // 储存底部导航高度 
+		
+		mui.plusReady(function() {
+			
+			/**
+			 * 当前窗口对象，即父窗口；
+			 */
+			var self = plus.webview.currentWebview();
+			// 子窗口地址数组
+			var subpages = ["index-content.html", "prospect.html", "news.html", "member.html"];
+			// 子窗口样式
+			var subStyles = {
+				top: "0px",
+				bottom: navHeight + "px"
+			};
+			// 子窗口数量
+			var subLen = subpages.length;
+			// 子窗口对象数组
+			var subWvs = [];
+			// 底部选项
+			var tabs = document.querySelectorAll(".footNav-item");
+			// 当前页面索引，初始化为0；
+			var activeIndex = 0;
+			// 目标页面索引，初始化为当前页面索引；
+			var targetIndex = activeIndex;
+			// 创建子页面
+			for(var i = 0; i < subLen; i++) {
+				/**
+				 * 创建窗口对象，并将索引做为额外的参数传递；
+				 */
+				var subWv = plus.webview.create(subpages[i], cutWebviewId(subpages[i]), subStyles, {
+					index: i
+				});
+				// 窗口对象添加至数组
+				subWvs.push(subWv);
+				if(i > 0) {
+					/**
+					 * 隐藏非第一页的窗口对象
+					 */
+					subWv.hide("none");
+				}
+				/**
+				 * 向父窗口添加子窗口
+				 */
+				self.append(subWv);
+			};
+
+			// 底部选项卡点击切换事件
+			for(var j = 0, jlen = tabs.length; j < jlen; j++) {
+				tabs[j].addEventListener("tap", function() {
+					// 获取当前结点的索引
+					targetIndex = this.getAttribute("data-index");
+					console.log(targetIndex);
+					// 转换为number类型
+					targetIndex = parseInt(targetIndex, 10);
+					if(targetIndex == activeIndex) {
+						return;
+					}
+					// 切换页面
+					switchPage(activeIndex, targetIndex);
+				});
+			};
+
+			/**
+			 * 切换页面
+			 * @param {String} _event 事件类型
+			 * @param {Number} _active 当前页面索引
+			 * @param {Number} _target 目标页面索引
+			 */
+			function switchPage(_active, _target) {
+				/**
+				 * 目标页面展示
+				 */
+				subWvs[_target].show();
+				// 之前展示的页面隐藏
+				subWvs[_active].hide("none");
+				// 更新当前页索引
+				activeIndex = _target;
+			};
+
+			/**
+			 * 截取url地址，获取窗口的id；
+			 * @param {String} url html文件的路径
+			 * @param {String} wvId webviewObject的id
+			 */
+			function cutWebviewId(url) {
+				var startIndex = url.lastIndexOf("/");
+				var endIndex = url.lastIndexOf(".html");
+				var wvId = url.substring(startIndex + 1, endIndex);
+				return wvId;
+			}
+			
+		});
+	</script>
+
+</html>

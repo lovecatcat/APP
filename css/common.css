@@ -1,0 +1,397 @@
+/** 
+ *************
+ ** 公共样式(BL)  **
+ ************* 
+**/
+
+
+/* 弹性盒子模型(base样式) */
+
+.BL-vp {
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+	-webkit-text-size-adjust: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-user-select: none
+}
+
+.BL-vp .up {
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-height: 100%;
+	max-height: 100%;
+	position: absolute;
+	border: 0
+}
+
+.BL-ub {
+	display: -webkit-box !important;
+	display: box !important;
+	position: relative;
+}
+
+.BL-ub-rev {
+	-webkit-box-direction: reverse;
+	box-direction: reverse;
+}
+
+.BL-ub-fh {
+	width: 100%;
+}
+
+.BL-ub-fv {
+	height: 100%;
+}
+
+.BL-ub-con {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.BL-ub-ac {
+	-webkit-box-align: center;
+	box-align: center;
+}
+
+.BL-ub-ae {
+	-webkit-box-align: end;
+	box-align: end;
+}
+
+.BL-ub-pc {
+	-webkit-box-pack: center;
+	box-pack: center;
+}
+
+.BL-ub-pe {
+	-webkit-box-pack: end;
+	box-pack: end;
+}
+
+.BL-ub-pj {
+	-webkit-box-pack: justify;
+	box-pack: justify;
+}
+
+.BL-ub-ver {
+	-webkit-box-orient: vertical;
+	box-orient: vertical;
+}
+
+.BL-ub-f1 {
+	position: relative;
+	-webkit-box-flex: 1;
+	box-flex: 1;
+}
+
+.BL-ub-f2 {
+	position: relative;
+	-webkit-box-flex: 2;
+	box-flex: 2;
+}
+
+.BL-ub-f3 {
+	position: relative;
+	-webkit-box-flex: 3;
+	box-flex: 3;
+}
+
+.BL-ub-f4 {
+	position: relative;
+	-webkit-box-flex: 4;
+	box-flex: 4;
+}
+
+.BL-rel {
+	position: relative;
+}
+
+.BL-abs {
+	position: absolute;
+}
+
+
+/* 背景图片(base样式) = BL-bimg- */
+
+.BL-bimg-cover {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	-webkit-background-size: cover;
+}
+
+.BL-bimg-contain {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	-webkit-background-size: contain;
+}
+
+.BL-bimg-full {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	-webkit-background-size: 100%;
+}
+
+
+/* 背景色(base样式) = BL-bg- */
+
+.BL-bg-fff {
+	background-color: #ffffff;
+}
+
+.BL-bg-f2f {
+	background-color: #f2f2f2;
+}
+
+
+/* 按钮(base样式) = BL-btn[bgColor, border, border-radius, color, font-size, min-height, padding] */
+
+.BL-btn {
+	background-color: #6cc6ff;
+	border: 1px solid #ccc;
+	border-radius: .3125em;
+	font-size: 1rem;
+	min-height: 2rem;
+	padding: 0 0.5rem;
+}
+
+
+/* Icon按钮(base样式) = BL-icon[color, font-size, min-height, padding] */
+
+.BL-icon {
+	font-family: 'Muiicons';
+	-webkit-font-smoothing: antialiased;
+	color: #666;
+	font-size: 2.8rem;
+}
+
+.BL-icon-left {
+	left: 0;
+}
+
+.BL-icon-share {
+	width: 2rem;
+	height: 2rem;
+	background: url(../images/icon/ico-share.png) no-repeat center;
+	background-size: 100%;
+	right: 1.25rem;
+}
+
+
+/* 标题栏(base样式) = BL-title[color, font-size] */
+
+.BL-title {
+	font-size: 1.875rem;
+	font-weight: 500;
+	line-height: 4.5rem;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+	white-space: nowrap;
+	color: #333;
+}
+
+
+/* 字体颜色  = BL-col[16位色值]*/
+
+.BL-col-333 {
+	color: #333333 !important;
+}
+
+.BL-col-666 {
+	color: #666666 !important;
+}
+
+.BL-col-999 {
+	color: #999999 !important;
+}
+
+.BL-col-ff8201 {
+	color: #ff8201 !important;
+}
+
+.BL-col-3b9cf5 {
+	color: #3b9cf5 !important;
+}
+
+
+/* 圆弧角  = BL-radiu-[a(全部), l-(左), lr-(左右), r-(右), t-(上), tb-(上下), b-(下)] */
+
+.BL-radiu-a1 {
+	border-radius: 1rem;
+	-webkit-border-radius: 1rem;
+}
+
+.BL-radiu-a_3 {
+	border-radius: .3rem;
+	-webkit-border-radius: .3rem;
+}
+
+.BL-radiu-a_5 {
+	border-radius: .5rem;
+	-webkit-border-radius: .5rem;
+}
+
+
+/* 内边距(base样式) = BL-pad-[a(全部), l-(左), lr-(左右), r-(右), t-(上), tb-(上下), b-(下)]  */
+
+.BL-pad-a1 {
+	padding: 1rem;
+}
+
+.BL-pad-a1_25 {
+	padding: 1.25rem;
+}
+
+.BL-pad-a2 {
+	padding: 2rem;
+}
+
+.BL-pad-a3 {
+	padding: 3rem;
+}
+
+.BL-pad-l-1 {
+	padding-left: 1rem;
+}
+
+.BL-pad-l-2 {
+	padding-left: 2rem;
+}
+
+.BL-pad-l-3 {
+	padding-left: 3rem;
+}
+
+.BL-pad-lr-1 {
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+.BL-pad-lr-1_25 {
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
+}
+
+.BL-pad-lr-2 {
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
+.BL-pad-lr-3 {
+	padding-left: 3rem;
+	padding-right: 3rem;
+}
+
+.BL-pad-r-1 {
+	padding-right: 1rem;
+}
+
+.BL-pad-r-2 {
+	padding-right: 2rem;
+}
+
+.BL-pad-r-3 {
+	padding-right: 3rem;
+}
+
+.BL-pad-t-1 {
+	padding-top: 1rem;
+}
+
+.BL-pad-t-2 {
+	padding-top: 2rem;
+}
+
+.BL-pad-t-3 {
+	padding-top: 3rem;
+}
+
+.BL-pad-tb-1 {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.BL-pad-tb-2 {
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+
+.BL-pad-tb-3 {
+	padding-top: 3rem;
+	padding-bottom: 3rem;
+}
+
+.BL-pad-b-1 {
+	padding-bottom: 1rem;
+}
+
+.BL-pad-b-2 {
+	padding-bottom: 2rem;
+}
+
+.BL-pad-b-3 {
+	padding-bottom: 3rem;
+}
+
+
+/* 外边距(base样式) = BL-mar-[a(全部), l-(左), lr-(左右), r-(右), t-(上), tb-(上下), b-(下)]  */
+
+.BL-mar-l-3 {
+	margin-left: 3rem;
+}
+
+.BL-mar-b_5 {
+	margin-bottom: .5rem;
+}
+
+.BL-mar-b-1 {
+	margin-bottom: 1rem;
+}
+
+
+/* 重写mui加载更多样式 */
+
+.mui-pull-bottom-pocket {
+	height: 3rem;
+}
+
+.mui-pull {
+	height: 100%;
+	line-height: 3rem;
+	bottom: 0;
+}
+
+.mui-icon,
+.mui-pull-caption {
+	color: #666666;
+	font-size: 1.25rem;
+	line-height: 1.25rem;
+}
+
+
+/* 修改mui默认行高 */
+select,
+textarea,
+input[type='text'],
+input[type='search'],
+input[type='password'],
+input[type='datetime'],
+input[type='datetime-local'],
+input[type='date'],
+input[type='month'],
+input[type='time'],
+input[type='week'],
+input[type='number'],
+input[type='email'],
+input[type='url'],
+input[type='tel'],
+input[type='color']{
+	line-height: normal;
+}

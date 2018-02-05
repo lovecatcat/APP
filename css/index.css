@@ -1,0 +1,65 @@
+.squared{}
+.squared-menu{
+	margin-bottom: 1.125rem;
+}
+.squared-menu .icon{
+	width:  4.375rem;
+	height: 4.375rem;
+	margin: 0 auto;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+.squared-menu .name{
+	color: #666666;
+	font-size: 1.125rem;
+	margin-top: .53125rem;
+	text-align: center;
+}
+.squared-menu:nth-child(1) .icon{
+	background-image: url(../images/icon/index-ico1.png);
+}
+.squared-menu:nth-child(2) .icon{
+	background-image: url(../images/icon/index-ico2.png);
+}
+.squared-menu:nth-child(3) .icon{
+	background-image: url(../images/icon/index-ico3.png);
+}
+.squared-menu:nth-child(4) .icon{
+	background-image: url(../images/icon/index-ico4.png);
+}
+.squared-menu:nth-child(5) .icon{
+	background-image: url(../images/icon/index-ico5.png);
+}
+.squared-menu:nth-child(6) .icon{
+	background-image: url(../images/icon/index-ico6.png);
+}
+.squared-menu:nth-child(7) .icon{
+	background-image: url(../images/icon/index-ico7.png);
+}
+.squared-menu:nth-child(8) .icon{
+	background-image: url(../images/icon/index-ico8.png);
+}
+
+.product-left{
+	margin-right: 1.5rem;
+}
+
+.mui-slider-indicator{
+	text-align: right;
+	padding-right: .5rem;
+}
+.mui-slider-indicator .mui-indicator{
+	width: .375rem;
+	height: .375rem;
+	border-radius: 0;
+	-webkit-border-radius: 0;
+}
+
+
+
+
+
+
+
+

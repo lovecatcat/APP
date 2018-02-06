@@ -395,3 +395,11 @@ input[type='tel'],
 input[type='color']{
 	line-height: normal;
 }
+
+
+/* 详情内容样式 */
+.BL-pasual{
+	font-size: 1.4375rem;
+	color: #666666;
+	line-height: 2.2rem;
+}

@@ -62,9 +62,14 @@
 			id: 'news_detail', // id
 		});
 		
+		mui.preload({ // 预加载资讯详情页
+			url: 'news-tv-detail.html',
+			id: 'news_tv_detail', // id
+		});
+		
 		var winH = window.innerHeight / sizeObj.dpl;
 		var topHeight = document.querySelector('#Js-header').offsetHeight;
-		document.querySelector('#Js-content').style.paddingTop = topHeight + 'px'
+		document.querySelector('#Js-content').style.paddingTop = topHeight + 'px';
 		var divHeight = document.querySelector('#Js-content').offsetHeight / sizeObj.dpl;
 		
 		mui.plusReady(function() {

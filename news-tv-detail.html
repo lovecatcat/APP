@@ -17,42 +17,61 @@
 			<h1 class="BL-title">发现</h1>
 			<a class="BL-icon BL-icon-share"></a>
 		</header>
-		
+
 		<div id="Js-content" class="mui-content BL-rel">
 			<div class="mui-scroll-wrapper">
 				<div class="mui-scroll news-detail">
 					<div class="news-detail-contain">
 						<div class="hd">
 							<div class="title">
-							惠州龙门大观园温泉，鲁冰花童话园2日游	
-							</div>	
+								最补血的居然不是红枣！真正的“补血之王”原来是它
+							</div>
 							<div class="date">
 								<span id="" style="padding-right: .5rem;">
 									2017-12-18  
-								</span>	
+								</span>
 								<span id="">
-									行业资讯
+									公司VCR
 								</span>
 							</div>
 						</div>
-						<div class="bd BL-pasual content">
-							<div style="text-indent: 2rem;">
-								冬季，正是吃柚子、橘子、橙子的时候，这些个头上看上去差不多，味道也都是酸酸甜甜的，可是，它们的营养价值却相差了十万八千里。
-							</div><br />
-							<div><img src="images/pic/p9.jpg" /></div><br />
-							<div>1、柚子性寒最祛火，辅助降三高</div><br />
-							<div style="text-indent: 2rem;">
-							柚子家族有多个兄弟，红心柚、溪蜜柚、水晶柚、
-沙田柚、西柚等。中医认为，柚子果肉性寒，味甘、酸
-有止咳平喘、清热化痰、健脾消食、解酒除烦、食用柚
-子有一定的去火功效。	
-							</div>
+						<div class="bd">
+							<img src="images/pic/p10.jpg" />
 						</div>
 					</div>
-				</div> 
-			</div> 	
-		</div> 
-		
+
+					<!------------ 视频列表 begin ----------->
+					<div id="Js-newsList" class="news-list news-tv-list">
+						<ul class="news-list-cell">
+							<li class="nItem">
+								<a data-id="111" data-wid="news_detail" href="news-detail.html" class="BL-ub BL-ub-f1">
+									<div class="img">
+										<img src="images/pic/p7.jpg" />
+									</div>
+									<div class="context BL-ub BL-ub-ver BL-ub-f1">
+										<h1 class="tit"><span class="tit-badg tit-badg-tv">视频</span>最补血的居然不是红枣！真正的“补血之王”原来是它</h1>
+										<div class="name">公司VCR</div>
+									</div>
+								</a>
+							</li>
+							<li class="nItem">
+								<a data-id="2" data-wid="news_tv_detail" href="news-tv-detail.html" class="BL-ub BL-ub-f1">
+									<div class="img">
+										<img src="images/pic/p7.jpg" />
+									</div>
+									<div class="context BL-ub BL-ub-ver BL-ub-f1">
+										<h1 class="tit"><span class="tit-badg tit-badg-tv">视频</span>最补血的居然不是红枣！真正的“补血之王”原来是它</h1>
+										<div class="name">公司VCR</div>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<!------------ 视频列表 end-------------->
+				</div>
+			</div>
+		</div>
+
 		<footer id="Js-footer" class="BL-footer BL-bg-fff">
 			<div class="BL-ub BL-ub-pc">
 				<div class="BL-ub BL-ub-pj" style="width: 50%;">
@@ -65,24 +84,19 @@
 				</div>
 			</div>
 		</footer>
-		
+
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
-	<script type="text/javascript" src="js/mui.zoom.js" ></script>
-	<script type="text/javascript" src="js/mui.previewimage.js" ></script>
+	<script type="text/javascript" src="js/mui.zoom.js"></script>
+	<script type="text/javascript" src="js/mui.previewimage.js"></script>
 	<script type="text/javascript">
 		mui.init();
-		
+
 		var winH = window.innerHeight;
 		var titHeight = document.querySelector('#Js-header').offsetHeight;
 		var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 		document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
-		
-		//非plus环境
-		if(!mui.os.plus) {
-			mui.previewImage(); // H5 非原生图片预览		
-		}
-		
+
 		mui('.mui-scroll-wrapper').scroll({
 			scrollY: true, //是否竖向滚动
 			scrollX: false, //是否横向滚动
@@ -92,29 +106,15 @@
 			deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
 			bounce: true //是否启用回弹
 		});
-		
+
 		mui.plusReady(function() {
-			var images = [].slice.call(document.querySelectorAll('.content img'));
-		    var urls = [];
-		    images.forEach(function(item) {
-		    	urls.push(item.src);
-		    });
-		    mui('.content').on('tap', 'img', function() {
-		        var index = images.indexOf(this);
-		        plus.nativeUI.previewImage(urls, {
-		          current: index,
-		          loop: false, //默认不支持轮播
-		          indicator: 'number'
-		        });
-		    });
-			
-			
+
 			//添加productId自定义事件监听
-			window.addEventListener('newsId',function(event){
-			  //获得事件参数
-			  var id = event.detail.id;
-			  console.log(id) 
-			  //根据id向服务器请求新闻详情
+			window.addEventListener('newsId', function(event) {
+				//获得事件参数
+				var id = event.detail.id;
+				console.log(id)
+				//根据id向服务器请求新闻详情
 			});
 		})
 	</script>

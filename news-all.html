@@ -31,7 +31,7 @@
 							</a>
 						</li>
 						<li class="nItem">
-							<a data-id="2" data-wid="news_detail" href="news-detail.html" class="BL-ub BL-ub-f1">
+							<a data-id="2" data-wid="news_tv_detail" href="news-tv-detail.html" class="BL-ub BL-ub-f1">
 								<div class="img">
 									<img src="images/pic/p7.jpg" />
 								</div>
@@ -128,7 +128,7 @@
 					if(!detailPage) {
 						detailPage = plus.webview.getWebviewById(id);
 					}
-					//触发详情页面的productId事件
+					//触发详情页面的newsId事件
 					mui.fire(detailPage, 'newsId', {
 						id: pid
 					});

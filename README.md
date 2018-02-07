@@ -12,10 +12,10 @@
 
 ## 版本号规则
 
-- v1.2.0907
+- v2.0.0207
 -  1        —— 大版本号
 -  2        —— 小版本号
--  0907     —— 月份+版次（递增）
+-  0207     —— 月份+版次（递增）
 
 ## 更新
 接口地址：`www.ehuimeng.com/Public/Uploads/app/check.json`
@@ -24,29 +24,29 @@
 ```
 {
   "package": {
-    "id": "H5BED76AE",
+    "id": "H517AA33E",
     "name": "com.huimeng.app"
   },
   "iOS": {
-    "version": "1.0",
-    "title": "汇盟e家 1.0 app 下载",
+    "version": "2.0.0",
+    "title": "汇盟e家 2.0 app 下载",
     "note": "",
-    "url": "https://itunes.apple.com/cn/app/%E6%B1%87%E7%9B%9Fe%E5%AE%B6-%E6%89%8B%E6%9C%BA%E7%89%88/id1298445808?mt=8"
+    "url": ""
   },
   "Android": {
-    "version": "1.2.1207",
-    "title": "汇盟e家(1.2.1207)版本更新",
-    "note": "增加考勤打卡，优化更新流程",
+    "version": "2.0.0",
+    "title": "汇盟e家 2.0 app 下载",
+    "note": "",
     "url": "https://www.ehuimeng.com/Public/Uploads/app/H5BED76AE_1207141601.apk"
   },
   "wgt": {
   	"iOS": {
-		"version": "1.2.1213",
-		"url": "https://www.ehuimeng.com/Public/Uploads/iOS/H5BED76AE.wgt"
+		"version": "",
+		"url": "https://www.ehuimeng.com/Public/Uploads/iOS/H517AA33E.wgt"
 	},
 	"Android": {
-		"version": "1.2.1212",
-		"url": "https://www.ehuimeng.com/Public/Uploads/Android/H5BED76AE.wgt"
+		"version": "",
+		"url": "https://www.ehuimeng.com/Public/Uploads/Android/H517AA33E.wgt"
 	}
   }
 }

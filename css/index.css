@@ -1,18 +1,44 @@
+
+.BL-mod-headbar{
+	background-color: rgba(38,132,255,0);
+	border-bottom: 0 none;
+}
+.BL-mod-headbar .seek{
+	height: 3.125rem;
+	width: 10rem;
+	border-radius: 1.5rem;
+	-webkit-border-radius: 1.5rem;
+	background: rgba(255,255,255,0.3);
+	margin-left: 2rem;
+	overflow: hidden;
+}
+.BL-mod-headbar .seek .button{
+	background: url(../images/icon/ico-search.png) no-repeat;
+	background-size: contain;
+	width: 1.3125rem;
+	height: 1.3125rem;
+	margin-right: 1rem;	
+}
+.BL-mod-headbar .seek .text{
+	color: #ffffff;
+	font-size: 1.3125rem;
+}
+
 .squared{}
 .squared-menu{
 	margin-bottom: 1.125rem;
 }
 .squared-menu .icon{
-	width:  4.375rem;
-	height: 4.375rem;
+	width:  2.8125rem;
+	height: 2.8125rem;
 	margin: 0 auto;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: 100%;
 }
 .squared-menu .name{
-	color: #666666;
-	font-size: 1.125rem;
+	color: #333333;
+	font-size: 1.4375rem;
 	margin-top: .53125rem;
 	text-align: center;
 }
@@ -56,10 +82,96 @@
 	-webkit-border-radius: 0;
 }
 
+.insure{
+	background: #ffffff;
+	padding: 1.5rem 0;	
+}
+.insure-hd{
+	padding: 0 1.5rem;
+	margin-bottom: 1.25rem;
+}
+.insure-hd .title .icon{
+	width: 3.125rem;
+	height: 3.125rem;
+}
+.insure-hd .title .icon-1{
+	background: url(../images/index/ico-1.png) no-repeat center;
+	background-size: contain;
+}
+.insure-hd .title .icon-2{
+	background: url(../images/index/ico-2.png) no-repeat center;
+	background-size: contain;
+}
+.insure-hd .title .icon-3{
+	background: url(../images/index/ico-3.png) no-repeat center;
+	background-size: contain;
+}
+.insure-hd .title .icon-4{
+	background: url(../images/index/ico-4.png) no-repeat center;
+	background-size: contain;
+}
+.insure-hd .title span{
+	color: #333333;
+	font-size: 1.6875rem;
+}
+.insure-hd .more{
+	display: inline-block;
+}
+.insure-hd .more, .insure-hd .more div{
+	color: #999999;
+	font-size: 1.4375rem;
+}
 
 
-
-
-
-
-
+.insure-group{
+	width: 100%;
+	overflow-x: auto;
+	-ms-overflow-x: auto;
+}
+.insure-group .item{
+	padding: 0.2rem 0.75rem;
+}
+.insure-group .item:first-child{
+	padding-left: 1.5rem;	
+}
+.insure-group .item:last-child{
+	padding-right: 1.5rem;	
+}
+.insure-group .item-content{
+	width: 12.875rem;
+	height: 15rem;
+	box-shadow: 0rem 0rem .5rem rgba(0,0,0,0.1);	
+}
+.insure-group .item-content .img{
+	position: relative;
+}
+.insure-group .item-content .img .new{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	z-index: 10;
+	padding: .3rem 1rem;
+	background-color: #ff7500;
+	color: #fff;
+	font-size: 1rem;
+}
+.insure-group .item-content .context{
+	padding: .5rem 1.09375rem;
+}
+.insure-group .item-content .context .tit{
+	font-size: 1.5rem;
+	font-weight: 500;
+	margin-bottom: .3rem;
+}
+.insure-group .item-content .context .text{
+	font-size: 1.25rem;
+	color: #999999;
+}
+.insure-group .item-content .context .price{
+	font-size: 1.5rem;
+	color: #ff7500;
+}
+.insure-group .item-content .context .price .money{
+	margin-left: -.5rem;
+	display: inline-block;
+}

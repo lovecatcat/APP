@@ -12,25 +12,28 @@
 	</head>
 
 	<body class="BL-bg-f2f">
-		<header id="Js-header" class="mui-bar mui-bar-nav BL-mod-headbar">
-			<div class="BL-ub BL-ub-ac headbar-search">
-				<div id="Js-ring" class="rings BL-bimg-contain" alt="消息通知">
-					<span id="" alt="消息红点提示"></span>
-				</div>
 
-				<div class="search BL-ub BL-ub-ac BL-ub-f1">
-					<input type="search" name="Js-search" id="Js-search" value="搜索" class="BL-ub BL-ub-f1" />
-					<div class="button">
-						<span class="BL-bimg-contain">&nbsp;</span>
+		<header id="Js-header" style="position: fixed;left: 0;top: 0;width: 100%;z-index: 99;">
+			<div class="BL-mod-headbar">
+
+				<div class="BL-ub BL-ub-ac headbar-search">
+					<div id="Js-ring" class="rings BL-bimg-contain" alt="消息通知">
+						<span id="" alt="消息红点提示"></span>
+					</div>
+
+					<div class="seek BL-ub BL-ub-ac BL-ub-pc BL-ub-f1">
+						<div class="button"></div>
+						<div class="text">搜索</div>
 					</div>
 				</div>
 			</div>
 		</header>
 
-		<div id="Js-content" class="mui-content">
-			<div id="Js-main" style="position: relative;">
+		<div id="Js-content" class="mui-content" style="padding-top: 0;">
+			<div id="Js-main">
 				<div class="mui-scroll-wrapper">
 					<div class="mui-scroll">
+						<!--这里放置真实显示的DOM内容-->
 
 						<!----------- 图片轮播  begin -------------->
 						<div id="slider" class="mui-slider">
@@ -136,35 +139,187 @@
 						</div>
 						<!----------- 九宫格菜单  end -------------->
 
-						<!----------- 新产品上线  begin -------------->
-						<div class="BL-pad-a1_25 BL-mar-b-1 BL-bg-fff BL-ub BL-ub-ac BL-ub-pj product" style="padding-bottom: 0;">
-							<div class="product-left BL-ub-f1">
-								<div data-id="" class="item">
-									<img src="images/pic/p1.jpg" />
+						<!----------- 短期险  begin -------------->
+						<div class="insure BL-mar-b-1">
+							<div class="BL-ub BL-ub-pj BL-ub-ac insure-hd">
+								<div class="BL-ub BL-ub-ac title">
+									<div class="icon icon-1"></div>
+									<span>短期险</span>
 								</div>
+								<a class="BL-ub BL-ub-ac more">
+									<span>更多</span>
+									<div class="mui-icon mui-icon-arrowright"></div>
+								</a>
 							</div>
-							<div class="product-right BL-ub-f1">
-								<div data-id="" class="item">
-									<img src="images/pic/p2.jpg" />
+							<div class="insure-group BL-ub BL-ub-ac">
+								<div class="item">
+									<div class="item-content">
+										<div class="img">
+											<img src="images/pic/p11.jpg"/>
+											<span id="" class="new">新品</span>
+										</div>
+										<div class="context">
+											<div class="tit">
+											横琴百万医疗	
+											</div>
+											<div class="text">
+											续保承诺写入条款	
+											</div>
+											<div class="price BL-ub BL-ub-ac">
+												<span>￥</span>
+												<span id="Js-money" class="money">
+													169.00
+												</span>
+											</div>
+										</div>
+									</div>
 								</div>
-								<div data-id="" class="item">
-									<img src="images/pic/p2.jpg" />
+								<div class="item">
+									<div class="item-content">
+										<div class="img">
+											<img src="images/pic/p11.jpg"/>
+											<span id="" class="new">新品</span>
+										</div>
+										<div class="context">
+											<div class="tit">
+											横琴百万医疗	
+											</div>
+											<div class="text">
+											续保承诺写入条款	
+											</div>
+											<div class="price BL-ub BL-ub-ac">
+												<span>￥</span>
+												<span id="Js-money" class="money">
+													169.00
+												</span>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-						<!----------- 新产品上线  end   -------------->
+						<!----------- 短期险  end   -------------->
 
-						<!----------- 险种类别分组  begin -------------->
-						<div class="insure">
-							<div class="insure-group">
-								<div class="">
-
+						<!----------- 重疾险  begin -------------->
+						<div class="insure BL-mar-b-1">
+							<div class="BL-ub BL-ub-pj BL-ub-ac insure-hd">
+								<div class="BL-ub BL-ub-ac title">
+									<div class="icon icon-2"></div>
+									<span>重疾险</span>
+								</div>
+								<a class="BL-ub BL-ub-ac more">
+									<span>更多</span>
+									<div class="mui-icon mui-icon-arrowright"></div>
+								</a>
+							</div>
+							<div class="insure-group BL-ub BL-ub-ac">
+								<div class="item">
+									<div class="item-content">
+										<div class="img">
+											<img src="images/pic/p11.jpg"/>
+											<span id="" class="new">新品</span>
+										</div>
+										<div class="context">
+											<div class="tit">
+											横琴百万医疗	
+											</div>
+											<div class="text">
+											续保承诺写入条款	
+											</div>
+											<div class="price BL-ub BL-ub-ac">
+												<span>￥</span>
+												<span id="Js-money" class="money">
+													169.00
+												</span>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-						<!----------- 险种类别分组  end   -------------->
+						<!----------- 重疾险  end   -------------->
+
+						<!----------- 意外险  begin -------------->
+						<div class="insure BL-mar-b-1">
+							<div class="BL-ub BL-ub-pj BL-ub-ac insure-hd">
+								<div class="BL-ub BL-ub-ac title">
+									<div class="icon icon-3"></div>
+									<span>意外险</span>
+								</div>
+								<a class="BL-ub BL-ub-ac more">
+									<span>更多</span>
+									<div class="mui-icon mui-icon-arrowright"></div>
+								</a>
+							</div>
+							<div class="insure-group BL-ub BL-ub-ac">
+								<div class="item">
+									<div class="item-content">
+										<div class="img">
+											<img src="images/pic/p11.jpg"/>
+											<span id="" class="new">新品</span>
+										</div>
+										<div class="context">
+											<div class="tit">
+											横琴百万医疗	
+											</div>
+											<div class="text">
+											续保承诺写入条款	
+											</div>
+											<div class="price BL-ub BL-ub-ac">
+												<span>￥</span>
+												<span id="Js-money" class="money">
+													169.00
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!----------- 意外险  end   -------------->
+
+						<!----------- 理财险  begin -------------->
+						<div class="insure BL-mar-b-1">
+							<div class="BL-ub BL-ub-pj BL-ub-ac insure-hd">
+								<div class="BL-ub BL-ub-ac title">
+									<div class="icon icon-4"></div>
+									<span>理财险</span>
+								</div>
+								<a class="BL-ub BL-ub-ac more">
+									<span>更多</span>
+									<div class="mui-icon mui-icon-arrowright"></div>
+								</a>
+							</div>
+							<div class="insure-group BL-ub BL-ub-ac">
+								<div class="item">
+									<div class="item-content">
+										<div class="img">
+											<img src="images/pic/p11.jpg"/>
+											<span id="" class="new">新品</span>
+										</div>
+										<div class="context">
+											<div class="tit">
+											横琴百万医疗	
+											</div>
+											<div class="text">
+											续保承诺写入条款	
+											</div>
+											<div class="price BL-ub BL-ub-ac">
+												<span>￥</span>
+												<span id="Js-money" class="money">
+													169.00
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!----------- 理财险  end   -------------->
+
 					</div>
 				</div>
+
 			</div>
 		</div>
 
@@ -178,11 +333,13 @@
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		mui.init();
-		var winH = window.innerHeight;
-		var topHeight = document.querySelector('#Js-header').offsetHeight;
+		statusbar();
 
-		document.querySelector('#Js-content').style.paddingTop = topHeight + "px";
-		document.querySelector('#Js-main').style.height = winH - topHeight + "px";
+		var winH = window.innerHeight;
+		var winW = window.innerWidth;
+		//var topHeight = document.querySelector('#Js-header').offsetHeight;
+		//document.querySelector('#Js-content').style.paddingTop = topHeight + "px";
+		document.querySelector('#Js-main').style.height = winH + "px";
 
 		mui('.mui-scroll-wrapper').scroll({
 			scrollY: true, //是否竖向滚动
@@ -190,8 +347,14 @@
 			startX: 0, //初始化时滚动至x
 			startY: 0, //初始化时滚动至y
 			indicators: false, //是否显示滚动条
-			deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
-			bounce: true //是否启用回弹
+			deceleration: 0.0001, //阻尼系数,系数越小滑动越灵敏
+			bounce: false //是否启用回弹
+		});
+		
+		// 改变头部搜索栏背景色
+		document.querySelector(".mui-scroll-wrapper").addEventListener('scroll', function(e) { 
+			var y = Math.abs(e.detail.y) * 0.01;
+			document.querySelector('#Js-header').style.background = "rgba(38,132,255," + y + ")";
 		});
 
 		//主列表点击事件
@@ -207,15 +370,17 @@
 
 			if(href && ~href.indexOf('.html')) {
 				//打开新窗口
-				mui.openWindow(href, id);
+				mui.openWindow({
+					url: href,
+					id: id,
+					show: animateObj.aniPage
+				});
 			}
 		});
 
 		mui.plusReady(function() {
-			
-		})
-		
 
+		})
 	</script>
 
 </html>

@@ -152,10 +152,75 @@
 	
 }
 
-/* 产品对比详情 */
+/* 产品对比与对比详情 */
 .product-contrast{
 	
 }
+.product-contrast .contr-add{
+	border-top: 1px solid #e7e7e7;	
+	border-bottom: 1px solid #e7e7e7;
+	background-color: #ffffff;
+	height: 5.125rem;
+}
+.product-contrast .contr-wrapper{
+	overflow-y: auto;
+}
+.product-contrast .contr-add .control{
+	display: block;
+	color: #3b9cf5;
+	font-size: 1.625rem;
+	width: 100%;
+	height: 5.125rem;
+	line-height: 5.125rem;
+	text-align: center;
+}
+.product-contrast .contr-listAdd{
+	border-top: 1px solid #e7e7e7;	
+	border-bottom: 1px solid #e7e7e7;
+	background-color: #ffffff;
+	padding-left: 1.25rem;
+}
+.product-contrast .contr-listAdd .item{	
+	border-bottom: 1px solid #e7e7e7;
+	padding: 1.25rem 1.25rem 1.25rem 0;
+}
+.product-contrast .contr-listAdd .item:last-child{
+	border-bottom: 0 none;
+}
+.product-contrast .contr-listAdd .item .selected ,.BL-foot-selectAll .selected{
+	border-radius: 100%;
+	border: 2px solid #e7e7e7;
+	width: 2.25rem;
+	height: 2.25rem;
+	margin-right: 1.25rem;	
+}
+.product-contrast .contr-listAdd .item .title{
+	color: #333333;
+	font-size: 1.625rem;
+}
+.product-contrast .contr-listAdd .item .business{
+	color: #999999;
+	font-size: 1.4375rem;
+}
+.mui-icon-checkmarkempty{
+	color: #ffffff;
+	font-size: 2.25rem;
+	line-height: 2.25rem;
+}
+.product-contrast .contr-listAdd .item-active .selected{
+	border: 2px solid #3b9cf5;
+	background-color: #3b9cf5;
+}
+.product-contrast .contr-listAdd .item-active .mui-icon-checkmarkempty{
+	color: #ffffff;
+}
+.BL-foot-selectAll{
+	padding-left: 1.25rem;
+}
+.BL-foot-selectAll .context{
+	font-size: 1.625rem;	
+}
+
 .product-contrast .table{
 	width: 100%;
 }

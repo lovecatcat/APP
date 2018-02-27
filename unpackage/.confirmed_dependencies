@@ -1,30 +1,153 @@
 {
-  "index.html": {
-    "resources": [
-      "index-content.html"
-    ],
-    "refer": [
-      "index-content.html",
-      "member.html",
-      "prospect.html",
-      "discover.html"
-    ]
-  },
-  "sns.html": {
-    "resources": [
-      "sns-list.html",
-      "sns-list-act.html"
-    ],
-    "refer": [
-      "sns-list.html",
-      "sns-list-act.html",
-      "sns-list-review.html",
-      "sns-detail.html"
-    ]
-  },
-  "index-content.html": {
-    "refer": [
-      "sns.html"
-    ]
-  }
+	"index.html": {
+		"resources": [
+			"index-content.html",
+			"css/module.css",
+			"images/icon/nav-user.png",
+			"images/icon/nav-prospect.png",
+			"images/icon/nav-index-active.png",
+			"images/icon/nav-discover.png",
+			"js/mui.min.js",
+			"css/common.css",
+			"css/mui.css",
+			"js/config.js"
+		],
+		"refer": [
+			"index-content.html",
+			"member.html",
+			"prospect.html",
+			"discover.html",
+			"news.html"
+		]
+	},
+	"sns.html": {
+		"resources": [
+			"sns-list.html",
+			"sns-list-act.html",
+			"css/module.css",
+			"css/sns.css",
+			"css/common.css",
+			"fonts/mui.ttf",
+			"images/pic/p3.jpg",
+			"css/mui.css"
+		],
+		"refer": [
+			"sns-list.html",
+			"sns-list-act.html",
+			"sns-list-review.html",
+			"sns-detail.html"
+		]
+	},
+	"index-content.html": {
+		"refer": [
+			"sns.html",
+			"ins2c-applicant.html"
+		],
+		"resources": [
+			"images/pic/p2.jpg",
+			"images/pic/p0.jpg",
+			"images/icon/index-ico2.png",
+			"images/icon/index-ico7.png",
+			"images/icon/index-ico3.png",
+			"images/icon/index-ico5.png",
+			"images/icon/ico-search.png",
+			"images/icon/sign.png",
+			"css/mui.css",
+			"images/icon/index-ico6.png",
+			"images/icon/index-ico8.png",
+			"images/icon/index-ico4.png",
+			"css/module.css",
+			"css/index.css",
+			"images/icon/index-ico1.png",
+			"css/common.css",
+			"images/icon/ico-ring.png",
+			"images/pic/p1.jpg"
+		]
+	},
+	"news.html": {
+		"resources": [
+			"css/module.css",
+			"css/news.css",
+			"css/common.css",
+			"images/icon/ico-search.png",
+			"css/mui.css",
+			"news-all.html"
+		],
+		"refer": [
+			"news-cloud.html",
+			"news-cream.html",
+			"news-finance.html",
+			"news-business.html",
+			"news-all.html"
+		]
+	},
+	"news-cloud.html": {
+		"resources": [
+			"css/module.css",
+			"css/news.css",
+			"css/common.css",
+			"images/pic/p7.jpg",
+			"css/mui.css"
+		]
+	},
+	"member.html": {
+		"resources": [
+			"css/module.css",
+			"css/common.css",
+			"css/mui.css"
+		]
+	},
+	"news-cream.html": {
+		"resources": [
+			"css/module.css",
+			"css/news.css",
+			"css/common.css",
+			"images/pic/p7.jpg",
+			"css/mui.css"
+		]
+	},
+	"prospect.html": {
+		"resources": [
+			"css/module.css",
+			"css/common.css",
+			"css/mui.css"
+		]
+	},
+	"news-finance.html": {
+		"resources": [
+			"css/module.css",
+			"css/news.css",
+			"css/common.css",
+			"images/pic/p7.jpg",
+			"css/mui.css"
+		]
+	},
+	"news-business.html": {
+		"resources": [
+			"css/module.css",
+			"css/common.css",
+			"css/news.css",
+			"images/pic/p7.jpg",
+			"css/mui.css"
+		]
+	},
+	"news-all.html": {
+		"resources": [
+			"css/module.css",
+			"css/news.css",
+			"css/common.css",
+			"images/pic/p7.jpg",
+			"css/mui.css"
+		]
+	},
+	"ins2c-applicant.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"images/icon/ico-share.png",
+			"css/form.css",
+			"css/mui.css",
+			"css/module.css",
+			"css/common.css"
+		]
+	}
 }

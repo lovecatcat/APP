@@ -350,11 +350,12 @@
 .BL-mar-l-3 {
 	margin-left: 3rem;
 }
-
 .BL-mar-b_5 {
 	margin-bottom: .5rem;
 }
-
+.BL-mar-t-1 {
+	margin-top: 1rem;
+}
 .BL-mar-b-1 {
 	margin-bottom: 1rem;
 }

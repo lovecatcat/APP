@@ -12,13 +12,15 @@
 	</head>
 
 	<body class="BL-bg-f2f">
-		<header id="Js-header" class="mui-bar mui-bar-nav BL-mod-headbar BL-bg-fff">
-			<div class="BL-ub BL-ub-ac headbar-search">
-				<!--<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>-->
-				<div class="search BL-ub BL-ub-ac BL-ub-f1" style="margin-left: 0;">
-					<input type="search" name="Js-search" id="Js-search" placeholder="搜索关键词" class="BL-ub BL-ub-f1" />
-					<div class="button">
-						<span class="BL-bimg-contain">&nbsp;</span>
+		<header id="Js-header" class="BL-bg-fff">
+			<div class="BL-mod-headbar">
+				<div class="BL-ub BL-ub-ac headbar-search">
+					<!--<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>-->
+					<div class="search BL-ub BL-ub-ac BL-ub-f1" style="margin-left: 0;">
+						<input type="search" name="Js-search" id="Js-search" placeholder="搜索关键词" class="BL-ub BL-ub-f1" />
+						<div class="button">
+							<span class="BL-bimg-contain">&nbsp;</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -56,6 +58,12 @@
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		mui.init();
+		statusbar();
+			
+		var winH = window.innerHeight / sizeObj.dpl;
+		var topHeight = document.querySelector('#Js-header').offsetHeight / sizeObj.dpl;
+		//document.querySelector('#Js-content').style.paddingTop = topHeight + 'px';
+		var divHeight = document.querySelector('#Js-content').offsetHeight / sizeObj.dpl;
 		
 		mui.preload({ // 预加载资讯详情页
 			url: 'news-detail.html',
@@ -67,10 +75,6 @@
 			id: 'news_tv_detail', // id
 		});
 		
-		var winH = window.innerHeight / sizeObj.dpl;
-		var topHeight = document.querySelector('#Js-header').offsetHeight;
-		document.querySelector('#Js-content').style.paddingTop = topHeight + 'px';
-		var divHeight = document.querySelector('#Js-content').offsetHeight / sizeObj.dpl;
 		
 		mui.plusReady(function() {
 			/**
@@ -83,9 +87,9 @@
 			var subpageIds = ["news_all", "news_cloud", "news_business", "news_finance", "news_cream"];
 			// 子窗口样式
 			var subStyles = {
-				top: (divHeight + 1) + "px",
+				top: (divHeight + topHeight + 1) + "px",
 				bottom: "0px",
-				height: (winH - divHeight) + 'px'
+				height: (winH - topHeight - divHeight) + 'px'
 			};
 			// 子窗口数量
 			var subLen = subpages.length;
@@ -150,7 +154,7 @@
 				/**
 				 * 目标页面展示
 				 */
-				plus.webview.show(subWvs[_target], 'fade-in', 350);
+				plus.webview.show(subWvs[_target], animateObj.aniTab.aniShow, animateObj.aniTab.duration);
 				//subWvs[_target].show();
 				// 之前展示的页面隐藏
 				subWvs[_active].hide();

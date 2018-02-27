@@ -12,9 +12,11 @@
 	</head>
 
 	<body class="BL-bg-f2f">
-		<header id="Js-header" class="BL-mod-headbar BL-bg-fff">
-			<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
-			<h1 class="BL-title">SNS活动</h1>
+		<header id="Js-header" class="BL-bg-fff">
+			<div class="BL-mod-headbar BL-mod-headbar-pos">
+				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+				<h1 class="BL-title">SNS活动</h1>
+			</div>
 		</header>
 
 		<div id="Js-content" class="mui-content BL-rel">
@@ -123,7 +125,8 @@
 	<script type="text/javascript" src="js/mui.previewimage.js" ></script>
 	<script type="text/javascript">
 		mui.init();
-
+		statusbar();
+		
 		var winH = window.innerHeight;
 		var titHeight = document.querySelector('#Js-header').offsetHeight;
 		var fotHeight = document.querySelector('#Js-footer').offsetHeight;

@@ -12,13 +12,15 @@
 	</head>
 
 	<body class="BL-bg-f2f">
-		<header id="Js-header" class="mui-bar mui-bar-nav BL-mod-headbar BL-bg-fff">
-			<div class="BL-ub BL-ub-ac headbar-search">
-				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
-				<div class="search search-pro BL-ub BL-ub-ac BL-ub-f1">
-					<input type="search" name="Js-search" id="Js-search" value="搜索关键词" class="BL-ub BL-ub-f1" />
-					<div class="button">
-						<span class="BL-bimg-contain">&nbsp;</span>
+		<header id="Js-header" class="BL-bg-fff">
+			<div class="BL-mod-headbar">
+				<div class="BL-ub BL-ub-ac headbar-search">
+					<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+					<div class="search search-pro BL-ub BL-ub-ac BL-ub-f1">
+						<input type="search" name="Js-search" id="Js-search" value="搜索关键词" class="BL-ub BL-ub-f1" />
+						<div class="button">
+							<span class="BL-bimg-contain">&nbsp;</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -150,7 +152,7 @@
 		<!------------悬浮控制按钮 begin-------------->
 		<div class="popuer">
 			<a data-wid="" href="javascript:;" class="popu-IconMenu"><img src="images/product/menu-prospect.png" alt="计划书" /></a>
-			<a data-wid="product_contrast_detail" href="product-contrast-detail.html" class="popu-IconMenu"><img src="images/product/menu-pk.png" alt="产品对比" /></a>
+			<a data-wid="product_contrast" href="product-contrast.html" class="popu-IconMenu"><img src="images/product/menu-pk.png" alt="产品对比" /></a>
 		</div>
 		<!------------悬浮控制按钮 end --------------->
 	</body>
@@ -174,12 +176,14 @@
 					id: 'product_detail'
 				},
 				{ // 预加载PK对比页
-					url: 'product-contrast-detail.html',
-					id: 'product_contrast_detail'
+					url: 'product-contrast.html',
+					id: 'product_contrast'
 				}
 			]
 		});
-
+		
+		statusbar();
+		
 		/**
 		 * 下拉刷新具体业务实现
 		 */
@@ -223,7 +227,6 @@
 		var winH = window.innerHeight;
 		var titHeight = document.querySelector('#Js-header').offsetHeight;
 		var divHeight = document.querySelector('#Js-productFilter').offsetHeight;
-		document.querySelector('#Js-content').style.paddingTop = titHeight + 'px'
 		document.querySelector('#Js-productList').style.height = winH - titHeight - divHeight + 'px';
 
 		//主列表点击事件
@@ -253,14 +256,15 @@
 				
 				//打开新窗口
 				mui.openWindow({
-					id: id
+					id:id,
+					show:animateObj.aniDetal
 				});
 			}
 
 		});
 
 		mui.plusReady(function() {
-
+			
 		})
 	</script>
 

@@ -1,30 +1,52 @@
 {
-  "index.html": {
-    "resources": [
-      "index-content.html"
-    ],
-    "refer": [
-      "index-content.html",
-      "member.html",
-      "prospect.html",
-      "discover.html"
-    ]
-  },
-  "sns.html": {
-    "resources": [
-      "sns-list.html",
-      "sns-list-act.html"
-    ],
-    "refer": [
-      "sns-list.html",
-      "sns-list-act.html",
-      "sns-list-review.html",
-      "sns-detail.html"
-    ]
-  },
-  "index-content.html": {
-    "refer": [
-      "sns.html"
-    ]
-  }
+	"index.html": {
+		"resources": [
+			"index-content.html"
+		],
+		"refer": [
+			"index-content.html",
+			"member.html",
+			"prospect.html",
+			"discover.html",
+			"news.html"
+		]
+	},
+	"sns.html": {
+		"resources": [
+			"sns-list.html",
+			"sns-list-act.html"
+		],
+		"refer": [
+			"sns-list.html",
+			"sns-list-act.html",
+			"sns-list-review.html",
+			"sns-detail.html"
+		]
+	},
+	"index-content.html": {
+		"refer": [
+			"sns.html",
+			"product.html"
+		]
+	},
+	"news.html": {
+		"resources": [
+			"news-all.html"
+		],
+		"refer": [
+			"news-cloud.html",
+			"news-cream.html",
+			"news-finance.html",
+			"news-business.html",
+			"news-all.html",
+			"news-tv-detail.html",
+			"news-detail.html"
+		]
+	},
+	"product.html": {
+		"refer": [
+			"product-detail.html",
+			"product-contrast.html"
+		]
+	}
 }

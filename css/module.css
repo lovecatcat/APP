@@ -14,7 +14,8 @@
 	box-shadow: none;
 	-webkit-box-shadow: none;
 }
-.BL-mod-headbar-pos{
+
+.BL-mod-headbar-pos {
 	position: relative;
 }
 
@@ -81,14 +82,16 @@
 	top: 0;
 	z-index: 10;
 }
-.BL-mod-headbar .control{
-	height: 4.5rem;	
+
+.BL-mod-headbar .control {
+	height: 4.5rem;
 	position: absolute;
 	right: 1.25rem;
 	top: 0;
 	z-index: 10;
 }
-.BL-mod-headbar .control a{
+
+.BL-mod-headbar .control a {
 	display: inline-block;
 	font-size: 1.75rem;
 	height: 4.5rem;
@@ -224,11 +227,13 @@
 
 
 /* 图片预览 */
+
 .mui-preview-image.mui-fullscreen {
 	position: fixed;
 	z-index: 20;
 	background-color: #000;
 }
+
 .mui-preview-header,
 .mui-preview-footer {
 	position: absolute;
@@ -236,14 +241,17 @@
 	left: 0;
 	z-index: 10;
 }
+
 .mui-preview-header {
 	height: 4.5rem;
 	top: 0;
 }
+
 .mui-preview-footer {
 	height: 1.5625rem;
 	bottom: 0rem;
 }
+
 .mui-preview-header .mui-preview-indicator {
 	display: block;
 	line-height: 4.5rem;
@@ -255,6 +263,7 @@
 	border-radius: .5rem;
 	font-size: 1.25rem;
 }
+
 .mui-preview-image {
 	display: none;
 	-webkit-animation-duration: 0.5s;
@@ -262,19 +271,23 @@
 	-webkit-animation-fill-mode: both;
 	animation-fill-mode: both;
 }
+
 .mui-preview-image.mui-preview-in {
 	-webkit-animation-name: fadeIn;
 	animation-name: fadeIn;
 }
+
 .mui-preview-image.mui-preview-out {
 	background: none;
 	-webkit-animation-name: fadeOut;
 	animation-name: fadeOut;
 }
+
 .mui-preview-image.mui-preview-out .mui-preview-header,
 .mui-preview-image.mui-preview-out .mui-preview-footer {
 	display: none;
 }
+
 .mui-zoom-scroller {
 	position: absolute;
 	display: -webkit-box;
@@ -295,26 +308,32 @@
 	margin: 0;
 	-webkit-backface-visibility: hidden;
 }
+
 .mui-zoom {
 	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
 }
+
 .mui-slider .mui-slider-group .mui-slider-item img {
 	width: auto;
 	height: auto;
 	max-width: 100%;
 	max-height: 100%;
 }
+
 .mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
 	width: 100%;
 }
+
 .mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
 	display: inline-table;
 }
+
 .mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
 	display: table-cell;
 	vertical-align: middle;
 }
+
 .mui-preview-loading {
 	position: absolute;
 	width: 100%;
@@ -323,9 +342,11 @@
 	left: 0;
 	display: none;
 }
+
 .mui-preview-loading.mui-active {
 	display: block;
 }
+
 .mui-preview-loading .mui-spinner-white {
 	position: absolute;
 	top: 50%;
@@ -335,10 +356,12 @@
 	height: 50px;
 	width: 50px;
 }
+
 .mui-preview-image img.mui-transitioning {
 	-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
 	transition: transform 0.5s ease, opacity 0.5s ease;
 }
+
 @-webkit-keyframes fadeIn {
 	0% {
 		opacity: 0;
@@ -347,6 +370,7 @@
 		opacity: 1;
 	}
 }
+
 @keyframes fadeIn {
 	0% {
 		opacity: 0;
@@ -355,6 +379,7 @@
 		opacity: 1;
 	}
 }
+
 @-webkit-keyframes fadeOut {
 	0% {
 		opacity: 1;
@@ -363,6 +388,7 @@
 		opacity: 0;
 	}
 }
+
 @keyframes fadeOut {
 	0% {
 		opacity: 1;
@@ -374,7 +400,8 @@
 
 
 /* 底部悬浮栏[我要报名，我要投保] */
-.BL-footer{
+
+.BL-footer {
 	position: fixed;
 	left: 0;
 	bottom: 0;
@@ -383,21 +410,27 @@
 	width: 100%;
 	box-shadow: 0px 20px 30px #000000;
 }
-.BL-foot-integ{
+
+.BL-foot-integ {
 	padding-left: 1.25rem;
 }
-.BL-foot-integ .integ-number{
+
+.BL-foot-integ .integ-number {
 	font-size: 2.5625rem;
 	line-height: 2.5625rem;
 	margin-right: 0.5rem;
 }
-.BL-foot-integ .integ-text{
+
+.BL-foot-integ .integ-text {
 	font-size: 1.4375rem;
 }
-.BL-foot-integ .integ-number, .BL-foot-integ  .integ-text{
-	color: #ff6101;	
+
+.BL-foot-integ .integ-number,
+.BL-foot-integ .integ-text {
+	color: #ff6101;
 }
-.BL-foot-btn-sign{
+
+.BL-foot-btn-sign {
 	display: inline-block;
 	color: #ffffff;
 	font-size: 1.8125rem;
@@ -407,11 +440,69 @@
 	line-height: 5.625rem;
 	text-align: center;
 }
-.BL-foot-btn-det{
+
+.BL-foot-btn-det {
 	background-color: #ff8201;
 }
-.BL-foot-contrast{
+
+.BL-foot-contrast {
 	color: #333333;
 	font-size: 1.625rem;
 	padding-left: 1.25rem;
+}
+
+
+/* 上下拉加载更多，加载中按钮样式 */
+.mui-pull-top-tips {
+	position: absolute;
+	top: 10rem;
+	left: 50%;
+	margin-left: -2rem;
+	width: 4rem;
+	height: 4rem;
+	border-radius: 100%;
+	z-index: 1;
+}
+
+.mui-pull-top-wrapper {
+	width: 4rem;
+	height: 4rem;
+	display: block;
+	text-align: center;
+	background-color: #efeff4;
+	border: 1px solid #ddd;
+	border-radius: 100%;
+	background-clip: padding-box;
+	box-shadow: 0 4px 10px #bbb;
+	overflow: hidden;
+}
+
+.mui-pull-top-tips.mui-transitioning {
+	-webkit-transition-duration: 200ms;
+	transition-duration: 200ms;
+}
+
+.mui-pull-top-tips .mui-pull-loading {
+	margin: 0;
+}
+
+.mui-pull-top-canvas {
+	overflow: hidden;
+	background-color: #fafafa;
+	border-radius: 100%;
+	box-shadow: 0 4px 10px #bbb;
+	width: 4rem;
+	height: 4rem;
+	margin: 0 auto;
+}
+
+.mui-pull-top-canvas canvas {
+	width: 4rem;
+}
+
+.mui-pull-bottom-tips {
+	text-align: center;
+	font-size: 1.25rem;
+	line-height: 3rem;
+	color: #666666;
 }

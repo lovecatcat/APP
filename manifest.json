@@ -188,7 +188,8 @@
 				"refer": [
 					"member.html",
 					"prospect.html",
-					"discover.html"
+					"discover.html",
+					"news.html"
 				],
 				"priority": 0
 			},
@@ -206,7 +207,30 @@
 			"index-content.html": {
 				"resources": [],
 				"refer": [
-					"sns.html"
+					"sns.html",
+					"product.html"
+				],
+				"priority": 0
+			},
+			"news.html": {
+				"resources": [
+					"news-all.html"
+				],
+				"refer": [
+					"news-cloud.html",
+					"news-cream.html",
+					"news-finance.html",
+					"news-business.html",
+					"news-tv-detail.html",
+					"news-detail.html"
+				],
+				"priority": 0
+			},
+			"product.html": {
+				"resources": [],
+				"refer": [
+					"product-detail.html",
+					"product-contrast.html"
 				],
 				"priority": 0
 			}

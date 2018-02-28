@@ -395,6 +395,11 @@ input[type='url'],
 input[type='tel'],
 input[type='color']{
 	line-height: normal;
+	border: none;
+	font-size: 1.4375rem;
+	margin-bottom: 0;
+	padding: 0 .25rem 0 0;
+	text-align: right;
 }
 
 
@@ -403,4 +408,17 @@ input[type='color']{
 	font-size: 1.4375rem;
 	color: #666666;
 	line-height: 2.2rem;
+}
+
+/* 元素中的文本的水平对齐方式  = BL-txt-[c(居中), l-(左), r-(右)*/
+.BL-txt-c {
+	text-align: center;
+}
+
+.BL-txt-l {
+	text-align: left;
+}
+
+.BL-txt-r {
+	text-align: right;
 }

@@ -1,0 +1,267 @@
+/* 表单列表 */
+.text-lh-2 {
+    line-height: 2rem;
+}
+
+.BL-mar-l-6 {
+    margin-left: 6rem;
+}
+
+.form-pd {
+    padding: 0 1.5rem;
+}
+
+li {
+    list-style: none;
+}
+
+.mui-table-view, p {
+    font-size: 1.625rem;
+}
+
+select, textarea, input[type='text'], input[type='number'], input[type='date'] {
+    font-size: 1.625rem;
+    height: 4.5rem;
+}
+
+.form-list-cell {
+    margin-top: 1rem;
+}
+
+.fItem {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    -webkit-box-align: center;
+    font-size: 1.625rem;
+    padding: 0 1.5rem;
+}
+
+.fItem:after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 1.25rem;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
+}
+
+.fItem.no-line:after {
+    height: 0;
+}
+
+.fItem .form-list-label {
+    width: 35%;
+    line-height: 5.3rem;
+    padding: 0rem 0rem;
+}
+
+.fItem .form-list-control {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    height: 5.3rem;
+    line-height: 5.3rem;
+}
+
+.form-switch-note {
+    padding-right: 5rem;
+    line-height: 5.3rem;
+}
+
+.fItem .form-switch-control {
+    width: 4.6875rem;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.3375rem;
+    line-height: 5.3rem;
+}
+
+.f-btn-block {
+    display: block;
+    height: 5.3rem;
+    line-height: 5.3rem;
+    font-size: 1.625rem;
+    background-color: #fff;
+    padding: 0 1.5rem;
+    color: #3b9cf5;
+}
+
+.f-ta-center {
+    text-align: center;
+}
+
+.form-list-control select {
+    direction: rtl;
+}
+
+.form-list-icon .mui-icon {
+    font-size: 1.9rem;
+    line-height: 1.5rem;
+    color: #bfbfbf;
+    height: 5.3rem;
+    line-height: 5.3rem;
+}
+
+.form-list-icon .mui-icon-clear {
+    color: #bfbfbf;
+}
+
+.form-list-icon .mui-icon-arrowright {
+    color: #999;
+}
+
+/*修改mui单选框、复选框 */
+.mui-radio input[type='radio'] {
+    position: absolute;
+    top: 0rem;
+    right: 1rem;
+    display: inline-block;
+    width: 1.625rem;
+    height: 1.625rem;
+    border: 0;
+    outline: 0 !important;
+    background-color: transparent;
+    -webkit-appearance: none;
+}
+
+.mui-radio input[type='radio']:before {
+    font-family: Muiicons;
+    font-size: 1.9rem;
+    font-weight: normal;
+    line-height: 1;
+    text-decoration: none;
+    color: #aaa;
+    border-radius: 0;
+    background: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.mui-radio input[type='radio']:checked:before {
+    content: '\e441';
+}
+
+.mui-radio input[type='radio']:checked:before {
+    color: #007aff;
+}
+
+.mui-table-view-radio a {
+    font-size: 1.625rem;
+}
+
+.mui-table-view-radio .mui-table-view-cell {
+    height: 5.3rem;
+    line-height: 5.3rem;
+}
+
+.mui-table-view-radio .mui-table-view-cell:after {
+    left: 1.5rem;
+}
+
+.mui-table-view-radio .mui-table-view-cell .mui-navigate-right:after {
+    font-size: 3rem;
+    right: 1.5rem;
+}
+.mui-table-view-radio .mui-table-view-cell > a:not(.mui-btn) {
+    padding: 0 1.5rem;
+    margin-right: -2.8rem;
+}
+
+.mui-table-view:before, .mui-table-view:after {
+    height: 0;
+}
+
+.mui-table-view-chevron .mui-table-view-cell > div:not(.mui-btn) {
+    padding: 1.125rem 0 1.125rem 1.5rem;
+}
+
+.mui-table-view-chevron .mui-table-view-cell {
+    padding: 0 1.5rem 0 0;
+}
+
+.mui-table-view-chevron .mui-table-view-cell.edit-active {
+    padding: 0 6.25rem 0 3.125rem;
+}
+
+.fItem.label-mul-line {
+    padding: 1.25rem 1.5rem;
+}
+
+.label-mul-line label {
+    padding-right: 4.75rem;
+}
+
+.fItem.label-mul-line .form-list-control {
+}
+
+.chevron-edit {
+    position: absolute;
+    right: 2.625rem;
+    top: 50%;
+    margin-top: -1.5rem;
+    display: block;
+    height: 3rem;
+    line-height: 3rem;
+    color: #007aff;
+}
+
+.chevron-del {
+    display: block;
+    height: 3rem;
+    width: 1.9375rem;
+    position: absolute;
+    top: 50%;
+    left: 1.5rem;
+    margin-top: -1.5rem;
+    background: url(../images/icon/icon-del.png) center no-repeat;
+    background-size: 1.9375rem 1.9rem;
+}
+
+.form-upload {
+    background: url(../images/icon/icon-upload.png) center no-repeat;
+    background-size: 100%;
+    height: 10.625rem;
+    text-align: center;
+}
+
+.form-upload input {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.form-p {
+    display: block;
+    line-height: 2.5rem;
+    font-size: 1.625rem;
+}
+
+.form-row {
+    padding-left: 1.5rem;
+}
+
+.form-row li {
+    padding: 1.5rem 1.5rem .75rem 0;
+}
+
+.mui-switch-mini {
+    width: 4.6875rem;
+}
+
+.mui-switch {
+    height: 2.8125rem;
+    border-radius: 4rem;
+}
+
+.mui-switch .mui-switch-handle {
+    width: 2.625rem;
+    height: 2.625rem;
+    border-radius: 4rem;
+}
+input[type="date"].has:before{
+    color: #999;
+    text-align: right;
+    content: attr(placeholder);
+}

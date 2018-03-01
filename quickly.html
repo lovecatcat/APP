@@ -71,11 +71,11 @@
 						</div>
 						<div class="mui-col-sm-4 mui-col-xs-4 item mui-active">
 							<div class="BL-ub BL-ub-ac BL-ub-pc">
-								<div class="text">
+								<a href="quickly-filter.html" data-wid="quickly_filter" class="text">
 									筛选
-								</div>
+								</a>
 								<div class="BL-ub BL-ub-ver">
-									<a class="item-control item-control-filter"></a>
+									<a href="quickly-filter.html" data-wid="quickly_filter" class="item-control item-control-filter"></a>
 								</div>
 							</div>
 						</div>
@@ -101,46 +101,46 @@
 						<!--活动中，数据列表-->
 						<ul class="mui-table-view product-list-cell">
 							<li class="cItem">
-								<a data-id="2" data-wid="product_detail" href="product-detail.html" class="BL-ub BL-ub-f1 pro-content pro-icon-new">
+								<div class="BL-ub BL-ub-f1 pro-content pro-icon-new">
 									<div class="img">
 										<img src="images/pic/p6.jpg" />
 									</div>
 									<div class="context BL-ub BL-ub-ver BL-ub-f1">
 										<h1 class="tit">横琴优爱宝定期寿险</h1>
 										<div class="text">月12日11时，中央纪委发布消息，“河北省人大常委会副主任张杰辉涉嫌严重违纪</div>
-										<div class="price">
-											168元起
+										<div class="fd">
+											<div class="BL-ub BL-ub-ac BL-ub-pj">
+												<div class="fd-price">
+												168元起
+												</div>
+												<a data-wid="" href="" class="fd-btn">
+												快速投保
+												</a>
+											</div>
 										</div>
 									</div>
-								</a>
+								</div>
 							</li>
 							<li class="cItem">
-								<a data-wid="product_detail" href="product-detail.html" class="BL-ub BL-ub-f1 pro-content pro-icon-hot">
+								<div class="BL-ub BL-ub-f1 pro-content pro-icon-hot">
 									<div class="img">
 										<img src="images/pic/p6.jpg" />
 									</div>
 									<div class="context BL-ub BL-ub-ver BL-ub-f1">
 										<h1 class="tit">横琴优爱宝定期寿险</h1>
 										<div class="text">月12日11时，中央纪委发布消息，“河北省人大常委会副主任张杰辉涉嫌严重违纪</div>
-										<div class="price">
-											168元起
+										<div class="fd">
+											<div class="BL-ub BL-ub-ac BL-ub-pj">
+												<div class="fd-price">
+												168元起
+												</div>
+												<a data-wid="" href="" class="fd-btn">
+												快速投保
+												</a>
+											</div>
 										</div>
 									</div>
-								</a>
-							</li>
-							<li class="cItem">
-								<a data-wid="product_detail" href="product-detail.html" class="BL-ub BL-ub-f1 pro-content">
-									<div class="img">
-										<img src="images/pic/p6.jpg" />
-									</div>
-									<div class="context BL-ub BL-ub-ver BL-ub-f1">
-										<h1 class="tit">横琴优爱宝定期寿险</h1>
-										<div class="text">月12日11时，中央纪委发布消息，“河北省人大常委会副主任张杰辉涉嫌严重违纪</div>
-										<div class="price">
-											168元起
-										</div>
-									</div>
-								</a>
+								</div>
 							</li>
 						</ul>
 					</div>
@@ -148,30 +148,12 @@
 			</div>
 			<!------------产品列表 end  ------------->
 		</div>
-
-		<!------------悬浮控制按钮 begin-------------->
-		<div class="popuer">
-			<a data-wid="" href="javascript:;" class="popu-IconMenu"><img src="images/product/menu-prospect.png" alt="计划书" /></a>
-			<a data-wid="product_contrast" href="product-contrast.html" class="popu-IconMenu"><img src="images/product/menu-pk.png" alt="产品对比" /></a>
-		</div>
-		<!------------悬浮控制按钮 end --------------->
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script src="js/mui.pullToRefresh.js"></script>
 	<script src="js/mui.pullToRefresh.material.js"></script>
 	<script type="text/javascript">
-		mui.init({
-			preloadPages: [
-				{ // 预加载详情页
-					url: 'product-detail.html',
-					id: 'product_detail'
-				},
-				{ // 预加载PK对比页
-					url: 'product-contrast.html',
-					id: 'product_contrast'
-				}
-			]
-		});
+		mui.init();
 		
 		(function($){
 			//阻尼系数
@@ -181,7 +163,7 @@
 				indicators: false, //是否显示滚动条
 				deceleration: deceleration
 			});
-			$.plusReady(function() {
+			$.ready(function() {
 				statusbar();
 				var winH = window.innerHeight;
 				var titHeight = document.querySelector('#Js-header').offsetHeight;
@@ -220,11 +202,12 @@
 					for(var i = 0; i < count; i++) {
 						li = document.createElement('li');
 						li.className = 'cItem';
-						li.innerHTML = '<a data-wid="product_detail" href="products-detail.html" class="BL-ub BL-ub-f1 pro-content">' +
+						li.innerHTML = '<div class="BL-ub BL-ub-f1 pro-content">' +
 						'<div class="img"><img src="images/pic/p6.jpg" /></div>' +
 						'<div class="context BL-ub BL-ub-ver BL-ub-f1"><h1 class="tit">横琴优爱宝定期寿险</h1>' +
 						'<div class="text">月12日11时，中央纪委发布消息，“河北省人大常委会副主任张杰辉涉嫌严重违纪</div>' +
-						'<div class="price">168元起</div></div></a>';
+						'<div class="fd"><div class="BL-ub BL-ub-ac BL-ub-pj"><div class="fd-price">168元起</div>' +
+						'<a data-wid="" href="" class="fd-btn">快速投保</a></div></div></div></div>';
 						fragment.appendChild(li);
 					}
 					return fragment;
@@ -235,11 +218,9 @@
 		}(mui));
 
 		//主列表点击事件
-		var detailPage = null;
 		mui('body').on('tap', 'a', function() {
 			var href = this.getAttribute('href');
 			var id = this.getAttribute("data-wid");
-			var pid = this.getAttribute('data-id');
 
 			//非plus环境，直接走href跳转
 			if(!mui.os.plus) {
@@ -248,21 +229,10 @@
 			};
 
 			if(href && ~href.indexOf('.html')) {
-				
-				if(pid){
-					//获得详情页面
-					if(!detailPage) {
-						detailPage = plus.webview.getWebviewById(id);
-					}
-					//触发详情页面的productId事件
-					mui.fire(detailPage, 'productId', {
-						id: pid
-					});
-				};
-				
 				//打开新窗口
 				mui.openWindow({
 					id:id,
+					url:href,
 					show:animateObj.aniDetal
 				});
 			}

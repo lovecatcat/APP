@@ -183,7 +183,16 @@
 		"pages": {
 			"index.html": {
 				"resources": [
-					"index-content.html"
+					"index-content.html",
+					"css/module.css",
+					"images/icon/nav-user.png",
+					"images/icon/nav-prospect.png",
+					"images/icon/nav-index-active.png",
+					"images/icon/nav-discover.png",
+					"js/mui.min.js",
+					"css/common.css",
+					"css/mui.css",
+					"js/config.js"
 				],
 				"refer": [
 					"member.html",
@@ -205,7 +214,27 @@
 				"priority": 0
 			},
 			"index-content.html": {
-				"resources": [],
+				"resources": [
+					"images/pic/p0.jpg",
+					"images/icon/index-ico2.png",
+					"images/index/ico-2.png",
+					"images/index/ico-3.png",
+					"images/icon/index-ico7.png",
+					"fonts/mui.ttf",
+					"images/icon/index-ico3.png",
+					"images/icon/index-ico5.png",
+					"images/icon/ico-search.png",
+					"images/icon/sign.png",
+					"images/icon/index-ico6.png",
+					"images/pic/p11.jpg",
+					"images/icon/index-ico8.png",
+					"images/icon/index-ico4.png",
+					"css/index.css",
+					"images/icon/index-ico1.png",
+					"images/index/ico-4.png",
+					"images/icon/ico-ring.png",
+					"images/index/ico-1.png"
+				],
 				"refer": [
 					"sns.html",
 					"product.html"
@@ -214,7 +243,9 @@
 			},
 			"news.html": {
 				"resources": [
-					"news-all.html"
+					"news-all.html",
+					"css/news.css",
+					"images/icon/ico-search.png"
 				],
 				"refer": [
 					"news-cloud.html",
@@ -233,45 +264,100 @@
 					"product-contrast.html"
 				],
 				"priority": 0
+			},
+			"news-cloud.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"css/news.css",
+					"js/mui.pullToRefresh.material.js",
+					"images/pic/p7.jpg",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"news-cream.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"css/news.css",
+					"js/mui.pullToRefresh.material.js",
+					"images/pic/p7.jpg",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"news-tv-detail.html": {
+				"resources": [
+					"js/mui.zoom.js",
+					"images/pic/p10.jpg",
+					"css/news.css",
+					"js/mui.previewimage.js",
+					"images/pic/p7.jpg",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"news-detail.html": {
+				"resources": [
+					"js/mui.zoom.js",
+					"css/news.css",
+					"images/icon/ico-eye1.png",
+					"images/icon/ico-good.png",
+					"js/mui.previewimage.js",
+					"images/icon/ico-share.png",
+					"css/mui.css",
+					"images/pic/p9.jpg"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"news-finance.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"css/news.css",
+					"js/mui.pullToRefresh.material.js",
+					"images/pic/p7.jpg",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"news-business.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"css/news.css",
+					"js/mui.pullToRefresh.material.js",
+					"images/pic/p7.jpg",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"news-all.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"css/news.css",
+					"js/mui.pullToRefresh.material.js",
+					"images/pic/p7.jpg",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {
 			"resources": [
-				"images/icon/index-ico2.png",
-				"images/icon/nav-index-active.png",
-				"images/index/ico-3.png",
-				"images/icon/index-ico7.png",
-				"images/icon/index-ico3.png",
-				"images/icon/index-ico5.png",
 				"js/vue.min.js",
 				"images/icon/nav-discover-active.png",
-				"images/icon/index-ico4.png",
 				"images/icon/nav-index.png",
-				"css/module.css",
-				"css/index.css",
-				"images/icon/nav-user.png",
 				"images/icon/nav-user-active.png",
-				"css/common.css",
-				"js/mui.min.js",
-				"images/index/ico-4.png",
 				"images/pic/p1.jpg",
 				"js/mui.js",
-				"images/index/ico-1.png",
-				"js/config.js",
 				"images/pic/p2.jpg",
-				"images/index/ico-2.png",
-				"images/icon/nav-prospect.png",
 				"images/icon/nav-prospect-active.png",
-				"fonts/mui.ttf",
-				"images/icon/ico-search.png",
-				"images/icon/sign.png",
-				"css/mui.css",
-				"images/icon/index-ico6.png",
-				"images/icon/index-ico8.png",
-				"images/icon/index-ico1.png",
-				"images/icon/nav-discover.png",
 				"css/mui.min.css",
-				"images/icon/ico-ring.png",
 				"images/icon/sign-active.png"
 			]
 		}

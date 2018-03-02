@@ -20,7 +20,7 @@
 			</div>
 		</header>
 		
-		<div id="Js-content" class="mui-content BL-rel">
+		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
 			<div class="form-notice BL-pad-t-1">这不是我的车？<a>修改车牌号</a></div>
 			<ul class="mui-table-view form-list-cell">
 				<li class="fItem BL-ub BL-ub-f1">
@@ -53,7 +53,7 @@
 			</ul>
 			<ul class="mui-table-view form-list-cell">
 				<li class="fItem BL-ub BL-ub-f1">
-					<a class="BL-ub-f3 form-list-label" href="auto2c-choosebrand.html">
+					<a class="BL-ub-f3 form-list-label" href="auto2c-choosebrand.html"  data-wid="auto2c_choosebrand">
 						品牌型号
 					</a>
 					<div class="form-list-icon">
@@ -107,7 +107,7 @@
 				</li>
 			</ul>
 			<div class="form-button-group">
-				<a type="button" class="form-btn" href="auto2c-choose.html">下一步</a>
+				<a type="button" class="form-btn" href="auto2c-choose.html" data-wid="auto2c_choose">下一步</a>
 			</div>
 		</div>
 	</body>
@@ -133,7 +133,21 @@
 					_self.picker = null;
 				});
 			}
-		})
+		});
+		
+		mui('body').on('tap', 'a', function() {
+			var href = this.getAttribute('href');
+			var id = this.getAttribute("data-wid");
+			
+			//打开新窗口
+			mui.openWindow({
+				url:href,
+				id:id,
+				show:animateObj.aniDetal
+			});
+
+		});
+		
 		mui.plusReady(function() {
 			statusbar();
 			

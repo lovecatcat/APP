@@ -399,6 +399,11 @@
 }
 
 
+/* 容器：内容超出竖向可以滚动 */
+.BL-overFlow-autoY{
+	overflow-y: auto;
+}
+
 /* 修改mui默认行高 */
 select,
 textarea,

@@ -19,7 +19,7 @@
 			<div class="BL-mod-headbar BL-mod-headbar-pos BL-noBorder-b">
 				<h1 class="BL-title"></h1>
 				<div class="control">
-					<a class="BL-col-white">设置</a>
+					<a class="BL-col-fff">设置</a>
 				</div>
 			</div>
 		</header>
@@ -89,7 +89,7 @@
 								计划书管理
 							</div>
 						</a>
-						<a class="mui-col-sm-3 mui-col-xs-3 manage-item">
+						<a href="member-commission-account.html" data-wid="member_commission_account" class="mui-col-sm-3 mui-col-xs-3 manage-item">
 							<div class="icon icon-commission"></div>
 							<div class="name">
 								佣金管理
@@ -147,6 +147,28 @@
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		mui.init();
+		
+		//主列表点击事件
+		mui('body').on('tap', 'a', function() {
+			var href = this.getAttribute('href');
+			var id = this.getAttribute("data-wid");
+
+			//非plus环境，直接走href跳转
+			if(!mui.os.plus) {
+				location.href = href;
+				return;
+			}
+
+			if(href && ~href.indexOf('.html')) {
+				//打开新窗口
+				mui.openWindow({
+					url: href,
+					id: id,
+					show: animateObj.aniPage
+				});
+			}
+		});
+		
 		mui.ready(function() {
 			statusbar();
 			var winH = window.innerHeight;

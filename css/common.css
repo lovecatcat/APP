@@ -404,6 +404,10 @@
 	line-height: 1.25rem;
 }
 
+/* 去掉边框线 */
+.BL-noBorder-b{
+	border-bottom: 0 none !important;
+}
 
 /* 容器：内容超出竖向可以滚动 */
 .BL-overFlow-autoY{

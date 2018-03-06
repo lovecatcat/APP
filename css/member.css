@@ -1,0 +1,194 @@
+/*佣金提取*/
+.member-cmis-banner {
+	background-color: #303447;
+	padding: 8.4375rem 0rem 2.4062rem 0rem ;
+}
+.member-cmis-money {
+	position: relative;
+	font-size: 3.125rem;
+}
+.member-cmis-smallmoney {
+	margin-top: 4.625rem;
+	font-size: 1.4375rem;
+	color: #ffffff;
+}
+.member-cmis-txt {
+	font-size: 1.4375rem;
+	color: #999999;
+}
+.member-cmis-select {
+	height: 6.25rem;
+	line-height: 6.25rem;
+	font-size: 1.625rem;
+}
+.cmis-item-count a{
+	line-height: 5rem;
+	font-size: 1.625rem;
+}
+.member-cmis-ico {
+	display: block;
+	background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.member-cmis-expand {
+	width: 3rem;
+    height: 2.2312rem;
+	background-image: url("../images/icon/ico-cmis-expand.png");
+}
+.member-cmis-income {
+	width: 3rem;
+    height: 2.2312rem;
+	background-image: url("../images/icon/ico-cmis-income.png");
+}
+.member-cmis-count {
+	width: 3rem;
+    height: 3rem;
+	background-image: url("../images/icon/ico-cmis-count.png");
+}
+.member-cmis-list-item {
+	padding: .5rem 1rem .5rem 1.5rem;
+}
+.member-cmis-list-item a.mui-navigate-right {
+	margin: 0rem -1.5rem;
+	font-size: 1.9rem;
+}
+.member-cmis-list-item:after {
+	left: 1.5rem;
+}
+.member-cmis-list-l{
+	padding: .1rem 0rem;
+	display: inline-block;
+	width: 65%;
+}
+.member-cmis-list-r{
+	padding: .1rem 0rem;
+	display: inline-block;
+	width: 30%;
+}
+.member-cmis-list-l .list-top-txt, .member-cmis-list-r .list-top-txt{
+	line-height: 2.5rem;
+	font-size: 1.625rem;
+	color: #000000;
+}
+.member-cmis-list-l .list-bottom-txt, .member-cmis-list-r .list-bottom-txt{
+	line-height: 2.5rem;
+	font-size: 1.4375rem;
+	color: #999999;
+}
+.cmis-list-filter .cmis-date-select {
+	position: relative;
+	height: 5.625rem;
+	padding: 0rem 1.5rem;
+	border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+}
+.cmis-date-select .cmis-date-item {
+	display: inline-block;
+	width: 6rem;
+	margin-right: .5rem;
+	padding: .4rem 0rem;
+	background: #ededed;
+	color: #999999;
+    font-size: 1.4375rem;
+    text-align: center;
+    border-radius: .25rem;
+}
+.cmis-date-select .cmis-date-item.mui-active {
+	background: #3B9CF5;
+	color: #ffffff;
+}
+.cmis-date-filter {
+	position: absolute;
+	line-height: 5.625rem;
+	right: 1.5rem;
+	top: 0rem;
+	font-size: 1.4375rem;
+	color: #999999;
+}
+.cmis-date-filter .date-filter-ico {
+	display: block;
+	width: 1.4375rem;
+    height: 1.4375rem;
+    margin: .2rem 0rem .1rem .4rem;
+    background-image: url("../images/icon/ico-filter.png");
+	background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat; 
+}
+.cmis-date-filter.mui-active {
+	color: #3B9CF5;
+}
+.cmis-date-filter.mui-active .date-filter-ico {
+	 background-image: url("../images/icon/ico-filter-active.png");
+}
+.cmis-detail .form-list-cell .fItem .form-list-label {
+	padding: 1rem 0rem;
+	color: #999999;
+}
+.cmis-detail .form-list-cell .fItem:after {
+	height: 0;
+}
+.cmis-detail .form-list-cell .form-list-control {
+	text-align: right;
+}
+.member-cmis-tax-txt {
+	padding: 1rem 1.5rem 0rem 1.5rem;
+	font-size: 1.3125rem;
+	color: #333333;
+}
+.member-cmis-result {
+	background: #ffffff;
+    padding: 4.0625rem 0rem;
+    text-align: center;
+    border-bottom: 1px solid #cccccc;
+}
+.cmis-result-success {
+	width: 9rem;
+	height: 9rem;
+	background-image: url("../images/icon/ico-cmis-success.png");
+	margin: 0 auto;
+}
+.cmis-result-fail {
+	width: 9rem;
+	height: 9rem;
+	background-image: url("../images/icon/ico-cmis-fail.png");
+	margin: 0 auto;
+}
+.member-cmis-result p {
+	margin-top: 2rem;
+	font-size: 2.1875rem;
+}
+.member-cmis-tab {
+	font-size: 1.4375rem;
+	overflow-x: auto;
+}
+.member-cmis-tab td, .member-cmis-tab th {
+    text-align: center;
+    border: 1px solid #e2e2e2;
+    padding: 1rem;
+}
+.member-cmis-tab th {
+	background: #ebf5fe;
+    padding: 1rem;
+    white-space: nowrap;
+    font-weight: 700;
+}
+.member-cmis-tab-title {
+	height: 5rem;
+	line-height: 5rem;
+	padding: 0 1.5rem;
+	font-size: 1.4375rem;
+}
+.cmis-extract-btn {
+	position: absolute;
+    right: 1.5rem;
+    top: .3rem;
+    background: #3b9cf5;
+    padding: .4rem 2rem;
+    font-size: 1.625rem;
+    color: #ffffff;
+    border-radius: .425rem;
+    border: none;
+    text-align: center;   
+}

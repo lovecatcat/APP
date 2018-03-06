@@ -93,14 +93,6 @@
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		mui.init();
-		statusbar();
-		
-		var winH = window.innerHeight;
-		var titHeight = document.querySelector('#Js-header').offsetHeight;
-		var addHieght = document.querySelector('#Js-wrapperAdd').offsetHeight;
-		var footHieght = document.querySelector('#Js-footer').offsetHeight;
-		
-		document.querySelector('#Js-wrapperList').style.height = (winH - titHeight - addHieght - footHieght) +'px';
 		
 		//主列表点击事件
 		mui('body').on('tap', 'a', function() {
@@ -125,7 +117,15 @@
 		});
 
 		mui.plusReady(function() {
+		
+			statusbar();
 			
+			var winH = window.innerHeight;
+			var titHeight = document.querySelector('#Js-header').offsetHeight;
+			var addHieght = document.querySelector('#Js-wrapperAdd').offsetHeight;
+			var footHieght = document.querySelector('#Js-footer').offsetHeight;
+			
+			document.querySelector('#Js-wrapperList').style.height = (winH - titHeight - addHieght - footHieght) +'px';	
 		})
 	</script>
 

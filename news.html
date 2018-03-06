@@ -45,7 +45,7 @@
 						</a>
 						<a data-index="4" class="mui-control-item">
 							精英榜
-						</a>
+						</a> 
 					</div>
 				</div>
 				<!--分类栏目 end -->
@@ -58,25 +58,30 @@
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		mui.init();
-		statusbar();
-			
-		var winH = window.innerHeight / sizeObj.dpl;
-		var topHeight = document.querySelector('#Js-header').offsetHeight / sizeObj.dpl;
-		//document.querySelector('#Js-content').style.paddingTop = topHeight + 'px';
-		var divHeight = document.querySelector('#Js-content').offsetHeight / sizeObj.dpl;
 		
-		mui.preload({ // 预加载资讯详情页
-			url: 'news-detail.html',
-			id: 'news_detail', // id
-		});
-		
-		mui.preload({ // 预加载资讯详情页
-			url: 'news-tv-detail.html',
-			id: 'news_tv_detail', // id
-		});
 		
 		
 		mui.plusReady(function() {
+			
+			mui.preload({ // 预加载资讯详情页
+				url: 'news-detail.html',
+				id: 'news_detail', // id
+			});
+			
+			mui.preload({ // 预加载资讯详情页
+				url: 'news-tv-detail.html',
+				id: 'news_tv_detail', // id
+			});
+			
+			statusbar();
+				
+			var winH = window.innerHeight / sizeObj.dpl;
+			var topHeight = document.querySelector('#Js-header').offsetHeight / sizeObj.dpl;
+			//document.querySelector('#Js-content').style.paddingTop = topHeight + 'px';
+			var divHeight = document.querySelector('#Js-content').offsetHeight / sizeObj.dpl;
+			
+			console.log(topHeight +'，'+divHeight)
+			
 			/**
 			 * 当前窗口对象，即父窗口；
 			 */

@@ -52,7 +52,6 @@
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		mui.init();
-		statusbar();
 		
 		//主列表点击事件
 		mui('body').on('tap', 'a', function() {
@@ -75,6 +74,8 @@
 		});
 		
 		mui.plusReady(function() {
+			
+			statusbar();
 			
 			//添加productId自定义事件监听
 			window.addEventListener('productId',function(event){

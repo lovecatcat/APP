@@ -89,9 +89,9 @@
 				tabs[j].addEventListener("tap", function() {
 					// 获取当前结点的索引
 					targetIndex = this.getAttribute("data-index");
-					console.log(targetIndex);
 					// 转换为number类型
 					targetIndex = parseInt(targetIndex, 10);
+					
 					if(targetIndex == activeIndex) {
 						return;
 					}

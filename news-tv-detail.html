@@ -93,12 +93,6 @@
 	<script type="text/javascript" src="js/mui.previewimage.js"></script>
 	<script type="text/javascript">
 		mui.init();
-		statusbar();
-
-		var winH = window.innerHeight;
-		var titHeight = document.querySelector('#Js-header').offsetHeight;
-		var fotHeight = document.querySelector('#Js-footer').offsetHeight;
-		document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
 
 		mui('.mui-scroll-wrapper').scroll({
 			scrollY: true, //是否竖向滚动
@@ -111,6 +105,13 @@
 		});
 
 		mui.plusReady(function() {
+			statusbar();
+	
+			var winH = window.innerHeight;
+			var titHeight = document.querySelector('#Js-header').offsetHeight;
+			var fotHeight = document.querySelector('#Js-footer').offsetHeight;
+			document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
+			
 			//添加productId自定义事件监听
 			window.addEventListener('newsId', function(event) {
 				//获得事件参数

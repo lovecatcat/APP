@@ -74,12 +74,6 @@
 	<script type="text/javascript" src="js/mui.previewimage.js" ></script>
 	<script type="text/javascript">
 		mui.init();
-		statusbar();
-		
-		var winH = window.innerHeight;
-		var titHeight = document.querySelector('#Js-header').offsetHeight;
-		var fotHeight = document.querySelector('#Js-footer').offsetHeight;
-		document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
 		
 		//非plus环境
 		if(!mui.os.plus) {
@@ -97,6 +91,14 @@
 		});
 		
 		mui.plusReady(function() {
+			
+			statusbar();
+			
+			var winH = window.innerHeight;
+			var titHeight = document.querySelector('#Js-header').offsetHeight;
+			var fotHeight = document.querySelector('#Js-footer').offsetHeight;
+			document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
+			
 			var images = [].slice.call(document.querySelectorAll('.content img'));
 		    var urls = [];
 		    images.forEach(function(item) {

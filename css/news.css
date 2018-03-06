@@ -6,18 +6,23 @@
 .BL-segmented-control.mui-scroll-wrapper, .BL-segmented-control.mui-scroll-wrapper .mui-scroll{
 	height: 4.25rem;
 }
-
 .BL-segmented-control .mui-control-item {
+	line-height: 0rem !important;
+	padding: 0 1.25rem !important;
+}
+.BL-segmented-control .mui-control-item span{
+	display: inline-block;
 	line-height: 4.0625rem;
-	padding: 0 1.5rem;
-	margin: 0 1.25rem;
+	padding: 0 .53125rem;
 	border-bottom: 0.1875rem solid #ffffff !important;
 }
 .BL-segmented-control .mui-control-item.mui-active{
+	border-bottom: 0 none !important;
+}
+.BL-segmented-control .mui-control-item.mui-active span{
 	color: #3b9cf5 !important;
 	border-bottom: 0.1875rem solid #3b9cf5 !important;
 }
-
 
 /* 资讯列表 */
 .news-list{

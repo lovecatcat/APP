@@ -93,6 +93,42 @@
 	margin-right: 1.25rem;
 }
 
+/* 保险公司筛选  */
+.filter-business{
+	padding: 0 1.25rem;
+}
+.filter-business .hd{
+	padding: 2.3rem 2.5rem;
+}
+.filter-business .hd .line{
+	height: 1px;
+	background-color: #b7b4b4;
+}
+.filter-business .hd .title{
+	color: #999999;
+	font-size: 1.4375rem;
+	margin: 0 1rem;
+}
+.filter-business .group{
+	margin: 0 -.625rem;
+}
+.filter-business .group .item .name{
+	border: 2px solid #ffffff;
+	background-color: #ffffff;
+	border-radius: .3rem;
+	-webkit-border-radius: .3rem;
+	color: #333333;
+	font-size: 1.4375rem;
+	padding: 1.25rem 0;
+	text-align: center;
+	margin: 0 .625rem 1.25rem;
+}
+.filter-business .group .item-active .name{
+	border: 2px solid #3b9cf5;
+	color: #3b9cf5;
+}
+
+
 /* 列表筛选——展示 */
 .product-list{
 	background-color: #ffffff;
@@ -105,10 +141,10 @@
 	border-bottom: 1px solid #e7e7e7;
 	padding: 1.25rem 1.25rem 1.25rem 0;
 }
-.product-list-cell .cItem a{
+.product-list-cell .cItem .pro-content{
 	position: relative;	
 }
-.product-list-cell .cItem a::before{
+.product-list-cell .cItem .pro-content::before{
 	content: '';
 	position: absolute;	
 	left: 0;
@@ -117,40 +153,57 @@
 	width: 3.75rem;
 	height: 2.84375rem;
 }
-.product-list-cell .cItem a.pro-icon-new:before{
+.product-list-cell .cItem .pro-icon-new:before{
 	background: url(../images/product/ico-new.png) no-repeat;
 	background-size: 100%;
 }
-.product-list-cell .cItem a.pro-icon-hot:before{
+.product-list-cell .cItem .pro-icon-hot:before{
 	background: url(../images/product/ico-hot.png) no-repeat;
 	background-size: 100%;
 }
-.product-list-cell .cItem a .img{
+.product-list-cell .cItem .img{
 	width: 11.8125rem;
 	height: 9.3125rem;
 	border: 1px solid #b7b4b4;
 }
-.product-list-cell .cItem a .context{
+.product-list-cell .cItem .context{
 	margin-left: 1.125rem;
 }
-.product-list-cell .cItem a .context .tit{
+.product-list-cell .cItem .context .tit{
 	color: #333333;
 	font-size: 1.75rem;
 	font-weight: 400;
 	margin-bottom: .5rem;
 }
-.product-list-cell .cItem a .context .text{
+.product-list-cell .cItem .context .text{
 	color: #999999;
 	font-size: 1.1875rem;
 }
-.product-list-cell .cItem a .context .price{
+.product-list-cell .cItem .context .price{
 	position: absolute;
 	left: 0;
 	bottom: 0;
 	color: #ff8201;
-	font-size: 1.625rem;
-	
+	font-size: 1.625rem;	
 }
+.product-list-cell .cItem .context .fd{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;	
+}
+.product-list-cell .cItem .context .fd-price{
+	color: #ff8201;
+	font-size: 1.625rem;	
+}
+.product-list-cell .cItem .context .fd-btn{
+	border: 2px solid #ff8201;
+	border-radius: .3rem;
+	color: #ff8201;
+	font-size: 1.4375rem;
+	padding: .3rem 1rem;	
+}
+
 
 /* 产品对比与对比详情 */
 .product-contrast{

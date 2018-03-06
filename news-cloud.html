@@ -15,12 +15,12 @@
 
 		<!------------资讯列表 begin------------->
 		<div id="Js-newsList" class="news-list">
-			<div id="Js-list" class="mui-content mui-scroll-wrapper">
+			<div class="mui-content mui-scroll-wrapper">
 				<div class="mui-scroll">
 					<!--活动中，数据列表-->
 					<ul class="mui-table-view news-list-cell">
 						<li class="nItem">
-							<a data-id="2" data-wid="news_detail" href="news-detail.html" class="BL-ub BL-ub-f1">
+							<a data-id="111" data-wid="news_detail" href="news-detail.html" class="BL-ub BL-ub-f1">
 								<div class="img">
 									<img src="images/pic/p7.jpg" />
 								</div>
@@ -31,7 +31,7 @@
 							</a>
 						</li>
 						<li class="nItem">
-							<a data-id="2" data-wid="news_detail" href="news-detail.html" class="BL-ub BL-ub-f1">
+							<a data-id="2" data-wid="news_tv_detail" href="news-tv-detail.html" class="BL-ub BL-ub-f1">
 								<div class="img">
 									<img src="images/pic/p7.jpg" />
 								</div>
@@ -49,74 +49,74 @@
 
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/mui.pullToRefresh.js"></script>
+	<script src="js/mui.pullToRefresh.material.js"></script>
 	<script type="text/javascript">
-		mui.init({
-			pullRefresh: {
-				container: '#Js-list', //待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
-				down: {},
-				up: {
-					height: 50, //可选.默认50.触发上拉加载拖动距离
-					auto: false, //可选,默认false.自动上拉加载一次
-					contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
-					contentnomore: '已全部加载完', //可选，请求完毕若没有更多数据时显示的提醒内容；
-					callback: pullupRefresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
-				}
-			}
-		});
+		mui.init();
+		
+		(function($){
+			//阻尼系数
+			var deceleration = mui.os.ios ? 0.003 : 0.0009;
+			$('#Js-newsList .mui-scroll-wrapper').scroll({
+				bounce: true,
+				indicators: false, //是否显示滚动条
+				deceleration: deceleration
+			});
+			
+			$.plusReady(function() {
+				var winH = window.innerHeight;
+				document.querySelector('#Js-newsList').style.height = winH + 'px';
 
-		/**
-		 * 下拉刷新具体业务实现
-		 */
-		function pulldownRefresh() {
-			setTimeout(function() {
-				var table = document.body.querySelector('.news-list-cell');
-				var cells = document.body.querySelectorAll('.nItem');
-				for(var i = cells.length, len = i + 3; i < len; i++) {
-					var li = document.createElement('li');
-					li.className = 'nItem';
-					li.innerHTML = '<a data-wid="news_detail" href="news-detail.html" class="BL-ub BL-ub-f1">' +
+				var i = 0;
+
+				//循环初始化所有下拉刷新，上拉加载。
+				
+				$('#Js-newsList .mui-scroll').pullToRefresh({
+						up: { // 上拉加载更多
+							auto: true, // 自动上拉一次
+							callback: function() {
+								i++;
+
+								var self = this;
+								setTimeout(function() {
+									var ul = self.element.querySelector('.mui-table-view');
+									ul.appendChild(createFragment(ul, 5));
+									if(i > 2) {
+										self.endPullUpToRefresh(true);
+									} else {
+										self.endPullUpToRefresh();
+									}
+								}, 1000);
+							}
+						}
+				});
+				
+				var createFragment = function(ul, count) {
+					var length = ul.querySelectorAll('li').length;
+					var fragment = document.createDocumentFragment();
+					var li;
+					for(var i = 0; i < count; i++) {
+						li = document.createElement('li');
+						li.className = 'nItem';
+						li.innerHTML = '<a data-wid="news_detail" href="news-detail.html" class="BL-ub BL-ub-f1">' +
 						'<div class="img"><img src="images/pic/p7.jpg" /></div>' +
 						'<div class="context BL-ub BL-ub-ver BL-ub-f1"><h1 class="tit">惠州龙门大观园温泉，鲁冰花童话园2日游</h1>' +
 						'<div class="name">行业资讯</div></div></a>';
-					//下拉刷新，新纪录插到最前面；
-					table.insertBefore(li, table.firstChild);
-				}
-				mui('#Js-list').pullRefresh().endPulldownToRefresh(); //refresh completed
-			}, 1);
-		}
-		var count = 0;
-		/**
-		 * 上拉加载具体业务实现
-		 */
-		function pullupRefresh() {
-			setTimeout(function() {
-				mui('#Js-list').pullRefresh().endPullupToRefresh((++count > 0)); //参数为true代表没有更多数据了。
-				var table = document.body.querySelector('.news-list-cell');
-				var cells = document.body.querySelectorAll('.nItem');
-				for(var i = cells.length, len = i + 5; i < len; i++) {
-					var li = document.createElement('li');
-					li.className = 'nItem';
-					li.innerHTML = '<a data-wid="news_detail" href="news-detail.html" class="BL-ub BL-ub-f1">' +
-						'<div class="img"><img src="images/pic/p7.jpg" /></div>' +
-						'<div class="context BL-ub BL-ub-ver BL-ub-f1"><h1 class="tit">惠州龙门大观园温泉，鲁冰花童话园2日游</h1>' +
-						'<div class="name">行业资讯</div></div></a>';
-					table.appendChild(li);
-				}
-			}, 500);
-		}
+						fragment.appendChild(li);
+					}
+					return fragment;
+				};
 
-		var detailPage = null;
-		var winH = window.innerHeight;
-		document.querySelector('#Js-newsList').style.height = winH + 'px';
-
+			});	
+		
+		}(mui));
+		
 		//主列表点击事件
+		var detailPage = null;
 		mui('body').on('tap', 'a', function() {
 			var href = this.getAttribute('href');
 			var id = this.getAttribute("data-wid");
 			var pid = this.getAttribute('data-id');
-
-			console.log(plus.webview.currentWebview());
-			return;
 
 			//非plus环境，直接走href跳转
 			if(!mui.os.plus) {
@@ -139,15 +139,13 @@
 
 				//打开新窗口
 				mui.openWindow({
-					id: id
+					id:id,
+					show:animateObj.aniDetal
 				});
 			}
 
 		});
 
-		mui.plusReady(function() {
-
-		})
 	</script>
 
 </html>

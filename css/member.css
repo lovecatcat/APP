@@ -1,3 +1,148 @@
+/* 首页 */
+.member-skin{
+	background: url(../images/member/index-bg.jpg) no-repeat #f2f2f2;
+	background-size: 100% 16.125rem;
+}
+.member-hr{
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	height: 16.125rem;
+}
+.member-index .mheader{
+	padding: 0 1.25rem;
+}
+.member-index .mheader .topic{
+	width: 5.875rem;
+	height: 5.875rem;
+	border-radius: 100%;
+	border: .3rem solid #ffffff;
+	overflow: hidden;
+}
+.member-index .mheader .context{
+	margin-left: 1.5625rem;
+}
+.member-index .mheader .context .name{
+	color: #ffffff;
+	font-size: 1.625rem;
+	font-weight: 500;
+	margin-bottom: 1rem;	
+}
+.member-index .mheader .context .text{
+	color: #013d75;
+	font-size: 1.4375rem;
+}
+.member-index .mheader .topic img{
+	border-radius: 100%;
+	width: 100%;
+	height: 100%;
+}
+.member-index .mheader .mui-icon-arrowright{
+	color: #ffffff;
+	font-size: 2.5rem;
+	font-weight: 700;
+}
+.member-index .mbody{
+	background-color: #f2f2f2;
+}
+.member-index .mbody .section{
+	background-color: #ffffff;
+	margin-top: 1rem;
+	min-height: 5rem;
+}
+.member-index .section-myList .myList-hd{
+	padding: 1.375rem 1.25rem;	
+}
+.member-index .section-myList .myList-hd .title{
+	font-size: 1.625rem;	
+}
+.member-index .section-myList .myList-hd .mui-icon-arrowright{
+	font-size: 2.5rem;	
+}
+.member-index .section-myList .myList-item{
+	border-top: 1px solid #e7e7e7;
+	height: 8.6875rem;
+}
+.member-index .section-myList .myList-item:first-child{
+	border-right: .5px solid #e7e7e7;
+}
+.member-index .section-myList .myList-item:last-child{
+	border-left: .5px solid #e7e7e7;
+}
+.member-index .section-myList .myList-item .icon{
+	height: 2.8125rem;
+	margin-bottom: .5rem;
+}
+.member-index .section-myList .myList-item .item-car .icon{
+	background: url(../images/icon/member-ico1.png) no-repeat center center;
+	background-size: contain;
+}
+.member-index .section-myList .myList-item .item-life .icon{
+	background: url(../images/icon/member-ico2.png) no-repeat center center;
+	background-size: contain;
+}
+.member-index .section-myList .myList-item .name{
+	color: #333333;
+	font-size: 1.3125rem;
+}
+.member-index .section-manage .manage-group:first-child{
+	border-bottom: 1px solid #e7e7e7;
+}
+.member-index .section-manage .manage-group a{
+	padding: 1.5rem 0;
+}
+.member-index .section-manage .manage-group a .name{
+	color: #333333;
+	font-size: 1.4375rem;
+	text-align: center;
+}
+.member-index .section-manage .manage-group a .icon{
+	height: 3.125rem;
+	margin-bottom: .5rem;
+}
+.member-index .section-manage .manage-group .icon-insure{
+	background: url(../images/icon/member-insure.png) no-repeat center center;
+	background-size: contain;
+}
+.member-index .section-manage .manage-group .icon-team{
+	background: url(../images/icon/member-team.png) no-repeat center center;
+	background-size: contain;
+}
+.member-index .section-manage .manage-group .icon-profile{
+	background: url(../images/icon/member-profile.png) no-repeat center center;
+	background-size: contain;
+}
+.member-index .section-manage .manage-group .icon-commission{
+	background: url(../images/icon/member-commission.png) no-repeat center center;
+	background-size: contain;
+}
+.member-index .section-manage .manage-group .icon-integ{
+	background: url(../images/icon/member-integ.png) no-repeat center center;
+	background-size: contain;
+}
+.member-index .section-manage .manage-group .icon-birthday{
+	background: url(../images/icon/member-birthday.png) no-repeat center center;
+	background-size: contain;
+}
+.member-index .section-manage .manage-group .icon-renewal{
+	background: url(../images/icon/member-renewal.png) no-repeat center center;
+	background-size: contain;
+}
+.member-index .section-manage .manage-group .icon-duty{
+	background: url(../images/icon/member-duty.png) no-repeat center center;
+	background-size: contain;
+}
+.member-index .section-manage .manage-group .icon-receive{
+	background: url(../images/icon/member-receive.png) no-repeat center center;
+	background-size: contain;
+}
+.member-index .section-manage .manage-group .icon-calcu{
+	background: url(../images/icon/member-calcu.png) no-repeat center center;
+	background-size: contain;
+}
+
+
 /*佣金提取*/
 .member-cmis-banner {
 	background-color: #303447;

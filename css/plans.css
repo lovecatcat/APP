@@ -1,0 +1,228 @@
+
+/* 列表筛选——搜索框 */
+.search-pro{
+	margin-left: 3rem !important;
+	margin-right: 4rem;
+}
+
+/* 列表筛选——导航 */
+.plan-filter{
+	width: 100%;
+	background-color: #fff;
+	padding: 1.4rem 1.25rem;
+	margin-bottom: .8rem;
+}
+.plan-filter .mui-control-item {
+	display: inline-block;
+	width: 22% !important;
+	height: 2.8125rem;
+	line-height: 2.8125rem;
+	font-size: 1.4375rem;
+	color: #999999 !important;
+	text-align: center;
+	background-color: #eeeeee !important;
+	padding: 0 !important;
+	border-radius: 8px;
+	margin-right: 2%;
+}
+.plan-filter .mui-control-item.mui-active{
+	color: #fff !important;
+	background-color: #3B9CF5 !important;
+}
+
+/*计划书管理*/
+.plan-list{
+	background-color: #ffffff;
+	position: relative;
+}
+.plan-list .plan-list-cell{
+	padding-left: 1.25rem	
+}
+/*.plan-list .plan-list-cell .cItem{
+	border-bottom: 1px solid #e7e7e7;
+	padding: 1.25rem 1.25rem 1.25rem 0;
+}*/
+.plan-list .plan-list-cell .cItem{
+	border-bottom: 1px solid #e7e7e7;
+	padding: 1.25rem 1.25rem 1.25rem 0;
+}
+.plan-list-cell .cItem .pro-content{
+	position: relative;	
+}
+.plan-list-cell .cItem .img{
+	width: 7.5rem;
+	height: 5.625rem;
+	border: 1px solid #b7b4b4;
+}
+.plan-list-cell .cItem .context{
+	margin-left: 1.125rem;
+}
+.context-top{
+	margin-top: .5rem;
+	margin-bottom: 1.5625rem;
+}
+.plan-list-cell .cItem .context .tit{
+	float: left;
+	color: #333333;
+	font-size: 1.75rem;
+	font-weight: 400;
+}
+.plan-list-cell .cItem .context .btn{
+	width: 5.625rem;
+	height: 1.75rem;
+	font-size: 1.125rem;
+	line-height: 1.75rem;
+	padding: 0;
+	margin: .2rem 0 0 1rem;
+}
+.plan-list-cell .cItem .context .data{
+	float: right;
+	color: #999999;
+	font-size: 1.4375rem;
+	margin-right: 1.55rem;
+}
+.plan-list-cell .cItem .context .text{
+	color: #999999;
+	font-size: 1.4375rem;
+
+}
+.mui-navigate-right:after{
+	font-size: 1.9rem;
+	top: 1.25rem;
+	right: 0;
+}
+
+.selected{
+	border-radius: 100%;
+	border: 2px solid #e7e7e7;
+	width: 2.25rem;
+	height: 2.25rem;
+	margin-right: 1.25rem;	
+}
+.mui-icon-checkmarkempty{
+	color: #ffffff;
+	font-size: 2.25rem;
+	line-height: 2.25rem;
+}
+.cItem-active  .selected{
+	border: 2px solid #3b9cf5;
+	background-color: #3b9cf5;
+}
+.mui-icon-checkmarkempty{
+	color: #ffffff;
+}
+.BL-foot-selectAll{
+	padding-left: 1.25rem;
+}
+.BL-foot-selectAll .context{
+	font-size: 1.625rem;	
+}
+
+.BL-ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
+.BL-ul li{
+	height: 3.125rem;
+	line-height: 3.125rem;
+	border: 1px solid #e7e7e7;
+}
+.BL-ul li:first-child{
+	border-bottom: none;
+}
+.BL-ul li span{
+	display: inline-block;
+	float: left;
+	box-sizing: border-box;
+	width: 25%;
+	border-right: 1px solid #e7e7e7; 
+}
+.BL-ftz-42{
+	font-size: 1.3125rem;
+}
+.BL-ftz-46{
+	font-size: 1.4375rem;
+}
+.BL-ftz-52{
+	font-size: 1.625rem;
+}
+/*清除浮动代码*/ 
+.clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0} 
+.clearfloat{zoom:1} 
+
+/*计划书汇总*/
+
+.plans-total .BL-title{
+	width: 100%;
+	font-size: 1.4375rem;
+	text-align: left;
+	border-bottom:1px solid #e7e7e7 ;
+	border-top:1px solid #e7e7e7 ;
+}
+.plans-total-font{
+	font-size: 1.4375rem;
+	line-height: 2.6875rem;
+}
+.plans-total-content button{
+	font-size: 1.25rem;
+	width: 6.125rem;
+	height: 2.6875rem;
+}
+
+/*单个计划书*/
+.plans-detail-banner img{
+	display: block;
+	width: 100%;
+	height: auto;
+}
+.plans-detail-box{
+    margin:0 1.5rem 1rem 1.5rem;
+}
+.plans-detail-item li{
+	border: none;
+}
+.plans-detail-item li span{
+	font-weight: 400;
+	border: none;
+}
+.plans-detail-item li:last-child span{
+	font-size: 1.875rem;
+}
+.plans-detail-behalf .title{
+	font-weight: 400;
+}
+.plans-detail-behalf .title em{
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
+	background-color: #3B9CF5;
+	border-radius: 50%;
+}
+.plans-detail-design img{
+	display: inline-block;
+	width: auto;
+	height: 8.125rem;
+}
+.plans-detail-table{
+	font-size: 1rem;
+    overflow-x: auto;
+
+}
+table{
+	min-width: 100%;
+}
+table thead tr th{
+	background-color: #ebf5fe;
+	padding: 1rem;
+    white-space: nowrap;
+    font-weight: 400;
+    line-height: 1.2;
+}
+table tbody tr td{
+	text-align: center;
+    border: 1px solid #e7e7e7;
+    padding: 1rem;
+}
+

@@ -139,12 +139,15 @@
 			var href = this.getAttribute('href');
 			var id = this.getAttribute("data-wid");
 			
-			//打开新窗口
-			mui.openWindow({
-				url:href,
-				id:id,
-				show:animateObj.aniDetal
-			});
+			if(href && ~href.indexOf('.html')) {
+				//打开新窗口
+				mui.openWindow({
+					url:href,
+					id:id,
+					show:animateObj.aniDetal
+				});
+			}
+
 
 		});
 		

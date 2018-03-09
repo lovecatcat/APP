@@ -147,6 +147,9 @@
 			}, data);
 			
 			mySchedule.el.addEventListener('tap', function(e) {
+				var dater = e.target.getAttribute('data-dater'); // 获取日期
+				console.log(dater);
+			
 				switch(e.target.id) {
 					case 'nextMonth':
 						mySchedule.nextMonthFun(data);

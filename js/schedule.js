@@ -66,11 +66,11 @@
 			var scheduleHd = '<div class="schedule-hd BL-ub BL-ub-ac">' +
 				'<div>' +
 				//'<span class="arrow icon iconfont icon-116leftarrowheads" id="prevYear" ></span>' +
-				'<span class="mui-icon-arrowleft BL-icon" id="prevMonth"></span>' +
+				'<span class="mui-icon-arrowleft BL-icon" data-dater="'+ formartDate(year, month, '-1', '-') +'" id="prevMonth"></span>' +
 				'</div>' +
-				'<div class="BL-ub-f1 today">' + formartDate(year, month + 1, day, '-') + '</div>' +
+				'<div class="BL-ub-f1 today">' + formartDate(year, month + 1, '-1', '-') + '</div>' +
 				'<div>' +
-				'<span class="mui-icon-arrowright BL-icon" id="nextMonth"></span>' +
+				'<span class="mui-icon-arrowright BL-icon" data-dater="'+ formartDate(year, month + 2, '-1', '-') +'" id="nextMonth"></span>' +
 				//'<span class="arrow icon iconfont icon-115rightarrowheads" id="nextYear"></span>' +
 				'</div>' +
 				'</div>'
@@ -93,7 +93,7 @@
 				startWeek = new Date(year, month, 1).getDay(), //当月第一天是周几
 				total = (fullDay + startWeek) % 7 == 0 ? (fullDay + startWeek) : fullDay + startWeek + (7 - (fullDay + startWeek) % 7), //元素总个数
 				lastMonthDay = new Date(year, month, 0).getDate(), //上月最后一天
-				eleTemp = [];
+				eleTemp = [],nextYear,prevYear,nextMonth,prevMonth; 	
 			
 			for(var i = 0; i < total; i++) {
 				if(i < startWeek) {
@@ -144,7 +144,25 @@
 				}
 			}
 			_this.el.querySelector('.schedule-bd').innerHTML = eleTemp.join('');
+			if(month-1 < 0){
+				prevYear = year-1;
+				prevMonth = 12;
+			}else{
+				prevYear = year;
+				prevMonth = month;
+			};
+			
+			if(month+1 > 11){
+				nextYear = year+1;
+				nextMonth = '01';
+			}else{
+				nextYear = year;
+				nextMonth = month + 2;
+			};
+			_this.el.querySelector('#prevMonth').setAttribute("data-dater", formartDate(prevYear, prevMonth, '-1', '-'));
+			_this.el.querySelector('#nextMonth').setAttribute("data-dater", formartDate(nextYear, nextMonth, '-1', '-'));	
 			_this.el.querySelector('.today').innerHTML = formartDate(year, month + 1, '-1', '-');
+			
 		};
 		this.nextMonthFun = function(data) {
 				if(month + 1 > 11) {
@@ -154,7 +172,7 @@
 					month += 1;
 				}
 				render(data);
-				opt.nextMonthCb && opt.nextMonthCb(year, month + 1, day);
+				//opt.nextMonthCb && opt.nextMonthCb(year, month + 1, day);
 			},
 //			this.nextYearFun = function() {
 //				year += 1;
@@ -169,7 +187,7 @@
 					month -= 1;
 				}
 				render(data);
-				opt.prevMonthCb && opt.prevMonthCb(year, month + 1, day);
+				//opt.prevMonthCb && opt.prevMonthCb(year, month + 1, day);
 			},
 //			this.prevYearFun = function() {
 //				year -= 1;

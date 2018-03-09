@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/module.css" rel="stylesheet" />
+		<link href="css/form.css"  rel="stylesheet" />
+		<link href="css/member.css" rel="stylesheet" />
+		<script src="js/config.js" type="text/javascript"></script>
+	</head>
+
+	<body class="BL-bg-f2f">
+		<header id="Js-header" class="BL-bg-fff">
+			<div class="BL-mod-headbar BL-mod-headbar-pos">
+				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+				<h1 class="BL-title">提取结果</h1>
+			</div>
+		</header>
+		
+		<div id="Js-content" class="mui-content BL-rel BL-mar-t-1">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="member-cmis-result">
+						<i class="member-cmis-ico cmis-result-success"></i>
+						<p class="BL-col-3b9cf5">提交成功！</p>
+					</div>
+					<!--<div class="member-cmis-result">
+						<i class="member-cmis-ico cmis-result-fail"></i>
+						<p class="BL-col-ff8201">提交失败！</p>
+					</div>-->
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell member-cmis-list-item cmis-item-count">
+							<a href="javascript:;" class="mui-navigate-right BL-ub BL-ub-ac">
+								查看账户信息
+					        </a>
+						</li>
+					</ul>
+				</div>
+			</div> 	
+		</div> 
+	</body>
+	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/mui.pullToRefresh.js"></script>
+	<script src="js/mui.pullToRefresh.material.js"></script>
+	<script type="text/javascript">
+		mui.init();
+		(function($){
+			//阻尼系数
+			var deceleration = mui.os.ios ? 0.003 : 0.0009;
+			$('#Js-content .mui-scroll-wrapper').scroll({
+				bounce: true,
+				indicators: false, //是否显示滚动条
+				deceleration: deceleration
+			});
+			$.ready(function() {
+				statusbar();
+				var winH = window.innerHeight;
+				var titHeight = document.querySelector('#Js-header').offsetHeight;
+				document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+			})
+		}(mui));
+	</script>
+</html>
+

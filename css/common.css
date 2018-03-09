@@ -200,6 +200,10 @@
 
 /* 字体颜色  = BL-col[16位色值]*/
 
+.BL-col-fff{
+	color: #ffffff !important;
+}
+
 .BL-col-333 {
 	color: #333333 !important;
 }
@@ -223,6 +227,9 @@
 }
 .BL-col-red {
 	color: red !important;
+}
+.BL-col-ff8201 {
+	color: #ff8201 !important;
 }
 
 /* 圆弧角  = BL-radiu-[a(全部), l-(左), lr-(左右), r-(右), t-(上), tb-(上下), b-(下)] */
@@ -287,7 +294,10 @@
 	padding-left: 1.5rem;
 	padding-right: 1.5rem;
 }
-
+.BL-pad-lr-1_25{
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
+}
 .BL-pad-lr-2 {
 	padding-left: 2rem;
 	padding-right: 2rem;
@@ -375,12 +385,16 @@
 .BL-mar-t-1 {
 	margin-top: 1rem;
 }
+.BL-mar-t-3 {
+	margin-top: 3rem;
+}
 .BL-mar-b-1 {
 	margin-bottom: 1rem;
 }
 .BL-mar-b-2 {
 	margin-bottom: 2rem;
 }
+.BL-mar-t-b-2{margin-top: 2rem;margin-bottom: 2rem;}
 .BL-text-indent{text-indent: 2rem;}
 
 /* 重写mui加载更多样式 */
@@ -402,6 +416,10 @@
 	line-height: 1.25rem;
 }
 
+/* 去掉边框线 */
+.BL-noBorder-b{
+	border-bottom: 0 none !important;
+}
 
 /* 容器：内容超出竖向可以滚动 */
 .BL-overFlow-autoY{

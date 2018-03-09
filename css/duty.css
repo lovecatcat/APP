@@ -1,112 +1,143 @@
-/* 考勤 duty-  */
-.duty-dater {
+/* 考勤 member-duty-  */
+.member-duty-dater {
 	min-height: 10rem;
 	background-color: #ebf5fe;
 }
-.duty-dater .schedule-hd {
+.member-duty-dater .schedule-hd {
 	background-color: #ffffff;
 	border-bottom: 1px solid #e7e7e7;
 	padding: 1rem .5rem;
 }
-.duty-dater .mui-icon-arrowleft, .duty-dater .mui-icon-arrowright{
+.member-duty-dater .mui-icon-arrowleft, .member-duty-dater .mui-icon-arrowright{
 	color: #999999;
 	font-size: 2.4rem;
 }
-.duty-dater .today {
+.member-duty-dater .today {
 	color: #333333;
 	font-size: 1.625rem;
 	text-align: center;
 }
-.duty-dater .week-ul{
+.member-duty-dater .week-ul{
 	padding-top: 1.5rem;
 }
-.duty-dater .schedule-bd{
+.member-duty-dater .schedule-bd{
 	padding-bottom: 1.5rem;
 }
-.duty-dater .ul-box{
+.member-duty-dater .ul-box{
 	overflow: hidden;
 }
-.duty-dater .ul-box>li {
+.member-duty-dater .ul-box>li {
 	font-size: 1.625rem;
 	float: left;
 	width: 14.28%;
 	text-align: center;
 	padding: .5rem 0;
 }
-.duty-dater .other-month {
+.member-duty-dater .other-month, .member-duty-dater .dayoff {
 	color: #999999;
 }
-.duty-dater .current-month {
+.member-duty-dater .current-month {
 	color: #333333;
 }
-.duty-dater .today-style {
+.member-duty-dater .today-style {
 	border-radius: 100%;
 	background: #58d321;
 }
-.duty-dater .dayStyle {
+.member-duty-dater .dayStyle {
 	display: inline-block;
+	border: 2px solid #ebf5fe;
 	width: 3rem;
 	height: 3rem;
 	border-radius: 100%;
 	text-align: center;
 	line-height: 3rem;
 }
-.duty-dater .current-month>.dayStyle:hover {
+/*.member-duty-dater .current-month>.dayStyle:hover {
 	background: #00BDFF;
 	color: #ffffff;
+}*/
+.member-duty-dater .current-month .dayOn{
+	border-color: #3b9cf5;
+	color: #3b9cf5;	
 }
-.duty-dater .today-flag {
+.member-duty-dater .current-month .dayLater, .member-duty-dater .current-month .dayLeave, .member-duty-dater .current-month .dayMiss{
+	border-color: #3b9cf5;
+	background-color: #3b9cf5;
+	color: #ffffff;	
+}
+.member-duty-dater .current-month span{
+	position: relative;
+}
+.member-duty-dater .current-month i{
+	position: absolute;
+	left: 50%;
+	bottom: -.7rem;
+	transform: translateX(-50%);
+	border-radius: 100%;
+	width: .5rem;
+	height: .5rem;
+}
+.member-duty-dater .current-month .dayLater i{
+	background-color: #ff9212;
+}
+.member-duty-dater .current-month .dayLeave i{
+	background-color: #e62303;
+}
+.member-duty-dater .current-month .dayMiss i{
+	background-color: #3b9cf5;
+}
+.member-duty-dater .today-flag {
 	background: #00C2B1;
 	color: #fff;
 }
-.duty-dater .boxshaw {
+.member-duty-dater .boxshaw {
 	box-shadow: 2px 2px 15px 2px #e3e3e3;
 }
-.duty-dater .selected-style {
+.member-duty-dater .selected-style {
 	background: #00BDFF;
 	color: #ffffff;
 }
-.duty-context {
+.member-duty-context {
 	margin-top: 2.1875rem;
 }
-.duty-context .h1-title{
+.member-duty-context .h1-title{
 	color: #333333;
 	font-size: 1.625rem;
 	padding-left: 1.25rem;
 	margin-bottom: 1rem;
 }
-.duty-context .section{
+.member-duty-context .section{
 	border-top: 1px solid #e7e7e7;
 	padding: 1rem 0;	
 }
-.duty-context .section-tip{
+.member-duty-context .section-tip{
 	color: #999999;
 	font-size: 1.3125rem;
 	padding-left: 1.25rem;
 }
-.duty-context .section .days{
+.member-duty-context .section .days{
 	color: #3b9cf5;
 	font-size: 1.875rem;
 	margin-bottom: .3rem;
 	text-align: center;
 }
-.duty-context .section .decri{
+.member-duty-context .section .decri{
 	color: #333333;
 	font-size: 1.4375rem;
 }
-.duty-context .section .decri .done{
+.member-duty-context .section .decri .done{
 	border-radius: 100%;
 	display: inline-block;
 	width: .75rem;
 	height: .75rem;
 	margin-right: .5rem;
 }
-.duty-context .section .decri .done-blue{
+.member-duty-context .section .decri .done-blue{
 	background-color: #3b9cf5;
 }
-.duty-context .section .decri .done-orange{
+.member-duty-context .section .decri .done-orange{
 	background-color: #ff9212;
 }
-.duty-context .section .decri .done-red{
+.member-duty-context .section .decri .done-red{
 	background-color: #e62303;
 }

@@ -142,15 +142,87 @@
 	background-size: contain;
 }
 
+/* 列表分类栏目 */
+.BL-segmented-control.mui-scroll-wrapper{
+	border-bottom: 1px solid #e7e7e7;
+}
+.BL-segmented-control.mui-scroll-wrapper, .BL-segmented-control.mui-scroll-wrapper .mui-scroll{
+	height: 4.25rem;
+}
+.BL-segmented-control .mui-control-item {
+	line-height: 0rem !important;
+	padding: 0 1.25rem !important;
+}
+.BL-segmented-control .mui-control-item span{
+	display: inline-block;
+	line-height: 4.0625rem;
+	padding: 0 .53125rem;
+	border-bottom: 0.1875rem solid #ffffff !important;
+}
+.BL-segmented-control .mui-control-item.mui-active{
+	border-bottom: 0 none !important;
+}
+.BL-segmented-control .mui-control-item.mui-active span{
+	color: #3b9cf5 !important;
+	border-bottom: 0.1875rem solid #3b9cf5 !important;
+}
 
+/* 个人中心共用时间段筛选*/
+.member-list-filter .member-date-select {
+	position: relative;
+	height: 5.625rem;
+	padding: 0rem 1.5rem;
+	border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+}
+.member-date-select .member-date-item {
+	display: inline-block;
+	width: 6rem;
+	margin-right: .5rem;
+	padding: .4rem 0rem;
+	background: #ededed;
+	color: #999999;
+    font-size: 1.4375rem;
+    text-align: center;
+    border-radius: .25rem;
+}
+.member-date-select .member-date-item.mui-active {
+	background: #3B9CF5;
+	color: #ffffff;
+}
+.member-date-filter {
+	position: absolute;
+	line-height: 5.625rem;
+	right: 1.5rem;
+	top: 0rem;
+	font-size: 1.4375rem;
+	color: #999999;
+}
+.member-date-filter .date-filter-ico {
+	display: block;
+	width: 1.4375rem;
+    height: 1.4375rem;
+    margin: .2rem 0rem .1rem .4rem;
+    background-image: url("../images/icon/ico-filter.png");
+	background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat; 
+}
+.member-date-filter.mui-active {
+	color: #3B9CF5;
+}
+.member-date-filter.mui-active .date-filter-ico {
+	 background-image: url("../images/icon/ico-filter-active.png");
+}
 /*佣金提取*/
 .member-cmis-banner {
 	background-color: #303447;
-	padding: 8.4375rem 0rem 2.4062rem 0rem ;
+	padding: 9.125rem 0rem 2rem 0rem ;
 }
 .member-cmis-money {
 	position: relative;
 	font-size: 3.125rem;
+	padding-top: .5rem;
 }
 .member-cmis-smallmoney {
 	margin-top: 4.625rem;
@@ -160,6 +232,7 @@
 .member-cmis-txt {
 	font-size: 1.4375rem;
 	color: #999999;
+	margin-bottom: 0rem;
 }
 .member-cmis-select {
 	height: 6.25rem;
@@ -221,52 +294,6 @@
 	font-size: 1.4375rem;
 	color: #999999;
 }
-.cmis-list-filter .cmis-date-select {
-	position: relative;
-	height: 5.625rem;
-	padding: 0rem 1.5rem;
-	border-top: 1px solid #e7e7e7;
-    border-bottom: 1px solid #e7e7e7;
-}
-.cmis-date-select .cmis-date-item {
-	display: inline-block;
-	width: 6rem;
-	margin-right: .5rem;
-	padding: .4rem 0rem;
-	background: #ededed;
-	color: #999999;
-    font-size: 1.4375rem;
-    text-align: center;
-    border-radius: .25rem;
-}
-.cmis-date-select .cmis-date-item.mui-active {
-	background: #3B9CF5;
-	color: #ffffff;
-}
-.cmis-date-filter {
-	position: absolute;
-	line-height: 5.625rem;
-	right: 1.5rem;
-	top: 0rem;
-	font-size: 1.4375rem;
-	color: #999999;
-}
-.cmis-date-filter .date-filter-ico {
-	display: block;
-	width: 1.4375rem;
-    height: 1.4375rem;
-    margin: .2rem 0rem .1rem .4rem;
-    background-image: url("../images/icon/ico-filter.png");
-	background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat; 
-}
-.cmis-date-filter.mui-active {
-	color: #3B9CF5;
-}
-.cmis-date-filter.mui-active .date-filter-ico {
-	 background-image: url("../images/icon/ico-filter-active.png");
-}
 .cmis-detail .form-list-cell .fItem .form-list-label {
 	padding: 1rem 0rem;
 	color: #999999;
@@ -307,6 +334,10 @@
 .member-cmis-tab {
 	font-size: 1.4375rem;
 	overflow-x: auto;
+	padding-bottom: 1rem;
+}
+.member-cmis-tab table{
+	table-layout: fixed;
 }
 .member-cmis-tab td, .member-cmis-tab th {
     text-align: center;
@@ -317,18 +348,19 @@
 	background: #ebf5fe;
     padding: 1rem;
     white-space: nowrap;
-    font-weight: 700;
+    font-weight: 500;
 }
 .member-cmis-tab-title {
 	height: 5rem;
 	line-height: 5rem;
 	padding: 0 1.5rem;
 	font-size: 1.4375rem;
+	overflow: hidden;
 }
 .cmis-extract-btn {
 	position: absolute;
     right: 1.5rem;
-    top: .3rem;
+    top: .8rem;
     background: #3b9cf5;
     padding: .4rem 2rem;
     font-size: 1.625rem;
@@ -336,4 +368,148 @@
     border-radius: .425rem;
     border: none;
     text-align: center;   
+}
+/* 团队管理 */
+.member-team-tab-title {
+	height: 4.25rem;
+	line-height: 4.25rem;
+	padding: 0 1.5rem;
+	font-size: 1.3125rem;
+}
+.member-team-tab-title span {
+	margin-right: 1.5rem;
+}
+.member-team-tab-title i {
+	padding-left: .2rem;
+	font-style: normal;
+}
+/*团队搜索*/
+.member-team-search {
+	height: 5.625rem;
+	line-height: 5.625rem;
+	padding: 0rem 1.5rem;
+}
+.member-team-search .search-date,.member-team-search .search-role{
+	width: 10.9375rem;
+	height: 2.8125rem;
+	line-height: 2.8125rem;
+    border-radius: .3rem;
+    -webkit-border-radius: .3rem;
+    background-color: #ededed;
+    overflow: hidden;
+    margin-right: 1rem;
+}
+.member-team-search .search-date input[type="text"], .member-team-search .search-role select{
+	color: #999999;
+    font-size: 1.4375rem;
+    height: 100%;
+    text-indent: 1rem;
+    text-align: left;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+.member-team-search .down {
+	padding-left: .6875rem;
+    padding-right: .6875rem;
+} 
+.member-team-search .search-down{
+	display: block;
+    width: 1rem;
+    height: .7rem;
+	background-image: url("../images/icon/ico-down.png");
+}
+.member-team-search .searchbtn {
+	display: inline-block;
+	width: 5.5rem;
+	height: 2.8125rem;
+	line-height: 2.8125rem;
+	background: #3B9CF5;
+	text-align: center;
+	color: #ffffff;
+	font-size: 1.4375rem;
+	border-radius: .3rem;
+    -webkit-border-radius: .3rem;
+}
+/*团队表格*/
+.member-team-tab {
+	table-layout: fixed;
+}
+.member-team-tab.fixed-thead {
+	width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    table-layout: fixed;
+}
+.member-team-scroll {
+	max-height: 25rem;
+	overflow: auto;
+	overflow-x: hidden;
+}
+.member-team-tab td, .member-team-tab th {
+    text-align: center;
+    border: 1px solid #e2e2e2;
+    padding: .5rem;
+    font-size: 1.3125rem;
+}
+.member-team-tab th {
+	background: #ebf5fe;
+    padding: 1rem .5rem;
+    white-space: nowrap;
+    font-weight: 500;
+}
+/*团队列表*/
+.member-team-list-item {
+	padding: .5rem 1rem .5rem 1.5rem;
+}
+.member-team-list-item a.item {
+	margin: 0rem -1.5rem;
+    font-size: 1.9rem;
+}
+.member-team-list-item a.item .img{
+	width: 7.5rem;
+	height: 7.5rem;
+}
+.member-team-list-item a.item .context {
+	margin-left: 1.125rem;
+	font-size: 1.625rem;
+}
+.member-team-list-item .context .team-per-intro {
+	margin-bottom: 1rem;
+}
+.member-team-list-item .context .team-per-intro span {
+	display: inline-block;
+	width: 5rem;
+	margin-right: 3rem;
+}
+.member-team-list-item .context .team-per-ins span {
+	display: inline-block;
+	width: 5rem;
+	margin-right: 3rem;
+	font-size: 1.4375rem;
+	color: #999999;
+}
+.context .team-per-ins i {
+	font-style: normal;
+	padding-left: .5rem;
+}
+/*团队模态框*/
+.member-team-modal {
+	display: none !important;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.55);
+	position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+}
+.member-team-modal-title {
+	height: 5.3125rem;
+	line-height: 5.3125rem;
+	font-size: 1.625rem;
+}
+.member-team-modal-body {
+	padding-bottom: 2.1875rem;
 }

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/module.css" rel="stylesheet" />
+		<link href="css/member.css" rel="stylesheet" />
+		<script src="js/config.js" type="text/javascript"></script>
+	</head>
+
+	<body class="BL-bg-fff">
+		<header id="Js-header" class="BL-bg-fff">
+			<div class="BL-mod-headbar BL-mod-headbar-pos">
+				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+				<h1 class="BL-title">张晓晓</h1>
+			</div>
+		</header>
+		<div id="Js-content" class="mui-content BL-bg-fff">
+			<div class="mui-row member-team-tab-title">
+				<span>承保<i class="BL-col-ff8201">22</i>件</span>
+				<span>标保<i class="BL-col-ff8201">155140.58</i>元</span>
+				<span>活动积分<i class="BL-col-ff8201">922593.02</i></span>
+			</div>
+			<div id="Js-teamtab" class="BL-rel">
+				<table width="100%" class="member-team-tab"> 
+					<thead>
+						<tr>
+							<th width="8%">序号</th>
+							<th width="30%">承保</th>
+							<th width="20%">标保（元）</th>
+							<th width="15%">活动积分</th>
+							<th width="20%">日期</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>恒久健康终身重大疾病保险2017</td>
+							<td class="BL-col-3b9cf5">9995.25</td>
+							<td class="BL-col-3b9cf5">745.01</td>
+							<td>2018-11-20</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>恒久健康终身重大疾病保险2017</td>
+							<td class="BL-col-3b9cf5">9995.25</td>
+							<td class="BL-col-3b9cf5">745.01</td>
+							<td>2018-11-20</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>恒久健康终身重大疾病保险2017</td>
+							<td class="BL-col-3b9cf5">9995.25</td>
+							<td class="BL-col-3b9cf5">745.01</td>
+							<td>2018-11-20</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>恒久健康终身重大疾病保险2017</td>
+							<td class="BL-col-3b9cf5">9995.25</td>
+							<td class="BL-col-3b9cf5">745.01</td>
+							<td>2018-11-20</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		mui.init();
+		
+		(function($){
+			//阻尼系数
+			var deceleration = mui.os.ios ? 0.003 : 0.0009;
+			$('#Js-cmistab .mui-scroll-wrapper').scroll({
+				bounce: true,
+				indicators: false, //是否显示滚动条
+				deceleration: deceleration
+			});
+			
+			$.plusReady(function() {
+				statusbar();
+				var winH = window.innerHeight;
+//				var titHeight = document.querySelector('#Js-header').offsetHeight;
+				var divHeight = document.querySelector('#Js-cmisFilter').offsetHeight;
+				document.querySelector('#Js-cmistab').style.height = winH - divHeight + 'px';
+				//document.querySelector('#Js-list').style.height = (winH - topHeight - mainHeight) + 'px';
+
+			});	
+		}(mui));
+	</script>
+</html>

@@ -22,14 +22,14 @@
 
 		<div id="Js-content" class="mui-content">
 			<!------------条件筛选 begin------------->
-			<div id="Js-cmisFilter" class="cmis-list-filter BL-bg-fff">
+			<div id="Js-cmisFilter" class="member-list-filter BL-bg-fff">
 				<!--日期筛选 begin-->
-				<div class="cmis-date">
-					<div class="BL-ub BL-ub-ac cmis-date-select">
-						<a class="cmis-date-item">全部</a>
-						<a class="cmis-date-item">七天</a>
-						<a class="cmis-date-item">一个月</a>
-						<a class="BL-ub BL-ub-ac BL-ub-pc cmis-date-filter mui-active">
+				<div class="member-date">
+					<div class="BL-ub BL-ub-ac member-date-select">
+						<a class="member-date-item">全部</a>
+						<a class="member-date-item">七天</a>
+						<a class="member-date-item">一个月</a>
+						<a class="BL-ub BL-ub-ac BL-ub-pc member-date-filter mui-active">
 							筛选
 							<div class="BL-ub BL-ub-ver">
 								<i class="date-filter-ico"></i>
@@ -103,7 +103,7 @@
 				indicators: false, //是否显示滚动条
 				deceleration: deceleration
 			});
-			$.ready(function() {
+			$.plusReady(function() {
 				statusbar();
 				var winH = window.innerHeight;
 				var titHeight = document.querySelector('#Js-header').offsetHeight;

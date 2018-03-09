@@ -149,12 +149,47 @@
 }
 
 
+.BL-bg-ebf5fe{
+	background-color: #ebf5fe !important;
+}
+
+.BL-bg-3b9cf5{
+	background-color: #3b9cf5 !important;
+}
+
 /* 按钮(base样式) = BL-btn[bgColor, border, border-radius, color, font-size, min-height, padding] */
 
 .BL-btn {
 	background-color: #6cc6ff;
 	border: 1px solid #ccc;
 	border-radius: .3125em;
+	font-size: 1rem;
+	min-height: 2rem;
+	padding: 0 0.5rem;
+}
+.BL-btn-white {
+	background-color: #fff;
+	border: 1px solid #3b9cf5;
+	border-radius: .3125em;
+	color: #3b9cf5;
+	font-size: 1rem;
+	min-height: 2rem;
+	padding: 0 0.5rem;
+}
+.BL-btn-blue {
+	background-color: #3b9cf5;
+	border: 1px solid #3b9cf5;
+	border-radius: .3125em;
+	color: #fff;
+	font-size: 1rem;
+	min-height: 2rem;
+	padding: 0 0.5rem;
+}
+.BL-btn-gray {
+	background-color: #f2f2f2;
+	border: 1px solid #f2f2f2;
+	border-radius: .3125em;
+	color: #000;
 	font-size: 1rem;
 	min-height: 2rem;
 	padding: 0 0.5rem;
@@ -223,9 +258,7 @@
 .BL-col-3b9cf5 {
 	color: #3b9cf5 !important;
 }
-.BL-col-ff8201 {
-	color: #ff8201 !important;
-}
+
 
 /* 圆弧角  = BL-radiu-[a(全部), l-(左), lr-(左右), r-(右), t-(上), tb-(上下), b-(下)] */
 

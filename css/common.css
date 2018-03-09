@@ -413,6 +413,9 @@
 .BL-overFlow-autoY{
 	overflow-y: auto;
 }
+.BL-overFlow-hiddenX{
+	overflow-x: hidden;
+}
 
 /* 修改mui默认行高 */
 select,
@@ -449,13 +452,13 @@ input[type='color']{
 
 /* 元素中的文本的水平对齐方式  = BL-txt-[c(居中), l-(左), r-(右)*/
 .BL-txt-c {
-	text-align: center;
+	text-align: center !important;
 }
 
 .BL-txt-l {
-	text-align: left;
+	text-align: left !important;
 }
 
 .BL-txt-r {
-	text-align: right;
+	text-align: right !important;
 }

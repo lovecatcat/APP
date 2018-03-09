@@ -14,18 +14,18 @@
 
 	<body class="BL-bg-f2f">
 		<header id="Js-header" style="position: fixed;left: 0;top: 0;width: 100%;z-index: 99;">
-			<div class="BL-mod-headbar" style="border-bottom: none">
+			<div class="BL-mod-headbar BL-mod-headbar-pos BL-noBorder-b">
 				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
 				<h1 class="BL-title BL-col-fff">账户信息</h1>
 			</div>
 		</header>
 
-		<div id="Js-content" class="mui-content" style="padding-bottom: 0;">
+		<div id="Js-content" class="mui-content">
 			<div class="mui-scroll-wrapper">
 				<div class="mui-scroll">
 					<div class="member-cmis-banner BL-txt-c">
 						<div class="member-cmis-extract">
-							<p class="member-cmis-txt">可提取（元）</p>
+							<p class="member-cmis-txt">可提取</p>
 							<div class="member-cmis-money BL-col-fff">
 								10000.00
 								<a href="member-commission-extract.html" class="cmis-extract-btn">提取</a>
@@ -34,15 +34,15 @@
 						<div class="mui-row">
 							<div class="mui-col-sm-4 mui-col-xs-4 member-cmis-smallmoney">
 								6000.00
-								<p class="member-cmis-txt">当月累提 (元)</p>
+								<p class="member-cmis-txt">当月累提</p>
 							</div>
 							<div class="mui-col-sm-4 mui-col-xs-4 member-cmis-smallmoney">
 								6000.00
-								<p class="member-cmis-txt">当月实收累计（元）</p>
+								<p class="member-cmis-txt">当月实收累计</p>
 							</div>
 							<div class="mui-col-sm-4 mui-col-xs-4 member-cmis-smallmoney">
 								6000.00
-								<p class="member-cmis-txt">预留（元）</p>
+								<p class="member-cmis-txt">预留</p>
 							</div>
 						</div>
 					</div>
@@ -78,7 +78,7 @@
 					                <p class='list-bottom-txt'>已转账</p>
 					            </div>
 					        </a>
-					    </li> 
+					    </li>
 					</ul>
 				</div>
 			</div>
@@ -91,11 +91,15 @@
 			//阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
 			$('#Js-content .mui-scroll-wrapper').scroll({
-				bounce: true,
+				scrollY: true, //是否竖向滚动
+				scrollX: false, //是否横向滚动
+				startX: 0, //初始化时滚动至x
+				startY: 0, //初始化时滚动至y
 				indicators: false, //是否显示滚动条
-				deceleration: deceleration
+				deceleration: 0.0001, //阻尼系数,系数越小滑动越灵敏
+				bounce: false //是否启用回弹
 			});
-			$.ready(function() {
+			$.plusReady(function() {
 				statusbar();
 				var winH = window.innerHeight;
 				var titHeight = document.querySelector('#Js-header').offsetHeight;

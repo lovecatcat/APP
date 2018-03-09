@@ -1,0 +1,299 @@
+{
+	"index.html": {
+		"resources": [
+			"images/icon/nav-index.png",
+			"css/module.css",
+			"images/icon/nav-user.png",
+			"images/icon/nav-prospect.png",
+			"images/icon/nav-user-active.png",
+			"images/icon/nav-index-active.png",
+			"images/icon/nav-discover.png",
+			"js/mui.min.js",
+			"css/common.css",
+			"index-content.html",
+			"css/mui.css",
+			"js/config.js",
+			"images/icon/nav-prospect-active.png",
+			"images/icon/nav-discover-active.png"
+		],
+		"refer": [
+			"news.html",
+			"member.html",
+			"prospect.html",
+			"index-content.html"
+		]
+	},
+	"news.html": {
+		"resources": [
+			"css/news.css",
+			"js/webviewGroup.js",
+			"images/icon/ico-search.png",
+			"news-all.html",
+			"css/module.css",
+			"css/common.css",
+			"css/mui.css"
+		],
+		"refer": [
+			"news-tv-detail.html",
+			"news-detail.html",
+			"news-all.html",
+			"news-cloud.html"
+		]
+	},
+	"member.html": {
+		"resources": [
+			"images/icon/member-ico1.png",
+			"images/icon/member-team.png",
+			"fonts/mui.ttf",
+			"images/pic/p3.jpg",
+			"images/icon/member-ico2.png",
+			"images/icon/member-profile.png",
+			"images/icon/member-renewal.png",
+			"images/icon/member-duty.png",
+			"images/icon/member-integ.png",
+			"images/icon/member-calcu.png",
+			"images/icon/member-insure.png",
+			"images/icon/member-birthday.png",
+			"images/member/index-bg.jpg",
+			"images/icon/member-commission.png",
+			"images/icon/member-receive.png",
+			"css/member.css",
+			"css/mui.css",
+			"css/module.css",
+			"css/common.css"
+		],
+		"refer": [
+			"member-commission-account.html",
+			"member-team.html"
+		]
+	},
+	"news-tv-detail.html": {
+		"resources": [
+			"js/mui.zoom.js",
+			"images/pic/p10.jpg",
+			"css/news.css",
+			"images/icon/ico-eye1.png",
+			"images/icon/ico-good.png",
+			"js/mui.previewimage.js",
+			"images/pic/p7.jpg",
+			"css/mui.css",
+			"css/module.css",
+			"css/common.css",
+			"images/icon/ico-share.png"
+		]
+	},
+	"member-commission-account.html": {
+		"resources": [
+			"images/icon/ico-cmis-income.png",
+			"images/icon/ico-cmis-count.png",
+			"images/icon/ico-cmis-expand.png",
+			"css/member.css",
+			"css/mui.css",
+			"css/form.css",
+			"member-commission-extract.html",
+			"member-commission-income.html",
+			"member-commission-applylist.html",
+			"member-commission-detail.html",
+			"member-commission-countlist.html",
+			"css/module.css",
+			"css/common.css"
+		],
+		"refer": [
+			"member-commission-extract.html",
+			"member-commission-income.html",
+			"member-commission-applylist.html",
+			"member-commission-detail.html",
+			"member-commission-countlist.html"
+		]
+	},
+	"news-detail.html": {
+		"resources": [
+			"js/mui.zoom.js",
+			"css/news.css",
+			"images/icon/ico-eye1.png",
+			"images/icon/ico-good.png",
+			"js/mui.previewimage.js",
+			"images/icon/ico-share.png",
+			"css/mui.css",
+			"images/pic/p9.jpg",
+			"css/module.css",
+			"css/common.css"
+		]
+	},
+	"prospect.html": {
+		"resources": [
+			"css/prospect.css",
+			"css/module.css",
+			"css/common.css",
+			"css/mui.css"
+		]
+	},
+	"index-content.html": {
+		"resources": [
+			"images/pic/p0.jpg",
+			"images/icon/index-ico2.png",
+			"images/index/ico-2.png",
+			"images/index/ico-3.png",
+			"images/icon/index-ico7.png",
+			"fonts/mui.ttf",
+			"images/icon/index-ico3.png",
+			"images/icon/index-ico5.png",
+			"images/icon/ico-search.png",
+			"images/icon/sign.png",
+			"images/icon/index-ico6.png",
+			"images/pic/p11.jpg",
+			"images/icon/index-ico8.png",
+			"images/icon/index-ico4.png",
+			"css/index.css",
+			"images/icon/index-ico1.png",
+			"images/index/ico-4.png",
+			"images/icon/ico-ring.png",
+			"images/index/ico-1.png",
+			"css/mui.css",
+			"css/module.css",
+			"css/common.css"
+		],
+		"refer": [
+			"product.html"
+		]
+	},
+	"news-all.html": {
+		"resources": [
+			"js/mui.pullToRefresh.js",
+			"css/news.css",
+			"js/mui.pullToRefresh.material.js",
+			"images/pic/p7.jpg",
+			"css/mui.css",
+			"css/module.css",
+			"css/common.css"
+		]
+	},
+	"member-commission-extract.html": {
+		"resources": [
+			"css/member.css",
+			"css/mui.css",
+			"css/form.css",
+			"member-commission-account.html",
+			"css/module.css",
+			"css/common.css"
+		],
+		"refer": [
+			"member-commission-account.html"
+		]
+	},
+	"member-commission-income.html": {
+		"resources": [
+			"css/news.css",
+			"member-commission-account.html",
+			"commission-first.html",
+			"css/mui.css",
+			"css/member.css"
+		],
+		"refer": [
+			"member-commission-account.html",
+			"commission-first.html"
+		]
+	},
+	"commission-first.html": {
+		"resources": [
+			"css/mui.css",
+			"images/icon/ico-filter-active.png",
+			"css/member.css"
+		]
+	},
+	"member-commission-applylist.html": {
+		"resources": [
+			"member-commission-account.html",
+			"css/product.css",
+			"images/icon/ico-filter-active.png",
+			"css/mui.css"
+		],
+		"refer": [
+			"member-commission-account.html"
+		]
+	},
+	"member-commission-detail.html": {
+		"resources": [
+			"member-commission-account.html",
+			"css/mui.css",
+			"css/form.css",
+			"css/member.css"
+		],
+		"refer": [
+			"member-commission-account.html"
+		]
+	},
+	"member-commission-countlist.html": {
+		"resources": [
+			"member-commission-account.html",
+			"css/product.css",
+			"images/icon/ico-filter-active.png",
+			"css/mui.css"
+		],
+		"refer": [
+			"member-commission-account.html"
+		]
+	},
+	"member-team.html": {
+		"resources": [
+			"css/mui.css",
+			"news-cloud.html",
+			"member-team-prospectus.html",
+			"css/module.css",
+			"css/common.css"
+		],
+		"refer": [
+			"news-cloud.html",
+			"news-business.html",
+			"news-cream.html",
+			"news-finance.html",
+			"member-team-prospectus.html",
+			"member-team-performance.html"
+		]
+	},
+	"news-cloud.html": {
+		"resources": [
+			"css/news.css",
+			"css/mui.css"
+		]
+	},
+	"product.html": {
+		"resources": [
+			"images/product/menu-prospect.png",
+			"images/pic/p6.jpg",
+			"css/product.css",
+			"images/icon/ico-up-active.png",
+			"images/product/ico-new.png",
+			"images/icon/ico-filter-active.png",
+			"images/icon/ico-down.png",
+			"images/product/menu-pk.png",
+			"css/mui.css",
+			"images/product/ico-hot.png"
+		],
+		"refer": [
+			"product-detail.html",
+			"product-contrast.html"
+		]
+	},
+	"news-business.html": {
+		"resources": [
+			"css/news.css",
+			"css/mui.css"
+		]
+	},
+	"member-team-prospectus.html": {
+		"resources": [
+			"images/icon/ico-filter-active.png",
+			"css/member.css",
+			"css/mui.css"
+		]
+	},
+	"member-team-performance.html": {
+		"resources": [
+			"images/pic/p12.png",
+			"images/icon/ico-down.png",
+			"css/mui.css",
+			"css/member.css"
+		]
+	}
+}

@@ -1,10 +1,13 @@
 var webviewGroup = function(id, options) {
+	var isDragobj = {'isDrag':true};
+	var options = mui.extend(isDragobj, options);
 	this.id = id;
 	this.options = options;
 	this.styles = options.styles;
 	this.topHeight = options.topHeight;
 	this.viewHeight = options.viewHeight;
 	this.items = options.items;
+	this.isDrag = options.isDrag;
 	this.onChange = options.onChange
 
 	this.options.index = options.index || 0;
@@ -13,6 +16,10 @@ var webviewGroup = function(id, options) {
 	this.webviewContexts = {};
 	this.currentWebview = false;
 	this._init();
+	
+	console.log(JSON.stringify(options));
+	
+	
 };
 
 var proto = webviewGroup.prototype;
@@ -101,11 +108,12 @@ proto._dragCallback = function(dir, fromWebview, view, viewId) {
 
 proto._initDrag = function(webview, dir) {
 	var flag = ('__mui_drag_' + dir + '_flag');
+	var isDrag = this.isDrag;
 	if(webview[flag]) {
 		return;
 	}
 	var viewId = webview['__mui_' + (dir === 'left' ? 'right' : 'left')];
-	if(viewId) {
+	if(viewId && isDrag) {
 		var view = plus.webview.getWebviewById(viewId);
 		if(!view) { //如果目标webview不存在,使用nativeView替换
 			view = this.nativeView;

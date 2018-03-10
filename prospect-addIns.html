@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/module.css" rel="stylesheet" />
+		<link href="css/form.css" rel="stylesheet" />
+		<script src="js/config.js" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+	</head>
+	
+	<body class="BL-bg-f2f">
+		
+		<header id="Js-header" class="BL-bg-fff">
+			<div class="BL-mod-headbar BL-mod-headbar-pos">
+				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+				<h1 class="BL-title">编辑险种</h1>
+			</div>
+		</header>
+		
+		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
+			<ul class="mui-table-view form-list-cell">
+				<li class="fItem BL-ub BL-ub-f1">
+					<label class="form-list-label">公司品牌</label>
+					<div class="form-list-control">
+						<select>
+							<option>投保</option>
+							<option>不投保</option>
+						</select>
+					</div>
+					<div class="form-list-icon">
+						<div class="mui-icon mui-icon-arrowright"></div>
+					</div>
+				</li>
+				<li class="fItem BL-ub BL-ub-f1">
+					<label class="form-list-label">险种</label>
+					<div class="form-list-control">
+						<select>
+							<option>投保</option>
+							<option>不投保</option>
+						</select>
+					</div>
+					<div class="form-list-icon">
+						<div class="mui-icon mui-icon-arrowright"></div>
+					</div>
+				</li>
+				<li class="fItem BL-ub BL-ub-f1">
+					<label class="form-list-label">保险期间</label>
+					<div class="form-list-control">
+						<select>
+							<option>投保</option>
+							<option>不投保</option>
+						</select>
+					</div>
+					<div class="form-list-icon">
+						<div class="mui-icon mui-icon-arrowright"></div>
+					</div>
+				</li>
+				<li class="fItem BL-ub BL-ub-f1">
+					<label class="form-list-label">缴费年限</label>
+					<div class="form-list-control">
+						<select>
+							<option>投保</option>
+							<option>不投保</option>
+						</select>
+					</div>
+					<div class="form-list-icon">
+						<div class="mui-icon mui-icon-arrowright"></div>
+					</div>
+				</li>
+				<li class="fItem BL-ub BL-ub-f1">
+					<label class="form-list-label">年缴保费</label>
+					<div class="form-list-control">
+						<input type="text" placeholder="请输入">
+					</div>
+					<div class="form-list-icon">
+						<span class="mui-icon mui-icon-clear"></span>
+					</div>
+				</li>
+				<li class="fItem BL-ub BL-ub-f1">
+					<label class="form-list-label">年缴保费</label>
+					<div class="form-list-control">
+						<input type="text" placeholder="请输入">
+					</div>
+					<div class="form-list-icon">
+						<span class="mui-icon mui-icon-clear"></span>
+					</div>
+				</li>
+				<li class="fItem BL-ub BL-ub-f1">
+					<div class="BL-ub-f3 form-list-label">
+						附加险
+					</div>
+					<div class="form-switch-note" slot="input">
+						<span>是否投保&nbsp;&nbsp;</span>
+					</div>
+					<div class="form-switch-control">
+						<div class="mui-switch mui-switch-mini">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			
+		
+			<div class="form-button-group">
+				<a type="button" class="form-btn" href="auto2c-choose.html" data-wid="auto2c_choose">保存</a>
+			</div>
+		</div>
+	</body>
+	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/mui.picker.min.js"></script>
+	<script type="text/javascript">
+		mui.init();
+		document.querySelector('#document_term').addEventListener('tap', function() {
+			var _self = this;
+			if(_self.picker) {
+				_self.picker.show(function(rs) {
+					console.log('选择结果: ' + rs.text);
+					_self.picker.dispose();
+					_self.picker = null;
+				});
+			} else {
+				var optionsJson = this.getAttribute('data-options') || '{}';
+				var options = JSON.parse(optionsJson);
+				_self.picker = new mui.DtPicker(options);
+				_self.picker.show(function(rs) {
+					console.log('选择结果: ' + rs.text);
+					_self.picker.dispose();
+					_self.picker = null;
+				});
+			}
+		});
+		
+		mui('body').on('tap', 'a', function() {
+			var href = this.getAttribute('href');
+			var id = this.getAttribute("data-wid");
+			
+			if(href && ~href.indexOf('.html')) {
+				//打开新窗口
+				mui.openWindow({
+					url:href,
+					id:id,
+					show:animateObj.aniDetal
+				});
+			}
+
+
+		});
+		
+		mui.plusReady(function() {
+			statusbar();
+			
+			var winH = window.innerHeight;
+			var titHeight = document.querySelector('#Js-header').offsetHeight;
+			
+			document.querySelector('#Js-content').style.height = (winH - titHeight) +'px';	
+		})
+	</script>
+</html>
+

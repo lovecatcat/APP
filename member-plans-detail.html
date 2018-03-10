@@ -34,10 +34,10 @@
 				<!--分类栏目 begin-->
 				<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
 					<div class="mui-scroll">
-						<a data-wid="plans_total.html" class="mui-control-item mui-active">
+						<a data-wid="member-plans-total.html" class="mui-control-item mui-active">
 							<span>汇总</span>
 						</a>
-						<a data-wid="plans_detail.html" class="mui-control-item">
+						<a data-wid="member-plans-alone.html" class="mui-control-item">
 							<span>万年青</span>
 						</a>
 						<a data-wid="news_business.html" class="mui-control-item">
@@ -67,8 +67,8 @@
 		
 		mui.plusReady(function() {
 			mui.preload({ // 预加载资讯详情页
-				url: 'plans-total.html',
-				id: 'plans_total', // id
+				url: 'member-plans-total.html',
+				id: 'member-plans-total', // id
 			});
 			
 			mui.preload({ // 预加载资讯详情页
@@ -88,12 +88,12 @@
 					topHeight: _divH,
 					viewHeight:_viewH,
 					items: [{
-						id: "plans_total.html",
-						url: "plans-total.html",
+						id: "member-plans-total.html",
+						url: "member-plans-total.html",
 						extras: {}
 					}, {
-						id: "plans_detail.html",
-						url: "plans-detail.html",
+						id: "member-plans-alone.html",
+						url: "member-plans-alone.html",
 						extras: {}
 					}, {
 						id: "news_business.html",

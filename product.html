@@ -101,7 +101,7 @@
 						<!--活动中，数据列表-->
 						<ul class="mui-table-view product-list-cell">
 							<li class="cItem">
-								<a data-id="2" data-wid="product_detail" href="product-detail.html" class="BL-ub BL-ub-f1 pro-icon-new">
+								<a data-id="2" data-wid="product_detail" href="product-detail.html" class="BL-ub BL-ub-f1 pro-content pro-icon-new">
 									<div class="img">
 										<img src="images/pic/p6.jpg" />
 									</div>
@@ -115,7 +115,7 @@
 								</a>
 							</li>
 							<li class="cItem">
-								<a data-wid="product_detail" href="product-detail.html" class="BL-ub BL-ub-f1 pro-icon-hot">
+								<a data-wid="product_detail" href="product-detail.html" class="BL-ub BL-ub-f1 pro-content pro-icon-hot">
 									<div class="img">
 										<img src="images/pic/p6.jpg" />
 									</div>
@@ -129,7 +129,7 @@
 								</a>
 							</li>
 							<li class="cItem">
-								<a data-wid="product_detail" href="product-detail.html" class="BL-ub BL-ub-f1">
+								<a data-wid="product_detail" href="product-detail.html" class="BL-ub BL-ub-f1 pro-content">
 									<div class="img">
 										<img src="images/pic/p6.jpg" />
 									</div>
@@ -181,7 +181,7 @@
 				indicators: false, //是否显示滚动条
 				deceleration: deceleration
 			});
-			$.plusReady(function() {
+			$.ready(function() {
 				statusbar();
 				var winH = window.innerHeight;
 				var titHeight = document.querySelector('#Js-header').offsetHeight;
@@ -220,7 +220,7 @@
 					for(var i = 0; i < count; i++) {
 						li = document.createElement('li');
 						li.className = 'cItem';
-						li.innerHTML = '<a data-wid="product_detail" href="products-detail.html" class="BL-ub BL-ub-f1">' +
+						li.innerHTML = '<a data-wid="product_detail" href="products-detail.html" class="BL-ub BL-ub-f1 pro-content">' +
 						'<div class="img"><img src="images/pic/p6.jpg" /></div>' +
 						'<div class="context BL-ub BL-ub-ver BL-ub-f1"><h1 class="tit">横琴优爱宝定期寿险</h1>' +
 						'<div class="text">月12日11时，中央纪委发布消息，“河北省人大常委会副主任张杰辉涉嫌严重违纪</div>' +

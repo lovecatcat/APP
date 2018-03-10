@@ -5,6 +5,13 @@
 **/
 
 
+/* 重置页面标签样式  */
+ul, li{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
 /* 弹性盒子模型(base样式) */
 
 .BL-vp {
@@ -149,12 +156,47 @@
 }
 
 
+.BL-bg-ebf5fe{
+	background-color: #ebf5fe !important;
+}
+
+.BL-bg-3b9cf5{
+	background-color: #3b9cf5 !important;
+}
+
 /* 按钮(base样式) = BL-btn[bgColor, border, border-radius, color, font-size, min-height, padding] */
 
 .BL-btn {
 	background-color: #6cc6ff;
 	border: 1px solid #ccc;
 	border-radius: .3125em;
+	font-size: 1rem;
+	min-height: 2rem;
+	padding: 0 0.5rem;
+}
+.BL-btn-white {
+	background-color: #fff;
+	border: 1px solid #3b9cf5;
+	border-radius: .3125em;
+	color: #3b9cf5;
+	font-size: 1rem;
+	min-height: 2rem;
+	padding: 0 0.5rem;
+}
+.BL-btn-blue {
+	background-color: #3b9cf5;
+	border: 1px solid #3b9cf5;
+	border-radius: .3125em;
+	color: #fff;
+	font-size: 1rem;
+	min-height: 2rem;
+	padding: 0 0.5rem;
+}
+.BL-btn-gray {
+	background-color: #f2f2f2;
+	border: 1px solid #f2f2f2;
+	border-radius: .3125em;
+	color: #000;
 	font-size: 1rem;
 	min-height: 2rem;
 	padding: 0 0.5rem;
@@ -219,14 +261,9 @@
 .BL-col-ff8201 {
 	color: #ff8201 !important;
 }
-.BL-col-febe14 {
-	color: #febe14 !important;
-}
+
 .BL-col-3b9cf5 {
 	color: #3b9cf5 !important;
-}
-.BL-col-red {
-	color: red !important;
 }
 .BL-col-ff8201 {
 	color: #ff8201 !important;
@@ -294,10 +331,7 @@
 	padding-left: 1.5rem;
 	padding-right: 1.5rem;
 }
-.BL-pad-lr-1_25{
-	padding-left: 1.25rem;
-	padding-right: 1.25rem;
-}
+
 .BL-pad-lr-2 {
 	padding-left: 2rem;
 	padding-right: 2rem;
@@ -385,17 +419,13 @@
 .BL-mar-t-1 {
 	margin-top: 1rem;
 }
-.BL-mar-t-3 {
-	margin-top: 3rem;
-}
 .BL-mar-b-1 {
 	margin-bottom: 1rem;
 }
 .BL-mar-b-2 {
 	margin-bottom: 2rem;
 }
-.BL-mar-t-b-2{margin-top: 2rem;margin-bottom: 2rem;}
-.BL-text-indent{text-indent: 2rem;}
+
 
 /* 重写mui加载更多样式 */
 
@@ -425,6 +455,9 @@
 .BL-overFlow-autoY{
 	overflow-y: auto;
 }
+.BL-overFlow-hiddenX{
+	overflow-x: hidden;
+}
 
 /* 修改mui默认行高 */
 select,
@@ -451,6 +484,7 @@ input[type='color']{
 	text-align: right;
 }
 
+
 /* 详情内容样式 */
 .BL-pasual{
 	font-size: 1.4375rem;
@@ -460,13 +494,13 @@ input[type='color']{
 
 /* 元素中的文本的水平对齐方式  = BL-txt-[c(居中), l-(左), r-(右)*/
 .BL-txt-c {
-	text-align: center;
+	text-align: center !important;
 }
 
 .BL-txt-l {
-	text-align: left;
+	text-align: left !important;
 }
 
 .BL-txt-r {
-	text-align: right;
+	text-align: right !important;
 }

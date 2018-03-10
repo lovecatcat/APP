@@ -40,6 +40,7 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'] {
     padding: 1.5rem 0rem;
     color: #333333;
 }
+.fItem .form-list-label.indent{padding: 1.5rem 0 1.5rem 1.5rem;}
 .fItem .form-list-label i {
 	font-size: 1.4375rem;
 	font-style: normal;
@@ -333,3 +334,4 @@ input[type='text']:-ms-input-placeholder { /* Internet Explorer 10-11 */
 }
 /*条款*/
 .form-clause p{font-size: 1.3125rem;line-height: 1.875rem;color: #333;}
+.form-cal{font-size: 1.625rem;color: #3b9cf5;display: block;border-left: 1px solid #3b9cf5;padding-left: 1rem;}

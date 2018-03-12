@@ -1,4 +1,42 @@
 
+/*公共*/
+.BL-ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
+.BL-ul li{
+	height: 3.125rem;
+	line-height: 3.125rem;
+	border: 1px solid #e7e7e7;
+}
+.BL-ul li:first-child{
+	border-bottom: none;
+}
+.BL-ul li span{
+	display: inline-block;
+	float: left;
+	box-sizing: border-box;
+	width: 25%;
+	border-right: 1px solid #e7e7e7; 
+}
+.BL-ftz-42{
+	font-size: 1.3125rem;
+}
+.BL-ftz-46{
+	font-size: 1.4375rem;
+}
+.BL-ftz-52{
+	font-size: 1.625rem;
+}
+.BL-border-b{
+	border-bottom: 1px solid #e7e7e7;
+}
+/*清除浮动代码*/ 
+.clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0} 
+.clearfloat{zoom:1} 
+
 /* 列表筛选——搜索框 */
 .search-pro{
 	margin-left: 3rem !important;
@@ -38,10 +76,7 @@
 .plan-list .plan-list-cell{
 	padding-left: 1.25rem	
 }
-/*.plan-list .plan-list-cell .cItem{
-	border-bottom: 1px solid #e7e7e7;
-	padding: 1.25rem 1.25rem 1.25rem 0;
-}*/
+
 .plan-list .plan-list-cell .cItem{
 	border-bottom: 1px solid #e7e7e7;
 	padding: 1.25rem 1.25rem 1.25rem 0;
@@ -118,40 +153,6 @@
 	font-size: 1.625rem;	
 }
 
-/*公共*/
-.BL-ul{
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	text-align: center;
-}
-.BL-ul li{
-	height: 3.125rem;
-	line-height: 3.125rem;
-	border: 1px solid #e7e7e7;
-}
-.BL-ul li:first-child{
-	border-bottom: none;
-}
-.BL-ul li span{
-	display: inline-block;
-	float: left;
-	box-sizing: border-box;
-	width: 25%;
-	border-right: 1px solid #e7e7e7; 
-}
-.BL-ftz-42{
-	font-size: 1.3125rem;
-}
-.BL-ftz-46{
-	font-size: 1.4375rem;
-}
-.BL-ftz-52{
-	font-size: 1.625rem;
-}
-/*清除浮动代码*/ 
-.clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0} 
-.clearfloat{zoom:1} 
 
 /*计划书汇总*/
 
@@ -255,4 +256,158 @@ table tbody tr td{
 	height: 2.4rem;
 	background: url(../images/icon/phone.png) no-repeat;
 	background-size: cover;
+}
+
+/*计划书制作/*/
+/* 列表——导航 */
+.BL-segmented-control.mui-scroll-wrapper{
+	border-bottom: 1px solid #e7e7e7;
+}
+.BL-segmented-control.mui-scroll-wrapper, .BL-segmented-control.mui-scroll-wrapper .mui-scroll{
+	height: 4.25rem;
+}
+.BL-segmented-control .mui-control-item {
+	line-height: 0rem !important;
+	padding: 0 1.25rem !important;
+}
+.BL-segmented-control .mui-control-item span{
+	display: inline-block;
+	line-height: 4.0625rem;
+	padding: 0 .53125rem;
+	border-bottom: 0.1875rem solid #ffffff !important;
+}
+.BL-segmented-control .mui-control-item i{
+	font-size: 1.9rem;
+    line-height: 1.5rem;
+    color: #bfbfbf;
+    border: none;
+}
+.BL-segmented-control .mui-control-item.mui-active{
+	border-bottom: 0 none !important;
+}
+.BL-segmented-control .mui-control-item.mui-active span{
+	color: #3b9cf5 !important;
+	border-bottom: 0.1875rem solid #3b9cf5 !important;
+}
+
+/*投保人信息*/
+.prospect-info .title{
+	height: 4.8125rem;
+	
+}
+.prospect-info .title:before{
+	content: '';
+	display: inline-block;
+	position: absolute;
+	height: 2.8125rem;
+	border-left: 5px solid #3B9CF5;
+}
+.prospect-info .title div{
+	font-size: 1.625rem;
+}
+.prospect-info .title button{
+	height: 2.6875rem;
+	line-height: 2.6875rem;
+}
+.prospect-info .title .BL-abs{
+	right: 1.5rem;
+	font-size: 1.4375rem;
+}
+.prospect-info .title button span{
+	float: left;
+}
+.displace-icon{
+	display: inline-block;
+	float: left;
+	background: url(../images/icon/icon-displace.png) center no-repeat;
+    background-size: 2rem;
+    top: 0;
+    width: 2rem;
+    height: 100%;
+    margin: 0 .5rem;
+}
+
+/*输入框 同在线投保*/
+.prospect-info .main{
+	font-size: 1.625rem;
+}
+.input-item {
+	margin: 1.5rem 0;
+}
+.input-item label{
+	display: block;
+	width: 30%;
+    line-height: 2.9375rem;
+    font-size: 1.625rem;
+}
+.input-wrap {
+    position: relative;
+    width: 50%;
+}
+.input-wrap input {
+	height: 2.9375rem;
+    border: 1px solid #c8c8c8;
+    border-radius: .3125rem;
+    text-align: left;
+    padding-left: 1rem;
+font-size: 1.625rem;
+}
+.input-wrap-planName input{
+	height: 2.9375rem;
+	border: none;
+	text-align: right;
+	padding-right: 3rem;
+}
+.form-clear-icon {
+    position: absolute;
+    right: .5rem;
+    top: 0;
+}
+.form-clear-icon .mui-icon {
+    font-size: 1.9rem;
+    color: #bfbfbf;
+    line-height: 2.9375rem;
+}
+.address-icon {
+    background: url(../images/icon/icon-users.png) center no-repeat;
+    background-size: 2rem;
+}
+.right-orange-btn {
+    width: 16%;
+    position: absolute;
+    right: 0rem;
+    height: 2.9375rem;
+    line-height: 2.9375rem;
+    font-size: 1.125rem;
+    border: 1px solid #ff9212;
+    border-radius: .3125rem;
+    color: #ff9212;
+    text-align: center;
+}
+.box-f-1 {
+    -moz-box-flex: 1.0;
+    -webkit-box-flex: 1.0;
+    -ms-flex: 1.0;
+    box-flex: 1.0;
+}
+
+.input-item button{
+	height: 2.9375rem;
+	line-height: 2.9375rem;
+	font-size: 1.625rem;
+	padding: 0 2.5rem;
+}
+.ins-date-icon {
+    background: url(../images/icon/icon-datepicker.jpg) center no-repeat;
+    background-size: 2rem;
+    position: absolute;
+    right: 1rem;
+    top: 0;
+    width: 2rem;
+    height: 100%;
+}
+.prospect-info-button{
+	float: right;
+	height: 2.6878rem;
+	margin-right: 1.5rem;
 }

@@ -1,7 +1,7 @@
 /* 表单列表 */
 select, textarea, input[type='text'], input[type='number'], input[type='date'] {
     font-size: 1.625rem;
-    height: 4.5rem;
+    height: 5.3rem;
 }
 
 .form-list-cell {
@@ -40,6 +40,7 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'] {
     padding: 1.5rem 0rem;
     color: #333333;
 }
+.fItem .form-list-label.indent{padding: 1.5rem 0 1.5rem 1.5rem;}
 .fItem .form-list-label i {
 	font-size: 1.4375rem;
 	font-style: normal;
@@ -143,6 +144,7 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'] {
 .mui-table-view-radio .mui-table-view-cell:after {
     left: 1.5rem;
 }
+.mui-content > .mui-table-view:first-child{margin-top: 1rem;}
 
 .mui-table-view-radio .mui-table-view-cell .mui-navigate-right:after {
     font-size: 3rem;
@@ -179,9 +181,6 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'] {
     padding-right: 4.75rem;
 }
 
-.fItem.label-mul-line .form-list-control {
-}
-
 .chevron-edit {
     position: absolute;
     right: 2.625rem;
@@ -204,7 +203,7 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'] {
     background: url(../images/icon/icon-del.png) center no-repeat;
     background-size: 1.9375rem 1.9rem;
 }
-
+.mui-col-sm-12 .form-upload{height: 17.25rem;background: url(../images/icon/icon-plus.png) center no-repeat #fff;border:1px solid #b7b4b4;background-size: 5.78125rem;}
 .form-upload {
     background: url(../images/icon/icon-upload.png) center no-repeat;
     background-size: contain;
@@ -243,6 +242,11 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'] {
     height: 2.625rem;
     border-radius: 4rem;
 }
+/*手机验证码*/
+.fItem .form-list-label.form-code{padding:0;}
+.form-code input{text-align: left!important;}
+.form-list-btn{font-size: 1.4375rem;border-radius: .5rem;padding: .8725rem 1.3125rem;background-color: #eee;}
+.list-btn-blue{background-color: #3b9cf5;color:#fff;}
 /*输入框提示文字*/
 input[type='text']::-webkit-input-placeholder { /* WebKit, Blink, Edge */
    color:   #999999;
@@ -308,9 +312,14 @@ input[type='text']:-ms-input-placeholder { /* Internet Explorer 10-11 */
 .form-list-brief {
 	font-size: 1.4375rem;
 }
+.mui-h5, h5{font-size: 1.4375rem;margin-bottom: 1rem;}
+.mui-h4, h4{margin-bottom: 1rem;font-weight: normal}
+.mui-table-view-condensed .mui-table-view-cell{padding: 1rem 1.5rem;}
+.form-under-btn{padding: 1rem 1.5rem;overflow: hidden;}
+.under-btn{border-radius: 2.5rem;color: #3b9cf5;border-color: #3b9cf5;margin-left: 2rem;text-align: center;font-size: 1.25rem;padding: .6rem 1.5rem;float: right}
 /*表单按钮*/
 .form-button-group {
-	padding: 1rem 1.5rem;
+	padding: 2rem 1.5rem;
 }
 .form-button-group .form-btn {
 	display: block;
@@ -323,3 +332,6 @@ input[type='text']:-ms-input-placeholder { /* Internet Explorer 10-11 */
     border-radius: .625rem;
     text-align: center;
 }
+/*条款*/
+.form-clause p{font-size: 1.3125rem;line-height: 1.875rem;color: #333;}
+.form-cal{font-size: 1.625rem;color: #3b9cf5;display: block;border-left: 1px solid #3b9cf5;padding-left: 1rem;}

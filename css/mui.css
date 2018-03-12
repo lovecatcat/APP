@@ -4747,12 +4747,6 @@ body > .mui-progressbar
             transform: translate(16px, 0);
 }
 
-.mui-switch-blue.mui-active
-{
-    border: 2px solid #007aff;
-    background-color: #007aff;
-}
-
 .mui-content.mui-fade
 {
     left: 0;

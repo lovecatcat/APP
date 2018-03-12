@@ -657,3 +657,274 @@
 .member-team-modal-body {
 	padding-bottom: 2.1875rem;
 }
+
+/* 考勤打卡  */
+.member-duty-perinfo {
+	padding: 1.4687rem 1.5rem;
+}
+.member-duty-perinfo .img{
+	width: 5.65625rem;
+	height: 5.65625rem;
+	margin-right: 1rem;
+}
+.member-duty-perinfo .img img {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+.member-duty-perinfo .context .name{
+	font-size: 1.6275rem;
+	padding-bottom: .5rem;
+}
+.member-duty-perinfo .context .other {
+	font-size: 1.4375rem;
+}
+.member-duty-perinfo .context .other>span:last-child {
+	float: right;
+}
+.member-duty-perinfo .context .week {
+	padding-left: .2rem;
+}
+.member-duty-content {
+	padding: 2.1875rem 1.5rem;
+}
+.member-duty-btn {
+	display: flex;
+	width: 15.625rem;
+	height: 15.625rem;
+	margin: 0rem auto;
+	border-radius: 50%;
+	border: 1.3125rem solid transparent;
+	text-align: center;
+	justify-content: center;
+	flex-direction: column;
+}
+.member-duty-btn.duty-in {
+	border-color: #D9ECFB;
+	background-color: #3B9CF5;
+}
+.member-duty-btn.duty-out {
+	border-color: #DDE4F3;
+	background-color: #9AAAC4;
+}
+.member-duty-btn .duty-type {
+	font-size: 1.75rem;
+	color: #ffffff;
+}
+.member-duty-btn .duty-time {
+	font-size: 1.3125rem;
+	color: #cccccc;
+}
+.member-duty-content .duty-tip {
+	color: #999999;
+	font-size: 1.4375rem;
+	padding-bottom: .5rem;
+}
+.member-duty-content .duty-tip .member-duty-wifi {
+	display: inline-block;
+	width: 1.46875rem;
+	height: 1.4375rem;
+	background-image: url("../images/icon/ico-duty-wifi.png");
+}
+.member-duty-content .duty-tip .member-duty-address {
+	display: inline-block;
+	width: 1.46875rem;
+	height: 1.4375rem;
+	background-image: url("../images/icon/ico-duty-address.png");
+}
+.member-duty-content .duty-tip .member-duty-hswifi {
+	display: inline-block;
+	width: 1.46875rem;
+	height: 1.4375rem;
+	margin-right: .8rem;
+	background-image: url("../images/icon/ico-duty-hswifi.png");
+}
+.member-duty-content .duty-tip .member-duty-nowifi {
+	display: inline-block;
+	width: 1.46875rem;
+	height: 1.4375rem;
+	margin-right: .8rem;
+	background-image: url("../images/icon/ico-duty-nowifi.png");
+}
+.member-duty-content .duty-tip .duty-updatebtn {
+	display: inline-block;
+	padding: .3rem 1rem;
+	border: 1px solid #3B9CF5;
+	border-radius: .3rem;
+	color: #3B9CF5;
+	font-size: 1.3125rem;
+}
+.member-duty-line {
+	width: 100%;
+	height: 1px;
+	background-color: #dedede;
+	margin: 2rem auto;
+}
+.statsbtn-duty {
+	height: 3.75rem;
+	line-height: 3.75rem;
+	padding: 0rem 2rem;
+	border: 2px solid #3B9CF5;
+	border-radius: .5rem;
+	font-size: 1.4375rem;
+	color: #3B9CF5;
+}
+.duty-status {
+	display: inline-block;
+	width: 6.875rem;
+	height: 2.375rem;
+	margin-right: 1rem;
+	border-radius: 1.5rem;
+	font-size: 1.25rem;
+	color: #ffffff;
+}
+.duty-normal {
+	background: #3B9CF5;
+}
+.duty-abnormal {
+	background: #ff8201;
+}
+.member-duty-message {
+	color: #999999;
+	font-size: 1.625rem;
+}
+/* 考勤统计 member-duty-  */
+.member-duty-dater {
+	min-height: 10rem;
+	background-color: #ebf5fe;
+}
+.member-duty-dater .schedule-hd {
+	background-color: #ffffff;
+	border-bottom: 1px solid #e7e7e7;
+	padding: 1rem .5rem;
+}
+.member-duty-dater .mui-icon-arrowleft, .member-duty-dater .mui-icon-arrowright{
+	color: #999999;
+	font-size: 2.4rem;
+}
+.member-duty-dater .today {
+	color: #333333;
+	font-size: 1.625rem;
+	text-align: center;
+}
+.member-duty-dater .week-ul{
+	padding-top: 1.5rem;
+}
+.member-duty-dater .schedule-bd{
+	padding-bottom: 1.5rem;
+}
+.member-duty-dater .ul-box{
+	overflow: hidden;
+}
+.member-duty-dater .ul-box>li {
+	font-size: 1.625rem;
+	float: left;
+	width: 14.28%;
+	text-align: center;
+	padding: .5rem 0;
+}
+.member-duty-dater .other-month, .member-duty-dater .dayoff {
+	color: #999999;
+}
+.member-duty-dater .current-month {
+	color: #333333;
+}
+.member-duty-dater .today-style {
+	border-radius: 100%;
+	background: #58d321;
+}
+.member-duty-dater .dayStyle {
+	display: inline-block;
+	border: 2px solid #ebf5fe;
+	width: 3rem;
+	height: 3rem;
+	border-radius: 100%;
+	text-align: center;
+	line-height: 3rem;
+}
+/*.member-duty-dater .current-month>.dayStyle:hover {
+	background: #00BDFF;
+	color: #ffffff;
+}*/
+.member-duty-dater .current-month .dayOn{
+	border-color: #3b9cf5;
+	color: #3b9cf5;	
+}
+.member-duty-dater .current-month .dayLater, .member-duty-dater .current-month .dayLeave, .member-duty-dater .current-month .dayMiss{
+	border-color: #3b9cf5;
+	background-color: #3b9cf5;
+	color: #ffffff;	
+}
+.member-duty-dater .current-month span{
+	position: relative;
+}
+.member-duty-dater .current-month i{
+	position: absolute;
+	left: 50%;
+	bottom: -.7rem;
+	transform: translateX(-50%);
+	border-radius: 100%;
+	width: .5rem;
+	height: .5rem;
+}
+.member-duty-dater .current-month .dayLater i{
+	background-color: #ff9212;
+}
+.member-duty-dater .current-month .dayLeave i{
+	background-color: #e62303;
+}
+.member-duty-dater .current-month .dayMiss i{
+	background-color: #3b9cf5;
+}
+.member-duty-dater .today-flag {
+	background: #00C2B1;
+	color: #fff;
+}
+.member-duty-dater .boxshaw {
+	box-shadow: 2px 2px 15px 2px #e3e3e3;
+}
+.member-duty-dater .selected-style {
+	background: #00BDFF;
+	color: #ffffff;
+}
+.member-duty-context .h1-title{
+	color: #333333;
+	font-size: 1.625rem;
+	padding-left: 1.25rem;
+	margin-bottom: 1rem;
+}
+.member-duty-context .section{
+	border-top: 1px solid #e7e7e7;
+	padding: 1rem 0;	
+}
+.member-duty-context .section-tip{
+	color: #999999;
+	font-size: 1.3125rem;
+	padding-left: 1.25rem;
+}
+.member-duty-context .section .days{
+	color: #3b9cf5;
+	font-size: 1.875rem;
+	margin-bottom: .3rem;
+	text-align: center;
+}
+.member-duty-context .section .decri{
+	color: #333333;
+	font-size: 1.4375rem;
+}
+.member-duty-context .section .decri .done{
+	border-radius: 100%;
+	display: inline-block;
+	width: .75rem;
+	height: .75rem;
+	margin-right: .5rem;
+}
+.member-duty-context .section .decri .done-blue{
+	background-color: #3b9cf5;
+}
+.member-duty-context .section .decri .done-orange{
+	background-color: #ff9212;
+}
+.member-duty-context .section .decri .done-red{
+	background-color: #e62303;
+}

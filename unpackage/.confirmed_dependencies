@@ -64,7 +64,8 @@
 		],
 		"refer": [
 			"member-commission-account.html",
-			"member-team.html"
+			"member-team.html",
+			"member-duty.html"
 		]
 	},
 	"news-tv-detail.html": {
@@ -293,7 +294,27 @@
 			"images/pic/p12.png",
 			"images/icon/ico-down.png",
 			"css/mui.css",
-			"css/member.css"
+			"css/member.css",
+			"js/mui.picker.min.js",
+			"css/mui.picker.min.css"
+		]
+	},
+	"member-duty.html": {
+		"resources": [
+			"images/icon/ico-duty-wifi.png",
+			"images/icon/ico-duty-address.png",
+			"js/moment.min.js",
+			"images/pic/p12.png",
+			"js/vue.min.js",
+			"css/member.css",
+			"css/mui.css",
+			"js/wifi.js",
+			"css/form.css",
+			"css/module.css",
+			"css/common.css",
+			"images/pic/logo.png",
+			"images/icon/ico-duty-hswifi.png",
+			"images/icon/ico-duty-nowifi.png"
 		]
 	}
 }

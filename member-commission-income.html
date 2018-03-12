@@ -106,7 +106,29 @@
 			mui(".mui-scroll").on("tap", ".mui-control-item", function(e) {
 				var wid = this.getAttribute("data-wid");
 				group.switchTab(wid);
-			});			
+			});
+			
+			//主列表点击事件
+			mui('body').on('tap', 'a', function() {
+				var href = this.getAttribute('href');
+				var id = this.getAttribute("data-wid");
+	
+				//非plus环境，直接走href跳转
+				if(!mui.os.plus) {
+					location.href = href;
+					return;
+				};
+	
+				if(href && ~href.indexOf('.html')) {
+					//打开新窗口
+					mui.openWindow({
+						id:id,
+						url:href,
+						show:animateObj.aniDetal
+					});
+				}
+	
+			});
 		})
 		
 	</script>

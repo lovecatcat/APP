@@ -14,7 +14,8 @@
 			"css/mui.css",
 			"js/config.js",
 			"images/icon/nav-prospect-active.png",
-			"images/icon/nav-discover-active.png"
+			"images/icon/nav-discover-active.png",
+			"js/upgrade.js"
 		],
 		"refer": [
 			"news.html",
@@ -65,7 +66,8 @@
 		"refer": [
 			"member-commission-account.html",
 			"member-team.html",
-			"member-duty.html"
+			"member-duty.html",
+			"member-plans-manage.html"
 		]
 	},
 	"news-tv-detail.html": {
@@ -126,7 +128,12 @@
 			"css/prospect.css",
 			"css/module.css",
 			"css/common.css",
-			"css/mui.css"
+			"css/mui.css",
+			"images/icon/icon-users.png",
+			"images/icon/icon-datepicker.jpg",
+			"fonts/mui.ttf",
+			"images/icon/icon-displace.png",
+			"css/plans.css"
 		]
 	},
 	"index-content.html": {
@@ -155,7 +162,8 @@
 			"css/common.css"
 		],
 		"refer": [
-			"product.html"
+			"product.html",
+			"popup.html"
 		]
 	},
 	"news-all.html": {
@@ -315,6 +323,26 @@
 			"images/pic/logo.png",
 			"images/icon/ico-duty-hswifi.png",
 			"images/icon/ico-duty-nowifi.png"
+		]
+	},
+	"member-plans-manage.html": {
+		"resources": [
+			"images/pic/p6.jpg",
+			"css/mui.css",
+			"css/plans.css"
+		]
+	},
+	"popup.html": {
+		"resources": [
+			"css/mui.css"
+		],
+		"refer": [
+			"popup-content.html"
+		]
+	},
+	"popup-content.html": {
+		"resources": [
+			"css/mui.css"
 		]
 	}
 }

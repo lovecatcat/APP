@@ -196,7 +196,8 @@
 					"images/icon/nav-index.png",
 					"images/icon/nav-user-active.png",
 					"images/icon/nav-prospect-active.png",
-					"images/icon/nav-discover-active.png"
+					"images/icon/nav-discover-active.png",
+					"js/upgrade.js"
 				],
 				"refer": [
 					"member.html",
@@ -245,7 +246,8 @@
 				"refer": [
 					"sns.html",
 					"product.html",
-					"ins2c-applicant.html"
+					"ins2c-applicant.html",
+					"popup.html"
 				],
 				"priority": 0
 			},
@@ -403,7 +405,8 @@
 				"refer": [
 					"member-commission-account.html",
 					"member-team.html",
-					"member-duty.html"
+					"member-duty.html",
+					"member-plans-manage.html"
 				],
 				"priority": 0
 			},
@@ -431,7 +434,12 @@
 					"css/prospect.css",
 					"css/module.css",
 					"css/common.css",
-					"css/mui.css"
+					"css/mui.css",
+					"images/icon/icon-users.png",
+					"images/icon/icon-datepicker.jpg",
+					"fonts/mui.ttf",
+					"images/icon/icon-displace.png",
+					"css/plans.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -551,6 +559,31 @@
 					"images/pic/logo.png",
 					"images/icon/ico-duty-hswifi.png",
 					"images/icon/ico-duty-nowifi.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-plans-manage.html": {
+				"resources": [
+					"images/pic/p6.jpg",
+					"css/mui.css",
+					"css/plans.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"popup.html": {
+				"resources": [
+					"css/mui.css"
+				],
+				"refer": [
+					"popup-content.html"
+				],
+				"priority": 0
+			},
+			"popup-content.html": {
+				"resources": [
+					"css/mui.css"
 				],
 				"refer": [],
 				"priority": 0

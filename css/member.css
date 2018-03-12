@@ -513,3 +513,48 @@
 .member-team-modal-body {
 	padding-bottom: 2.1875rem;
 }
+
+/*寿险订单*/
+.fr{
+    float: right;
+}
+.member-warranty-list-item .context{
+    font-size: 1.625rem;
+}
+.member-warranty-list-item .context .context-w-50>span{
+    display: inline-block;
+    float: left;
+    width: 50%;
+}
+.member-warranty-list-item .button>button {
+    height: 2.8125rem;
+    font-size: 1.4375rem;
+}
+/*寿险订单详情*/
+.member-warranty-detail-item{
+    overflow-x: hidden;
+}
+.member-warranty-detail-item>a{
+    padding-left: 1.5rem !important;
+}
+.member-warranty-detail-item .BL-title>span{
+    border-left: .3rem solid #3B9CF5;
+    padding-left: 1rem;
+}
+.member-warranty-detail-item table{
+    width: 100%;
+    font-size: 1.625rem;
+    overflow-x: auto;
+}
+.member-warranty-detail-item table tr>td{
+    border: 1px solid #d2d2d2;
+    padding: 2rem;
+    white-space: nowrap;
+}
+.member-warranty-detail-item table tr>td:first-child{
+    min-width: 30%;
+    text-align: center;
+    background-color: #f2f2f2;
+}
+.clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0}
+.clearfloat{zoom:1}

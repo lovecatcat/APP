@@ -288,7 +288,6 @@ ul, li{
 
 
 /* 内边距(base样式) = BL-pad-[a(全部), l-(左), lr-(左右), r-(右), t-(上), tb-(上下), b-(下)]  */
-
 .BL-pad-a1 {
 	padding: 1rem;
 }

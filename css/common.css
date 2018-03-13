@@ -11,6 +11,9 @@ ul, li{
 	padding: 0;
 	list-style-type: none;
 }
+i {
+	font-style: normal;
+}
 
 /* 弹性盒子模型(base样式) */
 
@@ -418,6 +421,9 @@ ul, li{
 .BL-mar-t-1 {
 	margin-top: 1rem;
 }
+.BL-mar-t-3 {
+	margin-top: 3rem;
+}
 .BL-mar-b-1 {
 	margin-bottom: 1rem;
 }
@@ -503,3 +509,4 @@ input[type='color']{
 .BL-txt-r {
 	text-align: right !important;
 }
+

@@ -17,7 +17,7 @@ var webviewGroup = function(id, options) {
 	this.currentWebview = false;
 	this._init();
 	
-	console.log(JSON.stringify(options));
+	//console.log(JSON.stringify(options));
 	
 	
 };

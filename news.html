@@ -84,47 +84,52 @@
 			var _divH = topHeight + divHeight + 1; // 头部高度
 			var _viewH = winH - _divH; // 内容区域高度
 			var _self = plus.webview.currentWebview();
-			var group = new webviewGroup(_self.id, {
-					topHeight: _divH,
-					viewHeight:_viewH,
-					items: [{
-						id: "news_all.html",
-						url: "news-all.html",
-						extras: {}
-					}, {
-						id: "news_cloud.html",
-						url: "news-cloud.html",
-						extras: {}
-					}, {
-						id: "news_business.html",
-						url: "news-business.html",
-						extras: {}
-					}, {
-						id: "news_finance.html",
-						url: "news-finance.html",
-						extras: {}
-					}, {
-						id: "news_cream.html",
-						url: "news-cream.html",
-						extras: {}
-					}],
-					onChange: function(obj) {
-						var c = document.querySelector(".mui-control-item.mui-active");
-						if(c) {
-							c.classList.remove("mui-active");
+			var _opener = plus.webview.currentWebview().opener();
+			var group = null;
+			
+			window.addEventListener('loadpage', function(e){
+				group = new webviewGroup(_self.id, {
+						topHeight: _divH,
+						viewHeight:_viewH,
+						items: [{
+							id: "news_all.html",
+							url: "news-all.html",
+							extras: {}
+						}, {
+							id: "news_cloud.html",
+							url: "news-cloud.html",
+							extras: {}
+						}, {
+							id: "news_business.html",
+							url: "news-business.html",
+							extras: {}
+						}, {
+							id: "news_finance.html",
+							url: "news-finance.html",
+							extras: {}
+						}, {
+							id: "news_cream.html",
+							url: "news-cream.html",
+							extras: {}
+						}],
+						onChange: function(obj) {
+							var c = document.querySelector(".mui-control-item.mui-active");
+							if(c) {
+								c.classList.remove("mui-active");
+							}
+							var target = document.querySelector(".mui-scroll .mui-control-item:nth-child(" + (parseInt(obj.index) + 1) + ")");
+							target.classList.add("mui-active");
+							if(target.scrollIntoView) {
+								target.scrollIntoView();
+							}
 						}
-						var target = document.querySelector(".mui-scroll .mui-control-item:nth-child(" + (parseInt(obj.index) + 1) + ")");
-						target.classList.add("mui-active");
-						if(target.scrollIntoView) {
-							target.scrollIntoView();
-						}
-					}
 				});
+				
 				mui(".mui-scroll").on("tap", ".mui-control-item", function(e) {
 					var wid = this.getAttribute("data-wid");
 					group.switchTab(wid);
 				});
-			
+			}, false);
 			
 		})
 		

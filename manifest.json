@@ -1,5 +1,8 @@
 {
-	"@platforms": ["android", "iPhone"],
+	"@platforms": [
+		"android",
+		"iPhone"
+	],
 	"id": "H517AA33E",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "汇盟e家",/*应用名称，程序桌面图标名称*/
 	"version": {
@@ -18,81 +21,85 @@
 	},
 	"permissions": {
 		"Accelerometer": {
-            "description": "访问加速度感应器"
-        },
-        "Audio": {
-            "description": "访问麦克风"
-        },
-        "Cache": {
-            "description": "管理应用缓存"
-        },
-        "Camera": {
-            "description": "访问摄像头"
-        },
-        "Console": {
-            "description": "跟踪调试输出日志"
-        },
-        
-        "Device": {
-            "description": "访问设备信息"
-        },
-        "Downloader": {
-            "description": "文件下载管理"
-        },
-        "Events": {
-            "description": "应用扩展事件"
-        },
-        "File": {
-            "description": "访问本地文件系统"
-        },
-        "Gallery": {
-            "description": "访问系统相册"
-        },
-        "Geolocation": {},
-         "Invocation": {
-            "description": "使用Native.js能力"
-        },
-        
-        
-        
-        "Storage": {
-            "description": "管理应用本地数据"
-        },
-        
-        "Uploader": {
-            "description": "管理文件上传任务"
-        },
-        "Runtime": {
-            "description": "访问运行期环境"
-        },
-        "XMLHttpRequest": {
-            "description": "跨域网络访问"
-        },
-        "Zip": {
-            "description": "文件压缩与解压缩"
-        },
-        
-        "Maps": {
-            "description": "管理地图插件"
-        },
-        
-        "Webview":{
-        	"description": "窗口管理"
-        },
-        "NativeUI":{
-        	"description": "原生UI控件"
-        },
-        "Navigator":{
-        	"description": "浏览器信息"
-        },
-        "NativeObj":{
-        	"description": "原生对象"
-        },"Push":{},"OAuth":{},"Share":{}
+			"description": "访问加速度感应器"
+		},
+		"Audio": {
+			"description": "访问麦克风"
+		},
+		"Cache": {
+			"description": "管理应用缓存"
+		},
+		"Camera": {
+			"description": "访问摄像头"
+		},
+		"Console": {
+			"description": "跟踪调试输出日志"
+		},
+
+		"Device": {
+			"description": "访问设备信息"
+		},
+		"Downloader": {
+			"description": "文件下载管理"
+		},
+		"Events": {
+			"description": "应用扩展事件"
+		},
+		"File": {
+			"description": "访问本地文件系统"
+		},
+		"Gallery": {
+			"description": "访问系统相册"
+		},
+		"Geolocation": {},
+		"Invocation": {
+			"description": "使用Native.js能力"
+		},
+
+
+
+		"Storage": {
+			"description": "管理应用本地数据"
+		},
+
+		"Uploader": {
+			"description": "管理文件上传任务"
+		},
+		"Runtime": {
+			"description": "访问运行期环境"
+		},
+		"XMLHttpRequest": {
+			"description": "跨域网络访问"
+		},
+		"Zip": {
+			"description": "文件压缩与解压缩"
+		},
+
+		"Maps": {
+			"description": "管理地图插件"
+		},
+
+		"Webview": {
+			"description": "窗口管理"
+		},
+		"NativeUI": {
+			"description": "原生UI控件"
+		},
+		"Navigator": {
+			"description": "浏览器信息"
+		},
+		"NativeObj": {
+			"description": "原生对象"
+		},
+
+		"OAuth": {},
+		"Share": {},
+		"Statistic": {}
 	},
 	"plus": {
 		"statusbar": {
-	        "immersed": true
-	   },
+			"immersed": true
+		},
 		"splashscreen": {
 			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
 			"waiting": true
@@ -100,6 +107,37 @@
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
 		"distribute": {
+			"plugins": {
+				"statics": {
+					"umeng": {
+						"appkey_ios": "599cdfa6f29d9805fb001384",
+						"channelid_ios": "Appstore",
+						"appkey_android": "599cdfd74544cb7090000338",
+						"channelid_android": "unknown"
+					}
+				},
+				"share": {
+					"weixin": {
+						"appid": "wx267c7aeee2b65626",
+						"appsecret": "45a8d5ebba5c83ee929a77335cabb39e",
+						"description": "可选，微信分享"
+					}
+				},
+				"oauth": {
+					"weixin": {
+						"appid": "wx267c7aeee2b65626",
+						"appsecret": "45a8d5ebba5c83ee929a77335cabb39e"
+					}
+				},
+				"maps": {
+					"baidu": {
+						"appkey_ios": "oC7oa3vRBgVsR2ZmG9DMCkIsmEk2SIMe",
+						"appkey_android": "dhYKFCg0aE5MacZGk3Y3z9bPMqQRiIqN",
+						"appkey": "",
+						"description": ""
+					}
+				}
+			},
 			"apple": {
 				"appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
 				"mobileprovision": "",/*iOS应用打包配置文件*/
@@ -113,42 +151,85 @@
 				"keystore": "",/*Android应用打包使用的密钥库文件*/
 				"password": "",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
-				"permissions": ["<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>","<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>","<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>","<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>","<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>","<uses-permission android:name=\"android.permission.INTERNET\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.READ_LOGS\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera.autofocus\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>"]
+				"permissions": [
+					"<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
+					"<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+					"<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+					"<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>",
+					"<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>",
+					"<uses-permission android:name=\"android.permission.CAMERA\"/>",
+					"<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
+					"<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
+					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+					"<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>",
+					"<uses-permission android:name=\"android.permission.INTERNET\"/>",
+					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+					"<uses-feature android:name=\"android.hardware.camera\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+					"<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+				]
 			},
-			"orientation": ["portrait-primary", "portrait-secondary"],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
+			"orientation": ["portrait-primary","portrait-secondary"],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
 			"icons": {
 				"ios": {
 					"prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
-					"auto": "", /*应用图标，分辨率：512x512，用于自动生成各种尺寸程序图标*/
+					/*应用图标，分辨率：512x512，用于自动生成各种尺寸程序图标*/
 					"iphone": {
 						"normal": "",/*iPhone普通屏幕程序图标，分辨率：57x57*/
 						"retina": "",/*iPhone高分屏程序图标，分辨率：114x114*/
-						"retina7": "",/*iPhone iOS7高分屏程序图标，分辨率：120x120*/
+						/*iPhone iOS7高分屏程序图标，分辨率：120x120*/
 						"spotlight-normal": "", /*iPhone Spotlight搜索程序图标，分辨率：29x29*/
 						"spotlight-retina": "", /*iPhone高分屏Spotlight搜索程序图标，分辨率：58x58*/
-						"spotlight-retina7": "",/*iPhone iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
+						/*iPhone iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
 						"settings-normal": "", /*iPhone设置页面程序图标，分辨率：29x29*/
-						"settings-retina": ""
+						"app@2x": "unpackage/res/icons/120x120.png",
+						"app@3x": "unpackage/res/icons/180x180.png",
+						"settings@3x": "unpackage/res/icons/87x87.png",
+						"settings@2x": "unpackage/res/icons/58x58.png",
+						"spotlight@2x": "unpackage/res/icons/80x80.png",
+						"spotlight@3x": "unpackage/res/icons/120x120.png",
+						"notification@3x": "unpackage/res/icons/60x60.png",
+						"notification@2x": "unpackage/res/icons/40x40.png"
 					},
 					"ipad": {
 						"normal": "", /*iPad普通屏幕程序图标，分辨率：72x72*/
 						"retina": "", /*iPad高分屏程序图标，分辨率：144x144*/
-						"normal7": "", /*iPad iOS7程序图标，分辨率：76x76*/
-						"retina7": "", /*iPad iOS7高分屏程序图标，分辨率：152x152*/
+						/*iPad iOS7程序图标，分辨率：76x76*/
+						/*iPad iOS7高分屏程序图标，分辨率：152x152*/
 						"spotlight-normal": "", /*iPad Spotlight搜索程序图标，分辨率：50x50*/
 						"spotlight-retina": "", /*iPad高分屏Spotlight搜索程序图标，分辨率：100x100*/
-						"spotlight-normal7": "",/*iPad iOS7 Spotlight搜索程序图标，分辨率：40x40*/
-						"spotlight-retina7": "",/*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
-						"settings-normal": "",/*iPad设置页面程序图标，分辨率：29x29*/
-						"settings-retina": ""
-					}
+						/*iPad iOS7 Spotlight搜索程序图标，分辨率：40x40*/
+						/*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
+						/*iPad设置页面程序图标，分辨率：29x29*/
+						"app": "unpackage/res/icons/76x76.png",
+						"app@2x": "unpackage/res/icons/152x152.png",
+						"settings": "unpackage/res/icons/29x29.png",
+						"proapp@2x": "unpackage/res/icons/167x167.png",
+						"spotlight": "unpackage/res/icons/40x40.png",
+						"settings@2x": "unpackage/res/icons/58x58.png",
+						"spotlight@2x": "unpackage/res/icons/80x80.png",
+						"notification": "unpackage/res/icons/20x20.png",
+						"notification@2x": "unpackage/res/icons/40x40.png"
+					},
+					"appstore": "unpackage/res/icons/1024x1024.png"
 				},
 				"android": {
-					"mdpi": "", /*普通屏程序图标，分辨率：48x48*/
-					"ldpi": "", /*大屏程序图标，分辨率：48x48*/
-					"hdpi": "", /*高分屏程序图标，分辨率：72x72*/
-					"xhdpi": "",/*720P高分屏程序图标，分辨率：96x96*/
-					"xxhdpi": ""
+					"mdpi": "unpackage/res/icons/48x48.png", /*普通屏程序图标，分辨率：48x48*/
+					"ldpi": "unpackage/res/icons/48x48.png", /*大屏程序图标，分辨率：48x48*/
+					"hdpi": "unpackage/res/icons/72x72.png", /*高分屏程序图标，分辨率：72x72*/
+					"xhdpi": "unpackage/res/icons/96x96.png",/*720P高分屏程序图标，分辨率：96x96*/
+					"xxhdpi": "unpackage/res/icons/144x144.png",
+					"xxxhdpi": "unpackage/res/icons/192x192.png"
 				}
 			},
 			"splashscreen": {
@@ -176,191 +257,1705 @@
 					"xhdpi": "", /*720P高分屏启动图片，分辨率：720x1242*/
 					"xxhdpi": ""
 				}
-			}
-		}
+			},
+			"debug": false
+		},"ads":{"rp":false,"splash":false,"push":false},"adid":""
 	},
 	"dependencies": {
-		"pages": {
-			"index.html": {
-				"resources": [
-					"index-content.html",
-					"css/module.css",
-					"images/icon/nav-user.png",
-					"images/icon/nav-prospect.png",
-					"images/icon/nav-index-active.png",
-					"images/icon/nav-discover.png",
-					"js/mui.min.js",
-					"css/common.css",
-					"css/mui.css",
-					"js/config.js"
-				],
-				"refer": [
-					"member.html",
-					"prospect.html",
-					"discover.html",
-					"news.html"
-				],
-				"priority": 0
-			},
-			"sns.html": {
-				"resources": [
-					"sns-list.html",
-					"sns-list-act.html"
-				],
-				"refer": [
-					"sns-list-review.html",
-					"sns-detail.html"
-				],
-				"priority": 0
-			},
-			"index-content.html": {
-				"resources": [
-					"images/pic/p0.jpg",
-					"images/icon/index-ico2.png",
-					"images/index/ico-2.png",
-					"images/index/ico-3.png",
-					"images/icon/index-ico7.png",
-					"fonts/mui.ttf",
-					"images/icon/index-ico3.png",
-					"images/icon/index-ico5.png",
-					"images/icon/ico-search.png",
-					"images/icon/sign.png",
-					"images/icon/index-ico6.png",
-					"images/pic/p11.jpg",
-					"images/icon/index-ico8.png",
-					"images/icon/index-ico4.png",
-					"css/index.css",
-					"images/icon/index-ico1.png",
-					"images/index/ico-4.png",
-					"images/icon/ico-ring.png",
-					"images/index/ico-1.png"
-				],
-				"refer": [
-					"sns.html",
-					"product.html",
-					"ins2c-applicant.html"
-				],
-				"priority": 0
-			},
-			"news.html": {
-				"resources": [
-					"news-all.html",
-					"css/news.css",
-					"images/icon/ico-search.png"
-				],
-				"refer": [
-					"news-cloud.html",
-					"news-cream.html",
-					"news-finance.html",
-					"news-business.html",
-					"news-tv-detail.html",
-					"news-detail.html"
-				],
-				"priority": 0
-			},
-			"product.html": {
-				"resources": [],
-				"refer": [
-					"product-detail.html",
-					"product-contrast.html"
-				],
-				"priority": 0
-			},
-			"news-cloud.html": {
-				"resources": [
-					"js/mui.pullToRefresh.js",
-					"css/news.css",
-					"js/mui.pullToRefresh.material.js",
-					"images/pic/p7.jpg",
-					"css/mui.css"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"news-cream.html": {
-				"resources": [
-					"js/mui.pullToRefresh.js",
-					"css/news.css",
-					"js/mui.pullToRefresh.material.js",
-					"images/pic/p7.jpg",
-					"css/mui.css"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"news-tv-detail.html": {
-				"resources": [
-					"js/mui.zoom.js",
-					"images/pic/p10.jpg",
-					"css/news.css",
-					"js/mui.previewimage.js",
-					"images/pic/p7.jpg",
-					"css/mui.css"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"news-detail.html": {
-				"resources": [
-					"js/mui.zoom.js",
-					"css/news.css",
-					"images/icon/ico-eye1.png",
-					"images/icon/ico-good.png",
-					"js/mui.previewimage.js",
-					"images/icon/ico-share.png",
-					"css/mui.css",
-					"images/pic/p9.jpg"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"news-finance.html": {
-				"resources": [
-					"js/mui.pullToRefresh.js",
-					"css/news.css",
-					"js/mui.pullToRefresh.material.js",
-					"images/pic/p7.jpg",
-					"css/mui.css"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"news-business.html": {
-				"resources": [
-					"js/mui.pullToRefresh.js",
-					"css/news.css",
-					"js/mui.pullToRefresh.material.js",
-					"images/pic/p7.jpg",
-					"css/mui.css"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"news-all.html": {
-				"resources": [
-					"js/mui.pullToRefresh.js",
-					"css/news.css",
-					"js/mui.pullToRefresh.material.js",
-					"images/pic/p7.jpg",
-					"css/mui.css"
-				],
-				"refer": [],
-				"priority": 0
-			}
-		},
-		"idle": {
-			"resources": [
-				"js/vue.min.js",
-				"images/icon/nav-discover-active.png",
-				"images/icon/nav-index.png",
-				"images/icon/nav-user-active.png",
-				"images/pic/p1.jpg",
-				"js/mui.js",
-				"images/pic/p2.jpg",
-				"images/icon/nav-prospect-active.png",
-				"css/mui.min.css",
-				"images/icon/sign-active.png"
-			]
-		}
+	  "pages": {
+	    "index.html": {
+	      "resources": [
+	        "index-content.html",
+	        "css/module.css",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-discover.png",
+	        "js/mui.min.js",
+	        "css/common.css",
+	        "css/mui.css",
+	        "js/config.js",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "js/upgrade.js",
+	        "fonts/mui.ttf",
+	        "images/icon/ico-share.png",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png"
+	      ],
+	      "refer": [
+	        "member.html",
+	        "prospect.html",
+	        "discover.html",
+	        "news.html",
+	        "index-content.html"
+	      ],
+	      "priority": 0
+	    },
+	    "sns.html": {
+	      "resources": [
+	        "sns-list.html",
+	        "sns-list-act.html",
+	        "js/mui.min.js",
+	        "js/mui.pullToRefresh.js",
+	        "js/mui.pullToRefresh.material.js",
+	        "images/pic/p3.jpg",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/sns.css",
+	        "images/icon/ico-time.png",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "sns-list-review.html",
+	        "sns-detail.html"
+	      ],
+	      "priority": 0
+	    },
+	    "index-content.html": {
+	      "resources": [
+	        "images/pic/p0.jpg",
+	        "images/icon/index-ico2.png",
+	        "images/index/ico-2.png",
+	        "images/index/ico-3.png",
+	        "images/icon/index-ico7.png",
+	        "fonts/mui.ttf",
+	        "images/icon/index-ico3.png",
+	        "images/icon/index-ico5.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/sign.png",
+	        "images/icon/index-ico6.png",
+	        "images/pic/p11.jpg",
+	        "images/icon/index-ico8.png",
+	        "images/icon/index-ico4.png",
+	        "css/index.css",
+	        "images/icon/index-ico1.png",
+	        "images/index/ico-4.png",
+	        "images/icon/ico-ring.png",
+	        "images/index/ico-1.png",
+	        "css/mui.css",
+	        "css/module.css",
+	        "css/common.css",
+	        "js/mui.min.js",
+	        "images/icon/ico-share.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign-active.png",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "sns.html",
+	        "product.html",
+	        "ins2c-applicant.html",
+	        "quickly.html",
+	        "auto2c.html",
+	        "popup.html"
+	      ],
+	      "priority": 0
+	    },
+	    "news.html": {
+	      "resources": [
+	        "news-all.html",
+	        "css/news.css",
+	        "images/icon/ico-search.png",
+	        "js/webviewGroup.js",
+	        "css/module.css",
+	        "css/common.css",
+	        "css/mui.css",
+	        "js/mui.min.js",
+	        "fonts/mui.ttf",
+	        "images/icon/ico-share.png",
+	        "images/icon/ico-ring.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "images/icon/ico-eye1.png",
+	        "images/icon/ico-good.png",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "news-cloud.html",
+	        "news-cream.html",
+	        "news-finance.html",
+	        "news-business.html",
+	        "news-tv-detail.html",
+	        "news-detail.html",
+	        "news-all.html"
+	      ],
+	      "priority": 0
+	    },
+	    "product.html": {
+	      "resources": [
+	        "images/product/menu-prospect.png",
+	        "images/pic/p6.jpg",
+	        "css/product.css",
+	        "images/icon/ico-up-active.png",
+	        "images/product/ico-new.png",
+	        "images/icon/ico-filter-active.png",
+	        "images/icon/ico-down.png",
+	        "images/product/menu-pk.png",
+	        "css/mui.css",
+	        "images/product/ico-hot.png",
+	        "js/mui.min.js",
+	        "js/mui.pullToRefresh.js",
+	        "js/mui.pullToRefresh.material.js",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "images/icon/ico-up.png",
+	        "images/icon/ico-down-active.png",
+	        "images/icon/ico-filter.png",
+	        "images/icon/ico-eye.png",
+	        "images/icon/ico-hide.png",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "product-detail.html",
+	        "product-contrast.html"
+	      ],
+	      "priority": 0
+	    },
+	    "news-cloud.html": {
+	      "resources": [
+	        "js/mui.pullToRefresh.js",
+	        "css/news.css",
+	        "js/mui.pullToRefresh.material.js",
+	        "images/pic/p7.jpg",
+	        "css/mui.css",
+	        "js/mui.min.js",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "images/icon/ico-eye1.png",
+	        "images/icon/ico-good.png",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "news-detail.html",
+	        "news-tv-detail.html"
+	      ],
+	      "priority": 0
+	    },
+	    "news-cream.html": {
+	      "resources": [
+	        "js/mui.pullToRefresh.js",
+	        "css/news.css",
+	        "js/mui.pullToRefresh.material.js",
+	        "images/pic/p7.jpg",
+	        "css/mui.css",
+	        "js/mui.min.js",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "images/icon/ico-eye1.png",
+	        "images/icon/ico-good.png",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "news-detail.html",
+	        "news-tv-detail.html"
+	      ],
+	      "priority": 0
+	    },
+	    "news-tv-detail.html": {
+	      "resources": [
+	        "js/mui.zoom.js",
+	        "images/pic/p10.jpg",
+	        "css/news.css",
+	        "js/mui.previewimage.js",
+	        "images/pic/p7.jpg",
+	        "css/mui.css",
+	        "images/icon/ico-eye1.png",
+	        "images/icon/ico-good.png",
+	        "css/module.css",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "js/mui.min.js",
+	        "fonts/mui.ttf",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "news-detail.html",
+	        "news-tv-detail.html"
+	      ],
+	      "priority": 0
+	    },
+	    "news-detail.html": {
+	      "resources": [
+	        "js/mui.zoom.js",
+	        "css/news.css",
+	        "images/icon/ico-eye1.png",
+	        "images/icon/ico-good.png",
+	        "js/mui.previewimage.js",
+	        "images/icon/ico-share.png",
+	        "css/mui.css",
+	        "images/pic/p9.jpg",
+	        "css/module.css",
+	        "css/common.css",
+	        "js/mui.min.js",
+	        "fonts/mui.ttf",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "js/config.js"
+	      ],
+	      "refer": [],
+	      "priority": 0
+	    },
+	    "news-finance.html": {
+	      "resources": [
+	        "js/mui.pullToRefresh.js",
+	        "css/news.css",
+	        "js/mui.pullToRefresh.material.js",
+	        "images/pic/p7.jpg",
+	        "css/mui.css",
+	        "js/mui.min.js",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "images/icon/ico-eye1.png",
+	        "images/icon/ico-good.png",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "news-detail.html",
+	        "news-tv-detail.html"
+	      ],
+	      "priority": 0
+	    },
+	    "news-business.html": {
+	      "resources": [
+	        "js/mui.pullToRefresh.js",
+	        "css/news.css",
+	        "js/mui.pullToRefresh.material.js",
+	        "images/pic/p7.jpg",
+	        "css/mui.css",
+	        "js/mui.min.js",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "images/icon/ico-eye1.png",
+	        "images/icon/ico-good.png",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "news-detail.html",
+	        "news-tv-detail.html"
+	      ],
+	      "priority": 0
+	    },
+	    "news-all.html": {
+	      "resources": [
+	        "js/mui.pullToRefresh.js",
+	        "css/news.css",
+	        "js/mui.pullToRefresh.material.js",
+	        "images/pic/p7.jpg",
+	        "css/mui.css",
+	        "css/module.css",
+	        "css/common.css",
+	        "js/mui.min.js",
+	        "fonts/mui.ttf",
+	        "images/icon/ico-share.png",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "images/icon/ico-eye1.png",
+	        "images/icon/ico-good.png",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "news-detail.html",
+	        "news-tv-detail.html"
+	      ],
+	      "priority": 0
+	    },
+	    "member.html": {
+	      "resources": [
+	        "images/icon/member-ico1.png",
+	        "images/icon/member-team.png",
+	        "fonts/mui.ttf",
+	        "images/pic/p3.jpg",
+	        "images/icon/member-ico2.png",
+	        "images/icon/member-profile.png",
+	        "images/icon/member-renewal.png",
+	        "images/icon/member-duty.png",
+	        "images/icon/member-integ.png",
+	        "images/icon/member-calcu.png",
+	        "images/icon/member-insure.png",
+	        "images/icon/member-birthday.png",
+	        "images/member/index-bg.jpg",
+	        "images/icon/member-commission.png",
+	        "images/icon/member-receive.png",
+	        "css/member.css",
+	        "css/mui.css",
+	        "css/module.css",
+	        "css/common.css",
+	        "js/mui.min.js",
+	        "images/icon/ico-share.png",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "images/icon/ico-filter.png",
+	        "images/icon/ico-filter-active.png",
+	        "images/icon/ico-cmis-expand.png",
+	        "images/icon/ico-cmis-income.png",
+	        "images/icon/ico-cmis-count.png",
+	        "images/icon/ico-cmis-success.png",
+	        "images/icon/ico-cmis-fail.png",
+	        "images/icon/ico-down.png",
+	        "images/icon/ico-duty-wifi.png",
+	        "images/icon/ico-duty-address.png",
+	        "images/icon/ico-duty-hswifi.png",
+	        "images/icon/ico-duty-nowifi.png",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "member-commission-account.html",
+	        "member-team.html",
+	        "member-duty.html",
+	        "member-plans-manage.html"
+	      ],
+	      "priority": 0
+	    },
+	    "member-commission-account.html": {
+	      "resources": [
+	        "images/icon/ico-cmis-income.png",
+	        "images/icon/ico-cmis-count.png",
+	        "images/icon/ico-cmis-expand.png",
+	        "css/member.css",
+	        "css/mui.css",
+	        "css/form.css",
+	        "member-commission-extract.html",
+	        "member-commission-income.html",
+	        "member-commission-applylist.html",
+	        "member-commission-detail.html",
+	        "member-commission-countlist.html",
+	        "css/module.css",
+	        "css/common.css",
+	        "js/mui.min.js",
+	        "fonts/mui.ttf",
+	        "images/icon/ico-share.png",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "images/member/index-bg.jpg",
+	        "images/icon/member-ico1.png",
+	        "images/icon/member-ico2.png",
+	        "images/icon/member-insure.png",
+	        "images/icon/member-team.png",
+	        "images/icon/member-profile.png",
+	        "images/icon/member-commission.png",
+	        "images/icon/member-integ.png",
+	        "images/icon/member-birthday.png",
+	        "images/icon/member-renewal.png",
+	        "images/icon/member-duty.png",
+	        "images/icon/member-receive.png",
+	        "images/icon/member-calcu.png",
+	        "images/icon/ico-filter.png",
+	        "images/icon/ico-filter-active.png",
+	        "images/icon/ico-cmis-success.png",
+	        "images/icon/ico-cmis-fail.png",
+	        "images/icon/ico-down.png",
+	        "images/icon/ico-duty-wifi.png",
+	        "images/icon/ico-duty-address.png",
+	        "images/icon/ico-duty-hswifi.png",
+	        "images/icon/ico-duty-nowifi.png",
+	        "images/icon/icon-del.png",
+	        "images/icon/icon-plus.png",
+	        "images/icon/icon-upload.png",
+	        "images/icon/ico-search-blue.png",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "member-commission-income.html",
+	        "member-commission-applylist.html",
+	        "member-commission-countlist.html",
+	        "member-commission-detail.html",
+	        "member-commission-extract.html"
+	      ],
+	      "priority": 0
+	    },
+	    "prospect.html": {
+	      "resources": [
+	        "css/prospect.css",
+	        "css/module.css",
+	        "css/common.css",
+	        "css/mui.css",
+	        "js/mui.min.js",
+	        "fonts/mui.ttf",
+	        "images/icon/ico-share.png",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/plans.css",
+	        "images/plans/prospectus/plan_del.png",
+	        "images/icon/phone.png",
+	        "images/icon/icon-displace.png",
+	        "images/icon/icon-users.png",
+	        "images/icon/icon-datepicker.jpg",
+	        "js/config.js"
+	      ],
+	      "refer": [],
+	      "priority": 0
+	    },
+	    "member-commission-extract.html": {
+	      "resources": [
+	        "css/member.css",
+	        "css/mui.css",
+	        "css/form.css",
+	        "member-commission-account.html",
+	        "css/module.css",
+	        "css/common.css",
+	        "js/mui.min.js",
+	        "js/mui.pullToRefresh.js",
+	        "js/mui.pullToRefresh.material.js",
+	        "fonts/mui.ttf",
+	        "images/icon/ico-share.png",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "images/icon/icon-del.png",
+	        "images/icon/icon-plus.png",
+	        "images/icon/icon-upload.png",
+	        "images/icon/ico-search-blue.png",
+	        "images/member/index-bg.jpg",
+	        "images/icon/member-ico1.png",
+	        "images/icon/member-ico2.png",
+	        "images/icon/member-insure.png",
+	        "images/icon/member-team.png",
+	        "images/icon/member-profile.png",
+	        "images/icon/member-commission.png",
+	        "images/icon/member-integ.png",
+	        "images/icon/member-birthday.png",
+	        "images/icon/member-renewal.png",
+	        "images/icon/member-duty.png",
+	        "images/icon/member-receive.png",
+	        "images/icon/member-calcu.png",
+	        "images/icon/ico-filter.png",
+	        "images/icon/ico-filter-active.png",
+	        "images/icon/ico-cmis-expand.png",
+	        "images/icon/ico-cmis-income.png",
+	        "images/icon/ico-cmis-count.png",
+	        "images/icon/ico-cmis-success.png",
+	        "images/icon/ico-cmis-fail.png",
+	        "images/icon/ico-down.png",
+	        "images/icon/ico-duty-wifi.png",
+	        "images/icon/ico-duty-address.png",
+	        "images/icon/ico-duty-hswifi.png",
+	        "images/icon/ico-duty-nowifi.png",
+	        "js/config.js"
+	      ],
+	      "refer": [],
+	      "priority": 0
+	    },
+	    "member-commission-income.html": {
+	      "resources": [
+	        "css/news.css",
+	        "member-commission-account.html",
+	        "commission-first.html",
+	        "css/mui.css",
+	        "css/member.css",
+	        "js/mui.min.js",
+	        "js/webviewGroup.js",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "images/member/index-bg.jpg",
+	        "images/icon/member-ico1.png",
+	        "images/icon/member-ico2.png",
+	        "images/icon/member-insure.png",
+	        "images/icon/member-team.png",
+	        "images/icon/member-profile.png",
+	        "images/icon/member-commission.png",
+	        "images/icon/member-integ.png",
+	        "images/icon/member-birthday.png",
+	        "images/icon/member-renewal.png",
+	        "images/icon/member-duty.png",
+	        "images/icon/member-receive.png",
+	        "images/icon/member-calcu.png",
+	        "images/icon/ico-filter.png",
+	        "images/icon/ico-filter-active.png",
+	        "images/icon/ico-cmis-expand.png",
+	        "images/icon/ico-cmis-income.png",
+	        "images/icon/ico-cmis-count.png",
+	        "images/icon/ico-cmis-success.png",
+	        "images/icon/ico-cmis-fail.png",
+	        "images/icon/ico-down.png",
+	        "images/icon/ico-duty-wifi.png",
+	        "images/icon/ico-duty-address.png",
+	        "images/icon/ico-duty-hswifi.png",
+	        "images/icon/ico-duty-nowifi.png",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "commission-first.html"
+	      ],
+	      "priority": 0
+	    },
+	    "commission-first.html": {
+	      "resources": [
+	        "css/mui.css",
+	        "images/icon/ico-filter-active.png",
+	        "css/member.css",
+	        "js/mui.min.js",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "images/member/index-bg.jpg",
+	        "images/icon/member-ico1.png",
+	        "images/icon/member-ico2.png",
+	        "images/icon/member-insure.png",
+	        "images/icon/member-team.png",
+	        "images/icon/member-profile.png",
+	        "images/icon/member-commission.png",
+	        "images/icon/member-integ.png",
+	        "images/icon/member-birthday.png",
+	        "images/icon/member-renewal.png",
+	        "images/icon/member-duty.png",
+	        "images/icon/member-receive.png",
+	        "images/icon/member-calcu.png",
+	        "images/icon/ico-filter.png",
+	        "images/icon/ico-cmis-expand.png",
+	        "images/icon/ico-cmis-income.png",
+	        "images/icon/ico-cmis-count.png",
+	        "images/icon/ico-cmis-success.png",
+	        "images/icon/ico-cmis-fail.png",
+	        "images/icon/ico-down.png",
+	        "images/icon/ico-duty-wifi.png",
+	        "images/icon/ico-duty-address.png",
+	        "images/icon/ico-duty-hswifi.png",
+	        "images/icon/ico-duty-nowifi.png",
+	        "js/config.js"
+	      ],
+	      "refer": [],
+	      "priority": 0
+	    },
+	    "member-commission-applylist.html": {
+	      "resources": [
+	        "member-commission-account.html",
+	        "css/product.css",
+	        "images/icon/ico-filter-active.png",
+	        "css/mui.css",
+	        "js/mui.min.js",
+	        "js/mui.pullToRefresh.js",
+	        "js/mui.pullToRefresh.material.js",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/member.css",
+	        "images/member/index-bg.jpg",
+	        "images/icon/member-ico1.png",
+	        "images/icon/member-ico2.png",
+	        "images/icon/member-insure.png",
+	        "images/icon/member-team.png",
+	        "images/icon/member-profile.png",
+	        "images/icon/member-commission.png",
+	        "images/icon/member-integ.png",
+	        "images/icon/member-birthday.png",
+	        "images/icon/member-renewal.png",
+	        "images/icon/member-duty.png",
+	        "images/icon/member-receive.png",
+	        "images/icon/member-calcu.png",
+	        "images/icon/ico-filter.png",
+	        "images/icon/ico-cmis-expand.png",
+	        "images/icon/ico-cmis-income.png",
+	        "images/icon/ico-cmis-count.png",
+	        "images/icon/ico-cmis-success.png",
+	        "images/icon/ico-cmis-fail.png",
+	        "images/icon/ico-down.png",
+	        "images/icon/ico-duty-wifi.png",
+	        "images/icon/ico-duty-address.png",
+	        "images/icon/ico-duty-hswifi.png",
+	        "images/icon/ico-duty-nowifi.png",
+	        "images/icon/ico-up.png",
+	        "images/icon/ico-up-active.png",
+	        "images/icon/ico-down-active.png",
+	        "images/product/ico-new.png",
+	        "images/product/ico-hot.png",
+	        "images/icon/ico-eye.png",
+	        "images/icon/ico-hide.png",
+	        "js/config.js"
+	      ],
+	      "refer": [],
+	      "priority": 0
+	    },
+	    "member-commission-detail.html": {
+	      "resources": [
+	        "member-commission-account.html",
+	        "css/mui.css",
+	        "css/form.css",
+	        "css/member.css",
+	        "js/mui.min.js",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "images/icon/icon-del.png",
+	        "images/icon/icon-plus.png",
+	        "images/icon/icon-upload.png",
+	        "images/icon/ico-search-blue.png",
+	        "images/member/index-bg.jpg",
+	        "images/icon/member-ico1.png",
+	        "images/icon/member-ico2.png",
+	        "images/icon/member-insure.png",
+	        "images/icon/member-team.png",
+	        "images/icon/member-profile.png",
+	        "images/icon/member-commission.png",
+	        "images/icon/member-integ.png",
+	        "images/icon/member-birthday.png",
+	        "images/icon/member-renewal.png",
+	        "images/icon/member-duty.png",
+	        "images/icon/member-receive.png",
+	        "images/icon/member-calcu.png",
+	        "images/icon/ico-filter.png",
+	        "images/icon/ico-filter-active.png",
+	        "images/icon/ico-cmis-expand.png",
+	        "images/icon/ico-cmis-income.png",
+	        "images/icon/ico-cmis-count.png",
+	        "images/icon/ico-cmis-success.png",
+	        "images/icon/ico-cmis-fail.png",
+	        "images/icon/ico-down.png",
+	        "images/icon/ico-duty-wifi.png",
+	        "images/icon/ico-duty-address.png",
+	        "images/icon/ico-duty-hswifi.png",
+	        "images/icon/ico-duty-nowifi.png",
+	        "js/config.js"
+	      ],
+	      "refer": [],
+	      "priority": 0
+	    },
+	    "member-commission-countlist.html": {
+	      "resources": [
+	        "member-commission-account.html",
+	        "css/product.css",
+	        "images/icon/ico-filter-active.png",
+	        "css/mui.css",
+	        "js/mui.min.js",
+	        "js/mui.pullToRefresh.js",
+	        "js/mui.pullToRefresh.material.js",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/member.css",
+	        "images/member/index-bg.jpg",
+	        "images/icon/member-ico1.png",
+	        "images/icon/member-ico2.png",
+	        "images/icon/member-insure.png",
+	        "images/icon/member-team.png",
+	        "images/icon/member-profile.png",
+	        "images/icon/member-commission.png",
+	        "images/icon/member-integ.png",
+	        "images/icon/member-birthday.png",
+	        "images/icon/member-renewal.png",
+	        "images/icon/member-duty.png",
+	        "images/icon/member-receive.png",
+	        "images/icon/member-calcu.png",
+	        "images/icon/ico-filter.png",
+	        "images/icon/ico-cmis-expand.png",
+	        "images/icon/ico-cmis-income.png",
+	        "images/icon/ico-cmis-count.png",
+	        "images/icon/ico-cmis-success.png",
+	        "images/icon/ico-cmis-fail.png",
+	        "images/icon/ico-down.png",
+	        "images/icon/ico-duty-wifi.png",
+	        "images/icon/ico-duty-address.png",
+	        "images/icon/ico-duty-hswifi.png",
+	        "images/icon/ico-duty-nowifi.png",
+	        "images/icon/ico-up.png",
+	        "images/icon/ico-up-active.png",
+	        "images/icon/ico-down-active.png",
+	        "images/product/ico-new.png",
+	        "images/product/ico-hot.png",
+	        "images/icon/ico-eye.png",
+	        "images/icon/ico-hide.png",
+	        "js/config.js"
+	      ],
+	      "refer": [],
+	      "priority": 0
+	    },
+	    "member-team.html": {
+	      "resources": [
+	        "css/mui.css",
+	        "news-cloud.html",
+	        "member-team-prospectus.html",
+	        "css/module.css",
+	        "css/common.css"
+	      ],
+	      "refer": [
+	        "news-business.html",
+	        "news-cream.html",
+	        "news-finance.html",
+	        "member-team-performance.html"
+	      ],
+	      "priority": 0
+	    },
+	    "member-team-prospectus.html": {
+	      "resources": [
+	        "images/icon/ico-filter-active.png",
+	        "css/member.css",
+	        "css/mui.css"
+	      ],
+	      "refer": [],
+	      "priority": 0
+	    },
+	    "member-team-performance.html": {
+	      "resources": [
+	        "images/pic/p12.png",
+	        "images/icon/ico-down.png",
+	        "css/mui.css",
+	        "css/member.css",
+	        "js/mui.picker.min.js",
+	        "css/mui.picker.min.css"
+	      ],
+	      "refer": [],
+	      "priority": 0
+	    },
+	    "member-duty.html": {
+	      "resources": [
+	        "images/icon/ico-duty-wifi.png",
+	        "images/icon/ico-duty-address.png",
+	        "js/moment.min.js",
+	        "images/pic/p12.png",
+	        "js/vue.min.js",
+	        "css/member.css",
+	        "css/mui.css",
+	        "js/wifi.js",
+	        "css/form.css",
+	        "css/module.css",
+	        "css/common.css",
+	        "images/pic/logo.png",
+	        "images/icon/ico-duty-hswifi.png",
+	        "images/icon/ico-duty-nowifi.png",
+	        "js/mui.min.js",
+	        "fonts/mui.ttf",
+	        "images/icon/ico-share.png",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "images/icon/icon-del.png",
+	        "images/icon/icon-plus.png",
+	        "images/icon/icon-upload.png",
+	        "images/icon/ico-search-blue.png",
+	        "images/member/index-bg.jpg",
+	        "images/icon/member-ico1.png",
+	        "images/icon/member-ico2.png",
+	        "images/icon/member-insure.png",
+	        "images/icon/member-team.png",
+	        "images/icon/member-profile.png",
+	        "images/icon/member-commission.png",
+	        "images/icon/member-integ.png",
+	        "images/icon/member-birthday.png",
+	        "images/icon/member-renewal.png",
+	        "images/icon/member-duty.png",
+	        "images/icon/member-receive.png",
+	        "images/icon/member-calcu.png",
+	        "images/icon/ico-filter.png",
+	        "images/icon/ico-filter-active.png",
+	        "images/icon/ico-cmis-expand.png",
+	        "images/icon/ico-cmis-income.png",
+	        "images/icon/ico-cmis-count.png",
+	        "images/icon/ico-cmis-success.png",
+	        "images/icon/ico-cmis-fail.png",
+	        "images/icon/ico-down.png",
+	        "js/config.js"
+	      ],
+	      "refer": [],
+	      "priority": 0
+	    },
+	    "auto2c.html": {
+	      "resources": [
+	        "auto2c-content.html",
+	        "js/mui.min.js",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/form.css",
+	        "images/icon/icon-del.png",
+	        "images/icon/icon-plus.png",
+	        "images/icon/icon-upload.png",
+	        "images/icon/ico-search-blue.png",
+	        "js/config.js",
+	        "css/mui.picker.min.css"
+	      ],
+	      "refer": [
+	        "auto2c-content.html"
+	      ],
+	      "priority": 0
+	    },
+	    "sns-detail.html": {
+	      "href": "sns-detail.html",
+	      "resources": [
+	        "js/mui.min.js",
+	        "js/mui.zoom.js",
+	        "js/mui.previewimage.js",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/sns.css",
+	        "images/icon/ico-time.png",
+	        "js/config.js",
+	        "images/pic/p4.jpg",
+	        "images/pic/p5.jpg"
+	      ],
+	      "priority": 1,
+	      "refer": []
+	    },
+	    "ins2c-applicant.html": {
+	      "href": "ins2c-applicant.html",
+	      "resources": [
+	        "js/mui.min.js",
+	        "js/mui.picker.js",
+	        "js/mui.poppicker.js",
+	        "js/mui.dtpicker.js",
+	        "js/city.data-3.js",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/form.css",
+	        "images/icon/icon-del.png",
+	        "images/icon/icon-plus.png",
+	        "images/icon/icon-upload.png",
+	        "images/icon/ico-search-blue.png",
+	        "js/config.js",
+	        "css/mui.picker.min.css"
+	      ],
+	      "priority": 2,
+	      "refer": []
+	    },
+	    "auto2c-choose.html": {
+	      "href": "auto2c-choose.html",
+	      "resources": [
+	        "js/mui.min.js",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/form.css",
+	        "images/icon/icon-del.png",
+	        "images/icon/icon-plus.png",
+	        "images/icon/icon-upload.png",
+	        "images/icon/ico-search-blue.png",
+	        "js/config.js",
+	        "css/mui.picker.min.css"
+	      ],
+	      "priority": 3,
+	      "refer": []
+	    },
+	    "auto2c-choosebrand.html": {
+	      "href": "auto2c-choosebrand.html",
+	      "resources": [
+	        "js/mui.min.js",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/form.css",
+	        "images/icon/icon-del.png",
+	        "images/icon/icon-plus.png",
+	        "images/icon/icon-upload.png",
+	        "images/icon/ico-search-blue.png",
+	        "js/config.js",
+	        "images/icon/pic-auto-examples.png"
+	      ],
+	      "priority": 4,
+	      "refer": []
+	    },
+	    "auto2c-content.html": {
+	      "href": "auto2c-content.html",
+	      "resources": [
+	        "js/mui.min.js",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/form.css",
+	        "images/icon/icon-del.png",
+	        "images/icon/icon-plus.png",
+	        "images/icon/icon-upload.png",
+	        "images/icon/ico-search-blue.png",
+	        "js/config.js",
+	        "css/mui.picker.min.css"
+	      ],
+	      "refer": [
+	        "auto2c-choose.html",
+	        "auto2c-choosebrand.html"
+	      ],
+	      "priority": 3
+	    },
+	    "product-contrast-detail.html": {
+	      "href": "product-contrast-detail.html",
+	      "resources": [
+	        "js/mui.min.js",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/product.css",
+	        "images/icon/ico-up.png",
+	        "images/icon/ico-down.png",
+	        "images/icon/ico-up-active.png",
+	        "images/icon/ico-down-active.png",
+	        "images/icon/ico-filter.png",
+	        "images/icon/ico-filter-active.png",
+	        "images/product/ico-new.png",
+	        "images/product/ico-hot.png",
+	        "images/icon/ico-eye.png",
+	        "images/icon/ico-hide.png",
+	        "js/config.js",
+	        "images/product/menu-prospect.png",
+	        "images/pic/p6.jpg"
+	      ],
+	      "priority": 4,
+	      "refer": []
+	    },
+	    "product-contrast-delete.html": {
+	      "href": "product-contrast-delete.html",
+	      "resources": [
+	        "js/mui.min.js",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/product.css",
+	        "images/icon/ico-up.png",
+	        "images/icon/ico-down.png",
+	        "images/icon/ico-up-active.png",
+	        "images/icon/ico-down-active.png",
+	        "images/icon/ico-filter.png",
+	        "images/icon/ico-filter-active.png",
+	        "images/product/ico-new.png",
+	        "images/product/ico-hot.png",
+	        "images/icon/ico-eye.png",
+	        "images/icon/ico-hide.png",
+	        "js/config.js"
+	      ],
+	      "priority": 5,
+	      "refer": []
+	    },
+	    "product-contrast.html": {
+	      "href": "product-contrast.html",
+	      "resources": [
+	        "js/mui.min.js",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/product.css",
+	        "images/icon/ico-up.png",
+	        "images/icon/ico-down.png",
+	        "images/icon/ico-up-active.png",
+	        "images/icon/ico-down-active.png",
+	        "images/icon/ico-filter.png",
+	        "images/icon/ico-filter-active.png",
+	        "images/product/ico-new.png",
+	        "images/product/ico-hot.png",
+	        "images/icon/ico-eye.png",
+	        "images/icon/ico-hide.png",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "product-contrast-detail.html",
+	        "product-contrast-delete.html"
+	      ],
+	      "priority": 4
+	    },
+	    "product-detail.html": {
+	      "href": "product-detail.html",
+	      "resources": [
+	        "js/mui.min.js",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/product.css",
+	        "images/icon/ico-up.png",
+	        "images/icon/ico-down.png",
+	        "images/icon/ico-up-active.png",
+	        "images/icon/ico-down-active.png",
+	        "images/icon/ico-filter.png",
+	        "images/icon/ico-filter-active.png",
+	        "images/product/ico-new.png",
+	        "images/product/ico-hot.png",
+	        "images/icon/ico-eye.png",
+	        "images/icon/ico-hide.png",
+	        "js/config.js",
+	        "images/product/menu-prospect.png",
+	        "images/product/menu-pk.png"
+	      ],
+	      "refer": [
+	        "product-contrast.html"
+	      ],
+	      "priority": 4
+	    },
+	    "quickly-filter.html": {
+	      "href": "quickly-filter.html",
+	      "resources": [
+	        "js/mui.min.js",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/product.css",
+	        "images/icon/ico-up.png",
+	        "images/icon/ico-down.png",
+	        "images/icon/ico-up-active.png",
+	        "images/icon/ico-down-active.png",
+	        "images/icon/ico-filter.png",
+	        "images/icon/ico-filter-active.png",
+	        "images/product/ico-new.png",
+	        "images/product/ico-hot.png",
+	        "images/icon/ico-eye.png",
+	        "images/icon/ico-hide.png",
+	        "js/config.js"
+	      ],
+	      "priority": 5,
+	      "refer": []
+	    },
+	    "quickly.html": {
+	      "href": "quickly.html",
+	      "resources": [
+	        "js/mui.min.js",
+	        "js/mui.pullToRefresh.js",
+	        "js/mui.pullToRefresh.material.js",
+	        "images/pic/p6.jpg",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/product.css",
+	        "images/icon/ico-up.png",
+	        "images/icon/ico-down.png",
+	        "images/icon/ico-up-active.png",
+	        "images/icon/ico-down-active.png",
+	        "images/icon/ico-filter.png",
+	        "images/icon/ico-filter-active.png",
+	        "images/product/ico-new.png",
+	        "images/product/ico-hot.png",
+	        "images/icon/ico-eye.png",
+	        "images/icon/ico-hide.png",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "quickly-filter.html"
+	      ],
+	      "priority": 5
+	    },
+	    "popup-content.html": {
+	      "href": "popup-content.html",
+	      "resources": [
+	        "js/mui.min.js",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "js/config.js"
+	      ],
+	      "priority": 6,
+	      "refer": []
+	    },
+	    "popup.html": {
+	      "href": "popup.html",
+	      "resources": [
+	        "js/mui.min.js",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "popup-content.html"
+	      ],
+	      "priority": 6
+	    },
+	    "member-plans-alone.html": {
+	      "href": "member-plans-alone.html",
+	      "resources": [
+	        "js/mui.min.js",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/plans.css",
+	        "images/plans/prospectus/plan_del.png",
+	        "images/icon/phone.png",
+	        "images/icon/icon-displace.png",
+	        "images/icon/icon-users.png",
+	        "images/icon/icon-datepicker.jpg",
+	        "js/config.js",
+	        "images/plans/prospectus/ajb.jpg"
+	      ],
+	      "priority": 2,
+	      "refer": []
+	    },
+	    "member-plans-total.html": {
+	      "href": "member-plans-total.html",
+	      "resources": [
+	        "js/mui.min.js",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/plans.css",
+	        "images/plans/prospectus/plan_del.png",
+	        "images/icon/phone.png",
+	        "images/icon/icon-displace.png",
+	        "images/icon/icon-users.png",
+	        "images/icon/icon-datepicker.jpg",
+	        "js/config.js"
+	      ],
+	      "priority": 4,
+	      "refer": []
+	    },
+	    "member-plans-detail.html": {
+	      "href": "member-plans-detail.html",
+	      "resources": [
+	        "js/mui.min.js",
+	        "js/webviewGroup.js",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/news.css",
+	        "images/icon/ico-eye1.png",
+	        "images/icon/ico-good.png",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "member-plans-alone.html",
+	        "news-cream.html",
+	        "member-plans-total.html",
+	        "news-tv-detail.html",
+	        "news-business.html",
+	        "news-finance.html"
+	      ],
+	      "priority": 2
+	    },
+	    "member-plans-manage.html": {
+	      "href": "member-plans-manage.html",
+	      "resources": [
+	        "js/mui.min.js",
+	        "js/mui.pullToRefresh.js",
+	        "js/mui.pullToRefresh.material.js",
+	        "images/pic/p6.jpg",
+	        "css/mui.css",
+	        "fonts/mui.ttf",
+	        "css/common.css",
+	        "images/icon/ico-share.png",
+	        "css/module.css",
+	        "images/icon/ico-ring.png",
+	        "images/icon/ico-search.png",
+	        "images/icon/nav-index.png",
+	        "images/icon/nav-prospect.png",
+	        "images/icon/nav-discover.png",
+	        "images/icon/nav-user.png",
+	        "images/icon/nav-index-active.png",
+	        "images/icon/nav-prospect-active.png",
+	        "images/icon/nav-discover-active.png",
+	        "images/icon/nav-user-active.png",
+	        "images/icon/sign.png",
+	        "images/icon/sign-active.png",
+	        "css/plans.css",
+	        "images/plans/prospectus/plan_del.png",
+	        "images/icon/phone.png",
+	        "images/icon/icon-displace.png",
+	        "images/icon/icon-users.png",
+	        "images/icon/icon-datepicker.jpg",
+	        "js/config.js"
+	      ],
+	      "refer": [
+	        "member-plans-detail.html"
+	      ],
+	      "priority": 2
+	    }
+	  },
+	  "idle": {
+	    "resources": [
+	      "images/pic/p2.jpg",
+	      "receipt-list.html",
+	      "insurance-applicant.html",
+	      "insurance-beneficiary.html",
+	      "receipt-1.html",
+	      "receipt-2.html",
+	      "css/insurance.css",
+	      "member-commission-result.html",
+	      "insurance-index.html",
+	      "ins2c.html",
+	      "insurance-bank.html",
+	      "insurance-safegood.html",
+	      "member-duty-stats.html",
+	      "images/pic/p8.jpg",
+	      "js/schedule.js",
+	      "css/mui.min.css",
+	      "receipt-3.html",
+	      "images/icon/icon-upload-big.png",
+	      "css/mui.poppicker.css",
+	      "js/mui.js",
+	      "images/pic/p1.jpg",
+	      "prospect-addIns.html",
+	      "team-personal-performance.html",
+	      "README.md"
+	    ]
+	  }
 	}
 }

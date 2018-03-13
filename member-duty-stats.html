@@ -7,7 +7,7 @@
 		<link href="css/mui.css" rel="stylesheet" />
 		<link href="css/common.css" rel="stylesheet" />
 		<link href="css/module.css" rel="stylesheet" />
-		<link href="css/duty.css" rel="stylesheet" />
+		<link href="css/member.css" rel="stylesheet" />
 		<script src="js/config.js" type="text/javascript"></script>
 	</head>
 
@@ -111,29 +111,29 @@
 				date  :1, // 打卡的日期
 			}*/];
 		for(var i=0; i<intfullDay; i++){
-				if(i==0){
-					data.push({status:1, date:i+1});	
-				}else if(i == 1){
-					data.push({status:2, date:i+1});
-				}else if(i == 2){
-					data.push({status:5, date:i+1});
-				}else if(i == 3){
-					data.push({status:5, date:i+1});
-				}else if(i == 4){
-					data.push({status:3, date:i+1});
-				}else if(i == 5){
-					data.push({status:4, date:i+1});
-				}else if(i == 6){
-					data.push({status:1, date:i+1});
-				}else if(i == 7){
-					data.push({status:1, date:i+1});
-				}else if(i == 8){
-					data.push({status:1, date:i+1});
-				}else if(i == 9){
-					data.push({status:1, date:i+1});
-				}else{
-					data.push({status:6, date:i+1});
-				}
+			if(i==0){
+				data.push({status:1, date:i+1});	
+			}else if(i == 1){
+				data.push({status:2, date:i+1});
+			}else if(i == 2){
+				data.push({status:5, date:i+1});
+			}else if(i == 3){
+				data.push({status:5, date:i+1});
+			}else if(i == 4){
+				data.push({status:3, date:i+1});
+			}else if(i == 5){
+				data.push({status:4, date:i+1});
+			}else if(i == 6){
+				data.push({status:1, date:i+1});
+			}else if(i == 7){
+				data.push({status:1, date:i+1});
+			}else if(i == 8){
+				data.push({status:1, date:i+1});
+			}else if(i == 9){
+				data.push({status:1, date:i+1});
+			}else{
+				data.push({status:6, date:i+1});
+			}
 		}
 		
 		mui.ready(function() {

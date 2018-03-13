@@ -48,7 +48,7 @@
 				<div class="section section-myList">
 					<div class="BL-ub BL-ub-ac BL-ub-pj myList-hd">
 						<div class="title">我的订单</div>
-						<a class="mui-icon mui-icon-arrowright"></a>
+						<!--<a class="mui-icon mui-icon-arrowright"></a>-->
 					</div>
 					<div class="BL-ub BL-ub-ac BL-ub-f1">
 						<a class="BL-ub BL-ub-ac BL-ub-pc BL-ub-f1 myList-item">
@@ -116,7 +116,7 @@
 								续期管理
 							</div>
 						</a>
-						<a class="mui-col-sm-3 mui-col-xs-3">
+						<a href="member-duty.html" data-wid="member_duty" class="mui-col-sm-3 mui-col-xs-3">
 							<div class="icon icon-duty"></div>
 							<div class="name">
 								考勤
@@ -169,7 +169,7 @@
 			}
 		});
 		
-		mui.ready(function() {
+		mui.plusReady(function() {
 			statusbar();
 			var winH = window.innerHeight;
 			var titHeight = document.querySelector('#Js-header').offsetHeight;

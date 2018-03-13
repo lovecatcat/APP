@@ -1,133 +1,135 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
 	</head>
+
 	<body>
 	</body>
+
 </html>
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<link href="css/mui.css" rel="stylesheet" />
-		<link href="css/common.css" rel="stylesheet" />
-		<link href="css/module.css" rel="stylesheet" />
-		<link href="css/news.css" rel="stylesheet" />
-		<script src="js/config.js" type="text/javascript"></script>
-	</head>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="css/mui.css" rel="stylesheet" />
+	<link href="css/common.css" rel="stylesheet" />
+	<link href="css/module.css" rel="stylesheet" />
+	<link href="css/news.css" rel="stylesheet" />
+	<script src="js/config.js" type="text/javascript"></script>
+</head>
 
-	<body class="BL-bg-f2f">
-		<header id="Js-header" class="BL-bg-fff">
-			<div class="BL-mod-headbar BL-mod-headbar-pos">
-				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
-				<h1 class="BL-title">计划书方案</h1>
-				<a class="BL-icon BL-icon-share"></a>
-			</div>
-		</header>
-		
-		<div id="Js-content" class="mui-content">
-			<div class="BL-pad-t-1">
-				<!--分类栏目 begin-->
-				<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
-					<div class="mui-scroll">
-						<a data-wid="member-plans-total.html" class="mui-control-item mui-active">
-							<span>汇总</span>
-						</a>
-						<a data-wid="member-plans-alone.html" class="mui-control-item">
-							<span>万年青</span>
-						</a>
-						<a data-wid="news_business.html" class="mui-control-item">
-							<span>万年红</span>
-						</a>
-						<a data-wid="news_finance.html" class="mui-control-item">
-							<span>财经报道</span>
-						</a>
-						<a data-wid="news_cream.html" class="mui-control-item">
-							<span>精英榜</span>
-						</a> 
-					</div>
-				</div>
-				<!--分类栏目 end -->
-			</div>
+<body class="BL-bg-f2f">
+	<header id="Js-header" class="BL-bg-fff">
+		<div class="BL-mod-headbar BL-mod-headbar-pos">
+			<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+			<h1 class="BL-title">计划书方案</h1>
+			<a class="BL-icon BL-icon-share"></a>
 		</div>
+	</header>
 
-		
+	<div id="Js-content" class="mui-content">
+		<div class="BL-pad-t-1">
+			<!--分类栏目 begin-->
+			<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
+				<div class="mui-scroll">
+					<a data-wid="member-plans-total.html" class="mui-control-item mui-active">
+						<span>汇总</span>
+					</a>
+					<a data-wid="member-plans-alone.html" class="mui-control-item">
+						<span>万年青</span>
+					</a>
+					<a data-wid="news_business.html" class="mui-control-item">
+						<span>万年红</span>
+					</a>
+					<a data-wid="news_finance.html" class="mui-control-item">
+						<span>财经报道</span>
+					</a>
+					<a data-wid="news_cream.html" class="mui-control-item">
+						<span>精英榜</span>
+					</a>
+				</div>
+			</div>
+			<!--分类栏目 end -->
+		</div>
+	</div>
 
-	</body>
-	<script src="js/mui.min.js" type="text/javascript"></script>
-	<script src="js/webviewGroup.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		mui.init();
-		
-		
-		
-		mui.plusReady(function() {
-			mui.preload({ // 预加载资讯详情页
-				url: 'member-plans-total.html',
-				id: 'member-plans-total', // id
-			});
-			
-			mui.preload({ // 预加载资讯详情页
-				url: 'news-tv-detail.html',
-				id: 'news_tv_detail', // id
-			});
-			
-			statusbar();
-				
-			var winH = window.screen.height / sizeObj.dpl;
-			var topHeight = document.querySelector('#Js-header').offsetHeight / sizeObj.dpl;
-			var divHeight = document.querySelector('#Js-content').offsetHeight / sizeObj.dpl;
-			var _divH = topHeight + divHeight + 1; // 头部高度
-			var _viewH = winH - _divH; // 内容区域高度
-			var _self = plus.webview.currentWebview();
-			var group = new webviewGroup(_self.id, {
-					topHeight: _divH,
-					viewHeight:_viewH,
-					items: [{
-						id: "member-plans-total.html",
-						url: "member-plans-total.html",
-						extras: {}
-					}, {
-						id: "member-plans-alone.html",
-						url: "member-plans-alone.html",
-						extras: {}
-					}, {
-						id: "news_business.html",
-						url: "news-business.html",
-						extras: {}
-					}, {
-						id: "news_finance.html",
-						url: "news-finance.html",
-						extras: {}
-					}, {
-						id: "news_cream.html",
-						url: "news-cream.html",
-						extras: {}
-					}],
-					onChange: function(obj) {
-						var c = document.querySelector(".mui-control-item.mui-active");
-						if(c) {
-							c.classList.remove("mui-active");
-						}
-						var target = document.querySelector(".mui-scroll .mui-control-item:nth-child(" + (parseInt(obj.index) + 1) + ")");
-						target.classList.add("mui-active");
-//						if(target.scrollIntoView) {
-//							target.scrollIntoView();
-//						}
-					}
-				});
-				mui(".mui-scroll").on("tap", ".mui-control-item", function(e) {
-					var wid = this.getAttribute("data-wid");
-					group.switchTab(wid);
-				});
-			
-			
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/webviewGroup.js" type="text/javascript"></script>
+<script type="text/javascript">
+	mui.init();
+
+	mui.plusReady(function() {
+		mui.preload({ // 预加载资讯详情页
+			url: 'member-plans-total.html',
+			id: 'member-plans-total', // id
+		});
+
+		mui.preload({ // 预加载资讯详情页
+			url: 'news-tv-detail.html',
+			id: 'news_tv_detail', // id
+		});
+
+		statusbar();
+
+		var winH = window.screen.height / sizeObj.dpl;
+		var topHeight = document.querySelector('#Js-header').offsetHeight / sizeObj.dpl;
+		var divHeight = document.querySelector('#Js-content').offsetHeight / sizeObj.dpl;
+		var _divH = topHeight + divHeight + 1; // 头部高度
+		var _viewH = winH - _divH; // 内容区域高度
+		var _self = plus.webview.currentWebview();
+		var group = new webviewGroup(_self.id, {
+			topHeight: _divH,
+			viewHeight: _viewH,
+			isDrag: false,
+			items: [{
+				id: "member-plans-total.html",
+				url: "member-plans-total.html",
+				extras: {}
+			}, {
+				id: "member-plans-alone.html",
+				url: "member-plans-alone.html",
+				extras: {}
+			}, {
+				id: "news_business.html",
+				url: "news-business.html",
+				extras: {}
+			}, {
+				id: "news_finance.html",
+				url: "news-finance.html",
+				extras: {}
+			}, {
+				id: "news_cream.html",
+				url: "news-cream.html",
+				extras: {}
+			}],
+			onChange: function(obj) {
+				var c = document.querySelector(".mui-control-item.mui-active");
+				if(c) {
+					c.classList.remove("mui-active");
+				}
+				var target = document.querySelector(".mui-scroll .mui-control-item:nth-child(" + (parseInt(obj.index) + 1) + ")");
+				target.classList.add("mui-active");
+			}
+		});
+		mui(".mui-scroll").on("tap", ".mui-control-item", function(e) {
+			var wid = this.getAttribute("data-wid");
+			group.switchTab(wid);
+		});
+
+		// 打开遮罩层，弹框,自定义事件监听
+		window.addEventListener('show', function(event) {
+			//获得事件参数
+			showPopu("popup-content.html", "popup_content");
+
 		})
-		
-	</script>
+
+	})
+</script>
 
 </html>

@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>计划书汇总</title>
 		<link href="css/mui.css" rel="stylesheet" />
 		<link href="css/common.css" rel="stylesheet" />
 		<link href="css/module.css" rel="stylesheet" />
@@ -38,7 +38,7 @@
 							<span class="BL-col-3b9cf5 plans-total-font BL-ftz-52 BL-pad-l-1">详情</span>
 						</div>
 						<div class="BL-ub-f1 BL-txt-r">
-							<button class="BL-btn-white BL-ftz-42">删除</button>
+							<button id="btnn" class="BL-btn-white BL-ftz-42">删除</button>
 							<button class="BL-btn-blue BL-ftz-42">编辑</button>
 						</div>
 					</div>
@@ -182,7 +182,7 @@
                             	描述：附加險信息 end
                             -->
 			</div>
-<div class="BL-vp plans-total BL-pad-b-1 BL-mar-t-1 BL-bg-fff">
+			<div class="BL-vp plans-total BL-pad-b-1 BL-mar-t-1 BL-bg-fff">
 				<div class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l">
 					<span>投保人</span>
 					<span class="BL-col-3b9cf5">白豪</span>
@@ -212,7 +212,7 @@
 							<span>缴费年限</span>
 							<span>首年保费</span>
 						</li>
-						<li>    
+						<li>
 							<span>402350</span>
 							<span>终身</span>
 							<span>10</span>
@@ -261,7 +261,7 @@
                             	描述：附加險信息 end
                             -->
 			</div>
-<!------------计划书汇总 end  ------------->
+			<!------------计划书汇总 end  ------------->
 		</div>
 		<footer id="Js-footer" class="BL-footer BL-bg-fff">
 			<div class="BL-ub BL-ub-ac BL-ub-f1">
@@ -270,7 +270,7 @@
 						总保费: <span class="BL-col-ff8201">222222</span>
 					</div>
 				</div>
-				<a class="BL-foot-btn-sign BL-foot-btn-det BL-bg-3b9cf5">
+				<a id="btn" class="BL-foot-btn-sign BL-foot-btn-det BL-bg-3b9cf5">
 					在线投保
 				</a>
 			</div>
@@ -288,17 +288,33 @@
 				indicators: false, //是否显示滚动条
 				deceleration: deceleration
 			});
-			$.ready(function() {
-				statusbar();
+			$.plusReady(function() {
+				//statusbar();
 				var winH = window.innerHeight;
-//				var titHeight = document.querySelector('#Js-header').offsetHeight;
+				//				var titHeight = document.querySelector('#Js-header').offsetHeight;
 				var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 				document.querySelector('#Js-plansTotal').style.height = (winH - fotHeight) + 'px';
 
 				var i = 0;
 
-			});
+				mui('body').on('tap', '#btn', function() {
+					
+				});
+				mui('body').on('tap', '#btnn', function() {
+					var _self = plus.webview.currentWebview();
+					_self.setStyle({
+						mask: 'rgba(0,0,0,0.5)'
+					}); // 显示遮罩层
+				});
+				// 点击关闭遮罩层，弹框
+				document.querySelector('body').click(function(){
+					var _self = plus.webview.currentWebview();
+						_self.setStyle({
+								mask: 'none'
+							});	
+				},false);
 
+			});
 		}(mui));
 	</script>
 

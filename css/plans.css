@@ -7,8 +7,7 @@
 	text-align: center;
 }
 .BL-ul li{
-	height: 3.125rem;
-	line-height: 3.125rem;
+	padding: 1rem 0;
 	border: 1px solid #e7e7e7;
 }
 .BL-ul li:first-child{
@@ -21,6 +20,7 @@
 	width: 25%;
 	border-right: 1px solid #e7e7e7; 
 }
+.BL-ul li:after{display:block;clear:both;content:"";visibility:hidden;height:0} 
 .BL-ftz-42{
 	font-size: 1.3125rem;
 }
@@ -175,13 +175,31 @@
 	width: 100%;
 	height: auto;
 }
+.plans-detail-fixed{
+	position: fixed;
+	top: 3rem;
+	right: 0;
+	z-index: 2;
+}
+.plans-detail-fixed > div{
+	color: #fff;
+	margin-top: .8rem;
+	padding: .5rem .8rem;
+	border-top-left-radius: 1rem;
+	border-bottom-left-radius: 1rem;
+	background-color: rgba(167,166,170,.8);
+}
 .plans-detail-box{
     margin:0 1.5rem 1rem 1.5rem;
+}
+.plans-detail-box-img>img{
+	display: block;
+	width: 100%;
+	height: auto;
 }
 .plans-detail .plans-detail-box-first{
    	position: relative;
     margin-top: -3rem;
-    z-index: 2;
 }
 .plans-detail-item li{
 	border: none;
@@ -195,6 +213,7 @@
 }
 .plans-detail-behalf .title{
 	font-weight: 400;
+	line-height: 2.6875rem;
 }
 .plans-detail-behalf .title em{
 	display: inline-block;
@@ -202,6 +221,9 @@
 	height: 1rem;
 	background-color: #3B9CF5;
 	border-radius: 50%;
+}
+.plans-detail-behalf .title button{
+	margin-top: .35rem;
 }
 .plans-detail-design img{
 	display: inline-block;
@@ -325,6 +347,21 @@ table tbody tr td{
     width: 2rem;
     height: 100%;
     margin: 0 .5rem;
+}
+.mui-switch-mini {
+    width: 4.6875rem;
+}
+
+.mui-switch {
+    height: 2.8125rem;
+    border-radius: 4rem;
+    float: right;
+}
+
+.mui-switch .mui-switch-handle {
+    width: 2.625rem;
+    height: 2.625rem;
+    border-radius: 4rem;
 }
 
 /*输入框 同在线投保*/

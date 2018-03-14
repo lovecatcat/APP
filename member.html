@@ -132,7 +132,7 @@
 								收藏
 							</div>
 						</a>
-						<a class="mui-col-sm-3 mui-col-xs-3">
+						<a href="tax-cal.html" data-wid="tax_cal" class="mui-col-sm-3 mui-col-xs-3">
 							<div class="icon icon-calcu"></div>
 							<div class="name">
 								计税器
@@ -178,14 +178,21 @@
 			}
 		});
 		
+		
 		mui.plusReady(function() {
-			statusbar();
-			var winH = window.innerHeight;
-			var titHeight = document.querySelector('#Js-header').offsetHeight;
-			var hrHeight = document.querySelector('.member-hr').offsetHeight;
-			document.querySelector('#Js-content').style.height = (winH - titHeight) + 'px';
-			document.querySelector('.mheader').style.height = (hrHeight - titHeight) + 'px';
+			window.addEventListener('loadpageMember', function(e){
+				setTimeout(function(){
+					statusbar();
+					var winH = window.innerHeight;
+					var titHeight = document.querySelector('#Js-header').offsetHeight;
+					var hrHeight = document.querySelector('.member-hr').offsetHeight;
+					//console.log(hrHeight +'，'+titHeight +','+(hrHeight - titHeight)+','+winH+','+(winH - titHeight))
+					document.querySelector('#Js-content').style.height = (winH - titHeight) + 'px';
+					document.querySelector('.mheader').style.height = (hrHeight - titHeight) + 'px';
+				}, 1);
+			})
 		})
+		
 	</script>
 
 </html>

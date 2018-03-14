@@ -194,9 +194,9 @@
 
 .BL-segmented-control .mui-control-item {
 	border: 0 none;
-	line-height: 5.0625rem;
+	line-height: 4.375rem;
 	color: #333333;
-	font-size: 1.625rem;
+	font-size: 1.4375rem;
 }
 
 .BL-segmented-control .mui-control-item.mui-active {

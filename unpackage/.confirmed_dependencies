@@ -67,7 +67,11 @@
 			"member-commission-account.html",
 			"member-team.html",
 			"member-duty.html",
-			"member-plans-manage.html"
+			"member-plans-manage.html",
+			"member-birthday.html",
+			"member-setup.html",
+			"member-personalinfo.html",
+			"member-intergral.html"
 		]
 	},
 	"news-tv-detail.html": {
@@ -120,7 +124,8 @@
 			"css/mui.css",
 			"images/pic/p9.jpg",
 			"css/module.css",
-			"css/common.css"
+			"css/common.css",
+			"js/mui.min.js"
 		]
 	},
 	"prospect.html": {
@@ -277,7 +282,9 @@
 			"images/icon/ico-down.png",
 			"images/product/menu-pk.png",
 			"css/mui.css",
-			"images/product/ico-hot.png"
+			"images/product/ico-hot.png",
+			"css/module.css",
+			"css/common.css"
 		],
 		"refer": [
 			"product-detail.html",
@@ -294,7 +301,9 @@
 		"resources": [
 			"images/icon/ico-filter-active.png",
 			"css/member.css",
-			"css/mui.css"
+			"css/mui.css",
+			"css/module.css",
+			"css/common.css"
 		]
 	},
 	"member-team-performance.html": {
@@ -330,6 +339,9 @@
 			"images/pic/p6.jpg",
 			"css/mui.css",
 			"css/plans.css"
+		],
+		"refer": [
+			"member-plans-detail.html"
 		]
 	},
 	"popup.html": {
@@ -343,6 +355,101 @@
 	"popup-content.html": {
 		"resources": [
 			"css/mui.css"
+		]
+	},
+	"member-birthday.html": {
+		"resources": [
+			"member-birthday-customer.html",
+			"css/mui.css"
+		],
+		"refer": [
+			"member-birthday-team.html",
+			"member-birthday-customer.html"
+		]
+	},
+	"member-birthday-customer.html": {
+		"resources": [
+			"images/pic/p12.png",
+			"images/icon/ico-down.png",
+			"css/mui.picker.min.css",
+			"css/member.css",
+			"css/mui.css"
+		]
+	},
+	"member-setup.html": {
+		"resources": [
+			"css/module.css",
+			"css/common.css",
+			"css/member.css",
+			"css/mui.css",
+			"css/form.css"
+		]
+	},
+	"member-personalinfo.html": {
+		"resources": [
+			"images/pic/logo.png",
+			"css/member.css",
+			"css/mui.css",
+			"css/form.css"
+		]
+	},
+	"member-birthday-team.html": {
+		"resources": [
+			"css/mui.picker.min.css",
+			"css/member.css",
+			"css/mui.css"
+		]
+	},
+	"member-intergral.html": {
+		"resources": [
+			"member-intergral-all.html",
+			"css/member.css",
+			"css/mui.css",
+			"css/module.css",
+			"css/common.css"
+		],
+		"refer": [
+			"member-intergral-activity.html",
+			"member-intergral-rights.html",
+			"member-intergral-all.html",
+			"member-intergral-experience.html"
+		]
+	},
+	"member-intergral-all.html": {
+		"resources": [
+			"css/product.css",
+			"images/icon/ico-filter-active.png"
+		]
+	},
+	"member-intergral-experience.html": {
+		"resources": [
+			"css/mui.css",
+			"css/product.css"
+		]
+	},
+	"member-intergral-activity.html": {
+		"resources": [
+			"css/product.css",
+			"css/mui.css"
+		]
+	},
+	"member-plans-detail.html": {
+		"resources": [
+			"member-plans-total.html"
+		],
+		"refer": [
+			"member-plans-total.html",
+			"member-plans-alone.html",
+			"news-business.html",
+			"news-finance.html"
+		]
+	},
+	"member-plans-alone.html": {
+		"resources": [
+			"images/icon/phone.png",
+			"images/plans/prospectus/plan_del.png",
+			"css/mui.css",
+			"images/plans/prospectus/ajb.jpg"
 		]
 	}
 }

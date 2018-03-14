@@ -1,37 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="498c8627-e6d5-474f-af44-54872208893d" name="默认的" comment="添加积分、生日、登录、设置、个人信息、修改秘密">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/release/H517AA33E_0313105138.apk" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/1024x1024.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/167x167.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/20x20.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/60x60.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/.dependencies" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/manifest.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/unpackage/.confirmed_dependencies" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unpackage/res/icons/120x120.png" afterPath="$PROJECT_DIR$/unpackage/res/icons/120x120.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unpackage/res/icons/144x144.png" afterPath="$PROJECT_DIR$/unpackage/res/icons/144x144.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unpackage/res/icons/152x152.png" afterPath="$PROJECT_DIR$/unpackage/res/icons/152x152.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unpackage/res/icons/180x180.png" afterPath="$PROJECT_DIR$/unpackage/res/icons/180x180.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unpackage/res/icons/192x192.png" afterPath="$PROJECT_DIR$/unpackage/res/icons/192x192.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unpackage/res/icons/29x29.png" afterPath="$PROJECT_DIR$/unpackage/res/icons/29x29.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unpackage/res/icons/40x40.png" afterPath="$PROJECT_DIR$/unpackage/res/icons/40x40.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unpackage/res/icons/48x48.png" afterPath="$PROJECT_DIR$/unpackage/res/icons/48x48.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unpackage/res/icons/58x58.png" afterPath="$PROJECT_DIR$/unpackage/res/icons/58x58.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unpackage/res/icons/72x72.png" afterPath="$PROJECT_DIR$/unpackage/res/icons/72x72.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unpackage/res/icons/76x76.png" afterPath="$PROJECT_DIR$/unpackage/res/icons/76x76.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unpackage/res/icons/80x80.png" afterPath="$PROJECT_DIR$/unpackage/res/icons/80x80.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unpackage/res/icons/87x87.png" afterPath="$PROJECT_DIR$/unpackage/res/icons/87x87.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unpackage/res/icons/96x96.png" afterPath="$PROJECT_DIR$/unpackage/res/icons/96x96.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/webviewGroup.js" afterPath="$PROJECT_DIR$/js/webviewGroup.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-duty-stats.html" afterPath="$PROJECT_DIR$/member-duty-stats.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member.html" afterPath="$PROJECT_DIR$/member.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news.html" afterPath="$PROJECT_DIR$/news.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/quickly-filter.html" afterPath="$PROJECT_DIR$/quickly-filter.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/quickly.html" afterPath="$PROJECT_DIR$/quickly.html" />
+    <list default="true" id="498c8627-e6d5-474f-af44-54872208893d" name="默认的" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/deployment.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/mobileapp2.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -65,7 +40,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="anlo" />
       </map>
     </option>
     <push-targets>
@@ -120,11 +95,6 @@
               <item name="mobileapp2" type="b2602c69:ProjectViewProjectNode" />
               <item name="mobileapp2" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="mobileapp2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mobileapp2" type="462c0819:PsiDirectoryNode" />
-              <item name="unpackage" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -173,7 +143,7 @@
       <workItem from="1520673062096" duration="89000" />
       <workItem from="1520839235564" duration="459000" />
       <workItem from="1520839711196" duration="32000" />
-      <workItem from="1520989957938" duration="1286000" />
+      <workItem from="1520989957938" duration="265000" />
     </task>
     <task id="LOCAL-00001" summary="计划书模块">
       <created>1520420574558</created>
@@ -217,18 +187,11 @@
       <option name="project" value="LOCAL" />
       <updated>1520990037501</updated>
     </task>
-    <task id="LOCAL-00007" summary="添加积分、生日、登录、设置、个人信息、修改秘密">
-      <created>1520990255846</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1520990255846</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21384000" />
+    <option name="totallyTimeSpent" value="20363000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />

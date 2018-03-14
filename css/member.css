@@ -1,14 +1,15 @@
 /* 首页 */
 .member-skin{
 	background: url(../images/member/index-bg.jpg) no-repeat #f2f2f2;
-	background-size: 100% 16.125rem;
+	background-size: 100%;
 }
 .member-hr{
 	position: absolute;
-	z-index: -1;
+	z-index: 1000;
 	top: 0;
 	left: 0;
-	height: 16.125rem;
+	height: 16rem;
+	background: rgba(0,0,0,0.5);
 }
 .member-index .mheader{
 	padding: 0 1.25rem;
@@ -45,10 +46,11 @@
 }
 .member-index .mbody{
 	background-color: #f2f2f2;
+	padding-top: 1rem;
 }
 .member-index .mbody .section{
 	background-color: #ffffff;
-	margin-top: 1rem;
+	margin-bottom: 1rem;
 	min-height: 5rem;
 }
 .member-index .section-myList .myList-hd{

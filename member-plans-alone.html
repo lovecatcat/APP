@@ -17,7 +17,7 @@
         	时间：2018-03-07
         	描述：单个计划书详情 begin
         -->
-		<div id="Js-plansDetail" class="mui-content BL-bg-3b9cf5 plans-detail BL-overFlow-autoY">
+		<div class="mui-content BL-bg-3b9cf5 plans-detail BL-overFlow-autoY">
 			
 				<div class="plans-detail-banner">
 					<img src="images/plans/prospectus/ajb.jpg" alt="" id="banner">
@@ -54,17 +54,19 @@
 				<!--险种信息-->
 				<div class="plans-detail-box BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff">
 					<ul class="BL-ul">
-                        <li class="BL-ftz-42">
-                        	<span>保险金额</span>
-                        	<span>保险期间</span>
-                        	<span>交费期间</span>
-                        	<span>年交保费</span>
+                        <li class="BL-ftz-42  BL-ub BL-ub-ac">
+                        	<span class="BL-ub-f1">险种</span>
+                        	<span class="BL-ub-f1">保险金额</span>
+                        	<span class="BL-ub-f1">保险期间</span>
+                        	<span class="BL-ub-f1">交费期间</span>
+                        	<span class="BL-ub-f1">年交保费</span>
                         </li>
-                        <li class="BL-ftz-46">
-                        	<span>555</span>
-                        	<span>23</span>
-                        	<span>10</span>
-                        	<span>1000.00</span>
+                        <li class="BL-ftz-46 BL-ub BL-ub-ac">
+                        	<span class="BL-ub-f1">dd盛世嫡妃所多所多所多所</span>
+                        	<span class="BL-ub-f1">23</span>
+                        	<span class="BL-ub-f1">10</span>
+                        	<span class="BL-ub-f1">10</span>
+                        	<span class="BL-ub-f1">1000.00</span>
                         </li>
                     </ul>
 				</div>
@@ -137,8 +139,8 @@
 						<button class="BL-btn-gray BL-ftz-42 BL-mar-l-1 BL-pad-lr-1 ">低档 4.5%</button>
 						<button class="BL-btn-blue BL-ftz-42 BL-mar-l-1 BL-pad-lr-1 ">低档 4.5%</button>
 					</div>
-					<div>
-						<div class="plans-detail-table" style="width: 10%;float: left;">
+					<div > 
+						<div class="" style="width: 10%;overflow-x: auto;float: left;">
 	                        <table class="BL-ftz-46">
 	                            <thead class=" BL-col-3b9cf5">
 		                            <tr>
@@ -146,19 +148,20 @@
 		                            </tr>
 	                            </thead>
 	                            <tbody class="BL-bg-f2f">
-	                            <tr>
-	                            	<td class="td_age">38</td>
-	                            </tr>
-	                            <tr><td class="td_age">39</td></tr>
-	                            <tr><td class="td_age">40</td></tr>
-	                            <tr><td class="td_age">41</td></tr>
-	                            <tr><td class="td_age">42</td></tr>
-	                            <tr><td class="td_age">43</td></tr>
+		                            <tr>
+		                            	<td class="td_age">38</td>
+		                            </tr>
+		                            <tr><td class="td_age">39</td></tr>
+		                            <tr><td class="td_age">40</td></tr>
+		                            <tr><td class="td_age">41</td></tr>
+		                            <tr><td class="td_age">42</td></tr>
+		                            <tr><td class="td_age">43</td></tr>
+		                        </tbody>
 	                        </table> 
 	                    </div>
-	                    <div class="plans-detail-table" style="width: 90%;float: left;display: block;">
-	                    
-	                        <table class="BL-ftz-46">
+	                    <div class="plans-detail-table" style="width: 90%;float: left;">
+	                    	<div>
+	                    		<table class="BL-ftz-46">
 	                            <thead class=" BL-col-3b9cf5">
 		                            <tr>
 		                                <th>年d<br>dd龄</th>
@@ -187,15 +190,15 @@
 	                            	</tr>
 	                            </tbody>
 	                        </table>
+	                    	</div>
+	       
 	                    </div>
 					</div>
 					
                     
 				</div>
 				<!--利益演示表-->
-				
-		
-			
+				<div id="Js-plansDetail"></div>
 		</div>		
 		<!--
         	作者：383938231@qq.com
@@ -228,14 +231,11 @@
 
 		(function($) {
 			//阻尼系数
-			var deceleration = mui.os.ios ? 0.003 : 0.0009;
+//			var deceleration = mui.os.ios ? 0.003 : 0.0009;
 			var winH = window.innerHeight;
 			var fotHeight = document.querySelector('#Js-footer').offsetHeight;
-			document.querySelector('#Js-plansDetail').style.height = (winH - fotHeight) + 'px';
+			document.querySelector('#Js-plansDetail').style.height = fotHeight + 'px';
 			
-			$.plusReady(function() {
-				//statusbar();
-			});
 	
 		}(mui));
 	</script>

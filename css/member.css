@@ -1,7 +1,7 @@
 /* 首页 */
 .member-skin{
 	background: url(../images/member/index-bg.jpg) no-repeat #f2f2f2;
-	background-size: 100%;
+	background-size: 100% 16.125rem;
 }
 .member-hr{
 	position: absolute;
@@ -141,10 +141,7 @@
 	background: url(../images/icon/member-calcu.png) no-repeat center center;
 	background-size: contain;
 }
-/* 重写列表 */
-.mui-navigate-right:after, .mui-push-right:after {
-	right: 0;
-}
+
 /* 列表分类栏目 */
 .BL-segmented-control.mui-scroll-wrapper{
 	border-bottom: 1px solid #e7e7e7;
@@ -370,7 +367,7 @@
     color: #ffffff;
     border-radius: .425rem;
     border: none;
-    text-align: center;  
+    text-align: center;
 }
 /* 团队管理 */
 .member-team-tab-title {
@@ -497,7 +494,7 @@
 }
 /*团队模态框*/
 .member-team-modal {
-/*	display: none !important;*/
+	display: none !important;
 	width: 100%;
 	height: 100%;
 	background: rgba(0, 0, 0, 0.55);
@@ -558,7 +555,7 @@
 .member-team-search .down {
 	padding-left: .6875rem;
     padding-right: .6875rem;
-} 
+}
 .member-team-search .search-down{
 	display: block;
     width: 1rem;
@@ -851,12 +848,12 @@
 }*/
 .member-duty-dater .current-month .dayOn{
 	border-color: #3b9cf5;
-	color: #3b9cf5;	
+	color: #3b9cf5;
 }
 .member-duty-dater .current-month .dayLater, .member-duty-dater .current-month .dayLeave, .member-duty-dater .current-month .dayMiss{
 	border-color: #3b9cf5;
 	background-color: #3b9cf5;
-	color: #ffffff;	
+	color: #ffffff;
 }
 .member-duty-dater .current-month span{
 	position: relative;
@@ -898,7 +895,7 @@
 }
 .member-duty-context .section{
 	border-top: 1px solid #e7e7e7;
-	padding: 1rem 0;	
+	padding: 1rem 0;
 }
 .member-duty-context .section-tip{
 	color: #999999;
@@ -931,123 +928,48 @@
 .member-duty-context .section .decri .done-red{
 	background-color: #e62303;
 }
-/* 生日跟踪 */
-.member-birth-sum {
-	right: 1.5rem;
-	font-size: 1.4375rem;
+
+/*寿险订单*/
+.fr{
+    float: right;
 }
-/* 个人信息 */
-.member-personalinfo-img {
-	width: 6.25rem;
-	height: 6.25rem;
-	margin: 1rem 0;
-	float: right;
-}
-.member-personalinfo-img img {
-	width: 100%;
-	height: 100%;
-	border-radius: 50%;
-}
-/* 登录  */
-.member-logo {
-	padding: 6.25rem 0rem 5.3125rem 0rem;
-}
-.member-login-item {
-	position: relative;
+.member-warranty-list-item .context{
     font-size: 1.625rem;
-    padding: 0 1.5rem;
-	height: 5.25rem;
-	line-height: 5.25rem;
 }
-.form-list-cell .member-login-item:after {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 1.25rem;
-    height: 1px;
-    content: '';
-    -webkit-transform: scaleY(.5);
-    transform: scaleY(.5);
-    background-color: #c8c7cc;
+.member-warranty-list-item .context .context-w-50>span{
+    display: inline-block;
+    float: left;
+    width: 50%;
 }
-.member-login-item input {
-	font-size: 1.625rem;
-	border: none;
-	text-align: left;
-	text-indent: 1.1rem;
+.member-warranty-list-item .button>button {
+    height: 2.8125rem;
+    font-size: 1.4375rem;
 }
-.login-ico-phone {
-	width: 2.03rem;
-    height: 2.625rem;
-    position: relative;
-	background-image: url("../images/icon/ico-phone.png");
+/*寿险订单详情*/
+.member-warranty-detail-item{
+    overflow-x: hidden;
 }
-.login-ico-pwd {
-	width: 2.03rem;
-    height: 2.625rem;
-    position: relative;
-	background-image: url("../images/icon/ico-pwd.png");
+.member-warranty-detail-item>a{
+    padding-left: 1.5rem !important;
 }
-.login-ico-pwdeye {
-	width: 2.03rem;
-    height: 2.625rem;
-    position: relative;
-	background-image: url("../images/icon/ico-pwdeye.png");
+.member-warranty-detail-item .BL-title>span{
+    border-left: .3rem solid #3B9CF5;
+    padding-left: 1rem;
 }
-.login-more {
-	padding: 0 1.5rem;
-	font-size: 1.4375rem;
-	color: #3B9CF5;
+.member-warranty-detail-item table{
+    width: 100%;
+    font-size: 1.625rem;
+    overflow-x: auto;
 }
-.other-login {
-	position: relative;
-	margin: 15.6rem 0rem 2rem 0rem;
+.member-warranty-detail-item table tr>td{
+    border: 1px solid #d2d2d2;
+    padding: 2rem;
+    white-space: nowrap;
 }
-.other-login-ico { 
-	width: 4.78rem;
-    height: 4.78rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    position: relative;
+.member-warranty-detail-item table tr>td:first-child{
+    min-width: 30%;
+    text-align: center;
+    background-color: #f2f2f2;
 }
-.login-ico-wechat {
-	background-image: url("../images/icon/ico-wechat.png");
-}
-.login-ico-QQ {
-	background-image: url("../images/icon/ico-QQ.png");
-}
-.other-login-txt{  
-  	position: absolute;  
-  	text-align: center;  
-  	min-width: 25rem;
-  	left: 50%;
-    top: -50%;
-    transform: translate(-50%, -50%);
-}  
-.other-login-txt div {
-	font-size: 1.4375rem;  
-	color: #999999;
-}  
-/*CSS伪类用法*/  
-.other-login-txt div:after, .other-login-txt div:before {  
-  	background: #999999;  
-  	content: "";  
-  	height: 1px;  
-  	position: absolute;  
-  	top: 50%;  
-  	width: 30%;  
-}  
-/*调整背景横线的左右距离*/  
-.other-login-txt div:before {  
-    left: -.5rem;  
-}  
-.other-login-txt div:after {  
-    right: -.5rem; 
-}
-.login-sms-btn {
-	padding: .8rem 1.5rem;
-	font-size: 1.3125rem;
-	color: #cccccc;
-	border-radius: .5rem;
-	border: 1px solid #cccccc;
-}
+.clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0}
+.clearfloat{zoom:1}

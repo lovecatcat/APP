@@ -1,11 +1,9 @@
+/*业务员id 交单*/
+.id-desc {font-size: 1.4375rem; color: #3b9cf5;text-align: center; line-height: 2.8rem; height: 2.8rem; background-color: #bbd8f3;}
 /* 表单列表 */
 select, textarea, input[type='text'], input[type='number'], input[type='date'] {
     font-size: 1.625rem;
     height: 5.3rem;
-}
-
-.form-list-cell {
-    margin-top: 1rem !important;
 }
 
 .form-list-cell .fItem {
@@ -235,6 +233,8 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'] {
     height: 2.8125rem;
     border-radius: 4rem;
     float: right;
+    border-color: #ccc;
+    background-color: #e7e7e7;
 }
 
 .mui-switch .mui-switch-handle {

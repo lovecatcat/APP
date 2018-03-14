@@ -24,7 +24,7 @@
 .form-btn {display: block;color:#3b9cf5;width: 100%;height: 4.6875rem;line-height: 4.6875rem;font-size: 1.625rem;border-radius: .625rem;text-align: center;border:1px solid #3b9cf5;background-color: #fff;}
 .form-btn.blue{background-color: #3b9cf5;color: #fff;}
 .ins-mask{position: fixed;top: 0;bottom: 0;left: 0;right: 0;z-index: 100;background: rgba(150, 150, 150, .5);}
-.ins-dialog{position: fixed;width: 100%;bottom:0;left: 0;background-color: #ebf5fe;padding: 0 .625rem;}
+.ins-dialog{position: fixed;width: 100%;bottom:0;left: 0;background-color: #ebf5fe;padding: 0 .625rem;z-index: 99;}
 .ins-dialog.lg{height: 92%;}
 .ins-dialog.xs{height: 50%;}
 .ins-dialog.md{height: 70%;}

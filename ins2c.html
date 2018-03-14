@@ -1,25 +1,128 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<link href="css/mui.css" rel="stylesheet" />
-		<link href="css/common.css" rel="stylesheet" />
-		<link href="css/module.css" rel="stylesheet" />
-		<script src="js/config.js" type="text/javascript"></script>
-	</head>
-	<body class="BL-bg-f2f">
-		<header id="Js-header" class="BL-mod-headbar BL-bg-fff">
-		    <a class="mui-action-back mui-icon-left-nav BL-icon"></a>
-		    <h1 class="BL-title">在线交单</h1>
-		</header>
-	</body>
-	<script src="js/mui.min.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		mui.plusReady(function() {
-		})
-		
-	</script>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="css/mui.css" rel="stylesheet"/>
+    <link href="css/common.css" rel="stylesheet"/>
+    <link href="css/form.css" rel="stylesheet"/>
+    <link href="css/module.css" rel="stylesheet"/>
+    <script src="js/config.js" type="text/javascript"></script>
+</head>
+<body class="BL-bg-f2f">
+
+<header id="Js-header" class="BL-bg-fff">
+    <div class="BL-mod-headbar BL-mod-headbar-pos">
+        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+        <h1 class="BL-title">在线交单</h1>
+    </div>
+</header>
+
+<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
+    <div class="id-desc">ID:12012455223</div>
+    <!------------表单列表1 begin------------->
+    <ul class="mui-table-view form-list-cell">
+        <li class="fItem BL-ub BL-ub-f1 no-line">
+            <label class="form-list-label">公司品牌</label>
+            <div class="form-list-control BL-txt-r">泰康人寿</div>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </li>
+        <li class="fItem BL-ub BL-ub-f1">
+            <label class="form-list-label">保单号</label>
+            <div class="form-list-control">
+                <input type="text" placeholder="请输入">
+            </div>
+            <div class="form-list-icon">
+                <span class="mui-icon mui-icon-clear"></span>
+            </div>
+        </li>
+        <li class="fItem BL-ub BL-ub-f1">
+            <label class="form-list-label">投保单号</label>
+            <div class="form-list-control">
+                <input type="text" placeholder="请输入">
+            </div>
+            <div class="form-list-icon">
+                <span class="mui-icon mui-icon-clear"></span>
+            </div>
+        </li>
+    </ul>
+    <div class="mui-table-view form-list-cell BL-mar-t-1">
+        <a class="fItem BL-ub BL-ub-f1 no-line" href="ins2c-applicant.html" data-wid="ins2c-applicant">
+            <label class="form-list-label">投保人信息</label>
+            <div class="form-list-control"></div>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </a>
+        <a class="fItem BL-ub BL-ub-f1 no-line" href="ins2c-assured.html" data-wid="ins2c-assured">
+            <label class="form-list-label">被保人信息</label>
+            <div class="form-list-control"></div>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </a>
+        <a class="fItem BL-ub BL-ub-f1 no-line" href="ins2c-beneficiary.html" data-wid="ins2c-beneficiary">
+            <label class="form-list-label">受益人信息</label>
+            <div class="form-list-control"></div>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </a>
+        <a class="fItem BL-ub BL-ub-f1 no-line" href="ins2c-safegood.html" data-wid="ins2c-safegood">
+            <label class="form-list-label">险种信息</label>
+            <div class="form-list-control"></div>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </a>
+        <a class="fItem BL-ub BL-ub-f1 no-line" href="ins2c-bank.html" data-wid="ins2c-bank">
+            <label class="form-list-label">付款信息</label>
+            <div class="form-list-control"></div>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </a>
+        <a class="fItem BL-ub BL-ub-f1 no-line"  href="ins2c-upload.html" data-wid="ins2c-upload">
+            <label class="form-list-label">上传证件</label>
+            <div class="form-list-control"></div>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </a>
+    </div>
+    <div class="form-button-group">
+        <div class="form-btn">提交</div>
+    </div>
+</div>
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mui.init();
+
+    mui('body').on('tap', 'a', function() {
+        var href = this.getAttribute('href');
+        var id = this.getAttribute("data-wid");
+
+        if(href && ~href.indexOf('.html')) {
+            //打开新窗口
+            mui.openWindow({
+                url:href,
+                id:id,
+                show:animateObj.aniDetal
+            });
+        }
+    });
+
+    mui.plusReady(function () {
+        statusbar();
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+    })
+
+</script>
 
 </html>

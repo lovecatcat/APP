@@ -374,7 +374,8 @@
 					"quickly.html",
 					"auto2c.html",
 					"popup.html",
-					"insurance-index.html"
+					"insurance-index.html",
+					"ins2c.html"
 				],
 				"priority": 0
 			},
@@ -1326,9 +1327,7 @@
 					"js/config.js",
 					"css/mui.picker.min.css"
 				],
-				"refer": [
-					"auto2c-content.html"
-				],
+				"refer": [],
 				"priority": 0
 			},
 			"sns-detail.html": {
@@ -1937,6 +1936,26 @@
 					"insurance-healthinfo.html"
 				],
 				"priority": 0
+			},
+			"ins2c.html": {
+				"resources": [],
+				"refer": [
+					"ins2c-applicant.html",
+					"ins2c-assured.html",
+					"insurance-beneficiary.html",
+					"ins2c-beneficiary.html",
+					"ins2c-upload.html",
+					"ins2c-bank.html",
+					"ins2c-safegood.html"
+				],
+				"priority": 0
+			},
+			"ins2c-beneficiary.html": {
+				"resources": [],
+				"refer": [
+					"ins2c-addbeneficiary.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {
@@ -1947,7 +1966,6 @@
 				"receipt-2.html",
 				"css/insurance.css",
 				"member-commission-result.html",
-				"ins2c.html",
 				"member-duty-stats.html",
 				"images/pic/p8.jpg",
 				"js/schedule.js",

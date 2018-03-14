@@ -23,10 +23,9 @@
 				</div>
 			</div>
 		</header>
-		
-		
+
 		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
-			<!------------表单列表1 begin------------->
+
 			<ul class="mui-table-view form-list-cell">
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
@@ -94,9 +93,8 @@
 					</div>
 				</li>
 			</ul>
-			<!------------表单列表1 end------------->
-			<!------------表单列表2 begin------------->
-			<ul class="mui-table-view form-list-cell">
+
+			<ul class="mui-table-view form-list-cell BL-mar-t-1">
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
 					<div class="form-list-control BL-txt-r">
@@ -196,7 +194,7 @@
 					</div>
 				</li>
 				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label BL-ub-f3">
+					<label class="form-list-label BL-col-3b9cf5 BL-ub-f3">
 						是否已参加当地社会基本医疗保险（或公费医疗）？
             		</label>
 					<div class="form-list-control">
@@ -206,163 +204,7 @@
 					</div>
 				</li>
 			</ul>
-			<!------------表单列表2 end------------->
-			<!------------受益人begin------------->
-			<ul class="mui-table-view form-list-cell mui-table-view-radio">
-				<li class="mui-table-view-cell mui-selected">
-					<a class="mui-navigate-right">
-						法定受益人
-					</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						指定受益人
-					</a>
-				</li>
-			</ul>
-			<ul class="mui-table-view form-list-cell">
-				<li class="fItem BL-ub BL-ub-f1">
-					<div class="form-list-label BL-ub-f1 BL-col-3b9cf5 BL-txt-c">+添加受益人</div>
-				</li>
-			</ul>
-			<ul class="mui-table-view mui-table-view-chevron form-list-cell">
-				<li class="mui-table-view-cell mui-media edit-active">
-					<span class="chevron-del"></span>
-					<div class="mui-navigate-right">
-						<div class="mui-media-body">
-							张三
-							<p class="mui-ellipsis">50%</p>
-						</div>
-					</div>
-					<span class="chevron-edit">修改</span>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<div class="mui-navigate-right" href="javascript:;">
-						<div class="mui-media-body">
-							李四
-							<p class="mui-ellipsis">30%</p>
-						</div>
-					</div>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<div class="mui-navigate-right">
-						<div class="mui-media-body">
-							赵六
-							<p class="mui-ellipsis">20%</p>
-						</div>
-					</div>
-				</li>
-			</ul>
-			
-			<ul class="mui-table-view form-list-cell">
-				<li class="fItem BL-ub BL-ub-f1">
-					<div class="form-list-label BL-ub-f1 BL-col-3b9cf5">同一受益顺序的受益份额之和应为100%</div>
-				</li>
-			</ul>
-			<!------------受益人end------------->
-			<!--险种信息begin-->
-			<div class="mui-content form-list-cell BL-bg-fff ">
-				<ul class="mui-table-view form-list-cell">
-					<li class="fItem BL-ub BL-ub-f1">
-						<label class="form-list-label">险种</label>
-						<div class="form-list-control">
-							<select>
-								<option>中国</option>
-								<option>其他</option>
-							</select>
-						</div>
-						<div class="form-list-icon">
-							<div class="mui-icon mui-icon-arrowright"></div>
-						</div>
-					</li>
-					<li class="fItem BL-ub BL-ub-f1">
-						<label class="form-list-label">保险金额(元)</label>
-						<div class="form-list-control">
-							<input type="number" placeholder="请输入">
-						</div>
-					</li>
-					<li class="fItem BL-ub BL-ub-f1">
-						<label class="form-list-label">年缴保费(元)</label>
-						<div class="form-list-control BL-pad-r-1">
-							<input type="number" placeholder="请输入">
-						</div>
-						<div class="form-cal">点击计算</div>
-					</li>
-					<li class="fItem BL-ub BL-ub-f1">
-						<div class="BL-ub-f3 form-list-label">
-							附加尊享安康医疗保险
-						</div>
-						<div class="form-switch-note" slot="input">
-							<span>投保&nbsp;&nbsp;</span>
-						</div>
-						<div class="form-switch-control">
-							<div class="mui-switch mui-switch-mini">
-								<div class="mui-switch-handle"></div>
-							</div>
-						</div>
-					</li>
-					<li class="fItem BL-ub BL-ub-f1">
-						<label class="form-list-label indent">保险期间</label>
-						<div class="form-list-control">
-							<input type="number" placeholder="终身" disabled>
-						</div>
-					</li>
-					<li class="fItem BL-ub BL-ub-f1">
-						<label class="form-list-label indent">交费期间</label>
-						<div class="form-list-control">
-							<select>
-								<option>10年交</option>
-								<option>15年交</option>
-							</select>
-						</div>
-						<div class="form-list-icon">
-							<div class="mui-icon mui-icon-arrowright"></div>
-						</div>
-					</li>
-			</div>
-			<!--险种信息end-->
-			<!------------上传证件begin------------->
-			<div class="mui-content form-list-cell BL-bg-fff ">
-				<div class="mui-row form-row">
-					<div class="mui-col-sm-6 BL-mar-b-2">
-						<div class="BL-txt-c">
-							<div class="form-upload BL-mar-r-1">
-								<input type="file" accept="image/*" class="form-upload-img">
-							</div>
-							<span class="form-p BL-col-999">投保人身份证反面</span>
-							<a href="javascript:;" class="form-p BL-col-3b9cf5">查看示例</a>
-						</div>
-					</div>
-					<div class="mui-col-sm-6 BL-mar-b-2">
-						<div class="BL-txt-c">
-							<div class="form-upload BL-mar-l-1">
-								<input type="file" accept="image/*" class="form-upload-img">
-							</div>
-							<span class="form-p BL-col-999">投保人身份证反面</span>
-							<a href="javascript:;" class="form-p BL-col-3b9cf5">查看示例</a>
-						</div>
-					</div>
-					<div class="mui-col-sm-6 BL-mar-b-2">
-						<div class="BL-txt-c">
-							<div class="form-upload BL-mar-r-1">
-								<input type="file" accept="image/*" class="form-upload-img">
-							</div>
-							<span class="form-p BL-col-999">投保人身份证反面</span>
-							<a href="javascript:;" class="form-p BL-col-3b9cf5">查看示例</a>
-						</div>
-					</div>
-					<div class="mui-col-sm-6 BL-mar-b-2">
-						<div class="BL-txt-c">
-							<div class="form-upload BL-mar-l-1">
-								<input type="file" accept="image/*" class="form-upload-img">
-							</div>
-							<span class="form-p BL-col-999">投保人身份证反面</span>
-							<a href="javascript:;" class="form-p BL-col-3b9cf5">查看示例</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!------------上传证件end------------->
+
 		</div>
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>

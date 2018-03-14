@@ -98,7 +98,7 @@
 						return;
 					};
 					
-					if(!isLoadNew){
+					if(targetIndex == 2 &&  !isLoadNew){
 						var loadPageWeb = plus.webview.getWebviewById('news');
 						mui.fire(loadPageWeb,'loadpage');
 						isLoadNew = true;

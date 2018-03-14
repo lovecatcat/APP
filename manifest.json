@@ -749,7 +749,11 @@
 					"member-commission-account.html",
 					"member-team.html",
 					"member-duty.html",
-					"member-plans-manage.html"
+					"member-plans-manage.html",
+					"member-setup.html",
+					"member-personalinfo.html",
+					"member-birthday.html",
+					"member-intergral.html"
 				],
 				"priority": 0
 			},
@@ -1877,12 +1881,12 @@
 					"css/news.css",
 					"images/icon/ico-eye1.png",
 					"images/icon/ico-good.png",
-					"js/config.js"
+					"js/config.js",
+					"member-plans-total.html"
 				],
 				"refer": [
 					"member-plans-alone.html",
 					"news-cream.html",
-					"member-plans-total.html",
 					"news-tv-detail.html",
 					"news-business.html",
 					"news-finance.html"
@@ -1927,7 +1931,11 @@
 				"priority": 2
 			},
 			"insurance-index.html": {
-				"resources": [],
+				"resources": [
+					"css/insurance.css",
+					"css/mui.picker.min.css",
+					"css/mui.css"
+				],
 				"refer": [
 					"insurance-applicant.html",
 					"insurance-safegood.html",
@@ -1938,7 +1946,9 @@
 				"priority": 0
 			},
 			"ins2c.html": {
-				"resources": [],
+				"resources": [
+					"css/form.css"
+				],
 				"refer": [
 					"ins2c-applicant.html",
 					"ins2c-assured.html",
@@ -1956,6 +1966,78 @@
 					"ins2c-addbeneficiary.html"
 				],
 				"priority": 0
+			},
+			"member-setup.html": {
+				"resources": [
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-personalinfo.html": {
+				"resources": [
+					"images/pic/logo.png",
+					"css/member.css",
+					"css/mui.css",
+					"css/form.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"insurance-applicant.html": {
+				"resources": [
+					"css/insurance.css",
+					"images/icon/ico-down.png",
+					"css/mui.picker.min.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-birthday-customer.html": {
+				"resources": [
+					"css/member.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-birthday.html": {
+				"resources": [
+					"member-birthday-customer.html",
+					"css/mui.css"
+				],
+				"refer": [
+					"member-birthday-team.html"
+				],
+				"priority": 0
+			},
+			"member-intergral.html": {
+				"resources": [
+					"member-intergral-all.html",
+					"css/member.css",
+					"css/mui.css"
+				],
+				"refer": [
+					"member-intergral-activity.html",
+					"member-intergral-rights.html",
+					"member-intergral-experience.html"
+				],
+				"priority": 0
+			},
+			"member-intergral-all.html": {
+				"resources": [
+					"css/product.css",
+					"images/icon/ico-filter-active.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-intergral-rights.html": {
+				"resources": [
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {
@@ -1964,7 +2046,6 @@
 				"receipt-list.html",
 				"receipt-1.html",
 				"receipt-2.html",
-				"css/insurance.css",
 				"member-commission-result.html",
 				"member-duty-stats.html",
 				"images/pic/p8.jpg",

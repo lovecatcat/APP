@@ -749,7 +749,8 @@
 					"member-commission-account.html",
 					"member-team.html",
 					"member-duty.html",
-					"member-plans-manage.html"
+					"member-plans-manage.html",
+					"member-personalinfo.html"
 				],
 				"priority": 0
 			},

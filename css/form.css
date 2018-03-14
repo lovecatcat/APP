@@ -3,11 +3,7 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'],i
     font-size: 1.625rem;
     height: 5.3rem;
 }
-
-.form-list-cell {
-    margin-top: 1rem !important;
-}
-
+.form-list-cell{margin-top: 1rem!important;}
 .form-list-cell .fItem {
     position: relative;
     display: -webkit-box;
@@ -235,6 +231,8 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'],i
     height: 2.8125rem;
     border-radius: 4rem;
     float: right;
+    border-color: #ccc;
+    background-color: #e7e7e7;
 }
 
 .mui-switch .mui-switch-handle {

@@ -34,7 +34,7 @@ var animateObj = (function() {
 		},
 		aniForm: {
 			aniShow: 'slide-in-bottom', // 页面显示动画：从下侧竖向滑动效果
-			duration: '350' //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+			duration: '400' //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
 		}
 	}
 })();

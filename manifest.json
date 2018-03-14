@@ -285,11 +285,11 @@
 					"images/icon/ico-ring.png",
 					"images/icon/ico-search.png",
 					"images/icon/sign.png",
-					"images/icon/sign-active.png",
-					"prospect.html"
+					"images/icon/sign-active.png"
 				],
 				"refer": [
 					"member.html",
+					"prospect.html",
 					"discover.html",
 					"news.html"
 				],
@@ -373,7 +373,9 @@
 					"ins2c-applicant.html",
 					"quickly.html",
 					"auto2c.html",
-					"popup.html"
+					"popup.html",
+					"insurance-index.html",
+					"ins2c.html"
 				],
 				"priority": 0
 			},
@@ -747,10 +749,7 @@
 					"member-commission-account.html",
 					"member-team.html",
 					"member-duty.html",
-					"member-plans-manage.html",
-					"member-intergral.html",
-					"member-personalinfo.html",
-					"member-setup.html"
+					"member-plans-manage.html"
 				],
 				"priority": 0
 			},
@@ -1328,9 +1327,7 @@
 					"js/config.js",
 					"css/mui.picker.min.css"
 				],
-				"refer": [
-					"auto2c-content.html"
-				],
+				"refer": [],
 				"priority": 0
 			},
 			"sns-detail.html": {
@@ -1880,12 +1877,12 @@
 					"css/news.css",
 					"images/icon/ico-eye1.png",
 					"images/icon/ico-good.png",
-					"js/config.js",
-					"member-plans-total.html"
+					"js/config.js"
 				],
 				"refer": [
 					"member-plans-alone.html",
 					"news-cream.html",
+					"member-plans-total.html",
 					"news-tv-detail.html",
 					"news-business.html",
 					"news-finance.html"
@@ -1929,41 +1926,35 @@
 				],
 				"priority": 2
 			},
-			"member-intergral.html": {
-				"resources": [
-					"member-intergral-all.html",
-					"css/member.css",
-					"css/mui.css"
-				],
+			"insurance-index.html": {
+				"resources": [],
 				"refer": [
-					"member-intergral-activity.html",
-					"member-intergral-rights.html",
-					"member-intergral-experience.html"
+					"insurance-applicant.html",
+					"insurance-safegood.html",
+					"insurance-beneficiary.html",
+					"insurance-bank.html",
+					"insurance-healthinfo.html"
 				],
 				"priority": 0
 			},
-			"member-intergral-all.html": {
-				"resources": [
-					"css/product.css"
+			"ins2c.html": {
+				"resources": [],
+				"refer": [
+					"ins2c-applicant.html",
+					"ins2c-assured.html",
+					"insurance-beneficiary.html",
+					"ins2c-beneficiary.html",
+					"ins2c-upload.html",
+					"ins2c-bank.html",
+					"ins2c-safegood.html"
 				],
-				"refer": [],
 				"priority": 0
 			},
-			"member-intergral-experience.html": {
-				"resources": [
-					"css/mui.css"
+			"ins2c-beneficiary.html": {
+				"resources": [],
+				"refer": [
+					"ins2c-addbeneficiary.html"
 				],
-				"refer": [],
-				"priority": 0
-			},
-			"member-personalinfo.html": {
-				"resources": [
-					"images/pic/logo.png",
-					"css/member.css",
-					"css/mui.css",
-					"css/form.css"
-				],
-				"refer": [],
 				"priority": 0
 			}
 		},
@@ -1971,16 +1962,10 @@
 			"resources": [
 				"images/pic/p2.jpg",
 				"receipt-list.html",
-				"insurance-applicant.html",
-				"insurance-beneficiary.html",
 				"receipt-1.html",
 				"receipt-2.html",
 				"css/insurance.css",
 				"member-commission-result.html",
-				"insurance-index.html",
-				"ins2c.html",
-				"insurance-bank.html",
-				"insurance-safegood.html",
 				"member-duty-stats.html",
 				"images/pic/p8.jpg",
 				"js/schedule.js",

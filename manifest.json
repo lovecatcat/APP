@@ -747,7 +747,10 @@
 					"member-commission-account.html",
 					"member-team.html",
 					"member-duty.html",
-					"member-plans-manage.html"
+					"member-plans-manage.html",
+					"member-intergral.html",
+					"member-personalinfo.html",
+					"member-setup.html"
 				],
 				"priority": 0
 			},
@@ -1877,12 +1880,12 @@
 					"css/news.css",
 					"images/icon/ico-eye1.png",
 					"images/icon/ico-good.png",
-					"js/config.js"
+					"js/config.js",
+					"member-plans-total.html"
 				],
 				"refer": [
 					"member-plans-alone.html",
 					"news-cream.html",
-					"member-plans-total.html",
 					"news-tv-detail.html",
 					"news-business.html",
 					"news-finance.html"
@@ -1925,6 +1928,43 @@
 					"member-plans-detail.html"
 				],
 				"priority": 2
+			},
+			"member-intergral.html": {
+				"resources": [
+					"member-intergral-all.html",
+					"css/member.css",
+					"css/mui.css"
+				],
+				"refer": [
+					"member-intergral-activity.html",
+					"member-intergral-rights.html",
+					"member-intergral-experience.html"
+				],
+				"priority": 0
+			},
+			"member-intergral-all.html": {
+				"resources": [
+					"css/product.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-intergral-experience.html": {
+				"resources": [
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-personalinfo.html": {
+				"resources": [
+					"images/pic/logo.png",
+					"css/member.css",
+					"css/mui.css",
+					"css/form.css"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {

@@ -1095,3 +1095,7 @@
 	border: 1px solid #cccccc;
 }
 
+/* 重写 mui-navigate-right的右间距*/
+.mui-navigate-right:after, .mui-push-right:after {
+	right: 0;
+}

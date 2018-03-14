@@ -19,13 +19,13 @@
 			<div class="BL-mod-headbar BL-mod-headbar-pos BL-noBorder-b">
 				<h1 class="BL-title"></h1>
 				<div class="control">
-					<a href="member-setup.html" data-wid="member_setup" class="BL-col-fff">设置</a>
+					<a href="member-setup.html" data-wid="member_setup" data-ani="true" class="BL-col-fff">设置</a>
 				</div>
 			</div>
 		</header>
 
 		<div id="Js-content" class="BL-overFlow-autoY member-index">
-			<a href="member-personalinfo.html" data-wid="member_personalinfo" class="BL-ub BL-ub-ac BL-ub-pj mheader">
+			<a href="member-personalinfo.html" data-wid="member_personalinfo" data-ani="true" class="BL-ub BL-ub-ac BL-ub-pj mheader">
 				<div class="info BL-ub BL-ub-ac">
 					<div class="topic">
 						<img src="images/pic/p3.jpg">
@@ -152,6 +152,7 @@
 		mui('body').on('tap', 'a', function() {
 			var href = this.getAttribute('href');
 			var id = this.getAttribute("data-wid");
+			var anIn = this.getAttribute('data-ani'); // 使用fadeIn打开新页面
 
 			//非plus环境，直接走href跳转
 			if(!mui.os.plus) {
@@ -161,11 +162,19 @@
 
 			if(href && ~href.indexOf('.html')) {
 				//打开新窗口
-				mui.openWindow({
-					url: href,
-					id: id,
-					show: animateObj.aniPage
-				});
+				if(anIn){
+					mui.openWindow({
+						url: href,
+						id: id,
+						show: animateObj.aniDetal
+					});	
+				}else{
+					mui.openWindow({
+						url: href,
+						id: id,
+						show: animateObj.aniPage
+					});	
+				}
 			}
 		});
 		

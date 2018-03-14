@@ -40,6 +40,11 @@
 	border-radius: 100%;
 	-webkit-border-radius: 100%;
 }
+.BL-mod-headbar .headbar-search .contact {
+	width: 2.1875rem;
+	height: 2.1875rem;
+	background-image: url(../images/icon/ico-contact.png);
+}
 
 .BL-mod-headbar .headbar-search .search {
 	height: 3.125rem;
@@ -94,6 +99,17 @@
 .BL-mod-headbar .control a {
 	display: inline-block;
 	font-size: 1.75rem;
+	height: 4.5rem;
+	line-height: 4.5rem;
+	padding: 0 .25rem;
+}
+
+.BL-mod-headbar .BL-ctrl-close{
+	color: #666666;
+	font-size: 1.625rem;
+	position: absolute;
+	left: 4rem;
+	top: 0;
 	height: 4.5rem;
 	line-height: 4.5rem;
 	padding: 0 .25rem;

@@ -973,3 +973,125 @@
 }
 .clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0}
 .clearfloat{zoom:1}
+
+/* 生日跟踪 */
+.member-birth-sum {
+	right: 1.5rem;
+	font-size: 1.4375rem;
+}
+/* 个人信息 */
+.member-personalinfo-img {
+	width: 6.25rem;
+	height: 6.25rem;
+	margin: 1rem 0;
+	float: right;
+}
+.member-personalinfo-img img {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+/* 登录  */
+.member-logo {
+	padding: 6.25rem 0rem 5.3125rem 0rem;
+}
+.member-login-item {
+	position: relative;
+    font-size: 1.625rem;
+    padding: 0 1.5rem;
+	height: 5.25rem;
+	line-height: 5.25rem;
+}
+.form-list-cell .member-login-item:after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 1.25rem;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
+}
+.member-login-item input {
+	font-size: 1.625rem;
+	border: none;
+	text-align: left;
+	text-indent: 1.1rem;
+}
+.login-ico-phone {
+	width: 2.03rem;
+    height: 2.625rem;
+    position: relative;
+	background-image: url("../images/icon/ico-phone.png");
+}
+.login-ico-pwd {
+	width: 2.03rem;
+    height: 2.625rem;
+    position: relative;
+	background-image: url("../images/icon/ico-pwd.png");
+}
+.login-ico-pwdeye {
+	width: 2.03rem;
+    height: 2.625rem;
+    position: relative;
+	background-image: url("../images/icon/ico-pwdeye.png");
+}
+.login-more {
+	padding: 0 1.5rem;
+	font-size: 1.4375rem;
+	color: #3B9CF5;
+}
+.other-login {
+	position: relative;
+	margin: 15.6rem 0rem 2rem 0rem;
+}
+.other-login-ico { 
+	width: 4.78rem;
+    height: 4.78rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    position: relative;
+}
+.login-ico-wechat {
+	background-image: url("../images/icon/ico-wechat.png");
+}
+.login-ico-QQ {
+	background-image: url("../images/icon/ico-QQ.png");
+}
+.other-login-txt{  
+  	position: absolute;  
+  	text-align: center;  
+  	min-width: 25rem;
+  	left: 50%;
+    top: -50%;
+    transform: translate(-50%, -50%);
+}  
+.other-login-txt div {
+	font-size: 1.4375rem;  
+	color: #999999;
+}  
+/*CSS伪类用法*/  
+.other-login-txt div:after, .other-login-txt div:before {  
+  	background: #999999;  
+  	content: "";  
+  	height: 1px;  
+  	position: absolute;  
+  	top: 50%;  
+  	width: 30%;  
+}  
+/*调整背景横线的左右距离*/  
+.other-login-txt div:before {  
+    left: -.5rem;  
+}  
+.other-login-txt div:after {  
+    right: -.5rem; 
+}
+.login-sms-btn {
+	padding: .8rem 1.5rem;
+	font-size: 1.3125rem;
+	color: #cccccc;
+	border-radius: .5rem;
+	border: 1px solid #cccccc;
+}
+

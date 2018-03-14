@@ -62,6 +62,8 @@
 			var activeIndex = 0;
 			// 目标页面索引，初始化为当前页面索引；
 			var targetIndex = activeIndex;
+			// 《发现》页面已触发过一次，再次触发禁止，默认未触发
+			isLoadNew = false;
 			// 创建子页面
 			for(var i = 0; i < subLen; i++) {
 				/**
@@ -94,7 +96,14 @@
 					
 					if(targetIndex == activeIndex) {
 						return;
+					};
+					
+					if(!isLoadNew){
+						var loadPageWeb = plus.webview.getWebviewById('news');
+						mui.fire(loadPageWeb,'loadpage');
+						isLoadNew = true;
 					}
+					
 					// 切换页面
 					switchPage(activeIndex, targetIndex);
 				});

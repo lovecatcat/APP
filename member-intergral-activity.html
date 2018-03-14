@@ -36,15 +36,15 @@
 			<!------------表格 begin------------->
 			<div id="Js-intergraltab" class="BL-rel BL-mar-t-1">
 				<div class="mui-content mui-scroll-wrapper BL-bg-fff">
-					<div class="mui-scroll">
-						<div class="mui-row member-team-tab-title">
-							<div class="mui-col-sm-8 mui-col-xm-8">
-								活动积分：<i class="BL-col-ff8201">90583958.89</i>
-							</div>
-							<div class="mui-col-sm-4 mui-col-xm-4 BL-txt-r">
-								共<i class="BL-col-3b9cf5">5</i>个
-							</div>
+					<div class="mui-row member-team-tab-title">
+						<div class="mui-col-sm-8 mui-col-xm-8">
+							活动积分：<i class="BL-col-ff8201">90583958.89</i>
 						</div>
+						<div class="mui-col-sm-4 mui-col-xm-4 BL-txt-r">
+							共<i class="BL-col-3b9cf5">5</i>个
+						</div>
+					</div>
+					<div class="mui-scroll">
 						<table width="100%" class="member-team-tab">
 							<thead>
 								<tr>
@@ -90,11 +90,11 @@
 				deceleration: deceleration
 			});
 			$.ready(function() {
-				statusbar();
+//				statusbar();
 				var winH = window.innerHeight;
 				var divHeight = document.querySelector('#Js-intergralFilter').offsetHeight;
 				document.querySelector('#Js-intergraltab').style.height = winH - divHeight + 'px';
-				//document.querySelector('#Js-list').style.height = (winH - topHeight - mainHeight) + 'px';
+//				document.querySelector('#Js-intergraltab').style.height = winH + 'px';
 
 				var i = 0;
 

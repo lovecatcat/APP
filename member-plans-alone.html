@@ -15,12 +15,17 @@
 		<!--
         	作者：383938231@qq.com
         	时间：2018-03-07
-        	描述：单个计划书详情 end
+        	描述：单个计划书详情 begin
         -->
-		<div id="Js-plansDetail" class="mui-content BL-overFlow-autoY">
-			<div class="BL-vp BL-bg-3b9cf5 plans-detail">
+		<div id="Js-plansDetail" class="mui-content BL-bg-3b9cf5 plans-detail BL-overFlow-autoY">
+			
 				<div class="plans-detail-banner">
 					<img src="images/plans/prospectus/ajb.jpg" alt="" id="banner">
+				</div>
+				<div class="plans-detail-fixed">
+					<div>中英人寿</div>
+					<div>条款详情</div>
+					<div>绿通服务</div>
 				</div>
 				<!--保险计划-->
                 <div class="plans-detail-box plans-detail-box-first BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff">
@@ -93,7 +98,7 @@
             	</div>
 				<!--保险利益-->
 				<!--产品图片-->
-				<div class="plans-detail-box BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff">
+				<div class="plans-detail-box plans-detail-box-img BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff">
 					<img src="images/plans/prospectus/ajb.jpg" alt="产品图片">
 				</div>
 				<!--产品图片-->
@@ -132,8 +137,8 @@
 						<button class="BL-btn-gray BL-ftz-42 BL-mar-l-1 BL-pad-lr-1 ">低档 4.5%</button>
 						<button class="BL-btn-blue BL-ftz-42 BL-mar-l-1 BL-pad-lr-1 ">低档 4.5%</button>
 					</div>
-					<div class="BL-vp BL-ub">
-						<div class="plans-detail-table" style="width: 10%;">
+					<div>
+						<div class="plans-detail-table" style="width: 10%;float: left;">
 	                        <table class="BL-ftz-46">
 	                            <thead class=" BL-col-3b9cf5">
 		                            <tr>
@@ -151,7 +156,8 @@
 	                            <tr><td class="td_age">43</td></tr>
 	                        </table> 
 	                    </div>
-	                    <div class="plans-detail-table" style="width: 90%;">
+	                    <div class="plans-detail-table" style="width: 90%;float: left;display: block;">
+	                    
 	                        <table class="BL-ftz-46">
 	                            <thead class=" BL-col-3b9cf5">
 		                            <tr>
@@ -188,7 +194,7 @@
 				</div>
 				<!--利益演示表-->
 				
-			</div>
+		
 			
 		</div>		
 		<!--
@@ -223,22 +229,14 @@
 		(function($) {
 			//阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
-			$('#Js-plansTotal .mui-scroll-wrapper').scroll({
-				bounce: true,
-				indicators: false, //是否显示滚动条
-				deceleration: deceleration
+			var winH = window.innerHeight;
+			var fotHeight = document.querySelector('#Js-footer').offsetHeight;
+			document.querySelector('#Js-plansDetail').style.height = (winH - fotHeight) + 'px';
+			
+			$.plusReady(function() {
+				//statusbar();
 			});
-			$.ready(function() {
-				statusbar();
-				var winH = window.innerHeight;
-//				var titHeight = document.querySelector('#Js-header').offsetHeight;
-				var fotHeight = document.querySelector('#Js-footer').offsetHeight;
-				document.querySelector('#Js-plansDetail').style.height = (winH - fotHeight) + 'px';
-
-				var i = 0;
-
-			});
-
+	
 		}(mui));
 	</script>
 

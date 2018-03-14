@@ -299,18 +299,35 @@ input[type='text']:-ms-input-placeholder,input[type='password']:-ms-input-placeh
     background-image: url(../images/icon/ico-search-blue.png);
 }
 /*表单图文列表*/
+.form-list-cell-media {
+	padding: 0rem 1.5rem;
+	font-size: 1.625rem;
+}
+.form-list-cell-media .mui-table-view-cell {
+	padding: 1.5rem 0;
+}
+.form-list-thumb {
+	margin: 0;
+	padding-bottom: .5rem;
+}
 .form-list-thumb img {
 	width: 5rem;
 	height: 5rem;
+	margin-right: .5rem;
 }
-.form-list-content{
-	padding: 1.5rem 0rem;
-}
-.form-list-title {
-	font-size: 1.625rem;
-}
-.form-list-brief {
+.form-list-cell-media .form-tab {
 	font-size: 1.4375rem;
+	border: 1px solid #cccccc;
+	width: 100%;
+}
+.form-list-cell-media .form-tab td {
+	padding: 1rem 0rem;
+	border: 1px solid #cccccc;
+}
+.form-list-cell-media .BL-btn-blue {
+	padding: .3rem .5rem;
+	font-size: 1.4375rem;
+	margin-left: .5rem;
 }
 .mui-h5, h5{font-size: 1.4375rem;margin-bottom: 1rem;}
 .mui-h4, h4{margin-bottom: 1rem;font-weight: normal}

@@ -31,6 +31,10 @@ var animateObj = (function() {
 		aniConfirm: {
 			aniShow: 'zoom-fade-out', // 页面显示动画：从小变大，从透明到不透明
 			duration: '200' //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+		},
+		aniForm: {
+			aniShow: 'slide-in-bottom', // 页面显示动画：从下侧竖向滑动效果
+			duration: '350' //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
 		}
 	}
 })();
@@ -47,9 +51,10 @@ function statusbar() {
 };
 
 // 打开遮罩层，弹框
-function showPopu(url, id) {
+function showPopu(url, id, type) {
 	var _self = plus.webview.currentWebview();
 	var _mask = null; // 窗口：弹框对象
+	var move = {};
 
 	_self.setStyle({
 		mask: 'rgba(0,0,0,0.5)'
@@ -61,8 +66,18 @@ function showPopu(url, id) {
 		background: 'transparent',
 		popGesture: "none"
 	});
-
-	_mask.show(animateObj.aniConfirm.aniShow, animateObj.aniConfirm.duration); // 显示弹框窗口
+	
+	switch(type){
+		case 'center':
+			move.ani = animateObj.aniConfirm.aniShow;
+			move.dur = animateObj.aniConfirm.duration;
+			break;
+		case 'bottom':
+			move.ani = animateObj.aniForm.aniShow;
+			move.dur = animateObj.aniForm.duration;
+			break;
+	}
+	_mask.show(move.ani, move.dur); // 显示弹框窗口
 };
 
 // 关闭遮罩层，弹框对象

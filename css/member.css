@@ -932,17 +932,23 @@
 /*寿险订单*/
 .fr{
     float: right;
+    font-size: 1.4375rem;
+}
+.member-warranty-list-item .BL-title{
+	font-size: 1.4375rem;
 }
 .member-warranty-list-item .context{
-    font-size: 1.625rem;
+    font-size: 1.4375rem;
 }
 .member-warranty-list-item .context .context-w-50>span{
     display: inline-block;
     float: left;
     width: 50%;
 }
-.member-warranty-list-item .button>button {
+.member-warranty-list-item .button>button,.member-warranty-list-item .button>a {
+	display: inline-block;
     height: 2.8125rem;
+    line-height: 2.8125rem;
     font-size: 1.4375rem;
 }
 /*寿险订单详情*/
@@ -953,12 +959,13 @@
     padding-left: 1.5rem !important;
 }
 .member-warranty-detail-item .BL-title>span{
+	font-size: 1.625rem;
     border-left: .3rem solid #3B9CF5;
     padding-left: 1rem;
 }
 .member-warranty-detail-item table{
     width: 100%;
-    font-size: 1.625rem;
+    font-size: 1.4375rem;
     overflow-x: auto;
 }
 .member-warranty-detail-item table tr>td{
@@ -973,3 +980,18 @@
 }
 .clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0}
 .clearfloat{zoom:1}
+
+/*修改下拉样式*/
+.mui-table-view-chevron .mui-table-view-cell {
+	padding: 0;
+}
+.mui-table-view-cell.mui-collapse .mui-table-view.mui-table-view-chevron {
+	margin: 0;
+}
+.mui-table-view-chevron .mui-table-view-cell > a:not(.mui-btn) {
+	margin: 0;
+	padding: 0 1.5rem;
+}
+.mui-navigate-right:after, .mui-push-right:after{
+	right: 1.5rem;
+}

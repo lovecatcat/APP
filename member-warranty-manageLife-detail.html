@@ -22,8 +22,8 @@
 <div id="Js-content" class="mui-content">
     <div class="BL-bg-fff BL-mar-t-1">
         <ul class="mui-table-view mui-table-view-chevron">
-            <li class="mui-table-view-cell mui-collapse member-warranty-detail-item">
-                <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l mui-navigate-right">
+            <li class="mui-table-view-cell member-warranty-detail-item">
+                <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l">
                     <span class="BL-col-3b9cf5">交单</span>
                 </a>
                 <div class=" BL-pad-lr-1_5 BL-pad-tb-1_5 mui-table-view mui-table-view-chevron">
@@ -276,46 +276,17 @@
 </div>
 </body>
 <script src="js/mui.min.js" type="text/javascript"></script>
-<script src="js/mui.picker.js"></script>
 <script type="text/javascript">
     mui.init();
-    document.querySelector('.date').addEventListener('tap', function() {
-        var _self = this;
-        if(_self.picker) {
-            _self.picker.show(function(rs) {
-                console.log('选择结果: ' + rs.text);
-                _self.picker.dispose();
-                _self.picker = null;
-            });
-        } else {
-            var optionsJson = this.getAttribute('data-options') || '{}';
-            var options = JSON.parse(optionsJson);
-            _self.picker = new mui.DtPicker(options);
-            _self.picker.show(function(rs) {
-                console.log('选择结果: ' + rs.text);
-                _self.picker.dispose();
-                _self.picker = null;
-            });
-        }
-    });
-
     (function($){
         //阻尼系数
         var deceleration = mui.os.ios ? 0.003 : 0.0009;
-        $('#Js-cmistab .mui-scroll-wrapper').scroll({
-            bounce: true,
-            indicators: false, //是否显示滚动条
-            deceleration: deceleration
-        });
 
         $.plusReady(function() {
             statusbar();
             var winH = window.innerHeight;
-//				var titHeight = document.querySelector('#Js-header').offsetHeight;
-            var divHeight = document.querySelector('#Js-cmisFilter').offsetHeight;
-            document.querySelector('#Js-cmistab').style.height = winH - divHeight + 'px';
-            //document.querySelector('#Js-list').style.height = (winH - topHeight - mainHeight) + 'px';
-
+			var titHeight = document.querySelector('#Js-header').offsetHeight;
+            document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
         });
     }(mui));
 </script>

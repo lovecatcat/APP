@@ -41,7 +41,7 @@
     <div class="BL-bg-fff BL-mar-t-1">
         <ul class="mui-table-view">
             <li class="member-warranty-list-item">
-                <div class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l">
+                <div class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-46 BL-txt-l">
                     <span>保单号:</span>
                     <span>22558135431324354643413</span>
                     <span class="BL-col-3b9cf5 fr">交单</span>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="BL-txt-r button">
                         <button class="BL-btn-white BL-pad-lr-2">回执</button>
-                        <button class="BL-btn-blue BL-pad-lr-2 BL-mar-l-1">详情</button>
+                        <a data-wid="product_detail" href="member-warranty-manageLife-detail.html" class="BL-btn-blue BL-pad-lr-2 BL-mar-l-1">详情</a>
                     </div>
                 </div>
             </li>
@@ -134,24 +134,27 @@
         }
     });
 
-    (function($){
-        //阻尼系数
-        var deceleration = mui.os.ios ? 0.003 : 0.0009;
-        $('#Js-cmistab .mui-scroll-wrapper').scroll({
-            bounce: true,
-            indicators: false, //是否显示滚动条
-            deceleration: deceleration
-        });
 
-        $.plusReady(function() {
-            statusbar();
-            var winH = window.innerHeight;
-//				var titHeight = document.querySelector('#Js-header').offsetHeight;
-            var divHeight = document.querySelector('#Js-cmisFilter').offsetHeight;
-            document.querySelector('#Js-cmistab').style.height = winH - divHeight + 'px';
-            //document.querySelector('#Js-list').style.height = (winH - topHeight - mainHeight) + 'px';
+    //主列表点击事件
+		mui('body').on('tap', 'a', function() {
+			var href = this.getAttribute('href');
+			var id = this.getAttribute("data-wid");
 
-        });
-    }(mui));
+			//非plus环境，直接走href跳转
+			if(!mui.os.plus) {
+				location.href = href;
+				return;
+			};
+
+			if(href && ~href.indexOf('.html')) {
+				//打开新窗口
+				mui.openWindow({
+					id: id,
+					url: href,
+					show: animateObj.aniDetal
+				});
+			}
+
+		});
 </script>
 </html>

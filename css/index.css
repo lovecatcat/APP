@@ -9,7 +9,7 @@
 	border-radius: 1.5rem;
 	-webkit-border-radius: 1.5rem;
 	background: rgba(255,255,255,0.3);
-	margin-left: 2rem;
+	margin: 0 2rem;
 	overflow: hidden;
 }
 .BL-mod-headbar .seek .button{

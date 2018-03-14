@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/module.css" rel="stylesheet" />
+		<link href="css/form.css" rel="stylesheet" />
+		<link href="css/member.css" rel="stylesheet" />
+		<script src="js/config.js" type="text/javascript"></script>
+	</head>
+	
+	<body class="BL-bg-f2f">
+		<header id="Js-header" class="BL-bg-fff">
+			<div class="BL-mod-headbar BL-mod-headbar-pos">
+				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+				<h1 class="BL-title">设置</h1>
+			</div>
+		</header>
+		
+		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
+			<ul class="mui-table-view form-list-cell">
+			    <li class="fItem BL-ub BL-ub-f1">
+			        <a href="javascript:;" class="mui-navigate-right form-list-label BL-ub-f1">
+			        	修改密码
+			        </a>
+			    </li>
+			    <li class="fItem BL-ub BL-ub-f1">
+			        <a href="javascript:;" class="mui-navigate-right form-list-label BL-ub-f1">
+			        	常见问题
+			        </a>
+			    </li>
+			    <li class="fItem BL-ub BL-ub-f1">
+			        <a href="javascript:;" class="mui-navigate-right form-list-label BL-ub-f1">
+			        	关于
+			        </a>
+			    </li>
+			    <li class="fItem BL-ub BL-ub-ac BL-ub-f1">
+			        <a href="javascript:;" class="mui-navigate-right BL-ub BL-ub-ac BL-ub-f1">
+			        	<div class="form-list-label">版本</div>
+			        	<div class="form-list-control BL-txt-r BL-mar-r-2 BL-col-999">3.0</div>
+			        </a>
+			    </li>
+			</ul>
+			<ul class="mui-table-view form-list-cell BL-mar-t-3">
+				<li class="fItem BL-ub BL-ub-f1">
+					<div class="form-list-label BL-ub-f1 BL-col-3b9cf5 BL-txt-c">退出登录</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/mui.picker.min.js"></script>
+	<script type="text/javascript">
+		mui.init();
+		mui.plusReady(function() {
+			statusbar();
+			
+			var winH = window.innerHeight;
+			var titHeight = document.querySelector('#Js-header').offsetHeight;
+			
+			document.querySelector('#Js-content').style.height = (winH - titHeight) +'px';	
+		})
+	</script>
+</html>
+

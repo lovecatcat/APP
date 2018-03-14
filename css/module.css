@@ -40,6 +40,11 @@
 	border-radius: 100%;
 	-webkit-border-radius: 100%;
 }
+.BL-mod-headbar .headbar-search .contact {
+	width: 2.1875rem;
+	height: 2.1875rem;
+	background-image: url(../images/icon/ico-contact.png);
+}
 
 .BL-mod-headbar .headbar-search .search {
 	height: 3.125rem;
@@ -94,6 +99,17 @@
 .BL-mod-headbar .control a {
 	display: inline-block;
 	font-size: 1.75rem;
+	height: 4.5rem;
+	line-height: 4.5rem;
+	padding: 0 .25rem;
+}
+
+.BL-mod-headbar .BL-ctrl-close{
+	color: #666666;
+	font-size: 1.625rem;
+	position: absolute;
+	left: 4rem;
+	top: 0;
 	height: 4.5rem;
 	line-height: 4.5rem;
 	padding: 0 .25rem;
@@ -194,9 +210,9 @@
 
 .BL-segmented-control .mui-control-item {
 	border: 0 none;
-	line-height: 5.0625rem;
+	line-height: 4.375rem;
 	color: #333333;
-	font-size: 1.625rem;
+	font-size: 1.4375rem;
 }
 
 .BL-segmented-control .mui-control-item.mui-active {
@@ -505,4 +521,121 @@
 	font-size: 1.25rem;
 	line-height: 3rem;
 	color: #666666;
+}
+
+
+/*弹框样式全屏*/
+.BL-modal {
+	background: #fff;
+	position: fixed;
+	top: 50%;
+	transform: translate(0%, -50%);
+	z-index: 100; 
+}
+.BL-modal-w100{
+	width: 100%;
+}
+.BL-modal-w90{
+	width: 90%;
+	left: 5%;
+	border-radius: 1rem;
+	padding: 1rem;
+}
+.BL-modal-content {
+	font-size: 1.625rem;	
+}
+/*链接弹框*/
+.BL-modal-content>.BL-modal-list {
+	position: relative;
+	padding-left: 3rem;
+	line-height: 3.8125rem;
+}
+.BL-modal i {
+	display: inline-block;
+	position: absolute;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	top: 50%;
+	left: 0;
+	transform: translate(0%, -50%);
+}
+.BL-modal-icon-0 {
+	background: url(../images/icon/ico-cmis-count.png) no-repeat;
+}
+.BL-modal-icon-1 {
+	background: url(../images/icon/ico-cmis-income.png) no-repeat;
+}
+/*雨晴表格弹框*/
+.BL-modal-tab {
+	margin-bottom: 2rem;
+}
+.BL-modal-tab table {
+	width: 100%;
+	table-layout: fixed;
+}
+.BL-modal-tab td, .BL-modal-tab th {
+    text-align: center;
+    border: 1px solid #e2e2e2;
+    padding: .5rem;
+    font-size: 1.3125rem;
+}
+.BL-modal-tab th {
+    background: #ebf5fe;
+    padding: 1rem .5rem;
+    white-space: nowrap;
+    font-weight: 500;
+}
+.BL-modal-tab-body {
+    padding-bottom: 2.1875rem;
+}
+.BL-modal-tab-body .fixed-thead {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    table-layout: fixed;
+}
+.BL-modal-tab-scroll {
+    max-height: 25rem;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.BL-modal-bottom {
+	background: rgba(0,0,0,0.5);
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	z-index: 100; 
+}
+.BL-modal-bottom-content {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 10rem;
+	background-color: #fff;
+	animation:myfirst 0.5s;
+	-moz-animation:myfirst 1s; /* Firefox */
+	-webkit-animation:myfirst 1s; /* Safari and Chrome */
+	-o-animation:myfirst 1s; /* Opera */
+}
+@keyframes myfirst
+{
+from {height: 0rem;}
+}
+
+@-moz-keyframes myfirst /* Firefox */
+{
+from {height: 0rem;}
+}
+
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+from {height: 0rem;}
+}
+
+@-o-keyframes myfirst /* Opera */
+{
+from {height: 0rem;}
 }

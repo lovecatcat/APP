@@ -664,7 +664,8 @@
     "refer": [
       "member-plans-manage.html",
       "member-commission-account.html",
-      "member-duty.html"
+      "member-duty.html",
+      "member-team.html"
     ],
     "priority": 0
   },
@@ -787,6 +788,16 @@
   "ins2c-beneficiary.html": {
     "refer": [
       "ins2c-addbeneficiary.html"
+    ],
+    "resources": []
+  },
+  "member-team.html": {
+    "resources": [
+      "member-team-prospectus.html"
+    ],
+    "refer": [
+      "member-team-prospectus.html",
+      "member-team-performance.html"
     ]
   }
 }

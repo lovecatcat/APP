@@ -97,13 +97,13 @@
 					if(targetIndex == activeIndex) {
 						return;
 					};
-					
-					if(targetIndex == 2 &&  !isLoadNew){
+
+					if(!isLoadNew){
 						var loadPageWeb = plus.webview.getWebviewById('news');
 						mui.fire(loadPageWeb,'loadpage');
 						isLoadNew = true;
 					}
-					
+
 					// 切换页面
 					switchPage(activeIndex, targetIndex);
 				});

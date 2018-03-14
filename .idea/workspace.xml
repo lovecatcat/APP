@@ -1,101 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="498c8627-e6d5-474f-af44-54872208893d" name="默认的" comment="Merge branch 'master' of http://172.16.2.31:3001/baihao/BH-mobileapp2&#10;&#10;# Conflicts:&#10;#&#9;css/common.css&#10;#&#9;css/plans.css&#10;#&#9;plans-detail.html&#10;#&#9;plans-total.html&#10;#&#9;plans.html">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/ico-cmis-count.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/ico-cmis-expand.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/ico-cmis-fail.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/ico-cmis-income.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/ico-cmis-success.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/ico-search-blue.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/icon-displace.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/member-birthday.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/member-calcu.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/member-commission.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/member-duty.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/member-ico1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/member-ico2.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/member-insure.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/member-integ.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/member-profile.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/member-receive.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/member-renewal.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/member-team.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/phone.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/icon/pic-auto-examples.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/member/index-bg.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/plans/prospectus/ajb.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/plans/prospectus/plan_del.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/100x100.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/114x114.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/120x120.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/144x144.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/152x152.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/180x180.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/192x192.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/256x256.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/29x29.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/40x40.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/48x48.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/50x50.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/57x57.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/58x58.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/72x72.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/76x76.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/80x80.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/87x87.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/res/icons/96x96.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/starting/1080x1882.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/starting/1242x2208.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/starting/480x762.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/starting/640x1136.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/starting/640x960.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/starting/720x1242.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unpackage/starting/750x1334.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/duty.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/member.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/plans.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/prospect.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/schedule.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/upgrade.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/webviewGroup.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/member-duty-stats.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/member-plans-alone.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/member-plans-detail.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/member-plans-manage.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/member-plans-total.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/member-team-performance.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/member-team-prospectus.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/member-team.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/prospect-addIns.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/team-personal-performance.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/insurance-2.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/insurance-33.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/unpackage/.confirmed_dependencies" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/unpackage/.dependencies" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/commission-first.html" afterPath="$PROJECT_DIR$/commission-first.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/common.css" afterPath="$PROJECT_DIR$/css/common.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/module.css" afterPath="$PROJECT_DIR$/css/module.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index-content.html" afterPath="$PROJECT_DIR$/index-content.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ins2c-applicant.html" afterPath="$PROJECT_DIR$/ins2c-applicant.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manifest.json" afterPath="$PROJECT_DIR$/manifest.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-commission-account.html" afterPath="$PROJECT_DIR$/member-commission-account.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-commission-applylist.html" afterPath="$PROJECT_DIR$/member-commission-applylist.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-commission-countlist.html" afterPath="$PROJECT_DIR$/member-commission-countlist.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-commission-detail.html" afterPath="$PROJECT_DIR$/member-commission-detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-commission-extract.html" afterPath="$PROJECT_DIR$/member-commission-extract.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-commission-income.html" afterPath="$PROJECT_DIR$/member-commission-income.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-commission-result.html" afterPath="$PROJECT_DIR$/member-commission-result.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member.html" afterPath="$PROJECT_DIR$/member.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news-all.html" afterPath="$PROJECT_DIR$/news-all.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news-cream.html" afterPath="$PROJECT_DIR$/news-cream.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news-finance.html" afterPath="$PROJECT_DIR$/news-finance.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news.html" afterPath="$PROJECT_DIR$/news.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/product.html" afterPath="$PROJECT_DIR$/product.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prospect.html" afterPath="$PROJECT_DIR$/prospect.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sns.html" afterPath="$PROJECT_DIR$/sns.html" />
+    <list default="true" id="498c8627-e6d5-474f-af44-54872208893d" name="默认的" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/deployment.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/mobileapp2.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -108,28 +19,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="member-plans-alone.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/member-plans-alone.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="9" column="14" lean-forward="false" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="plans.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/css/plans.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="330" column="21" lean-forward="true" selection-start-line="330" selection-start-column="21" selection-end-line="330" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -148,6 +38,11 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="anlo" />
+      </map>
+    </option>
     <push-targets>
       <push-target-info target-remote="baihao" target-branch="master" repo="$PROJECT_DIR$" source="master" />
     </push-targets>
@@ -173,10 +68,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="176" />
-    <option name="y" value="12" />
-    <option name="width" value="1573" />
-    <option name="height" value="1000" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -193,8 +88,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -206,6 +99,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -246,6 +141,9 @@
       <workItem from="1520394089053" duration="2866000" />
       <workItem from="1520420509289" duration="9946000" />
       <workItem from="1520673062096" duration="89000" />
+      <workItem from="1520839235564" duration="459000" />
+      <workItem from="1520839711196" duration="32000" />
+      <workItem from="1520989957938" duration="265000" />
     </task>
     <task id="LOCAL-00001" summary="计划书模块">
       <created>1520420574558</created>
@@ -268,36 +166,56 @@
       <option name="project" value="LOCAL" />
       <updated>1520559431233</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="合并其他人">
+      <created>1520837774072</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1520837774072</updated>
+    </task>
+    <task id="LOCAL-00005" summary="合并其他人">
+      <created>1520839377317</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1520839377317</updated>
+    </task>
+    <task id="LOCAL-00006" summary="添加积分、生日、登录、设置、个人信息、修改秘密">
+      <created>1520990037501</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1520990037501</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18702000" />
+    <option name="totallyTimeSpent" value="20363000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20522387" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21162046" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24021739" sideWeight="0.50852877" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23943663" sideWeight="0.51492536" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.49573562" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24021739" sideWeight="0.4914712" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23943663" sideWeight="0.48507464" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -359,18 +277,47 @@
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="计划书模块" />
     <MESSAGE value="计划书制作页面" />
-    <option name="LAST_COMMIT_MESSAGE" value="计划书制作页面" />
+    <MESSAGE value="合并其他人" />
+    <MESSAGE value="添加积分、生日、登录、设置、个人信息、修改秘密" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加积分、生日、登录、设置、个人信息、修改秘密" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/auto2c.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="4" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/member.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2660">
+          <caret line="140" column="26" lean-forward="true" selection-start-line="140" selection-start-column="26" selection-end-line="140" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/member-commission-account.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/insurance-beneficiary.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/member-plans-alone.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="9" column="14" lean-forward="false" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -378,7 +325,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7751">
           <caret line="337" column="19" lean-forward="true" selection-start-line="337" selection-start-column="19" selection-end-line="337" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -386,7 +332,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="12125">
           <caret line="485" column="3" lean-forward="false" selection-start-line="485" selection-start-column="3" selection-end-line="485" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -394,7 +339,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4400">
           <caret line="176" column="20" lean-forward="false" selection-start-line="176" selection-start-column="20" selection-end-line="176" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -407,7 +351,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="395">
           <caret line="196" column="0" lean-forward="true" selection-start-line="196" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -431,7 +374,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="9" column="14" lean-forward="false" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -439,7 +381,34 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
           <caret line="330" column="21" lean-forward="true" selection-start-line="330" selection-start-column="21" selection-end-line="330" selection-end-column="21" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/insurance-beneficiary.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="16" column="51" lean-forward="true" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/member-commission-account.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/member.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="140" column="26" lean-forward="false" selection-start-line="140" selection-start-column="26" selection-end-line="140" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auto2c.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="12" column="4" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
         </state>
       </provider>
     </entry>

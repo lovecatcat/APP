@@ -166,7 +166,9 @@ i {
 .BL-bg-3b9cf5{
 	background-color: #3b9cf5 !important;
 }
-
+.BL-bg-9dcdfa {
+	background-color: #9dcdfa !important;
+}
 /* 按钮(base样式) = BL-btn[bgColor, border, border-radius, color, font-size, min-height, padding] */
 
 .BL-btn {
@@ -409,6 +411,12 @@ i {
 }
 .BL-mar-r-1{
 	margin-right: 1rem;
+}
+.BL-mar-r-2 {
+	margin-right: 2rem;
+}
+.BL-mar-r-3{
+	margin-right: 3rem;
 }
 .BL-mar-l-3 {
 	margin-left: 3rem;

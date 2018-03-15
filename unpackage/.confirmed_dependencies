@@ -665,7 +665,10 @@
       "member-plans-manage.html",
       "member-commission-account.html",
       "member-duty.html",
-      "member-team.html"
+      "member-team.html",
+      "tax-cal.html",
+      "member-intergral.html",
+      "member-personalinfo.html"
     ],
     "priority": 0
   },
@@ -798,6 +801,20 @@
     "refer": [
       "member-team-prospectus.html",
       "member-team-performance.html"
+    ]
+  },
+  "tax-cal.html": {
+    "refer": [
+      "tax-info.html"
+    ],
+    "resources": []
+  },
+  "member-intergral.html": {
+    "resources": [
+      "member-intergral-all.html"
+    ],
+    "refer": [
+      "member-intergral-all.html"
     ]
   }
 }

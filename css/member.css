@@ -1,7 +1,7 @@
 /* 首页 */
 .member-skin{
 	background: url(../images/member/index-bg.jpg) no-repeat #f2f2f2;
-	background-size: 100%;
+	background-size: cover;
 }
 .member-hr{
 	position: absolute;

@@ -749,7 +749,10 @@
 					"member-commission-account.html",
 					"member-team.html",
 					"member-duty.html",
-					"member-plans-manage.html"
+					"member-plans-manage.html",
+					"tax-cal.html",
+					"member-intergral.html",
+					"member-personalinfo.html"
 				],
 				"priority": 0
 			},
@@ -1955,6 +1958,20 @@
 				"refer": [
 					"ins2c-addbeneficiary.html"
 				],
+				"priority": 0
+			},
+			"tax-cal.html": {
+				"resources": [],
+				"refer": [
+					"tax-info.html"
+				],
+				"priority": 0
+			},
+			"member-intergral.html": {
+				"resources": [
+					"member-intergral-all.html"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

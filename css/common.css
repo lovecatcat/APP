@@ -429,6 +429,9 @@ i {
 .BL-mar-t-1 {
 	margin-top: 1rem;
 }
+.BL-mar-t-2 {
+	margin-top: 2rem;
+}
 .BL-mar-t-3 {
 	margin-top: 3rem;
 }
@@ -518,3 +521,5 @@ input[type='color']{
 	text-align: right !important;
 }
 
+.mui-toast-container{bottom: 20%;}
+.mui-toast-message{font-size: 1.4375rem;padding: 1.5rem;}

@@ -995,8 +995,9 @@
 }
 /* 登录  */
 .member-logo {
-	padding: 6.25rem 0rem 5.3125rem 0rem;
+	padding: 6rem 0rem 5rem 0rem;
 }
+.member-logo img{height: 4.4rem;}
 .member-login-item {
 	position: relative;
     font-size: 1.625rem;
@@ -1022,20 +1023,20 @@
 	text-indent: 1.1rem;
 }
 .login-ico-phone {
-	width: 2.03rem;
-    height: 2.625rem;
+	width: 1.25rem;
+	height: 2.0625rem;
     position: relative;
 	background-image: url("../images/icon/ico-phone.png");
 }
 .login-ico-pwd {
-	width: 2.03rem;
-    height: 2.625rem;
+	width: 1.25rem;
+    height: 2.0625rem;
     position: relative;
 	background-image: url("../images/icon/ico-pwd.png");
 }
 .login-ico-pwdeye {
-	width: 2.03rem;
-    height: 2.625rem;
+	width: 1.9rem;
+    height: .875rem;
     position: relative;
 	background-image: url("../images/icon/ico-pwdeye.png");
 }
@@ -1045,9 +1046,18 @@
 	color: #3B9CF5;
 }
 .other-login {
-	position: relative;
-	margin: 15.6rem 0rem 2rem 0rem;
+	width: 100%;
+	position: fixed;
+	bottom: 2rem;
+	left: 0;
 }
+.line-m{padding:0 3.6rem;line-height:2rem;}
+.line-m span{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;color: #999}
+.line-m span span{-webkit-box-flex:1;-webkit-flex-grow:1;-moz-box-flex:1;-ms-flex-positive:1;flex-grow:1;font-size: 1.4375rem;}
+.line-m span span:before,
+.line-m span span:after{content:'';display:block;height:1px;width:1%;-webkit-box-flex:1;-webkit-flex-grow:1;-moz-box-flex:1;-ms-flex-positive:1;flex-grow:1;background-color:#ddd;margin-top:1rem;}
+.line-m span span:before{margin-right:1rem;}
+.line-m span span:after{margin-left:1rem;}
 .other-login-ico { 
 	width: 4.78rem;
     height: 4.78rem;
@@ -1062,13 +1072,13 @@
 	background-image: url("../images/icon/ico-QQ.png");
 }
 .other-login-txt{  
-  	position: absolute;  
+  	position: absolute;
   	text-align: center;  
   	min-width: 25rem;
   	left: 50%;
     top: -50%;
     transform: translate(-50%, -50%);
-}  
+}
 .other-login-txt div {
 	font-size: 1.4375rem;  
 	color: #999999;

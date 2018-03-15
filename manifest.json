@@ -752,7 +752,8 @@
 					"member-plans-manage.html",
 					"tax-cal.html",
 					"member-intergral.html",
-					"member-personalinfo.html"
+					"member-personalinfo.html",
+					"member-setup.html"
 				],
 				"priority": 0
 			},
@@ -1972,6 +1973,21 @@
 					"member-intergral-all.html"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"member-setup.html": {
+				"resources": [],
+				"refer": [
+					"login.html"
+				],
+				"priority": 0
+			},
+			"login.html": {
+				"resources": [],
+				"refer": [
+					"member-changepwd.html",
+					"member-forgetpwd.html"
+				],
 				"priority": 0
 			}
 		},

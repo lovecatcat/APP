@@ -668,7 +668,8 @@
       "member-team.html",
       "tax-cal.html",
       "member-intergral.html",
-      "member-personalinfo.html"
+      "member-personalinfo.html",
+      "member-setup.html"
     ],
     "priority": 0
   },
@@ -816,5 +817,18 @@
     "refer": [
       "member-intergral-all.html"
     ]
+  },
+  "member-setup.html": {
+    "refer": [
+      "login.html"
+    ],
+    "resources": []
+  },
+  "login.html": {
+    "refer": [
+      "member-changepwd.html",
+      "member-forgetpwd.html"
+    ],
+    "resources": []
   }
 }

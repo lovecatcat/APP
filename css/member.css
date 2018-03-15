@@ -933,17 +933,23 @@
 /*寿险订单*/
 .fr{
     float: right;
+    font-size: 1.4375rem;
+}
+.member-warranty-list-item .BL-title{
+	font-size: 1.4375rem;
 }
 .member-warranty-list-item .context{
-    font-size: 1.625rem;
+    font-size: 1.4375rem;
 }
 .member-warranty-list-item .context .context-w-50>span{
     display: inline-block;
     float: left;
     width: 50%;
 }
-.member-warranty-list-item .button>button {
+.member-warranty-list-item .button>button,.member-warranty-list-item .button>a {
+	display: inline-block;
     height: 2.8125rem;
+    line-height: 2.8125rem;
     font-size: 1.4375rem;
 }
 /*寿险订单详情*/
@@ -954,12 +960,13 @@
     padding-left: 1.5rem !important;
 }
 .member-warranty-detail-item .BL-title>span{
+	font-size: 1.625rem;
     border-left: .3rem solid #3B9CF5;
     padding-left: 1rem;
 }
 .member-warranty-detail-item table{
     width: 100%;
-    font-size: 1.625rem;
+    font-size: 1.4375rem;
     overflow-x: auto;
 }
 .member-warranty-detail-item table tr>td{
@@ -974,6 +981,22 @@
 }
 .clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0}
 .clearfloat{zoom:1}
+
+/*修改下拉样式*/
+.mui-table-view-chevron .mui-table-view-cell {
+	padding: 0;
+}
+.mui-table-view-cell.mui-collapse .mui-table-view.mui-table-view-chevron {
+	margin: 0;
+}
+.mui-table-view-chevron .mui-table-view-cell > a:not(.mui-btn) {
+	margin: 0;
+	padding: 0 1.5rem;
+}
+.mui-navigate-right:after, .mui-push-right:after{
+	right: 1.5rem;
+}
+
 
 /* 生日跟踪 */
 .member-birth-sum {
@@ -1047,7 +1070,7 @@
 	position: relative;
 	margin: 15.6rem 0rem 2rem 0rem;
 }
-.other-login-ico { 
+.other-login-ico {
 	width: 4.78rem;
     height: 4.78rem;
     margin-left: 1rem;
@@ -1060,33 +1083,33 @@
 .login-ico-QQ {
 	background-image: url("../images/icon/ico-QQ.png");
 }
-.other-login-txt{  
-  	position: absolute;  
-  	text-align: center;  
+.other-login-txt{
+  	position: absolute;
+  	text-align: center;
   	min-width: 25rem;
   	left: 50%;
     top: -50%;
     transform: translate(-50%, -50%);
-}  
+}
 .other-login-txt div {
-	font-size: 1.4375rem;  
+	font-size: 1.4375rem;
 	color: #999999;
-}  
-/*CSS伪类用法*/  
-.other-login-txt div:after, .other-login-txt div:before {  
-  	background: #999999;  
-  	content: "";  
-  	height: 1px;  
-  	position: absolute;  
-  	top: 50%;  
-  	width: 30%;  
-}  
-/*调整背景横线的左右距离*/  
-.other-login-txt div:before {  
-    left: -.5rem;  
-}  
-.other-login-txt div:after {  
-    right: -.5rem; 
+}
+/*CSS伪类用法*/
+.other-login-txt div:after, .other-login-txt div:before {
+  	background: #999999;
+  	content: "";
+  	height: 1px;
+  	position: absolute;
+  	top: 50%;
+  	width: 30%;
+}
+/*调整背景横线的左右距离*/
+.other-login-txt div:before {
+    left: -.5rem;
+}
+.other-login-txt div:after {
+    right: -.5rem;
 }
 .login-sms-btn {
 	padding: .8rem 1.5rem;

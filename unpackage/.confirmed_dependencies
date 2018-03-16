@@ -669,7 +669,8 @@
       "tax-cal.html",
       "member-intergral.html",
       "member-personalinfo.html",
-      "member-setup.html"
+      "member-setup.html",
+      "login.html"
     ],
     "priority": 0
   },
@@ -830,5 +831,10 @@
       "member-forgetpwd.html"
     ],
     "resources": []
+  },
+  "member-personalinfo.html": {
+    "refer": [
+      "member-avatar.html"
+    ]
   }
 }

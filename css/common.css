@@ -169,6 +169,9 @@ i {
 .BL-bg-9dcdfa {
 	background-color: #9dcdfa !important;
 }
+.BL-bg-000 {
+	background-color: #000 !important;
+}
 /* 按钮(base样式) = BL-btn[bgColor, border, border-radius, color, font-size, min-height, padding] */
 
 .BL-btn {

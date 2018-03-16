@@ -1023,31 +1023,38 @@
 	text-indent: 1.1rem;
 }
 .login-ico-phone {
-	width: 1.25rem;
-	height: 2.0625rem;
+	width: 1.9rem;
+	height: 1.9rem;
     position: relative;
 	background-image: url("../images/icon/ico-phone.png");
 }
 .login-ico-pwd {
-	width: 1.25rem;
-    height: 2.0625rem;
+	width: 1.9rem;
+    height: 1.9rem;
     position: relative;
 	background-image: url("../images/icon/ico-pwd.png");
 }
 .login-ico-pwdeye {
 	width: 1.9rem;
-    height: .875rem;
+    height: 1.9rem;
     position: relative;
 	background-image: url("../images/icon/ico-pwdeye.png");
+}
+.login-ico-pwdeye2 {
+	width: 1.9rem;
+	height: 1.9rem;
+	position: relative;
+	background-image: url("../images/icon/ico-pwdeye2.png");
 }
 .login-more {
 	padding: 0 1.5rem;
 	font-size: 1.4375rem;
 	color: #3B9CF5;
 }
+#login-wrap{position: relative;}
 .other-login {
 	width: 100%;
-	position: fixed;
+	position: absolute;
 	bottom: 2rem;
 	left: 0;
 }
@@ -1111,3 +1118,4 @@
 .mui-navigate-right:after, .mui-push-right:after {
 	right: 0;
 }
+/*头像更换*/

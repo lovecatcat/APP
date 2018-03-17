@@ -518,3 +518,17 @@ input[type='color']{
 	text-align: right !important;
 }
 
+/* 隐藏or显示 */
+.BL-hide {
+	display: none !important;
+}
+/* 设置字号 */
+.BL-ftz-42{
+	font-size: 1.3125rem;
+}
+.BL-ftz-46{
+	font-size: 1.4375rem;
+}
+.BL-ftz-52{
+	font-size: 1.625rem;
+}

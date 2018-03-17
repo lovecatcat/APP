@@ -151,11 +151,11 @@ i {
 /* 背景色(base样式) = BL-bg- */
 
 .BL-bg-fff {
-	background-color: #ffffff;
+	background-color: #ffffff !important;
 }
 
 .BL-bg-f2f {
-	background-color: #f2f2f2;
+	background-color: #f2f2f2 !important;
 }
 
 

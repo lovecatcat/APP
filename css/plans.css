@@ -186,8 +186,8 @@
 	font-size: 1.4375rem;
 	margin-top: .8rem;
 	padding: .5rem .8rem;
-	border-top-left-radius: 1rem;
-	border-bottom-left-radius: 1rem;
+	border-top-left-radius: 1.5rem;
+	border-bottom-left-radius: 1.5rem;
 	background-color: rgba(167,166,170,.8);
 }
 .plans-detail-box{
@@ -240,7 +240,9 @@
 	background: url(../images/plans/prospectus/plan_del.png) no-repeat;
 	background-size: cover;
 }
+
 .plans-detail-design-button button{
+
 	height: 2.6875rem;
 }
 .plans-detail-table{
@@ -277,6 +279,7 @@ table tbody tr td{
 	float: left;
 	width: 1.625rem;
 	height: 2.4rem;
+	margin-right: 1rem;
 	background: url(../images/icon/phone.png) no-repeat;
 	background-size: cover;
 }
@@ -316,7 +319,6 @@ table tbody tr td{
 /*投保人信息*/
 .prospect-info .title{
 	height: 4.8125rem;
-	
 }
 .prospect-info .title:before{
 	content: '';
@@ -326,7 +328,7 @@ table tbody tr td{
 	border-left: 5px solid #3B9CF5;
 }
 .prospect-info .title div{
-	font-size: 1.625rem;
+	font-size: 1.4375rem;
 }
 .prospect-info .title button{
 	height: 2.6875rem;
@@ -367,7 +369,7 @@ table tbody tr td{
 
 /*输入框 同在线投保*/
 .prospect-info .main{
-	font-size: 1.625rem;
+	font-size: 1.4375rem;
 }
 .input-item {
 	margin: 1.5rem 0;
@@ -376,7 +378,7 @@ table tbody tr td{
 	display: block;
 	width: 30%;
     line-height: 2.9375rem;
-    font-size: 1.625rem;
+    font-size: 1.4375rem;
 }
 .input-wrap {
     position: relative;
@@ -388,7 +390,7 @@ table tbody tr td{
     border-radius: .3125rem;
     text-align: left;
     padding-left: 1rem;
-font-size: 1.625rem;
+	font-size: 1.4375rem;
 }
 .input-wrap-planName input{
 	height: 2.9375rem;

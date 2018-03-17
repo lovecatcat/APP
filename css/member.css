@@ -9,7 +9,6 @@
 	top: 0;
 	left: 0;
 	height: 16rem;
-	background: rgba(0,0,0,0.5);
 }
 .member-index .mheader{
 	padding: 0 1.25rem;
@@ -400,6 +399,8 @@
     background-color: #ededed;
     overflow: hidden;
     margin-right: 1rem;
+	font-size: 1.4375rem;
+	color: #999;
 }
 .member-team-search .search-date input[type="text"], .member-team-search .search-role select{
 	color: #999999;
@@ -414,150 +415,6 @@
 	padding-left: .6875rem;
     padding-right: .6875rem;
 } 
-.member-team-search .search-down{
-	display: block;
-    width: 1rem;
-    height: .7rem;
-	background-image: url("../images/icon/ico-down.png");
-}
-.member-team-search .searchbtn {
-	display: inline-block;
-	width: 5.5rem;
-	height: 2.8125rem;
-	line-height: 2.8125rem;
-	background: #3B9CF5;
-	text-align: center;
-	color: #ffffff;
-	font-size: 1.4375rem;
-	border-radius: .3rem;
-    -webkit-border-radius: .3rem;
-}
-/*团队表格*/
-.member-team-tab {
-	table-layout: fixed;
-}
-.member-team-tab.fixed-thead {
-	width: 100%;
-    margin: 0 auto;
-    text-align: center;
-    table-layout: fixed;
-}
-.member-team-scroll {
-	max-height: 25rem;
-	overflow: auto;
-	overflow-x: hidden;
-}
-.member-team-tab td, .member-team-tab th {
-    text-align: center;
-    border: 1px solid #e2e2e2;
-    padding: .5rem;
-    font-size: 1.3125rem;
-}
-.member-team-tab th {
-	background: #ebf5fe;
-    padding: 1rem .5rem;
-    white-space: nowrap;
-    font-weight: 500;
-}
-/*团队列表*/
-.member-team-list-item {
-	padding: .5rem 1rem .5rem 1.5rem;
-}
-.member-team-list-item a.item {
-	margin: 0rem -1.5rem;
-    font-size: 1.9rem;
-}
-.member-team-list-item a.item .img{
-	width: 7.5rem;
-	height: 7.5rem;
-}
-.member-team-list-item a.item .context {
-	margin-left: 1.125rem;
-	font-size: 1.625rem;
-}
-.member-team-list-item .context .team-per-intro {
-	margin-bottom: 1rem;
-}
-.member-team-list-item .context .team-per-intro span {
-	display: inline-block;
-	width: 5rem;
-	margin-right: 3rem;
-}
-.member-team-list-item .context .team-per-ins span {
-	display: inline-block;
-	width: 5rem;
-	margin-right: 3rem;
-	font-size: 1.4375rem;
-	color: #999999;
-}
-.context .team-per-ins i {
-	font-style: normal;
-	padding-left: .5rem;
-}
-/*团队模态框*/
-.member-team-modal {
-	display: none !important;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.55);
-	position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 10;
-}
-.member-team-modal-title {
-	height: 5.3125rem;
-	line-height: 5.3125rem;
-	font-size: 1.625rem;
-}
-.member-team-modal-body {
-	padding-bottom: 2.1875rem;
-}
-/* 团队管理 */
-.member-team-tab-title {
-	height: 4.25rem;
-	line-height: 4.25rem;
-	padding: 0 1.5rem;
-	font-size: 1.3125rem;
-}
-.member-team-tab-title span {
-	margin-right: 1.5rem;
-}
-.member-team-tab-title i {
-	padding-left: .2rem;
-	font-style: normal;
-}
-/*团队搜索*/
-.member-team-search {
-	height: 5.625rem;
-	line-height: 5.625rem;
-	padding: 0rem 1.5rem;
-}
-.member-team-search .search-date,.member-team-search .search-role{
-	width: 10.9375rem;
-	height: 2.8125rem;
-	line-height: 2.8125rem;
-    border-radius: .3rem;
-    -webkit-border-radius: .3rem;
-    background-color: #ededed;
-    overflow: hidden;
-    margin-right: 1rem;
-}
-.member-team-search .search-date input[type="text"], .member-team-search .search-role select{
-	color: #999999;
-    font-size: 1.4375rem;
-    height: 100%;
-    text-indent: 1rem;
-    text-align: left;
-    margin: 0;
-    background-color: rgba(0, 0, 0, 0);
-}
-.member-team-search .down {
-	padding-left: .6875rem;
-    padding-right: .6875rem;
-}
 .member-team-search .search-down{
 	display: block;
     width: 1rem;
@@ -932,19 +789,38 @@
 }
 
 /*寿险订单*/
+.member-warranty-search .search-date{
+	width: 30%;
+}
+.member-warranty-search .search-date>div:first-child{
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.member-warranty-search .search-date .down{
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+}
 .fr{
     float: right;
+    font-size: 1.4375rem;
+}
+.member-warranty-list-item .BL-title{
+	font-size: 1.4375rem;
 }
 .member-warranty-list-item .context{
-    font-size: 1.625rem;
+    font-size: 1.4375rem;
 }
 .member-warranty-list-item .context .context-w-50>span{
     display: inline-block;
     float: left;
     width: 50%;
 }
-.member-warranty-list-item .button>button {
+.member-warranty-list-item .button>button,.member-warranty-list-item .button>a {
+	display: inline-block;
     height: 2.8125rem;
+    line-height: 2.8125rem;
     font-size: 1.4375rem;
 }
 /*寿险订单详情*/
@@ -955,17 +831,19 @@
     padding-left: 1.5rem !important;
 }
 .member-warranty-detail-item .BL-title>span{
+	font-size: 1.625rem;
     border-left: .3rem solid #3B9CF5;
     padding-left: 1rem;
 }
 .member-warranty-detail-item table{
     width: 100%;
-    font-size: 1.625rem;
+    font-size: 1.4375rem;
     overflow-x: auto;
 }
 .member-warranty-detail-item table tr>td{
     border: 1px solid #d2d2d2;
-    padding: 2rem;
+    height: 5rem;
+    padding-left: 2rem;
     white-space: nowrap;
 }
 .member-warranty-detail-item table tr>td:first-child{
@@ -973,8 +851,43 @@
     text-align: center;
     background-color: #f2f2f2;
 }
+.member-warranty-detail-item table thead tr>td{
+    text-align: center;
+    padding: 0;
+}
+.member-warranty-detail-item table thead tr>td:first-child{
+    background-color: #fff;
+}
+.member-warranty-detail-item ul li{
+	font-size: 1.4375rem;
+	height: 6rem;
+	/*line-height: 6rem;*/
+	/*padding: 2rem 0;*/
+	border: 1px solid #d2d2d2;
+	text-align: center;
+	display: flex;
+    align-items: center;
+    justify-content: center 
+}
+
 .clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0}
 .clearfloat{zoom:1}
+
+/*修改下拉样式*/
+.mui-table-view-chevron .mui-table-view-cell {
+	padding: 0;
+}
+.mui-table-view-cell.mui-collapse .mui-table-view.mui-table-view-chevron {
+	margin: 0;
+}
+.mui-table-view-chevron .mui-table-view-cell > a:not(.mui-btn) {
+	margin: 0;
+	padding: 0 1.5rem;
+}
+.member-warranty-detail-item .mui-navigate-right:after, .mui-push-right:after{
+	right: 1.5rem;
+}
+
 
 /* 生日跟踪 */
 .member-birth-sum {
@@ -1048,7 +961,7 @@
 	position: relative;
 	margin: 15.6rem 0rem 2rem 0rem;
 }
-.other-login-ico { 
+.other-login-ico {
 	width: 4.78rem;
     height: 4.78rem;
     margin-left: 1rem;
@@ -1061,33 +974,33 @@
 .login-ico-QQ {
 	background-image: url("../images/icon/ico-QQ.png");
 }
-.other-login-txt{  
-  	position: absolute;  
-  	text-align: center;  
+.other-login-txt{
+  	position: absolute;
+  	text-align: center;
   	min-width: 25rem;
   	left: 50%;
     top: -50%;
     transform: translate(-50%, -50%);
-}  
+}
 .other-login-txt div {
-	font-size: 1.4375rem;  
+	font-size: 1.4375rem;
 	color: #999999;
-}  
-/*CSS伪类用法*/  
-.other-login-txt div:after, .other-login-txt div:before {  
-  	background: #999999;  
-  	content: "";  
-  	height: 1px;  
-  	position: absolute;  
-  	top: 50%;  
-  	width: 30%;  
-}  
-/*调整背景横线的左右距离*/  
-.other-login-txt div:before {  
-    left: -.5rem;  
-}  
-.other-login-txt div:after {  
-    right: -.5rem; 
+}
+/*CSS伪类用法*/
+.other-login-txt div:after, .other-login-txt div:before {
+  	background: #999999;
+  	content: "";
+  	height: 1px;
+  	position: absolute;
+  	top: 50%;
+  	width: 30%;
+}
+/*调整背景横线的左右距离*/
+.other-login-txt div:before {
+    left: -.5rem;
+}
+.other-login-txt div:after {
+    right: -.5rem;
 }
 .login-sms-btn {
 	padding: .8rem 1.5rem;

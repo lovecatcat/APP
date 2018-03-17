@@ -1,3 +1,6 @@
+var config = {
+    baseUrl : 'http://www.luckyins.com/api/api/invoke'  //团队管理服务器路径 
+};
 /**
  * 根据不同手机的屏幕Dpi，计算并重置屏幕缩放比例
  */

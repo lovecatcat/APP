@@ -231,7 +231,13 @@ i {
 	background-size: 100%;
 	right: 1.25rem;
 }
-
+.BL-icon-more {
+	width: 2rem;
+	height: 2rem;
+	background: url(../images/icon/ico-more.png) no-repeat center;
+	background-size: 100%;
+	right: 1.25rem;
+}
 
 /* 标题栏(base样式) = BL-title[color, font-size] */
 

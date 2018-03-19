@@ -1994,7 +1994,23 @@
 			"member-personalinfo.html": {
 				"resources": [],
 				"refer": [
-					"member-avatar.html"
+					"member-avatar.html",
+					"member-avatarcut.html",
+					"member-avatarmenu.html"
+				],
+				"priority": 0
+			},
+			"member-avatar.html": {
+				"resources": [],
+				"refer": [
+					"member-avatarmenu.html"
+				],
+				"priority": 0
+			},
+			"member-avatarmenu.html": {
+				"resources": [],
+				"refer": [
+					"member-avatarcut.html"
 				],
 				"priority": 0
 			}

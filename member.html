@@ -184,11 +184,14 @@
             userinfo: '',
         }
     })
-        mui.plusReady(function () {
+    mui.plusReady(function () {
         isLogin();
         var userinfo = JSON.parse(plus.storage.getItem('userinfo'));
         member.userinfo = userinfo;
-        console.log(userinfo.avatar)
+        window.addEventListener('reload', function () {
+            //页面重载
+            plus.webview.currentWebview().reload(true);
+        });
         window.addEventListener('loadpageMember', function (e) {
             setTimeout(function () {
                 statusbar();

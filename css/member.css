@@ -1119,3 +1119,6 @@
 	right: 0;
 }
 /*头像更换*/
+.menu-fixed{position: fixed;bottom: 0;z-index: 99;width: 100%;background-color: #eee;}
+.menu-list{background-color: #fff;}
+.menu-list li{padding: 1.35rem 0;text-align: center;border-bottom: 1px solid #ddd;font-size: 1.625rem;}

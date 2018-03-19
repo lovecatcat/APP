@@ -834,7 +834,22 @@
   },
   "member-personalinfo.html": {
     "refer": [
-      "member-avatar.html"
-    ]
+      "member-avatar.html",
+      "member-avatarcut.html",
+      "member-avatarmenu.html"
+    ],
+    "resources": []
+  },
+  "member-avatar.html": {
+    "refer": [
+      "member-avatarmenu.html"
+    ],
+    "resources": []
+  },
+  "member-avatarmenu.html": {
+    "refer": [
+      "member-avatarcut.html"
+    ],
+    "resources": []
   }
 }

@@ -11,7 +11,7 @@
 		<script src="js/config.js" type="text/javascript"></script>
 	</head>
 
-	<body class="BL-bg-f2f">
+	<body class="BL-bg-f2f" >
 		<header id="Js-header" class="BL-bg-fff">
 			<div class="BL-mod-headbar BL-mod-headbar-pos">
 				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
@@ -20,25 +20,26 @@
 			</div>
 		</header>
 		
-		<div id="Js-content" class="mui-content BL-rel">
+		<div id="Js-content"  class="mui-content BL-rel">
 			<div class="mui-scroll-wrapper">
 				<div class="mui-scroll news-detail">
 					<div class="news-detail-contain">
 						<div class="hd">
 							<div class="title">
-							惠州龙门大观园温泉，鲁冰花童话园2日游	
+							{{newsDetail_data.title}}
 							</div>	
 							<div class="date">
 								<span id="" style="padding-right: .5rem;">
-									2017-12-18  
+									{{newsDetail_data.create_time}} 
 								</span>	
 								<span id="">
-									行业资讯
+									{{newsDetail_data.type}}
 								</span>
 							</div>
 						</div>
-						<div class="bd BL-pasual content">
-							<div style="text-indent: 2rem;">
+						<div class="bd BL-pasual content" v-html="newsDetail_data.content">
+							<img src="images/pic/p9.jpg" />
+							<!--<div style="text-indent: 2rem;">
 								冬季，正是吃柚子、橘子、橙子的时候，这些个头上看上去差不多，味道也都是酸酸甜甜的，可是，它们的营养价值却相差了十万八千里。
 							</div><br />
 							<div><img src="images/pic/p9.jpg" /></div><br />
@@ -48,31 +49,41 @@
 沙田柚、西柚等。中医认为，柚子果肉性寒，味甘、酸
 有止咳平喘、清热化痰、健脾消食、解酒除烦、食用柚
 子有一定的去火功效。	
-							</div>
+							</div>-->
 						</div>
 					</div>
 				</div> 
 			</div> 	
-		</div> 
-		
-		<footer id="Js-footer" class="BL-footer BL-bg-fff">
-			<div class="BL-ub BL-ub-pc">
-				<div class="BL-ub BL-ub-pj" style="width: 50%;">
-					<div class="reads">
-						521520
-					</div>
-					<div class="goods">
-						1640
+			<footer id="Js-footer" class="BL-footer BL-bg-fff">
+				<div class="BL-ub BL-ub-pc">
+					<div class="BL-ub BL-ub-pj" style="width: 50%;">
+						<div class="reads">
+							{{newsDetail_data.read_num}}
+						</div>
+						<div class="goods">
+							{{newsDetail_data.praise_num}}
+						</div>
 					</div>
 				</div>
-			</div>
-		</footer>
+			</footer>
+		</div> 
+		
+		
 		
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/mui.zoom.js" ></script>
 	<script type="text/javascript" src="js/mui.previewimage.js" ></script>
+	<script src="js/vue.min.js"></script>
+	
 	<script type="text/javascript">
+		var newsDetail = new Vue({
+			el: '#Js-content',
+			data: {
+				newsDetail_data: {} // 列表数据
+			}
+		});
+		
 		mui.init();
 		
 		//非plus环境
@@ -99,6 +110,7 @@
 			var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 			document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
 			
+			
 			var images = [].slice.call(document.querySelectorAll('.content img'));
 		    var urls = [];
 		    images.forEach(function(item) {
@@ -114,12 +126,39 @@
 		    });
 			
 			
+			//点赞
+			document.querySelector('.goods').addEventListener('tap', function() {
+				var data = {
+					server: 'Information.praise',
+					device: 'pad',
+					data: JSON.stringify({id: newsDetail.newsTvDetail_data.id})
+					}
+				mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
+					if(res.code) {
+						newsDetail.newsTvDetail_data.praise_num = res.data.praise_num
+					} 
+				});
+			});
+		
+			
 			//添加productId自定义事件监听
 			window.addEventListener('newsId',function(event){
 			  //获得事件参数
 			  var id = event.detail.id;
 			  console.log(id) 
 			  //根据id向服务器请求新闻详情
+			  	var data = {
+					server: 'Information.content',
+					data: JSON.stringify({id: id}),
+					device: 'pad'
+				}
+			  	mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
+					if(res.code == 1) {
+						newsDetail.newsDetail_data = res.data
+					}else{
+						console.log(res.msg)
+					}
+				});
 			});
 		})
 	</script>

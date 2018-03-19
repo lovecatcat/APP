@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -19,61 +20,78 @@
         <h1 class="BL-title">计税器</h1>
     </div>
 </header>
-<div class="form-content margin-t_875 BL-pad-b-2">
-    <div class="form-wrap">
-        <div class="input-item">
-            <label class="">证件号码</label>
-            <div class="input-wrap box-f-1">
-                <input type="number">
-                <div class="form-clear-icon">
-                    <span class="mui-icon mui-icon-clear"></span>
+<body>
+<div id="Js-content" class="mui-content BL-rel">
+    <div class="form-content margin-t_875 BL-pad-b-2">
+        <div class="form-wrap">
+            <div class="input-item">
+                <label class="">证件号码</label>
+                <div class="input-wrap box-f-1">
+                    <input type="number">
+                    <div class="form-clear-icon">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="input-item ins-font-xs BL-col-999">(不含税)收入≤3万元，免征增值税；>3万元征3%</div>
-        <div class="input-item">
-            <label class="">个人所得税</label>
-            <div class="input-wrap">
-                <input type="number">
+            <div class="input-item ins-font-xs BL-col-999">(不含税)收入≤3万元，免征增值税；>3万元征3%</div>
+            <div class="input-item">
+                <label class="">个人所得税</label>
+                <div class="input-wrap">
+                    <input type="number">
+                </div>
+                <div class="right-btn blue" id="tax-info">详情</div>
             </div>
-            <div class="right-btn blue">详情</div>
         </div>
-    </div>
-    <div class="BL-bg-ebf5fe BL-pad-b-1">
-        <div class="item-title">税率表</div>
-        <table class="tax-table BL-bg-fff">
-            <tr>
-                <td width="10%">级数</td>
-                <td width="30%">每次应纳税所得额(含税级距)</td>
-                <td width="30%">不含税级距</td>
-                <td width="10%">税率</td>
-                <td width="15%">速算扣除数</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>不超过2万元</td>
-                <td>不超过16000元</td>
-                <td>20%</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>不超过2万元</td>
-                <td>不超过16000元</td>
-                <td>20%</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>不超过2万元</td>
-                <td>不超过16000元</td>
-                <td>20%</td>
-                <td>0</td>
-            </tr>
-        </table>
+        <div class="BL-bg-ebf5fe BL-pad-b-1">
+            <div class="item-title">税率表</div>
+            <table class="tax-table BL-bg-fff">
+                <tr>
+                    <td width="10%">级数</td>
+                    <td width="30%">每次应纳税所得额(含税级距)</td>
+                    <td width="30%">不含税级距</td>
+                    <td width="10%">税率</td>
+                    <td width="15%">速算扣除数</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>不超过2万元</td>
+                    <td>不超过16000元</td>
+                    <td>20%</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>不超过2万元</td>
+                    <td>不超过16000元</td>
+                    <td>20%</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>不超过2万元</td>
+                    <td>不超过16000元</td>
+                    <td>20%</td>
+                    <td>0</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
-<body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mui.init();
+    mui.plusReady(function () {
+        statusbar();
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+
+        mui('body').on('tap', '#tax-info', function () {
+            // 打开遮罩层，弹框
+            showPopu("tax-info.html", "tax-info", "bottom");
+        });
+    })
+</script>
 
 </body>
 </html>

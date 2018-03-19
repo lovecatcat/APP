@@ -149,7 +149,7 @@
 			el: '#Js-duty',
 			data: {
 				// 当前日期与时间
-				curtimeData: { 	
+				curtimeData: {
 					date: moment().format('YYYY.MM.DD') +' '+moment().format('dddd'),   // 日期
 					time: ''	// 时间
 				},
@@ -194,7 +194,7 @@
 	        if (!mac || !duty.wifiList) return "unknow";
 	        return duty.wifiList[mac] || 'unknow';
 	    })
-	
+
 	    Vue.filter("formatMinutes", function (minutes) {
 	        if (!minutes) return ''
 	        var minutes = Math.abs(minutes);

@@ -26,14 +26,14 @@
 					<div class="news-detail-contain">
 						<div class="hd">
 							<div class="title">
-								最补血的居然不是红枣！真正的“补血之王”原来是它
+							{{newsTvDetail_data.title}}
 							</div>
 							<div class="date">
 								<span id="" style="padding-right: .5rem;">
-									2017-12-18  
+									{{newsTvDetail_data.create_time}} 
 								</span>
 								<span id="">
-									公司VCR
+									{{newsTvDetail_data.type}}
 								</span>
 							</div>
 						</div>
@@ -45,79 +45,120 @@
 					<!------------ 视频列表 begin ----------->
 					<div id="Js-newsList" class="news-list news-tv-list">
 						<ul class="news-list-cell">
-							<li class="nItem">
-								<a data-id="111" data-wid="news_detail" href="news-detail.html" class="BL-ub BL-ub-f1">
-									<div class="img">
-										<img src="images/pic/p7.jpg" />
-									</div>
-									<div class="context BL-ub BL-ub-ver BL-ub-f1">
-										<h1 class="tit"><span class="tit-badg tit-badg-tv">视频</span>最补血的居然不是红枣！真正的“补血之王”原来是它</h1>
-										<div class="name">公司VCR</div>
-									</div>
-								</a>
-							</li>
-							<li class="nItem">
-								<a data-id="2" data-wid="news_tv_detail" href="news-tv-detail.html" class="BL-ub BL-ub-f1">
-									<div class="img">
-										<img src="images/pic/p7.jpg" />
-									</div>
-									<div class="context BL-ub BL-ub-ver BL-ub-f1">
-										<h1 class="tit"><span class="tit-badg tit-badg-tv">视频</span>最补血的居然不是红枣！真正的“补血之王”原来是它</h1>
-										<div class="name">公司VCR</div>
-									</div>
-								</a>
-							</li>
+							<li class="nItem" v-for="(item, index) in newsList_data" v-if="item.mark === 2 && index < 3" :key="index">
+							<a :data-id="item.id" :data-wid="item.mark === 2 ? 'news_tv_detail' : 'news_detail'" href="news-detail.html" class="BL-ub BL-ub-f1">
+								<div class="img">
+									<img src="images/pic/p7.jpg" />
+								</div>
+								<div class="context BL-ub BL-ub-ver BL-ub-f1">
+									<h1 class="tit">
+										<span class="tit-badg tit-badg-tv">视频</span>
+										{{item.title}}
+									</h1>
+									<div class="name">{{item.type}}</div>
+								</div>
+							</a>
+						</li>
 						</ul>
 					</div>
 					<!------------ 视频列表 end-------------->
 				</div>
 			</div>
-		</div>
-
-		<footer id="Js-footer" class="BL-footer BL-bg-fff">
-			<div class="BL-ub BL-ub-pc">
-				<div class="BL-ub BL-ub-pj" style="width: 50%;">
-					<div class="reads">
-						521520
-					</div>
-					<div class="goods">
-						1640
+			<footer id="Js-footer" class="BL-footer BL-bg-fff">
+				<div class="BL-ub BL-ub-pc">
+					<div class="BL-ub BL-ub-pj" style="width: 50%;">
+						<div class="reads">
+							{{newsTvDetail_data.read_num}}
+						</div>
+						<div class="goods">
+							{{newsTvDetail_data.praise_num}}
+						</div>
 					</div>
 				</div>
-			</div>
-		</footer>
+			</footer>
+		</div>
+
+		
 
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/mui.zoom.js"></script>
 	<script type="text/javascript" src="js/mui.previewimage.js"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
 	<script type="text/javascript">
-		mui.init();
-
-		mui('.mui-scroll-wrapper').scroll({
-			scrollY: true, //是否竖向滚动
-			scrollX: false, //是否横向滚动
-			startX: 0, //初始化时滚动至x
-			startY: 0, //初始化时滚动至y
-			indicators: false, //是否显示滚动条
-			deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
-			bounce: true //是否启用回弹
+		var newsDetail = new Vue({
+			el: '#Js-content',
+			data: {
+				newsTvDetail_data: {}, // 视频详情
+				newsList_data: [] // 列表数据
+			}
 		});
+		
+		mui.init();
+			mui('.mui-scroll-wrapper').scroll({
+				scrollY: true, //是否竖向滚动
+				scrollX: false, //是否横向滚动
+				startX: 0, //初始化时滚动至x
+				startY: 0, //初始化时滚动至y
+				indicators: false, //是否显示滚动条
+				deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
+				bounce: true //是否启用回弹
+			});
 
-		mui.plusReady(function() {
-			statusbar();
-	
-			var winH = window.innerHeight;
-			var titHeight = document.querySelector('#Js-header').offsetHeight;
-			var fotHeight = document.querySelector('#Js-footer').offsetHeight;
-			document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
-			
+			mui.plusReady(function() {
+				statusbar();
+		
+				var winH = window.innerHeight;
+				var titHeight = document.querySelector('#Js-header').offsetHeight;
+				var fotHeight = document.querySelector('#Js-footer').offsetHeight;
+				document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
+				var data = {
+					channel_id: 1,
+					type: 'account',
+					data: JSON.stringify({
+						keyword: '陆惠忠',
+						password: 123456
+						})
+					}
+				mui.post("http://www.luckyins.com/api/api/login", data, function(res) {
+					if(res.code) {
+						console.log(res.msg)
+					} 
+				});
+				//点赞
+				document.querySelector('.goods').addEventListener('tap', function() {
+					var data = {
+						server: 'Information.praise',
+						device: 'pad',
+						data: JSON.stringify({id: newsDetail.newsTvDetail_data.id})
+						}
+					mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
+						if(res.code) {
+							newsDetail.newsTvDetail_data.praise_num = res.data.praise_num
+						} 
+					});
+				});
+		
+		
 			//添加productId自定义事件监听
 			window.addEventListener('newsId', function(event) {
 				//获得事件参数
 				var id = event.detail.id;
 				console.log(id)
 				//根据id向服务器请求新闻详情
+				var data = {
+					server: 'Information.content',
+					data: JSON.stringify({id: id}),
+					device: 'pad'
+				}
+			  	mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
+					if(res.code == 1) {
+						newsDetail.newsTvDetail_data = res.data
+					}else{
+						console.log(res.msg)
+					}
+				});
+
 			});
 		})
 	</script>

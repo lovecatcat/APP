@@ -14,7 +14,10 @@ ul, li{
 i {
 	font-style: normal;
 }
-
+/*防止vue出现{{}}*/
+[v-cloak] {
+  display: none;
+}
 /* 弹性盒子模型(base样式) */
 
 .BL-vp {

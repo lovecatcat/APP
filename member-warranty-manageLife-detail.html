@@ -19,7 +19,7 @@
         <h1 class="BL-title">订单详情</h1>
     </div>
 </header>
-<div id="Js-content" class="mui-content">
+<div id="Js-content" class="mui-content BL-overFlow-autoY">
     <div class="BL-bg-fff BL-mar-t-1">
         <ul class="mui-table-view mui-table-view-chevron">
             <li class="mui-table-view-cell member-warranty-detail-item">
@@ -200,16 +200,16 @@
         //阻尼系数
         var deceleration = mui.os.ios ? 0.003 : 0.0009;
 
-        $.plusReady(function() {
+        $.ready(function() {
             statusbar();
             var winH = window.innerHeight;
 			var titHeight = document.querySelector('#Js-header').offsetHeight;
             document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
-            
+            var policy_id = plus.webview.currentWebview().policy_id;
             var data = {
 				server: 'PolicyIns.policyDetails',
 				data: JSON.stringify({
-					policy_id: 6101,
+					policy_id: policy_id,
 					state: '', // 保单类型
 				}),
 				device: 'pad'

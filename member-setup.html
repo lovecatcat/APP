@@ -22,7 +22,7 @@
 <div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
     <ul class="mui-table-view form-list-cell">
         <li class="fItem BL-ub BL-ub-f1">
-            <a href="javascript:;" class="mui-navigate-right form-list-label BL-ub-f1">
+            <a href="member-changepwd.html" data-wid="member-changepwd" class="mui-navigate-right form-list-label BL-ub-f1">
                 修改密码
             </a>
         </li>
@@ -45,7 +45,7 @@
     </ul>
     <ul class="mui-table-view form-list-cell BL-mar-t-3">
         <li class="fItem BL-ub BL-ub-f1">
-            <a href="login.html" data-wid="login" class="form-list-label BL-ub-f1 BL-col-3b9cf5 BL-txt-c">退出登录</a>
+            <span class="form-list-label BL-ub-f1 BL-col-3b9cf5 BL-txt-c" id="quit">退出登录</span>
         </li>
     </ul>
 </div>
@@ -73,8 +73,12 @@
 
         var winH = window.innerHeight;
         var titHeight = document.querySelector('#Js-header').offsetHeight;
-
         document.querySelector('#Js-content').style.height = (winH - titHeight) + 'px';
+        //退出登录
+        document.querySelector('#quit').addEventListener("tap", function () {
+            plus.storage.clear();
+            isLogin();
+        })
     })
 </script>
 </html>

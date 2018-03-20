@@ -534,4 +534,4 @@ input[type='color']{
 }
 
 .mui-toast-container{bottom: 20%;}
-.mui-toast-message{font-size: 1.4375rem;padding: 1.5rem;}
+.mui-toast-message{font-size: 1.4375rem;line-height:2rem;}

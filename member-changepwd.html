@@ -1,70 +1,123 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<link href="css/mui.css" rel="stylesheet" />
-		<link href="css/common.css" rel="stylesheet" />
-		<link href="css/module.css" rel="stylesheet" />
-		<link href="css/form.css" rel="stylesheet" />
-		<link href="css/member.css" rel="stylesheet" />
-		<script src="js/config.js" type="text/javascript"></script>
-	</head>
-	
-	<body class="BL-bg-f2f">
-		<header id="Js-header" class="BL-bg-fff">
-			<div class="BL-mod-headbar BL-mod-headbar-pos">
-				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
-				<h1 class="BL-title">修改密码</h1>
-			</div>
-		</header>
-		
-		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
-			<ul class="mui-table-view form-list-cell">
-				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label">旧密码</label>
-					<div class="form-list-control">
-						<input type="text" placeholder="请输入">
-					</div>
-					<div class="form-list-icon">
-						<span class="mui-icon mui-icon-clear"></span>
-					</div>
-				</li>
-			    <li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label">新密码</label>
-					<div class="form-list-control">
-						<input type="text" placeholder="请输入">
-					</div>
-					<div class="form-list-icon">
-						<span class="mui-icon mui-icon-clear"></span>
-					</div>
-				</li>
-			    <li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label">确认密码</label>
-					<div class="form-list-control">
-						<input type="text" placeholder="请输入">
-					</div>
-					<div class="form-list-icon">
-						<span class="mui-icon mui-icon-clear"></span>
-					</div>
-				</li>
-			</ul>
-			<div class="form-button-group">
-				<a type="button" class="form-btn">确认修改</a>
-			</div>
-		</div>
-	</body>
-	<script src="js/mui.min.js" type="text/javascript"></script>
-	<script src="js/mui.picker.min.js"></script>
-	<script type="text/javascript">
-		mui.init();
-		mui.plusReady(function() {
-			statusbar();
-			var winH = window.innerHeight;
-			var titHeight = document.querySelector('#Js-header').offsetHeight;
-			
-			document.querySelector('#Js-content').style.height = (winH - titHeight) +'px';	
-		})
-	</script>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="css/mui.css" rel="stylesheet"/>
+    <link href="css/common.css" rel="stylesheet"/>
+    <link href="css/module.css" rel="stylesheet"/>
+    <link href="css/form.css" rel="stylesheet"/>
+    <link href="css/member.css" rel="stylesheet"/>
+    <script src="js/config.js" type="text/javascript"></script>
+</head>
+
+<body class="BL-bg-f2f">
+<header id="Js-header" class="BL-bg-fff">
+    <div class="BL-mod-headbar BL-mod-headbar-pos">
+        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+        <h1 class="BL-title">修改密码</h1>
+    </div>
+</header>
+
+<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
+    <ul class="mui-table-view form-list-cell">
+        <li class="fItem BL-ub BL-ub-f1">
+            <label class="form-list-label">旧密码</label>
+            <div class="form-list-control">
+                <input type="password" placeholder="请输入" v-model="old_pwd">
+            </div>
+            <div class="form-list-icon" v-show="old_pwd" @click="old_pwd=''">
+                <span class="mui-icon mui-icon-clear"></span>
+            </div>
+        </li>
+        <li class="fItem BL-ub BL-ub-f1">
+            <label class="form-list-label">新密码</label>
+            <div class="form-list-control">
+                <input type="password" placeholder="请输入" v-model="new_pwd">
+            </div>
+            <div class="form-list-icon" v-show="new_pwd" @click="new_pwd=''">
+                <span class="mui-icon mui-icon-clear"></span>
+            </div>
+        </li>
+        <li class="fItem BL-ub BL-ub-f1">
+            <label class="form-list-label">确认密码</label>
+            <div class="form-list-control">
+                <input type="password" placeholder="请输入" v-model="repeat_pwd">
+            </div>
+            <div class="form-list-icon" v-show="repeat_pwd" @click="repeat_pwd=''">
+                <span class="mui-icon mui-icon-clear"></span>
+            </div>
+        </li>
+    </ul>
+    <div class="form-button-group">
+        <a type="button" class="form-btn" @click="sub">确认修改</a>
+    </div>
+</div>
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/vue.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mui.init();
+    mui.plusReady(function () {
+        statusbar();
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        document.querySelector('#Js-content').style.height = (winH - titHeight) + 'px';
+
+        var userinfo = JSON.parse(plus.storage.getItem('userinfo'));
+
+        var changepwd = new Vue({
+            el: '#Js-content',
+            data: {
+                old_pwd: '',
+                new_pwd: '',
+                repeat_pwd: ''
+            },
+            methods: {
+                sub: function () {
+                    var toast_text = null
+                    if (!this.old_pwd) {
+                        toast_text = '请输入原密码'
+                    } else if (!this.new_pwd) {
+                        toast_text = '请输入新密码'
+                    } else if (!this.repeat_pwd) {
+                        toast_text = '请再次输入新密码'
+                    } else if (this.new_pwd !== this.repeat_pwd) {
+                        toast_text = '两次密码输入不一致'
+                    }
+                    if (toast_text) {
+                        mui.toast(toast_text, {duration: 'short', type: 'div'});
+                        return false;
+                    }
+                    mui.ajax('http://www.luckyins.com/api/api/invoke', {
+                        data: {
+                            data: JSON.stringify({user_id: userinfo.id, old: this.old_pwd, new: this.new_pwd}),
+                            device: 'pad',
+                            server: 'user.changePassword'
+                        },
+                        dataType: 'json',//服务器返回json格式数据
+                        type: 'post',//HTTP请求类型
+                        timeout: 10000,//超时时间设置为10秒；
+                        headers: {'Content-Type': 'application/json'},
+                        success: function (data) {
+                            if (data.code === 1) {
+                                mui.toast(data.msg, {duration: 'short', type: 'div'})
+                                plus.storage.clear();
+                                isLogin();
+                            } else {
+                                mui.toast(data.msg, {duration: 'short', type: 'div'})
+                                return false;
+                            }
+                        },
+                        error: function (xhr, type, errorThrown) {
+                            mui.toast(errorThrown, {duration: 'short', type: 'div'})
+                            return false
+                        }
+                    });
+                }
+            }
+        })
+    })
+</script>
 </html>
 

@@ -73,7 +73,7 @@
             var drawer = canvas.getContext('2d')
 
             img.onload = function () {
-                var width = 800 //图片resize宽度
+                var width = 300 //图片resize宽度
                 var quality = 0.6 //图像质量
                 canvas.width = width
                 canvas.height = width * (img.height / img.width)
@@ -82,8 +82,7 @@
                 mui.fire(plus.webview.getWebviewById('member_personalinfo'), 'img', {
                     img: base64Img
                 });
-                plus.webview.currentWebview().close();
-                popu.closepop();
+                mui.back();
             }
         }
     })

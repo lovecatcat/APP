@@ -17,8 +17,7 @@
         <div class="BL-ub BL-ub-ac headbar-search">
             <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
             <div class="search search-pro BL-ub BL-ub-ac BL-ub-f1">
-                <input type="search" name="Js-search" id="Js-search" value="" v-model="keywords"
-                       class="BL-ub BL-ub-f1"/>
+                <input type="search" name="Js-search" id="Js-search" value="搜索关键词" class="BL-ub BL-ub-f1"/>
                 <div class="button">
                     <span class="BL-bimg-contain">&nbsp;</span>
                 </div>
@@ -27,31 +26,30 @@
     </div>
 </header>
 
-<div id="Js-content" class="mui-content product" v-cloak>
+<div id="Js-content" class="mui-content product">
     <!------------条件筛选 begin------------->
     <div id="Js-productFilter" class="product-filter">
 
         <!--分类栏目 begin-->
         <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
             <div class="mui-scroll">
-                <div class="pro-control-item" :class="{'mui-active':current_instype===0}"
-                     @click="current_instype=0,page=0">
+                <div class="pro-control-item" :class="{'mui-active':current_instype===0}" @click="current_instype=0">
                     全部
                 </div>
                 <div class="pro-control-item" :class="{'mui-active':current_instype==='LBI0002'}"
-                     @click="current_instype='LBI0002',page=0">
+                     @click="current_instype='LBI0002'">
                     医疗
                 </div>
                 <div class="pro-control-item" :class="{'mui-active':current_instype==='LBI0001'}"
-                     @click="current_instype='LBI0001',page=0">
+                     @click="current_instype='LBI0001'">
                     重疾
                 </div>
                 <div class="pro-control-item" :class="{'mui-active':current_instype==='LBI0004'}"
-                     @click="current_instype='LBI0004',page=0">
+                     @click="current_instype='LBI0004'">
                     意外
                 </div>
                 <div class="pro-control-item" :class="{'mui-active':current_instype==='LBI0005'}"
-                     @click="current_instype='LBI0005',page=0">
+                     @click="current_instype='LBI0005'">
                     航旅
                 </div>
             </div>
@@ -62,8 +60,8 @@
         <div class="filter-state">
             <div class="BL-ub BL-ub-ac state-select">
                 <div class="mui-col-sm-4 mui-col-xs-4 item"
-                     :class="{'item-active-down':ordertype===2,'item-active-up':ordertype===1}"
-                     @click="priceup=!priceup,ordertype=1,companyId=''">
+                     :class="{'item-active-down':(ordertype===1&&priceup),'item-active-up':(ordertype===1&&!priceup)}"
+                     @click="priceup=!priceup,ordertype=1">
                     <div class="BL-ub BL-ub-ac BL-ub-pc">
                         <div class="text">
                             价格排序
@@ -74,13 +72,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="mui-col-sm-4 mui-col-xs-4 item" :class="{'mui-active': ordertype===3}"
-                     @click="ordertype=2,companyId=''">
+                <div class="mui-col-sm-4 mui-col-xs-4 item" :class="{'mui-active': ordertype===2}" @click="ordertype=2">
                     销量排序
                 </div>
-                <div class="mui-col-sm-4 mui-col-xs-4 item" :class="{'mui-active': ordertype===4&&companyId}">
+                <div class="mui-col-sm-4 mui-col-xs-4 item" :class="{'mui-active': ordertype===3&&companyId}">
                     <div class="BL-ub BL-ub-ac BL-ub-pc a-link" href="quickly-filter.html" data-wid="quickly_filter"
-                         data-cid="companyId" @click="ordertype=5">
+                         data-cid="companyId" @click="ordertype=3">
                         <div class="text">
                             筛选
                         </div>
@@ -155,45 +152,6 @@
             }
         ]
     });
-    var self;
-    var product = new Vue({
-        el: '#Js-content',
-        data: {
-            keywords: '',
-            current_instype: 0, //险种类别id
-            ordertype: '', //1按价格上升 2按价格下降 3按销量 4保险公司
-            page: 0,
-            companyId: '',
-            list: [],
-            instype: []
-        },
-        watch: {
-            priceup: {
-                handler: function () {
-                    this.page = 0;
-                    self.refresh(true);
-                    self.pullUpLoading();
-//                    loaddata(true);
-                }
-            },
-            ordertype: {
-                handler: function () {
-                    this.page = 0;
-                    self.refresh(true);
-                    self.pullUpLoading();
-//                    loaddata(true);
-                }
-            },
-            current_instype: {
-                handler: function () {
-                    this.page = 0;
-                    self.refresh(true);
-                    self.pullUpLoading();
-//                    loaddata(true);
-                }
-            }
-        }
-    });
 
     (function ($) {
         //阻尼系数
@@ -205,6 +163,33 @@
         });
         $.plusReady(function () {
             statusbar();
+            var product = new Vue({
+                el: '#Js-content',
+                data: {
+                    current_instype: 0, //险种类别id
+                    ordertype: '', //1按价格排序 2按销量 3保险公司
+                    priceup: true, //是否价格升序排列
+                    page: 0,
+                    companyId: '',
+                    list: [],
+                    instype: []
+                },
+                watch: {
+                    ordertype: {
+                        handler: function () {
+                            this.page = 0;
+                            loaddata(true);
+                        }
+                    },
+                    current_instype: {
+                        handler: function () {
+                            this.page = 0;
+                            loaddata(true);
+                        }
+                    },
+                }
+            });
+            var self;
             mui.preload({ // 预加载产品详情页
                 url: 'product-detail.html',
                 id: 'product-detail', // id
@@ -214,6 +199,98 @@
             var divHeight = document.querySelector('#Js-productFilter').offsetHeight;
             document.querySelector('#Js-productList').style.height = winH - titHeight - divHeight + 'px';
 
+            //加载险种类别
+            mui.ajax('http://www.luckyins.com/api/api/invoke', {
+                data: {
+                    device: 'pad',
+                    server: 'lifeProduct.getInsTypeList'
+                },
+                dataType: 'json',//服务器返回json格式数据
+                type: 'post',//HTTP请求类型
+                timeout: 10000,//超时时间设置为10秒；
+                headers: {'Content-Type': 'application/json'},
+                success: function (data) {
+                    if (data.code) {
+                        product.instype = data.data
+                        mui.toast(data.msg, {duration: 'short', type: 'div'});
+                    } else {
+                        mui.toast(data.msg, {duration: 'short', type: 'div'});
+                        return false;
+                    }
+                }
+            })
+            //加载险种列表
+            var loaddata = function (e) {
+                product.page++;
+                console.log(product.page)
+                var basedata = {
+                    page: product.page,
+                    row: 10
+                };
+                if (product.current_instype) {
+                    basedata.ins_type = product.current_instype
+                }
+                if (product.companyId) {
+                    basedata.company_id = product.companyId
+                }
+                if (product.ordertype === 2) {
+                    basedata.order = 'sale_num desc';
+                } else if (product.ordertype === 3 && product.companyId) {
+                    basedata.company_id = product.companyId;
+                } else if (product.ordertype === 1) {
+                    if (product.priceup) {
+                        basedata.order = 'price desc';
+                    } else {
+                        basedata.order = 'price asc';
+                    }
+                }
+                console.log(JSON.stringify(basedata));
+                mui.ajax('http://www.luckyins.com/api/api/invoke', {
+                    data: {
+                        device: 'pad',
+                        server: 'lifeProduct.getProductList',
+                        data: JSON.stringify(basedata)
+                    },
+                    dataType: 'json',//服务器返回json格式数据
+                    type: 'post',//HTTP请求类型
+                    timeout: 10000,//超时时间设置为10秒；
+                    headers: {'Content-Type': 'application/json'},
+                    success: function (data) {
+                        console.log(JSON.stringify(data))
+                        if (data.code) {
+                            if (product.page >= data.data.totalPage) {
+                                self.endPullUpToRefresh(true);
+                            } else {
+                                self.endPullUpToRefresh();
+                            }
+                            if (e) {
+                                init();
+                                product.list = data.data.list;
+                            } else {
+                                var list = data.data.list;
+                                mui.each(list, function (index, item) {
+                                    product.list.push(item);
+                                });
+                            }
+                            mui.toast(data.msg, {duration: 'short', type: 'div'});
+                        } else {
+                            mui.toast(data.msg, {duration: 'short', type: 'div'});
+                            return false;
+                        }
+                    },
+                    error: function (xhr, type, errorThrown) {
+                        mui.toast(errorThrown, {duration: 'short', type: 'div'});
+                        return false
+                    }
+                });
+            };
+
+            function init() {
+                var winH = window.innerHeight;
+                var titHeight = document.querySelector('#Js-header').offsetHeight;
+                var divHeight = document.querySelector('#Js-productFilter').offsetHeight;
+                document.querySelector('#Js-productList').style.height = winH - titHeight - divHeight + 'px';
+            };
             //循环初始化所有下拉刷新，上拉加载。
             $('#Js-productList .mui-scroll').pullToRefresh({
                 up: { // 上拉加载更多
@@ -227,67 +304,7 @@
         });
 
     }(mui));
-    //加载险种列表
-    var loaddata = function (e) {
-        product.page++;
-        console.log(product.page)
-        var basedata = {
-            page: product.page,
-            row: 10
-        };
-        if (product.current_instype) {
-            basedata.ins_type = product.current_instype
-        }
-        if (product.companyId) {
-            basedata.company_id = product.companyId
-        }
-        if (product.ordertype === 1) {
-            basedata.order = 'price asc';
-        } else if (product.ordertype === 2) {
-            basedata.order = 'price desc';
-        } else if (product.ordertype === 3) {
-            basedata.order = 'sale_num desc';
-        } else if (product.ordertype === 3 && product.companyId) {
-            basedata.company_id = product.companyId;
-        } else if (product.ordertype === 1) {
-            if (product.priceup) {
-                basedata.order = 'price desc';
-            } else {
-                basedata.order = 'price asc';
-            }
-        }
-        console.log(JSON.stringify(basedata));
-        mui.ajax('http://www.luckyins.com/api/api/invoke', {
-            data: {
-                device: 'pad',
-                server: 'lifeProduct.getProductList',
-                data: JSON.stringify(basedata)
-            },
-            dataType: 'json',//服务器返回json格式数据
-            type: 'post',//HTTP请求类型
-            timeout: 10000,//超时时间设置为10秒；
-            headers: {'Content-Type': 'application/json'},
-            success: function (data) {
-                console.log(JSON.stringify(data))
-                if (data.code) {
-                    if (product.page >= data.data.totalPage) {
-                        self.endPullUpToRefresh(true);
-                    } else {
-                        self.endPullUpToRefresh();
-                    }
-                    product.list.concat(data.data.list);
-                    mui.toast(data.msg, {duration: 'short', type: 'div'});
-                } else {
-                    mui.toast(data.msg, {duration: 'short', type: 'div'});
-                    return false;
-                }
-            },
-            error: function (xhr, type, errorThrown) {
-                mui.toast(errorThrown, {duration: 'short', type: 'div'});
-                return false
-            }
-        });
-    };
+
 
     //主列表点击事件
     var detailPage = null;
@@ -330,10 +347,9 @@
     });
     window.addEventListener('companyId', function (e) {
         //筛选保险公司
+        alert(e.detail.id)
         product.companyId = e.detail.id;
         product.ordertype = 3;
-        product.page = 0;
-        loaddata(true);
     });
 
 </script>

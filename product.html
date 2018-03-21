@@ -13,17 +13,10 @@
 
 <body class="BL-bg-f2f">
 <header id="Js-header" class="BL-bg-fff">
-    <div class="BL-mod-headbar">
-        <div class="BL-ub BL-ub-ac headbar-search">
-            <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
-            <div class="search search-pro BL-ub BL-ub-ac BL-ub-f1">
-                <input type="search" name="Js-search" id="Js-search" value="" v-model="keywords"
-                       class="BL-ub BL-ub-f1"/>
-                <div class="button">
-                    <span class="BL-bimg-contain">&nbsp;</span>
-                </div>
-            </div>
-        </div>
+    <div class="BL-mod-headbar BL-mod-headbar-pos">
+        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+        <h1 class="BL-title">产品分类</h1>
+        <a class="BL-icon BL-icon-search"></a>
     </div>
 </header>
 
@@ -63,7 +56,7 @@
             <div class="BL-ub BL-ub-ac state-select">
                 <div class="mui-col-sm-4 mui-col-xs-4 item"
                      :class="{'item-active-down':ordertype===2,'item-active-up':ordertype===1}"
-                     @click="priceup=!priceup,ordertype=1,companyId=''">
+                     @click="ordertype===1?ordertype=2:ordertype=1,companyId=''">
                     <div class="BL-ub BL-ub-ac BL-ub-pc">
                         <div class="text">
                             价格排序
@@ -75,7 +68,7 @@
                     </div>
                 </div>
                 <div class="mui-col-sm-4 mui-col-xs-4 item" :class="{'mui-active': ordertype===3}"
-                     @click="ordertype=2,companyId=''">
+                     @click="ordertype=3,companyId=''">
                     销量排序
                 </div>
                 <div class="mui-col-sm-4 mui-col-xs-4 item" :class="{'mui-active': ordertype===4&&companyId}">
@@ -111,7 +104,7 @@
                 <!--活动中，数据列表-->
                 <ul class="mui-table-view product-list-cell">
                     <li class="cItem" v-for="(item,index) in list" :key="index" v-if="list">
-                        <div data-id="index" data-wid="product_detail" href="product-detail.html"
+                        <div :data-id="item.id" data-wid="product_detail" href="product-detail.html"
                              class="BL-ub BL-ub-f1 pro-content pro-icon-new a-link">
                             <div class="img">
                                 <img :src="item.image_url" @error="item.image_url='images/pic/p6.jpg'"/>
@@ -132,8 +125,8 @@
 
 <!------------悬浮控制按钮 begin-------------->
 <div class="popuer">
-    <a data-wid="" href="javascript:;" class="popu-IconMenu"><img src="images/product/menu-prospect.png" alt="计划书"/></a>
-    <a data-wid="product_contrast" href="product-contrast.html" class="popu-IconMenu"><img
+    <a data-wid="prospect" href="prospect.html" class="popu-IconMenu a-link"><img src="images/product/menu-prospect.png" alt="计划书"/></a>
+    <a data-wid="product_contrast" href="product-contrast.html" class="popu-IconMenu a-link"><img
             src="images/product/menu-pk.png" alt="产品对比"/></a>
 </div>
 <!------------悬浮控制按钮 end --------------->
@@ -152,6 +145,10 @@
             { // 预加载PK对比页
                 url: 'product-contrast.html',
                 id: 'product_contrast'
+            },
+            { // 保险公司筛选
+                url: 'quickly-filter.html',
+                id: 'quickly-filter'
             }
         ]
     });
@@ -168,28 +165,18 @@
             instype: []
         },
         watch: {
-            priceup: {
-                handler: function () {
-                    this.page = 0;
-                    self.refresh(true);
-                    self.pullUpLoading();
-//                    loaddata(true);
-                }
-            },
             ordertype: {
-                handler: function () {
-                    this.page = 0;
-                    self.refresh(true);
-                    self.pullUpLoading();
-//                    loaddata(true);
+                handler: function (val) {
+                    if (val && val !== 4) {
+                        this.page = 0;
+                        loaddata(true);
+                    }
                 }
             },
             current_instype: {
                 handler: function () {
                     this.page = 0;
-                    self.refresh(true);
-                    self.pullUpLoading();
-//                    loaddata(true);
+                    loaddata(true);
                 }
             }
         }
@@ -205,10 +192,8 @@
         });
         $.plusReady(function () {
             statusbar();
-            mui.preload({ // 预加载产品详情页
-                url: 'product-detail.html',
-                id: 'product-detail', // id
-            });
+            var from_type = plus.webview.currentWebview().instype;
+            product.current_instype = from_type ? from_type : 0;
             var winH = window.innerHeight;
             var titHeight = document.querySelector('#Js-header').offsetHeight;
             var divHeight = document.querySelector('#Js-productFilter').offsetHeight;
@@ -235,9 +220,7 @@
             page: product.page,
             row: 10
         };
-        if (product.current_instype) {
-            basedata.ins_type = product.current_instype
-        }
+        basedata.ins_type = product.current_instype
         if (product.companyId) {
             basedata.company_id = product.companyId
         }
@@ -247,14 +230,8 @@
             basedata.order = 'price desc';
         } else if (product.ordertype === 3) {
             basedata.order = 'sale_num desc';
-        } else if (product.ordertype === 3 && product.companyId) {
+        } else if (product.ordertype === 4 && product.companyId) {
             basedata.company_id = product.companyId;
-        } else if (product.ordertype === 1) {
-            if (product.priceup) {
-                basedata.order = 'price desc';
-            } else {
-                basedata.order = 'price asc';
-            }
         }
         console.log(JSON.stringify(basedata));
         mui.ajax('http://www.luckyins.com/api/api/invoke', {
@@ -274,6 +251,14 @@
                         self.endPullUpToRefresh(true);
                     } else {
                         self.endPullUpToRefresh();
+                    }
+                    if (e) {
+                        product.list = data.data.list;
+                    } else {
+                        var list = data.data.list;
+                        mui.each(list, function (index, item) {
+                            product.list.push(item);
+                        });
                     }
                     product.list.concat(data.data.list);
                     mui.toast(data.msg, {duration: 'short', type: 'div'});
@@ -331,7 +316,7 @@
     window.addEventListener('companyId', function (e) {
         //筛选保险公司
         product.companyId = e.detail.id;
-        product.ordertype = 3;
+        product.ordertype = 4;
         product.page = 0;
         loaddata(true);
     });

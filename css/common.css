@@ -234,14 +234,14 @@ i {
 	background-size: 100%;
 	right: 1.25rem;
 }
-.BL-icon-more {
+
+.BL-icon-search {
 	width: 2rem;
 	height: 2rem;
-	background: url(../images/icon/ico-more.png) no-repeat center;
+	background: url(../images/icon/ico-search-blue.png) no-repeat center;
 	background-size: 100%;
 	right: 1.25rem;
 }
-
 /* 标题栏(base样式) = BL-title[color, font-size] */
 
 .BL-title {
@@ -401,7 +401,9 @@ i {
 	padding-top: 3rem;
 	padding-bottom: 3rem;
 }
-
+.BL-pad-b_5 {
+	padding-bottom: .5rem;
+}
 .BL-pad-b-1 {
 	padding-bottom: 1rem;
 }

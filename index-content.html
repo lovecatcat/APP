@@ -126,7 +126,7 @@
                             <div class="icon icon-1"></div>
                             <span>短期险</span>
                         </div>
-                        <a class="BL-ub BL-ub-ac more">
+                        <a class="BL-ub BL-ub-ac more" href="product.html" data-wid="product" data-id="LBI0002">
                             <span>更多</span>
                             <div class="mui-icon mui-icon-arrowright"></div>
                         </a>
@@ -139,8 +139,8 @@
                                     <span class="new">{{item.product_sign}}</span>
                                 </div>
                                 <div class="context">
-                                    <div class="tit">{{item.product_name}}</div>
-                                    <div class="text">{{item.keywords}}</div>
+                                    <div class="tit">{{item.short_name}}</div>
+                                    <div class="text mui-ellipsis BL-pad-b_5">{{item.keywords}}</div>
                                     <div class="price BL-ub BL-ub-ac">
                                         <span>￥</span>
                                         <span class="money">{{item.price}}</span>
@@ -159,7 +159,7 @@
                             <div class="icon icon-2"></div>
                             <span>重疾险</span>
                         </div>
-                        <a class="BL-ub BL-ub-ac more">
+                        <a class="BL-ub BL-ub-ac more" href="product.html" data-wid="product" data-id="LBI0001">
                             <span>更多</span>
                             <div class="mui-icon mui-icon-arrowright"></div>
                         </a>
@@ -172,8 +172,8 @@
                                     <span class="new">{{item.product_sign}}</span>
                                 </div>
                                 <div class="context">
-                                    <div class="tit">{{item.product_name}}</div>
-                                    <div class="text">{{item.keywords}}</div>
+                                    <div class="tit">{{item.short_name}}</div>
+                                    <div class="text mui-ellipsis BL-pad-b_5">{{item.keywords}}</div>
                                     <div class="price BL-ub BL-ub-ac">
                                         <span>￥</span>
                                         <span class="money">{{item.price}}</span>
@@ -192,7 +192,7 @@
                             <div class="icon icon-3"></div>
                             <span>意外险</span>
                         </div>
-                        <a class="BL-ub BL-ub-ac more">
+                        <a class="BL-ub BL-ub-ac more" href="product.html" data-wid="product" data-id="LBI0004">
                             <span>更多</span>
                             <div class="mui-icon mui-icon-arrowright"></div>
                         </a>
@@ -205,8 +205,8 @@
                                     <span class="new">{{item.product_sign}}</span>
                                 </div>
                                 <div class="context">
-                                    <div class="tit">{{item.product_name}}</div>
-                                    <div class="text">{{item.keywords}}</div>
+                                    <div class="tit">{{item.short_name}}</div>
+                                    <div class="text mui-ellipsis BL-pad-b_5">{{item.keywords}}</div>
                                     <div class="price BL-ub BL-ub-ac">
                                         <span>￥</span>
                                         <span class="money">{{item.price}}</span>
@@ -225,7 +225,7 @@
                             <div class="icon icon-4"></div>
                             <span>理财险</span>
                         </div>
-                        <a class="BL-ub BL-ub-ac more">
+                        <a class="BL-ub BL-ub-ac more" href="product.html" data-wid="product" data-id="LBI0005">
                             <span>更多</span>
                             <div class="mui-icon mui-icon-arrowright"></div>
                         </a>
@@ -238,8 +238,8 @@
                                     <span class="new">{{item.product_sign}}</span>
                                 </div>
                                 <div class="context">
-                                    <div class="tit">{{item.product_name}}</div>
-                                    <div class="text">{{item.keywords}}</div>
+                                    <div class="tit">{{item.short_name}}</div>
+                                    <div class="text mui-ellipsis BL-pad-b_5">{{item.keywords}}</div>
                                     <div class="price BL-ub BL-ub-ac">
                                         <span>￥</span>
                                         <span class="money">{{item.price}}</span>
@@ -258,9 +258,9 @@
 </div>
 
 <!----------- 打卡按键  begin -------------->
-<div class="BL-mod-sign">
+<a class="BL-mod-sign" href="member-duty.html" data-wid="member_duty">
     <div class="sign BL-bimg-contain"></div>
-</div>
+</a>
 <!----------- 打卡按键  end   -------------->
 
 </body>
@@ -296,6 +296,7 @@
         mui('body').on('tap', 'a', function () {
             var href = this.getAttribute('href');
             var id = this.getAttribute("data-wid");
+            var tid = this.getAttribute("data-id");
 
             //非plus环境，直接走href跳转
             if (!mui.os.plus) {
@@ -305,11 +306,23 @@
 
             if (href && ~href.indexOf('.html')) {
                 //打开新窗口
-                mui.openWindow({
-                    url: href,
-                    id: id,
-                    show: animateObj.aniPage
-                });
+                if (tid) {
+                    mui.openWindow({
+                        url: href,
+                        id: id,
+                        show: animateObj.aniPage,
+                        extras: {
+                            instype: tid
+                        }
+                    });
+                } else {
+                    mui.openWindow({
+                        url: href,
+                        id: id,
+                        show: animateObj.aniPage
+                    });
+                }
+
             }
         });
         var index = new Vue({
@@ -334,7 +347,7 @@
             timeout: 10000,//超时时间设置为10秒；
             headers: {'Content-Type': 'application/json'},
             success: function (data) {
-                console.log('111')
+                console.log(JSON.stringify(data))
                 if (data.code === 1) {
                     init();
                     mui("#slider").slider();

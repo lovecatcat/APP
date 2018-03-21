@@ -376,7 +376,9 @@
 					"auto2c.html",
 					"popup.html",
 					"insurance-index.html",
-					"ins2c.html"
+					"ins2c.html",
+					"member-duty.html",
+					"shop.html"
 				],
 				"priority": 0
 			},
@@ -756,7 +758,9 @@
 					"member-setup.html",
 					"login.html",
 					"member-intergral.html",
-					"member-warranty-manage.html"
+					"member-warranty-manage.html",
+					"tax-cal.html",
+					"member-birthday.html"
 				],
 				"priority": 0
 			},
@@ -1736,7 +1740,9 @@
 					"js/config.js"
 				],
 				"refer": [
-					"quickly-filter.html"
+					"quickly-filter.html",
+					"product-detail.html",
+					"product-contrast.html"
 				],
 				"priority": 5
 			},
@@ -2001,6 +2007,15 @@
 				],
 				"refer": [
 					"member-warranty-manageCar.html"
+				],
+				"priority": 0
+			},
+			"member-birthday.html": {
+				"resources": [
+					"member-birthday-customer.html"
+				],
+				"refer": [
+					"member-birthday-team.html"
 				],
 				"priority": 0
 			}

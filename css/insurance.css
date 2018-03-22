@@ -91,3 +91,9 @@
     padding: .5rem;
     font-size: 1.3125rem;
 }
+.center-dialog{width: 96%;height:70%;position: fixed;left: 2%;top: 15%;background-color: #fff;border: 1px solid #ccc;border-radius: .5rem;}
+.header-wrap{position: relative;border-bottom: 1px solid #ddd;padding: 0 1.25rem;}
+.header-wrap .mui-icon{position: absolute;right:1rem;font-size: 2.8rem;line-height: 4rem}
+.header-wrap .box-f-1{line-height: 4rem;color: #333;}
+.box{display:-moz-box; display:-webkit-box; display:-ms-flexbox;}
+.title-item{font-size: 1.4375rem;line-height: 3rem;}

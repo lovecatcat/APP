@@ -44,6 +44,11 @@
         font-size: 28px;
     }
 }
+@media screen and (min-width: 1920px) and (-webkit-min-device-pixel-ratio: 3.0){
+    html {
+        font-size: 32px;
+    }
+}
 
 html
 {

@@ -41,7 +41,7 @@
 	line-height: 4.25rem;
 	text-align: center;
 }
-.filter-state .state-select .item.mui-active{
+.filter-state .state-select .item.mui-active,.filter-state .state-select .item.item-active-down,.filter-state .state-select .item.item-active-up{
 	color: #3b9cf5;
 }
 .filter-state .state-select .item:nth-last-child{
@@ -364,5 +364,39 @@
 	height: 7.1875rem;
 }
 
+.pro-control-item {
+	display: inline-block;
+	width: auto;
+	padding: 0 20px;
+	line-height: 4.0625rem;
+	font-size: 1.4375rem;
+	transition: background-color .1s linear;
+	text-align: center;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	color: inherit;
+	margin: 0 1.25rem;
+	border: 0;
+}
 
+.pro-control-item.mui-active {
+	color: #3b9cf5 !important;
+	border-bottom: 0.1875rem solid #3b9cf5;
+}
 
+.plans-detail-fixed{
+	position: fixed;
+	top: 10rem;
+	right: 0;
+	z-index: 2;
+}
+.plans-detail-fixed > div{
+	color: #fff;
+	font-size: 1.4375rem;
+	margin-top: .8rem;
+	padding: .5rem 1.2rem;
+	border-top-left-radius: 1.5rem;
+	border-bottom-left-radius: 1.5rem;
+	background-color: rgba(167,166,170,.8);
+}

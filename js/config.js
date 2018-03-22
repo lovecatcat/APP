@@ -51,8 +51,20 @@ function statusbar() {
 	}
 	var barTop = Math.round(plus.navigator.getStatusbarHeight()) * sizeObj.dpl;
 	document.querySelector('#Js-header').style.paddingTop = barTop + 'px';
+    plus.navigator.setStatusBarStyle('dark');
 };
-
+//判断用户是否登录
+function isLogin(){
+    var flag = plus.storage.getItem('timestamp')
+    var timenow = new Date().getTime().toString().substr(0, 10)
+    if (!flag || timenow > flag) {
+        mui.openWindow({
+            url: 'login.html',
+            id: 'login',
+            show: animateObj.aniPage
+        });
+    }
+}
 // 打开遮罩层，弹框
 function showPopu(url, id, type) {
 	var _self = plus.webview.currentWebview();

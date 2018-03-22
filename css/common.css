@@ -14,7 +14,10 @@ ul, li{
 i {
 	font-style: normal;
 }
-
+/*防止vue出现{{}}*/
+[v-cloak] {
+  display: none;
+}
 /* 弹性盒子模型(base样式) */
 
 .BL-vp {
@@ -123,7 +126,12 @@ i {
 	position: absolute;
 }
 
-
+.BL-hide{
+	display: none !important;
+}
+.BL-show{
+	display: block !important;
+}
 /* 背景图片(base样式) = BL-bimg- */
 
 .BL-bimg-cover {
@@ -168,6 +176,9 @@ i {
 }
 .BL-bg-9dcdfa {
 	background-color: #9dcdfa !important;
+}
+.BL-bg-000 {
+	background-color: #000 !important;
 }
 /* 按钮(base样式) = BL-btn[bgColor, border, border-radius, color, font-size, min-height, padding] */
 
@@ -229,7 +240,13 @@ i {
 	right: 1.25rem;
 }
 
-
+.BL-icon-search {
+	width: 2rem;
+	height: 2rem;
+	background: url(../images/icon/ico-search-blue.png) no-repeat center;
+	background-size: 100%;
+	right: 1.25rem;
+}
 /* 标题栏(base样式) = BL-title[color, font-size] */
 
 .BL-title {
@@ -389,7 +406,9 @@ i {
 	padding-top: 3rem;
 	padding-bottom: 3rem;
 }
-
+.BL-pad-b_5 {
+	padding-bottom: .5rem;
+}
 .BL-pad-b-1 {
 	padding-bottom: 1rem;
 }
@@ -428,6 +447,9 @@ i {
 }
 .BL-mar-t-1 {
 	margin-top: 1rem;
+}
+.BL-mar-t-2 {
+	margin-top: 2rem;
 }
 .BL-mar-t-3 {
 	margin-top: 3rem;
@@ -532,3 +554,5 @@ input[type='color']{
 .BL-ftz-52{
 	font-size: 1.625rem;
 }
+.mui-toast-container{bottom: 20%;}
+.mui-toast-message{font-size: 1.4375rem;line-height:2rem;}

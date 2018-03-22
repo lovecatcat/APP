@@ -365,7 +365,8 @@
 					"images/icon/nav-discover-active.png",
 					"images/icon/nav-user-active.png",
 					"images/icon/sign-active.png",
-					"js/config.js"
+					"js/config.js",
+					"/images/pic/p11.jpg"
 				],
 				"refer": [
 					"sns.html",
@@ -375,7 +376,9 @@
 					"auto2c.html",
 					"popup.html",
 					"insurance-index.html",
-					"ins2c.html"
+					"ins2c.html",
+					"member-duty.html",
+					"shop.html"
 				],
 				"priority": 0
 			},
@@ -456,7 +459,8 @@
 				],
 				"refer": [
 					"product-detail.html",
-					"product-contrast.html"
+					"product-contrast.html",
+					"quickly-filter.html"
 				],
 				"priority": 0
 			},
@@ -750,7 +754,13 @@
 					"member-team.html",
 					"member-duty.html",
 					"member-plans-manage.html",
-					"member-personalinfo.html"
+					"member-personalinfo.html",
+					"member-setup.html",
+					"login.html",
+					"member-intergral.html",
+					"member-warranty-manage.html",
+					"tax-cal.html",
+					"member-birthday.html"
 				],
 				"priority": 0
 			},
@@ -1730,7 +1740,9 @@
 					"js/config.js"
 				],
 				"refer": [
-					"quickly-filter.html"
+					"quickly-filter.html",
+					"product-detail.html",
+					"product-contrast.html"
 				],
 				"priority": 5
 			},
@@ -1955,6 +1967,55 @@
 				"resources": [],
 				"refer": [
 					"ins2c-addbeneficiary.html"
+				],
+				"priority": 0
+			},
+			"member-setup.html": {
+				"resources": [],
+				"refer": [
+					"member-changepwd.html",
+					"login.html"
+				],
+				"priority": 0
+			},
+			"member-changepwd.html": {
+				"resources": [],
+				"refer": [
+					"login.html"
+				],
+				"priority": 0
+			},
+			"member-personalinfo.html": {
+				"resources": [],
+				"refer": [
+					"member-avatarmenu.html"
+				],
+				"priority": 0
+			},
+			"member-intergral.html": {
+				"resources": [
+					"member-intergral-all.html"
+				],
+				"refer": [
+					"member-intergral-activity.html"
+				],
+				"priority": 0
+			},
+			"member-warranty-manage.html": {
+				"resources": [
+					"member-warranty-manageLife.html"
+				],
+				"refer": [
+					"member-warranty-manageCar.html"
+				],
+				"priority": 0
+			},
+			"member-birthday.html": {
+				"resources": [
+					"member-birthday-customer.html"
+				],
+				"refer": [
+					"member-birthday-team.html"
 				],
 				"priority": 0
 			}

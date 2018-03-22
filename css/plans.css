@@ -37,6 +37,38 @@
 .clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0} 
 .clearfloat{zoom:1} 
 
+/* 列表——导航 */
+.BL-segmented-control.mui-scroll-wrapper{
+	border-bottom: 1px solid #e7e7e7;
+}
+.BL-segmented-control.mui-scroll-wrapper, .BL-segmented-control.mui-scroll-wrapper .mui-scroll{
+	height: 4.25rem;
+}
+.BL-segmented-control .plans-nav  {
+	display: inline-block;
+    width: auto;
+	line-height: 0;
+	font-size: 1.4375rem;
+	color: #000;
+	padding: 0 1.25rem;
+	text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.BL-segmented-control .plans-nav span{
+	display: inline-block;
+	line-height: 4.0625rem;
+	padding: 0 .53125rem;
+	border-bottom: 0.1875rem solid #ffffff !important;
+}
+.BL-segmented-control .plans-nav.mui-active{
+	border-bottom: 0 none !important;
+}
+.BL-segmented-control .plans-nav.mui-active span{
+	color: #3b9cf5 !important;
+	border-bottom: 0.1875rem solid #3b9cf5 !important;
+}
+
 /* 列表筛选——搜索框 */
 .search-pro{
 	margin-left: 3rem !important;
@@ -48,22 +80,21 @@
 	width: 100%;
 	background-color: #fff;
 	padding: 1.4rem 1.25rem;
-	margin-bottom: .8rem;
 }
-.plan-filter .mui-control-item {
-	display: inline-block;
+.plan-filter button {
 	width: 22% !important;
 	height: 2.8125rem;
 	line-height: 2.8125rem;
 	font-size: 1.4375rem;
-	color: #999999 !important;
 	text-align: center;
-	background-color: #eeeeee !important;
 	padding: 0 !important;
-	border-radius: 8px;
+}
+.plan-list-cell{
+    border-radius: 8px;
 	margin-right: 2%;
 }
-.plan-filter .mui-control-item.mui-active{
+
+.plan-filter .mui-active{
 	color: #fff !important;
 	background-color: #3B9CF5 !important;
 }
@@ -79,7 +110,7 @@
 
 .plan-list .plan-list-cell .cItem{
 	border-bottom: 1px solid #e7e7e7;
-	padding: 1.25rem 1.25rem 1.25rem 0;
+	padding: 1rem 1.25rem 1rem 0;
 }
 .plan-list-cell .cItem .pro-content{
 	position: relative;	
@@ -89,11 +120,16 @@
 	height: 5.625rem;
 	border: 1px solid #b7b4b4;
 }
+.plan-list-cell .cItem .img img{
+	display: block;
+	height: 100%;
+	width: 100%;
+}
 .plan-list-cell .cItem .context{
 	margin-left: 1.125rem;
 }
 .context-top{
-	margin-top: .5rem;
+	margin-top: .3rem;
 	margin-bottom: 1.5625rem;
 }
 .plan-list-cell .cItem .context .tit{
@@ -103,10 +139,12 @@
 	font-weight: 400;
 }
 .plan-list-cell .cItem .context .btn{
+	display: inline-block;
 	width: 5.625rem;
 	height: 1.75rem;
 	font-size: 1.125rem;
 	line-height: 1.75rem;
+	text-align: center;
 	padding: 0;
 	margin: .2rem 0 0 1rem;
 }
@@ -161,8 +199,11 @@
 	border-bottom:1px solid #e7e7e7 ;
 	border-top:1px solid #e7e7e7 ;
 }
+.plans-total-content div:first-child{
+	width: 50%;	
+}
 .plans-total-font{
-	line-height: 2.6875rem;
+	padding-top: 0.625rem;
 }
 .plans-total-content button{
 	width: 6.125rem;

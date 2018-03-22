@@ -90,6 +90,16 @@
 	font-size: 1.4375rem;
 	color: #999999;
 }
+.news-detail-contain .content span{
+	font-size: 1.4375rem !important;
+	line-height: 2rem;
+}
+.news-detail-contain .content img{
+	display: block;
+	width: 100%;
+	height: 5rem;
+}
+
 .BL-footer{
 	height: 4.0625rem;
 	border-top: 1px solid #aaaaaa;

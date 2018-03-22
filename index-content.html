@@ -68,31 +68,31 @@
                 <div class="BL-pad-a1_25 BL-mar-b-1 BL-bg-fff" style="padding-bottom: 0;">
                     <div class="mui-row squared">
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="sns.html" data-wid="sns" class="menu">
+                            <a href="sns.html" data-wid="sns" class="menu a-link">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">SNS</div>
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="ins2c.html" data-wid="ins2c" class="menu">
+                            <a href="ins2c.html" data-wid="ins2c" class="menu a-link">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">交单</div>
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="auto2c.html" data-wid="ins2c" class="menu">
+                            <a href="auto2c.html" data-wid="ins2c" class="menu a-link">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">车险</div>
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="product.html" data-wid="product" class="menu">
+                            <a href="product.html" data-wid="product" class="menu a-link">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">分类</div>
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="quickly.html" data-wid="quickly" class="menu">
+                            <a href="quickly.html" data-wid="quickly" class="menu a-link">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">快速投保</div>
                             </a>
@@ -104,12 +104,12 @@
                             </div>
                         </div>-->
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="shop.html" data-wid="shop" class="menu">
+                            <a href="shop.html" data-wid="shop" class="menu a-link">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">积分商城</div>
                             </a>
                         </div>
-                        <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
+                        <div class="mui-col-sm-3 mui-col-xs-3 squared-menu a-link">
                             <a class="menu">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">闪电增员</div>
@@ -126,21 +126,21 @@
                             <div class="icon icon-1"></div>
                             <span>短期险</span>
                         </div>
-                        <a class="BL-ub BL-ub-ac more" href="product.html" data-wid="product" data-id="LBI0002">
+                        <a class="BL-ub BL-ub-ac more a-link" href="product.html" data-wid="product" data-tid="LBI0002">
                             <span>更多</span>
                             <div class="mui-icon mui-icon-arrowright"></div>
                         </a>
                     </div>
                     <div class="insure-group BL-ub BL-ub-ac" v-if="safegoods_1" v-cloak>
                         <div class="item" v-for="(item,index) in safegoods_1">
-                            <div class="item-content">
+                            <div class="item-content a-link" href="product-detail.html" data-wid="product_detail" :data-pid="item.id">
                                 <div class="img">
                                     <img :src="item.image_url" @error="item.image_url='images/pic/p11.jpg'"/>
                                     <span class="new">{{item.product_sign}}</span>
                                 </div>
                                 <div class="context">
                                     <div class="tit">{{item.short_name}}</div>
-                                    <div class="text mui-ellipsis BL-pad-b_5">{{item.keywords}}</div>
+                                    <div class="text mui-ellipsis BL-pad-b_5">{{item.shining_point}}</div>
                                     <div class="price BL-ub BL-ub-ac">
                                         <span>￥</span>
                                         <span class="money">{{item.price}}</span>
@@ -159,21 +159,21 @@
                             <div class="icon icon-2"></div>
                             <span>重疾险</span>
                         </div>
-                        <a class="BL-ub BL-ub-ac more" href="product.html" data-wid="product" data-id="LBI0001">
+                        <a class="BL-ub BL-ub-ac more a-link" href="product.html" data-wid="product" data-tid="LBI0001">
                             <span>更多</span>
                             <div class="mui-icon mui-icon-arrowright"></div>
                         </a>
                     </div>
                     <div class="insure-group BL-ub BL-ub-ac">
                         <div class="item" v-for="(item,index) in safegoods_2">
-                            <div class="item-content">
+                            <div class="item-content a-link" href="product-detail.html" data-wid="product_detail" :data-pid="item.id">
                                 <div class="img">
                                     <img :src="item.image_url" @error="item.image_url='images/pic/p11.jpg'"/>
                                     <span class="new">{{item.product_sign}}</span>
                                 </div>
                                 <div class="context">
                                     <div class="tit">{{item.short_name}}</div>
-                                    <div class="text mui-ellipsis BL-pad-b_5">{{item.keywords}}</div>
+                                    <div class="text mui-ellipsis BL-pad-b_5">{{item.shining_point}}</div>
                                     <div class="price BL-ub BL-ub-ac">
                                         <span>￥</span>
                                         <span class="money">{{item.price}}</span>
@@ -192,21 +192,21 @@
                             <div class="icon icon-3"></div>
                             <span>意外险</span>
                         </div>
-                        <a class="BL-ub BL-ub-ac more" href="product.html" data-wid="product" data-id="LBI0004">
+                        <a class="BL-ub BL-ub-ac more a-link" href="product.html" data-wid="product" data-tid="LBI0004">
                             <span>更多</span>
                             <div class="mui-icon mui-icon-arrowright"></div>
                         </a>
                     </div>
                     <div class="insure-group BL-ub BL-ub-ac">
                         <div class="item" v-for="(item,index) in safegoods_3">
-                            <div class="item-content">
+                            <div class="item-content a-link" href="product-detail.html" data-wid="product_detail" :data-pid="item.id">
                                 <div class="img">
                                     <img :src="item.image_url" @error="item.image_url='images/pic/p11.jpg'"/>
                                     <span class="new">{{item.product_sign}}</span>
                                 </div>
                                 <div class="context">
                                     <div class="tit">{{item.short_name}}</div>
-                                    <div class="text mui-ellipsis BL-pad-b_5">{{item.keywords}}</div>
+                                    <div class="text mui-ellipsis BL-pad-b_5">{{item.shining_point}}</div>
                                     <div class="price BL-ub BL-ub-ac">
                                         <span>￥</span>
                                         <span class="money">{{item.price}}</span>
@@ -225,21 +225,21 @@
                             <div class="icon icon-4"></div>
                             <span>理财险</span>
                         </div>
-                        <a class="BL-ub BL-ub-ac more" href="product.html" data-wid="product" data-id="LBI0005">
+                        <a class="BL-ub BL-ub-ac more a-link" href="product.html" data-wid="product" data-tid="LBI0005">
                             <span>更多</span>
                             <div class="mui-icon mui-icon-arrowright"></div>
                         </a>
                     </div>
                     <div class="insure-group BL-ub BL-ub-ac">
                         <div class="item" v-for="(item,index) in safegoods_4">
-                            <div class="item-content">
+                            <div class="item-content a-link" href="product-detail.html" data-wid="product_detail" :data-pid="item.id">
                                 <div class="img">
                                     <img :src="item.image_url" @error="item.image_url='images/pic/p11.jpg'"/>
                                     <span class="new">{{item.product_sign}}</span>
                                 </div>
                                 <div class="context">
                                     <div class="tit">{{item.short_name}}</div>
-                                    <div class="text mui-ellipsis BL-pad-b_5">{{item.keywords}}</div>
+                                    <div class="text mui-ellipsis BL-pad-b_5">{{item.shining_point}}</div>
                                     <div class="price BL-ub BL-ub-ac">
                                         <span>￥</span>
                                         <span class="money">{{item.price}}</span>
@@ -258,7 +258,7 @@
 </div>
 
 <!----------- 打卡按键  begin -------------->
-<a class="BL-mod-sign" href="member-duty.html" data-wid="member_duty">
+<a class="BL-mod-sign a-link" href="member-duty.html" data-wid="member_duty">
     <div class="sign BL-bimg-contain"></div>
 </a>
 <!----------- 打卡按键  end   -------------->
@@ -293,10 +293,13 @@
         }
 
         //主列表点击事件
-        mui('body').on('tap', 'a', function () {
+        var extras = null;
+        var detailPage = null;
+        mui('body').on('tap', '.a-link', function () {
             var href = this.getAttribute('href');
             var id = this.getAttribute("data-wid");
-            var tid = this.getAttribute("data-id");
+            var tid = this.getAttribute("data-tid");
+            var pid = this.getAttribute("data-pid");
 
             //非plus环境，直接走href跳转
             if (!mui.os.plus) {
@@ -305,24 +308,23 @@
             }
 
             if (href && ~href.indexOf('.html')) {
-                //打开新窗口
-                if (tid) {
-                    mui.openWindow({
-                        url: href,
-                        id: id,
-                        show: animateObj.aniPage,
-                        extras: {
-                            instype: tid
-                        }
-                    });
-                } else {
-                    mui.openWindow({
-                        url: href,
-                        id: id,
-                        show: animateObj.aniPage
-                    });
+                //判断窗口是否存在
+                if (!detailPage) {
+                    detailPage = plus.webview.getWebviewById(id);
                 }
-
+                if (tid) {
+                    extras = {instype_id: tid};
+                }
+                if (pid) {
+                    extras = {product_id: pid};
+                }
+                //打开新窗口
+                mui.openWindow({
+                    url: href,
+                    id: id,
+                    show: animateObj.aniPage,
+                    extras: extras
+                });
             }
         });
         var index = new Vue({

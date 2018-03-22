@@ -94,6 +94,8 @@
                     }
                 }
             });
+            //接收上一个页面传来的公司id
+            company.companyId = plus.webview.currentWebview().company_id;
             $.ajax('http://www.luckyins.com/api/api/invoke', {
                 data: {
                     device: 'pad',
@@ -125,10 +127,6 @@
 
     }(mui));
 
-    window.addEventListener('companyId', function (e) {
-        //筛选保险公司
-        product.companyId = e.detail.id;
-    });
 </script>
 
 </html>

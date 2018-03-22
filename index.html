@@ -47,7 +47,6 @@
 			var self = plus.webview.currentWebview();
 			// 子窗口地址数组
 			var subpages = ["index-content.html", "prospect.html", "member.html"];
-//			var subpages = ["index-content.html"];
 			// 子窗口样式
 			var subStyles = {
 				top: "0px",
@@ -99,11 +98,11 @@
 						return;
 					};
 
-					if(targetIndex == 2 && !isLoadNew){
-						var loadPageWeb = plus.webview.getWebviewById('news');
-						mui.fire(loadPageWeb,'loadpage');
-						isLoadNew = true;
-					}
+//					if(targetIndex == 2 && !isLoadNew){
+//						var loadPageWeb = plus.webview.getWebviewById('news');
+//						mui.fire(loadPageWeb,'loadpage');
+//						isLoadNew = true;
+//					}
 
 					if(targetIndex == 3){
 						var loadPageMember = plus.webview.getWebviewById('member');

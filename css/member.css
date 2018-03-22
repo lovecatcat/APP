@@ -99,8 +99,8 @@
 	text-align: center;
 }
 .member-index .section-manage .manage-group a .icon{
-	height: 3.125rem;
-	margin-bottom: .5rem;
+	height: 2.5rem;
+	margin-bottom: .8rem;
 }
 .member-index .section-manage .manage-group .icon-insure{
 	background: url(../images/icon/member-insure.png) no-repeat center center;
@@ -142,7 +142,14 @@
 	background: url(../images/icon/member-calcu.png) no-repeat center center;
 	background-size: contain;
 }
-
+.member-index .section-manage .manage-group .icon-post{
+	background: url(../images/icon/member-post.png) no-repeat center center;
+	background-size: contain;
+}
+.member-index .section-manage .manage-group .icon-zhanyejia{
+	background: url(../images/icon/member-zhanyejia.png) no-repeat center center;
+	background-size: contain;
+}
 /* 列表分类栏目 */
 .BL-segmented-control.mui-scroll-wrapper{
 	border-bottom: 1px solid #e7e7e7;
@@ -1081,6 +1088,12 @@
     height: 2.625rem;
     position: relative;
 	background-image: url("../images/icon/ico-phone.png");
+}
+.login-ico-channel {
+	width: 2.03rem;
+	height: 2.625rem;
+	position: relative;
+	background-image: url("../images/icon/ico-channel.png");
 }
 .login-ico-pwd {
 	width: 2.03rem;

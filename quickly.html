@@ -137,18 +137,7 @@
 <script src="js/mui.pullToRefresh.material.js"></script>
 <script src="js/vue.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-    mui.init({
-        preloadPages: [
-            { // 预加载详情页
-                url: 'product-detail.html',
-                id: 'product_detail'
-            },
-            { // 保险公司筛选
-                url: 'quickly-filter.html',
-                id: 'quickly-filter'
-            }
-        ]
-    });
+    mui.init();
     var self;
     var product = new Vue({
         el: '#Js-content',
@@ -270,10 +259,11 @@
     };
 
     //主列表点击事件
+    var extras = null;
     var detailPage = null;
     mui('body').on('tap', '.a-link', function () {
         var href = this.getAttribute('href');
-        var id = this.getAttribute('data-wid');
+        var id = this.getAttribute("data-wid");
         var pid = this.getAttribute('data-id');
         var cid = this.getAttribute('data-cid');
 
@@ -284,34 +274,28 @@
         }
 
         if (href && ~href.indexOf('.html')) {
-
+            //判断窗口是否存在
+            if (!detailPage) {
+                detailPage = plus.webview.getWebviewById(id);
+            }
             if (pid) {
-                //获得详情页面
-                if (!detailPage) {
-                    detailPage = plus.webview.getWebviewById(id);
-                }
-                console.log(detailPage)
-                alert(pid)
-                //触发详情页面的productId事件
-                mui.fire(detailPage, 'productId', {
-                    id: pid
-                });
+                extras = {product_id: pid};
             }
             if (cid) {
-                mui.fire(plus.webview.getWebviewById(id), 'companyId', {
-                    id: cid
-                });
+                extras = {company_id: cid};
             }
         }
         //打开新窗口
         mui.openWindow({
             url: href,
             id: id,
-            show: animateObj.aniDetal
+            show: animateObj.aniDetal,
+            extras: extras
         });
     });
+
+    //接收筛选的公司id
     window.addEventListener('companyId', function (e) {
-        //筛选保险公司
         product.companyId = e.detail.id;
         product.ordertype = 4;
         product.page = 0;

@@ -20,77 +20,119 @@
 			</div>
 		</header>
 
-		<div id="Js-content" class="mui-content">
+		<div id="Js-cmis" class="mui-content">
 			<div class="mui-scroll-wrapper">
 				<div class="mui-scroll">
-					<div class="member-cmis-banner BL-txt-c">
-						<div class="member-cmis-extract">
-							<p class="member-cmis-txt">可提取</p>
-							<div class="member-cmis-money BL-col-fff">
-								10000.00
-								<a href="member-commission-extract.html" class="cmis-extract-btn">提取</a>
+					<template v-if="account">
+						<div class="member-cmis-banner BL-txt-c">
+							<div class="member-cmis-extract">
+								<p class="member-cmis-txt">可提取</p>
+								<div class="member-cmis-money BL-col-fff">
+									{{ account.canPay_format }}
+									<button :disabled="isExtract" :class="{ 'cmis-btn-disabled': isExtract }" class="cmis-extract-btn" @click="extract(account.canPay)">提取</button>
+								</div>
+							</div>
+							<div class="mui-row">
+								<div class="mui-col-sm-4 mui-col-xs-4 member-cmis-smallmoney">
+									{{ account.payTotal_format }}
+									<p class="member-cmis-txt">当月累提</p>
+								</div>
+								<div class="mui-col-sm-4 mui-col-xs-4 member-cmis-smallmoney">
+									{{ account.getTotal_format }}
+									<p class="member-cmis-txt">当月实收累计</p>
+								</div>
+								<div class="mui-col-sm-4 mui-col-xs-4 member-cmis-smallmoney">
+									{{ account.beforehand_format }}
+									<p class="member-cmis-txt">预留</p>
+								</div>
 							</div>
 						</div>
-						<div class="mui-row">
-							<div class="mui-col-sm-4 mui-col-xs-4 member-cmis-smallmoney">
-								6000.00
-								<p class="member-cmis-txt">当月累提</p>
+						<div class="mui-row BL-txt-c BL-bg-fff">
+							<div class="mui-col-sm-6 mui-col-xs-6">
+								<a data-wid="member_commission_incomelist" href="member-commission-incomelist.html" class="member-cmis-select BL-ub BL-ub-ac BL-ub-pc">
+									<i class="member-cmis-ico member-cmis-income"></i>
+									<div class="BL-pad-l-1">收入</div>
+								</a>
 							</div>
-							<div class="mui-col-sm-4 mui-col-xs-4 member-cmis-smallmoney">
-								6000.00
-								<p class="member-cmis-txt">当月实收累计</p>
-							</div>
-							<div class="mui-col-sm-4 mui-col-xs-4 member-cmis-smallmoney">
-								6000.00
-								<p class="member-cmis-txt">预留</p>
+							<div class="mui-col-sm-6 mui-col-xs-6">
+								<a data-wid="member_commission_applylist" href="member-commission-applylist.html" class="member-cmis-select BL-ub BL-ub-ac BL-ub-pc">
+									<i class="member-cmis-ico member-cmis-expand"></i>
+									<div class="BL-pad-l-1">支出</div>
+								</a>
 							</div>
 						</div>
-					</div>
-					<div class="mui-row BL-txt-c BL-bg-fff">
-						<div class="mui-col-sm-6 mui-col-xs-6">
-							<a href="member-commission-income.html" class="member-cmis-select BL-ub BL-ub-ac BL-ub-pc">
-								<i class="member-cmis-ico member-cmis-income"></i>
-								<div class="BL-pad-l-1">收入</div>
-							</a>
-						</div>
-						<div class="mui-col-sm-6 mui-col-xs-6">
-							<a href="member-commission-applylist.html" class="member-cmis-select BL-ub BL-ub-ac BL-ub-pc">
-								<i class="member-cmis-ico member-cmis-expand"></i>
-								<div class="BL-pad-l-1">支出</div>
-							</a>
-						</div>
-					</div>
-					<ul class="mui-table-view BL-mar-t-1">
-						<li class="mui-table-view-cell member-cmis-list-item cmis-item-count">
-							<a href="member-commission-countlist.html" class="mui-navigate-right BL-ub BL-ub-ac">
-								<i class="member-cmis-ico member-cmis-count"></i>
-								<div class="BL-pad-l-1">通算记录</div>
-					        </a>
-						</li>
-					    <li class="mui-table-view-cell member-cmis-list-item">
-					        <a href="member-commission-detail.html" class="mui-navigate-right">
-					            <div class="member-cmis-list-l">
-					                <p class='list-top-txt'>张晓晓（储蓄卡2512）</p>
-					                <p class='list-bottom-txt'>2018-01-08 06:00</p>
-					            </div>
-					            <div class="member-cmis-list-r BL-txt-r">
-					                <p class='list-top-txt'>-6000.00</p>
-					                <p class='list-bottom-txt'>已转账</p>
-					            </div>
-					        </a>
-					    </li>
-					</ul>
+						<!--<ul class="mui-table-view BL-mar-t-1">
+							<li class="mui-table-view-cell member-cmis-list-item cmis-item-count">
+								<a href="member-commission-countlist.html" class="mui-navigate-right BL-ub BL-ub-ac">
+									<i class="member-cmis-ico member-cmis-count"></i>
+									<div class="BL-pad-l-1">通算记录</div>
+						        </a>
+							</li>
+						    <li class="mui-table-view-cell member-cmis-list-item">
+						        <a href="member-commission-detail.html" class="mui-navigate-right">
+						            <div class="member-cmis-list-l">
+						                <p class='list-top-txt'>张晓晓（储蓄卡2512）</p>
+						                <p class='list-bottom-txt'>2018-01-08 06:00</p>
+						            </div>
+						            <div class="member-cmis-list-r BL-txt-r">
+						                <p class='list-top-txt'>-6000.00</p>
+						                <p class='list-bottom-txt'>已转账</p>
+						            </div>
+						        </a>
+						    </li>
+						</ul>-->
+					</template>
 				</div>
 			</div>
 		</div>
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/Date.js"></script>
 	<script type="text/javascript">
 		mui.init();
-		(function($){
+		var cmis = new Vue({
+			el: '#Js-cmis',
+			data: {
+				account: null,   // 账户信息
+				isExtract: true  // 提取按钮是否可用
+			},
+			methods: {
+				// 判断当前时间，每月26号后不可提取
+			    setExtBtnByTime : function(timestamp) {
+			        let time = new Date(timestamp*1000)   // 时间戳转成日期
+			        let timeFormat = time.Format('yyyy-MM-dd')
+			        // 获取由于时间戳转日期的年月
+			        let year = timeFormat.substring(0, 4);
+			        let month = timeFormat.substring(5, 7);
+			        // 设置当前月当前年的26号
+			        let contrastDate = year + "-" + month + "-" + '26'
+			        // 判断当前日期是否大于26日
+			        if (timeFormat >= contrastDate) {
+			          this.isExtract = true
+			        } else {
+			          this.isExtract = false
+			        }
+			    },
+			    extract: function(val) {
+			        if (parseFloat(val) > 0) {
+			        	mui.openWindow({
+							id:'extract',
+							url:'member-commission-extract.html',
+							show:animateObj.aniDetal
+						});
+			        } else {
+			          mui.toast('金额为0.00元，暂不可提取')
+			          return false
+			        }
+			    },
+			}
+		});
+		
+		(function($){			
 			//阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
-			$('#Js-content .mui-scroll-wrapper').scroll({
+			$('#Js-cmis .mui-scroll-wrapper').scroll({
 				scrollY: true, //是否竖向滚动
 				scrollX: false, //是否横向滚动
 				startX: 0, //初始化时滚动至x
@@ -99,18 +141,43 @@
 				deceleration: 0.0001, //阻尼系数,系数越小滑动越灵敏
 				bounce: false //是否启用回弹
 			});
+			
 			$.plusReady(function() {
 				statusbar();
 				var winH = window.innerHeight;
 				var titHeight = document.querySelector('#Js-header').offsetHeight;
-				document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+				document.querySelector('#Js-cmis').style.height = winH - titHeight + 'px';
 			})
 			// 改变头部搜索栏背景色
 			document.querySelector(".mui-scroll-wrapper").addEventListener('scroll', function(e) { 
 				var y = Math.abs(e.detail.y) * 0.01;
 				document.querySelector('#Js-header').style.background = "rgba(48,51,71," + y + ")";
 			});
+			// 获取账号信息
+			getAccount()
+			
 		}(mui));
+		
+		// 获取账户信息
+		function getAccount() {
+			mui.ajax(config.baseUrl, {
+	            data: {
+	                server: 'commission.Account',
+	                device: 'mobile'
+	            },
+	            dataType: 'json',
+	            type: 'get',
+	            success: function (ret) {
+	                if (ret.code) {
+	                	cmis.account = ret.data
+	                	cmis.setExtBtnByTime(ret.data.now_time)
+	                }
+	            },
+	            error: function () {
+	                plus.nativeUI.toast('网络异常：101')
+	            }
+        	});
+		};
 		//主列表点击事件
 		mui('body').on('tap', 'a', function() {
 			var href = this.getAttribute('href');

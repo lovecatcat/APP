@@ -366,7 +366,10 @@
 					"images/icon/nav-user-active.png",
 					"images/icon/sign-active.png",
 					"js/config.js",
-					"/images/pic/p11.jpg"
+					"/images/pic/p11.jpg",
+					"js/vue.min.js",
+					"images/icon/ico-contact.png",
+					"js/mui.js"
 				],
 				"refer": [
 					"sns.html",
@@ -747,7 +750,8 @@
 					"images/icon/ico-duty-address.png",
 					"images/icon/ico-duty-hswifi.png",
 					"images/icon/ico-duty-nowifi.png",
-					"js/config.js"
+					"js/config.js",
+					"js/vue.min.js"
 				],
 				"refer": [
 					"member-commission-account.html",
@@ -760,7 +764,8 @@
 					"member-intergral.html",
 					"member-warranty-manage.html",
 					"tax-cal.html",
-					"member-birthday.html"
+					"member-birthday.html",
+					"member-renewal.html"
 				],
 				"priority": 0
 			},
@@ -820,15 +825,10 @@
 					"images/icon/icon-plus.png",
 					"images/icon/icon-upload.png",
 					"images/icon/ico-search-blue.png",
-					"js/config.js"
+					"js/config.js",
+					"js/Date.js"
 				],
-				"refer": [
-					"member-commission-income.html",
-					"member-commission-applylist.html",
-					"member-commission-countlist.html",
-					"member-commission-detail.html",
-					"member-commission-extract.html"
-				],
+				"refer": [],
 				"priority": 0
 			},
 			"prospect.html": {
@@ -1304,7 +1304,8 @@
 					"images/icon/ico-cmis-success.png",
 					"images/icon/ico-cmis-fail.png",
 					"images/icon/ico-down.png",
-					"js/config.js"
+					"js/config.js",
+					"js/Date.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -1994,7 +1995,8 @@
 			},
 			"member-intergral.html": {
 				"resources": [
-					"member-intergral-all.html"
+					"member-intergral-all.html",
+					"css/mui.css"
 				],
 				"refer": [
 					"member-intergral-activity.html"
@@ -2012,11 +2014,81 @@
 			},
 			"member-birthday.html": {
 				"resources": [
-					"member-birthday-customer.html"
+					"member-birthday-customer.html",
+					"css/mui.css"
 				],
 				"refer": [
 					"member-birthday-team.html"
 				],
+				"priority": 0
+			},
+			"login.html": {
+				"resources": [
+					"images/icon/ico-wechat.png",
+					"images/icon/ico-pwdeye.png",
+					"images/icon/ico-logo.png",
+					"images/icon/ico-QQ.png",
+					"images/icon/ico-phone.png",
+					"images/icon/ico-pwd.png",
+					"css/form.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-renewal-auto.html": {
+				"resources": [
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-renewal-liftdetail.html": {
+				"resources": [
+					"css/form.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-renewal.html": {
+				"resources": [
+					"js/webviewGroup.js",
+					"images/icon/ico-share.png",
+					"css/mui.css",
+					"member-renewal-life.html"
+				],
+				"refer": [
+					"member-renewal-auto.html"
+				],
+				"priority": 0
+			},
+			"member-renewal-life.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.picker.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/mui.poppicker.js",
+					"images/icon/ico-down.png",
+					"css/mui.picker.min.css",
+					"js/mui.dtpicker.js"
+				],
+				"refer": [
+					"member-renewal-liftdetail.html"
+				],
+				"priority": 0
+			},
+			"member-birthday-customer.html": {
+				"resources": [
+					"css/mui.picker.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-intergral-all.html": {
+				"resources": [
+					"css/product.css",
+					"images/icon/ico-filter-active.png"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},
@@ -2035,7 +2107,6 @@
 				"receipt-3.html",
 				"images/icon/icon-upload-big.png",
 				"css/mui.poppicker.css",
-				"js/mui.js",
 				"images/pic/p1.jpg",
 				"prospect-addIns.html",
 				"team-personal-performance.html",

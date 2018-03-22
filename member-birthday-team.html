@@ -12,34 +12,23 @@
 		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
 	</head>
 
-	<body class="BL-bg-f2f">
-		<div id="Js-content" class="mui-content">
-			<div id="Js-birthFilter" class="member-team-search BL-ub BL-ub-ac BL-ub-f1 BL-bg-fff">
-				<div class="search-role BL-ub BL-ub-ac" style="width: 14.375rem;">
-					<select class="BL-ub BL-ub-f1">
-						<option>1月份</option>
-						<option>2月份</option>
-						<option>3月份</option>
-						<option>4月份</option>
-						<option>5月份</option>
-						<option>6月份</option>
-						<option>7月份</option>
-						<option>8月份</option>
-						<option>9月份</option>
-						<option>10月份</option>
-						<option>11月份</option>
-						<option>12月份</option>
-					</select>
-					<div class="down">
-						<span class="BL-bimg-contain search-down"></span>
+	<body>
+		<div id="Js-content" class="mui-content" v-cloak>
+			<div id="Js-birthFilter">
+				<div class="member-team-search BL-ub BL-ub-ac BL-bg-fff">
+					<div class="search-role BL-ub BL-ub-ac" style="width: 14rem;">
+						<select v-model="month" class="BL-ub BL-ub-f1" @change="getTeambirth">
+							<option v-for="m in 12" :value="m">{{ m }}月份</option>
+						</select>
+						<div class="down">
+							<span class="BL-bimg-contain search-down"></span>
+						</div>
 					</div>
+					<span class="member-birth-sum BL-abs">
+						总数：<i class="BL-col-3b9cf5">{{ count }}</i>个
+					</span>
 				</div>
-				<span class="member-birth-sum BL-abs">
-					总数：<i class="BL-col-3b9cf5">2</i>个
-				</span>
-			</div>
-			<div id="Js-birthtab" class="BL-bg-fff BL-mar-t-1 BL-pad-tb-1">
-				<table width="100%" class="member-team-tab">
+				<table width="100%" class="member-team-tab BL-mar-t-1">
 					<thead>
 						<tr>
 							<th width="10%">序号</th>
@@ -48,36 +37,52 @@
 							<th width="25%">出生日期</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>张晓晓晓晓</td>
-							<td>15013476267</td>
-							<td>2018-<i class="BL-col-3b9cf5">02-27</i></td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>张晓晓晓晓</td>
-							<td>15013476267</td>
-							<td>2018-<i class="BL-col-3b9cf5">02-27</i></td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>张晓晓晓晓</td>
-							<td>15013476267</td>
-							<td>2018-<i class="BL-col-3b9cf5">02-27</i></td>
-						</tr>
-					</tbody>
 				</table>
+			</div>
+			
+			<div id="Js-birthtab" class="BL-rel">
+				<div class="mui-content mui-scroll-wrapper BL-bg-fff">
+					<div class="mui-scroll">
+						<template v-if="list&&list.length>0">
+							<table width="100%" class="member-team-tab">
+								<tbody>
+									<tr v-for="(item,index) in list" :key="index">
+										<td width="10%">{{ index + 1 }}</td>
+										<td width="30%">{{ item.user_name }}</td>
+										<td width="30%">{{ item.tel }}</td>
+										<td width="25%">{{ item.birthday.substring(0,5) }}<span class="BL-col-3b9cf5">{{ item.birthday.substring(5,10) }}</span></td>
+									</tr>
+								</tbody>
+							</table>
+						</template>
+						<template v-else>
+							<div class="BL-pad-t-2 BL-txt-c BL-ftz-42 BL-col-999">没有更多数据了</div>
+						</template>
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script src="js/mui.picker.min.js"></script>
+	<script src="js/vue.min.js"></script>
 	<script type="text/javascript">
 		mui.init();
+		var team = new Vue({
+			el: '#Js-content',
+			data: {
+				list:null,  // 查询月份生日的列表
+                month: new Date().getMonth()+1,    // 月份
+                count: '',  // 总数
+			},
+			methods: {
+				getTeambirth: function(val) {
+					getTeambirthData(this.month)
+				}
+			}
+		});
 		(function($){
-			//阻尼系数
+			// 阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
 			$('#Js-birthtab .mui-scroll-wrapper').scroll({
 				bounce: true,
@@ -85,16 +90,42 @@
 				deceleration: deceleration
 			});
 			
-			$.ready(function() {
-				statusbar();
+			// 设置内容区域
+			$.plusReady(function() {
 				var winH = window.innerHeight;
-//				var titHeight = document.querySelector('#Js-header').offsetHeight;
 				var divHeight = document.querySelector('#Js-birthFilter').offsetHeight;
 				document.querySelector('#Js-birthtab').style.height = winH - divHeight + 'px';
-				//document.querySelector('#Js-list').style.height = (winH - topHeight - mainHeight) + 'px';
-
-			});	
+			});
+			
+			// 初始化团员当月生日列表
+			getTeambirthData(team.cur_month)
+			
 		}(mui));
+		
+		/**
+	     * 获取团队生日列表
+	     * @param {String} month 月份
+	     */
+		function getTeambirthData (month) {
+			mui.ajax(config.baseUrl, {
+	            data: {
+	            	data: JSON.stringify({user_id: 65,month:month}),
+	                server: 'team.careAgent',
+	                device: 'mobile'
+	            },
+	            dataType: 'json',
+	            type: 'post',
+	            success: function (ret) {
+	                if (ret.code) {
+	                	team.count = ret.data.count
+	                    team.list = ret.data.list
+	                }
+	            },
+	            error: function () {
+	                plus.nativeUI.toast('网络异常：101')
+	            }
+        	});
+		}
 	</script>
 </html>
 

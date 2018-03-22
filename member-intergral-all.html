@@ -15,9 +15,9 @@
 	<body class="BL-bg-f2f">
 		<div id="Js-content" class="mui-content">
 			<!------------条件筛选 begin------------->
-			<div id="Js-intergralFilter" class="member-list-filter">
+			<div id="Js-intergralFilter" class="member-list-filter BL-bg-fff">
 				<!--筛选 begin-->
-				<div class="intergral-filter BL-bg-fff">
+				<div class="intergral-filter">
 					<div class="BL-ub BL-ub-ac member-date-select">
 						<a class="member-date-item">+积分</a>
 						<a class="member-date-item">-积分</a>
@@ -30,7 +30,11 @@
 					</div>
 				</div>
 				<!--筛选 end -->
-				<div class="mui-row member-team-tab-title BL-bg-fff BL-mar-t-1">
+			</div>
+			<!------------条件筛选 end  ------------->
+			<!------------固定表格头部 begin--------------->
+			<div class="teamHeader">
+				<div class="mui-row member-team-tab-title BL-bg-fff">
 					<div class="mui-col-sm-8 mui-col-xm-8">
 						活动积分：<i class="BL-col-ff8201">90583958.89</i>
 					</div>
@@ -38,26 +42,23 @@
 						共<i class="BL-col-3b9cf5">5</i>个
 					</div>
 				</div>
-				<div class="member-team-tab">
-					<table class="fixed-thead" id="tab-header" width="100%">
-						<thead>
-							<tr>
-								<th width="10%">序号</th>
-								<th width="30%">时间</th>
-								<th width="40%">详情</th>
-								<th width="20%">积分</th>
-							</tr>
-						</thead>
-					</table>
-				</div>
+				<table width="100%" class="member-team-tab">
+					<thead>
+						<tr>
+							<th width="10%">序号</th>
+							<th width="30%">时间</th>
+							<th width="40%">详情</th>
+							<th width="20%">积分</th>
+						</tr>
+					</thead>
+				</table>
 			</div>
-			<!------------条件筛选 end  ------------->
-
+			<!------------固定表格头部 end--------------->
 			<!------------表格 begin------------->
 			<div id="Js-intergraltab" class="BL-rel">
-				<div class="mui-content mui-scroll-wrapper BL-bg-fff" id="tab-body">
-					<div class="member-team-tab mui-scroll">
-						<table width="100%">
+				<div class="mui-content mui-scroll-wrapper BL-bg-fff">
+					<div class="mui-scroll">
+						<table width="100%" class="member-team-tab">
 							<tbody class="tbody">
 								<tr>
 									<td width="10%">1</td>
@@ -94,13 +95,12 @@
 				deceleration: deceleration
 			});
 			$.ready(function() {
-				statusbar();
 				var winH = window.innerHeight;
 				var divHeight = document.querySelector('#Js-intergralFilter').offsetHeight;
 				document.querySelector('#Js-intergraltab').style.height = winH - divHeight + 'px';
-				
-				var i = 0;
 
+				var i = 0;
+				
 				//循环初始化所有下拉刷新，上拉加载。
 				
 				$('#Js-intergraltab .mui-scroll').pullToRefresh({
@@ -138,6 +138,30 @@
 			});	
 		
 		}(mui));
+		var win = window,
+            teamHeader = document.querySelector('.teamHeader'),
+            mainMenuBarAnchor = document.querySelector('#mainMenuBarAnchor');
+       
+          // Run this on scroll events.
+        //scroll()
+       //当用户滚动指定的元素时，会发生scroll事件。
+       //scroll事件适用于所有可滚动的元素和window对象（浏览器窗口）
+       //scroll()方法触发scroll事件，或规定当发生scroll事件时运行的函数
+          win.scroll(function() {
+              //scrollTop()方法返回或设置匹配元素的滚动条的垂直位置
+              var window_top = win.scrollTop();
+            //javascript用offsetTop();jquery用offset().top;
+              var div_top = mainMenuBarAnchor.offsetTop();
+              if (window_top > div_top) {
+                  // Make the div sticky.
+                  teamHeader.addClass('stick');
+                  mainMenuBarAnchor.style.height = teamHeader.style.height
+              }
+              else {
+                  teamHeader.classList.add('stick');
+                  mainMenuBarAnchor.style.height = 0
+              }
+  		});
 
 	</script>
 

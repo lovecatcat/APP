@@ -9,6 +9,7 @@
 	top: 0;
 	left: 0;
 	height: 16rem;
+	background: rgba(0,0,0,0.5);
 }
 .member-index .mheader{
 	padding: 0 1.25rem;
@@ -27,7 +28,7 @@
 	color: #ffffff;
 	font-size: 1.625rem;
 	font-weight: 500;
-	margin-bottom: 1rem;
+	margin-bottom: 1rem;	
 }
 .member-index .mheader .context .text{
 	color: #013d75;
@@ -299,7 +300,7 @@
 	padding: 1rem 0rem;
 	color: #999999;
 }
-.cmis-detail .form-list-cell .fItem:after {
+.cmis-detail .form-list-cell .fItem:after,.mui-table-view:before,.mui-table-view:after {
 	height: 0;
 }
 .cmis-detail .form-list-cell .form-list-control {
@@ -370,6 +371,17 @@
     border: none;
     text-align: center;
 }
+.cmis-extract-btn:disabled {
+	background: #CCCCCC;
+}
+/* 工资ICON*/
+.BL-icon-salary {
+	width: 2rem;
+	height: 2rem;
+	background: url(../images/icon/ico-cmis-salary.png) no-repeat center;
+	background-size: 100%;
+	right: 1.25rem;
+}
 /* 团队管理 */
 .member-team-tab-title {
 	height: 4.25rem;
@@ -406,34 +418,6 @@
     background-color: #ededed;
     overflow: hidden;
     margin-right: 1rem;
-}
-.member-team-search .search-date input[type="text"], .member-team-search .search-role select{
-	color: #999999;
-    font-size: 1.4375rem;
-    height: 100%;
-    text-indent: 1rem;
-    text-align: left;
-    margin: 0;
-    background-color: rgba(0, 0, 0, 0);
-}
-.member-team-search .down {
-	padding-left: .6875rem;
-    padding-right: .6875rem;
-}
-.member-team-search .search-down{
-	display: block;
-    width: 1rem;
-    height: .7rem;
-	background-image: url("../images/icon/ico-down.png");
-}
-.member-team-search .searchbtn {
-	display: inline-block;
-	width: 5.5rem;
-	height: 2.8125rem;
-	line-height: 2.8125rem;
-	background: #3B9CF5;
-	text-align: center;
-	color: #ffffff;
 	font-size: 1.4375rem;
 	color: #999;
 }
@@ -486,7 +470,7 @@
 .member-team-tab td, .member-team-tab th {
     text-align: center;
     border: 1px solid #e2e2e2;
-    padding: .5rem;
+    padding: 1rem .5rem;
     font-size: 1.3125rem;
 }
 .member-team-tab th {
@@ -504,15 +488,15 @@
     font-size: 1.9rem;
 }
 .member-team-list-item a.item .img{
-	width: 7.5rem;
-	height: 7.5rem;
+	width: 6.5rem;
+	height: 6.5rem;
 }
 .member-team-list-item a.item .context {
 	margin-left: 1.125rem;
-	font-size: 1.625rem;
+	font-size: 1.4375rem;
 }
 .member-team-list-item .context .team-per-intro {
-	margin-bottom: 1rem;
+	margin-bottom: .5rem;
 }
 .member-team-list-item .context .team-per-intro span {
 	display: inline-block;
@@ -532,7 +516,6 @@
 }
 /*团队模态框*/
 .member-team-modal {
-	display: none !important;
 	width: 100%;
 	height: 100%;
 	background: rgba(0, 0, 0, 0.55);
@@ -609,31 +592,31 @@
 	font-size: 1.3125rem;
 	color: #cccccc;
 }
-.member-duty-content .duty-tip {
+.member-duty-content .duty-tip,.member-duty-context .duty-tip {
 	color: #999999;
 	font-size: 1.4375rem;
 	padding-bottom: .5rem;
 }
-.member-duty-content .duty-tip .member-duty-wifi {
+.duty-tip .member-duty-wifi {
 	display: inline-block;
 	width: 1.46875rem;
 	height: 1.4375rem;
 	background-image: url("../images/icon/ico-duty-wifi.png");
 }
-.member-duty-content .duty-tip .member-duty-address {
+.duty-tip .member-duty-address {
 	display: inline-block;
 	width: 1.46875rem;
 	height: 1.4375rem;
 	background-image: url("../images/icon/ico-duty-address.png");
 }
-.member-duty-content .duty-tip .member-duty-hswifi {
+.duty-tip .member-duty-hswifi {
 	display: inline-block;
 	width: 1.46875rem;
 	height: 1.4375rem;
 	margin-right: .8rem;
 	background-image: url("../images/icon/ico-duty-hswifi.png");
 }
-.member-duty-content .duty-tip .member-duty-nowifi {
+.duty-tip .member-duty-nowifi {
 	display: inline-block;
 	width: 1.46875rem;
 	height: 1.4375rem;
@@ -744,7 +727,7 @@
 	border-color: #3b9cf5;
 	color: #3b9cf5;
 }
-.member-duty-dater .current-month .dayLater, .member-duty-dater .current-month .dayLeave, .member-duty-dater .current-month .dayMiss{
+.member-duty-dater .current-month .dayLater, .member-duty-dater .current-month .dayLeave, .member-duty-dater .current-month .dayMiss,.member-duty-dater .current-month .daySelect{
 	border-color: #3b9cf5;
 	background-color: #3b9cf5;
 	color: #ffffff;
@@ -789,7 +772,8 @@
 }
 .member-duty-context .section{
 	border-top: 1px solid #e7e7e7;
-	padding: 1rem 0;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
 }
 .member-duty-context .section-tip{
 	color: #999999;
@@ -1054,6 +1038,38 @@
 	border: 1px solid #cccccc;
 }
 
+/* 续期管理 */
+.renewal-detail-btn {
+	display: inline-block;
+	position: absolute;
+	right: 1.5rem;
+}
+.renewal-detail-bg {
+	padding: 0 1rem;
+	height: 15.5rem;
+	margin: 0 auto;
+}
+.renewal-detail-skin{
+	position: relative;
+	background-image: url(../images/member/renewal-detail.png);
+	background-size: 100% 100%;
+  	-moz-background-size: 100% 100%;
+  	-webkit-background-size: 100% 100%;
+  	height: 100%;
+  	color: #ffffff;
+}
+.renewal-detail-skin .renewal-detail-baaner {
+	width: 100%;
+	padding: 1rem 1.5rem;
+}
+.renewal-detail-skin .renewal-detail-baaner>div {
+	margin-bottom: 3%;
+	margin-top: 3%;
+}
+.renewal-detail-name {
+	font-weight: 600;
+	font-size: 1.875rem;
+}
 /* 重写 mui-navigate-right的右间距*/
 .mui-navigate-right:after, .mui-push-right:after {
 	right: 0;

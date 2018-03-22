@@ -22,14 +22,14 @@
 
 		<div id="Js-content" class="mui-content">
 			<!------------条件筛选 begin------------->
-			<div id="Js-cmisFilter" class="member-list-filter BL-bg-fff">
+			<div id="Js-cmisFilter" class="member-list-filter">
 				<!--日期筛选 begin-->
-				<div class="member-date">
+				<div class="cmis-date BL-bg-fff">
 					<div class="BL-ub BL-ub-ac member-date-select">
-						<a class="member-date-item">全部</a>
-						<a class="member-date-item">七天</a>
-						<a class="member-date-item">一个月</a>
-						<a class="BL-ub BL-ub-ac BL-ub-pc member-date-filter mui-active">
+						<a href="javascript:void(0);" class="member-date-item" :class="{'mui-active':mode=='1'}" data-wid="1">全部</a>
+						<a href="javascript:void(0);" class="member-date-item" :class="{'mui-active':mode=='2'}" data-wid="2">七天</a>
+						<a href="javascript:void(0);" class="member-date-item" :class="{'mui-active':mode=='3'}" data-wid="3">一个月</a>
+						<a id="Js-timefilter" href="javascript:void(0);" class="BL-ub BL-ub-ac BL-ub-pc member-date-filter" :class="{'mui-active':mode=='4'}">
 							筛选
 							<div class="BL-ub BL-ub-ver">
 								<i class="date-filter-ico"></i>
@@ -38,6 +38,9 @@
 					</div>
 				</div>
 				<!--日期筛选 end -->
+				<div v-show="mode==4" id="Js-showDate" class="BL-pad-t-1 BL-pad-lr-1_5 BL-ftz-42 BL-col-999">
+					筛选时间：<span class="Js-fday">{{ start_time }}</span> --- <span class="Js-sday">{{ end_time }}</span>
+				</div>
 			</div>
 			<!------------条件筛选 end  ------------->
 
@@ -90,10 +93,23 @@
 		</div>
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/interval-dtpicker.js" type="text/javascript"></script>
 	<script src="js/mui.pullToRefresh.js"></script>
 	<script src="js/mui.pullToRefresh.material.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/Date.js"></script>
 	<script type="text/javascript">
 		mui.init();
+		var count = new Vue({
+			el: '#Js-content',
+			data: {
+				mode: '1',
+				start_time: '',
+				end_time: '',
+				list: [],
+				row: 10
+			}
+		});
 		
 		(function($){
 			//阻尼系数
@@ -103,7 +119,7 @@
 				indicators: false, //是否显示滚动条
 				deceleration: deceleration
 			});
-			$.plusReady(function() {
+			$.ready(function() {
 				statusbar();
 				var winH = window.innerHeight;
 				var titHeight = document.querySelector('#Js-header').offsetHeight;
@@ -116,23 +132,23 @@
 				//循环初始化所有下拉刷新，上拉加载。
 				
 				$('#Js-cmisList .mui-scroll').pullToRefresh({
-						up: { // 上拉加载更多
-							auto: true, // 自动上拉一次
-							callback: function() {
-								i++;
+					up: { // 上拉加载更多
+						auto: true, // 自动上拉一次
+						callback: function() {
+							i++;
 
-								var self = this;
-								setTimeout(function() {
-									var ul = self.element.querySelector('.mui-table-view');
-									ul.appendChild(createFragment(ul, 5));
-									if(i > 2) {
-										self.endPullUpToRefresh(true);
-									} else {
-										self.endPullUpToRefresh();
-									}
-								}, 1000);
-							}
+							var self = this;
+							setTimeout(function() {
+								var ul = self.element.querySelector('.mui-table-view');
+								ul.appendChild(createFragment(ul, 5));
+								if(i > 2) {
+									self.endPullUpToRefresh(true);
+								} else {
+									self.endPullUpToRefresh();
+								}
+							}, 1000);
 						}
+					}
 				});
 				
 				var createFragment = function(ul, count) {
@@ -154,6 +170,33 @@
 					}
 					return fragment;
 				};
+				
+				// 时间筛选
+				var mySchedule = new Schedule({
+					el:'#Js-showDate',
+					// 取消筛选
+					cancle: function(){
+					},
+					// 确定筛选
+					ok: function(f, s){
+						i = 1
+						count.mode = 4
+						count.start_time = f
+						count.end_time = s
+//						team.list = []
+//						self.refresh(true);
+//						getPlanlist(team.mode)
+					}
+				});
+				
+				mui('body').on('tap', '#Js-timefilter', function(){
+					var fday = mui('.Js-fday')[0].innerText;
+					var sday = mui('.Js-sday')[0].innerText;
+					if(fday!='' && sday!=''){
+						mySchedule.renderSelect(fday, sday);	
+					};
+					mySchedule.show();
+				});
 
 			});	
 		

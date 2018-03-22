@@ -118,10 +118,6 @@
 					firstSign = this.getAttribute('data-date');
 					this.children[0].classList.add('daySelect');	
 				}else if(secondSign == ''){
-					if(_this.ok){
-						console.log('ok')
-						_this.ok();
-					}
 					isTapMask = false;
 					secondSign = this.getAttribute('data-date');
 					contrast(firstSign, secondSign);
@@ -141,6 +137,11 @@
 			}else{
 				_this.wrapEl.children[0].innerText = firstSign;	
 				_this.wrapEl.children[1].innerText = secondSign;
+			}
+			
+			if(_this.ok){
+				console.log('ok')
+				_this.ok(_this.wrapEl.children[0].innerText,_this.wrapEl.children[1].innerText);
 			}
 		};
 		

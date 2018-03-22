@@ -22,14 +22,14 @@
 
 		<div id="Js-content" class="mui-content">
 			<!------------条件筛选 begin------------->
-			<div id="Js-cmisFilter" class="member-list-filter BL-bg-fff">
+			<div id="Js-cmisFilter" class="member-list-filter">
 				<!--日期筛选 begin-->
-				<div class="cmis-date">
+				<div class="cmis-date BL-bg-fff">
 					<div class="BL-ub BL-ub-ac member-date-select">
-						<a class="member-date-item">全部</a>
-						<a class="member-date-item">七天</a>
-						<a class="member-date-item">一个月</a>
-						<a class="BL-ub BL-ub-ac BL-ub-pc member-date-filter mui-active">
+						<a href="javascript:;" class="member-date-item" :class="{'mui-active':mode=='1'}" data-wid="1">全部</a>
+						<a href="javascript:;" class="member-date-item" :class="{'mui-active':mode=='2'}" data-wid="2">七天</a>
+						<a href="javascript:;" class="member-date-item" :class="{'mui-active':mode=='3'}" data-wid="3">一个月</a>
+						<a href="javascript:;" id="Js-timefilter" href="javascript:void(0);" class="BL-ub BL-ub-ac BL-ub-pc member-date-filter" :class="{'mui-active':mode=='4'}">
 							筛选
 							<div class="BL-ub BL-ub-ver">
 								<i class="date-filter-ico"></i>
@@ -38,6 +38,9 @@
 					</div>
 				</div>
 				<!--日期筛选 end -->
+				<div v-show="mode==4" id="Js-showDate" class="BL-pad-t-1 BL-pad-lr-1_5 BL-ftz-42 BL-col-999">
+					筛选时间：<span class="Js-fday">{{ start_time }}</span> --- <span class="Js-sday">{{ end_time }}</span>
+				</div>
 			</div>
 			<!------------条件筛选 end  ------------->
 
@@ -45,43 +48,19 @@
 			<div id="Js-cmisList" class="BL-rel">
 				<div class="mui-content mui-scroll-wrapper BL-bg-f2f">
 					<div class="mui-scroll">
-						<ul class="mui-table-view BL-mar-t-1">
-						    <!--<li class="mui-table-view-cell member-cmis-list-item">
-						        <a href="javascript:;" class="mui-navigate-right">
+						<ul v-if="list" class="mui-table-view BL-mar-t-1">
+						    <li v-for="item in list" class="mui-table-view-cell member-cmis-list-item">
+						        <a class="mui-navigate-right" :data-json="JSON.stringify(item)">
 						            <div class="member-cmis-list-l">
-						                <p class='list-top-txt'>张晓晓（储蓄卡2512）</p>
-						                <p class='list-bottom-txt'>2018-01-08 06:00</p>
+						                <p class='list-top-txt'>{{ item.user_name }}（银行卡{{ item.bank_no | Intercept }}）</p>
+						                <p class='list-bottom-txt'>{{ item.create_time }}</p>
 						            </div>
 						            <div class="member-cmis-list-r BL-txt-r">
-						                <p class='list-top-txt'>-6000.00</p>
-						                <p class='list-bottom-txt'>已转账</p>
+						                <p class='list-top-txt'>{{ item.amount }}</p>
+						                <p class='list-bottom-txt'>{{ item.status }}</p>
 						            </div>
 						        </a>
 						    </li>
-						    <li class="mui-table-view-cell member-cmis-list-item">
-						        <a href="javascript:;" class="mui-navigate-right">
-						            <div class="member-cmis-list-l">
-						                <p class='list-top-txt'>张晓晓（储蓄卡2512）</p>
-						                <p class='list-bottom-txt'>2018-01-08 06:00</p>
-						            </div>
-						            <div class="member-cmis-list-r BL-txt-r">
-						                <p class='list-top-txt'>-6000.00</p>
-						                <p class='list-bottom-txt'>已转账</p>
-						            </div>
-						        </a>
-						    </li>
-						    <li class="mui-table-view-cell member-cmis-list-item">
-						        <a href="javascript:;" class="mui-navigate-right">
-						            <div class="member-cmis-list-l">
-						                <p class='list-top-txt'>张晓晓（储蓄卡2512）</p>
-						                <p class='list-bottom-txt'>2018-01-08 06:00</p>
-						            </div>
-						            <div class="member-cmis-list-r BL-txt-r">
-						                <p class='list-top-txt'>-6000.00</p>
-						                <p class='list-bottom-txt'>已转账</p>
-						            </div>
-						        </a>
-						    </li>-->
 						</ul>
 					</div>
 				</div>
@@ -90,10 +69,30 @@
 		</div>
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/interval-dtpicker.js" type="text/javascript"></script>
 	<script src="js/mui.pullToRefresh.js"></script>
 	<script src="js/mui.pullToRefresh.material.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/Date.js"></script>
 	<script type="text/javascript">
 		mui.init();
+		var apply = new Vue({
+			el: '#Js-content',
+			data: {
+				mode: '1',
+				start_time: '',
+				end_time: '',
+				list: []
+			}
+		});
+		
+		// 定义vue过滤器
+	    Vue.filter("Intercept", function (value) {
+	        if (!value) {
+		        return ''
+		    }
+		    return value.substring(value.length-4);
+	    });
 		
 		(function($){
 			//阻尼系数
@@ -103,60 +102,142 @@
 				indicators: false, //是否显示滚动条
 				deceleration: deceleration
 			});
-			$.plusReady(function() {
+			
+			$.plusReady(function() {	
+				// 预加载工资详情页
+				mui.preload({ // 预加载资讯详情页
+					url: 'member-commission-detail.html',
+					id: 'member_commission_detail',
+				});
+//				var detailPage = null;
+				
 				statusbar();
 				var winH = window.innerHeight;
 				var titHeight = document.querySelector('#Js-header').offsetHeight;
 				var divHeight = document.querySelector('#Js-cmisFilter').offsetHeight;
 				document.querySelector('#Js-cmisList').style.height = winH - titHeight - divHeight + 'px';
-				//document.querySelector('#Js-list').style.height = (winH - topHeight - mainHeight) + 'px';
-
+				var self;
 				var i = 0;
 
-				//循环初始化所有下拉刷新，上拉加载。
+				//循环初始化和上拉加载。
+				/**
+			     * 获取提取列表
+			     * @param {String} mode 时间搜索模式    1:当然，2:七天，3:一个月， 4:筛选
+			     */
+			    var getApplylist = function (mode) {
+					i++
+					var data = {
+						data: JSON.stringify({
+							start: apply.start_time,
+							end: apply.end_time,
+							page: i
+						}),
+						server: 'commission.ApplyList',
+						device: 'mobile'
+					};
+					mui.ajax(config.baseUrl, {
+						data: data,
+						dataType: 'json',
+						type: 'get',
+						success: function (ret) {
+							if (ret.code) {
+								var data = ret.data 
+//								alert(JSON.stringify(ret.data))
+								if(i == 1 && i == data.totalPage) {
+									apply.list = data.data
+									self.endPullUpToRefresh(true)
+								} else if(i < data.totalPage) {
+									apply.list = apply.list.concat(data.data)
+									self.endPullUpToRefresh(false)
+								} else {
+									self.endPullUpToRefresh(true)
+								}
+							}
+						},
+						error: function () {
+							mui.toast('网络异常,请稍候再试');
+						}
+					});
+				};
 				
 				$('#Js-cmisList .mui-scroll').pullToRefresh({
-						up: { // 上拉加载更多
-							auto: true, // 自动上拉一次
-							callback: function() {
-								i++;
-
-								var self = this;
-								setTimeout(function() {
-									var ul = self.element.querySelector('.mui-table-view');
-									ul.appendChild(createFragment(ul, 5));
-									if(i > 2) {
-										self.endPullUpToRefresh(true);
-									} else {
-										self.endPullUpToRefresh();
-									}
-								}, 1000);
-							}
+					up: { // 上拉加载更多
+						auto: true, // 自动上拉一次
+						contentrefresh: '正在加载...',
+        				contentnomore:'没有更多数据了',// 可选，请求完毕若没有更多数据时显示的提醒内容；
+						callback: function() {
+							self = this
+							getApplylist(apply.mode)
 						}
+					}
 				});
 				
-				var createFragment = function(ul, count) {
-					var length = ul.querySelectorAll('li').length;
-					var fragment = document.createDocumentFragment();
-					var li;
-					for(var i = 0; i < count; i++) {
-						li = document.createElement('li');
-						li.className = 'mui-table-view-cell member-cmis-list-item';
-						li.innerHTML = '<a href="javascript:;" class="mui-navigate-right">' +
-						'<div class="member-cmis-list-l">' +
-						'<p class="list-top-txt">张晓晓（储蓄卡2512）</p>' +
-						'<p class="list-bottom-txt">2018-01-08 06:00</p></div>' +
-						'<div class="member-cmis-list-r BL-txt-r">' +
-						'<p class="list-top-txt">-6000.00</p>' +
-						'<p class="list-bottom-txt">已转账</p></div>' +
-						'</a>';
-						fragment.appendChild(li);
+				// 时间筛选
+				var mySchedule = new Schedule({
+					el:'#Js-showDate',
+					// 取消筛选
+					cancle: function(){
+					},
+					// 确定筛选
+					ok: function(f, s){
+						apply.mode = 4
+						apply.start_time = f
+						apply.end_time = s
+						
+						i = 0
+						apply.list = []
+						self.refresh(true)
+						// 回到顶部
+						mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
+						self.pullUpLoading();
 					}
-					return fragment;
-				};
-
+				});
+				
+				mui('body').on('tap', '#Js-timefilter', function(){
+					var fday = mui('.Js-fday')[0].innerText;
+					var sday = mui('.Js-sday')[0].innerText;
+					if(fday!='' && sday!=''){
+						mySchedule.renderSelect(fday, sday);	
+					};
+					mySchedule.show();
+				});
+				
+				mui('body').on('tap', '.member-date-item', function(){
+					var mode = this.getAttribute("data-wid");
+					apply.mode = mode
+					apply.end_time = new Date().addDays(0).Format('yyyy-MM-dd')
+					
+					if (mode == 1) {
+						apply.start_time = ''
+						apply.end_time = ''
+					} else if (mode == 2) {
+						apply.start_time = new Date().addDays(-7).Format('yyyy-MM-dd')
+					} else if (mode == 3) {
+						apply.start_time = new Date().addMonth(-1).Format('yyyy-MM-dd')
+					}
+					i = 0
+					apply.list = []
+					self.refresh(true)
+					// 回到顶部
+					mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
+					self.pullUpLoading();
+				});
+				
+				mui('.mui-table-view').on('tap', 'a', function(e) {
+				  	var data = this.getAttribute('data-json');
+					 
+//					//触发详情页面的id事件
+					mui.fire(plus.webview.getWebviewById('member_commission_detail'),'applyId',{
+					    'data': data
+					});
+					
+					//打开新窗口
+					mui.openWindow({
+						id:"member_commission_detail",
+						show:animateObj.aniDetal
+					});
+				}); 
 			});	
-		
 		}(mui));
 
 		//主列表点击事件
@@ -178,9 +259,7 @@
 					show:animateObj.aniDetal
 				});
 			}
-
 		});
-
 	</script>
 
 </html>

@@ -23,35 +23,35 @@
 		<div id="Js-content" class="mui-content BL-rel">
 			<div class="mui-scroll-wrapper">
 				<div class="mui-scroll">
-					<ul class="mui-table-view form-list-cell">
+					<ul v-if="account" class="mui-table-view form-list-cell">
 						<li class="fItem BL-ub BL-ub-f1">
 							<label class="form-list-label">可提取</label>
-							<div class="form-list-control BL-txt-r">16,000.00</div>
+							<div class="form-list-control BL-txt-r">{{ account.canPay_format }}</div>
 						</li>
 						<li class="fItem BL-ub BL-ub-f1">
 							<label class="form-list-label">当月累提</label>
-							<div class="form-list-control BL-txt-r">8,000.00</div>
+							<div class="form-list-control BL-txt-r">{{ account.payTotal_format}}</div>
 						</li>
 						<li class="fItem BL-ub BL-ub-f1">
 							<label class="form-list-label">金额（元）</label>
 							<div class="form-list-control BL-txt-r">
-								<input type="text" placeholder="请输入">
+								<input v-model="amount" type="text" placeholder="请输入">
 							</div>
-							<div class="form-list-icon">
-								<span class="mui-icon mui-icon-clear"></span>
+							<div class="form-list-icon" v-show="amount != ''">
+								<span class="mui-icon mui-icon-clear" @click="amount = ''"></span>
 							</div>
 						</li>
 						<li class="fItem BL-ub BL-ub-f1">
 							<label class="form-list-label">实发（元）</label>
-							<div class="form-list-control BL-txt-r">0.00</div>
+							<div class="form-list-control BL-txt-r">{{ actual }}</div>
 						</li>
 						<li class="fItem BL-ub BL-ub-f1">
 							<label class="form-list-label">预留（元）</label>
-							<div class="form-list-control BL-txt-r">0.00</div>
+							<div class="form-list-control BL-txt-r">{{ reserve }}</div>
 						</li>
 					</ul>
 					<div class="form-button-group">
-						<a type="button" class="form-btn">提交</a>
+						<a href="javascript:;" class="form-btn" @click="apply">提交</a>
 					</div>
 				</div> 
 			</div> 	
@@ -60,8 +60,102 @@
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script src="js/mui.pullToRefresh.js"></script>
 	<script src="js/mui.pullToRefresh.material.js"></script>
+	<script src="js/vue.min.js"></script>
 	<script type="text/javascript">
 		mui.init();
+		var extract = new Vue({
+			el: "#Js-content",
+			data: {
+				account: null,
+		        amount: '',
+		        actual: '',  // 实发金额
+		        reserve: '', // 预留金额
+		        uploading: false  //是否提交标志
+			},
+			methods: {
+				getOtherMoney: function (amount, canPay, payTotal) {
+					let vm = this
+			        if(!vm.checkAmount(amount, canPay)) {
+			          return false
+			        }
+			        // 计算实发金额
+			        vm.actual = (parseFloat(amount)*0.7).toFixed(2)
+			        // 计算预留金额
+			        vm.reserve = (parseFloat(amount)*0.3).toFixed(2)
+			    },
+			    checkAmount: function (amount,canPay) {
+			    	let toast_text = null
+			        let reg = /^([1-9][0-9]*)(\.[\d]{1,2})?$/
+			        if (!amount) {
+			          toast_text = "请输入金额"
+			        } else if (!reg.test(amount)) {
+			          toast_text = "金额输入错误，请重新输入"
+			        } else if (amount > parseFloat(canPay)) {
+			          toast_text = "金额大于可提取金额，请重新输入"
+			        }
+			        if (toast_text) {
+			          mui.toast(toast_text)
+			          return false
+			        }
+			        return true
+			    },
+			    apply: function () {
+			    	 let vm = this
+			        // 避免重复提交
+			        if (vm.uploading) {
+			          mui.toast('请勿重复提交')
+			          return false
+			        }
+			        
+			        vm.uploading = true
+			        setTimeout(() => {
+			          vm.uploading = false
+			        }, 1000)
+			        
+			        // 校验金额
+			        if(!vm.checkAmount(vm.amount, vm.account.canPay)) {
+			          return false
+			        }
+			        
+			        // 提交数据
+			        vm.uploading = true
+			        mui.toast('正在提交...')
+			        mui.ajax(config.baseUrl, {
+						data: {
+							data: JSON.stringify({
+								amount: vm.amount
+							}),
+							server: 'commission.Apply',
+							device: 'mobile'
+						},
+						dataType: 'json',
+						type: 'post',
+						success: function (ret) {
+							//打开新窗口
+							mui.openWindow({
+								id:"member-commission-result",
+								url:"member-commission-result.html",
+								show:animateObj.aniDetal,
+								extras:{
+									code: ret.code,  // 提交是否成功标志
+									msg: ret.msg
+								}
+							});
+						},
+						error: function () {
+							mui.toast('网络异常,请稍候再试');
+						}
+					});
+			    }
+			},
+			watch: {
+		        'amount': function (val) {
+		        	if (!val) return false
+		        	this.getOtherMoney(val, this.account.canPay, this.account.payTotal)
+				}
+		    }
+		});
+		
 		(function($){
 			//阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
@@ -75,7 +169,31 @@
 				var winH = window.innerHeight;
 				var titHeight = document.querySelector('#Js-header').offsetHeight;
 				document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
-			})
+			});
+			// 获取账户信息
+			getAccount()
+			
 		}(mui));
+		
+		// 获取账户信息
+		function getAccount() {
+			mui.ajax(config.baseUrl, {
+	            data: {
+	                server: 'commission.Account',
+	                device: 'mobile'
+	            },
+	            dataType: 'json',
+	            type: 'get',
+	            success: function (ret) {
+	                if (ret.code) {
+	                	extract.account = ret.data
+//	                	alert(JSON.stringify(extract.account))
+	                }
+	            },
+	            error: function () {
+	                plus.nativeUI.toast('网络异常：101')
+	            }
+        	});
+		};
 	</script>
 </html>

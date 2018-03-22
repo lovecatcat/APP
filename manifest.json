@@ -365,7 +365,8 @@
 					"images/icon/nav-discover-active.png",
 					"images/icon/nav-user-active.png",
 					"images/icon/sign-active.png",
-					"js/config.js"
+					"js/config.js",
+					"images/icon/ico-contact.png"
 				],
 				"refer": [
 					"sns.html",
@@ -750,7 +751,11 @@
 					"member-team.html",
 					"member-duty.html",
 					"member-plans-manage.html",
-					"member-personalinfo.html"
+					"member-personalinfo.html",
+					"member-warranty-manage.html",
+					"member-intergral.html",
+					"member-birthday.html",
+					"member-renewal.html"
 				],
 				"priority": 0
 			},
@@ -810,14 +815,12 @@
 					"images/icon/icon-plus.png",
 					"images/icon/icon-upload.png",
 					"images/icon/ico-search-blue.png",
-					"js/config.js"
+					"js/config.js",
+					"js/vue.min.js",
+					"js/Date.js"
 				],
 				"refer": [
-					"member-commission-income.html",
-					"member-commission-applylist.html",
-					"member-commission-countlist.html",
-					"member-commission-detail.html",
-					"member-commission-extract.html"
+					"member-commission-incomelist.html"
 				],
 				"priority": 0
 			},
@@ -909,7 +912,9 @@
 					"images/icon/ico-duty-nowifi.png",
 					"js/config.js"
 				],
-				"refer": [],
+				"refer": [
+					"member-commission-result.html"
+				],
 				"priority": 0
 			},
 			"member-commission-income.html": {
@@ -962,10 +967,11 @@
 					"images/icon/ico-duty-address.png",
 					"images/icon/ico-duty-hswifi.png",
 					"images/icon/ico-duty-nowifi.png",
-					"js/config.js"
+					"js/config.js",
+					"images/icon/ico-cmis-salary.png"
 				],
 				"refer": [
-					"commission-first.html"
+					"member-commission-salarylist.html"
 				],
 				"priority": 0
 			},
@@ -1077,9 +1083,12 @@
 					"images/product/ico-hot.png",
 					"images/icon/ico-eye.png",
 					"images/icon/ico-hide.png",
-					"js/config.js"
+					"js/config.js",
+					"js/interval-dtpicker.js"
 				],
-				"refer": [],
+				"refer": [
+					"member-commission-detail.html"
+				],
 				"priority": 0
 			},
 			"member-commission-detail.html": {
@@ -1221,7 +1230,13 @@
 				"resources": [
 					"images/icon/ico-filter-active.png",
 					"css/member.css",
-					"css/mui.css"
+					"css/mui.css",
+					"images/icon/ico-filter.png",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/vue.min.js",
+					"js/Date.js",
+					"js/interval-dtpicker.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -1233,9 +1248,14 @@
 					"css/mui.css",
 					"css/member.css",
 					"js/mui.picker.min.js",
-					"css/mui.picker.min.css"
+					"css/mui.picker.min.css",
+					"js/mui.picker.js",
+					"images/pic/logo.png",
+					"js/mui.dtpicker.js"
 				],
-				"refer": [],
+				"refer": [
+					"team-personal-performance.html"
+				],
 				"priority": 0
 			},
 			"member-duty.html": {
@@ -1294,7 +1314,9 @@
 					"images/icon/ico-cmis-success.png",
 					"images/icon/ico-cmis-fail.png",
 					"images/icon/ico-down.png",
-					"js/config.js"
+					"js/config.js",
+					"js/Date.js",
+					"member-duty-stats.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -1878,12 +1900,12 @@
 					"css/news.css",
 					"images/icon/ico-eye1.png",
 					"images/icon/ico-good.png",
-					"js/config.js"
+					"js/config.js",
+					"member-plans-total.html"
 				],
 				"refer": [
 					"member-plans-alone.html",
 					"news-cream.html",
-					"member-plans-total.html",
 					"news-tv-detail.html",
 					"news-business.html",
 					"news-finance.html"
@@ -1939,7 +1961,10 @@
 				"priority": 0
 			},
 			"ins2c.html": {
-				"resources": [],
+				"resources": [
+					"css/mui.css",
+					"css/form.css"
+				],
 				"refer": [
 					"ins2c-applicant.html",
 					"ins2c-assured.html",
@@ -1957,6 +1982,225 @@
 					"ins2c-addbeneficiary.html"
 				],
 				"priority": 0
+			},
+			"member-warranty-manage.html": {
+				"resources": [
+					"member-warranty-manageLife.html",
+					"css/mui.css"
+				],
+				"refer": [
+					"member-warranty-manageCar.html"
+				],
+				"priority": 0
+			},
+			"member-warranty-manageLife.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.picker.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/mui.poppicker.js",
+					"js/vue.min.js",
+					"images/icon/ico-down.png",
+					"css/mui.picker.min.css",
+					"css/member.css",
+					"js/mui.dtpicker.js",
+					"css/mui.css"
+				],
+				"refer": [
+					"member-warranty-manageLife-detail.html"
+				],
+				"priority": 0
+			},
+			"team-personal-performance.html": {
+				"resources": [
+					"css/mui.css",
+					"css/mui.picker.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-warranty-manageCar.html": {
+				"resources": [
+					"css/mui.picker.min.css",
+					"css/member.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-intergral.html": {
+				"resources": [
+					"member-intergral-all.html",
+					"css/member.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-intergral-all.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/product.css",
+					"images/icon/ico-filter-active.png",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-birthday-customer.html": {
+				"resources": [
+					"css/mui.picker.min.css",
+					"images/icon/ico-down.png",
+					"css/member.css",
+					"css/mui.css",
+					"js/vue.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-birthday.html": {
+				"resources": [
+					"member-birthday-customer.html",
+					"css/mui.css"
+				],
+				"refer": [
+					"member-birthday-team.html"
+				],
+				"priority": 0
+			},
+			"member-warranty-manageLife-detail.html": {
+				"resources": [
+					"css/mui.picker.min.css",
+					"css/member.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-birthday-team.html": {
+				"resources": [
+					"js/vue.min.js",
+					"css/mui.picker.min.css",
+					"css/member.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-commission-salarylist.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.picker.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/product.css",
+					"js/vue.min.js",
+					"images/icon/ico-down.png",
+					"css/mui.picker.min.css",
+					"js/Date.js",
+					"js/mui.dtpicker.js",
+					"css/mui.css",
+					"member-commission-incomelist.html"
+				],
+				"refer": [
+					"member-commission-salarydetail.html"
+				],
+				"priority": 0
+			},
+			"member-commission-salarydetail.html": {
+				"resources": [
+					"css/mui.css",
+					"css/form.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-duty-stats.html": {
+				"resources": [
+					"js/schedule.js",
+					"member-duty.html",
+					"css/mui.css",
+					"css/member.css",
+					"images/icon/ico-duty-wifi.png",
+					"images/icon/ico-duty-address.png",
+					"css/module.css",
+					"css/common.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-commission-result.html": {
+				"resources": [
+					"images/icon/ico-cmis-fail.png",
+					"images/icon/ico-cmis-success.png",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-commission-incomelist.html": {
+				"resources": [
+					"images/icon/ico-cmis-salary.png",
+					"images/icon/ico-filter-active.png",
+					"member-commission-salarylist.html",
+					"css/mui.css",
+					"images/icon/ico-filter.png",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/interval-dtpicker.js",
+					"css/member.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-renewal.html": {
+				"resources": [
+					"css/mui.css",
+					"member-renewal-life.html",
+					"css/module.css",
+					"css/common.css"
+				],
+				"refer": [
+					"member-renewal-auto.html"
+				],
+				"priority": 0
+			},
+			"member-renewal-life.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.picker.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/mui.poppicker.js",
+					"images/icon/ico-down.png",
+					"css/mui.picker.min.css",
+					"css/member.css",
+					"js/mui.dtpicker.js",
+					"css/mui.css",
+					"js/vue.min.js"
+				],
+				"refer": [
+					"member-renewal-liftdetail.html"
+				],
+				"priority": 0
+			},
+			"member-renewal-liftdetail.html": {
+				"resources": [
+					"images/member/renewal-detail.png",
+					"images/pic/inscompany_logo.png",
+					"css/form.css",
+					"css/mui.css",
+					"css/mui.picker.min.css",
+					"css/member.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-renewal-auto.html": {
+				"resources": [
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {
@@ -1966,10 +2210,7 @@
 				"receipt-1.html",
 				"receipt-2.html",
 				"css/insurance.css",
-				"member-commission-result.html",
-				"member-duty-stats.html",
 				"images/pic/p8.jpg",
-				"js/schedule.js",
 				"css/mui.min.css",
 				"receipt-3.html",
 				"images/icon/icon-upload-big.png",
@@ -1977,7 +2218,6 @@
 				"js/mui.js",
 				"images/pic/p1.jpg",
 				"prospect-addIns.html",
-				"team-personal-performance.html",
 				"README.md"
 			]
 		}

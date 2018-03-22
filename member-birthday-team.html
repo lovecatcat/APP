@@ -12,44 +12,52 @@
 		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
 	</head>
 
-	<body class="BL-bg-f2f">
-		<div id="Js-content" class="mui-content">
-			<div id="Js-birthFilter" class="member-team-search BL-ub BL-ub-ac BL-ub-f1 BL-bg-fff">
-				<div class="search-role BL-ub BL-ub-ac" style="width: 14rem;">
-					<select v-model="month" class="BL-ub BL-ub-f1" @change="getTeambirth">
-						<option v-for="m in 12" :value="m">{{ m }}月份</option>
-					</select>
-					<div class="down">
-						<span class="BL-bimg-contain search-down"></span>
+	<body>
+		<div id="Js-content" class="mui-content" v-cloak>
+			<div id="Js-birthFilter">
+				<div class="member-team-search BL-ub BL-ub-ac BL-bg-fff">
+					<div class="search-role BL-ub BL-ub-ac" style="width: 14rem;">
+						<select v-model="month" class="BL-ub BL-ub-f1" @change="getTeambirth">
+							<option v-for="m in 12" :value="m">{{ m }}月份</option>
+						</select>
+						<div class="down">
+							<span class="BL-bimg-contain search-down"></span>
+						</div>
 					</div>
+					<span class="member-birth-sum BL-abs">
+						总数：<i class="BL-col-3b9cf5">{{ count }}</i>个
+					</span>
 				</div>
-				<span class="member-birth-sum BL-abs">
-					总数：<i class="BL-col-3b9cf5">{{ count }}</i>个
-				</span>
+				<table width="100%" class="member-team-tab BL-mar-t-1">
+					<thead>
+						<tr>
+							<th width="10%">序号</th>
+							<th width="30%">姓名</th>
+							<th width="30%">手机号码</th>
+							<th width="25%">出生日期</th>
+						</tr>
+					</thead>
+				</table>
 			</div>
-			<div id="Js-birthtab" class="BL-rel BL-mar-t-1">
+			
+			<div id="Js-birthtab" class="BL-rel">
 				<div class="mui-content mui-scroll-wrapper BL-bg-fff">
 					<div class="mui-scroll">
-					<table width="100%" class="member-team-tab">
-						<thead>
-							<tr>
-								<th width="10%">序号</th>
-								<th width="30%">姓名</th>
-								<th width="30%">手机号码</th>
-								<th width="25%">出生日期</th>
-							</tr>
-						</thead>
-						<tbody>
-							<template v-if="list">
-								<tr v-for="(item,index) in list" :key="index">
-									<td>{{ index + 1 }}</td>
-									<td>{{ item.user_name }}</td>
-									<td>{{ item.tel }}</td>
-									<td>{{ item.birthday }}</td>
-								</tr>
-							</template>
-						</tbody>
-					</table>
+						<template v-if="list&&list.length>0">
+							<table width="100%" class="member-team-tab">
+								<tbody>
+									<tr v-for="(item,index) in list" :key="index">
+										<td width="10%">{{ index + 1 }}</td>
+										<td width="30%">{{ item.user_name }}</td>
+										<td width="30%">{{ item.tel }}</td>
+										<td width="25%">{{ item.birthday.substring(0,5) }}<span class="BL-col-3b9cf5">{{ item.birthday.substring(5,10) }}</span></td>
+									</tr>
+								</tbody>
+							</table>
+						</template>
+						<template v-else>
+							<div class="BL-pad-t-2 BL-txt-c BL-ftz-42 BL-col-999">没有更多数据了</div>
+						</template>
 					</div>
 				</div>
 			</div>
@@ -64,7 +72,7 @@
 			el: '#Js-content',
 			data: {
 				list:null,  // 查询月份生日的列表
-                month: new Date().getMonth()+1,    // 当前月份
+                month: new Date().getMonth()+1,    // 月份
                 count: '',  // 总数
 			},
 			methods: {
@@ -83,7 +91,7 @@
 			});
 			
 			// 设置内容区域
-			$.ready(function() {
+			$.plusReady(function() {
 				var winH = window.innerHeight;
 				var divHeight = document.querySelector('#Js-birthFilter').offsetHeight;
 				document.querySelector('#Js-birthtab').style.height = winH - divHeight + 'px';
@@ -102,7 +110,7 @@
 			mui.ajax(config.baseUrl, {
 	            data: {
 	            	data: JSON.stringify({user_id: 65,month:month}),
-	                server: 'team.care',
+	                server: 'team.careAgent',
 	                device: 'mobile'
 	            },
 	            dataType: 'json',

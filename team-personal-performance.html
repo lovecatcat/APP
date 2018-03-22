@@ -39,14 +39,14 @@
 			<div id="Js-teamtab" class="BL-bg-fff BL-mar-t-1">
 				<div class="mui-row member-team-tab-title">
 					<span>承保<i class="BL-col-ff8201">{{ count }}</i>件</span>
-					<span>标保<i class="BL-col-ff8201">{{ money }}</i>元</span>
+					<span>标保<i class="BL-col-ff8201">{{ money == "" ? 0 : money }}</i>元</span>
 					<span>活动积分<i class="BL-col-ff8201">922593.02</i></span>
 				</div>
 				<div class="BL-rel">
 					<table width="100%" class="member-team-tab"> 
 						<thead>
 							<tr>
-								<th width="8%">序号</th>
+								<th width="10%">序号</th>
 								<th width="30%">承保</th>
 								<th width="20%">标保（元）</th>
 								<th width="15%">活动积分</th>
@@ -54,13 +54,24 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr v-for="(item,index) in list" :key="index">
-								<td>{{ index+1 }}</td>
-								<td>{{ item.product_name }}</td>
-								<td class="BL-col-3b9cf5">{{ item.money }}</td>
-								<td class="BL-col-3b9cf5">10000</td>
-								<td>2018-11-20</td>
-							</tr>
+							<template v-if="list">
+								<template v-if="list.length > 0">
+									<tr v-for="(item,index) in list" :key="index">
+										<td>{{ index+1 }}</td>
+										<td>{{ item.product_name }}</td>
+										<td class="BL-col-3b9cf5">{{ item.money }}</td>
+										<td class="BL-col-3b9cf5">10000</td>
+										<td>2018-11-20</td>
+									</tr>
+								</template>
+								<template v-else>
+									<tr>
+										<td colspan="5">
+											<div class="BL-txt-c BL-ftz-42 BL-col-999">没有相关数据</div>
+										</td>
+									</tr>
+								</template>
+							</template>
 						</tbody>
 					</table>
 				</div>
@@ -83,9 +94,11 @@
 			}
 		});
 		
+		var uid;
+		var start_time = document.getElementById("start_time");
+		var end_time = document.getElementById("end_time");
+		
 		(function($){
-			var start_time = document.getElementById("start_time")
-			var end_time = document.getElementById("end_time")
 			//阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
 			$('#Js-teamtab .mui-scroll-wrapper').scroll({
@@ -118,27 +131,34 @@
 				}, false);
 			});
 			
-			// 初始化当前月份和上个月份的个人业绩数据
-			start_time.value = new Date().addDays(0).Format('yyyy-MM-dd')
-			end_time.value = new Date().addMonth(1).Format('yyyy-MM-dd')
-			getMembers(start_time.value, end_time.value)
-			
 			// 点击搜索按钮事件
 			document.querySelector('#search').addEventListener('tap', function(){
 				var s_time = start_time.value
 				var e_time = end_time.value
-				getMembers (s_time, e_time)
+				getMembers (uid, s_time, e_time)
 			})
 		}(mui));
+		
+		window.addEventListener('uId',function(e){
+			// 初始化当前月份和上个月份的个人业绩数据
+			start_time.value = new Date().addMonth(-1).Format('yyyy-MM-dd');
+			end_time.value = new Date().addDays(0).Format('yyyy-MM-dd');
+			uid = e.detail.uid;
+			getMembers(uid,start_time.value,end_time.value)
+		});
 		/**
 		 * 获取个人业绩列表
 		 * @param {String} start_time 开始时间
 		 * @param {String} end_time  结束时间
 		 */
-		function getMembers(start_time, end_time) {
+		function getMembers(uid,start_time, end_time) {
 			mui.ajax(config.baseUrl, {
 	            data: {
-	            	data: JSON.stringify({user_id: 65,start_time: "",end_time: ""}),
+	            	data: JSON.stringify({
+	            		user_id: uid,
+	            		start_time: start_time,
+	            		end_time: end_time
+	            	}),
 	                server: 'team.getMembers',
 	                device: 'mobile'
 	            },
@@ -146,6 +166,7 @@
 	            type: 'post',
 	            success: function (ret) {
 	                if (ret.code) {
+	                	alert(JSON.stringify(ret))
 	                	team.count = ret.data.count
 	                	team.money = ret.data.money
 	                    team.list = ret.data.list

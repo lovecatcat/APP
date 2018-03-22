@@ -12,7 +12,7 @@
 		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
 	</head>
 
-	<body class="BL-bg-f2f">
+	<body class="BL-bg-f2f">   
 		<div id="Js-content" class="mui-content">
 			<!--搜索 begin-->
 			<div id="Js-teamFilter" class="member-team-search member-warranty-search BL-ub BL-ub-ac BL-bg-fff">
@@ -204,9 +204,6 @@
 							}else if(manageLife.selectData && i == 0){
 								manageLife.warranty_list = res.data.list
 								self.endPullUpToRefresh(false)
-								alert(manageLife.warranty_state.value)
-								alert(manageLife.warranty_type.value)
-								alert(manageLife.selectData)
 							}else if(manageLife.selectData && i != 0 && res.data.totalRows > manageLife.warranty_list.length){
 								manageLife.warranty_list = manageLife.warranty_list.concat(res.data.list)
 								self.endPullUpToRefresh(false)

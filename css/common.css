@@ -15,6 +15,10 @@ i {
 	font-style: normal;
 }
 
+[v-cloak] {
+ display: none;
+}
+
 /* 弹性盒子模型(base样式) */
 
 .BL-vp {
@@ -229,7 +233,6 @@ i {
 	right: 1.25rem;
 }
 
-
 /* 标题栏(base样式) = BL-title[color, font-size] */
 
 .BL-title {
@@ -425,6 +428,9 @@ i {
 }
 .BL-mar-b_5 {
 	margin-bottom: .5rem;
+}
+.BL-mar-t-0 {
+	margin-top: 0rem !important;
 }
 .BL-mar-t-1 {
 	margin-top: 1rem;

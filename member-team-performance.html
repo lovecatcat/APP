@@ -10,6 +10,14 @@
 		<link href="css/member.css" rel="stylesheet" />
 		<script src="js/config.js" type="text/javascript"></script>
 		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+		<style>
+			.roleFixed {
+				position: fixed;
+				width: 100%;
+				z-index: 111;
+				top: 0;
+			}
+		</style>
 	</head>
 
 	<body class="BL-bg-f2f">
@@ -17,14 +25,14 @@
 			<div class="BL-bg-fff BL-pad-b-1">
 				<!--日期搜索 begin-->
 				<div id="Js-teamFilter" class="member-team-search BL-ub BL-ub-ac BL-ub-f1">
-					<div class="search-date BL-ub BL-ub-ac">
-						<input id="start_time" class="BL-ub BL-ub-f1 date" type="text" data-options='{"type":"date"}'/>
+					<div class="search-date BL-ub BL-ub-ac"  data-options='{"type":"date"}'>
+						<input id="start_time" class="BL-ub BL-ub-f1 date" type="text"/>
 						<div class="down">
 							<span class="BL-bimg-contain search-down"></span>
 						</div>
 					</div>
-					<div class="search-date BL-ub BL-ub-ac">
-						<input id="end_time" class="BL-ub BL-ub-f1 date" type="text" data-options='{"type":"date"}'/>
+					<div class="search-date BL-ub BL-ub-ac" data-options='{"type":"date"}'>
+						<input id="end_time" class="BL-ub BL-ub-f1 date" type="text"/>
 						<div class="down">
 							<span class="BL-bimg-contain search-down"></span>
 						</div>
@@ -36,11 +44,11 @@
 					<table width="100%" class="member-team-tab"> 
 						<thead>
 							<tr>
-								<th width="18%"></th>
+								<th width="20%"></th>
 								<th width="20%">承保件数</th>
-								<th width="30%">承保标保</th>
+								<th width="20%">承保标保</th>
 								<th width="20%">出单人数</th>
-								<th width="12%">操作</th>
+								<th width="20%">操作</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -49,27 +57,28 @@
                                 <td>{{ item.count }}</td>
                                 <td>{{ item.money }}</td>
                                 <td>{{ item.people_num == null? "-" : item.people_num }}</td>
-                                <td><a class="BL-col-3b9cf5" @click="show_detail(item)">查看</a></td>
+                                <td class="item_check BL-col-3b9cf5" :data-json="JSON.stringify(item)">查看</td>
                             </tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
-			<div class="BL-bg-fff BL-mar-t-1">
-				<div id="Js-teamFilter" class="member-team-search BL-ub BL-ub-ac BL-ub-f1">
-					<div class="search-role BL-ub BL-ub-ac" style="width: 14.375rem;">
-						<select id="rank_search" class="BL-ub BL-ub-f1">
-							<option value="">全部</option>
-                            <option v-for="(item,index) in rank_list" :value="item.rank_id">{{ item.rank_name }}</option>
-						</select>
-						<div class="down">
-							<span class="BL-bimg-contain search-down"></span>
-						</div>
+			<div id="Js-teamRole" class="member-team-search BL-ub BL-ub-ac BL-ub-f1 BL-bg-fff">
+				<div class="search-role BL-ub BL-ub-ac" style="width: 14.375rem;">
+					<select id="rank_search" class="BL-ub BL-ub-f1">
+						<option value="">全部</option>
+						<option value="11">合伙人</option>
+                        <option v-for="(item,index) in rank_list" :value="item.rank_id">{{ item.rank_name }}</option>
+					</select>
+					<div class="down">
+						<span class="BL-bimg-contain search-down"></span>
 					</div>
 				</div>
+			</div>
+			<div class="BL-rel BL-mar-t-1 ">
 				<ul class="mui-table-view">
 				    <li v-for="(item,index) in person" :key="index" class="mui-table-view-cell member-team-list-item">
-				        <a href="team-personal-performance.html" class="mui-navigate-right BL-ub BL-ub-ac item">
+				        <a :data-uid="item.id" class="mui-navigate-right BL-ub BL-ub-ac item">
 				        	<div class="img">
 				        		<img :src="item.avatar | isErrorImg"/>
 				        	</div>
@@ -91,7 +100,7 @@
 				<div class="BL-bg-fff" v-if="policy_detail">
 					<div class="member-team-modal-title BL-txt-c">
 						{{ policy_detail.name }}
-						<a class="mui-icon mui-icon-closeempty BL-abs" @click="hide_detail"></a>
+						<a id="closemodal" class="mui-icon mui-icon-closeempty BL-abs"></a>
 					</div>
 					<div class="member-team-modal-body" >
 						<table class="member-team-tab fixed-thead">
@@ -136,6 +145,7 @@
 		var team = new Vue({
 			el: '#Js-content',
 			data: {
+				flag: 1,  // 1:表示调用getScore接口，2:表示调用getTempList接口
 				policy: [
 					{"count": 0,"people_num": 0,"money": 0,"name": "本人","details": []},
                     {"count": 0,"people_num": 0,"money": 0,"name": "事务所合伙人","details": []},
@@ -146,11 +156,12 @@
 				],
 				policy_detail: null,
 				rank_list: null,
-				person: null,
-				show: true
+				page: 1,
+				row: 10,
+				person: [],
+				show: true,
+				rank_id: ''
 			},
-			created: function () {
-        	},
 			methods: {
 				show_detail: function(item) {
                     this.policy_detail = item
@@ -172,11 +183,9 @@
         });
         
 		(function($){
-			var start_time = document.getElementById("start_time")
-			var end_time = document.getElementById("end_time")
 			// 阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
-			$('#Js-cmistab .mui-scroll-wrapper').scroll({
+			$('.mui-scroll-wrapper').scroll({
 				bounce: true,
 				indicators: false, //是否显示滚动条
 				deceleration: deceleration
@@ -184,110 +193,220 @@
 			
 			// 设置内容区域
 			$.plusReady(function() {
-				var winH = window.innerHeight;
-				var divHeight = document.querySelector('#Js-teamFilter').offsetHeight;
-				document.querySelector('#Js-content').style.height = winH - divHeight + 'px';
-			});	
-			
-			// 日期选择
-			var dates = $('.date');
-			dates.each(function(i, d) {
-				d.addEventListener('tap', function() {
-					var optionsJson = this.getAttribute('data-options') || '{}';
-					var options = JSON.parse(optionsJson);
-					var _this = this
-					var picker = new $.DtPicker(options);
-					picker.show(function(rs) {
-						_this.value = rs.text;
-						picker.dispose();
-					});
-				}, false);
-			});
-			// 登录
-			var data = {
-				type: 'account',
-				channel_id: 1,
-				data: JSON.stringify({keyword: "陆惠忠", password: "123456"})
-			};
-			mui.post("http://www.luckyins.com/api/api/login", data, function(ret) {
-				alert(ret.msg)
-			});
+				// 预加载个人业绩详情页
+				mui.preload({
+					url: 'team-personal-performance.html',
+					id: 'team_personal_performance',
+				});
 				
-			// 初始化当前月份和上个月份的团队业绩数据
-			start_time.value = new Date().addDays(0).Format('yyyy-MM-dd')
-			end_time.value = new Date().addMonth(-1).Format('yyyy-MM-dd')
-			getScore(start_time.value, end_time.value)
-			
-			// 点击搜索按钮事件
-			document.querySelector('#search').addEventListener('tap', function(){
-				var s_time = start_time.value
-				var e_time = end_time.value
-				getScore (s_time, e_time)
-			})
-			
-			// 团队角色下拉框事件
-			document.querySelector('#rank_search').addEventListener('change', function(){
-				var index = this.selectedIndex
-				var rank_id = this.options[index].value
-				getTempList(start_time.value,end_time.value,rank_id)
-			})
-		}(mui));
-		
-		/**
-	     * 获取团队业绩
-	     * @param {String} start_time 开始时间
-	     * @param {String} end_time  结束时间
-	     */
-		function getScore (start_time,end_time) {
-			mui.ajax(config.baseUrl, {
-	            data: {
-	            	start_time: start_time,
-	            	end_time: end_time,
-	            	data: JSON.stringify({user_id: 65}),
-	                server: 'team.getScore',
-	                device: 'mobile'
-	            },
-	            dataType: 'json',
-	            type: 'post',
-	            success: function (ret) {
-	                if (ret.code) {
-	                    team.policy = ret.data.policy;
-	                    team.rank_list = ret.data.rank_list;
-	                    team.person = ret.data.person.list
-	                }
-	            },
-	            error: function () {
-	                plus.nativeUI.toast('网络异常：101')
-	            }
-        	});
-		}
-		/**
-		 * 获取团队成员列表
-		 * @param {String} start_time 开始时间
-		 * @param {String} end_time  结束时间
-		 * @param {String} rank_id 角色ID
-		 */
-		function getTempList (start_time,end_time,rank_id) {
-			mui.ajax(config.baseUrl, {
-				data: {
-					start_time: start_time,
-					end_time: end_time,
-					data: JSON.stringify({user_id: 65,rank_id:rank_id}),
-					server: 'team.getTempList',
-					device: 'mobile'
-				},
-				dataType: 'json',
-				type: 'post',
-				success: function (ret) {
-					if (ret.code) {
-						team.person = ret.data.list
-					}
-				},
-				error: function () {
-					plus.nativeUI.toast('网络异常：101')
+				// 登录
+				var data = {
+					type: 'account',
+					channel_id: 1,
+					data: JSON.stringify({keyword: "陆惠忠", password: "123456"})
+				};
+				mui.post("http://www.luckyins.com/api/api/login", data, function(ret) {
+//					alert(ret.msg)
+				});
+				
+				// 定义全局变量： 开始时间start_time, 结束时间end_time
+				var start_time = document.getElementById("start_time")
+				var end_time = document.getElementById("end_time")
+				
+				// 日期选择插件
+				var dates = $('.search-date');
+				dates.each(function(i, d) {
+					d.addEventListener('tap', function() {
+						var optionsJson = this.getAttribute('data-options') || '{}';
+						var options = JSON.parse(optionsJson);
+						var _this = this
+						var picker = new $.DtPicker(options);
+						picker.show(function(rs) {
+							_this.querySelector('input').value = rs.text;
+							picker.dispose();
+						});
+					}, false);
+				});
+				
+				// 初始化当前月份和上个月份的团队业绩数据
+				start_time.value = new Date().addMonth(-1).Format('yyyy-MM-dd')
+				end_time.value = new Date().addDays(0).Format('yyyy-MM-dd')
+				
+				/**
+			     * 获取团队业绩
+			     * @param {String} start_time 开始时间
+			     * @param {String} end_time  结束时间
+			     */
+				var getScore = function (start_time,end_time) {
+					mui.ajax(config.baseUrl, {
+			            data: {
+			            	data: JSON.stringify({
+			            		user_id: 65,
+			            		start_time: start_time,
+				            	end_time: end_time,
+				            	page: team.page,
+				            	row: team.row
+			            	}),
+			                server: 'team.getPlanList',
+			                device: 'mobile'
+			            },
+			            dataType: 'json',
+			            type: 'post',
+			            success: function (ret) {
+			                if (ret.code) {
+//			                    team.policy = ret.data.policy;
+//			                    team.rank_list = ret.data.rank_list;
+			                    team.totalPage = ret.data.totalPage;
+//			                    alert(team.totalPage)
+			                    if(team.page === 1) {
+			                    	team.person = ret.data.list
+			                    	alert(JSON.stringify(team.person))
+			                    } else {
+			                    	team.person = team.person.concat(ret.data.list)
+			                    }
+			                    
+			                }
+			            },
+			            error: function () {
+			                plus.nativeUI.toast('网络异常：101')
+			            }
+		        	});
 				}
+				/**
+				 * 获取团队成员列表
+				 * @param {String} start_time 开始时间
+				 * @param {String} end_time  结束时间
+				 * @param {String} rank_id 角色ID
+				 */
+				var getTempList = function(start_time,end_time,rank_id) {
+					mui.ajax(config.baseUrl, {
+						data: {
+							data: JSON.stringify({
+								user_id: 65,
+								rank_id: team.rank_id,
+								page: team.page,
+								row: team.row,
+								start_time: start_time,
+								end_time: end_time,
+							}),
+							server: 'team.getPlanList',
+							device: 'mobile'
+						},
+						dataType: 'json',
+						type: 'post',
+						success: function (ret) {
+							if (ret.code) {
+								team.totalPage = ret.data.totalPage;
+			                     if(team.page === 1) {
+			                    	team.person = ret.data.list
+			                    } else {
+			                    	team.person = team.person.concat(ret.data.list)
+			                    }
+							}
+						},
+						error: function () {
+							plus.nativeUI.toast('网络异常：101')
+						}
+					});
+				}
+				
+				getScore(start_time.value, end_time.value)
+				
+				// 详情查看事件
+				mui('.member-team-tab').on('tap','.item_check', function(e){
+					var data = e.target.getAttribute('data-json')
+					team.show_detail(JSON.parse(data))
+				});
+				
+				// 关闭模态框
+				mui('.member-team-modal').on('tap','#closemodal', function(e){
+					team.hide_detail()
+				});
+				
+				// 点击顶部搜索按钮事件
+				document.querySelector('#search').addEventListener('tap', function(){
+					// 重置接口标志， 页数
+					team.flag = 1
+					team.page = 1
+					team.totalPage = ''
+					alert(team.page + ' 哈哈  ' + team.totalPage)
+					getScore (start_time.value, end_time.value)
+				});
+				
+				// 团队角色下拉框事件
+				document.querySelector('#rank_search').addEventListener('change', function(){
+					var index = this.selectedIndex
+					team.rank_id = this.options[index].value
+					// 重置接口标志， 页数, 总页数
+					team.flag = 2
+					team.page = 1
+					team.totalPage = ''
+					getTempList(start_time.value,end_time.value,team.rank_id)
+				});
+				
+				//触发详情页面的id事件
+				mui('.mui-table-view').on('tap', 'a', function(e) {
+				  	var uid = this.getAttribute('data-uid');
+					mui.fire(plus.webview.getWebviewById('team_personal_performance'),'uId',{
+					    'uid': uid
+					});
+					
+					//打开新窗口
+					mui.openWindow({
+						id:"team_personal_performance",
+						show:animateObj.aniDetal
+					});
+				});
+				
+				//--------------上拉加载更多---------------
+		        //获取滚动条当前的位置 
+		        function getScrollTop() {
+		            var scrollTop = 0;
+		            if(document.documentElement && document.documentElement.scrollTop) {
+		                scrollTop = document.documentElement.scrollTop;
+		            } else if(document.body) {
+		                scrollTop = document.body.scrollTop;
+		            }
+		            return scrollTop;
+		        }
+		
+		        //获取当前可视范围的高度 
+		        function getClientHeight() {
+		            var clientHeight = 0;
+		            if(document.body.clientHeight && document.documentElement.clientHeight) {
+		                clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+		            } else {
+		                clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+		            }
+		            return clientHeight;
+		        }
+		
+		        //获取文档完整的高度 
+		        function getScrollHeight() {
+		            return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+		        }
+		        
+		        //滚动事件触发
+		        window.onscroll = function() {
+		            if(getScrollTop() + getClientHeight() == getScrollHeight()) {
+		            	// 获取下一页数据
+		            	team.page++ 
+//		            	alert(team.page)
+						if (team.page > team.totalPage) {
+							return false;
+						} else {
+							if (team.flag === 1) {
+								getScore (start_time.value, end_time.value)
+//								alert(start_time)
+			            	} else if (team.flag === 2) {
+			            		getTempList (start_time, end_time, team.rank_id)
+			            	}
+						}
+		            }
+		        }
+		        //-----------------结束--------------------
 			});
-		}
+		}(mui));
 		
 		//主列表点击事件
 		mui('body').on('tap', 'a', function() {
@@ -318,5 +437,18 @@
 				}
 			}
 		});
+		
+//		window.onscroll=function(){
+//			var topScroll =document.getElementById('Js-teamRole').offsetTop - document.documentElement.scrollTop;//滚动的距离,距离顶部的距离
+////			alert(topScroll)
+//			if(topScroll <= 0) {
+////				document.getElementById('Js-teamRole').style.position = 'fixed'
+////				document.getElementById('Js-teamRole').style.width = '100%'
+////				document.getElementById('Js-teamRole').style.zIndex = '1000'
+//				document.getElementById('Js-teamRole').classList.add("roleFixed");
+//			} else {
+//				document.getElementById('Js-teamRole').classList.remove("roleFixed");
+//			}
+//		}
 	</script>
 </html>

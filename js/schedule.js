@@ -95,7 +95,7 @@
 				lastMonthDay = new Date(year, month, 0).getDate(), //上月最后一天
 				eleTemp = [],nextYear,prevYear,nextMonth,prevMonth; 	
 			
-			for(var i = 0; i < total; i++) {
+			for(var i = 0; i < total; i++) {			
 				if(i < startWeek) {
 					//eleTemp.push('<li class="other-month"><span class="dayStyle">' + (lastMonthDay - startWeek + 1 + i) + '</span></li>')
 					eleTemp.push('<li class="other-month"><span class="dayStyle">&nbsp;</span></li>');
@@ -107,7 +107,9 @@
 					//formartDate(currentYear, currentMonth + 1, currentDay, '-') == nowDate && (addClass = 'today-flag');
 					//eleTemp.push('<li class="current-month" ><span title=' + nowDate + ' class="currentDate dayStyle ' + addClass + '">' + (i + 1 - startWeek) + '</span></li>')
 					var addClass = '';
+					var data_json = '';
 					if(data && data.length > i - startWeek){ // 服务器数据：员工打卡状态
+						data_json = JSON.stringify(data[i - startWeek]['data_json'])
 						switch(data[i - startWeek]['status']){
 							case 1 : // 正常
 								addClass = 'dayOn';
@@ -132,12 +134,12 @@
 								};
 								break;			
 						}
-					}else{ // 服务器返回无数据
+					} else { // 服务器返回无数据
 						if(allWeek == 0 || allWeek == 6){ // 星期六，日字体颜色变灰
 							addClass = 'dayoff';
 						};
 					};
-					eleTemp.push('<li class="current-month" ><span title=' + nowDate + ' class="dayStyle ' + addClass + '">' + (i + 1 - startWeek) + '<i></i></span></li>');	
+					eleTemp.push('<li class="current-month"><span title=' + nowDate + ' class="dayStyle ' + addClass + '" data-json='+data_json+'>' + (i + 1 - startWeek) + '<i></i></span></li>');	
 				} else {
 					//eleTemp.push('<li class="other-month"><span class="dayStyle">' + (i + 1 - (startWeek + fullDay)) + '</span></li>')
 					eleTemp.push('<li class="other-month"><span class="dayStyle">&nbsp;</span></li>');
@@ -179,16 +181,20 @@
 //				render(data);
 //				opt.nextYeayCb && opt.nextYeayCb(year, month + 1, day);
 //			},
-			this.prevMonthFun = function(data) {
-				if(month - 1 < 0) {
-					year -= 1;
-					month = 11;
-				} else {
-					month -= 1;
-				}
-				render(data);
-				//opt.prevMonthCb && opt.prevMonthCb(year, month + 1, day);
-			},
+		this.prevMonthFun = function(data) {
+			if(month - 1 < 0) {
+				year -= 1;
+				month = 11;
+			} else {
+				month -= 1;
+			}
+			render(data);
+			//opt.prevMonthCb && opt.prevMonthCb(year, month + 1, day);
+		},
+		this.curMonthFun = function(data) {
+			render(data);
+			//opt.prevMonthCb && opt.prevMonthCb(year, month + 1, day);
+		},
 //			this.prevYearFun = function() {
 //				year -= 1;
 //				render();

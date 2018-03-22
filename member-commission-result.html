@@ -23,17 +23,17 @@
 		<div id="Js-content" class="mui-content BL-rel BL-mar-t-1">
 			<div class="mui-scroll-wrapper">
 				<div class="mui-scroll">
-					<div class="member-cmis-result">
+					<div v-if="code===1" class="member-cmis-result">
 						<i class="member-cmis-ico cmis-result-success"></i>
 						<p class="BL-col-3b9cf5">提交成功！</p>
 					</div>
-					<!--<div class="member-cmis-result">
+					<div v-if="code===2" class="member-cmis-result">
 						<i class="member-cmis-ico cmis-result-fail"></i>
 						<p class="BL-col-ff8201">提交失败！</p>
-					</div>-->
+					</div>
 					<ul class="mui-table-view">
 						<li class="mui-table-view-cell member-cmis-list-item cmis-item-count">
-							<a href="javascript:;" class="mui-navigate-right BL-ub BL-ub-ac">
+							<a data-wid="member_commission_account" href="member-commission-account.html" class="mui-navigate-right BL-ub BL-ub-ac">
 								查看账户信息
 					        </a>
 						</li>
@@ -45,8 +45,15 @@
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script src="js/mui.pullToRefresh.js"></script>
 	<script src="js/mui.pullToRefresh.material.js"></script>
+	<script src="js/vue.min.js"></script>
 	<script type="text/javascript">
 		mui.init();
+		var result = new Vue({
+			el: "#Js-content",
+			data: {
+				code: ''
+			}
+		});
 		(function($){
 			//阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
@@ -60,8 +67,31 @@
 				var winH = window.innerHeight;
 				var titHeight = document.querySelector('#Js-header').offsetHeight;
 				document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+				var self = plus.webview.currentWebview();
+            	result.code = self.code
 			})
 		}(mui));
+		
+		//主列表点击事件
+		mui('body').on('tap', 'a', function() {
+			var href = this.getAttribute('href');
+			var id = this.getAttribute("data-wid");
+
+			//非plus环境，直接走href跳转
+			if(!mui.os.plus) {
+				location.href = href;
+				return;
+			};
+
+			if(href && ~href.indexOf('.html')) {
+				//打开新窗口
+				mui.openWindow({
+					id:id,
+					url:href,
+					show:animateObj.aniDetal
+				});
+			}
+		});
 	</script>
 </html>
 

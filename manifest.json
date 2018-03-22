@@ -761,7 +761,8 @@
 					"member-intergral.html",
 					"member-warranty-manage.html",
 					"tax-cal.html",
-					"member-birthday.html"
+					"member-birthday.html",
+					"member-renewal.html"
 				],
 				"priority": 0
 			},
@@ -1892,7 +1893,8 @@
 					"css/news.css",
 					"images/icon/ico-eye1.png",
 					"images/icon/ico-good.png",
-					"js/config.js"
+					"js/config.js",
+					"member-plans-total2.html"
 				],
 				"refer": [
 					"member-plans-alone.html",
@@ -1937,7 +1939,8 @@
 					"js/config.js"
 				],
 				"refer": [
-					"member-plans-detail.html"
+					"member-plans-detail.html",
+					"popup-content.html"
 				],
 				"priority": 2
 			},
@@ -2026,6 +2029,29 @@
 				"refer": [
 					"index.html",
 					"index-content.html"
+				],
+				"priority": 0
+			},
+			"member-renewal.html": {
+				"resources": [
+					"member-renewal-life.html"
+				],
+				"refer": [
+					"member-renewal-auto.html"
+				],
+				"priority": 0
+			},
+			"member-renewal-life.html": {
+				"resources": [],
+				"refer": [
+					"member-renewal-liftdetail.html"
+				],
+				"priority": 0
+			},
+			"member-warranty-manageLife.html": {
+				"resources": [],
+				"refer": [
+					"member-warranty-manageLife-detail.html"
 				],
 				"priority": 0
 			}

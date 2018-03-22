@@ -1,132 +1,264 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<link href="css/mui.css" rel="stylesheet" />
-		<link href="css/common.css" rel="stylesheet" />
-		<link href="css/module.css" rel="stylesheet" />
-		<link href="css/product.css" rel="stylesheet" />
-		<script src="js/config.js" type="text/javascript"></script>
-	</head>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="css/mui.css" rel="stylesheet"/>
+    <link href="css/common.css" rel="stylesheet"/>
+    <link href="css/module.css" rel="stylesheet"/>
+    <link href="css/product.css" rel="stylesheet"/>
+    <script src="js/config.js" type="text/javascript"></script>
+</head>
 
-	<body class="BL-bg-f2f">
-		<header id="Js-header" class="BL-bg-fff">
-			<div class="BL-mod-headbar BL-mod-headbar-pos">
-				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
-				<h1 class="BL-title">产品对比</h1>
-				<div class="control">
-					<a data-wid="product_contrast_delete" href="product-contrast-delete.html">编辑</a>
-				</div>
-			</div>
-		</header>
+<body class="BL-bg-f2f">
+<div id="Js-contrast">
 
-		<div id="Js-content" class="mui-content product-contrast">
-			<!------------添加产品 begin------------->
-			<div id="Js-wrapperAdd" class="BL-pad-b-1 BL-pad-t-1">
-				<div class="contr-add">
-					<a data-wid="product_contrast_add" href="product-contrast-add.html" class="control">+产品添加</a>
-				</div>
-			</div>
-			<!------------添加产品 end  ------------->
+    <div id="Js-header" class="BL-ub BL-ub-ac BL-ub-pc BL-pad-r-1_25 BL-bg-fff">
+        <div class=""><a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a></div>
+        <h1 class="BL-title BL-ub-f1">产品对比{{is_edit}}</h1>
+        <div class="header-operate" @click="is_edit=!is_edit"><span v-if="is_edit">完成</span><span v-else>编辑</span></div>
+    </div>
 
-			<!------------产品列表 begin------------->
-			<div id="Js-wrapperList" class="contr-wrapper">
-				<div class="contr-listAdd">
-					<div class="BL-ub BL-ub-ac item item-active">
-						<div class="selected">
-							<div class="mui-icon mui-icon-checkmarkempty"></div>	
-						</div>
-						<div class="context">
-							<div class="title">
-								惠州龙门大观园温泉，鲁冰花 童话园2日游
-							</div>
-							<div class="business">
-								平安人寿
-							</div>
-						</div>
-					</div>
-					<div class="BL-ub BL-ub-ac item item-active">
-						<div class="selected">
-							<div class="mui-icon mui-icon-checkmarkempty"></div>	
-						</div>
-						<div class="context">
-							<div class="title">
-								惠州龙门大观园温泉，鲁冰花 童话园2日游
-							</div>
-							<div class="business">
-								平安人寿
-							</div>
-						</div>
-					</div>
-					<div class="BL-ub BL-ub-ac item">
-						<div class="selected">
-							<div class="mui-icon mui-icon-checkmarkempty"></div>	
-						</div>
-						<div class="context">
-							<div class="title">
-								惠州龙门大观园温泉，鲁冰花 童话园2日游
-							</div>
-							<div class="business">
-								平安人寿
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!------------产品列表 end  ------------->
-		</div>
-		
-		<footer id="Js-footer" class="BL-footer BL-bg-fff">
-			<div class="BL-ub BL-ub-ac BL-ub-f1">
-				<div id="" class="BL-ub BL-ub-f1 BL-ub-ae BL-foot-contrast">
-					可选择对比产品
-				</div>
-				<a data-wid="product_contrast_detail" href="product-contrast-detail.html" class="BL-foot-btn-sign">
-					对比(<span id="">3</span>)
-				</a>
-			</div>
-		</footer>
-		
-	</body>
-	<script src="js/mui.min.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		mui.init();
-		
-		//主列表点击事件
-		mui('body').on('tap', 'a', function() {
-			var href = this.getAttribute('href');
-			var id = this.getAttribute("data-wid");
+    <div id="Js-content" class="mui-content product-contrast">
+        <!------------添加产品 begin------------->
+        <div id="Js-wrapperAdd" v-show="!is_edit">
+            <div class="BL-pad-b-1 BL-pad-t-1">
+                <div class="contr-add">
+                    <a data-wid="product_contrast_add" href="product-contrast-add.html" class="control">+产品添加</a>
+                </div>
+            </div>
+        </div>
+        <!------------添加产品 end  ------------->
 
-			//非plus环境，直接走href跳转
-			if(!mui.os.plus) {
-				location.href = href;
-				return;
-			};
+        <!------------产品列表 begin------------->
+        <div id="Js-wrapperList" class="contr-wrapper" :class="{'BL-mar-t-1':is_edit}">
+            <div class="contr-listAdd">
+                <div class="BL-ub BL-ub-ac item item-active" v-if="list" v-cloak>
+                    <div class="selected">
+                        <div class="mui-icon mui-icon-checkmarkempty"></div>
+                    </div>
+                    <div class="context">
+                        <div class="title">{{list.product_name}}</div>
+                        <div class="business">{{list.company_name}}</div>
+                    </div>
+                </div>
+                <div class="BL-ub BL-ub-ac item item-active">
+                    <div class="selected">
+                        <div class="mui-icon mui-icon-checkmarkempty"></div>
+                    </div>
+                    <div class="context">
+                        <div class="title">
+                            惠州龙门大观园温泉，鲁冰花 童话园2日游
+                        </div>
+                        <div class="business">
+                            平安人寿
+                        </div>
+                    </div>
+                </div>
+                <div class="BL-ub BL-ub-ac item item-active">
+                    <div class="selected">
+                        <div class="mui-icon mui-icon-checkmarkempty"></div>
+                    </div>
+                    <div class="context">
+                        <div class="title">
+                            惠州龙门大观园温泉，鲁冰花 童话园2日游
+                        </div>
+                        <div class="business">
+                            平安人寿
+                        </div>
+                    </div>
+                </div>
+                <div class="BL-ub BL-ub-ac item item-active">
+                    <div class="selected">
+                        <div class="mui-icon mui-icon-checkmarkempty"></div>
+                    </div>
+                    <div class="context">
+                        <div class="title">
+                            惠州龙门大观园温泉，鲁冰花 童话园2日游
+                        </div>
+                        <div class="business">
+                            平安人寿
+                        </div>
+                    </div>
+                </div>
+                <div class="BL-ub BL-ub-ac item item-active">
+                    <div class="selected">
+                        <div class="mui-icon mui-icon-checkmarkempty"></div>
+                    </div>
+                    <div class="context">
+                        <div class="title">
+                            惠州龙门大观园温泉，鲁冰花 童话园2日游
+                        </div>
+                        <div class="business">
+                            平安人寿
+                        </div>
+                    </div>
+                </div>
+                <div class="BL-ub BL-ub-ac item item-active">
+                    <div class="selected">
+                        <div class="mui-icon mui-icon-checkmarkempty"></div>
+                    </div>
+                    <div class="context">
+                        <div class="title">
+                            惠州龙门大观园温泉，鲁冰花 童话园2日游
+                        </div>
+                        <div class="business">
+                            平安人寿
+                        </div>
+                    </div>
+                </div>
+                <div class="BL-ub BL-ub-ac item item-active">
+                    <div class="selected">
+                        <div class="mui-icon mui-icon-checkmarkempty"></div>
+                    </div>
+                    <div class="context">
+                        <div class="title">
+                            惠州龙门大观园温泉，鲁冰花 童话园2日游
+                        </div>
+                        <div class="business">
+                            平安人寿
+                        </div>
+                    </div>
+                </div>
+                <div class="BL-ub BL-ub-ac item item-active">
+                    <div class="selected">
+                        <div class="mui-icon mui-icon-checkmarkempty"></div>
+                    </div>
+                    <div class="context">
+                        <div class="title">
+                            惠州龙门大观园温泉，鲁冰花 童话园2日游
+                        </div>
+                        <div class="business">
+                            平安人寿
+                        </div>
+                    </div>
+                </div>
+                <div class="BL-ub BL-ub-ac item item-active">
+                    <div class="selected">
+                        <div class="mui-icon mui-icon-checkmarkempty"></div>
+                    </div>
+                    <div class="context">
+                        <div class="title">
+                            惠州龙门大观园温泉，鲁冰花 童话园2日游
+                        </div>
+                        <div class="business">
+                            平安人寿
+                        </div>
+                    </div>
+                </div>
+                <div class="BL-ub BL-ub-ac item item-active">
+                    <div class="selected">
+                        <div class="mui-icon mui-icon-checkmarkempty"></div>
+                    </div>
+                    <div class="context">
+                        <div class="title">
+                            惠州龙门大观园温泉，鲁冰花 童话园2日游
+                        </div>
+                        <div class="business">
+                            平安1人寿
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!------------产品列表 end  ------------->
+    </div>
+    <footer id="Js-footer" class="BL-footer BL-bg-fff">
+        <div class="BL-ub BL-ub-ac BL-ub-f1" v-if="is_edit">
+            <div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll">
+                <div class="selected">
+                    <div class="mui-icon mui-icon-checkmarkempty"></div>
+                </div>
+                <div class="context">
+                    全选择
+                </div>
+            </div>
+            <a class="BL-foot-btn-sign BL-foot-btn-det">
+                删除
+            </a>
+        </div>
+        <div class="BL-ub BL-ub-ac BL-ub-f1" v-else>
+            <div class="BL-ub BL-ub-f1 BL-ub-ae BL-foot-contrast">
+                可选择对比产品
+            </div>
+            <a data-wid="product_contrast_detail" href="product-contrast-detail.html" class="BL-foot-btn-sign">
+                对比(<span>3</span>)
+            </a>
+        </div>
+    </footer>
 
-			if(href && ~href.indexOf('.html')) {
-				//打开新窗口
-				mui.openWindow({
-					id:id,
-					url:href,
-					show:animateObj.aniDetal
-				});
-			}
+</div>
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/vue.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mui.init();
 
-		});
+    //主列表点击事件
+    mui('body').on('tap', 'a', function () {
+        var href = this.getAttribute('href');
+        var id = this.getAttribute("data-wid");
 
-		mui.plusReady(function() {
-		
-			statusbar();
-			
-			var winH = window.innerHeight;
-			var titHeight = document.querySelector('#Js-header').offsetHeight;
-			var addHieght = document.querySelector('#Js-wrapperAdd').offsetHeight;
-			var footHieght = document.querySelector('#Js-footer').offsetHeight;
-			
-			document.querySelector('#Js-wrapperList').style.height = (winH - titHeight - addHieght - footHieght) +'px';	
-		})
-	</script>
+        //非plus环境，直接走href跳转
+        if (!mui.os.plus) {
+            location.href = href;
+            return;
+        }
+        ;
+        if (href && ~href.indexOf('.html')) {
+            //打开新窗口
+            mui.openWindow({
+                id: id,
+                url: href,
+                show: animateObj.aniDetal
+            });
+        }
+    });
+
+    mui.plusReady(function () {
+        statusbar();
+        init();
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        var addHieght = document.querySelector('#Js-wrapperAdd').offsetHeight;
+        var footHieght = document.querySelector('#Js-footer').offsetHeight + 25;
+        var all = winH - titHeight - addHieght - footHieght;
+        var contrast = new Vue({
+            el: '#Js-contrast',
+            data: {
+                is_edit: false,
+                type: '',
+                list: ''
+            },
+            watch: {
+                is_edit: {
+                    handler: function (val) {
+                        if (val) {
+                            init(all,addHieght, true);
+                        } else {
+                            init();
+                        }
+                    }
+                }
+            }
+        });
+
+        function init(all,addHieght, edit) {
+            if (edit) {
+                addHieght = 25;
+            }
+            console.log(val);
+            console.log(addHieght);
+            console.log('footHieght:' + footHieght + 'winH:' + winH + 'titHeight:' + titHeight + 'addHieght:' + addHieght);
+//            console.log(winH - titHeight - addHieght - footHieght);
+            document.querySelector('#Js-wrapperList').style.height = (all + addHieght - footHieght) + 'px';
+        }
+
+        var list = plus.webview.currentWebview().list;
+        contrast.list = list;
+        contrast.type = list.ins_type;
+    })
+</script>
 
 </html>

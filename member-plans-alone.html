@@ -17,7 +17,7 @@
         	时间：2018-03-07
         	描述：单个计划书详情 begin
         -->
-		<div class="mui-content BL-bg-3b9cf5 plans-detail BL-overFlow-autoY">
+		<div id="Js-alone" class="mui-content BL-bg-3b9cf5 plans-detail BL-overFlow-autoY">
 			
 				<div class="plans-detail-banner">
 					<img src="images/plans/prospectus/ajb.jpg" alt="" id="banner">
@@ -31,9 +31,10 @@
                 <div class="plans-detail-box plans-detail-box-first BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff">
 					<div class="BL-title">保险计划</div>
                     <div class="BL-title BL-bg-ebf5fe">
-                        <span class="BL-col-3b9cf5">dd</span>
-                        <span class="BL-col-3b9cf5 BL-pad-l-2">ee</span>
-                        <span class="BL-col-3b9cf5 BL-pad-l-2">rr</span>
+                        <span class="BL-col-3b9cf5">{{list.assured}}</span>
+                        <span class="BL-col-3b9cf5 BL-pad-l-2" v-if="list.assu_sex == 1">男</span>
+                        <span class="BL-col-3b9cf5 BL-pad-l-2" v-else>女</span>
+                        <span class="BL-col-3b9cf5 BL-pad-l-2">{{list.assu_age}}</span>
                     </div>
                     <ul class="BL-ul plans-detail-item BL-ftz-46">
                         <li>
@@ -43,10 +44,10 @@
                         	<span>年交保费</span>
                         </li>
                         <li class="BL-col-ff8201">
-                        	<span>555</span>
-                        	<span>23</span>
-                        	<span>10</span>
-                        	<span>1000.00</span>
+                        	<span>{{list.base_money}}</span>
+                        	<span>{{list.safe_year}}</span>
+                        	<span>{{list.pay_year}}</span>
+                        	<span>{{list.base_money}}</span>
                         </li>
                     </ul>
 				</div>
@@ -226,7 +227,14 @@
 		</footer>
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
+		var aloneDetail = new Vue({
+			el: '#Js-alone',
+			data: {
+				list: {}
+			}
+		});
 		mui.init();
 
 		(function($) {
@@ -235,8 +243,14 @@
 			var winH = window.innerHeight;
 			var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 			document.querySelector('#Js-plansDetail').style.height = fotHeight + 'px';
+			var pl_id = plus.webview.currentWebview().pl_id
 			
-	
+		   //接收单个计划书数据alone
+			window.addEventListener('alone',function(event){
+				 var data = event.detail.data
+//				 alert(JSON.stringify(data))
+				 aloneDetail.list = JSON.parse(JSON.stringify(data))
+			});
 		}(mui));
 	</script>
 

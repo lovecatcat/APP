@@ -14,31 +14,23 @@
 	<body class="BL-bg-f2f">
 
 		<div id="Js-plansTotal" class="mui-content BL-overFlow-autoY">
-			<!--
-                        	作者：383938231@qq.com
-                        	时间：2018-03-07
-                        	描述：一个投保人计划书
-                        -->
-			<div class="plans-total BL-pad-b-1  BL-mar-t-1 BL-bg-fff">
+			<!--描述：一个投保人计划书 -->
+			<div class="plans-total BL-pad-b-1  BL-mar-t-1 BL-bg-fff" v-for="(content, index) in total_list" :key='index'>
 				<div class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-46 BL-txt-l">
 					<span>投保人</span>
-					<span class="BL-col-3b9cf5">白豪</span>
+					<span class="BL-col-3b9cf5">{{content.applicant}}</span>
 					<span class="BL-pad-l-3">被保人</span>
-					<span class="BL-col-3b9cf5">白豪</span>
-				</div>
-				<!--
-                            	作者：383938231@qq.com
-                            	时间：2018-03-07
-                            	描述：主險信息 begin
-                            -->
-				<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff">
+					<span class="BL-col-3b9cf5">{{content.assured}}</span>
+				</div> 
+				<!--描述：主險信息 begin -->
+				<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff" >
 					<div class="BL-ub plans-total-content BL-pad-b-1">
 						<div class="BL-ub-f4">
-							<span class="plans-total-font BL-ftz-46">dfdfdf东方大饭店发</span>
+							<span class="plans-total-font BL-ftz-46">{{content.main.name}}</span>
 							<span class="BL-col-3b9cf5 plans-total-font BL-ftz-46 BL-pad-l-1">详情</span>
 						</div>
 						<div class="BL-ub-f1 BL-txt-r">
-							<button id="btnn" class="BL-btn-white BL-ftz-42">删除</button>
+							<button class="BL-btn-white BL-ftz-42" v-if="index !== 0">删除</button>
 							<button class="BL-btn-blue BL-ftz-42">编辑</button>
 						</div>
 					</div>
@@ -50,31 +42,85 @@
 							<span>首年保费</span>
 						</li>
 						<li>
-							<span>402350</span>
-							<span>终身</span>
-							<span>10</span>
-							<span class="hm-color__red year_fee">650000</span>
+							<!--基本保额 begin-->
+							<!--平安e生保-->
+							<span v-if="content.genre == '280' && content.flag == 100">有社保100万</span>
+							<span v-else-if="content.genre == '280' && content.flag == 1100">无社保100万</span>
+							<span v-else-if="content.genre == '280' && content.flag == 300">有社保300万</span>
+							<span v-else-if="content.genre == '280' && content.flag == 1300">无社保1300万</span>
+							<!--安联出行无忧-->
+							<span v-else-if="content.genre == '309' && content.flag == 1">计划一</span>
+							<span v-else-if="content.genre == '309' && content.flag == 2">计划二</span>
+							<span v-else-if="content.genre == '309' && content.flag == 3">计划三</span>
+							<!--国华盛世鑫悦-->
+							<span v-else-if="content.genre == '379'">{{content.main.list[1]["保险金额"]}}</span>
+							<!--泰康乐行天下-->
+							<span v-else-if="content.genre == '318'">{{content.main.list[1]["保险金额"]}}</span>
+							<!--鑫福年金保险-->
+							<span v-else-if="content.genre == '360'">{{content.main.list[1]["保额"]}}</span>
+							<!--复星乐健一生住院保险--> 
+							<span v-else-if="content.genre == '366' && content.flag.slice(0, 1) == 'B'">{{'有社保' + content.flag.substr(1)}}</span>
+							<span v-else-if="content.genre == '366' && content.flag.slice(0, 1) !== 'B'">{{'无社保' + content.flag.substr(1)}}</span>
+							<span v-else>{{content.base_money}}</span>
+							<!--基本保额 end-->
+							
+							<!--保险期间 begin-->
+							<!--国华盛世鑫悦-->
+							<span v-if="content.genre == '379'">至100周岁</span>
+							<!--工银鑫丰盈年金保险-->
+							<span v-else-if="content.genre == '19384'">至105周岁</span>
+							<!--国华少儿成长无忧重大疾病保险-->
+							<span v-else-if="content.genre == '19388'">至25周岁</span>
+							<!--复星ab-->
+							<span v-else-if="content.genre == '364' && content.safe_year !== 0">至70周岁</span>
+							<span v-else-if="content.genre == '365' && content.safe_year !== 0">至70周岁</span>
+							<span v-else-if="content.safe_year !== 0">{{content.safe_year}}</span>
+							<span v-else>终身</span>
+							<!--保险期间 end-->
+							
+							<!--缴费期间 begin-->
+							<span>{{content.pay_year}}</span>
+							<!--缴费期间 end-->
+							<!--年缴保费 begin-->
+							<!--输入保费算保额-->
+							<!--恒大鑫福年金保险360-->
+							<!--工银鑫丰盈年金保险19384-->
+							<span class="year_fee" v-if="content.genre == '290' || 
+										content.genre == '352' ||
+										content.genre == '360' ||
+										content.genre == '401' ||
+										content.genre == '19384'">{{content.year_fee}}</span>
+							<!--信泰千万人生养老年金保险377-->
+							<!--恒大福享金生终身年金保险（分红型）378-->
+							<!--74已下线-->
+							<span class="year_fee" v-else-if="content.genre == '74' || content.genre == '377' || content.genre == '378'">
+								{{content.main.list[1]["累计保费"]}}
+							</span>
+							<!--复星乐健一生医疗保险-->
+							<span class="year_fee" v-else-if="content.genre == '366'">
+								{{content.main.list[1]["住院总保费"]}} 
+							</span>
+							<span class="year_fee" v-else>
+								{{content.main.list[1]["年缴保费"]}} 
+							</span>
+							<!--年缴保费 end-->
+							
 						</li>
 					</ul>
 				</div>
-				<!--
-                            	作者：383938231@qq.com
-                            	时间：2018-03-07
-                            	描述：主險信息 end
-                            -->
-				<!--
-                            	作者：383938231@qq.com
-                            	时间：2018-03-07
-                            	描述：附加險信息 begin
-                            -->
-				<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff">
+				<!--描述：主險信息 end-->
+				<!--描述：附加險信息 begin-->
+				<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff" v-if="content.children" v-for="(child, i) in content.children" :key="i">
 					<div class="BL-ub plans-total-content BL-pad-b-1">
 						<div class="BL-ub-f4">
-							<span class="BL-col-ff8201 plans-total-font BL-ftz-46">[附加]</span>
-							<span class="plans-total-font BL-ftz-46">dfdfdf东方大饭店发</span>
+							<!--乐健一生门急诊医疗保险是主险-->
+							<!--泰康健康优享住院费用医疗保险是主险-->
+							<span class="BL-col-ff8201 plans-total-font BL-ftz-46" v-if="i !== '374' && i !== '10503'">[附加]</span>
+							<span class="plans-total-font BL-ftz-46">{{child.name}}</span>
 						</div>
-						<div class="BL-ub-f1 BL-txt-r">
-							<button class="BL-btn-white BL-ftz-42">删除</button>
+						<!--必须附加的附加险不能删除-->
+						<div class="BL-ub-f1 BL-txt-r" v-if="mustSelected.indexOf(i) < 0">
+							<button class="BL-btn-white BL-ftz-42" >删除</button>
 						</div>
 					</div>
 					<ul class="BL-ul BL-col-999 BL-ftz-42">
@@ -84,183 +130,39 @@
 							<span>缴费年限</span>
 							<span>首年保费</span>
 						</li>
-						<li>
+						<!--泰康-->
+						<li v-if="i == '121'">
+							<span>{{child.list[1]["保险金额(元)"]}}</span>
+							<span>{{child.list[1]["保障期限(年)"]}}</span>
+							<span>{{child.list[1]["缴费年间(年)"]}}</span>
+							<span>{{child.list[1]["年缴保费(元)"]}}</span>
+						</li>
+						<li v-else-if="i == '131 '">
+							<span>{{content.year_fee}}</span>
+							<span>{{content.pay_year-1}}</span>
+							<span>{{content.pay_year-1}}</span>
+							<span>{{child.list[1]["年缴保费"]}}</span>
+						</li>
+						<li v-else-if="i == '380'">
+							<span>{{content.year_fee}}</span>
+							<span>{{content.pay_year-1}}</span>
+							<span>{{content.pay_year-1}}</span>
+							<span>{{child.list[1]["年缴保费"]}}</span>
+						</li>
+                       
+                    
+						<li v-else>
 							<span>402350</span>
 							<span>终身</span>
 							<span>10</span>
-							<span class="hm-color__red year_fee">650000</span>
+							<span class="year_fee">650000</span>
 						</li>
 					</ul>
 				</div>
-				<!--
-                            	作者：383938231@qq.com
-                            	时间：2018-03-07
-                            	描述：附加險信息 end
-                            -->
+				<!--描述：附加險信息 end-->
 			</div>
-			<!--
-                        	作者：383938231@qq.com
-                        	时间：2018-03-07
-                        	描述：一个投保人计划书 end
-                        -->
-			<div class=" plans-total BL-pad-b-1 BL-mar-t-1 BL-bg-fff">
-				<div class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-46 BL-txt-l">
-					<span>投保人</span>
-					<span class="BL-col-3b9cf5">白豪</span>
-					<span class="BL-pad-l-3">被保人</span>
-					<span class="BL-col-3b9cf5">白豪</span>
-				</div>
-				<!--
-                            	作者：383938231@qq.com
-                            	时间：2018-03-07
-                            	描述：主險信息 begin
-                            -->
-				<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff">
-					<div class="BL-ub plans-total-content BL-pad-b-1">
-						<div class="BL-ub-f4">
-							<span class="plans-total-font BL-ftz-46">dfdfdf东方大饭店发</span>
-							<span class="BL-col-3b9cf5 plans-total-font BL-ftz-46 BL-pad-l-1">详情</span>
-						</div>
-						<div class="BL-ub-f1 BL-txt-r">
-							<button class="BL-btn-white BL-ftz-42">删除</button>
-							<button class="BL-btn-blue BL-ftz-42">编辑</button>
-						</div>
-					</div>
-					<ul class="BL-ul BL-col-999 BL-col-999 BL-ftz-42">
-						<li>
-							<span>保险金额</span>
-							<span>保险期间</span>
-							<span>缴费年限</span>
-							<span>首年保费</span>
-						</li>
-						<li>
-							<span>402350</span>
-							<span>终身</span>
-							<span>10</span>
-							<span class="hm-color__red year_fee">650000</span>
-						</li>
-					</ul>
-				</div>
-				<!--
-                            	作者：383938231@qq.com
-                            	时间：2018-03-07
-                            	描述：主險信息 end
-                            -->
-				<!--
-                            	作者：383938231@qq.com
-                            	时间：2018-03-07
-                            	描述：附加險信息 begin
-                            -->
-				<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff">
-					<div class="BL-ub plans-total-content BL-pad-b-1">
-						<div class="BL-ub-f4">
-							<span class="BL-col-ff8201 plans-total-font BL-ftz-46">[附加]</span>
-							<span class="plans-total-font BL-ftz-46">dfdfdf东方大饭店发</span>
-						</div>
-						<div class="BL-ub-f1 BL-txt-r">
-							<button class="BL-btn-white BL-ftz-42">删除</button>
-						</div>
-					</div>
-					<ul class="BL-ul BL-col-999 BL-ftz-42">
-						<li>
-							<span>保险金额</span>
-							<span>保险期间</span>
-							<span>缴费年限</span>
-							<span>首年保费</span>
-						</li>
-						<li>
-							<span>402350</span>
-							<span>终身</span>
-							<span>10</span>
-							<span class="hm-color__red year_fee">650000</span>
-						</li>
-					</ul>
-				</div>
-				<!--
-                            	作者：383938231@qq.com
-                            	时间：2018-03-07
-                            	描述：附加險信息 end
-                            -->
-			</div>
-			<div class=" plans-total BL-pad-b-1 BL-mar-t-1 BL-bg-fff">
-				<div class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-46 BL-txt-l">
-					<span>投保人</span>
-					<span class="BL-col-3b9cf5">白豪</span>
-					<span class="BL-pad-l-3">被保人</span>
-					<span class="BL-col-3b9cf5">白豪</span>
-				</div>
-				<!--
-                            	作者：383938231@qq.com
-                            	时间：2018-03-07
-                            	描述：主險信息 begin
-                            -->
-				<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff">
-					<div class="BL-ub plans-total-content BL-pad-b-1">
-						<div class="BL-ub-f4">
-							<span class="plans-total-font BL-ftz-46">dfdfdf东方大饭店发</span>
-							<span class="BL-col-3b9cf5 plans-total-font BL-ftz-46 BL-pad-l-1">详情</span>
-						</div>
-						<div class="BL-ub-f1 BL-txt-r">
-							<button class="BL-btn-white BL-ftz-42">删除</button>
-							<button class="BL-btn-blue BL-ftz-42">编辑</button>
-						</div>
-					</div>
-					<ul class="BL-ul BL-col-999 BL-col-999 BL-ftz-42">
-						<li>
-							<span>保险金额</span>
-							<span>保险期间</span>
-							<span>缴费年限</span>
-							<span>首年保费</span>
-						</li>
-						<li>
-							<span>402350</span>
-							<span>终身</span>
-							<span>10</span>
-							<span class="hm-color__red year_fee">650000</span>
-						</li>
-					</ul>
-				</div>
-				<!--
-                            	作者：383938231@qq.com
-                            	时间：2018-03-07
-                            	描述：主險信息 end
-                            -->
-				<!--
-                            	作者：383938231@qq.com
-                            	时间：2018-03-07
-                            	描述：附加險信息 begin
-                            -->
-				<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff">
-					<div class="BL-ub plans-total-content BL-pad-b-1">
-						<div class="BL-ub-f4">
-							<span class="BL-col-ff8201 plans-total-font BL-ftz-46">[附加]</span>
-							<span class="plans-total-font BL-ftz-46">dfdfdf东方大饭店发</span>
-						</div>
-						<div class="BL-ub-f1 BL-txt-r">
-							<button class="BL-btn-white BL-ftz-42">删除</button>
-						</div>
-					</div>
-					<ul class="BL-ul BL-col-999 BL-ftz-42">
-						<li>
-							<span>保险金额</span>
-							<span>保险期间</span>
-							<span>缴费年限</span>
-							<span>首年保费</span>
-						</li>
-						<li>
-							<span>402350</span>
-							<span>终身</span>
-							<span>10</span>
-							<span class="hm-color__red year_fee">650000</span>
-						</li>
-					</ul>
-				</div>
-				<!--
-                            	作者：383938231@qq.com
-                            	时间：2018-03-07
-                            	描述：附加險信息 end
-                            -->
-			</div>
+			<!--描述：一个投保人计划书 end-->
+
 			<!------------计划书汇总 end  ------------->
 		</div>
 		<footer id="Js-footer" class="BL-footer BL-bg-fff">
@@ -275,14 +177,21 @@
 				</a>
 			</div>
 		</footer>
-		<!--<div class="BL-modal-bottom">
-			<div class="BL-modal-bottom-content">
-				2222
-			</div>
-		</div>-->
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
+		var plansTotal = new Vue({
+		 	el: '#Js-plansTotal',
+		 	data: {
+		 		total_list: [],
+		 		mustSelected: ['291', '177', '11', '333', '332', '349', '354'] //必须附加的附加险
+		 	},
+		 	mounted: function(){
+		 	}
+		 })
+		 
+			
 		mui.init();
 
 		(function($) {
@@ -290,18 +199,50 @@
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
 			
 			$.plusReady(function() {
-				//statusbar(); 
 				var winH = window.innerHeight;
-				//				var titHeight = document.querySelector('#Js-header').offsetHeight;
 				var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 				document.querySelector('#Js-plansTotal').style.height = (winH - fotHeight) + 'px';
 
-
 				mui('body').on('tap', '#btn', function() {
-					var _self = plus.webview.getWebviewById('member-plans-detail.html')
+					var _self = plus.webview.getWebviewById('member_plans_detail.html')
 					mui.fire(_self,'show');
 				});
 
+				var pl_id = plus.webview.currentWebview().pl_id //获取从列表从过来的plid
+
+				//获取汇总数据
+					var data = {
+						server: 'Proposal.log',
+						data: JSON.stringify({
+							user_id: 65,
+							fields: "", 
+							pl_id: 44130
+						}),
+						device: 'mobile'
+					};
+					mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
+						if(res.code == 1) {
+							if(res.data.content) {
+								// 第一个plid下面的数据，主plid
+								mui.each(res.data.content, function(index, item){
+									plansTotal.total_list = plansTotal.total_list.concat(item)
+								})
+							}
+						} else {
+							alert(res.msg)
+						}
+					});
+					  // 计算总保费
+//			        function countSum(){
+//			            var totalMoney = 0;
+//			            $("#group .check").each(function(index, el) {
+//			                if($(this).hasClass('checked')){
+//			                    var count = $(this).parent().parent().parent().find('.year_fee').text();
+//			                    totalMoney += parseFloat(count);
+//			                }
+//			                $("#group-bottom").text(totalMoney.toFixed(2));
+//			            });
+//			        };    
 			});
 		}(mui));
 	</script>

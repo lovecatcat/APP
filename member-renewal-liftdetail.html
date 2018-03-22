@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>寿险续期详情</title>
+    <link href="css/mui.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/module.css" rel="stylesheet" />
+    <link href="css/member.css" rel="stylesheet" />
+    <link href="css/form.css" rel="stylesheet" />
+    <script src="js/config.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+</head>
+<body class="BL-bg-f2f">
+	<header id="Js-header" class="BL-bg-fff">
+	    <div class="BL-mod-headbar BL-mod-headbar-pos">
+	        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+	        <h1 class="BL-title">续期详情</h1>
+	    </div>
+	</header>
+	<div id="Js-content" class="mui-content BL-rel" v-cloak>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll BL-mar-t-1">
+				<template v-if="policyInfo">
+			    	<div class="renewal-detail-bg">
+			    		<div class="renewal-detail-skin BL-bimg-cover BL-ub BL-ub-ac">
+			    			<div class="renewal-detail-baaner">
+			    				<div>
+			    					<img src="images/pic/inscompany_logo.png" />
+			    				</div>
+			    				<div class="renewal-detail-name">
+			    					{{ policyInfo.product_name }}
+				    			</div>
+				    			<div class="mui-row BL-ftz-42">
+				    				<span class="mui-col-sm-9">
+					    				保单号：{{ policyInfo.policy_sn }}
+					    			</span>
+					    			<span class="mui-col-sm-3 BL-txt-r">
+					    				查看保单
+					    			</span>	
+				    			</div>
+			    			</div>
+			    		</div>
+			    	</div>
+			    	<ul class="mui-table-view form-list-cell">
+						<li class="fItem BL-ub BL-ub-f1">
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">投保人</label>
+							<div class="form-list-control BL-txt-r">{{ policyInfo.holder_name }}</div>
+						</li>
+						<li class="fItem BL-ub BL-ub-f1">
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">被保人</label>
+							<div class="form-list-control BL-txt-r">{{ policyInfo.insured_name }}</div>
+						</li>
+						<li class="fItem BL-ub BL-ub-f1">
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">保障类型</label>
+							<div class="form-list-control BL-txt-r">{{ policyInfo.ins_type }}</div>
+						</li>
+						<li class="fItem BL-ub BL-ub-f1">
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">保障期间</label>
+							<div class="form-list-control BL-txt-r">{{ policyInfo.period_guanantee }}</div>
+						</li>
+						<li class="fItem BL-ub BL-ub-f1">
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">受益人</label>
+							<div class="form-list-control BL-txt-r">{{ policyInfo.is_legal_benefic }}</div>
+						</li>
+					</ul>
+			    	<div class="member-warranty-detail-item">
+			    		<a class="BL-title BL-pad-lr-1_5 BL-ftz-52 BL-txt-l">
+			                <span class="BL-col-3b9cf5">保费信息</span>
+			            </a>
+			    	</div>
+			    	<ul class="mui-table-view form-list-cell" style="margin-top: 0rem;">
+						<li class="fItem BL-ub BL-ub-f1">
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">应交保费</label>
+							<div class="form-list-control BL-txt-r">{{ policyInfo.total }}</div>
+						</li>
+						<li class="fItem BL-ub BL-ub-f1">
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">应交日期</label>
+							<div class="form-list-control BL-txt-r">{{ policyInfo.renewal_date }}</div>
+						</li>
+						<li class="fItem BL-ub BL-ub-f1">
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">交费期间</label>
+							<div class="form-list-control BL-txt-r">{{ policyInfo.period_payment }}</div>
+						</li>
+						<li class="fItem BL-ub BL-ub-f1">
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">扣费账户</label>
+							<div class="form-list-control BL-txt-r">{{ policyInfo.bank_name }}</div>
+						</li>
+						<li class="fItem BL-ub BL-ub-f1">
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">银行卡号</label>
+							<div class="form-list-control BL-txt-r">{{ policyInfo.bank_no }}</div>
+						</li>
+					</ul>
+			    	<div class="member-warranty-detail-item">
+			    		<a class="BL-title BL-pad-lr-1_5 BL-ftz-52 BL-txt-l">
+			                <span class="BL-col-3b9cf5">保险公司信息</span>
+			            </a>
+			    	</div>
+			    	<ul class="mui-table-view form-list-cell">
+						<li class="fItem BL-ub BL-ub-f1">
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ policyInfo.supplier_id }}</label>
+							<div class="form-list-control BL-txt-r BL-col-3b9cf5">{{ policyInfo.company_tel}}</div>
+						</li>
+					</ul>
+				</template>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="js/vue.min.js"></script>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	mui.init();
+	var lifeDetail = new Vue({
+		el: '#Js-content',
+		data: {
+			policy_id: '',   // 保单id
+			policyInfo: null //保单信息
+		}
+	});
+	
+	mui('.mui-scroll-wrapper').scroll({
+		scrollY: true, //是否竖向滚动
+		scrollX: false, //是否横向滚动
+		startX: 0, //初始化时滚动至x
+		startY: 0, //初始化时滚动至y
+		indicators: false, //是否显示滚动条
+		deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
+		bounce: true //是否启用回弹
+	});
+		
+    mui.plusReady(function() {
+        statusbar();
+        var winH = window.innerHeight;
+		var titHeight = document.querySelector('#Js-header').offsetHeight;
+        document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+        
+        window.addEventListener('policyId',function(e){
+			var policy_id = e.detail.policy_id;
+			lifeDetail.policy_id = policy_id
+			renewalPolicyDetails()
+		});
+    });
+    
+    function renewalPolicyDetails(){	
+    	var data = {
+			data: JSON.stringify({
+				policy_id: lifeDetail.policy_id,
+			}),
+			server: 'PolicyIns.renewalPolicyDetails',
+			device: 'mobile'
+		};
+		mui.ajax(config.baseUrl, {
+			data: data,
+			dataType: 'json',
+			type: 'get',
+			success: function (ret) {
+				if (ret.code) {
+					var data = ret.data
+					lifeDetail.policyInfo = data.policyInfo
+				}
+			},
+			error: function () {
+				mui.toast('网络异常,请稍候再试');
+			}
+		});
+	};
+    
+</script>
+</html>
+

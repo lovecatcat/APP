@@ -20,7 +20,7 @@
 			</div>
 		</header>
 		
-		<div id="Js-content"  class="mui-content BL-rel">
+		<div id="Js-content"  class="mui-content BL-rel" v-cloak>
 			<div class="mui-scroll-wrapper">
 				<div class="mui-scroll news-detail">
 					<div class="news-detail-contain">
@@ -101,7 +101,7 @@
 			bounce: true //是否启用回弹
 		});
 		
-		mui.plusReady(function() {
+		mui.ready(function() {
 			
 			statusbar();
 			

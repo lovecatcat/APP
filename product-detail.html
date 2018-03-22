@@ -47,7 +47,7 @@
     <div class="popuer">
         <a class="popu-IconMenu a-link" data-wid="prospect" href="prospect.html"><img
                 src="images/product/menu-prospect.png" alt="计划书"/></a>
-        <a class="popu-IconMenu a-link" data-wid="product_contrast" href="product-contrast.html"><img
+        <a class="popu-IconMenu a-link" data-wid="product_contrast" href="product-contrast.html" :data-id="1"><img
                 src="images/product/menu-pk.png" alt="产品对比"/></a>
     </div>
 </div>
@@ -61,12 +61,14 @@
 
     mui.plusReady(function () {
         statusbar();
+
         //主列表点击事件
+        var extras = null;
+        var detailPage = null;
         mui('body').on('tap', '.a-link', function () {
             var href = this.getAttribute('href');
             var id = this.getAttribute("data-wid");
-            var pid = this.getAttribute("data-id");
-
+            var flag = this.getAttribute("data-id");
             //非plus环境，直接走href跳转
             if (!mui.os.plus) {
                 location.href = href;
@@ -74,31 +76,24 @@
             }
 
             if (href && ~href.indexOf('.html')) {
-                if (pid) {
-                    //打开新窗口
-                    var data = JSON.parse(JSON.stringify(detail.list));
-                    mui.openWindow({
-                        url: href,
-                        id: id,
-                        show: animateObj.aniDetal,
-                        extras: {
-                            list: data
-                        }
-                    });
-                } else {
-                    //打开新窗口
-                    mui.openWindow({
-                        url: href,
-                        id: id,
-                        show: animateObj.aniDetal
-                    });
+                //判断窗口是否存在
+                if (!detailPage) {
+                    detailPage = plus.webview.getWebviewById(id);
                 }
-
-            } else {
-                location.href = href;
-                return;
+                //额外参数
+                if (flag) {
+                    var data = JSON.parse(JSON.stringify(detail.list));
+                    extras = {list: data};
+                }
+                mui.openWindow({
+                    url: href,
+                    id: id,
+                    show: animateObj.aniDetal,
+                    extras: extras
+                });
             }
         });
+
         var detail = new Vue({
             el: '#content',
             data: {

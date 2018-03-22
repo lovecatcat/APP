@@ -204,7 +204,9 @@
             page: product.page,
             row: 10
         };
-        basedata.ins_type = product.current_instype
+        if (product.current_instype) {
+            basedata.ins_type = product.current_instype
+        }
         if (product.companyId) {
             basedata.company_id = product.companyId
         }

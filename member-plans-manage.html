@@ -23,7 +23,7 @@
 						</div>
 					</div>
 					<div class="control">
-						<a>完成</a>
+						<a>编辑</a>
 					</div>
 				</div>
 			</div>
@@ -33,47 +33,42 @@
 			<!------------条件筛选 begin------------->
 			<div id="Js-planFilter" class="plan-filter">
 				<!--时间筛选 begin-->
-				<a class="mui-control-item mui-active">
-					全部
-				</a>
-				<a class="mui-control-item">
-					近三天
-				</a>
-				<a class="mui-control-item">
-					近七天
-				</a>
-				<a class="mui-control-item">
-					近一月
-				</a>
+				<button type="button" :class="{'BL-btn-blue': timeButton === 1, 'BL-btn-gray': timeButton !== 1}" @click="changeTime('')">全部</button>
+				<button type="button" :class="{'BL-btn-blue': timeButton === 3, 'BL-btn-gray': timeButton !== 3}"  @click="changeTime('-3 days')">近三天</button>
+				<button type="button" :class="{'BL-btn-blue': timeButton === 7, 'BL-btn-gray': timeButton !== 7}"  @click="changeTime('-7 days')">近七天</button>
+				<button type="button" :class="{'BL-btn-blue': timeButton === 30, 'BL-btn-gray': timeButton !== 30}"  @click="changeTime('-1 month')">近一月</button> 
 				<!--时间筛选 end -->
 			</div>
 			<!------------条件筛选 end  ------------->
 
 			<!------------产品列表 begin------------->
 			<div id="Js-planList" class="plan-list">
-				<div class="mui-content mui-scroll-wrapper BL-bg-f2f">
+				<div class="mui-content mui-scroll-wrapper BL-bg-f2f BL-pad-t-1">
 					<div class="mui-scroll">
 						<!--活动中，数据列表-->
 						<ul class="mui-table-view plan-list-cell">
-							<li class="BL-ub BL-ub-ac cItem cItem-active">
-								<div class="selected">
+							<li class="BL-ub BL-ub-ac cItem"  v-for="(item, index) in manage_list" 
+								:key="index" :class="{'cItem-active': checkModel.indexOf(item.id) > -1}" @click="goPLandetail(item.id, index)">
+								<div class="selected" v-show="editShow">
 									<div class="mui-icon mui-icon-checkmarkempty"></div>	
 								</div>
-								<a data-wid="product_detail" href="member-plans-detail.html" class="BL-ub BL-ub-f1 pro-content pro-icon-new mui-navigate-right" >
+								<a class="BL-ub BL-ub-f1 pro-content pro-icon-new" :class="{'mui-navigate-right': !editShow}">
 									<div class="img">
-										<img src="images/pic/p6.jpg" />
+										<!--<img src="images/plans/plansManage/130.png" />-->
+										<img :src="'images/plans/plansManage/'+item.customer.safe_id+'.png'">
 									</div>
 									<div class="context BL-ub BL-ub-ver BL-ub-f1">
 										<div class="context-top">
-											<h1 class="tit">横琴优</h1>
-											<div class="mui-btn mui-btn-primary BL-ub-ac btn">
+											<h1 class="tit">{{item.customer.applicant}}</h1>
+											<div class="BL-btn-blue BL-ub-ac btn" v-if="item.group">
 												组合计划
 											</div>
-											<div class="data" style="display: none;">
-												2018-12-12
+											<div class="data" v-show="!editShow">
+												{{item.add_time.slice(0, 10)}}
 											</div>
 										</div>
-										<div class="text">委会副主任张杰辉涉嫌严重违纪</div>
+										<div class="text" v-if="item.alias">{{item.alias}}</div>
+										<div class="text" v-else>{{item.customer.name}}</div>
 									</div>
 								</a>
 							</li>
@@ -84,29 +79,128 @@
 				</div>
 			</div>
 			<!------------产品列表 end  ------------->
-		</div>
-		<footer id="Js-footer" class="BL-footer BL-bg-fff">
-			<div class="BL-ub BL-ub-ac BL-ub-f1">
-				<div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll">
-					<div class="selected">
-						<div class="mui-icon mui-icon-checkmarkempty"></div>	
+			<footer id="Js-footer" class="BL-footer BL-bg-fff" v-show="editShow">
+				<div class="BL-ub BL-ub-ac BL-ub-f1">
+					<div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll"
+						 :class="{'cItem-active': checkedAll}" @click="changeChecked">
+						<div class="selected">
+							<div class="mui-icon mui-icon-checkmarkempty"></div>	
+						</div>
+						<div class="context">
+							全选择
+						</div>
 					</div>
-					<div class="context">
-						全选择
-					</div>
+					<a class="BL-foot-btn-sign BL-foot-btn-det" href="javascript:;" @click="Del">
+						删除
+					</a>
 				</div>
-				<a class="BL-foot-btn-sign BL-foot-btn-det">
-					删除
-				</a>
-			</div>
-		</footer>
+			</footer>
+		</div>
+		
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script src="js/mui.pullToRefresh.js"></script>
 	<script src="js/mui.pullToRefresh.material.js"></script>
+	<script src="js/vue.min.js"></script>
 	<script type="text/javascript">
-		mui.init();
+		var plansManage = new Vue({
+			el: "#Js-content",
+			data: {
+				manage_list: [], //计划书列表
+				editShow: false, //编辑按钮
+				editText: false, //编辑按钮
+				checkModel: [],//选中的复选框 
+				checkedAll: false,//全选
+				prevDate: '', //时间
+				del: false,
+				timeButton: 1, //按钮颜色
+				dataTime: ''  //时间
+			},
+			methods: {
+				//判断是否跳链接
+				goPLandetail: function (id, index) {
+					if (this.editShow) {
+						if(this.checkModel.indexOf(id) > -1){
+							for(var i = 0; i < this.checkModel.length; i++){ 
+								if(this.checkModel[i] == id){ 
+									this.checkModel.splice(i, 1); 
+								} 
+							}								
+						}else{
+							this.checkModel.push(id)
+						}
+						this.$forceUpdate()
+					}else{
+						mui.openWindow({
+							id: 'member_plans_detail',
+							url: 'member-plans-detail.html',
+							show: animateObj.aniDetal,
+							extras:{
+								pl_id: id  //pl_id
+							}
+						});
 
+						
+					}
+					
+				},
+				changeChecked: function() { //全选
+					this.checkModel = []
+					var vm = this
+					this.checkedAll = !this.checkedAll
+					if (this.checkedAll === true) {
+						this.manage_list.forEach(function(value,index){
+							var id = value.id
+							vm.checkModel.push(value.id)
+						})
+					}else{
+						this.checkModel = []
+					}
+				},
+				changeTime: function(dataTime) { //切换时间
+					if(dataTime == '-3 days'){
+					  	this.timeButton = 3
+					}else if(dataTime == '-7 days'){
+					  	this.timeButton = 7
+					}else if(dataTime == '-1 month'){
+					  	this.timeButton = 30
+					}else{
+						this.timeButton = 1
+					}
+					this.dataTime = dataTime
+					this.manage_list = [];
+					mui('#Js-planList .mui-scroll').pullToRefresh().refresh(true);
+					mui('#Js-planList .mui-scroll').pullToRefresh().pullUpLoading();
+				},
+				Del: function() {
+					if(this.checkModel.length < 1){
+						mui.toast('请先选择计划')
+					}else{
+						var data = {
+							modalID : 'modal-config',
+							formID : 'member_plans_manage'
+						}
+						//打开弹框
+						showPopu("popup-content.html", "popup_content", 'center', data);
+					}
+				},
+			},
+			watch: {
+				//监听单个选择框的改变
+				checkModel: {
+					handler: function (){
+						if(this.checkModel.length === this.manage_list.length) {
+							this.checkedAll = true
+						} else {
+							this.checkedAll = false
+						}
+					},
+					deep:true
+				}
+			}
+		})
+
+		mui.init();
 		(function($) {
 			//阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
@@ -115,7 +209,7 @@
 				indicators: false, //是否显示滚动条
 				deceleration: deceleration
 			});
-			$.ready(function() {
+			$.plusReady(function() {
 				statusbar();
 				var winH = window.innerHeight;
 				var titHeight = document.querySelector('#Js-header').offsetHeight;
@@ -125,75 +219,83 @@
 				//document.querySelector('#Js-list').style.height = (winH - topHeight - mainHeight) + 'px';
 
 				var i = 0;
+				var self;
 
 				//循环初始化所有下拉刷新，上拉加载。
-
+				var pullAjax = function() {
+					var data = {
+						server: 'Proposal.log',
+						data: JSON.stringify({
+							user_id: 65,
+							fields: "", //要显示什么字段
+							_prevDate: plansManage.dataTime,
+							page: i
+						}),
+						device: 'mobile'
+					};
+					$.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
+						if(res.code == 1 && i <= res.data.totalPage) {
+							plansManage.manage_list = plansManage.manage_list.concat(res.data.list)
+							self.endPullUpToRefresh(false)
+						} else {
+							plansManage.manage_list = []
+                            self.endPullUpToRefresh(true)
+						}
+					});
+				}
 				$('#Js-planList .mui-scroll').pullToRefresh({
 					up: { // 上拉加载更多
 						auto: true, // 自动上拉一次
 						callback: function() {
 							i++;
 
-							var self = this;
-							setTimeout(function() {
-								var ul = self.element.querySelector('.mui-table-view');
-								ul.appendChild(createFragment(ul, 5));
-								if(i > 2) {
-									self.endPullUpToRefresh(true);
-								} else {
-									self.endPullUpToRefresh();
-								}
-							}, 1000);
+							self = this;
+							pullAjax()
 						}
 					}
 				});
 
-				var createFragment = function(ul, count) {
-					var length = ul.querySelectorAll('li').length;
-					var fragment = document.createDocumentFragment();
-					var li;
-					for(var i = 0; i < count; i++) {
-						li = document.createElement('li');
-						li.className = 'BL-ub BL-ub-ac cItem';
-						li.innerHTML = '<div class="selected"><div class="mui-icon mui-icon-checkmarkempty"></div></div>'+
-						'<div class="BL-ub BL-ub-f1 pro-content pro-icon-new mui-navigate-right" >'+
-						'<div class="img"><img src="images/pic/p6.jpg" /></div>'+
-						'<div class="context BL-ub BL-ub-ver BL-ub-f1">'+
-						'<div class="context-top"><h1 class="tit">横琴优</h1>'+
-						'<div class="mui-btn mui-btn-primary BL-ub-ac btn">组合计划</div>'+
-						'<div class="data">2018-12-12</div></div>'
-						'<div class="text">委会副主任张杰辉涉嫌严重违纪</div>'+
-						'</div></div>';
-						fragment.appendChild(li);
-					}
-					return fragment;
-				};
-
+				//点击编辑
+                document.querySelector('.control a').addEventListener('tap', function() {
+                   plansManage.editShow = !plansManage.editShow 
+                   this.innerText= this.innerText == '编辑' ? '完成' : '编辑'
+                }, false);
+                
+                //添加弹框sure自定义事件监听,从弹框返回来的确定状态
+				window.addEventListener('sure',function(event){
+					var arr = []
+                    var check = ''; //需要删除的数据
+					mui.each(plansManage.manage_list, function(index, item){
+						if(plansManage.checkModel.indexOf(plansManage.manage_list[index].id) < 0){
+							arr.push(plansManage.manage_list[index])
+						} else{
+                            check += plansManage.manage_list[index].id + ','
+                        }
+					})
+					
+                    check = check.substring(0,check.length - 1);
+					plansManage.manage_list = arr
+//					删除
+                    var data = {
+                        server: 'Proposal.hide',
+                        data: JSON.stringify({
+                            pl_id: check
+                        }),
+                        device: 'mobile'
+                    };
+                    
+					$.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
+						if(res.code == 1) {
+							mui.toast('删除成功')
+						} else {
+                            mui.toast('删除失败')
+						}
+					});
+				});
 			});
 
 		}(mui));
 
-		//主列表点击事件
-		mui('body').on('tap', 'a', function() {
-			var href = this.getAttribute('href');
-			var id = this.getAttribute("data-wid");
-
-			//非plus环境，直接走href跳转
-			if(!mui.os.plus) {
-				location.href = href;
-				return;
-			};
-
-			if(href && ~href.indexOf('.html')) {
-				//打开新窗口
-				mui.openWindow({
-					id: id,
-					url: href,
-					show: animateObj.aniDetal
-				});
-			}
-
-		});
 	</script>
 
 </html>

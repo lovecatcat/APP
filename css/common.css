@@ -126,7 +126,12 @@ i {
 	position: absolute;
 }
 
-
+.BL-hide{
+	display: none !important;
+}
+.BL-show{
+	display: block !important;
+}
 /* 背景图片(base样式) = BL-bimg- */
 
 .BL-bimg-cover {

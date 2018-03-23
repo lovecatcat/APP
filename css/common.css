@@ -453,6 +453,10 @@ i {
 .BL-mar-t-1 {
 	margin-top: 1rem;
 }
+.BL-mar-t-b-1 {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
 .BL-mar-t-2 {
 	margin-top: 2rem;
 }

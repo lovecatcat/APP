@@ -47,7 +47,8 @@
     <div class="popuer">
         <a class="popu-IconMenu a-link" data-wid="prospect" href="prospect.html"><img
                 src="images/product/menu-prospect.png" alt="计划书"/></a>
-        <a class="popu-IconMenu a-link" data-wid="product_contrast" href="product-contrast.html" :data-id="1"><img
+        <a class="popu-IconMenu a-link" data-wid="product_contrast" href="product-contrast.html" :data-id="1"
+           v-show="list.compare"><img
                 src="images/product/menu-pk.png" alt="产品对比"/></a>
     </div>
 </div>
@@ -83,7 +84,7 @@
                 //额外参数
                 if (flag) {
                     var data = JSON.parse(JSON.stringify(detail.list));
-                    extras = {list: data};
+                    extras = {list: data, flag: 2};
                 }
                 mui.openWindow({
                     url: href,

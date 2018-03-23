@@ -127,7 +127,8 @@
     <div class="popuer">
         <a data-wid="prospect" href="prospect.html" class="popu-IconMenu a-link"><img
                 src="images/product/menu-prospect.png" alt="计划书"/></a>
-        <a data-wid="product_contrast" href="product-contrast.html" class="popu-IconMenu a-link"><img
+        <a data-wid="product_contrast" href="product-contrast.html" :data-tid="current_instype"
+           class="popu-IconMenu a-link"><img
                 src="images/product/menu-pk.png" alt="产品对比" v-show="current_instype"/></a>
     </div>
 </div>
@@ -251,7 +252,6 @@
                             product.list.push(item);
                         });
                     }
-                    product.list.concat(data.data.list);
                     mui.toast(data.msg, {duration: 'short', type: 'div'});
                 } else {
                     mui.toast(data.msg, {duration: 'short', type: 'div'});
@@ -273,6 +273,7 @@
         var id = this.getAttribute("data-wid");
         var pid = this.getAttribute('data-id');
         var cid = this.getAttribute('data-cid');
+        var tid = this.getAttribute('data-tid');
 
         //非plus环境，直接走href跳转
         if (!mui.os.plus) {
@@ -291,6 +292,9 @@
             }
             if (cid) {
                 extras = {company_id: cid};
+            }
+            if (tid) {
+                extras = {ins_type: tid, flag: 1};
             }
         }
         //打开新窗口

@@ -1622,7 +1622,8 @@
 				],
 				"refer": [
 					"product-contrast-detail.html",
-					"product-contrast-delete.html"
+					"product-contrast-delete.html",
+					"product-contrast-add.html"
 				],
 				"priority": 4
 			},

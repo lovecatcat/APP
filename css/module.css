@@ -552,7 +552,7 @@
 /*链接弹框*/
 .BL-modal-content>.BL-modal-list {
 	position: relative;
-	padding-left: 3rem;
+	padding-left: 4rem;
 	line-height: 3.8125rem;
 }
 .BL-modal i {
@@ -566,10 +566,10 @@
 	transform: translate(0%, -50%);
 }
 .BL-modal-icon-0 {
-	background: url(../images/icon/ico-cmis-count.png) no-repeat;
+	background: url(../images/icon/plan_link.jpg) no-repeat;
 }
 .BL-modal-icon-1 {
-	background: url(../images/icon/ico-cmis-income.png) no-repeat;
+	background: url(../images/icon/plan_link2.jpg) no-repeat;
 }
 /*雨晴表格弹框*/
 .BL-modal-tab {
@@ -612,27 +612,25 @@
 	bottom: 0;
 	z-index: 100; 
 	width: 100%;
+	max-height: 30rem;
+	overflow-y: auto;
+}
+.BL-modal-bottom-2 {
+	background: #fff;
+	position: fixed;
+	bottom: 0;
+	z-index: 100; 
+	width: 100%;
+	overflow-y: hidden;
+}
+.BL-modal-bottom h3{
+	font-size: 1.625rem;
+	padding: .5rem 0;
+}
+.BL-modal-bottom p{
+	font-size: 1.4375rem;
 }
  
-@keyframes myfirst
-{
-from {height: 0rem;}
-}
-
-@-moz-keyframes myfirst /* Firefox */
-{
-from {height: 0rem;}
-}
-
-@-webkit-keyframes myfirst /* Safari and Chrome */
-{
-from {height: 0rem;}
-}
-
-@-o-keyframes myfirst /* Opera */
-{
-from {height: 0rem;}
-}
 /*提示弹框*/
 .BL-modal-content-button {
 	border-top: 1px solid #d2d2d2;
@@ -649,3 +647,15 @@ from {height: 0rem;}
 .BL-modal-content-button button:first-child{
 	border-right: 1px solid #d2d2d2;
 }
+
+.modal-form-img div{
+	width: 50%;
+	height: 8.125rem;
+	float: left;
+	padding: .5rem;
+}
+.modal-form-img div img{
+	width: 100%;
+	height: 100%;
+}
+

@@ -22,13 +22,13 @@
 }
 .BL-ul li:after{display:block;clear:both;content:"";visibility:hidden;height:0} 
 .BL-ftz-42{
-	font-size: 1.3125rem;
+	font-size: 1.3125rem !important;
 }
 .BL-ftz-46{
-	font-size: 1.4375rem;
+	font-size: 1.4375rem !important;
 }
 .BL-ftz-52{
-	font-size: 1.625rem;
+	font-size: 1.625rem !important;
 }
 .BL-border-b{
 	border-bottom: 1px solid #e7e7e7;
@@ -67,6 +67,10 @@
 .BL-segmented-control .plans-nav.mui-active span{
 	color: #3b9cf5 !important;
 	border-bottom: 0.1875rem solid #3b9cf5 !important;
+}
+.modal-form-nav .plans-nav{
+	width: 25% !important;
+	float: left;design
 }
 
 /* 列表筛选——搜索框 */
@@ -267,6 +271,9 @@
 .plans-detail-behalf .title button{
 	margin-top: .35rem;
 }
+.plans-detail-behalf .content{
+	margin-bottom: 1rem;
+}
 .plans-detail-design img{
 	display: inline-block;
 	width: auto;
@@ -278,7 +285,7 @@
 	width: 2.6rem;
 	height: 2.6rem;
 	right: 0;
-	background: url(../images/plans/prospectus/plan_del.png) no-repeat;
+	background: url(../images/icon/plan_del.png) no-repeat;
 	background-size: cover;
 }
 

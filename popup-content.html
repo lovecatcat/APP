@@ -112,13 +112,14 @@
 				</div>
 			</div>
 		</div>
-		
-		</div>
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/vue.min.js" ></script>
 	<script type="text/javascript">
-		var popu = new ClosePopu();
+		
+		
+		mui.init();
+		var popu;
 		var modal = new Vue({
 			el: '#modal',
 			data: {
@@ -131,8 +132,10 @@
 					//点击确定，吧状态传回去
 					if(this.formID == 'member_plans_manage'){
 						mui.fire(plus.webview.getWebviewById('member_plans_manage'), 'sure');
-					}else if(this.formID == 'member_plans_total2'){
-						mui.fire(plus.webview.getWebviewById('member_plans_total2'), 'sure');
+					}else if(this.formID == 'member_plans_total'){
+						mui.fire(plus.webview.getWebviewById('member_plans_total'), 'sure');
+					}else if(this.formID == 'member_plans_alone'){
+						mui.fire(plus.webview.getWebviewById('member_plans_alone'), 'sure');
 					}
 					popu.closepop();
 				},
@@ -141,11 +144,11 @@
 				}
 			}
 		})
-		mui.init();
 		
 		mui.plusReady(function() {
 			
-			 // 实例化关闭窗口对象
+			// 实例化关闭窗口对象
+			popu = new ClosePopu();
 			var data = plus.webview.currentWebview().data;
 			modal.isHide = data.modalID
 			modal.formID = data.formID
@@ -160,6 +163,8 @@
 				// 关闭遮罩层，弹框
 				popu.closepop();
 			},false);
+			
+			
 		});
 	</script>
 

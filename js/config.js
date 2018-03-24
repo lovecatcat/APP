@@ -66,7 +66,7 @@ function isLogin(){
     }
 }
 // 打开遮罩层，弹框
-function showPopu(url, id, type) {
+function showPopu(url, id, type, data) {
 	var _self = plus.webview.currentWebview();
 	var _mask = null; // 窗口：弹框对象
 	var move = {};
@@ -79,8 +79,12 @@ function showPopu(url, id, type) {
 		width: "100%",
 		height: '100%',
 		background: 'transparent',
-		popGesture: "none"
-	});
+		popGesture: "none"	
+		},
+		{
+			data: data
+		}
+	);
 	
 	switch(type){
 		case 'center':

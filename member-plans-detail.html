@@ -19,17 +19,17 @@
 		</div>
 	</header>
 
-	<div id="Js-content" class="mui-content">
+	<div id="Js-content" class="mui-content" v-cloak>
 		<div>
 			<!--分类栏目 begin-->
 			<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
 				<div class="mui-scroll">
-					<div data-wid="member_plans_total2" href="member-plans-total2.html" class="plans-nav mui-active">
+					<div data-wid="member_plans_total" href="member-plans-total.html" class="plans-nav mui-active">
 						<span>汇总</span>
 					</div>
 					<div data-wid="member_plans_alone" href="member-plans-alone.html" class="plans-nav" 
 						v-for="(item, index) in detail_list" :key="index" :data-id="pl_id[index]" :data-index="index">
-						<span >{{item.main.name}}</span>
+						<span >{{item.main.short_name}}</span>
 					</div>
 				
 				</div>
@@ -48,7 +48,8 @@
 		data: {
 			detail_list: [],
 			pl_id: [],
-			aloneId: ''
+			aloneId: '',
+			adviser: ''
 		}
 	})
 	mui.init();
@@ -73,8 +74,8 @@
 			viewHeight: _viewH,
 			isDrag: false,
 			items: [{
-				id: "member_plans_total2",
-				url: "member-plans-total2.html",
+				id: "member_plans_total",
+				url: "member-plans-total.html",
 				extras: {
 					pl_id: pl_id
 				}
@@ -94,18 +95,23 @@
 				}
 				this.classList.add("mui-active");
 			var wid = this.getAttribute("data-wid");
+			group.switchTab(wid);
 			var id = this.getAttribute("data-id");
 			var index = this.getAttribute("data-index");
-			plansDetail.aloneId = id
-			group.switchTab(wid);
-			var alone_self = plus.webview.getWebviewById('member_plans_alone');
-			if(alone_self){
-				setTimeout(function(){
-					mui.fire(alone_self,'alone', {
-						data: plansDetail.detail_list[index],
-					});
-				},300)
+			if(id){
+				plansDetail.aloneId = id
+				var alone_self = plus.webview.getWebviewById('member_plans_alone');
+				var alone_table = plus.webview.getWebviewById('member_plans_alone_table');
+				if(alone_self){
+					setTimeout(function(){
+						mui.fire(alone_self,'alone', {
+							data: plansDetail.detail_list[index],
+							adviser: plansDetail.adviser
+						});
+					},300)
+				}
 			}
+			
 			
 		});
 		
@@ -121,6 +127,7 @@
 		};
 		mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
 			if(res.code == 1) {
+				plansDetail.adviser = res.data.adviser
 				if(res.data.content) {
 					// 第一个plid下面的数据，主plid
 					mui.each(res.data.content, function(index, item){

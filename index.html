@@ -41,13 +41,23 @@
 		//localStorage.setItem("navHeight", document.querySelector('#Js-nav').offsetHeight); // 储存底部导航高度 
 		
 		mui.plusReady(function() {
+            var userinfo = plus.storage.getItem('userinfo');
+            if(!userinfo){
+                mui.openWindow({
+                    url:'login.html',
+                    id:'login',
+                    show:{
+                        aniShow:'none'
+                    }
+                });
+                return false;
+            };
 			/**
 			 * 当前窗口对象，即父窗口；
 			 */
 			var self = plus.webview.currentWebview();
 			// 子窗口地址数组
-			var subpages = ["index-content.html", "prospect.html", "member.html"];
-//			var subpages = ["index-content.html"];
+			var subpages = ["index-content.html", "prospect.html", "news.html", "member.html"];
 			// 子窗口样式
 			var subStyles = {
 				top: "0px",

@@ -371,9 +371,9 @@
                         } else {
                             temp += '<div class="mui-indicator"></div>'
                         }
-                        bhtml += '<div class="mui-slider-item"><a href="#"><img src="' + item + '" id="img' + index + '"></a></div>'
+                        bhtml += '<div class="mui-slider-item"><a href="#"><img src="' + item + '"></a></div>'
                     });
-                    bhtml += '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="' + bannerlist[0] + '" id="img' + bannerlist.length + 1 + '"></a></div>'
+                    bhtml += '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="' + bannerlist[0] + '"></a></div>'
                     temp = '<div class="mui-slider-indicator">' + temp + '</div>';
                     append(document.getElementById("slider-html"), bhtml);
                     append(document.getElementById("slider"), temp);

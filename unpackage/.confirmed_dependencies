@@ -4,7 +4,8 @@
 			"news.html",
 			"member.html",
 			"prospect.html",
-			"index-content.html"
+			"index-content.html",
+			"login.html"
 		],
 		"resources": [
 			"js/mui.min.js",
@@ -333,7 +334,8 @@
 		],
 		"refer": [
 			"product-contrast-detail.html",
-			"product-contrast-delete.html"
+			"product-contrast-delete.html",
+			"product-contrast-add.html"
 		],
 		"priority": 0
 	},
@@ -350,7 +352,8 @@
 			"images/product/menu-pk.png"
 		],
 		"refer": [
-			"product-contrast.html"
+			"product-contrast.html",
+			"product-company.html"
 		],
 		"priority": 0
 	},
@@ -458,7 +461,8 @@
 			"insurance-index.html",
 			"ins2c.html",
 			"member-duty.html",
-			"shop.html"
+			"shop.html",
+			"product-detail.html"
 		],
 		"priority": 0
 	},
@@ -498,7 +502,8 @@
 			"css/common.css",
 			"css/module.css",
 			"css/news.css",
-			"js/config.js"
+			"js/config.js",
+			"member-plans-total2.html"
 		],
 		"refer": [
 			"member-plans-alone.html",
@@ -506,7 +511,8 @@
 			"member-plans-total.html",
 			"news-tv-detail.html",
 			"news-business.html",
-			"news-finance.html"
+			"news-finance.html",
+			"member-plans-total2.html"
 		],
 		"priority": 0
 	},
@@ -524,7 +530,8 @@
 			"js/config.js"
 		],
 		"refer": [
-			"member-plans-detail.html"
+			"member-plans-detail.html",
+			"popup-content.html"
 		],
 		"priority": 0
 	},
@@ -680,7 +687,8 @@
 			"member-setup.html",
 			"login.html",
 			"member-warranty-manage.html",
-			"member-birthday.html"
+			"member-birthday.html",
+			"member-renewal.html"
 		],
 		"priority": 0
 	},
@@ -827,7 +835,8 @@
 		],
 		"refer": [
 			"member-intergral-all.html",
-			"member-intergral-activity.html"
+			"member-intergral-activity.html",
+			"member-intergral-experience.html"
 		]
 	},
 	"member-setup.html": {
@@ -840,7 +849,8 @@
 	"login.html": {
 		"refer": [
 			"member-changepwd.html",
-			"member-forgetpwd.html"
+			"member-forgetpwd.html",
+			"index.html"
 		],
 		"resources": []
 	},
@@ -886,6 +896,30 @@
 		"refer": [
 			"member-birthday-customer.html",
 			"member-birthday-team.html"
+		]
+	},
+	"member-renewal.html": {
+		"resources": [
+			"member-renewal-life.html"
+		],
+		"refer": [
+			"member-renewal-auto.html",
+			"member-renewal-life.html"
+		]
+	},
+	"member-renewal-life.html": {
+		"refer": [
+			"member-renewal-liftdetail.html"
+		]
+	},
+	"member-warranty-manageLife.html": {
+		"refer": [
+			"member-warranty-manageLife-detail.html"
+		]
+	},
+	"member-team-performance.html": {
+		"refer": [
+			"team-personal-performance.html"
 		]
 	}
 }

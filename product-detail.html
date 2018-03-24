@@ -19,19 +19,19 @@
         <a class="BL-icon BL-icon-share"></a>
     </div>
 </header>
-<div id="content">
+<div id="content" v-if="info" v-cloak>
     <div class="plans-detail-fixed">
-        <div>保险公司</div>
-        <div>条款详情</div>
+        <div class="a-link" href="product-company.html" data-wid="product_company" data-id="1">保险公司</div>
+        <div @click="showStatement">条款详情</div>
     </div>
-    <div id="Js-content" class="mui-content product" v-if="list" v-html="list.mobile_details">
+    <div id="Js-content" class="mui-content product" v-html="info.mobile_details">
     </div>
 
-    <footer id="Js-footer" class="BL-footer BL-bg-fff" v-if="list" v-cloak>
+    <footer id="Js-footer" class="BL-footer BL-bg-fff">
         <div class="BL-ub BL-ub-ac BL-ub-f1">
             <div class="BL-ub BL-ub-f1 BL-ub-ae BL-foot-integ">
                 <div class="integ-number">
-                    {{list.price}}
+                    {{info.price}}
                 </div>
                 <div class="integ-text BL-col-333">
                     元起
@@ -45,8 +45,10 @@
 
     <!------------悬浮控制按钮 begin-------------->
     <div class="popuer">
-        <a data-wid="prospect" href="prospect.html" class="popu-IconMenu"><img src="images/product/menu-prospect.png" alt="计划书"/></a>
-        <a data-wid="product_contrast" href="product-contrast.html" class="popu-IconMenu"><img
+        <a class="popu-IconMenu a-link" data-wid="prospect" href="prospect.html"><img
+                src="images/product/menu-prospect.png" alt="计划书"/></a>
+        <a class="popu-IconMenu a-link" data-wid="product_contrast" href="product-contrast.html" :data-id="1"
+           v-show="info.compare"><img
                 src="images/product/menu-pk.png" alt="产品对比"/></a>
     </div>
 </div>
@@ -58,44 +60,60 @@
 <script type="text/javascript">
     mui.init();
 
-    //主列表点击事件
-    mui('body').on('tap', 'a', function () {
-        var href = this.getAttribute('href');
-        var id = this.getAttribute("data-wid");
-
-        //非plus环境，直接走href跳转
-        if (!mui.os.plus) {
-            location.href = href;
-            return;
-        }
-
-        if (href && ~href.indexOf('.html')) {
-            //打开新窗口
-            mui.openWindow({
-                id: id,
-                show: animateObj.aniDetal
-            });
-        }
-    });
-    var detail = new Vue({
-        el: '#content',
-        data: {
-            list: ''
-        }
-    });
     mui.plusReady(function () {
-
         statusbar();
-        //添加productId自定义事件监听
-        window.addEventListener('productId', function (event) {
-            var id = event.detail.id;
-            if (id) {
-                getData(event.detail.id);
+
+        //主列表点击事件
+        var extras = null;
+        var detailPage = null;
+        mui('body').on('tap', '.a-link', function () {
+            var href = this.getAttribute('href');
+            var id = this.getAttribute("data-wid");
+            var flag = this.getAttribute("data-id");
+            //非plus环境，直接走href跳转
+            if (!mui.os.plus) {
+                location.href = href;
+                return;
+            }
+
+            if (href && ~href.indexOf('.html')) {
+                //判断窗口是否存在
+                if (!detailPage) {
+                    detailPage = plus.webview.getWebviewById(id);
+                }
+                //额外参数
+                if (flag) {
+                    var data = JSON.parse(JSON.stringify(detail.info));
+                    extras = {list: data, flag: 2};
+                }
+                mui.openWindow({
+                    url: href,
+                    id: id,
+                    show: animateObj.aniDetal,
+                    extras: extras
+                });
             }
         });
 
+        var detail = new Vue({
+            el: '#content',
+            data: {
+                info: ''
+            },
+            methods: {
+                //用手机浏览器打开pdf
+                showStatement: function () {
+                    var url = this.info.statement;
+                    plus.runtime.openURL(url);
+                }
+            }
+        });
+        getData(plus.webview.currentWebview().product_id);
+
+        //获取产品详情
         function getData(id) {
             console.log(JSON.stringify({product_id: id}));
+            plus.nativeUI.showWaiting();
             mui.ajax('http://www.luckyins.com/api/api/invoke', {
                 data: {
                     data: JSON.stringify({product_id: id}),
@@ -107,10 +125,11 @@
                 timeout: 10000,//超时时间设置为10秒；
                 headers: {'Content-Type': 'application/json'},
                 success: function (data) {
+                    plus.nativeUI.closeWaiting();
                     console.log(JSON.stringify(data))
                     if (data.code === 1) {
-                        detail.list = data.data;
-                        mui.toast(data.msg, {duration: 'short', type: 'div'})
+                        detail.info = data.data;
+//                        mui.toast(data.msg, {duration: 'short', type: 'div'})
                     } else {
                         mui.toast(data.msg, {duration: 'short', type: 'div'})
                         return false;

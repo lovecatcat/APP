@@ -17,7 +17,7 @@
         <div class="BL-ub BL-ub-ac headbar-search">
             <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
             <div class="search search-pro BL-ub BL-ub-ac BL-ub-f1">
-                <input type="search" name="Js-search" id="Js-search" value="搜索关键词" class="BL-ub BL-ub-f1" />
+                <input type="search" name="Js-search" id="Js-search" value="搜索关键词" class="BL-ub BL-ub-f1"/>
                 <div class="button">
                     <span class="BL-bimg-contain">&nbsp;</span>
                 </div>
@@ -95,7 +95,6 @@
 			</div>
 		</div>
 
-
 </body>
 <script src="js/mui.min.js" type="text/javascript"></script>
 <script src="js/webviewGroup.js" type="text/javascript"></script>
@@ -121,7 +120,8 @@
         var _viewH = winH - _divH; // 内容区域高度
         var _self = plus.webview.currentWebview();
 
-        var group = new webviewGroup(_self.id, {
+        window.addEventListener('loadpage', function () {
+            var group = new webviewGroup(_self.id, {
                 topHeight: _divH,
                 viewHeight: _viewH,
                 items: [{
@@ -157,7 +157,7 @@
                     }
                 }
             });
-
+        });
         mui(".mui-scroll").on("tap", ".mui-control-item", function (e) {
             var wid = this.getAttribute("data-wid");
             group.switchTab(wid);

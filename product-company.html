@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>公司介绍</title>
+    <link href="css/mui.css" rel="stylesheet"/>
+    <link href="css/common.css" rel="stylesheet"/>
+    <link href="css/module.css" rel="stylesheet"/>
+    <link href="css/product.css" rel="stylesheet"/>
+    <script src="js/config.js" type="text/javascript"></script>
+</head>
+
+<body class="BL-bg-f2f">
+<header id="Js-header" class="BL-bg-fff">
+    <div class="BL-mod-headbar BL-mod-headbar-pos">
+        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+        <h1 class="BL-title">公司介绍</h1>
+        <a class="BL-icon BL-icon-share"></a>
+    </div>
+</header>
+<div id="Js-content" class="mui-content product" v-html="list.company_describe" v-if="list" v-cloak></div>
+
+<!------------悬浮控制按钮 end --------------->
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/vue.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mui.init();
+
+    var company = new Vue({
+        el: '#Js-content',
+        data: {
+            list: ''
+        }
+    });
+    mui.plusReady(function () {
+        statusbar();
+        company.list = plus.webview.currentWebview().list;
+    })
+</script>
+
+</html>

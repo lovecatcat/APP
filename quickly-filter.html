@@ -96,6 +96,7 @@
             });
             //接收上一个页面传来的公司id
             company.companyId = plus.webview.currentWebview().company_id;
+            plus.nativeUI.showWaiting();
             $.ajax('http://www.luckyins.com/api/api/invoke', {
                 data: {
                     device: 'pad',
@@ -106,13 +107,14 @@
                 timeout: 10000,//超时时间设置为10秒；
                 headers: {'Content-Type': 'application/json'},
                 success: function (data) {
+                    plus.nativeUI.closeWaiting();
                     console.log(JSON.stringify(data));
                     if (data.code === 1) {
                         company.list = data.data;
                         var winH = window.innerHeight;
                         var titHeight = document.querySelector('#Js-header').offsetHeight;
                         document.querySelector('#Js-business').style.height = winH - titHeight + 'px';
-                        $.toast(data.msg, {duration: 'short', type: 'div'});
+//                        $.toast(data.msg, {duration: 'short', type: 'div'});
                     } else {
                         $.toast(data.msg, {duration: 'short', type: 'div'});
                         return false;

@@ -103,7 +103,7 @@
 			<div class="mui-scroll">
 				<!--活动中，数据列表-->
 				<ul class="mui-table-view product-list-cell">
-					<li class="cItem" v-for="(item,index) in list" :key="index" v-if="list">
+					<li class="cItem" v-for="(item,index) in listdata" :key="index" v-if="listdata">
 						<div class="BL-ub BL-ub-f1 pro-content pro-icon-new">
 							<div class="img a-link" :data-id="item.id" data-wid="product_detail" href="product-detail.html">
 								<img :src="item.image_url" @error="item.image_url='images/pic/p6.jpg'"/>
@@ -147,7 +147,7 @@
             ordertype: '', //1按价格上升 2按价格下降 3按销量 4保险公司
             page: 0,
             companyId: '',
-            list: [],
+            listdata: [],
             instype: []
         },
         watch: {
@@ -219,6 +219,7 @@
         } else if (product.ordertype === 4 && product.companyId) {
             basedata.company_id = product.companyId;
         }
+        plus.nativeUI.showWaiting();
         console.log(JSON.stringify(basedata));
         mui.ajax('http://www.luckyins.com/api/api/invoke', {
             data: {
@@ -231,7 +232,8 @@
             timeout: 10000,//超时时间设置为10秒；
             headers: {'Content-Type': 'application/json'},
             success: function (data) {
-                console.log(JSON.stringify(data))
+                console.log(JSON.stringify(data));
+                plus.nativeUI.closeWaiting();
                 if (data.code) {
                     if (product.page >= data.data.totalPage) {
                         self.endPullUpToRefresh(true);
@@ -239,15 +241,14 @@
                         self.endPullUpToRefresh();
                     }
                     if (e) {
-                        product.list = data.data.list;
+                        product.listdata = data.data.list;
                     } else {
                         var list = data.data.list;
                         mui.each(list, function (index, item) {
-                            product.list.push(item);
+                            product.listdata.push(item);
                         });
                     }
-                    product.list.concat(data.data.list);
-                    mui.toast(data.msg, {duration: 'short', type: 'div'});
+//                    mui.toast(data.msg, {duration: 'short', type: 'div'});
                 } else {
                     mui.toast(data.msg, {duration: 'short', type: 'div'});
                     return false;

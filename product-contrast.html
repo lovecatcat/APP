@@ -25,7 +25,7 @@
             <div class="mui-content mui-scroll-wrapper BL-bg-f2f">
                 <div class="mui-scroll">
                     <!--活动中，数据列表-->
-                    <div class="contr-listAdd" v-if="list">
+                    <div class="contr-listAdd" v-if="listdata">
                         <div class="BL-ub BL-ub-ac item item-active" v-if="flag===2">
                             <div class="selected a-disabled">
                                 <div class="mui-icon mui-icon-checkmarkempty"></div>
@@ -36,7 +36,7 @@
                             </div>
                         </div>
                         <div class="BL-ub BL-ub-ac item" :class="{'item-active':item.checked}"
-                             @click="item.checked=!item.checked" v-for="(item,index) in list"
+                             @click="item.checked=!item.checked" v-for="(item,index) in listdata"
                              v-if="(item.id!=product_id&&flag===2&&item.compare)||(flag===1&&item.compare)">
                             <div class="selected">
                                 <div class="mui-icon mui-icon-checkmarkempty">{{item.checked}}</div>
@@ -81,12 +81,12 @@
             flag: '',//1从列表页过来 2从详情页过来
             info: {}, //当前险种信息
             product_id: '',//当前险种id
-            list: [], //同类险种列表
+            listdata: [], //同类险种列表
             length: '',
             checkedGoods: ''
         },
         watch: {
-            list: {
+            listdata: {
                 handler: function (val) {
                     var i = this.flag === 1 ? 0 : 1;
                     var j = this.flag === 1 ? '' : this.product_id
@@ -154,7 +154,8 @@
             row: 10,
             ins_type: contrast.type
         }
-        console.log(JSON.stringify(basedata))
+        console.log(JSON.stringify(basedata));
+        plus.nativeUI.showWaiting();
         mui.ajax('http://www.luckyins.com/api/api/invoke', {
             data: {
                 device: 'pad',
@@ -167,6 +168,7 @@
             headers: {'Content-Type': 'application/json'},
             success: function (data) {
 //                console.log(JSON.stringify(data))
+                plus.nativeUI.closeWaiting();
                 if (data.code) {
                     if (contrast.page >= data.data.totalPage) {
                         self.endPullUpToRefresh(true);
@@ -178,13 +180,13 @@
                         item.checked = false;
                     });
                     if (e) {
-                        contrast.list = list;
+                        contrast.listdata = list;
                     } else {
                         mui.each(list, function (index, item) {
-                            contrast.list.push(item);
+                            contrast.listdata.push(item);
                         });
                     }
-                    mui.toast(data.msg, {duration: 'short', type: 'div'});
+//                    mui.toast(data.msg, {duration: 'short', type: 'div'});
                 } else {
                     mui.toast(data.msg, {duration: 'short', type: 'div'});
                     return false;

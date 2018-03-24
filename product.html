@@ -103,7 +103,7 @@
                 <div class="mui-scroll">
                     <!--活动中，数据列表-->
                     <ul class="mui-table-view product-list-cell">
-                        <li class="cItem" v-for="(item,index) in list" :key="index" v-if="list">
+                        <li class="cItem" v-for="(item,index) in listdata" :key="index" v-if="listdata">
                             <div :data-id="item.id" data-wid="product_detail" href="product-detail.html"
                                  class="BL-ub BL-ub-f1 pro-content pro-icon-new a-link">
                                 <div class="img">
@@ -149,7 +149,7 @@
             ordertype: '', //1按价格上升 2按价格下降 3按销量 4保险公司
             page: 0,
             companyId: '',
-            list: [],
+            listdata: [],
             instype: []
         },
         watch: {
@@ -226,6 +226,7 @@
             basedata.company_id = product.companyId;
         }
         console.log(JSON.stringify(basedata));
+        plus.nativeUI.showWaiting();
         mui.ajax('http://www.luckyins.com/api/api/invoke', {
             data: {
                 device: 'pad',
@@ -238,6 +239,7 @@
             headers: {'Content-Type': 'application/json'},
             success: function (data) {
                 console.log(JSON.stringify(data))
+                plus.nativeUI.closeWaiting();
                 if (data.code) {
                     if (product.page >= data.data.totalPage) {
                         self.endPullUpToRefresh(true);
@@ -245,14 +247,14 @@
                         self.endPullUpToRefresh();
                     }
                     if (e) {
-                        product.list = data.data.list;
+                        product.listdata = data.data.list;
                     } else {
                         var list = data.data.list;
                         mui.each(list, function (index, item) {
-                            product.list.push(item);
+                            product.listdata.push(item);
                         });
                     }
-                    mui.toast(data.msg, {duration: 'short', type: 'div'});
+//                    mui.toast(data.msg, {duration: 'short', type: 'div'});
                 } else {
                     mui.toast(data.msg, {duration: 'short', type: 'div'});
                     return false;

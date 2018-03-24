@@ -55,15 +55,11 @@ function statusbar() {
 };
 
 //判断用户是否登录
-function isLogin() {
+function isLogin(){
     var flag = plus.storage.getItem('timestamp')
     var timenow = new Date().getTime().toString().substr(0, 10)
     if (!flag || timenow > flag) {
-        mui.openWindow({
-            url: 'login.html',
-            id: 'login',
-            show: animateObj.aniPage
-        });
+        plus.runtime.restart(); // 重启应用
     }
 }
 

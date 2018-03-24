@@ -936,7 +936,11 @@
 }
 /* 登录  */
 .member-logo {
-	padding: 6.25rem 0rem 5.3125rem 0rem;
+	padding: 8.28125rem 0rem 5.3125rem 0rem;
+}
+.member-logo img{
+	width: 13.875rem;
+	height: 4.8125rem;
 }
 .member-login-item {
 	position: relative;

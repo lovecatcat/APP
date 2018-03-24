@@ -13,7 +13,7 @@
 
 <body class="BL-bg-f2f">
 <header id="Js-header" class="BL-bg-fff">
-    <div class="BL-mod-headbar">
+    <!--<div class="BL-mod-headbar">
         <div class="BL-ub BL-ub-ac headbar-search">
             <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
             <div class="search search-pro BL-ub BL-ub-ac BL-ub-f1">
@@ -23,6 +23,10 @@
                 </div>
             </div>
         </div>
+    </div>-->
+    <div class="BL-mod-headbar BL-mod-headbar-pos">
+        <h1 class="BL-title">发现</h1>
+        <a class="BL-icon BL-icon-search"></a>
     </div>
 </header>
 
@@ -157,12 +161,12 @@
                     }
                 }
             });
-        });
-        mui(".mui-scroll").on("tap", ".mui-control-item", function (e) {
-            var wid = this.getAttribute("data-wid");
-            group.switchTab(wid);
-        });
-
+        
+	        mui(".mui-scroll").on("tap", ".mui-control-item", function (e) {
+	            var wid = this.getAttribute("data-wid");
+	            group.switchTab(wid);
+	        });
+		});
     })
 
 </script>

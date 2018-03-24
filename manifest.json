@@ -291,7 +291,8 @@
 					"member.html",
 					"prospect.html",
 					"discover.html",
-					"news.html"
+					"news.html",
+					"login.html"
 				],
 				"priority": 0
 			},

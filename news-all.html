@@ -135,11 +135,8 @@
 		var detailPage = null;
 		mui('body').on('tap', 'a', function() {
 			var href = this.getAttribute('href');
-			alert(href)
 			var id = this.getAttribute("data-wid");
-			alert(id)
 			var pid = this.getAttribute('data-id');
-			alert(pid)
 
 			//非plus环境，直接走href跳转
 			if(!mui.os.plus) {

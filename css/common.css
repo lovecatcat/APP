@@ -557,3 +557,7 @@ input[type='color']{
 .BL-ftz-52{
 	font-size: 1.625rem;
 }
+
+/* h5提示框 */
+.mui-toast-container{bottom: 10%;}
+.mui-toast-message{font-size: 1.4375rem;line-height:2rem;}

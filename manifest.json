@@ -291,7 +291,8 @@
 					"member.html",
 					"prospect.html",
 					"discover.html",
-					"news.html"
+					"news.html",
+					"login.html"
 				],
 				"priority": 0
 			},
@@ -381,7 +382,9 @@
 					"insurance-index.html",
 					"ins2c.html",
 					"member-duty.html",
-					"shop.html"
+					"shop.html",
+					"product-detail.html",
+					"hd_ins/insurance-index.html"
 				],
 				"priority": 0
 			},
@@ -1662,7 +1665,8 @@
 					"images/product/menu-pk.png"
 				],
 				"refer": [
-					"product-contrast.html"
+					"product-contrast.html",
+					"hd_ins/insurance-index.html"
 				],
 				"priority": 4
 			},
@@ -1743,7 +1747,8 @@
 				"refer": [
 					"quickly-filter.html",
 					"product-detail.html",
-					"product-contrast.html"
+					"product-contrast.html",
+					"hd_ins/insurance-index.html"
 				],
 				"priority": 5
 			},
@@ -2089,6 +2094,18 @@
 					"images/icon/ico-filter-active.png"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"hd_ins/insurance-index.html": {
+				"resources": [],
+				"refer": [
+					"hd_ins/insurance-applicant.html",
+					"hd_ins/insurance-beneficiary.html",
+					"hd_ins/insurance-safegood.html",
+					"hd_ins/insurance-healthinfo.html",
+					"hd_ins/insurance-bank.html",
+					"hd_ins/insurance-assured.html"
+				],
 				"priority": 0
 			}
 		},

@@ -990,6 +990,12 @@
     position: relative;
 	background-image: url("../images/icon/ico-pwdeye.png");
 }
+.login-ico-pwdeye2 {
+	width: 1.9rem;
+	height: 1.9rem;
+	position: relative;
+	background-image: url("../images/icon/ico-pwdeye2.png");
+}
 .login-more {
 	padding: 0 1.5rem;
 	font-size: 1.4375rem;

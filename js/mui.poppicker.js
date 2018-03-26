@@ -58,6 +58,30 @@
 			self.mask = $.createMask();
 			self.cancel.innerText = self.options.buttons[0];
 			self.ok.innerText = self.options.buttons[1];
+			self.fn = self.options.callback;
+			self.ctrlEl = document.querySelector(self.options.el);
+
+			if(self.ctrlEl){
+				self.ctrlEl.addEventListener('tap', function(event){
+					var _this = this;
+					self.show(function(items) {
+						if(self.options.layer>0){
+							var htm = '';
+							var id = '';
+							for(var i=0; i<self.options.layer; i++){
+								htm += items[i].text + " ";
+								id += items[i].value + ";";
+							};
+							_this.innerText = value;
+							_this.setAttribute('data-value', htm);
+						}else{
+							_this.innerText = items[0].text;
+							_this.setAttribute('data-value', items[0].value);
+						}
+		            });
+				});
+			};
+
 			self.cancel.addEventListener('tap', function(event) {
 				self.hide();
 			}, false);
@@ -66,6 +90,8 @@
 					var rs = self.callback(self.getSelectedItems());
 					if (rs !== false) {
 						self.hide();
+					}else{
+						self.fn();
 					}
 				}
 			}, false);
@@ -112,7 +138,7 @@
 		getSelectedItems: function() {
 			var self = this;
 			var items = [];
-			for (var i in self.pickers) {    
+			for (var i in self.pickers) {
 				if(self.pickers.hasOwnProperty(i)) { // 修复for in会访问继承属性造成items报错情况
 					var picker = self.pickers[i];
 					items.push(picker.getSelectedItem() || {});

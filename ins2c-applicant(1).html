@@ -234,21 +234,8 @@
                 });
             }
         })
-		//选择省市区
-        var _getParam = function(obj, param) {
-            return obj[param] || '';
-        };
-        var cityPicker3 = new mui.PopPicker({
-            layer: 3
-        });
-        cityPicker3.setData(cityData3);
-        document.querySelector('#address_select').addEventListener('tap', function() {
-            var _self = this;
-            cityPicker3.show(function(items) {
-                _self.innerText = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
-            });
-        }, false);
-        //投被保人关系
+
+
         var data = [{
             value: '1',
             text: '本人'
@@ -262,18 +249,18 @@
             value: '4',
             text: '子女'
         }];
-
+        
         var arrData = [cityData3, data];
         var arrId = ['#address_select', '#is_assured'];
         mui.each(arrData, function(index, item){
-            var data = {};
-            data.el = arrId[index];
-//            if(index == 0){
-//                data.layer = 3;
-//            };
-            new mui.PopPicker(data).setData(item);
+        	var data = {};
+        	data.el = arrId[index];
+        	if(index == 0){
+        		data.layer = 3;
+        	};
+        	new mui.PopPicker(data).setData(item);
         });
-        //
+        
 		mui.plusReady(function() {
 			statusbar();
 			var winH = window.innerHeight;

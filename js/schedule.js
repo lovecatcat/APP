@@ -117,16 +117,13 @@
 							case 2 : // 迟到
 								addClass = 'dayLater';
 								break;
-							case 3 : // 早退
+							case 3 : // 异常（早退或缺卡）
 								addClass = 'dayLeave';
 								break;
-							case 4 : // 缺卡
-								addClass = 'dayMiss';
-								break;	
-							case 5 : // 休息
+							case 4 : // 休息
 								addClass = 'dayoff';
 								break;	
-							case 6 : // 今月剩余天数：未打卡(无状态)
+							case 5 : // 今月剩余天数：未打卡(无状态)
 								if(allWeek == 0 || allWeek == 6){ // 星期六，日字体颜色变灰
 									addClass = 'dayoff';
 								}else{

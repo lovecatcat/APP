@@ -472,6 +472,7 @@
     border: 1px solid #e2e2e2;
     padding: 1rem .5rem;
     font-size: 1.3125rem;
+    word-break: break-word;
 }
 .member-team-tab th {
 	background: #ebf5fe;
@@ -1069,6 +1070,80 @@
 .renewal-detail-name {
 	font-weight: 600;
 	font-size: 1.875rem;
+}
+
+/* 计税器 */
+.member-taxtab-bg {
+	background: rgb(211,233,252);
+	padding: 0rem .5rem  1.6rem .5rem;
+	border-radius: .3125rem;
+}
+.member-tax-banner {
+	background-color: #303447;
+    padding: 12.125rem 0rem 3rem 0rem;
+}
+.member-tax-money {
+	position: relative;
+	height: 6rem;
+}
+.member-tax-money .tax-btn {
+	position: absolute;
+	bottom: 1.5rem;
+	right: 1.5rem;
+	padding:  .5rem 2rem;
+}
+input[type='text'].member-tax-input{
+	width: 50%;
+	height: 5rem;
+	line-height: 5rem;
+	background: transparent;
+	text-align: center;
+	font-size: 1.875rem;
+	color: #ffffff;
+	border-bottom: 1px solid #CCCCCC;
+	border-radius: 0rem;
+}
+.member-taxtab-title {
+	height: 5rem;
+	line-height: 5rem;
+}
+.member-taxtab {
+	width: 100%;
+	font-size: 1.3125rem;
+	text-align: center;
+}
+.member-taxtab td {
+	padding: 1rem .5rem;
+	border:1px solid #cccccc;
+}
+.member-tax-question {
+	display: inline-block;
+	background-image: url(../images/icon/ico-tax-question.png);
+	width: 2rem;
+	height: 2rem;
+	margin-top: .25rem;
+	margin-left: .5rem;
+}
+.member-tax-item {
+	position: relative;
+	padding: 1rem 1.5rem;
+	font-size: 1.625rem;
+}
+.member-tax-item:after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 1.25rem;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
+}
+.member-tax-tip {
+	padding-top: .5rem;
+	font-size: 1.3125rem;
+	color: #999999;
 }
 /* 重写 mui-navigate-right的右间距*/
 .mui-navigate-right:after, .mui-push-right:after {

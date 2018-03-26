@@ -11,8 +11,8 @@
 	</head>
 
 	<body>
-		<div id="modal">
-			<!--列表-->
+		<div id="modal" v-cloak>
+			<!--列表(白豪)-->
 			<div id="modal-list" class="BL-modal BL-modal-w90 BL-pad-lr-2 BL-pad-tb-1_5 BL-ub BL-ub-ac" :class="{'BL-hide': isHide !== 'modal-list'}">
 				<div class="BL-modal-content">
 					<div class="BL-modal-list" v-for="item in goIns_data">
@@ -21,19 +21,23 @@
 					</div>
 				</div>
 			</div>
-			<!--表格-->
+			<!-- 业绩表格(雨晴)-->
 			<div id="modal-table" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table'}">
 				<div class="BL-modal-content BL-modal-tab">
-					<div class="BL-title">安联</div>
+					<div class="BL-title">
+						{{ goIns_data.name }}
+					</div>
 					<div class="BL-modal-tab-body">
 						<table class="fixed-thead">
 							<thead>
 								<tr class="BL-col-3b9cf5">
 									<th width="40%">
-										<div>承保件数（件）</div>
+										<div>承保件数</div>
+										<div>{{ goIns_data.count }}件</div>
 									</th>
 									<th width="40%">
-										<div>承保标保（元）</div>
+										<div>承保标保</div>
+										<div>{{ goIns_data.money =="" ? 0 : goIns_data.money }}元</div>
 									</th>
 									<th width="20%">出单件数</th>
 								</tr>
@@ -42,54 +46,25 @@
 						<div class="BL-modal-tab-scroll">
 							<table>
 								<tbody>
-									<tr>
-										<td class="BL-txt-l" width="40%">1.恒久健康终身重大疾病保险2017</td>
-										<td width="40%">标保 <span class="BL-col-3b9cf5">453235.15</span>元</td>
-										<td width="20%">2件</td>
-									</tr>
-									<tr>
-										<td class="BL-txt-l" width="40%">1.恒久健康终身重大疾病保险2017</td>
-										<td width="40%">标保 <span class="BL-col-3b9cf5">453235.15</span>元</td>
-										<td width="20%">2件</td>
-									</tr>
-									<tr>
-										<td class="BL-txt-l" width="40%">1.恒久健康终身重大疾病保险2017</td>
-										<td width="40%">标保 <span class="BL-col-3b9cf5">453235.15</span>元</td>
-										<td width="20%">2件</td>
-									</tr>
-									<tr>
-										<td class="BL-txt-l" width="40%">1.恒久健康终身重大疾病保险2017</td>
-										<td width="40%">标保 <span class="BL-col-3b9cf5">453235.15</span>元</td>
-										<td width="20%">2件</td>
-									</tr>
-									<tr>
-										<td class="BL-txt-l" width="40%">1.恒久健康终身重大疾病保险2017</td>
-										<td width="40%">标保 <span class="BL-col-3b9cf5">453235.15</span>元</td>
-										<td width="20%">2件</td>
-									</tr>
-									<tr>
-										<td class="BL-txt-l" width="40%">1.恒久健康终身重大疾病保险2017</td>
-										<td width="40%">标保 <span class="BL-col-3b9cf5">453235.15</span>元</td>
-										<td width="20%">2件</td>
-									</tr>
-									<tr>
-										<td class="BL-txt-l" width="40%">1.恒久健康终身重大疾病保险2017</td>
-										<td width="40%">标保 <span class="BL-col-3b9cf5">453235.15</span>元</td>
-										<td width="20%">2件</td>
-									</tr>
-									<tr>
-										<td class="BL-txt-l" width="40%">1.恒久健康终身重大疾病保险2017</td>
-										<td width="40%">标保 <span class="BL-col-3b9cf5">453235.15</span>元</td>
-										<td width="20%">2件</td>
-									</tr>
+									<template v-if="goIns_data.details">
+										<tr v-for="(item,index) in goIns_data.details" :key="index">
+											<td class="BL-txt-l" width="40%">{{ index+1 }}.{{ item.name }}</td>
+											<td width="40%">标保 <span class="BL-col-3b9cf5">{{ item.money }}</span>元</td>
+											<td width="20%">{{ item.count }}件</td>
+										</tr>
+									</template>
+									<template v-else>
+										<tr>
+											<td colspan="3" class="BL-col-999">暂无数据</td>
+										</tr>
+									</template>
 								</tbody>
 							</table>
 						</div>
 					</div>
-						
 				</div>
 			</div>
-<!--			底部文字-->
+			<!-- 底部文字-->
 			<div id="modal-bottom" class="BL-modal-bottom"  :class="{'BL-hide': isHide !== 'modal-bottom'}">
 				<div class="BL-modal-content ">
 					<div class="BL-modal-list">
@@ -102,7 +77,7 @@
 					</div>
 				</div>
 			</div>
-			<!--提示-->
+			<!-- 确认删除提示 -->
 			<div id="modal-config" class="BL-modal BL-modal-w70"  :class="{'BL-hide': isHide !== 'modal-config'}">
 			<div class="BL-modal-content">
 				<div class="BL-txt-c BL-pad-tb-1_5">确认删除 ?</div>
@@ -112,13 +87,13 @@
 				</div>
 			</div>
 		</div>
-		
 		</div>
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/vue.min.js" ></script>
 	<script type="text/javascript">
-		var popu = new ClosePopu();
+		var popu;
+		mui.init();
 		var modal = new Vue({
 			el: '#modal',
 			data: {
@@ -141,15 +116,16 @@
 				}
 			}
 		})
-		mui.init();
+		
 		
 		mui.plusReady(function() {
-			
+			popu = new ClosePopu();
 			 // 实例化关闭窗口对象
 			var data = plus.webview.currentWebview().data;
 			modal.isHide = data.modalID
 			modal.formID = data.formID
 			modal.goIns_data = data.goIns_data
+
 //			mui('body').on('tap', '#btnClose', function() {
 //				// 关闭遮罩层，弹框
 //				popu.closepop();
@@ -160,6 +136,11 @@
 				// 关闭遮罩层，弹框
 				popu.closepop();
 			},false);
+			
+			 mui('body').on('tap', '#close-ins-pop', function () {
+	            // 关闭遮罩层，弹框
+	            popu.closepop();
+	        });
 		});
 	</script>
 

@@ -21,10 +21,10 @@
 
 		<div id="Js-content" class="mui-content">
 			<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
-				<a class="mui-control-item mui-active" data-wid="member_intergral_all.html">
+				<!--<a class="mui-control-item mui-active" data-wid="member_intergral_all.html">
 					<span>全部</span>
-				</a>
-				<a class="mui-control-item" data-wid="member_intergral_activity.html">
+				</a>-->
+				<a class="mui-control-item mui-active" data-wid="member_intergral_activity.html">
 					<span>活动积分</span>
 				</a>
 				<a class="mui-control-item" data-wid="member_intergral_experience.html">
@@ -54,11 +54,13 @@
 			var group = new webviewGroup(_self.id, {
 					topHeight: _divH,
 					viewHeight:_viewH,
-					items: [{
-						id: "member_intergral_all.html",
-						url: "member-intergral-all.html",
-						extras: {}
-					}, {
+					items: [
+//					{
+//						id: "member_intergral_all.html",
+//						url: "member-intergral-all.html",
+//						extras: {}
+//					}, 
+					{
 						id: "member_intergral_activity.html",
 						url: "member-intergral-activity.html",
 						extras: {}

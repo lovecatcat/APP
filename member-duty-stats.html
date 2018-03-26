@@ -64,8 +64,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
-					
+					</div>				
 					<!--<div class="BL-ub BL-ub-ac section">
 						<div class="mui-col-sm-3 mui-col-xm-3 BL-ub BL-ub-pc">
 							<div class="content">
@@ -204,7 +203,7 @@
 			el: '#Js-schedule'
 		});
 		
-		mui.ready(function() {
+		mui.plusReady(function() {
 			statusbar();
 			var winH = window.innerHeight;
 			var titHeight = document.querySelector('#Js-header').offsetHeight;
@@ -255,25 +254,34 @@
 	                	duty.count = ret.data.count
 	                	// 1：正常（蓝色）， 2： 迟到（橙色）， 3：异常（红色），4：休息（字体灰色），5：无状态（字体黑色）
 	                	if(dataMonth) {
-	                		for(var i = 1; i <= intfullDay; i ++) {
+	                		var flag = ''
+	                		for(var i = 1; i <= intfullDay; i++) {
 		                		if(dataMonth.hasOwnProperty(i)) {
 		                			if(dataMonth[i].sign_in_state == '1' || dataMonth[i].sign_in_state == '2') {
 		                				if(dataMonth[i].sign_out_state == '2') {
 		                					data.push({status:3, date:i, data_json:dataMonth[i]});
 		                				} else if (dataMonth[i].sign_out_state == '-1') {
-		                					data.push({status:4, date:i, data_json:dataMonth[i]});
-		                				} else if (dataMonth[i].sign_in_state == '2'){
+		                					data.push({status:3, date:i, data_json:dataMonth[i]});
+		                				} else if (dataMonth[i].sign_in_state == '2' && dataMonth[i].sign_out_state == '1'){
 		                					data.push({status:2, date:i, data_json:dataMonth[i]});
 		                				} else {
 		                					data.push({status:1, date:i, data_json:dataMonth[i]});
 		                				}
 		                			} else if(dataMonth[i].sign_in_state == '-1'){
-		                				data.push({ status:4, date:i, data_json:dataMonth[i]});
+		                				data.push({ status:3, date:i, data_json:dataMonth[i]});
 		                			}
+		                			flag = i
 		                		} else {
 		                			data.push({ status: 5, date:i, data_json: ''});
 		                		}
 		                	}
+
+	                		// 设置休息
+	                		for(var j = 0; j < flag; j++) {
+	                			if(data[j].status == 5) {
+	                				data[j].status = 4
+	                			}
+	                		}
 	                	}
 						mySchedule.curMonthFun(data);
 	                }

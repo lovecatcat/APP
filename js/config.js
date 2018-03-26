@@ -79,13 +79,13 @@ function showPopu(url, id, type, data) {
 		width: "100%",
 		height: '100%',
 		background: 'transparent',
-		popGesture: "none"	
+		popGesture: "none"
 		},
 		{
 			data: data
 		}
 	);
-	
+
 	switch(type){
 		case 'center':
 			move.ani = animateObj.aniConfirm.aniShow;

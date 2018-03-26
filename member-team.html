@@ -75,6 +75,26 @@
 					var wid = this.getAttribute("data-wid");
 					group.switchTab(wid);
 				});
+			
+			// 打开遮罩层，弹框,自定义事件监听
+			window.addEventListener('show', function(event) {
+				//获得事件参数
+				var formID = event.detail.formID;
+				var goIns_data = event.detail.goIns_data;
+				var data = {};
+				if(goIns_data){
+					//在线投保弹框
+					data = {
+						modalID : 'modal-table',
+						formID : formID,
+						goIns_data : goIns_data
+					}
+				}
+				
+				showPopu("popup-content.html", "popup_content", 'center', data);
+	
+			})
+			
 		})
 	</script>
 </html>

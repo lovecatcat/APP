@@ -11,17 +11,16 @@
 		<link href="css/product.css" rel="stylesheet" />
 		<script src="js/config.js" type="text/javascript"></script>
 	</head>
-
 	<body class="BL-bg-f2f">
-		<div id="Js-content" class="mui-content">
+		<div id="Js-content" class="mui-content" v-cloak>
 			<!------------条件筛选 begin------------->
 			<div id="Js-intergralFilter" class="member-list-filter">
 				<!--筛选 begin-->
 				<div class="intergral-filter BL-bg-fff">
 					<div class="BL-ub BL-ub-ac member-date-select">
-						<a class="member-date-item">+积分</a>
-						<a class="member-date-item">-积分</a>
-						<a class="BL-ub BL-ub-ac BL-ub-pc member-date-filter mui-active">
+						<a class="member-date-item" :class="{'mui-active':mode=='1'}" data-wid="1">+积分</a>
+						<a class="member-date-item" :class="{'mui-active':mode=='2'}" data-wid="2">-积分</a>
+						<a href="javascript:;" id="Js-timefilter" href="javascript:void(0);" class="BL-ub BL-ub-ac BL-ub-pc member-date-filter" :class="{'mui-active':mode=='3'}">
 							筛选
 							<div class="BL-ub BL-ub-ver">
 								<i class="date-filter-ico"></i>
@@ -29,13 +28,17 @@
 						</a>
 					</div>
 				</div>
+				<!--日期筛选 end -->
+				<div v-show="mode==3" id="Js-showDate" class="BL-pad-t-1 BL-pad-lr-1_5 BL-ftz-42 BL-col-999">
+					筛选时间：<span class="Js-fday">{{ start_time }}</span> --- <span class="Js-sday">{{ end_time }}</span>
+				</div>
 				<!--筛选 end -->
 				<div class="mui-row member-team-tab-title BL-bg-fff BL-mar-t-1">
 					<div class="mui-col-sm-8 mui-col-xm-8">
-						体验积分：<i class="BL-col-ff8201">90583958.89</i>
+						体验积分：<i class="BL-col-ff8201">{{ pay_points }}</i>
 					</div>
 					<div class="mui-col-sm-4 mui-col-xm-4 BL-txt-r">
-						共<i class="BL-col-3b9cf5">5</i>个
+						共<i class="BL-col-3b9cf5">{{ count }}</i>条
 					</div>
 				</div>
 				<table class="member-team-tab fixed-thead" id="tab-header">
@@ -57,17 +60,11 @@
 					<div class="mui-scroll">
 						<table width="100%" class="member-team-tab">
 							<tbody class="tbody">
-								<tr>
-									<td width="10%">1</td>
-									<td width="30%">2018-10-10 17:10:10</td>
-									<td width="40%">赠送活动积分 （SZ2362625）</td>
-									<td width="20%" class="BL-col-3b9cf5">+900</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>2018-10-10 17:10:10</td>
-									<td>SNS活动（2018/02/21 龙华机构客户答谢宴）</td>
-									<td class="BL-col-3b9cf5">-90</td>
+								<tr v-for="(item, index) in list" :key="index">
+									<td width="10%">{{ index+1 }}</td>
+									<td width="30%">{{ item.change_time | YYMMDD }}</td>
+									<td width="40%">{{ item.change_desc }}</td>
+									<td width="20%" class="BL-col-3b9cf5">{{ item.pay_points }}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -78,11 +75,38 @@
 		</div>
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/interval-dtpicker.js" type="text/javascript"></script>
 	<script src="js/mui.pullToRefresh.js"></script>
 	<script src="js/mui.pullToRefresh.material.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/Date.js"></script>
 	<script type="text/javascript">
 		mui.init();
+		var intergral = new Vue({
+			el: '#Js-content',
+			data: {
+				mode: '',
+				card_no: '612326198705113614',
+				type_amount: '',   // 1获得积分，-1使用积分
+				start_time: '',
+				end_time: '',
+				list: [],
+				row: 10,
+				count: '0',    //总条数
+				pay_points: '0'   // 体验积分
+			}
+		});
 		
+		// 定义vue过滤器
+	    Vue.filter("YYMMDD", function (timestamp) {
+	        if (!timestamp) {
+		        return ''
+		    }
+		    let time = new Date(timestamp*1000)   // 时间戳转成日期
+		    let timeFormat = time.Format('yyyy-MM-dd')
+		    return timeFormat
+	    });
+	   
 		(function($){
 			//阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
@@ -91,48 +115,127 @@
 				indicators: false, //是否显示滚动条
 				deceleration: deceleration
 			});
-			$.ready(function() {
-				statusbar();
+			$.plusReady(function() {
 				var winH = window.innerHeight;
 				var divHeight = document.querySelector('#Js-intergralFilter').offsetHeight;
 				document.querySelector('#Js-intergraltab').style.height = winH - divHeight + 'px';
 				
+				var self;
 				var i = 0;
 
-				//循环初始化所有下拉刷新，上拉加载。
 				
-				$('#Js-intergraltab .mui-scroll').pullToRefresh({
+				//循环初始化和上拉加载。
+				/**
+			     * 获取积分列表
+			     */
+			    var getIntergrallist = function () {
+					i++
+					var data = {
+						data: JSON.stringify({
+							type_points: '1',
+							card_no: intergral.card_no,
+							type_amount: intergral.type_amount,
+							start_time: intergral.start_time,
+							end_time: intergral.end_time,
+							page: i,
+							row: intergral.row
+						}),
+						server: 'user.getPointsList',
+						device: 'mobile'
+					};
+					
+					mui.ajax(config.baseUrl, {
+						data: data,
+						dataType: 'json',
+						type: 'get',
+						success: function (ret) {
+							if (ret.code) {
+								var data = ret.data
+								console.log(JSON.stringify(data))
+								intergral.pay_points = data.pay_points
+								intergral.count = data.count
+								
+								if(i == 1 && data.count == data.list.length) {
+									intergral.list = data.list
+									self.endPullUpToRefresh(true)
+								} else if(i == 1 && data.count > data.list.length) {
+									intergral.list = data.list
+									self.endPullUpToRefresh(false)
+								} else if(data.count > data.list.length && i <= data.totalPage) {
+									intergral.list = intergral.list.concat(data.list)
+									self.endPullUpToRefresh(false)
+								} else {
+									self.endPullUpToRefresh(true)
+								}
+							}
+						},
+						error: function () {
+							mui.toast('网络异常,请稍候再试');
+						}
+					});
+				};
+			    
+			    $('#Js-intergraltab .mui-scroll').pullToRefresh({
 					up: { // 上拉加载更多
 						auto: true, // 自动上拉一次
+						contentrefresh: '正在加载...',
+        				contentnomore:'没有更多数据了',// 可选，请求完毕若没有更多数据时显示的提醒内容；
 						callback: function() {
-							i++;
-							var self = this;
-							setTimeout(function() {
-								var tbody = self.element.querySelector('.tbody');
-								tbody.appendChild(createFragment(tbody, 5));
-								if(i > 2) {
-									self.endPullUpToRefresh(true);
-								} else {
-									self.endPullUpToRefresh();
-								}
-							}, 1000);
+							self = this
+							getIntergrallist()
 						}
 					}
 				});
 				
-				var createFragment = function(ul, count) {
-					var length = ul.querySelectorAll('tr').length;
-					var fragment = document.createDocumentFragment();
-					var li;
-					for(var i = 0; i < count; i++) {
-						tr = document.createElement('tr');
-						tr.className = '';
-						tr.innerHTML = '<td>2</td><td>2018-10-10 17:10:10</td><td>SNS活动（2018/02/21 龙华机构客户答谢宴）</td><td class="BL-col-3b9cf5">-90</td>';
-						fragment.appendChild(tr);
+				// 时间筛选
+				var mySchedule = new Schedule({
+					el:'#Js-showDate',
+					// 取消筛选
+					cancle: function(){
+					},
+					// 确定筛选
+					ok: function(f, s){
+						intergral.mode = 3
+						intergral.start_time = f
+						intergral.end_time = s
+						
+						i = 0
+						intergral.list = []
+						self.refresh(true)
+						// 回到顶部
+						mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
+						self.pullUpLoading();
 					}
-					return fragment;
-				};
-
+				});
+				
+				mui('body').on('tap', '#Js-timefilter', function(){
+					var fday = mui('.Js-fday')[0].innerText;
+					var sday = mui('.Js-sday')[0].innerText;
+					if(fday!='' && sday!=''){
+						mySchedule.renderSelect(fday, sday);	
+					};
+					mySchedule.show();
+				});
+				
+				mui('body').on('tap', '.member-date-item', function(){
+					var mode = this.getAttribute("data-wid");
+					intergral.mode = mode
+					intergral.end_time = ''
+					intergral.start_time = ''
+					
+					if (mode == 1) {
+						intergral.type_amount = '1'
+					} else if (mode == 2) {
+						intergral.type_amount = '-1'
+					} 
+					
+					i = 0
+					intergral.list = []
+					self.refresh(true)
+					// 回到顶部
+					mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
+					self.pullUpLoading();
+				});
 			});	
 		
 		}(mui));

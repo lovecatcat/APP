@@ -20,7 +20,7 @@
 			</div>
 		</header>
 		
-		<div id="Js-duty" class="mui-content BL-overFlow-autoY" v-cloak>
+		<div id="Js-duty" class="mui-content" v-cloak>
 			<!--个人信息区begin-->
 			<div  v-if="userInfo" class="member-duty-perinfo BL-ub BL-ub-ac BL-bg-fff">
 				<div class="img">
@@ -56,7 +56,7 @@
 					</p>
 				</div>
 				<div v-if="status && dutyInfo.sign_in_state != 0" class="member-duty-context">
-					<p class="duty-tip BL-ub BL-ub-ac">上班时间09:00 <span v-if="dutyInfo.sign_in_time_nor" class="BL-col-333">（打卡时间{{ dutyInfo.sign_in_time }}）</span></p>
+					<p class="duty-tip BL-ub BL-ub-ac">上班时间09:00 <span v-if="dutyInfo.sign_in_time" class="BL-col-333">（打卡时间{{ dutyInfo.sign_in_time }}）</span></p>
 					<p v-if="dutyInfo.sign_in_wifi" class="duty-tip BL-ub BL-ub-ac">
 						<i class="member-duty-wifi BL-bimg-contain BL-ub BL-ub-pc BL-mar-r-1"></i>
 						{{ dutyInfo.sign_in_wifi | getWifiName }}
@@ -141,7 +141,6 @@
 		
 		var duty_address = null; 							// 设备所在地址
 		var inter = null
-//		var userID = '2921'; 									// 用户ID
 		var duty = new Vue({
 			el: '#Js-duty',
 			data: {
@@ -155,7 +154,7 @@
 				status: '',  	// 能否考勤标志
 				// 考勤信息
 				dutyInfo: {
-					"waycard": 'outside',  // 内外勤卡标志   AG0002外勤(外勤无需打下班卡),其他需要
+					"waycard": '',  // 内外勤卡标志   AG0002外勤(外勤无需打下班卡),其他需要
 					// 上班
 					"sign_in_state": 0,   		// 状态
 	                "sign_in_wifi": '',			// wifi的mac地址，SSID码
@@ -172,7 +171,12 @@
 				// 考勤范围内的wifi列表
 				wifiList: null,
 				// 当前考勤范围内的wifi信息
-				wifiInfo: null
+				wifiInfo: null,
+				// 打卡成功提示信息
+				dutySuccess: {
+					"sign_time": '',
+					"sign_location": ''
+				}
 			},
 			created: function () {
 	            setInterval(function () {
@@ -245,6 +249,7 @@
 	            success: function (ret) {
 	                if (ret.code) {
 	                	var data = ret.data
+//	                	alert(JSON.stringify(ret.data))
 	                	duty.status = true
 	                    duty.dutyInfo.waycard = data.waycard
 	                    if (data) {
@@ -276,7 +281,12 @@
 	                if (ret.code) {
 	                    duty.wifiList = ret.data;
 	                    inter = setInterval(function () {
-	                        duty.wifiInfo = getMac(ret.data);
+	                    	if (isAndroid) {
+	                    		duty.wifiInfo = getWifiInfo(ret.data);
+	                    	} else if (isiOS) {
+	                    		duty.wifiInfo = getMac(ret.data);
+	                    	}
+	                        
 	                    }, 1000)
 	                } else {
 	                    plus.nativeUI.toast(ret.msg)
@@ -330,7 +340,7 @@
 	        if (flag == 0) {
 	            //判断是否处于外勤模式
 	            if (duty.wifiInfo == null) {
-	                jsonData['wifi'] = loadWifiInfo(true);
+	                jsonData['wifi'] = getMac(null,true);
 	                jsonData['location'] = duty_address
 	                dutyAjax(jsonData, type);
 	            } else {
@@ -343,7 +353,7 @@
 	                if (e.index == 0) {
 	                    //判断是否处于外勤模式
 	                    if (duty.wifiInfo == null) {
-	                        jsonData['wifi'] = loadWifiInfo(true);
+	                        jsonData['wifi'] = getMac(null, true);
 	                        jsonData['location'] = duty_address
 	                        dutyAjax(jsonData, type);
 	                    } else {
@@ -372,22 +382,28 @@
                 dataType: 'json',
                 type: 'post',
                 success: function (ret) {
-                    if (ret.code) {
-                    	alert(JSON.stringify(ret.data))
+                    if (ret.code==1) {
                         for (var item in duty.dutyInfo) {
                             if (ret.data[item]) {
                                 duty.dutyInfo[item] = ret.data[item];
                             }
                         }
-//                      if (type === 0) {
-//                          user.checkSuccess["sign_time"] = result.data['sign_in_time_nor'];
-//                          user.checkSuccess["sign_location"] = result.data['sign_in_location'];
-//                      } else if (type === 1) {
-//                          user.checkSuccess["sign_time"] = result.data['sign_out_time_nor'];
-//                          user.checkSuccess["sign_location"] = result.data['sign_out_location'];
-//                      }
-//
-//                      document.getElementById("checkin-modal-bg").style.display = "block";
+                        if (type === 0) {
+                            duty.dutySuccess["sign_time"] = ret.data['sign_in_time'];
+                            duty.dutySuccess["sign_location"] = ret.data['sign_in_location'];
+                        } else if (type === 1) {
+                            duty.dutySuccess["sign_time"] = ret.data['sign_out_time'];
+                            duty.dutySuccess["sign_location"] = ret.data['sign_out_location'];
+                        }
+//                      // 弹出框
+//                      var data = {
+//							modalID : 'modal-duty-success',
+//							formID : 'member_duty_success',
+//							goIns_data: duty.dutySuccess
+//				    	}
+//                      // 打开遮罩层，弹框
+//          			showPopu("member-duty-success.html", "member_duty_success", "center", data);
+            			
                     } else {
                         mui.alert(ret.msg);
                     }

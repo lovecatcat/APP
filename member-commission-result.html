@@ -33,7 +33,7 @@
 					</div>
 					<ul class="mui-table-view">
 						<li class="mui-table-view-cell member-cmis-list-item cmis-item-count">
-							<a data-wid="member_commission_account" href="member-commission-account.html" class="mui-navigate-right BL-ub BL-ub-ac">
+							<a class="mui-navigate-right BL-ub BL-ub-ac">
 								查看账户信息
 					        </a>
 						</li>
@@ -73,25 +73,22 @@
 		}(mui));
 		
 		//主列表点击事件
-		mui('body').on('tap', 'a', function() {
-			var href = this.getAttribute('href');
-			var id = this.getAttribute("data-wid");
-
-			//非plus环境，直接走href跳转
-			if(!mui.os.plus) {
-				location.href = href;
-				return;
-			};
-
-			if(href && ~href.indexOf('.html')) {
-				//打开新窗口
-				mui.openWindow({
-					id:id,
-					url:href,
-					show:animateObj.aniDetal
-				});
-			}
+		mui('.member-cmis-list-item').on('tap', 'a', function() {
+			plus.webview.currentWebview().opener().close()
+			setTimeout(function(){
+				plus.webview.currentWebview().close();
+			},500);
+			// 调用弹出框
+			mui.fire(plus.webview.getWebviewById('member_commission_account'),'refreshAccount');
 		});
+		
+		mui.back=function () {
+			plus.webview.currentWebview().opener().close()
+			setTimeout(function(){
+				plus.webview.currentWebview().close();
+			},500);
+            mui.fire(plus.webview.getWebviewById('member_commission_account'),'refreshAccount');
+        }
 	</script>
 </html>
 

@@ -128,9 +128,8 @@
 			//循环初始化和上拉加载。
 			/**
 		     * 获取提取列表
-		     * @param {String} month 月份
 		     */
-		    var getRenewalist = function (month) {
+		    var getRenewalist = function () {
 				i++
 				var data = {
 					data: JSON.stringify({
@@ -160,6 +159,7 @@
 							}
 						} else {
 							renewal.list = []
+							renewal.count = 0
 							self.endPullUpToRefresh(true)
 						}
 					},
@@ -176,7 +176,7 @@
     				contentnomore:'没有更多数据了',// 可选，请求完毕若没有更多数据时显示的提醒内容；
 					callback: function() {
 						self = this
-						getRenewalist(renewal.month_txt.value)
+						getRenewalist()
 					}
 				}
 			});

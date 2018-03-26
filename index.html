@@ -52,6 +52,16 @@
                 });
                 return false;
             };
+            
+            // 运行环境切换到后台，开始倒数20分钟，重启应用
+            document.addEventListener("pause", function(){
+            	var timer = null;
+            	clearTimeout(timer);
+            	timer = setTimeout(function(){
+            		plus.runtime.restart();	
+            	}, 20*60000)
+            }, false);
+            
 			/**
 			 * 当前窗口对象，即父窗口；
 			 */

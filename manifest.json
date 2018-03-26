@@ -236,8 +236,8 @@
 				"ios": {
 					"iphone": {
 						"default": "", /*iPhone3启动图片选，分辨率：320x480*/
-						"retina35": "",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-						"retina40": ""
+						"retina35": "E:/mobileApp5/mobileapp2/unpackage/starting/640x960.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+						"retina40": "E:/mobileApp5/mobileapp2/unpackage/starting/640x1136.png","retina47":"E:/mobileApp5/mobileapp2/unpackage/starting/750x1334.png","retina55":"E:/mobileApp5/mobileapp2/unpackage/starting/1242x2208.png"
 					},
 					"ipad": {
 						"portrait": "", /*iPad竖屏启动图片，分辨率：768x1004*/
@@ -253,9 +253,9 @@
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": ""
+					"hdpi": "E:/mobileApp5/mobileapp2/unpackage/starting/480x762.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "E:/mobileApp5/mobileapp2/unpackage/starting/720x1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "E:/mobileApp5/mobileapp2/unpackage/starting/1080x1882.png"
 				}
 			},
 			"debug": false

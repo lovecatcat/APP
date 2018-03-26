@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="css/mui.css" rel="stylesheet"/>
+    <link href="css/common.css" rel="stylesheet"/>
+    <link href="css/module.css" rel="stylesheet"/>
+    <link href="css/form.css" rel="stylesheet"/>
+    <link href="css/member.css" rel="stylesheet" />
+    <script src="js/config.js" type="text/javascript"></script>
+</head>
+<body class="BL-bg-f2f">
+	<header id="Js-header" style="position: fixed;left: 0;top: 0;width: 100%;z-index: 99;">
+		<div class="BL-mod-headbar BL-mod-headbar-pos BL-noBorder-b">
+			<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-fff BL-icon-left"></a>
+			<h1 class="BL-title BL-col-fff">计税器</h1>
+		</div>
+	</header>
+
+	<div id="Js-content" class="mui-content">
+	    <div class="mui-scroll-wrapper">
+			<div class="mui-scroll">
+	            <div class="member-tax-banner BL-txt-c">
+                    <div class="member-tax-money">
+                        <input v-model="money" type="text" class="member-tax-input" placeholder="请输入金额(元)"/>
+                        <button class="tax-btn BL-btn-blue BL-ftz-46" @click="tax">计算</button>
+                    </div>
+	            </div>
+	            <ul class="mui-table-view form-list-cell">
+				    <li class="fItem BL-ub BL-ub-ac BL-ub-pc">
+			            <label class="form-list-label">
+			            	税后工资
+			            </label>
+			            <div class="form-list-control BL-txt-r">
+			            	{{ afterTaxIncome }}
+			            </div>
+				    </li>
+				    <li class="member-tax-item">
+				    	<div class="BL-ub BL-ub-ac">
+				    		<div class="BL-ub-f2">
+				    			不含税收入
+				    		</div>
+				    		<div class="BL-ub-f1 BL-txt-r">
+				    			{{ notTaxIncome }}
+				    		</div>
+				    	</div>
+				    	<div class="BL-ub member-tax-tip">
+				    		* 不含税收入=收入/1.03
+				    	</div>
+				    </li>
+				    <li class="member-tax-item">
+				    	<div class="BL-ub BL-ub-ac">
+				    		<div class="BL-ub-f2">
+				    			增值税
+				    		</div>
+				    		<div class="BL-ub-f1 BL-txt-r">
+				    			{{ valueAddedTax }}
+				    		</div>
+				    	</div>
+				    	<div class="BL-ub member-tax-tip">
+				    		* 不含税收入≤3万，免征增值税,>3万计征3%
+				    	</div>
+				    </li>
+				    <li class="fItem BL-ub BL-ub-ac BL-ub-pc">
+			            <label class="form-list-label BL-ub">
+			            	<div>增值税附加</div>
+			            	<i class="member-tax-question BL-bimg-cover" data-tax='1'></i>
+			            </label>
+			            <div class="form-list-control BL-txt-r">
+			            	{{ valueAddedTaxAdditional }}
+			            </div>
+				    </li>
+				    <li class="fItem BL-ub BL-ub-ac BL-ub-pc">
+			            <label class="form-list-label BL-ub">
+			            	<div>个人所得税</div>
+			            	<i class="member-tax-question BL-bimg-cover" data-tax='2'></i>
+			            </label>
+			            <div class="form-list-control BL-txt-r">
+			            	{{ individualIncomeTax }}
+			            </div>
+				    </li>
+				    <li class="fItem BL-ub BL-ub-ac BL-ub-pc">
+			            <label class="form-list-label">
+			            	纳税合计
+			            </label>
+			            <div class="form-list-control BL-txt-r">
+			            	{{ taxTotal }}
+			            </div>
+				    </li>
+				</ul>
+	            <div class="BL-mar-t-2 BL-mar-b-2 BL-pad-lr-1">
+	            	<div class="member-taxtab-bg">
+	            		<div class="member-taxtab-title BL-ftz-52 BL-col-3b9cf5 BL-mar-l-1">税率表</div>
+	            		<table class="member-taxtab BL-bg-fff">
+	                        <tr>
+	                            <td width="10%">级数</td>
+	                            <td width="30%">每次应纳税所得额(含税级距)</td>
+	                            <td width="30%">不含税级距</td>
+	                            <td width="10%">税率</td>
+	                            <td width="15%">速算扣除数</td>
+	                        </tr>
+	                        <tr>
+	                            <td>1</td>
+	                            <td>不超过20000元的</td>
+	                            <td>不超过16000元的</td>
+	                            <td>20%</td>
+	                            <td>0</td>
+	                        </tr>
+	                        <tr>
+	                            <td>2</td>
+	                            <td>超过20000元至50000元的部分</td>
+	                            <td>超过16000元至37000元的部分</td>
+	                            <td>30%</td>
+	                            <td>2000</td>
+	                        </tr>
+	                        <tr>
+	                            <td>3</td>
+	                            <td>超过50000元的部分</td>
+	                            <td>超过37000元的部分</td>
+	                            <td>40%</td>
+	                            <td>7000</td>
+	                        </tr>
+	                    </table>
+	            	</div>
+	            </div>
+        	</div>
+	    </div>
+	</div>
+    <script src="js/mui.min.js" type="text/javascript"></script>
+    <script src="js/vue.min.js"></script>
+	<script type="text/javascript">
+        mui.init();
+		var tax = new Vue({
+			el: '#Js-content',
+			data: {
+				money: '',   // 佣金
+				afterTaxIncome: '0.00',  // 税后收入
+				notTaxIncome: '0.00',      // 不含税收入
+				valueAddedTax: '0.00',     // 增值税
+				valueAddedTaxAdditional: '0.00',   // 增值税附加
+				individualIncomeTax: '0.00',   // 个人所得税
+				taxTotal: '0.00',    //
+				valueAddedTaxAdditional_item:{},
+				individualIncomeTax_item: {}
+			},
+			methods: {
+				tax: function() {
+					var reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+					if (!tax.money) {
+						mui.toast('请输入金额')
+						return false
+					}else if (!reg.test(tax.money)){
+						mui.toast('金额输入错误，请重新输入')
+						return false
+	                };
+					mui.ajax('http://www.luckyins.com/api/tools/tax', {
+						data:{
+							money: this.money
+						},
+						dataType: 'json',
+						type: 'get',
+						success: function (ret) {
+							tax.afterTaxIncome = ret.afterTaxIncome.value
+							tax.notTaxIncome = ret.notTaxIncome.value
+							tax.valueAddedTax = ret.valueAddedTax.value
+							tax.valueAddedTaxAdditional = ret.valueAddedTaxAdditional.total
+							// 增值税附加明细
+							tax.valueAddedTaxAdditional_item['total'] = ret.valueAddedTaxAdditional.total
+							for ( var i in ret.valueAddedTaxAdditional.value) {
+								tax.valueAddedTaxAdditional_item['val'+ i] = ret.valueAddedTaxAdditional.value[i].value
+							}
+							tax.individualIncomeTax = ret.individualIncomeTax.total
+							// 个人所得税明细
+							tax.individualIncomeTax_item['total'] = ret.individualIncomeTax.total
+							for ( var i in ret.individualIncomeTax.value) {
+								tax.individualIncomeTax_item['val'+ i] = ret.individualIncomeTax.value[i].value
+							}
+						
+							tax.taxTotal = ret.taxTotal.value
+						},
+						error: function () {
+							mui.toast('网络异常,请稍候再试');
+						}
+					});
+				}
+			}
+		});
+        (function($){			
+			//阻尼系数
+			var deceleration = mui.os.ios ? 0.003 : 0.0009;
+			$('#Js-content .mui-scroll-wrapper').scroll({
+				scrollY: true, //是否竖向滚动
+				scrollX: false, //是否横向滚动
+				startX: 0, //初始化时滚动至x
+				startY: 0, //初始化时滚动至y
+				indicators: false, //是否显示滚动条
+				deceleration: 0.0001, //阻尼系数,系数越小滑动越灵敏
+				bounce: false //是否启用回弹
+			});
+			
+			$.plusReady(function() {
+				statusbar();
+				var winH = window.innerHeight;
+				var titHeight = document.querySelector('#Js-header').offsetHeight;
+				document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+			})
+			// 改变头部搜索栏背景色
+			document.querySelector(".mui-scroll-wrapper").addEventListener('scroll', function(e) { 
+				var y = Math.abs(e.detail.y) * 0.01;
+				document.querySelector('#Js-header').style.background = "rgba(48,51,71," + y + ")";
+			});
+			
+		}(mui));
+		
+		mui('body').on('tap', '.member-tax-question', function () {
+			var tax_id = this.getAttribute('data-tax')
+			var data; 
+			if (tax_id == 1) {
+				data = {
+					modalID : 'modal-tax-add',
+					formID : 'member_tax_info',
+					goIns_data: tax.valueAddedTaxAdditional_item
+		    	}
+			} else if(tax_id == 2) {
+				data = {
+					modalID : 'modal-tax-personal',
+					formID : 'member_tax_info',
+					goIns_data: tax.individualIncomeTax_item
+		    	}
+			}
+			
+            // 打开遮罩层，弹框
+            showPopu("member-tax-info.html", "member_tax_info", "bottom", data);
+        });
+    </script>
+</body>
+</html>

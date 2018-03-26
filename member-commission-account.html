@@ -15,7 +15,7 @@
 	<body class="BL-bg-f2f">
 		<header id="Js-header" style="position: fixed;left: 0;top: 0;width: 100%;z-index: 99;">
 			<div class="BL-mod-headbar BL-mod-headbar-pos BL-noBorder-b">
-				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-fff BL-icon-left"></a>
 				<h1 class="BL-title BL-col-fff">账户信息</h1>
 			</div>
 		</header>
@@ -198,6 +198,11 @@
 				});
 			}
 
+		});
+		
+		window.addEventListener('refreshAccount', function () {
+		    //页面重载
+		    plus.webview.currentWebview().reload(true);
 		});
 	</script>
 </html>

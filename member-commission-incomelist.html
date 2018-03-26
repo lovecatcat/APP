@@ -134,7 +134,7 @@
 			     * 获取提取列表
 			     * @param {String} mode 时间搜索模式    1:全部，2:七天，3:一个月， 4:筛选
 			     */
-			    var getIncomelist = function(mode) {
+			    var getIncomelist = function() {
 					var data = {
 						data: JSON.stringify({
 							start: income.start_time,
@@ -160,7 +160,7 @@
 					});
 				};
 				// 获取数据
-				getIncomelist(income.mode)
+				getIncomelist()
 				
 				// 时间筛选
 				var mySchedule = new Schedule({

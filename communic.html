@@ -72,7 +72,7 @@
 		<script src="js/mui.indexedlist.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
-			mui.ready(function() {
+			mui.plusReady(function() {
 				statusbar();
 				var header = document.getElementById('Js-header');
 				var list = document.getElementById('list');
@@ -80,6 +80,14 @@
 				list.style.height = (window.innerHeight - header.offsetHeight) + 'px';
 				//create
 				window.indexedList = new mui.IndexedList(list);
+				
+				mui('body').on('tap', '.mui-indexed-list-item', function(){
+					mui.openWindow({
+						url:'communic-detail.html',
+						id:'communic_detail',
+						show:animateObj.aniDetal
+					})
+				})
 			});
 		</script>
 	</body>

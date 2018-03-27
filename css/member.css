@@ -1176,3 +1176,26 @@ input[type='text'].member-tax-input{
 .menu-fixed{position: fixed;bottom: 0;z-index: 99;width: 100%;background-color: #eee;}
 .menu-list{background-color: #fff;}
 .menu-list li{padding: 1.35rem 0;text-align: center;border-bottom: 1px solid #ddd;font-size: 1.625rem;}
+
+/* 通讯录详情 */
+.communic-topic{
+	padding: 2rem;
+}
+.communic-topic .topic-img{
+	color: #666666;
+	background-color: #dcdcdc;
+	border: .5rem solid #ffffff;
+	border-radius: 100%;
+	font-size: 3rem;
+	width: 8.125rem;
+	height: 8.125rem;
+	line-height: 8.125rem;
+	text-align: center;
+}
+.communic-topic .topic-name{
+	color: #FFFFFF;
+	font-size: 1.625rem;
+	font-weight: 500;
+	margin-top: 1.625rem;
+	text-align: center;
+}

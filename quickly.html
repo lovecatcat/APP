@@ -255,6 +255,7 @@
                 }
             },
             error: function (xhr, type, errorThrown) {
+                plus.nativeUI.closeWaiting();
                 mui.toast(errorThrown, {duration: 'short', type: 'div'});
                 return false
             }

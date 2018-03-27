@@ -125,7 +125,7 @@
 
     <!------------悬浮控制按钮 begin-------------->
     <div class="popuer">
-        <a data-wid="prospect" href="prospect.html" class="popu-IconMenu a-link"><img
+        <a data-wid="prospect-product" href="prospect-product.html" class="popu-IconMenu a-link"><img
                 src="images/product/menu-prospect.png" alt="计划书"/></a>
         <a data-wid="product_contrast" href="product-contrast.html" :data-tid="current_instype"
            class="popu-IconMenu a-link"><img
@@ -261,6 +261,7 @@
                 }
             },
             error: function (xhr, type, errorThrown) {
+            	plus.nativeUI.closeWaiting();
                 mui.toast(errorThrown, {duration: 'short', type: 'div'});
                 return false
             }

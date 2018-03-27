@@ -25,7 +25,7 @@
                 <div class="text">搜索</div>
             </div>
 
-            <div id="Js-contact" class="contact BL-bimg-contain" alt="通讯录"></div>
+            <div id="Js-communic" class="contact BL-bimg-contain" alt="通讯录"></div>
         </div>
     </div>
 </header>
@@ -54,31 +54,31 @@
                 <div class="BL-pad-a1_25 BL-mar-b-1 BL-bg-fff" style="padding-bottom: 0;">
                     <div class="mui-row squared">
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="sns.html" data-wid="sns" class="menu a-link">
+                            <a href="sns.html" data-wid="sns" class="menu">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">SNS</div>
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="ins2c.html" data-wid="ins2c" class="menu a-link">
+                            <a href="ins2c.html" data-wid="ins2c" class="menu">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">交单</div>
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="auto2c.html" data-wid="ins2c" class="menu a-link">
+                            <a href="auto2c.html" data-wid="ins2c" class="menu">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">车险</div>
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="product.html" data-wid="product" class="menu a-link">
+                            <a href="product.html" data-wid="product" class="menu">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">分类</div>
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="quickly.html" data-wid="quickly" class="menu a-link">
+                            <a href="quickly.html" data-wid="quickly" class="menu">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">快速投保</div>
                             </a>
@@ -90,13 +90,13 @@
                             </div>
                         </div>-->
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="shop.html" data-wid="shop" class="menu a-link">
+                            <a href="shop.html" data-wid="shop" class="menu">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">积分商城</div>
                             </a>
                         </div>
-                        <div class="mui-col-sm-3 mui-col-xs-3 squared-menu a-link">
-                            <a class="menu">
+                        <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
+                            <a href="recruit.html" data-wid="recruit" class="menu">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">闪电增员</div>
                             </a>
@@ -296,43 +296,48 @@
                 var y = Math.abs(e.detail.y) * 0.01;
                 document.querySelector('#Js-header').style.background = "rgba(53,153,241," + y + ")";
             });
+            
         }
 
         //主列表点击事件
         var extras = null;
-        var detailPage = null;
+        mui('body').on('tap', '.menu', function () {
+            var href = this.getAttribute('href');
+            var id = this.getAttribute("data-wid");
+            mui.openWindow({
+                    url: href,
+                    id: id,
+                    show: animateObj.aniPage
+            });
+        });
         mui('body').on('tap', '.a-link', function () {
             var href = this.getAttribute('href');
             var id = this.getAttribute("data-wid");
             var tid = this.getAttribute("data-tid");
             var pid = this.getAttribute("data-pid");
-
-            //非plus环境，直接走href跳转
-            if (!mui.os.plus) {
-                location.href = href;
-                return;
-            }
-
-            if (href && ~href.indexOf('.html')) {
-                //判断窗口是否存在
-                if (!detailPage) {
-                    detailPage = plus.webview.getWebviewById(id);
-                }
-                if (tid) {
+            
+            if (tid) {
                     extras = {instype_id: tid};
-                }
-                if (pid) {
+            }
+            if (pid) {
                     extras = {product_id: pid};
-                }
-                //打开新窗口
-                mui.openWindow({
+            }
+            mui.openWindow({
                     url: href,
                     id: id,
-                    show: animateObj.aniPage,
+                    show: animateObj.aniDetal,
                     extras: extras
-                });
-            }
+            });
         });
+        mui('body').on('tap', '#Js-communic', function(){
+        	mui.openWindow({
+                url: 'communic.html',
+                id: 'communic',
+                show: animateObj.aniDetal
+            });
+        })
+        
+        
         var index = new Vue({
             el: '#Js-content',
             data: {

@@ -24,11 +24,11 @@
             </div>
         </div>
         <div class="form-content margin-t-6_125 BL-pad-b-2">
-            <div class="form-wrap">
+            <div class="form-wrap" v-if="init&&init.tax_type" v-cloak>
                 <div class="border-b-e7e7e7">
                     <div class="item-title">投保人声明（备注说明）</div>
                 </div>
-                <form class="mui-input-group BL-pad-b-1" v-if="init&&init.tax_type">
+                <form class="mui-input-group BL-pad-b-1">
                     <div class="mui-input-row mui-radio mui-left ins-radio-left" v-for="(item,index) in init.tax_type">
                         <label class="ins-font-sm">{{item.text}}</label>
                         <input name="radio" type="radio" :value="item.value" v-model="applicant.holder_isTaxResidents">
@@ -42,15 +42,16 @@
                 <div class="input-item">
                     <label class="">证件类型</label>
                     <div class="input-wrap box-f-1">
-                        <div class="input" id="ID_type" :data-value="applicant.holder_ID_type">{{applicant.holder_ID_type_name}}</div>
+                        <input type="text" v-model="applicant.holder_ID_type_name" readonly>
                         <div class="ins-down-icon"></div>
                     </div>
                 </div>
                 <div class="input-item">
                     <label class="">证件号码</label>
                     <div class="input-wrap box-f-1">
-                        <input type="number" placeholder="请输入" v-model="applicant.holder_ID_no">
-                        <div class="form-clear-icon">
+                        <input type="number" placeholder="请输入" v-model.trim.lazy="applicant.holder_ID_no">
+                        <div class="form-clear-icon" v-show="applicant.holder_ID_no!=''"
+                             @click="applicant.holder_ID_no=''">
                             <span class="mui-icon mui-icon-clear"></span>
                         </div>
                     </div>
@@ -62,20 +63,21 @@
                         <div class="ins-down-icon"></div>
                     </div>
                     <div class="input-wrap box-f-1 BL-mar-l-1 search-date" data-options='{"type":"date"}'>
-                        <input type="number" placeholder="2020-01-01" v-model="applicant.holder_ID_expire_end">
+                        <input type="text" placeholder="2020-01-01" v-model="applicant.holder_ID_expire_end">
                         <div class="ins-down-icon"></div>
                     </div>
                 </div>
             </div>
             <div class="form-wrap margin-t_875">
                 <div class="border-b-e7e7e7">
-                    <div class="item-title">个人信息</div>
+                    <div class="item-title">个人信息{{applicant.holder_birthday}}</div>
                 </div>
                 <div class="input-item">
                     <label class="">姓名</label>
                     <div class="input-wrap">
-                        <input type="text" v-model="applicant.holder_name">
-                        <div class="form-clear-icon">
+                        <input type="text" v-model.trim.lazy="applicant.holder_name" placeholder="请输入">
+                        <div class="form-clear-icon" v-show="applicant.holder_name!=''"
+                             @click="applicant.holder_name=''">
                             <span class="mui-icon mui-icon-clear"></span>
                         </div>
                     </div>
@@ -84,32 +86,35 @@
                 <div class="input-item">
                     <label class="">性别</label>
                     <div class="input-wrap box-f-1">
-                        <button class="ins-btn sm-btn" :class="{'blue':applicant.holder_gender===1}" @click="applicant.holder_gender=1">男</button>
-                        <button class="ins-btn sm-btn" :class="{'blue':applicant.holder_gender===2}" @click="applicant.holder_gender=2">女</button>
+                        <button class="ins-btn sm-btn" :class="{'blue':applicant.holder_gender===1}"
+                                @click="applicant.holder_gender=1">男
+                        </button>
+                        <button class="ins-btn sm-btn" :class="{'blue':applicant.holder_gender===2}"
+                                @click="applicant.holder_gender=2">女
+                        </button>
                     </div>
                 </div>
                 <div class="input-item">
-                    <label class="">出生日期</label>
+                    <label class="">出生日期{{applicant.holder_birthday}}</label>
                     <div class="input-wrap box-f-1 search-date" data-options='{"type":"date"}'>
-                        <input type="text" v-model="applicant.holder_birthday">
+                        <input type="text" v-model.lazy="applicant.holder_birthday"
+                               :data-value="applicant.holder_birthday" placeholder="请选择">
                         <div class="ins-date-icon"></div>
                     </div>
                 </div>
                 <div class="input-item">
                     <label class="">国籍</label>
                     <div class="input-wrap">
-                        <input type="text" placeholder="中国" v-model="applicant.holder_nation">
-                        <div class="form-clear-icon">
-                            <span class="mui-icon mui-icon-clear"></span>
-                        </div>
+                        <input type="text" v-model="applicant.holder_nation">
                     </div>
-                    <div class="right-btn orange">同投保人</div>
+                    <!--<div class="right-btn orange">同投保人</div>-->
                 </div>
                 <div class="input-item">
                     <label class="">手机号码</label>
                     <div class="input-wrap box-f-1">
-                        <input type="number" v-model="applicant.holder_mobile">
-                        <div class="form-clear-icon">
+                        <input type="number" v-model.lazy="applicant.holder_mobile" placeholder="请输入">
+                        <div class="form-clear-icon" v-show="applicant.holder_mobile!=''"
+                             @click="applicant.holder_mobile=''">
                             <span class="mui-icon mui-icon-clear"></span>
                         </div>
                     </div>
@@ -121,45 +126,50 @@
                         <div class="ins-down-icon"></div>
                     </div>
                 </div>
-                <div class="input-item ins-pd-r-0">
+                <div class="input-item ins-pd-r-0" v-if="init&&init.marriage">
                     <label class="">婚姻状况</label>
                     <div class="input-wrap box-f-1 multi-btn">
-                        <button class="ins-btn xs-btn">未婚</button>
-                        <button class="ins-btn xs-btn blue">已婚</button>
-                        <button class="ins-btn xs-btn">丧偶</button>
-                        <button class="ins-btn xs-btn">离婚</button>
+                        <button class="ins-btn xs-btn" :class="{'blue':item.value===applicant.holder_marriage}"
+                                v-for="(item,index) in init.marriage" @click="applicant.holder_marriage=item.value">
+                            {{item.text}}
+                        </button>
                     </div>
                 </div>
                 <div class="input-item">
                     <label class="">年收入(万元)</label>
                     <div class="input-wrap box-f-1">
-                        <input type="number" v-model="applicant.holder_salary_avg">
-                        <div class="form-clear-icon">
+                        <input type="number" v-model.trim="applicant.holder_salary_avg" placeholder="请输入">
+                        <div class="form-clear-icon" v-show="applicant.holder_salary_avg!=''"
+                             @click="applicant.holder_salary_avg=''">
                             <span class="mui-icon mui-icon-clear"></span>
                         </div>
                     </div>
                 </div>
                 <div class="input-item">
-                    <label class="">收入来源</label>
+                    <label class="">收入来源{{applicant.holder_salary_from}}</label>
                     <div class="input-wrap box-f-1">
-                        <div class="input" id="annual_source" :data-value="applicant.holder_salary_from">{{applicant.holder_salary_from_name}}</div>
+                        <div class="input" id="annual_source" :data-value="applicant.holder_salary_from">
+                            {{applicant.holder_salary_from_name}}
+                        </div>
                         <div class="ins-down-icon"></div>
                     </div>
                 </div>
                 <div class="input-item">
-                    <label class="">身高</label>
+                    <label class="">身高(cm)</label>
                     <div class="input-wrap box-f-1">
-                        <input type="number" v-model="applicant.holder_height">
-                        <div class="form-clear-icon">
+                        <input type="number" v-model.number.lazy="applicant.holder_height" placeholder="请输入">
+                        <div class="form-clear-icon" v-show="applicant.holder_height!=''"
+                             @click="applicant.holder_height=''">
                             <span class="mui-icon mui-icon-clear"></span>
                         </div>
                     </div>
                 </div>
                 <div class="input-item">
-                    <label class="">体重</label>
+                    <label class="">体重(kg)</label>
                     <div class="input-wrap box-f-1">
-                        <input type="number" v-model="applicant.holder_weight">
-                        <div class="form-clear-icon">
+                        <input type="number" v-model.number.lazy="applicant.holder_weight" placeholder="请输入">
+                        <div class="form-clear-icon" v-show="applicant.holder_weight!=''"
+                             @click="applicant.holder_weight=''">
                             <span class="mui-icon mui-icon-clear"></span>
                         </div>
                     </div>
@@ -167,7 +177,11 @@
                 <div class="input-item">
                     <label class="">邮箱</label>
                     <div class="input-wrap box-f-1">
-                        <input type="text" v-model="applicant.holder_email">
+                        <input type="text" v-model.lazy="applicant.holder_email" placeholder="请输入">
+                        <div class="form-clear-icon" v-show="applicant.holder_email!=''"
+                             @click="applicant.holder_email=''">
+                            <span class="mui-icon mui-icon-clear"></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -185,14 +199,19 @@
                 <div class="input-item">
                     <label class="">详细地址</label>
                     <div class="input-wrap box-f-1">
-                        <input type="text" v-model="applicant.holder_contact_address">
+                        <input type="text" v-model="applicant.holder_contact_address" placeholder="请输入">
+                        <div class="form-clear-icon" v-show="applicant.holder_contact_address!=''"
+                             @click="applicant.holder_contact_address=''">
+                            <span class="mui-icon mui-icon-clear"></span>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="input-item box-f-1">
                 <div class="box-f-3 ins-font-sm BL-col-3b9cf5">是否已参加当地社会基本医疗保险（或公费医疗）？</div>
                 <div class="box-f-1 ins-switch">
-                    <div class="mui-switch mui-switch-mini">
+                    <div class="mui-switch mui-switch-mini"
+                         @click="applicant.holder_has_SSID=!applicant.holder_has_SSID">
                         <div class="mui-switch-handle"></div>
                     </div>
                 </div>
@@ -208,17 +227,20 @@
 <script src="../js/mui.picker.js"></script>
 <script src="../js/mui.poppicker.js"></script>
 <script src="../js/mui.dtpicker.js"></script>
+<script src="../js/IDValidator.min.js"></script>
+<script src="method.js"></script>
 <script type="text/javascript">
     mui.init();
 
-    var applicant = new Vue({
+    var appl = new Vue({
         el: '#Js-content',
         data: {
             init: {},
+            appl_age: '',//投保人年龄
             applicant: {
                 holder_name: '', //姓名
                 holder_ID_type: '', //证件类型
-                holder_ID_type_name: '请选择', //证件类型名
+                holder_ID_type_name: '身份证', //证件类型名
                 holder_ID_no: '', //证件号码
                 holder_birthday: '', //出生日期
                 holder_ID_expire_end: '', //证件有效期
@@ -227,7 +249,7 @@
                 holder_email: '',//邮箱
                 holder_height: '',//身高
                 holder_weight: '',//体重
-                holder_nation: '',//国籍
+                holder_nation: '中国',//国籍
                 holder_salary_from: '',//收入来源
                 holder_salary_from_name: '请选择',//收入来源名
                 holder_salary_avg: '',//年收入
@@ -240,34 +262,58 @@
                 holder_job_code: '',//职业
                 holder_isTaxResidents: '' //税收标识
             }
+        },
+        created: function () {
+            this.applicant.holder_ID_type = IDcard;
+
+            this.$watch('applicant.holder_ID_no', function (val) {
+                IDValidate(IDcard, val, '投保人');
+            });
+
+            this.$watch('applicant.holder_birthday', function (val) {
+                this.appl_age = getAge(val);
+                alert(this.appl_age);
+                var toast_text = null;
+                if (this.appl_age < 18) {
+                    toast_text = '投保人不能小于18岁';
+                } else if (this.appl_age > 60) {
+                    toast_text = '投保人不能大于60岁';
+                }
+                if (toast_text) {
+                    mui.toast(toast_text, {duration: 'short', type: 'div'});
+                    return false;
+                }
+            })
         }
     });
 
     mui.plusReady(function () {
         var init = plus.webview.currentWebview().data;
-        applicant.init = init;
-
-        //下拉框选择
-        var arrData = [init.ID_type, init.annual_source];
-        var arrId = ['#ID_type', '#annual_source'];
-        mui.each(arrData, function (index, item) {
-            var data = {};
-            data.el = arrId[index];
-//            if (index == 0) {
-//                data.layer = 3;
-//            };
-            new mui.PopPicker(data).setData(item);
-        });
-
+        appl.init = init;
+        //收入来源选择
+//        var data = [{value:1,text:'aaaa'},{value:2,text:'a22aa'},{value:3,text:'aaa3434a'}]
+        var warrantyType = new mui.PopPicker();
+        warrantyType.setData(init.annual_source);
+        document.querySelector('#annual_source').addEventListener('tap', function() {
+            warrantyType.show(function(items) {
+                appl.applicant.holder_salary_from = items[0].value;
+                appl.applicant.holder_salary_from_name = items[0].text;
+            })
+        })
         //日期选择
-        //var dates = document.querySelectorAll('.search-date');
-        mui('.search-date').each(function(i, d) {
-            d.addEventListener('tap', function() {
+        mui('.search-date').each(function (i, d) {
+            console.log(typeof i)
+            d.addEventListener('tap', function () {
                 var optionsJson = this.getAttribute('data-options') || '{}';
                 var options = JSON.parse(optionsJson);
                 var _this = this
                 var picker = new mui.DtPicker(options);
-                picker.show(function(rs) {
+                picker.show(function (rs) {
+                    if (i === 0) {
+                        appl.applicant.holder_ID_expire_end = rs.text;
+                    } else if (i === 1) {
+                        appl.applicant.holder_birthday = rs.text;
+                    }
                     _this.querySelector('input').value = rs.text;
                     picker.dispose();
                 });
@@ -280,6 +326,10 @@
             // 关闭遮罩层，弹框
             popu.closepop();
         });
+        mui('body').on('tap', '#maskInit', function () {
+            // 关闭遮罩层，弹框
+            popu.closepop();
+        }, false);
     });
 </script>
 </html>

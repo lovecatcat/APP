@@ -28,130 +28,132 @@
                 <div class="input-item box-f-1 box-align-center">
                     <div class="box-f-2 ins-font-sm">是否法定</div>
                     <div class="box-f-1">
-                        <div class="mui-switch mui-switch-mini">
+                        <div class="mui-switch mui-switch-mini" @click="is_legal_benefic=!is_legal_benefic">
                             <div class="mui-switch-handle"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="form-wrap margin-t_875">
-                <div class="border-b-e7e7e7">
-                    <div class="item-title">证件信息</div>
-                </div>
-                <div class="input-item">
-                    <label class="">证件类型</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" placeholder="请选择" readonly>
-                        <div class="ins-down-icon"></div>
+            <div v-show="!is_legal_benefic">
+                <div class="form-wrap margin-t_875">
+                    <div class="border-b-e7e7e7">
+                        <div class="item-title">证件信息</div>
                     </div>
-                </div>
-                <div class="input-item">
-                    <label class="">证件号码</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="number">
-                        <div class="form-clear-icon">
-                            <span class="mui-icon mui-icon-clear"></span>
+                    <div class="input-item">
+                        <label class="">证件类型</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" placeholder="请选择" readonly>
+                            <div class="ins-down-icon"></div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">证件号码</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number">
+                            <div class="form-clear-icon">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">证件有效期</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" placeholder="长期有效">
+                            <div class="ins-down-icon"></div>
+                        </div>
+                        <div class="input-wrap box-f-1 BL-mar-l-1">
+                            <input type="number" placeholder="2020-01-01">
+                            <div class="ins-down-icon"></div>
                         </div>
                     </div>
                 </div>
-                <div class="input-item">
-                    <label class="">证件有效期</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" placeholder="长期有效">
-                        <div class="ins-down-icon"></div>
+                <div class="form-wrap margin-t_875">
+                    <div class="border-b-e7e7e7">
+                        <div class="item-title">个人信息</div>
                     </div>
-                    <div class="input-wrap box-f-1 BL-mar-l-1">
-                        <input type="number" placeholder="2020-01-01">
-                        <div class="ins-down-icon"></div>
+                    <div class="input-item">
+                        <label class="">姓名</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text">
+                            <div class="form-clear-icon">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="form-wrap margin-t_875">
-                <div class="border-b-e7e7e7">
-                    <div class="item-title">个人信息</div>
-                </div>
-                <div class="input-item">
-                    <label class="">姓名</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text">
-                        <div class="form-clear-icon">
-                            <span class="mui-icon mui-icon-clear"></span>
+                    <div class="input-item">
+                        <label class="">性别</label>
+                        <div class="input-wrap box-f-1">
+                            <button class="ins-btn sm-btn">男</button>
+                            <button class="ins-btn sm-btn blue">女</button>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">出生日期</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text">
+                            <div class="ins-date-icon"></div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">是被保人的</label>
+                        <div class="input-wrap box-f-1">
+                            <button class="ins-btn xs-btn">本人</button>
+                            <button class="ins-btn xs-btn blue">子女</button>
+                            <button class="ins-btn xs-btn">父母</button>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">受益顺序</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number">
+                            <div class="form-clear-icon">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">受益比例(%)</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number">
+                            <div class="form-clear-icon">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-item ins-font-xs BL-col-999">同一受益顺序的受益人受益份额之和为<span
+                            class="BL-col-ff8201">100%</span>
+                    </div>
+                    <div class="input-item box-f-1 box-align-center">
+                        <div class="box-f-1 ins-font-sm BL-col-3b9cf5">是否与投被保人同地址？</div>
+                        <div class="box-f-2">
+                            <button class="ins-btn xxs-btn">同投保人</button>
+                            <button class="ins-btn xxs-btn blue">同被保人</button>
+                            <button class="ins-btn xs-btn">否</button>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">通讯地址</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" placeholder="请选择" readonly>
+                            <div class="ins-down-icon"></div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">详细地址</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">邮编</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number">
                         </div>
                     </div>
                 </div>
-                <div class="input-item">
-                    <label class="">性别</label>
-                    <div class="input-wrap box-f-1">
-                        <button class="ins-btn sm-btn">男</button>
-                        <button class="ins-btn sm-btn blue">女</button>
-                    </div>
+                <div class="BL-mar-t-b-2 BL-pad-lr-1">
+                    <a type="button" class="form-btn" href="auto2c-choose.html" data-wid="auto2c_choose">+添加受益人</a>
                 </div>
-                <div class="input-item">
-                    <label class="">出生日期</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text">
-                        <div class="ins-date-icon"></div>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">是被保人的</label>
-                    <div class="input-wrap box-f-1">
-                        <button class="ins-btn xs-btn">本人</button>
-                        <button class="ins-btn xs-btn blue">子女</button>
-                        <button class="ins-btn xs-btn">父母</button>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">受益顺序</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="number">
-                        <div class="form-clear-icon">
-                            <span class="mui-icon mui-icon-clear"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">受益比例(%)</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="number">
-                        <div class="form-clear-icon">
-                            <span class="mui-icon mui-icon-clear"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-item ins-font-xs BL-col-999">同一受益顺序的受益人受益份额之和为<span
-                        class="BL-col-ff8201">100%</span>
-                </div>
-                <div class="input-item box-f-1 box-align-center">
-                    <div class="box-f-1 ins-font-sm BL-col-3b9cf5">是否与投被保人同地址？</div>
-                    <div class="box-f-2">
-                        <button class="ins-btn xxs-btn">同投保人</button>
-                        <button class="ins-btn xxs-btn blue">同被保人</button>
-                        <button class="ins-btn xs-btn">否</button>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">通讯地址</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" placeholder="请选择" readonly>
-                        <div class="ins-down-icon"></div>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">详细地址</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text">
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">邮编</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="number">
-                    </div>
-                </div>
-            </div>
-            <div class="BL-mar-t-b-2 BL-pad-lr-1">
-                <a type="button" class="form-btn" href="auto2c-choose.html" data-wid="auto2c_choose">+添加受益人</a>
             </div>
         </div>
     </div>
@@ -160,9 +162,16 @@
 </div>
 </body>
 <script src="../js/mui.min.js" type="text/javascript"></script>
+<script src="../js/vue.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     mui.init();
 
+    var beneficiary = new Vue({
+        el: '#Js-content',
+        data: {
+            is_legal_benefic: false
+        }
+    });
     mui.plusReady(function () {
         var popu = new ClosePopu(); // 实例化关闭窗口对象
 
@@ -170,6 +179,10 @@
             // 关闭遮罩层，弹框
             popu.closepop();
         });
+        mui('body').on('tap', '#maskInit', function () {
+            // 关闭遮罩层，弹框
+            popu.closepop();
+        }, false);
     });
 </script>
 </html>

@@ -861,7 +861,8 @@
     "refer": [
       "member-avatar.html",
       "member-avatarcut.html",
-      "member-avatarmenu.html"
+      "member-avatarmenu.html",
+      "login.html"
     ],
     "resources": []
   },

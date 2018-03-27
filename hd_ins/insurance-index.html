@@ -100,15 +100,15 @@
         });
         mui('body').on('tap', '#ins-assured', function () {
             // 打开遮罩层，弹框
-            showPopu("insurance-assured.html", "insurance_assured", "bottom");
+            showPopu("insurance-assured.html", "insurance_assured", "bottom", index.init);
         });
         mui('body').on('tap', '#ins-beneficiary', function () {
             // 打开遮罩层，弹框
-            showPopu("insurance-beneficiary.html", "insurance_beneficiary");
+            showPopu("insurance-beneficiary.html", "insurance_beneficiary", "bottom", index.init);
         });
         mui('body').on('tap', '#ins-bank', function () {
             // 打开遮罩层，弹框
-            showPopu("insurance-bank.html", "insurance_bank");
+            showPopu("insurance-bank.html", "insurance_bank", "bottom", index.init);
         });
         mui('body').on('tap', '#ins-healthinfo', function () {
             // 打开遮罩层，弹框
@@ -150,7 +150,7 @@
         }
 
         mui.ajax(baseURL + '/invoke', {
-            data: {data: JSON.stringify({'supplier_id': 23}), device: 'mobile', server: 'PolicyIns.initPolicyField'},
+            data: {data: JSON.stringify({'supplier_id': 19}), device: 'mobile', server: 'PolicyIns.initPolicyField'},
             dataType: 'json',//服务器返回json格式数据
             type: 'post',//HTTP请求类型
             timeout: 10000,//超时时间设置为10秒；
@@ -193,7 +193,7 @@
                         } else if (item.cate === 'AV') {
                             res.bank_code = dataToselect(item.child); //银行代码
                         } else if (item.cate === 'area') {
-                            res.province = dataToselect(item.child); //银行代码
+                            res.province = dataToselect(item.child); //省
                         } else if (item.cate === 'BB') {
                             res.nj_safe_year = dataToselect(item.child); //年金保障年限
                         } else if (item.cate === 'BC') {

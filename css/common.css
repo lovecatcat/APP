@@ -463,7 +463,10 @@ i {
 .BL-mar-b-2 {
 	margin-bottom: 2rem;
 }
-
+.BL-mar-t-b-2 {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
 
 /* 重写mui加载更多样式 */
 

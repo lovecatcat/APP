@@ -1248,7 +1248,9 @@
 					"js/mui.picker.min.js",
 					"css/mui.picker.min.css"
 				],
-				"refer": [],
+				"refer": [
+					"team-personal-performance.html"
+				],
 				"priority": 0
 			},
 			"member-duty.html": {
@@ -1994,7 +1996,8 @@
 			"member-personalinfo.html": {
 				"resources": [],
 				"refer": [
-					"member-avatarmenu.html"
+					"member-avatarmenu.html",
+					"login.html"
 				],
 				"priority": 0
 			},
@@ -2037,7 +2040,9 @@
 					"images/icon/ico-pwd.png",
 					"css/form.css"
 				],
-				"refer": [],
+				"refer": [
+					"member-forgetpwd.html"
+				],
 				"priority": 0
 			},
 			"member-renewal-auto.html": {
@@ -2126,7 +2131,6 @@
 				"css/mui.poppicker.css",
 				"images/pic/p1.jpg",
 				"prospect-addIns.html",
-				"team-personal-performance.html",
 				"README.md"
 			]
 		}

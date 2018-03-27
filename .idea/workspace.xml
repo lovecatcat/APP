@@ -4,19 +4,18 @@
     <list default="true" id="498c8627-e6d5-474f-af44-54872208893d" name="默认的" comment="Merge branch 'master' of http://172.16.2.31:3001/baihao/BH-mobileapp2&#10;&#10;# Conflicts:&#10;#&#9;css/common.css&#10;#&#9;css/plans.css&#10;#&#9;plans-detail.html&#10;#&#9;plans-total.html&#10;#&#9;plans.html">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/common.css" afterPath="$PROJECT_DIR$/css/common.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/insurance.css" afterPath="$PROJECT_DIR$/css/insurance.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/member.css" afterPath="$PROJECT_DIR$/css/member.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hd_ins/insurance-applicant.html" afterPath="$PROJECT_DIR$/hd_ins/insurance-applicant.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hd_ins/insurance-assured.html" afterPath="$PROJECT_DIR$/hd_ins/insurance-assured.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hd_ins/insurance-bank.html" afterPath="$PROJECT_DIR$/hd_ins/insurance-bank.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hd_ins/insurance-beneficiary.html" afterPath="$PROJECT_DIR$/hd_ins/insurance-beneficiary.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hd_ins/insurance-index.html" afterPath="$PROJECT_DIR$/hd_ins/insurance-index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hd_ins/method.js" afterPath="$PROJECT_DIR$/hd_ins/method.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index-content.html" afterPath="$PROJECT_DIR$/index-content.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ins2c-applicant.html" afterPath="$PROJECT_DIR$/ins2c-applicant.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/config.js" afterPath="$PROJECT_DIR$/js/config.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/mui.picker.js" afterPath="$PROJECT_DIR$/js/mui.picker.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/mui.poppicker.js" afterPath="$PROJECT_DIR$/js/mui.poppicker.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/insurance-applicant.html" afterPath="$PROJECT_DIR$/insurance-applicant.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/login.html" afterPath="$PROJECT_DIR$/login.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manifest.json" afterPath="$PROJECT_DIR$/manifest.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/product-detail.html" afterPath="$PROJECT_DIR$/product-detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/quickly.html" afterPath="$PROJECT_DIR$/quickly.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/product.html" afterPath="$PROJECT_DIR$/product.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unpackage/.confirmed_dependencies" afterPath="$PROJECT_DIR$/unpackage/.confirmed_dependencies" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/unpackage/.dependencies" afterPath="$PROJECT_DIR$/unpackage/.dependencies" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,68 +32,55 @@
       <file leaf-file-name="insurance-applicant.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hd_ins/insurance-applicant.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="93" column="42" lean-forward="false" selection-start-line="93" selection-start-column="42" selection-end-line="93" selection-end-column="42" />
+            <state relative-caret-position="431">
+              <caret line="304" column="33" lean-forward="true" selection-start-line="304" selection-start-column="33" selection-end-line="304" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ins2c-applicant.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ins2c-applicant.html">
+      <file leaf-file-name="mui.poppicker.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/mui.poppicker.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="174" column="94" lean-forward="false" selection-start-line="174" selection-start-column="94" selection-end-line="174" selection-end-column="94" />
+            <state relative-caret-position="233">
+              <caret line="65" column="32" lean-forward="false" selection-start-line="65" selection-start-column="32" selection-end-line="65" selection-end-column="32" />
+              <folding>
+                <marker date="1522145282549" expanded="true" signature="598:884" ph="..." />
+                <marker date="1522145282549" expanded="true" signature="636:829" ph="..." />
+                <marker date="1522145282549" expanded="true" signature="865:875" ph="..." />
+                <marker date="1522145282549" expanded="true" signature="933:1147" ph="..." />
+                <marker date="1522145282549" expanded="true" signature="967:1138" ph="..." />
+                <marker date="1522145282549" expanded="true" signature="1059:1069" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="insurance-assured.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hd_ins/insurance-assured.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="416">
+              <caret line="336" column="21" lean-forward="false" selection-start-line="336" selection-start-column="21" selection-end-line="336" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ins2c-safegood.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ins2c-safegood.html">
+      <file leaf-file-name="method.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hd_ins/method.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="49" column="55" lean-forward="true" selection-start-line="49" selection-start-column="55" selection-end-line="49" selection-end-column="55" />
+            <state relative-caret-position="-207">
+              <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ins2c-assured.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ins2c-assured.html">
+      <file leaf-file-name="member-warranty-manageLife.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/member-warranty-manageLife.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
-              <caret line="233" column="6" lean-forward="true" selection-start-line="233" selection-start-column="6" selection-end-line="233" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="member-team-performance.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/member-team-performance.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="33" column="43" lean-forward="false" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="insurance-index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/insurance-index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="801">
-              <caret line="85" column="23" lean-forward="true" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="insurance-index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hd_ins/insurance-index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="167" column="38" lean-forward="false" selection-start-line="167" selection-start-column="32" selection-end-line="167" selection-end-column="38" />
+            <state relative-caret-position="228">
+              <caret line="164" column="56" lean-forward="true" selection-start-line="164" selection-start-column="16" selection-end-line="164" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -111,15 +97,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>v-clo</find>
-      <find>init</find>
-      <find>productFilter</find>
-      <find>Js-list</find>
-      <find>productList</find>
-      <find>manageLife</find>
-      <find>filter</find>
-      <find>self</find>
-      <find>.filter-state .state-select .item.mui-active{</find>
       <find>ordertype</find>
       <find>type</find>
       <find>alert</find>
@@ -141,6 +118,15 @@
       <find>text</find>
       <find>ins_type</find>
       <find>input-wrap</find>
+      <find>search-date</find>
+      <find>appl</find>
+      <find>assured_ID_type_name</find>
+      <find>annual_source</find>
+      <find>bank_code</find>
+      <find>IDcard</find>
+      <find>warranty_type</find>
+      <find>setda</find>
+      <find>warrantyState</find>
     </findStrings>
     <replaceStrings>
       <replace>BL</replace>
@@ -164,7 +150,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/insurance-beneficiary.html" />
         <option value="$PROJECT_DIR$/insurance-safegood.html" />
         <option value="$PROJECT_DIR$/insurance-bank.html" />
         <option value="$PROJECT_DIR$/auto2c-choose.html" />
@@ -194,26 +179,27 @@
         <option value="$PROJECT_DIR$/member-commission-account.html" />
         <option value="$PROJECT_DIR$/tax-cal.html" />
         <option value="$PROJECT_DIR$/css/form.css" />
-        <option value="$PROJECT_DIR$/product.html" />
         <option value="$PROJECT_DIR$/css/product.css" />
-        <option value="$PROJECT_DIR$/hd_ins/method.js" />
         <option value="$PROJECT_DIR$/js/config.js" />
-        <option value="$PROJECT_DIR$/css/common.css" />
         <option value="$PROJECT_DIR$/css/member.css" />
         <option value="$PROJECT_DIR$/quickly.html" />
-        <option value="$PROJECT_DIR$/hd_ins/insurance-bank.html" />
-        <option value="$PROJECT_DIR$/hd_ins/insurance-beneficiary.html" />
         <option value="$PROJECT_DIR$/hd_ins/insurance-healthinfo.html" />
         <option value="$PROJECT_DIR$/hd_ins/insurance-safegood.html" />
-        <option value="$PROJECT_DIR$/login.html" />
-        <option value="$PROJECT_DIR$/hd_ins/insurance-assured.html" />
         <option value="$PROJECT_DIR$/product-detail.html" />
-        <option value="$PROJECT_DIR$/index-content.html" />
-        <option value="$PROJECT_DIR$/hd_ins/insurance-index.html" />
         <option value="$PROJECT_DIR$/ins2c-applicant(1).html" />
         <option value="$PROJECT_DIR$/ins2c-applicant.html" />
         <option value="$PROJECT_DIR$/css/insurance.css" />
+        <option value="$PROJECT_DIR$/index-content.html" />
+        <option value="$PROJECT_DIR$/insurance-applicant.html" />
+        <option value="$PROJECT_DIR$/login.html" />
+        <option value="$PROJECT_DIR$/product.html" />
+        <option value="$PROJECT_DIR$/css/common.css" />
+        <option value="$PROJECT_DIR$/hd_ins/insurance-beneficiary.html" />
+        <option value="$PROJECT_DIR$/hd_ins/insurance-bank.html" />
+        <option value="$PROJECT_DIR$/hd_ins/insurance-index.html" />
+        <option value="$PROJECT_DIR$/hd_ins/method.js" />
         <option value="$PROJECT_DIR$/js/mui.poppicker.js" />
+        <option value="$PROJECT_DIR$/hd_ins/insurance-assured.html" />
         <option value="$PROJECT_DIR$/hd_ins/insurance-applicant.html" />
       </list>
     </option>
@@ -246,6 +232,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -262,7 +249,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -272,6 +258,11 @@
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -317,7 +308,9 @@
       <workItem from="1521696915896" duration="287000" />
       <workItem from="1521887288609" duration="87000" />
       <workItem from="1521887659404" duration="1001000" />
-      <workItem from="1522025795205" duration="39623000" />
+      <workItem from="1522025795205" duration="39791000" />
+      <workItem from="1522112927147" duration="25589000" />
+      <workItem from="1522144114449" duration="5805000" />
     </task>
     <task id="LOCAL-00001" summary="计划书模块">
       <created>1520420574558</created>
@@ -351,23 +344,22 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="301702000" />
+    <option name="totallyTimeSpent" value="333264000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16311301" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14925373" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11304348" sideWeight="0.510661" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5782609" sideWeight="0.49573562" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5782609" sideWeight="0.49573562" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45108697" sideWeight="0.48933902" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16847827" sideWeight="0.48933902" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -377,6 +369,7 @@
       <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -455,41 +448,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/member-commission-detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="24" column="61" lean-forward="false" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/member-commission-applylist.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="30" column="41" lean-forward="true" selection-start-line="30" selection-start-column="41" selection-end-line="30" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tax-cal.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="40" column="22" lean-forward="true" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/prospect.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/news.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="63" column="8" lean-forward="false" selection-start-line="63" selection-start-column="8" selection-end-line="63" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/plans.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="118">
@@ -508,23 +466,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
           <caret line="154" column="16" lean-forward="false" selection-start-line="154" selection-start-column="16" selection-end-line="154" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/insurance-applicant.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="22" column="11" lean-forward="true" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hd_ins/method.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="11" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="22" selection-end-column="2" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -542,7 +483,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -550,15 +490,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="598">
           <caret line="29" column="28" lean-forward="true" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/common.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="544" column="0" lean-forward="true" selection-start-line="544" selection-start-column="0" selection-end-line="544" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -566,15 +497,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="991" column="1" lean-forward="true" selection-start-line="991" selection-start-column="1" selection-end-line="991" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hd_ins/insurance-bank.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -582,7 +504,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
           <caret line="83" column="16" lean-forward="false" selection-start-line="83" selection-start-column="16" selection-end-line="83" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -590,7 +511,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="552">
           <caret line="135" column="31" lean-forward="true" selection-start-line="135" selection-start-column="31" selection-end-line="135" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -598,31 +518,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="621">
           <caret line="189" column="35" lean-forward="true" selection-start-line="188" selection-start-column="8" selection-end-line="189" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hd_ins/insurance-beneficiary.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="36" column="46" lean-forward="false" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hd_ins/insurance-assured.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="828">
-          <caret line="42" column="81" lean-forward="true" selection-start-line="42" selection-start-column="81" selection-end-line="42" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="75" column="31" lean-forward="true" selection-start-line="75" selection-start-column="31" selection-end-line="75" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -630,7 +525,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-234">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -638,15 +532,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="732">
           <caret line="128" column="53" lean-forward="true" selection-start-line="128" selection-start-column="53" selection-end-line="128" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/product.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3746">
-          <caret line="255" column="21" lean-forward="true" selection-start-line="255" selection-start-column="21" selection-end-line="255" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -654,7 +539,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="506">
           <caret line="122" column="38" lean-forward="true" selection-start-line="122" selection-start-column="38" selection-end-line="122" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -670,15 +554,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1886">
           <caret line="106" column="81" lean-forward="false" selection-start-line="106" selection-start-column="81" selection-end-line="106" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index-content.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4899">
-          <caret line="88" column="60" lean-forward="true" selection-start-line="88" selection-start-column="60" selection-end-line="88" selection-end-column="60" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -686,7 +561,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-5547">
           <caret line="27" column="22" lean-forward="true" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -694,7 +568,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2277">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -702,7 +575,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-621">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -710,7 +582,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1035">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -726,23 +597,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="625">
           <caret line="104" column="35" lean-forward="true" selection-start-line="104" selection-start-column="35" selection-end-line="104" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/plansData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-69">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/plans.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="571">
-          <caret line="1572" column="46" lean-forward="true" selection-start-line="1572" selection-start-column="46" selection-end-line="1572" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -750,7 +604,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1817">
           <caret line="160" column="27" lean-forward="true" selection-start-line="160" selection-start-column="27" selection-end-line="160" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -758,15 +611,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2879">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/member-warranty-manageLife.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="95" column="19" lean-forward="true" selection-start-line="95" selection-start-column="19" selection-end-line="95" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -778,91 +622,206 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="47" column="43" lean-forward="true" selection-start-line="47" selection-start-column="43" selection-end-line="47" selection-end-column="43" />
-          <folding>
-            <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/mui.poppicker.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="67" column="49" lean-forward="true" selection-start-line="67" selection-start-column="49" selection-end-line="67" selection-end-column="49" />
-          <folding>
-            <marker date="1522069588883" expanded="true" signature="598:884" ph="..." />
-            <marker date="1522069588883" expanded="true" signature="636:829" ph="..." />
-            <marker date="1522069588883" expanded="true" signature="865:875" ph="..." />
-            <marker date="1522069588883" expanded="true" signature="933:1147" ph="..." />
-            <marker date="1522069588883" expanded="true" signature="967:1138" ph="..." />
-            <marker date="1522069588883" expanded="true" signature="1059:1069" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ins2c-applicant(1).html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
           <caret line="238" column="21" lean-forward="true" selection-start-line="238" selection-start-column="21" selection-end-line="238" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ins2c-assured.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5359">
+          <caret line="233" column="6" lean-forward="true" selection-start-line="233" selection-start-column="6" selection-end-line="233" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ins2c-safegood.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1127">
+          <caret line="49" column="55" lean-forward="true" selection-start-line="49" selection-start-column="55" selection-end-line="49" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/member-team-performance.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="759">
+          <caret line="33" column="43" lean-forward="false" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index-content.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="357" column="57" lean-forward="false" selection-start-line="357" selection-start-column="57" selection-end-line="357" selection-end-column="57" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/insurance-applicant.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1978">
+          <caret line="86" column="73" lean-forward="true" selection-start-line="86" selection-start-column="73" selection-end-line="86" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/product.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="509">
+          <caret line="238" column="58" lean-forward="true" selection-start-line="238" selection-start-column="58" selection-end-line="238" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ins2c-applicant.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="275" column="10" lean-forward="true" selection-start-line="275" selection-start-column="10" selection-end-line="275" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/insurance-index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="801">
+        <state relative-caret-position="279">
           <caret line="85" column="23" lean-forward="true" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/insurance-safegood.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2758">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/popup-content.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="155" column="54" lean-forward="false" selection-start-line="155" selection-start-column="54" selection-end-line="155" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auto2c-choosebrand.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/common.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="508">
+          <caret line="464" column="1" lean-forward="true" selection-start-line="464" selection-start-column="1" selection-end-line="464" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="28" column="35" lean-forward="false" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hd_ins/insurance-index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="167" column="38" lean-forward="false" selection-start-line="167" selection-start-column="32" selection-end-line="167" selection-end-column="38" />
+        <state relative-caret-position="416">
+          <caret line="143" column="26" lean-forward="true" selection-start-line="143" selection-start-column="26" selection-end-line="143" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ins2c-assured.html">
+    <entry file="file://$PROJECT_DIR$/hd_ins/insurance-bank.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="233" column="6" lean-forward="true" selection-start-line="233" selection-start-column="6" selection-end-line="233" selection-end-column="6" />
+        <state relative-caret-position="353">
+          <caret line="68" column="26" lean-forward="true" selection-start-line="68" selection-start-column="26" selection-end-line="68" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ins2c-applicant.html">
+    <entry file="file://$PROJECT_DIR$/js/vue-validator.min.js" />
+    <entry file="file://$PROJECT_DIR$/hd_ins/insurance-beneficiary.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="174" column="94" lean-forward="false" selection-start-line="174" selection-start-column="94" selection-end-line="174" selection-end-column="94" />
+        <state relative-caret-position="140">
+          <caret line="168" column="31" lean-forward="true" selection-start-line="168" selection-start-column="31" selection-end-line="168" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ins2c-safegood.html">
+    <entry file="file://$PROJECT_DIR$/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="49" column="55" lean-forward="true" selection-start-line="49" selection-start-column="55" selection-end-line="49" selection-end-column="55" />
+        <state relative-caret-position="112">
+          <caret line="188" column="37" lean-forward="true" selection-start-line="188" selection-start-column="37" selection-end-line="188" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/member-team-performance.html">
+    <entry file="file://$PROJECT_DIR$/js/plansData.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="33" column="43" lean-forward="false" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="43" />
+        <state relative-caret-position="138">
+          <caret line="6" column="11" lean-forward="false" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/plans.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="26" lean-forward="false" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hd_ins/method.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-207">
+          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/insurance-healthinfo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="79" column="17" lean-forward="true" selection-start-line="79" selection-start-column="17" selection-end-line="79" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/mui.poppicker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="65" column="32" lean-forward="false" selection-start-line="65" selection-start-column="32" selection-end-line="65" selection-end-column="32" />
+          <folding>
+            <marker date="1522145282549" expanded="true" signature="598:884" ph="..." />
+            <marker date="1522145282549" expanded="true" signature="636:829" ph="..." />
+            <marker date="1522145282549" expanded="true" signature="865:875" ph="..." />
+            <marker date="1522145282549" expanded="true" signature="933:1147" ph="..." />
+            <marker date="1522145282549" expanded="true" signature="967:1138" ph="..." />
+            <marker date="1522145282549" expanded="true" signature="1059:1069" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/member-warranty-manageLife.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="164" column="56" lean-forward="true" selection-start-line="164" selection-start-column="16" selection-end-line="164" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hd_ins/insurance-assured.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="336" column="21" lean-forward="false" selection-start-line="336" selection-start-column="21" selection-end-line="336" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hd_ins/insurance-applicant.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="93" column="42" lean-forward="false" selection-start-line="93" selection-start-column="42" selection-end-line="93" selection-end-column="42" />
+        <state relative-caret-position="431">
+          <caret line="304" column="33" lean-forward="true" selection-start-line="304" selection-start-column="33" selection-end-line="304" selection-end-column="33" />
           <folding />
         </state>
       </provider>

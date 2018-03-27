@@ -385,11 +385,13 @@
                     index.safegoods_4 = data.data.list['财富管理'];
 //                    mui.toast(data.msg, {duration: 'short', type: 'div'})
                 } else {
+                    plus.nativeUI.closeWaiting();
                     mui.toast(data.msg, {duration: 'short', type: 'div'})
                     return false;
                 }
             },
             error: function (xhr, type, errorThrown) {
+                plus.nativeUI.closeWaiting();
                 mui.toast(errorThrown, {duration: 'short', type: 'div'})
                 return false
             }

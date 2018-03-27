@@ -75,8 +75,37 @@
 				var content = document.getElementById('Js-content');
 				var topic   = document.getElementById('Js-topic');
 				var infomat = document.getElementById('Js-infos');
+				var id = plus.webview.currentWebview().noId;
 				content.style.height = (window.innerHeight - header.offsetHeight) + 'px';
 				infomat.style.minHeight = (content.offsetHeight - topic.offsetHeight) + 'px';
+				
+				console.log(id)
+				plus.nativeUI.showWaiting();
+		        mui.ajax('http://www.luckyins.com/api/api/invoke', {
+		            data: {
+		                device: 'pad',
+		                server: 'team.getUserInfo',
+		                data: JSON.stringify({card_no:id})
+		            },
+		            dataType: 'json',//服务器返回json格式数据
+		            type: 'post',//HTTP请求类型
+		            timeout: 10000,//超时时间设置为10秒；
+		            headers: {'Content-Type': 'application/json'},
+		            success: function (data) {
+						console.log(JSON.stringify(data))
+		                plus.nativeUI.closeWaiting();
+		                if(data.code){
+		                	
+		                }
+		                
+		            },
+		            error: function (xhr, type, errorThrown) {
+		            	plus.nativeUI.closeWaiting();
+		                mui.toast(errorThrown, {duration: 'short', type: 'div'});
+		                return false
+		            }
+		        });
+				
 			});
 		</script>
 	</body>

@@ -301,20 +301,12 @@
 
         //主列表点击事件
         var extras = null;
-        mui('body').on('tap', '.menu', function () {
-            var href = this.getAttribute('href');
-            var id = this.getAttribute("data-wid");
-            mui.openWindow({
-                    url: href,
-                    id: id,
-                    show: animateObj.aniPage
-            });
-        });
         mui('body').on('tap', '.a-link', function () {
             var href = this.getAttribute('href');
             var id = this.getAttribute("data-wid");
             var tid = this.getAttribute("data-tid");
             var pid = this.getAttribute("data-pid");
+
             
             if (tid) {
                     extras = {instype_id: tid};
@@ -329,6 +321,18 @@
                     extras: extras
             });
         });
+        
+        mui('body').on('tap', '.menu', function () {
+            var href = this.getAttribute('href');
+            var id = this.getAttribute("data-wid");
+            mui.openWindow({
+                    url: href,
+                    id: id,
+                    show: animateObj.aniPage,
+                    extras: extras
+            });
+        });
+        
         mui('body').on('tap', '#Js-communic', function(){
         	mui.openWindow({
                 url: 'communic.html',

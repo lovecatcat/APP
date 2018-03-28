@@ -39,27 +39,27 @@
 				            </a>
 				        </li>
 				        <li class="fItem BL-ub BL-ub-f1">
-				            <a href="javascript:;" class="mui-navigate-right BL-ub BL-ub-ac BL-ub-f1">
+				            <a href="javascript:;" class="BL-ub BL-ub-ac BL-ub-f1">
 				                <div class="form-list-label">电话</div>
-				                <div class="form-list-control BL-txt-r BL-mar-r-2 BL-col-333"><span id="Js-phone"></span>&nbsp;</div>
+				                <div id="Js-phone" class="form-list-control BL-txt-r BL-mar-r-2 BL-col-333"></div>
 				            </a>
 				        </li>
 				        <li class="fItem BL-ub BL-ub-f1">
-				            <a href="javascript:;" class="mui-navigate-right BL-ub BL-ub-ac BL-ub-f1">
+				            <a href="javascript:;" class="BL-ub BL-ub-ac BL-ub-f1">
 				                <div class="form-list-label">身份证号</div>
-				                <div class="form-list-control BL-txt-r BL-mar-r-2 BL-col-333"><span id="Js-ID"></span>&nbsp;</div>
+				                <div id="Js-ID" class="form-list-control BL-txt-r BL-mar-r-2 BL-col-333"></div>
 				            </a>
 				        </li>
 				        <li class="fItem BL-ub BL-ub-f1">
-				            <a href="javascript:;" class="mui-navigate-right BL-ub BL-ub-ac BL-ub-f1">
+				            <a href="javascript:;" class="BL-ub BL-ub-ac BL-ub-f1">
 				                <div class="form-list-label">地址</div>
-				                <div class="form-list-control BL-txt-r BL-mar-r-2 BL-col-333"><span id="Js-address"></span>&nbsp;</div>
+				                <div id="Js-address" class="form-list-control BL-txt-r BL-mar-r-2 BL-col-333"></div>
 				            </a>
 				        </li>
 				        <li class="fItem BL-ub BL-ub-ac BL-ub-f1">
-				            <a href="javascript:;" class="mui-navigate-right BL-ub BL-ub-ac BL-ub-f1">
+				            <a href="javascript:;" class="BL-ub BL-ub-ac BL-ub-f1">
 				                <div class="form-list-label">出生日期</div>
-				                <div class="form-list-control BL-txt-r BL-mar-r-2 BL-col-333"><span id="Js-birthday"></span>&nbsp;</div>
+				                <div id="Js-birthday" class="form-list-control BL-txt-r BL-mar-r-2 BL-col-333"></div>
 				            </a>
 				        </li>
 				   </ul>
@@ -69,6 +69,7 @@
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
+			
 			mui.plusReady(function() {
 				statusbar();
 				var header  = document.getElementById('Js-header');
@@ -79,33 +80,17 @@
 				content.style.height = (window.innerHeight - header.offsetHeight) + 'px';
 				infomat.style.minHeight = (content.offsetHeight - topic.offsetHeight) + 'px';
 				
-				console.log(id)
-				plus.nativeUI.showWaiting();
-		        mui.ajax('http://www.luckyins.com/api/api/invoke', {
-		            data: {
-		                device: 'pad',
-		                server: 'team.getUserInfo',
-		                data: JSON.stringify({card_no:id})
-		            },
-		            dataType: 'json',//服务器返回json格式数据
-		            type: 'post',//HTTP请求类型
-		            timeout: 10000,//超时时间设置为10秒；
-		            headers: {'Content-Type': 'application/json'},
-		            success: function (data) {
-						console.log(JSON.stringify(data))
-		                plus.nativeUI.closeWaiting();
+				luckyAjax({
+					data: {
+			            server: 'team.getUserInfo',
+			            data: JSON.stringify({card_no:id})
+			        },
+			        success:function(data){
 		                if(data.code){
 		                	
-		                }
-		                
-		            },
-		            error: function (xhr, type, errorThrown) {
-		            	plus.nativeUI.closeWaiting();
-		                mui.toast(errorThrown, {duration: 'short', type: 'div'});
-		                return false
-		            }
-		        });
-				
+		                }	
+			        }
+				});
 			});
 		</script>
 	</body>

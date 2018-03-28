@@ -185,9 +185,8 @@
 	            dataType: 'json',
 	            type: 'get',
 	            success: function (ret) {
-	                if (ret.code) {
+	                if (ret.code == 1) {
 	                	extract.account = ret.data
-//	                	alert(JSON.stringify(extract.account))
 	                }
 	            },
 	            error: function () {

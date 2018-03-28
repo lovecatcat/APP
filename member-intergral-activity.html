@@ -86,7 +86,6 @@
 			el: '#Js-content',
 			data: {
 				mode: '',
-				card_no: '612326198705113614',
 				type_amount: '',   // 1获得积分，-1使用积分
 				start_time: '',
 				end_time: '',
@@ -107,6 +106,7 @@
 		    return timeFormat
 	    });
 	   
+	    var user_id;
 		(function($){
 			//阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
@@ -116,6 +116,8 @@
 				deceleration: deceleration
 			});
 			$.plusReady(function() {
+				user_id = JSON.parse(plus.storage.getItem("userinfo")).id
+				
 				var winH = window.innerHeight;
 				var divHeight = document.querySelector('#Js-intergralFilter').offsetHeight;
 				document.querySelector('#Js-intergraltab').style.height = winH - divHeight + 'px';
@@ -132,8 +134,8 @@
 					i++
 					var data = {
 						data: JSON.stringify({
+							user_id: user_id,
 							type_points: '2',
-							card_no: intergral.card_no,
 							type_amount: intergral.type_amount,
 							start_time: intergral.start_time,
 							end_time: intergral.end_time,
@@ -149,7 +151,7 @@
 						dataType: 'json',
 						type: 'get',
 						success: function (ret) {
-							if (ret.code) {
+							if (ret.code == 1) {
 								var data = ret.data
 								console.log(JSON.stringify(data))
 								intergral.activity_score = data.activity_score
@@ -167,6 +169,8 @@
 								} else {
 									self.endPullUpToRefresh(true)
 								}
+							} else {
+								mui.toast(ret.msg, {duration: 'short', type: 'div'})
 							}
 						},
 						error: function () {

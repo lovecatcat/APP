@@ -247,7 +247,7 @@
 	            dataType: 'json',
 	            type: 'get',
 	            success: function (ret) {
-	                if (ret.code) {
+	                if (ret.code == 1) {
 	                	var data = []
 	                	var intfullDay = getDaybymonth(duty.month)
 	                	var dataMonth = ret.data.data

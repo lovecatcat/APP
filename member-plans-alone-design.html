@@ -16,46 +16,46 @@
 			<div id="modal-form" class="BL-modal BL-modal-w90 BL-ub BL-ub-ac">
 				<div class="BL-modal-content" style="width: 100%;">
 					<div class="BL-pad-lr-1_25 ">
-						<div class="BL-ub BL-rel   input-item">
+						<div class="BL-ub BL-rel input-item">
 							<label>用途</label>
 							<div class="input-wrap input-wrap-planName box-f-1">
-			                    <input type="text" placeholder="请输入">
-			                    <div class="form-clear-icon">
-			                        <span class="mui-icon mui-icon-clear"></span>
+			                    <input type="text" placeholder="请输入" v-model="use">
+			                    <div class="form-clear-icon" v-show="use != ''">
+			                        <span class="mui-icon mui-icon-clear" @click="use = '' "></span>
 			                    </div>
 			                </div>
 						</div>
 						<div class="BL-ub BL-rel input-item">
 							<label>开始年龄</label>
 							<div class="input-wrap input-wrap-planName box-f-1">
-			                    <input type="number" placeholder="请输入">
-			                    <div class="form-clear-icon">
-			                        <span class="mui-icon mui-icon-clear"></span>
+			                    <input type="number" placeholder="请输入" v-model.number="startAge">
+			                    <div class="form-clear-icon" v-show="startAge != ''">
+			                        <span class="mui-icon mui-icon-clear" @click="startAge = '' "></span>
 			                    </div>
 			                </div>
 						</div>
 						<div class="BL-ub BL-rel input-item">
 							<label>结止年龄</label>
 							<div class="input-wrap input-wrap-planName box-f-1">
-			                    <input type="number" placeholder="请输入">
-			                    <div class="form-clear-icon">
-			                        <span class="mui-icon mui-icon-clear"></span>
+			                    <input type="number" placeholder="请输入" v-model.number="endAge">
+			                    <div class="form-clear-icon" v-show="endAge != ''">
+			                        <span class="mui-icon mui-icon-clear" @click="endAge = '' "></span>
 			                    </div>
 			                </div>
 						</div>
 						<div class="BL-ub BL-rel input-item">
 							<label>领取金额</label>
 							<div class="input-wrap input-wrap-planName box-f-1">
-			                    <input type="number" placeholder="请输入">
-			                    <div class="form-clear-icon">
-			                        <span class="mui-icon mui-icon-clear"></span>
+			                    <input type="number" placeholder="请输入" v-model="money">
+			                    <div class="form-clear-icon" v-show="money != ''">
+			                        <span class="mui-icon mui-icon-clear" @click="money = '' "></span>
 			                    </div>
 			                </div>
 						</div>
 						<div class="BL-ub BL-rel input-item">
 							<label>选择配图</label>
 							<div class="input-wrap input-wrap-planName box-f-1">
-			                    <button class="BL-btn-blue BL-ftz-42" style="float: right;" @click="changeImg()">选择</button>
+			                    <button class="BL-btn-blue BL-ftz-42" style="float: right;" @click="changeShow()">选择</button>
 			                </div>
 						</div>
 					</div>
@@ -75,20 +75,8 @@
 							</div>
 						</div>
 						<div class="BL-pad-lr-1 BL-mar-b-1 modal-form-img clearfloat">
-							<div class="BL-mar-t-1">
-								<img src="images/icon/ico-cmis-count.png" style=" width: 100%;height: 100%;"></img>
-							</div>
-							<div class="BL-mar-t-1">
-								<img src="images/icon/ico-cmis-count.png" style=" width: 100%;height: 100%;"></img>
-							</div>
-							<div class="BL-mar-t-1">
-								<img src="images/icon/ico-cmis-count.png" style=" width: 100%;height: 100%;"></img>
-							</div>
-							<div class="BL-mar-t-1">
-								<img src="images/icon/ico-cmis-count.png" style=" width: 100%;height: 100%;"></img>
-							</div>
-							<div class="BL-mar-t-1">
-								<img src="images/icon/ico-cmis-count.png" style=" width: 100%;height: 100%;"></img>
+							<div class="BL-mar-t-1" v-for="(item, index) in imageData" :key="index">
+								<img :src="item.picture" :class="{'active': changeImgIndex == index}" @click="changeImg(index, item.picture)"></img>
 							</div>
 						</div>
 					</div>	
@@ -107,23 +95,68 @@
 	<script type="text/javascript">
 		mui.init();
 		var popu;
+		var parent_self;
 		var modal = new Vue({
 			el: '#modal',
 			data: {
 				isHide: '', //要弹哪个框
 				formID: '',
-				nav: 1,
-				Img: false
+				assu_age: '', //被保人年龄
+				pl_id: '', //
+				nav: 1, //选中的nav
+				Img: false, //图片是不是显示
+				imageData: [], //图片数据
+				changeImgIndex: 10, //选中的image的index
+				ImgSrc: '', //选中的image的路径
+				use: '', //用途
+				startAge: '', //开始年龄
+				endAge: '', //结止年龄
+				money: '', //领取金额
+				levelNum: ''
 			},
 			methods: {
 				sure: function(){
 					//点击确定，吧状态传回去
-					popu.closepop();
+					var toastText = '';
+					if(!this.use){
+						toastText = '请先输入用途'
+					}else if(!this.startAge){
+						toastText = '请先输入开始年龄'
+					}else if(this.startAge < Number(this.assu_age)){
+						toastText = '开始年龄必须大于被保险人年龄'
+					}else if(!this.endAge){
+						toastText = '请先输入结止年龄'
+					}else if(this.endAge < this.startAge){
+						toastText = '结止年龄必须大于领取年龄'
+					}else if(!this.money){
+						toastText = '请先输入领取金额'
+					}else if(!this.ImgSrc){
+						toastText = '请先选择配图'
+					};
+					
+					if(toastText){
+						mui.toast(toastText)
+					}else{
+				        var update = {
+				        	title: this.use,
+				        	sAge: this.startAge,
+				        	fAge: this.endAge,
+				        	getMoney: this.money,
+				        	imgUrl: this.ImgSrc
+				        }
+				        mui.fire(parent_self,'design', {
+							formID : 'member_plans_design',
+							data: update
+						});
+						popu.closepop();
+
+					}
+
 				},
 				cancel: function(){
 					popu.closepop();
 				},
-				changeNav: function(nav) { //切换时间
+				changeNav: function(nav) { //切换图片数据
 					if(nav == 1){
 					  	this.nav = 1
 					}else if(nav == 2){
@@ -132,13 +165,36 @@
 					  	this.nav = 3
 					}else if(nav == 4){
 					  	this.nav = 4
-					}else{
-						this.nav = 5
-						alert(5)
 					}
+					this.ImageData()
+					this.index = 10
 				},
-				changeImg: function() {
+				changeShow: function() { //切换图片显示
 					this.Img = !this.Img
+					this.ImageData()
+
+				},
+				changeImg: function(index, src) { //选择图片
+					this.changeImgIndex = index
+					this.ImgSrc = src
+				},
+				ImageData :function() { //获取数据
+					var data = {
+						server: 'Proposal.getProposalPicture',
+						data: JSON.stringify({
+							cate: this.nav-1,
+							tip: '' 
+						}),
+						device: 'mobile'
+					};
+					mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
+						if(res.code == 1) {
+							modal.imageData = res.data.child
+						} else { 
+							mui.toast(res.msg)
+						}
+					});
+			
 				}
 			}
 		})
@@ -147,10 +203,15 @@
 
 			// 实例化关闭窗口对象
 			popu = new ClosePopu();
+			parent_self = plus.webview.getWebviewById('member_plans_alone')//父级id
 			var data = plus.webview.currentWebview().data;
 			modal.isHide = data.modalID
 			modal.formID = data.formID
+			modal.assu_age = data.assu_age
+			modal.levelNum = data.levelNum
+			modal.pl_id = data.pl_id
 			
+			alert(modal.pl_id)
 
 			// 点击关闭遮罩层，弹框
 			mui('body').on('tap', '#maskInit', function() {

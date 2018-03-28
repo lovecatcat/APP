@@ -112,31 +112,25 @@
 				var titHeight = document.querySelector('#Js-header').offsetHeight;
 				var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 				document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
-				var data = {
-					channel_id: 1,
-					type: 'account',
-					data: JSON.stringify({
-						keyword: '陆惠忠',
-						password: 123456
-						})
-					}
-				mui.post("http://www.luckyins.com/api/api/login", data, function(res) {
-					if(res.code) {
-						console.log(res.msg)
-					} 
-				});
 				//点赞
 				document.querySelector('.goods').addEventListener('tap', function() {
-					var data = {
-						server: 'Information.praise',
-						device: 'pad',
-						data: JSON.stringify({id: newsDetail.newsTvDetail_data.id})
-						}
-					mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
-						if(res.code) {
-							newsDetail.newsTvDetail_data.praise_num = res.data.praise_num
-						} 
-					});
+					mui.ajax(config.baseUrl, {
+			            data: {
+			                server: 'Information.praise',
+			                device: 'mobile',
+			                data: JSON.stringify({id: newsDetail.newsTvDetail_data.id})
+			            },
+			            dataType: 'json',
+			            type: 'post',
+			            success: function (res) {
+			               if(res.code) {
+								newsDetail.newsTvDetail_data.praise_num = res.data.praise_num
+							} 
+			            },
+			            error: function () {
+			                mui.toast('网络异常：404')
+			            }
+			    	});
 				});
 		
 		
@@ -146,18 +140,25 @@
 				var id = event.detail.id;
 				console.log(id)
 				//根据id向服务器请求新闻详情
-				var data = {
-					server: 'Information.content',
-					data: JSON.stringify({id: id}),
-					device: 'pad'
-				}
-			  	mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
-					if(res.code == 1) {
-						newsDetail.newsTvDetail_data = res.data
-					}else{
-						console.log(res.msg)
-					}
-				});
+				mui.ajax(config.baseUrl, {
+		            data: {
+		                server: 'Information.content',
+		                device: 'mobile',
+		                data: JSON.stringify({id: id}),
+		            },
+		            dataType: 'json',
+		            type: 'post',
+		            success: function (res) {
+		               if(res.code == 1) {
+							newsDetail.newsTvDetail_data = res.data
+						}else{
+							console.log(res.msg)
+						}
+		            },
+		            error: function () {
+		                mui.toast('网络异常：404')
+		            }
+		    	});
 
 			});
 		})

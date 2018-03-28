@@ -103,6 +103,7 @@
 	<script src="js/mui.pullToRefresh.material.js"></script>
 	<script src="js/vue.min.js"></script>
 	<script type="text/javascript">
+		var user_id;
 		var plansManage = new Vue({
 			el: "#Js-content",
 			data: {
@@ -217,31 +218,38 @@
 				var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 				document.querySelector('#Js-planList').style.height = winH - titHeight - divHeight - fotHeight + 'px';
 				//document.querySelector('#Js-list').style.height = (winH - topHeight - mainHeight) + 'px';
-
+				user_id = JSON.parse(plus.storage.getItem("userinfo")).id
+				
 				var i = 0;
 				var self;
 
 				//循环初始化所有下拉刷新，上拉加载。
 				var pullAjax = function() {
-					var data = {
-						server: 'Proposal.log',
-						data: JSON.stringify({
-							user_id: 65,
-							fields: "", //要显示什么字段
-							_prevDate: plansManage.dataTime,
-							page: i
-						}),
-						device: 'mobile'
-					};
-					$.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
-						if(res.code == 1 && i <= res.data.totalPage) {
-							plansManage.manage_list = plansManage.manage_list.concat(res.data.list)
-							self.endPullUpToRefresh(false)
-						} else {
-							plansManage.manage_list = []
-                            self.endPullUpToRefresh(true)
-						}
-					});
+					mui.ajax(config.baseUrl, {
+			            data: {
+			                server: 'Proposal.log',
+			                device: 'mobile',
+			                data: JSON.stringify({
+									user_id: user_id,
+									fields: "", //要显示什么字段
+									_prevDate: plansManage.dataTime,
+									page: i
+								}),
+			            },
+			            dataType: 'json',
+			            type: 'post',
+			            success: function (res) {
+			               	if(res.code == 1 && i <= res.data.totalPage) {
+								plansManage.manage_list = plansManage.manage_list.concat(res.data.list)
+								self.endPullUpToRefresh(false)
+							} else{
+	                            self.endPullUpToRefresh(true)
+							}
+			            },
+			            error: function () {
+			                mui.toast('网络异常：404')
+			            }
+			    	});
 				}
 				$('#Js-planList .mui-scroll').pullToRefresh({
 					up: { // 上拉加载更多

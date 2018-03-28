@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/module.css" rel="stylesheet" />
+		<link href="css/plans.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+		<script src="js/config.js" type="text/javascript"></script>
+	</head>
+
+	<body class="BL-bg-fff">
+		
+		<div id="Js-content" class="mui-content BL-overFlow-autoY">
+		
+			<!--投保人信息 begin -->
+			<div class="BL-bg-fff prospect-info">
+				<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
+					<div class="BL-pad-lr-1_5">投保人信息</div>
+					<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @click="displace">
+						<span>投</span><i class="displace-icon"></i><span>被</span>
+					</button>
+				</div>  
+				<div class="BL-pad-lr-1_5 BL-pad-b-1 main">
+					<div class="BL-ub BL-rel BL-mar-t-1 input-item">
+						<label>姓名</label>
+						<div class="input-wrap">
+                            <input v-model.lazy.trim="appl.name" 
+                            	@change="checkName(appl.name, '投保人')" 
+                            	type="text" placeholder="请输入真实姓名">
+                            <div class="form-clear-icon" v-show="appl.name != ''">
+                                <span class="mui-icon mui-icon-clear" @click="appl.name = '' "></span>
+                            </div>
+                        </div>
+                        <div class="right-orange-btn address-icon"></div>
+					</div>
+					<div class="BL-ub BL-rel BL-mar-t-1 input-item">
+                        <label class="">年龄</label>
+                        <div class="input-wrap box-f-1 search-date" data-options='{"type":"date"}'>
+                            <input v-model="appl.birthday" type="text" placeholder="选择生日">
+                            <div class="ins-date-icon" ></div>
+                        </div>
+                        <div class="ins-date-icon box-f-1"></div>
+                        <div class="input-wrap box-f-1 BL-mar-l-1">
+                            <input v-model="appl.age" type="number" placeholder="输入年龄">
+                            <div class="form-clear-icon" v-show="appl.age != ''">
+                                <span class="mui-icon mui-icon-clear" @click="appl.age = '' "></span>
+                            </div>
+                        </div>
+                    </div>
+					<div class="BL-ub BL-rel BL-mar-t-1 input-item">
+                        <label class="">性别</label>	
+                        <div class="input-wrap box-f-1">
+                            <button :class="{'BL-btn-white': appl.sex == true, 'BL-btn-gray': appl.sex == false}" 
+                            	@click="applSex(true)" v-model="appl.sex">男</button>
+                            <button :class="{'BL-btn-white': appl.sex == false, 'BL-btn-gray': appl.sex == true}" 
+                            	@click="applSex(false)" v-model="appl.sex">女</button>
+                        </div>
+                   </div>
+				</div>
+			</div>
+			<!--投保人信息 end -->
+			<!--被保人信息 begin -->
+			<div class="BL-bg-fff BL-mar-t-1 prospect-info">
+				<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
+					<div class="BL-pad-lr-1_5">被保人信息</div>
+					<div class="BL-abs">
+						<div class="mui-switch mui-switch-mini" @click="keepSame">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</div>
+				</div>  
+				<div class="BL-pad-lr-1_5 BL-pad-b-1 main">
+					<div class="BL-ub BL-rel BL-mar-t-1 input-item">
+						<label>姓名</label>
+						<div class="input-wrap">
+                            <input  v-model.trim="assu.name"
+                            	@change="checkName(assu.name, '被保人')"
+                            	type="text" placeholder="请输入真实姓名">
+                            <div class="form-clear-icon" v-show="assu.name != ''">
+                                <span class="mui-icon mui-icon-clear" @click="assu.name = '' "></span>
+                            </div>
+                        </div>
+                        <div class="right-orange-btn address-icon"></div>
+					</div>
+					<div class="BL-ub BL-rel BL-mar-t-1 input-item">
+                        <label class="">年龄</label>
+                        <div class="input-wrap box-f-1 search-date" data-options='{"type":"date"}'>
+                            <input v-model="assu.birthday" type="text" placeholder="选择生日">
+                            <div class="ins-date-icon"></div>
+                        </div>
+                        <div class="input-wrap box-f-1 BL-mar-l-1">
+                            <input v-model="assu.age" type="number" placeholder="输入年龄">
+                            <div class="form-clear-icon" v-show="assu.age != ''">
+                                <span class="mui-icon mui-icon-clear" @click="assu.age = '' "></span>
+                            </div>
+                        </div>
+                    </div>
+					<div class="BL-ub BL-rel BL-mar-t-1 input-item">
+                        <label class="">性别</label>	
+                        <div class="input-wrap box-f-1">
+                            <button :class="{'BL-btn-white': assu.sex == true, 'BL-btn-gray': assu.sex == false}" 
+                            	@click="assuSex(true)" v-model="assu.sex">男</button>
+                            <button :class="{'BL-btn-white': assu.sex == false, 'BL-btn-gray': assu.sex == true}" 
+                            	@click="assuSex(false)" v-model="assu.sex">女</button>
+                        </div>
+                   </div>
+				</div>
+			</div>
+			<!--被保人信息 end -->
+			<!--险种信息 begin -->
+			<div class="BL-bg-fff BL-mar-t-1 BL-pad-b-1 prospect-info clearfloat">
+				<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
+					<div class="BL-pad-lr-1_5">险种信息</div>
+					<button class="BL-btn-blue BL-abs BL-pad-lr-1" @click="addIns">添加险种</button>
+				</div>
+				<!--主险信息 begin -->
+				<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff">
+					<div class="BL-ub plans-total-content BL-pad-b-1">
+						<div class="BL-ub-f4">
+							<span class="plans-total-font BL-ftz-46">dfdfdf东方大饭店发</span>
+							<div class="plans-total-font BL-ftz-42">首年保费:1234546</div>
+						</div>
+						<div class="BL-ub-f1 BL-txt-r">
+							<button class="BL-btn-white BL-ftz-42">删除</button>
+							<button class="BL-btn-blue BL-ftz-42">编辑</button>
+						</div>
+					</div>
+					<ul class="BL-ul BL-col-999 BL-col-999 BL-ftz-42">
+						<li>
+							<span>保险金额</span>
+							<span>保险期间</span>
+							<span>缴费年限</span>
+							<span>首年保费</span>
+						</li>
+						<li>
+							<span>402350</span>
+							<span>终身</span>
+							<span>10</span>
+							<span class="hm-color__red year_fee">650000</span>
+						</li>
+					</ul>
+				</div>
+				<!--主险信息 end -->
+				<!--附加险信息 begin -->
+				<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff">
+					<div class="BL-ub plans-total-content BL-pad-b-1">
+						<div class="BL-ub-f4">
+							<span class="BL-col-ff8201 plans-total-font BL-ftz-46">[附加]</span>
+							<span class="plans-total-font BL-ftz-46">dfdfdf东方大饭店发</span>
+							<div class="plans-total-font BL-ftz-42">首年保费:1234546</div>
+						</div>
+						<div class="BL-ub-f1 BL-txt-r">
+							<button class="BL-btn-white BL-ftz-42">删除</button>
+						</div>
+					</div>
+					<ul class="BL-ul BL-col-999 BL-ftz-42">
+						<li>
+							<span>保险金额</span>
+							<span>保险期间</span>
+							<span>缴费年限</span>
+							<span>首年保费</span>
+						</li>
+						<li>
+							<span>402350</span>
+							<span>终身</span>
+							<span>10</span>
+							<span class="hm-color__red year_fee">650000</span>
+						</li>
+					</ul>
+				</div>
+				<!--附加险信息 end -->
+				<button class="BL-btn-white BL-ftz-42 BL-mar-t-1 BL-pad-lr-2 prospect-info-button">+添加附加险</button>
+			</div>
+			<!--险种信息 end -->
+			<footer id="Js-footer" class="BL-footer BL-bg-fff">
+				<div class="BL-ub BL-ub-ac BL-ub-f1">
+					<div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll">
+						<div class="context">
+							总保费: <span class="BL-col-ff8201">222222</span>
+						</div>
+					</div>
+					<a class="BL-foot-btn-sign BL-foot-btn-det BL-bg-3b9cf5" @click="pushPlan">
+						生成计划书
+					</a>
+				</div>
+			</footer>
+		</div>
+		
+	</body>
+	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<!--<script src="js/prospect.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="js/mui.picker.js"></script>
+	<script src="js/mui.dtpicker.js"></script>
+	<script type="text/javascript">
+		var parent_self;
+		var prospect = new Vue({
+			el: '#Js-content',
+			data: {
+				appl: {
+					name: '',
+					age: '',
+					sex: true,
+					birthday: ''
+				},
+				assu: {
+					name: '',
+					age: '',
+					sex: true,
+					birthday: ''
+				}
+			},
+			methods: {
+				parseVueObj: function (Obj) {
+				    return JSON.parse(JSON.stringify(Obj))
+				},
+				applSex: function(){
+					this.appl.sex = !this.appl.sex
+				},
+				assuSex: function(){
+					this.assu.sex = !this.assu.sex
+				},
+				checkName: function(name, owner) { //校验姓名
+				    var toastText = false
+				    if (!name) {
+				      toastText = owner + '姓名不能为空'
+				    } else if (name.length > 20) {
+				      toastText = owner + '姓名长度不能超过20位'
+				    } else if (/[a-z]/i.test(name)) { // 英文
+				      if (name.replace(/\s/, '').length < 3) {
+				        toastText = owner + '姓名不小于3个字符'
+				      } else if (!/^[a-z]+[a-z\s]*[a-z]+$/i.test(name) || /(\s)\1/.test(name)) {
+				        toastText = owner + '姓名填写有误'
+				      }
+				    } else if (/[\u4e00-\u9fa5·]/i.test(name)) { // 中文
+				      if (name.length < 2) {
+				        toastText = owner + '姓名不小于2个汉字'
+				      } else if (!/^[\u4e00-\u9fa5]+[\u4e00-\u9fa5·]*[\u4e00-\u9fa5]+$/i.test(name) || /(·)\1/.test(name)) {
+				        toastText = owner + '姓名填写有误'
+				      }
+				    } else if (!/^[a-z]+[\sa-z]*[a-z]+$/i.test(name) && !/^[\u4e00-\u9fa5]+[\u4e00-\u9fa5·]*[\u4e00-\u9fa5]+$/i.test(name)) { // 中英文
+				      toastText = owner + '姓名填写有误'
+				    }
+				    if(toastText){
+				    	mui.toast(toastText);
+				    	return false;
+				    }else{
+				    	return true;
+				    }
+				},
+				keepSame: function(){
+					this.assu = Object.assign({}, this.assu, this.parseVueObj(this.appl))
+				},
+				displace:function(){
+					var appl = this.appl
+					var assu = this.assu
+					this.appl = Object.assign({}, this.appl, this.parseVueObj(assu))
+					this.assu = Object.assign({}, this.assu, this.parseVueObj(appl))
+				},
+				addIns: function(){
+					mui.openWindow({
+						id: 'prospect_addIns',
+						url: 'prospect-addIns.html',
+						show: animateObj.aniDetal,
+						extras:{
+							appl: this.appl,
+							assu: this.assu
+						}
+					});
+				},
+				pushPlan: function(){
+					mui.fire(parent_self,'show', {
+						formID : 'prospect_main'
+					});
+				}
+			}
+			
+		})
+		
+		mui.init();
+		(function($){
+			$.plusReady(function() {
+	//			statusbar();
+//				var winH = window.innerHeight;
+//				var fotHeight = document.querySelector('#Js-footer').offsetHeight;
+//				document.querySelector('#Js-content').style.height = (winH - fotHeight) + 'px';
+				parent_self = plus.webview.getWebviewById('prospect')//父级id
+				// 日期选择插件
+				var dates = $('.search-date');
+				dates.each(function(i, d) {
+					d.addEventListener('tap', function() {
+						var optionsJson = this.getAttribute('data-options') || '{}';
+						var options = JSON.parse(optionsJson);
+						var _this = this
+						var picker = new $.DtPicker(options);
+						picker.show(function(rs) {
+//							_this.querySelector('input').value = rs.text;
+							if(i == 0){
+								prospect.appl.birthday = rs.text
+							}else{
+								prospect.assu.birthday = rs.text
+							}
+							
+							picker.dispose();
+							getAge(rs.text, i)
+						});
+					}, false);
+				});
+				//时间
+				var getAge = function(birthday , i) {
+				    let now = new Date()
+				    let year = now.getFullYear()
+				    let month = now.getMonth() + 1
+				    let day = now.getDate()
+				    let r = birthday.split('-').map(item => parseInt(item))
+				    let age = year - r[0]
+				    if (r[1] > month || (r[1] === month && r[2] > day)) { // 当月
+				      age -= 1
+				    }
+				    if(i == 0 && age < 18){
+				    	mui.toast('投保人年龄不能小于18周岁')
+				    }else if(i == 0 && age > 18){
+				    	prospect.appl.age = age
+				    }else{
+				    	prospect.assu.age = age
+				    }
+				};
+				
+				//添加弹框sure自定义事件监听,从弹框返回来的确定状态
+				window.addEventListener('sure',function(event){
+                     alert(111)
+				});
+			})
+		}(mui));		
+	</script>
+
+</html>

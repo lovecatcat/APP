@@ -71,6 +71,7 @@
 </div>
 <script src="../js/mui.min.js" type="text/javascript"></script>
 <script src="../js/vue.min.js" type="text/javascript"></script>
+<script src="method.js"></script>
 <script type="text/javascript">
     mui.init();
     var index = new Vue({
@@ -116,7 +117,7 @@
         });
         mui('body').on('tap', '#ins-safegood', function () {
             // 打开遮罩层，弹框
-            showPopu("insurance-safegood.html", "insurance_safegood", "bottom");
+            showPopu("insurance-safegood.html", "insurance_safegood", "bottom", index.init);
         });
 
         var userinfo = JSON.parse(plus.storage.getItem('userinfo'));
@@ -138,6 +139,7 @@
 //                company_code: 'HengDa',
 //                method: 'test_calc'
 //            },
+        //整理下拉框需要的数据
         function dataToselect(data) {
             var arr = [];
             mui.each(data, function (ind, ite) {
@@ -149,8 +151,9 @@
             return arr;
         }
 
+//初始化下拉数据获取
         mui.ajax(baseURL + '/invoke', {
-            data: {data: JSON.stringify({'supplier_id': 19}), device: 'mobile', server: 'PolicyIns.initPolicyField'},
+            data: {data: JSON.stringify({'supplier_id': SCID}), device: 'mobile', server: 'PolicyIns.initPolicyField'},
             dataType: 'json',//服务器返回json格式数据
             type: 'post',//HTTP请求类型
             timeout: 10000,//超时时间设置为10秒；
@@ -184,9 +187,9 @@
                             res.drving_type = dataToselect(item.child); //驾照类型
                         } else if (item.cate === 'AL') {
                             res.resident_type = dataToselect(item.child); //居民类型
-                        } else if (item.cate === 'AM') {
+                        } else if (item.cate === 'AN') {
                             res.relation_beneficiary = dataToselect(item.child); //受益人与被保人关系
-                        } else if (item.cate === 'AM') {
+                        } else if (item.cate === 'AO') {
                             res.beneficiary_type = dataToselect(item.child); //受益人类型 法定 指定
                         } else if (item.cate === 'AP') {
                             res.benefit_type = dataToselect(item.child); //受益类型 身故
@@ -210,7 +213,7 @@
                 return false
             }
         });
-        //
+
     })
 </script>
 </body>

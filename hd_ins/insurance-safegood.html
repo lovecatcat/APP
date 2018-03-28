@@ -28,97 +28,201 @@
                 <div class="input-item">
                     <label class="">险种</label>
                     <div class="input-wrap box-f-1">
-                        <input type="text" placeholder="请选择">
+                        <div class="input" id="goods_type" @click="showType">
+                            {{main_insurance.product_name}}
+                        </div>
+                        <div class="ins-down-icon"></div>
                     </div>
                 </div>
-                <div class="input-item ins-pd-r-0">
-                    <label class="">交费期间</label>
-                    <div class="input-wrap box-f-1 multi-btn">
-                        <button class="ins-btn xs-btn">1年</button>
-                        <button class="ins-btn xs-btn blue">3年</button>
-                        <button class="ins-btn xs-btn">5年</button>
-                        <button class="ins-btn xs-btn">10年</button>
-                        <button class="ins-btn xs-btn">15年</button>
+                <div v-show="insurance.safe_id">
+                    <div class="input-item ins-pd-r-0" v-if="pay_year">
+                        <label class="">交费期间</label>
+                        <div class="input-wrap box-f-1 multi-btn">
+                            <button class="ins-btn xs-btn" :class="{'blue':item.pay_year===insurance.pay_year}"
+                                    v-for="(item,index) in pay_year" @click="insurance.pay_year=item.pay_year">
+                                {{item.pay_year | payYearFilter}}
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="input-item">
-                    <label class="">保险期间</label>
-                    <div class="input-wrap box-f-1 multi-btn">
-                        <button class="ins-btn xs-btn">至70周岁</button>
-                        <button class="ins-btn xs-btn blue">至90周岁</button>
-                        <button class="ins-btn xs-btn">终身</button>
+                    <div class="input-item ins-pd-r-0" v-if="safe_year">
+                        <label class="">保险期间</label>
+                        <div class="input-wrap box-f-1 multi-btn">
+                            <button class="ins-btn xs-btn" :class="{'blue':item.safe_year===insurance.safe_year}"
+                                    v-for="(item,index) in safe_year" @click="insurance.safe_year=item.safe_year">
+                                {{item.year | safeYearFilter}}
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="input-item">
-                    <label class="">基本保额(元)</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="number" placeholder="请输入">
+                    <!--恒久健康-->
+                    <template v-if="insurance.safe_id===hjjk">
+                        <div class="input-item">
+                            <label class="">年缴保费(元)</label>
+                            <div class="input-wrap box-f-1">
+                                <input type="number" placeholder="请输入" v-model.number.lazy="insurance.period_money">
+                            </div>
+                        </div>
+                        <div class="input-item">
+                            <label class="">基本保额(元)</label>
+                            <div class="input-wrap">
+                                <input type="number" v-model.number.lazy="insurance.money" readonly>
+                            </div>
+                            <div class="right-btn orange" @click="calMoney(true)">点击计算</div>
+                        </div>
+                    </template>
+                    <!--千万护航-->
+                    <template v-else-if="insurance.safe_id===qwhh">
+                        <div class="input-item ins-pd-r-0">
+                            <label class="">基本保额(元)</label>
+                            <div class="input-wrap box-f-1 multi-btn">
+                                <button class="ins-btn xs-btn" :class="{'blue':index===insurance.money}"
+                                        v-for="(item,index) in money_arr" @click="insurance.money=index">
+                                    {{item}}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="input-item">
+                            <label class="">年缴保费(元)</label>
+                            <div class="input-wrap">
+                                <input type="number" v-model.number.lazy="insurance.period_money" readonly>
+                            </div>
+                            <div class="right-btn orange" @click="calMoney(true)">点击计算</div>
+                        </div>
+                    </template>
+                    <!--福享金生-->
+                    <template v-else-if="insurance.safe_id===fxjs">
+                        <div class="input-item">
+                            <label class="">年缴保费(元)</label>
+                            <div class="input-wrap box-f-1">
+                                <input type="number" placeholder="请输入" v-model.number.lazy="insurance.period_money">
+                            </div>
+                        </div>
+                        <div class="input-item">
+                            <label class="">基本保额(元)</label>
+                            <div class="input-wrap">
+                                <input type="number" v-model.number.lazy="insurance.money" readonly>
+                            </div>
+                            <div class="right-btn orange" @click="calMoney(true)">点击计算</div>
+                        </div>
+                        <div class="input-item ins-pd-r-0" v-if="init&&init.nj_safe_year">
+                            <label class="">年金保障年限</label>
+                            <div class="input-wrap box-f-1 multi-btn">
+                                <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.guarantee_term}"
+                                        v-for="(item,index) in init.nj_safe_year" @click="insurance.guarantee_term=item.value">
+                                    {{item.text}}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="input-item ins-pd-r-0" v-if="init&&init.nj_get_type">
+                            <label class="">年金领取类型</label>
+                            <div class="input-wrap box-f-1 multi-btn">
+                                <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.guarantee_term}"
+                                        v-for="(item,index) in init.nj_get_type" @click="insurance.guarantee_term=item.value">
+                                    {{item.text}}
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                    <!--万年红-->
+                    <template v-else-if="insurance.safe_id===wnh">
+                        <div class="input-item">
+                            <label class="">年缴保费(元)</label>
+                            <div class="input-wrap box-f-1">
+                                <input type="number" placeholder="请输入" v-model.number.lazy="insurance.period_money">
+                            </div>
+                        </div>
+                        <div class="input-item">
+                            <label class="">基本保额(元)</label>
+                            <div class="input-wrap">
+                                <input type="number" v-model.number.lazy="insurance.money" readonly>
+                            </div>
+                            <div class="right-btn orange" @click="calMoney(true)">点击计算</div>
+                        </div>
+                        <div class="input-item ins-pd-r-0" v-if="init&&init.nj_get_way">
+                            <label class="">年金领取方式</label>
+                            <div class="input-wrap box-f-1 multi-btn">
+                                <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.guarantee_term}"
+                                        v-for="(item,index) in init.nj_get_way" @click="insurance.guarantee_term=item.value">
+                                    {{item.text}}
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                    <!--万年青-->
+                    <template v-else>
+                        <div class="input-item">
+                            <label class="">基本保额(元)</label>
+                            <div class="input-wrap box-f-1">
+                                <input type="number" placeholder="请输入" v-model.number.lazy="insurance.money">
+                            </div>
+                        </div>
+                        <div class="input-item">
+                            <label class="">年缴保费(元)</label>
+                            <div class="input-wrap">
+                                <input type="number" v-model.number.lazy="insurance.period_money" readonly>
+                            </div>
+                            <div class="right-btn orange" @click="calMoney(true)">点击计算</div>
+                        </div>
+                    </template>
+
+                    <div class="input-item box-f-1">
+                        <div class="box-f-3 ins-font-sm">是否自动垫交保费</div>
+                        <div class="box-f-1">
+                            <div class="mui-switch mui-switch-mini">
+                                <div class="mui-switch-handle"></div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="input-item">
-                    <label class="">年缴保费(元)</label>
-                    <div class="input-wrap">
-                        <input type="number">
-                    </div>
-                    <div class="right-btn orange">点击计算</div>
-                </div>
-                <div class="input-item box-f-1">
-                    <div class="box-f-3 ins-font-sm">是否自动垫交保费</div>
-                    <div class="box-f-1">
+                    <div class="input-item box-f-1">
+                        <div class="box-f-3 ins-font-sm">附加尊享安康B医疗保险</div>
+                        <div class="form-switch-note ">投保</div>
                         <div class="mui-switch mui-switch-mini">
                             <div class="mui-switch-handle"></div>
                         </div>
                     </div>
-                </div>
-                <div class="input-item box-f-1">
-                    <div class="box-f-3 ins-font-sm">附加尊享安康B医疗保险</div>
-                    <div class="form-switch-note ">投保</div>
-                    <div class="mui-switch mui-switch-mini">
-                        <div class="mui-switch-handle"></div>
-                    </div>
-                </div>
-                <div class="mui-row form-bgc-eee BL-pad-a1">
-                    <div class="mui-col-sm-6">
-                        <li class="ins-font-xs">
-                            保险金额(元)&nbsp;<span class="BL-col-ff8201">250000</span>
-                        </li>
-                    </div>
-                    <div class="mui-col-sm-6">
-                        <li class="ins-font-xs">
-                            保障期间(年)&nbsp;<span class="BL-col-ff8201">1</span>
-                        </li>
-                    </div>
-                    <div class="mui-col-sm-6">
-                        <li class="ins-font-xs">
-                            交费期间(年)&nbsp;<span class="BL-col-ff8201">1</span>
-                        </li>
-                    </div>
-                    <div class="mui-col-sm-6">
-                        <li class="ins-font-xs">
-                            年缴保费(元)&nbsp;<span class="BL-col-ff8201">500</span>
-                        </li>
-                    </div>
-                </div>
-                <div class="input-item box-f-1">
-                    <div class="box-f-3 ins-font-sm">附加尊享安康B医疗保险</div>
-                    <div class="form-switch-note ">投保</div>
-                    <div class="mui-switch mui-switch-mini">
-                        <div class="mui-switch-handle"></div>
-                    </div>
-                </div>
-                <div class="form-wrap form-bgc-eee">
-                    <div class="input-item">
-                        <label class="">基本保额(元)</label>
-                        <div class="input-wrap box-f-1">
-                            <input type="number" placeholder="请输入">
+                    <div class="mui-row form-bgc-eee BL-pad-a1">
+                        <div class="mui-col-sm-6">
+                            <li class="ins-font-xs">
+                                保险金额(元)&nbsp;<span class="BL-col-ff8201">250000</span>
+                            </li>
+                        </div>
+                        <div class="mui-col-sm-6">
+                            <li class="ins-font-xs">
+                                保障期间(年)&nbsp;<span class="BL-col-ff8201">1</span>
+                            </li>
+                        </div>
+                        <div class="mui-col-sm-6">
+                            <li class="ins-font-xs">
+                                交费期间(年)&nbsp;<span class="BL-col-ff8201">1</span>
+                            </li>
+                        </div>
+                        <div class="mui-col-sm-6">
+                            <li class="ins-font-xs">
+                                年缴保费(元)&nbsp;<span class="BL-col-ff8201">500</span>
+                            </li>
                         </div>
                     </div>
-                    <div class="input-item">
-                        <label class="">年缴保费(元)</label>
-                        <div class="input-wrap">
-                            <input type="number">
+                    <div class="input-item box-f-1">
+                        <div class="box-f-3 ins-font-sm">附加尊享安康B医疗保险</div>
+                        <div class="form-switch-note ">投保</div>
+                        <div class="mui-switch mui-switch-mini">
+                            <div class="mui-switch-handle"></div>
                         </div>
-                        <div class="right-btn orange">点击计算</div>
+                    </div>
+
+                    <div class="form-wrap form-bgc-eee">
+                        <div class="input-item">
+                            <label class="">基本保额(元)</label>
+                            <div class="input-wrap box-f-1">
+                                <input type="number" placeholder="请输入">
+                            </div>
+                        </div>
+                        <div class="input-item">
+                            <label class="">年缴保费(元)</label>
+                            <div class="input-wrap">
+                                <input type="number">
+                            </div>
+                            <div class="right-btn orange">点击计算</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -130,17 +234,223 @@
 </div>
 </body>
 <script src="../js/mui.min.js" type="text/javascript"></script>
+<script src="../js/vue.min.js" type="text/javascript"></script>
+<script src="../js/mui.picker.js"></script>
+<script src="../js/mui.poppicker.js"></script>
+<script src="../js/IDValidator.min.js"></script>
+<script src="method.js"></script>
 <script type="text/javascript">
     mui.init();
+    var safegoods = new mui.PopPicker();
+
+    var safe = new Vue({
+        el: '#Js-content',
+        data: {
+            init: {},
+            money_arr:{
+                '50000':'5万',
+                '100000':'10万',
+                '150000':'15万',
+                '200000':'20万'
+            },
+            userinfo: {},
+            pay_year: {},
+            safe_year: {},
+            insurance: { // 主险投保信息
+                safe_id: '',
+                safe_year: '',
+                pay_year: '',
+                money: '', // 基本保险金额
+                period_money: '', // 年交保费
+                guarantee_term: '',//年金保障年限
+                draw_freq: '',//年金领取方式
+                draw_age: '',//年金领取年龄
+                shareDrawType: ''//分红领取方式
+            },
+            main_insurance: {
+                product_id: '',//主险id
+                product_name: '请选择',//主险名称
+                period_payment: '',//交费期间
+                period_guanantee: '',//保障期间
+                fee: '',//保费
+                amount: '',//保额
+                guarantee_term: '',//年金保障年限
+                draw_freq: '',//年金领取方式
+                draw_age: '',//年金领取年龄
+                shareDrawType: ''//分红领取方式
+            }
+        },
+        filters: {
+            safeYearFilter: function (value) {
+                if (value > 50 && value !== '999' && value !== 999) {
+                    return '至' + value + '岁';
+                } else if (value < 50 && value > 0) {
+                    return value + '年';
+                } else {
+                    return '终身';
+                }
+            },
+            payYearFilter: function (value) {
+                if (value === 1) {
+                    return '趸交';
+                } else if (value < 60) {
+                    return value + '年交';
+                } else {
+                    return '至' + value + '岁';
+                }
+            }
+        },
+        methods: {
+            //主险change
+            showType: function () {
+                var _this = this
+                safegoods.show(function (items) {
+                    _this.main_insurance.product_id = items[0].value;
+                    _this.insurance.safe_id = items[0].value;
+                    _this.main_insurance.product_name = items[0].text;
+                    //保险期间
+                    var mainSyAttr = unique(items[0].ratio, 'safe_year') // 去重
+                    // 排序
+                    mainSyAttr = mainSyAttr.sort(function (a, b) {
+                        return a.safe_year - b.safe_year
+                    });
+                    //长度为1直接赋值，不为1置为空
+                    if (mainSyAttr.length === 1) {
+                        _this.insurance.safe_year = mainSyAttr[0].safe_year
+                    } else {
+                        _this.insurance.safe_year = ''
+                    }
+                    _this.safe_year = mainSyAttr;
+
+                    //交费期间
+                    var mainPyAttr = unique(items[0].ratio, 'pay_year'); // 去重
+                    // 排序
+                    mainPyAttr = mainPyAttr.sort(function (a, b) {
+                        return a.pay_year - b.pay_year;
+                    });
+                    if (mainPyAttr.length === 1) {
+                        _this.insurance.pay_year = mainPyAttr[0].pay_year;
+                    } else {
+                        _this.insurance.pay_year = '';
+                    }
+//                    console.log(JSON.stringify(mainPyAttr));
+                    _this.pay_year = mainPyAttr;
+
+                });
+            },
+            //获取主险列表
+            getIns: function () {
+                mui.ajax(baseURL + '/invoke', {
+                    data: {
+                        data: JSON.stringify({'supplier_id': SCID}),
+                        device: 'mobile',
+                        server: 'PolicyIns.getProductList'
+                    }, //获取险种列表
+                    dataType: 'json',//服务器返回json格式数据
+                    type: 'post',//HTTP请求类型
+                    timeout: 10000,//超时时间设置为10秒；
+                    headers: {'Content-Type': 'application/json'},
+                    success: function (res) {
+                        console.log(JSON.stringify(res));
+                        if (res.code == 1) {
+                            var data = []
+                            mui.each(res.data, function (index, item) {
+                                data.push({
+                                    value: item.product_id,
+                                    text: item.name,
+                                    ratio: item.ratio
+                                })
+                            });
+                            safegoods.setData(data);
+                        } else {
+                            mui.toast('加载失败')
+                        }
+                    }
+                });
+            },
+            calMoney: function (isMain, addonSafeid) {
+                console.log('试算中');
+                var _this = this
+                var basedata = null;
+
+                //试算
+                var productInfo = {
+                    productId: _this.insurance.safe_id,
+                    pay: _this.insurance.pay_year,
+                    insure: _this.insurance.safe_year,
+                    amount: _this.insurance.money.toString()
+                };
+                var insurant = {name: "abc", birthday: "1992-01-10", genderCode: "LAB0001"};
+                basedata = {
+//                    user_id: _this.userinfo.id,
+                    user_id: 2185,
+                    productInfo: [productInfo],
+                    insurant: insurant
+                };
+                console.log(JSON.stringify(basedata))
+
+                mui.ajax(baseURL + '/invoke', {
+                    data: {
+                        data: JSON.stringify({
+                            msg: basedata,
+                            company_code: 'HengDa',
+                            method: 'test_calc'
+                        }),
+                        server: 'PolicyIns.onlineInsured',
+                        device: 'mobile'
+                    },
+                    dataType: 'json',//服务器返回json格式数据
+                    type: 'post',//HTTP请求类型
+                    timeout: 10000,//超时时间设置为10秒；
+                    headers: {'Content-Type': 'application/json'},
+                    success: function (res) {
+                        console.log(JSON.stringify(res));
+                        if (res.code) {
+                            var data = res.data
+                            if (data.result === 'success') {
+                                _this.insurance.period_money = data.data.premium;
+                            } else {
+                                mui.toast(data.resultMsg, {duration: 'short', type: 'div'});
+                                return false;
+                            }
+                        } else {
+                            //
+                        }
+                    }
+                });
+            }
+        }
+    });
 
     mui.plusReady(function () {
-        var popu = new ClosePopu(); // 实例化关闭窗口对象
+        var userinfo = JSON.parse(plus.storage.getItem('userinfo'));
+        safe.userinfo = userinfo;
+        var init = plus.webview.currentWebview().data;
+        safe.init = init;
+        console.log(JSON.stringify(init.nj_safe_year));
 
+        safe.getIns();
+        var popu = new ClosePopu(); // 实例化关闭窗口对象
         mui('body').on('tap', '#close-ins-pop', function () {
             // 关闭遮罩层，弹框
             popu.closepop();
         });
     });
+    //去重
+    const unique = function (a, key) {
+        var res = [];
+        for (var i = 0, len = a.length; i < len; i++) {
+            for (var j = 0, jLen = res.length; j < jLen; j++) {
+                if (res[j][key] === a[i][key]) {
+                    break;
+                }
+            }
+            if (j === jLen) {
+                res.push(a[i]);
+            }
+        }
+        return res;
+    };
 </script>
 
 </html>

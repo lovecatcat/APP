@@ -45,7 +45,7 @@
 
     <!------------悬浮控制按钮 begin-------------->
     <div class="popuer">
-        <a class="popu-IconMenu a-link" data-wid="prospect" href="prospect.html"><img
+        <a class="popu-IconMenu a-link" data-wid="prospect_product" href="prospect-product.html"><img
                 src="images/product/menu-prospect.png" alt="计划书"/></a>
         <a class="popu-IconMenu a-link" data-wid="product_contrast" href="product-contrast.html" :data-id="1"
            v-show="info.compare"><img
@@ -61,38 +61,33 @@
     mui.init();
 
     mui.plusReady(function () {
+    	var pid = plus.webview.currentWebview().product_id;
         statusbar();
 
         //主列表点击事件
         var extras = null;
-        var detailPage = null;
         mui('body').on('tap', '.a-link', function () {
             var href = this.getAttribute('href');
             var id = this.getAttribute("data-wid");
             var flag = this.getAttribute("data-id");
-            //非plus环境，直接走href跳转
-            if (!mui.os.plus) {
-                location.href = href;
-                return;
-            }
 
-            if (href && ~href.indexOf('.html')) {
-                //判断窗口是否存在
-                if (!detailPage) {
-                    detailPage = plus.webview.getWebviewById(id);
-                }
-                //额外参数
-                if (flag) {
-                    var data = JSON.parse(JSON.stringify(detail.info));
-                    extras = {list: data, flag: 2};
-                }
-                mui.openWindow({
-                    url: href,
-                    id: id,
-                    show: animateObj.aniDetal,
-                    extras: extras
-                });
-            }
+            //额外参数
+            if(id == 'prospect_product'){
+            	extras = {product_id: pid};
+            }else{
+            	if (flag) {
+	                var data = JSON.parse(JSON.stringify(detail.info));
+	                extras = {list: data, flag: 2};
+	            }	
+            };
+            
+            mui.openWindow({
+                url: href,
+                id: id,
+                show: animateObj.aniDetal,
+                extras: extras
+            });
+            
         });
 
         var detail = new Vue({
@@ -108,7 +103,7 @@
                 }
             }
         });
-        getData(plus.webview.currentWebview().product_id);
+        getData(pid);
 
         //获取产品详情
         function getData(id) {

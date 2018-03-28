@@ -65,7 +65,7 @@
 
 <!------------悬浮控制按钮 begin-------------->
 <div class="popuer">
-    <a data-wid="" href="javascript:;" class="popu-IconMenu"><img src="images/product/menu-prospect.png" alt="计划书"/></a>
+    <a class="popu-IconMenu a-link" data-wid="prospect_product" href="prospect-product.html"><img src="images/product/menu-prospect.png" alt="计划书"/></a>
 </div>
 <!------------悬浮控制按钮 end --------------->
 </body>
@@ -182,6 +182,31 @@
                 return false
             }
         });
+        
+        
+
+        //主列表点击事件
+        var extras = null;
+        mui('body').on('tap', '.a-link', function () {
+            var href = this.getAttribute('href');
+            var id = this.getAttribute("data-wid");
+            var ws = plus.webview.getWebviewById('product_detail');
+            
+            //额外参数
+            if(ws){
+            	extras = {product_id: ws.product_id};
+            };
+            
+            mui.openWindow({
+                url: href,
+                id: id,
+                show: animateObj.aniDetal,
+                extras: extras
+            });
+            
+        });
+        
+        
     });
 
     //获取默认图片

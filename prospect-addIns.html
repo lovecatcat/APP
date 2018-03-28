@@ -1,160 +1,888 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<title></title>
 		<link href="css/mui.css" rel="stylesheet" />
 		<link href="css/common.css" rel="stylesheet" />
 		<link href="css/module.css" rel="stylesheet" />
-		<link href="css/form.css" rel="stylesheet" />
+		<link href="css/insurance.css" rel="stylesheet" />
+		<link href="css/plans.css" rel="stylesheet" />
 		<script src="js/config.js" type="text/javascript"></script>
 		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
 	</head>
-	
+
 	<body class="BL-bg-f2f">
-		
+
 		<header id="Js-header" class="BL-bg-fff">
 			<div class="BL-mod-headbar BL-mod-headbar-pos">
 				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
 				<h1 class="BL-title">编辑险种</h1>
 			</div>
 		</header>
-		
+
 		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
-			<ul class="mui-table-view form-list-cell">
-				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label">公司品牌</label>
-					<div class="form-list-control">
-						<select>
-							<option>投保</option>
-							<option>不投保</option>
-						</select>
+			<div class="form-wrap">
+
+				<app-select label="公司品牌">
+					<select v-model='sc_id' @change="companyChanged">
+						<option disabled value=''>请选择</option>
+						<option v-for="item,index in company" :key="index" :value="item.id">{{item.company_name}}
+						</option>
+					</select>
+				</app-select>
+			<div class="input-item">
+			    <label class="">证件类型</label>
+			    <div class="input-wrap box-f-1">
+			        <div class="input" id="ID_type" v-model='sc_id'>
+			        </div>
+			        <div class="ins-down-icon"></div>
+			    </div>
+			</div>
+				<app-select label="险种">
+					<select v-model='mainInsurance' @change="insChanged">
+						<option disabled value=''>请选择</option>
+						<option v-for="item,index in main" v-if="sc_id" :key="index" :value="item.product_id">{{item.name}}
+						</option>
+					</select>
+				</app-select>
+				<app-select label="保险期间" :readonly="mainSyAttr.length === 1">
+					<select v-model.number='insurance.safe_year' :disabled="mainSyAttr.length === 1" @change="resetFee">
+						<option disabled value=''>请选择</option>
+						<option value="25" v-if="insurance.safe_id === '19388'">
+							至25周岁
+						</option>
+						<option v-for="(item,index) in mainSyAttr" :value="item.safe_year" :key="index">
+							{{item.safe_year | safeYearFilter}}
+						</option>
+						<option value="10000" v-if="insurance.safe_id === '379'">
+							至100岁
+						</option>
+					</select>
+				</app-select>
+				<app-select label="缴费年限" :readonly="mainPyAttr.length === 1">
+					<select v-model.number='insurance.pay_year' :disabled="mainPyAttr.length === 1" @change="resetFee">
+						<option disabled value=''>请选择</option>
+						<option v-for="(item,index) in mainPyAttr" :value="item.pay_year" :key="index">
+							{{item.pay_year | payYearFilter}}
+						</option>
+					</select>
+				</app-select>
+				<template v-if="insurance.safe_id">
+					<!-- 输入保额算保费 -->
+					<app-input label="基本保额">
+						<input slot="input" v-model.number.lazy="insurance.money" type="number" placeholder="请填写基本保险金额（元）" @change="resetFee">
+						<div slot="icon" @click="insurance.money = ''" v-show="insurance.money != ''" class="form-clear-icon">
+							<span class="mui-icon mui-icon-clear"></span>
+						</div>
+					</app-input>
+					<div class="input-item">
+						<label>年缴保费(元)</label>
+						<div class="input-wrap">
+							<input readonly v-model.number.lazy="insurance.period_money" type="number" placeholder="年缴保费（元）">
+						</div>
+						<div class="right-btn orange" @click="calMoney(true)">点击计算</div>
 					</div>
-					<div class="form-list-icon">
-						<div class="mui-icon mui-icon-arrowright"></div>
+					<app-input label="年缴保费">
+						<input slot="input" v-model.number.lazy="insurance.period_money" type="number" placeholder="请填写年缴保费（元）" @change="resetFee">
+						<div slot="icon" v-show="insurance.period_money != ''" @click="insurance.period_money = ''" class="form-clear-icon">
+							<span class="mui-icon mui-icon-clear"></span>
+						</div>
+					</app-input>
+					<div class="input-item">
+						<label>基本保额(元)</label>
+						<div class="input-wrap">
+							<input readonly v-model.number.lazy="insurance.money" type="number" placeholder="基本保险金额（元）">
+						</div>
+						<div class="right-btn orange" @click="calMoney(true)">点击计算</div>
 					</div>
-				</li>
-				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label">险种</label>
-					<div class="form-list-control">
-						<select>
-							<option>投保</option>
-							<option>不投保</option>
-						</select>
-					</div>
-					<div class="form-list-icon">
-						<div class="mui-icon mui-icon-arrowright"></div>
-					</div>
-				</li>
-				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label">保险期间</label>
-					<div class="form-list-control">
-						<select>
-							<option>投保</option>
-							<option>不投保</option>
-						</select>
-					</div>
-					<div class="form-list-icon">
-						<div class="mui-icon mui-icon-arrowright"></div>
-					</div>
-				</li>
-				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label">缴费年限</label>
-					<div class="form-list-control">
-						<select>
-							<option>投保</option>
-							<option>不投保</option>
-						</select>
-					</div>
-					<div class="form-list-icon">
-						<div class="mui-icon mui-icon-arrowright"></div>
-					</div>
-				</li>
-				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label">年缴保费</label>
-					<div class="form-list-control">
-						<input type="text" placeholder="请输入">
-					</div>
-					<div class="form-list-icon">
-						<span class="mui-icon mui-icon-clear"></span>
-					</div>
-				</li>
-				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label">年缴保费(元)</label>
-					<div class="form-list-control BL-pad-r-1">
-						<input type="number" placeholder="请输入">
-					</div>
-					<div class="form-cal">点击计算</div>
-				</li>
-				<li class="fItem BL-ub BL-ub-f1">
-					<div class="BL-ub-f3 form-list-label">
-						附加险
-					</div>
-					<div class="form-switch-note" slot="input">
-						<span>是否投保&nbsp;&nbsp;</span>
-					</div>
-					<div class="form-switch-control">
+					<!-- 输入保额算保费 -->
+				</template>
+
+				<template>
+					<div class="input-item box-f-1">
+						<div class="box-f-3 ins-font-sm">附加尊享安康B医疗保险</div>
+						<div class="form-switch-note ">投保</div>
 						<div class="mui-switch mui-switch-mini">
 							<div class="mui-switch-handle"></div>
 						</div>
 					</div>
-				</li>
-			</ul>
-			
-		
-			<div class="form-button-group">
-				<a type="button" class="form-btn" href="auto2c-choose.html" data-wid="auto2c_choose">保存</a>
+					<div class="mui-row form-bgc-eee BL-pad-a1">
+						<div class="mui-col-sm-6">
+							<li class="ins-font-xs">
+								保险金额(元)&nbsp;<span class="BL-col-ff8201">250000</span>
+							</li>
+						</div>
+						<div class="mui-col-sm-6">
+							<li class="ins-font-xs">
+								保障期间(年)&nbsp;<span class="BL-col-ff8201">1</span>
+							</li>
+						</div>
+						<div class="mui-col-sm-6">
+							<li class="ins-font-xs">
+								交费期间(年)&nbsp;<span class="BL-col-ff8201">1</span>
+							</li>
+						</div>
+						<div class="mui-col-sm-6">
+							<li class="ins-font-xs">
+								年缴保费(元)&nbsp;<span class="BL-col-ff8201">500</span>
+							</li>
+						</div>
+					</div>
+				</template>
+
+				<div class="input-item box-f-1">
+					<div class="box-f-3 ins-font-sm">附加尊享安康B医疗保险</div>
+					<div class="form-switch-note ">投保</div>
+					<div class="mui-switch mui-switch-mini">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</div>
+				<div class="form-wrap form-bgc-eee">
+					<div class="input-item">
+						<label class="">基本保额(元)</label>
+						<div class="input-wrap box-f-1">
+							<input type="number" placeholder="请输入">
+						</div>
+					</div>
+					<div class="input-item">
+						<label class="">年缴保费(元)</label>
+						<div class="input-wrap">
+							<input type="number">
+						</div>
+						<div class="right-btn orange">点击计算</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-button-group BL-mar-t-2 BL-pad-lr-1_5">
+				<a type="button" class="form-btn">保存</a>
 			</div>
 		</div>
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
-	<script src="js/mui.picker.min.js"></script>
+	<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/mui.picker.js"></script>
+	<script src="js/mui.dtpicker.js"></script>
+	<script src="js/mui.poppicker.js"></script>
+	<script src="js/Components.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
+		const calMoneyIns = ['290', '352', '360', '377', '378', '379', '381', '401', '19384'] // 算保费的主险
+		const fuMoneyIns = ['318'] // 通过附加算主险
+		var ins = new Vue({
+			el: "#Js-content",
+			data: {
+				company: {}, //公司数据
+				main: {}, //主险数据
+				sc_id: '', //选择的公司
+				mainInsurance: '', //选择的主险
+				appl: '',
+				assu: '',
+				insurance: { // 主险投保信息
+					safe_id: '',
+					safe_year: '',
+					pay_year: '',
+					money: '', // 基本保险金额
+					period_money: '' // 年交保费
+				},
+				mainSyAttr: [],
+				mainPyAttr: [],
+				mainPayYear: '',
+				mainSafeYear: '',
+			},
+			filters: {
+				safeYearFilter: function(value) {
+					if(value > 50 && value !== '999' && value !== 999) {
+						return `至${value}岁`
+					} else if(value < 50 && value > 0) {
+						return `${value}年`
+					} else {
+						return '终身'
+					}
+				},
+				payYearFilter: function(value) {
+					if(value === 1) {
+						return '趸交'
+					} else if(value < 60) {
+						return `${value}年交`
+					} else {
+						return `至${value}岁`
+					}
+				},
+			},
+			methods: {
+				// 去重
+				unique: function(a, key) {
+					let res = []
+					let len = (a && a.length) || 0
+					if(!len) return res
+					let jLen
+					for(let i = 0; i < len; i++) {
+						jLen = res.length
+						let j
+						for(j = 0; j < jLen; j++) {
+							if(res[j][key] === a[i][key]) {
+								break
+							}
+						}
+						if(j === jLen) {
+							res.push(a[i])
+						}
+					}
+					return res
+				},
+				parseVueObj: function(Obj) {
+					return JSON.parse(JSON.stringify(Obj))
+				},
+				companyChanged: function() {
+					var data = {
+						server: 'PolicyIns.getProductList',
+						device: 'mobile',
+						data: JSON.stringify({
+							supplier_id: this.sc_id
+						})
+					};
+					mui.post(config.baseUrl, data, function(res) {
+						if(res.code == 1) {
+							ins.main = res.data
+						} else {
+							mui.toast('加载失败')
+						}
+					})
+				},
+				insChanged: function(index) {
+					const safeid = this.mainInsurance
+					if(!safeid) return
+					this.insurance.safe_id = safeid
+					console.log(this.insurance.safe_id)
+					var mainIns = [];
+					for(var i = 0; i < this.main.length; i++) {
+						if(safeid == this.main[i].product_id) {
+							mainIns = this.parseVueObj(this.main[i].ratio)
+						}
+					}
+					// 保险期间
+					let mainSyAttr = this.unique(mainIns, 'safe_year') // 去重
+					mainSyAttr = mainSyAttr.sort((a, b) => a.safe_year - b.safe_year) // 排序
+					this.mainSyAttr = mainSyAttr
+
+					if(mainSyAttr.length === 1) {
+						this.insurance.safe_year = mainSyAttr[0].safe_year
+					} else {
+						this.insurance.safe_year = ''
+					}
+
+					// 缴费年限
+					let mainPyAttr = this.unique(mainIns, 'pay_year') // 去重
+					mainPyAttr = mainPyAttr.sort((a, b) => a.pay_year - b.pay_year) // 排序
+					this.mainPyAttr = mainPyAttr
+
+					if(mainPyAttr.length === 1) {
+						this.insurance.pay_year = mainPyAttr[0].pay_year
+					} else {
+						this.insurance.pay_year = ''
+					}
+				},
+				resetFee: function() {
+
+				},
+				/**
+				 * 计算
+				 * @param isMain
+				 * @param addonSafeid
+				 * @returns {boolean}
+				 */
+				calMoney(isMain, addonSafeid = 0) {
+					if(this.uploading) {
+						mui.toast('请勿连续点击！')
+						return false
+					}
+					this.uploading = true
+					setTimeout(() => {
+						this.uploading = false
+					}, 1000)
+
+					this.mainPayYear = Number(this.insurance.pay_year)
+					this.mainSafeYear = Number(this.insurance.safe_year)
+					//      if (isMain && !this.checkMainForm()) {
+					//        return false
+					//      }
+					const safeid = isMain ? this.insurance.safe_id : addonSafeid
+					if(!safeid) {
+						mui.toast('险种ID不正确')
+						return false
+					}
+					if(isMain) { // 主险
+						//        if (!this.checkMainAge(safeid)) {
+						//          return false
+						//        }
+						//        if (!this.checkMainMoney(safeid)) {
+						//          return false
+						//        }
+					} else { // 附加险
+						if(!this.checkExtraAge(safeid)) {
+							return false
+						}
+						if(!this.checkExtraForm(safeid)) {
+							return false
+						}
+					}
+					let data = {
+						admin_id: 65,
+						applicant: this.appl.name,
+						appl_sex: this.appl.sex === true ? 1 : 2,
+						appl_age: this.appl.age,
+						assured: this.assu.name,
+						assu_sex: this.assu.sex === true ? 1 : 2,
+						assu_age: this.assu.age,
+						safe_year: this.mainSafeYear === 999 ? 0 : this.mainSafeYear,
+						pay_year: this.mainPayYear,
+						warranty_year: 1,
+						genre: safeid,
+						fj: !isMain,
+						is_save: 0,
+						derate_money: 0,
+						need_packet: 0,
+						flag: 0,
+						check: 0,
+						alias: null
+					}
+					// 添加特殊参数
+					let filterSafeid = ['348', '172', '352', '360', '362', '377', '404', '19385']
+					if(filterSafeid.indexOf(safeid) > -1) {
+						data = Object.assign(data, {
+							assume_rate: '0',
+							sa_one: '0',
+							fa_one: '0',
+							money_one: '0',
+							sa_two: '0',
+							fa_two: '0',
+							money_two: '0',
+							sa_three: '0',
+							fa_three: '0',
+							money_three: '0',
+							sa_four: '0',
+							fa_four: '0',
+							money_four: '0',
+							sa_five: '0',
+							fa_five: '0',
+							money_five: '0',
+							sa_six: '0',
+							fa_six: '0',
+							money_six: '0',
+							sa_seven: '0',
+							fa_seven: '0',
+							money_seven: '0',
+							sa_eight: '0',
+							fa_eight: '0',
+							money_eight: '0',
+							sa_night: '0',
+							fa_night: '0',
+							money_night: '0',
+							sa_ten: '0',
+							fa_ten: '0',
+							money_ten: '0'
+						})
+					}
+					if(safeid === '309' || safeid === '280') {
+						data.flag = this.prospectus_type
+					} else if(safeid === '172') {
+						data.flag = 0
+					}
+
+					// 计算保额还是保费
+					data.base_money = this.insurance.money
+//					if(this.isBaseMoney) {
+//						data.base_money = this.insurance.money
+//					} else {
+//						data.year_fee = this.insurance.period_money
+//					}
+
+					let py = this.mainPayYear === 1 ? 1 : this.mainPayYear - 1 // 主险缴费期间减一年
+					let periodMoney = Number(this.insurance.period_money)
+					let money = Number(this.insurance.money)
+
+					// 险种参数
+					if(safeid === '10503') { // 泰康健康优享住院费用医疗保险
+						data.pay_year = 1
+						data.safe_year = 1
+						data.base_money = 0
+						data.flag = this.flag[safeid]
+					} else if(safeid === '277') { // 中英人寿附加定期寿险
+						data.pay_year = this.flag[safeid]
+						data.safe_year = this.flag[safeid]
+						data.base_money = this.cache.base_money277
+						data.flag = 0
+					} else if(safeid === '245') { // 中英人寿附加意外伤害医疗保险
+						data.pay_year = 1
+						data.safe_year = 1
+						data.base_money = this.cache.base_money245
+						data.flag = this.flag[safeid]
+						data.assu_sex = 0
+					} else if(safeid === '242') { // 中英附加意外伤害保险（2013版）投
+						data.pay_year = 1
+						data.safe_year = 1
+						data.base_money = this.cache.base_money242
+						data.flag = this.flag[safeid]
+						data.assu_sex = 0
+					} else if(safeid === '19391') { // 中英爱守护尊享
+						data.pay_year = this.mainPayYear
+						data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
+						data.base_money = money
+					} else if(safeid === '19390') { // 中英爱守护
+						data.pay_year = this.mainPayYear
+						data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
+						data.base_money = money
+					} else if(safeid === '19389') { // 国华附加少儿成长无忧年金保险
+						data.pay_year = 10
+						data.safe_year = 2500
+						data.base_money = this.cache.derate_money19389 * periodMoney * 10
+						data.year_fee = this.cache.derate_money19389
+					} else if(safeid === '19388') { // 国华少儿成长无忧重大疾病保险
+						data.pay_year = this.mainPayYear
+						data.safe_year = 2500
+						data.base_money = money
+					} else if(safeid === '19392') { // 中英人寿附加交通意外伤害保险
+						data.pay_year = 1
+						data.safe_year = 1
+						data.base_money = 0
+						data.assu_sex = 0
+						data.flag = this.flag[safeid]
+					} else if(safeid === '19385') { // 工银安盛-鑫丰盈年金保险-养老年金
+						data.pay_year = 1
+						data.safe_year = 10500
+						data.level = 0
+						data.flag = this.flag[safeid]
+						data.ylnj = 0
+						data.zsj = 0
+						data.njy = 0
+						data.nje = 0
+						data.tbnj = 0
+						this.addonRes[safeid] = {
+							'年缴保费': 100
+						}
+						this.$forceUpdate()
+					} else if(safeid === '19384') { // 工银安盛-鑫丰盈年金保险
+						data.safe_year = 10500
+					} else if(safeid === '404') { // 恒大万年红附加传家宝
+						data.pay_year = 1
+						data.safe_year = 0
+						data.base_money = 0
+						data.derate_money = 100
+						data.flag = 100
+						data.ylnj = 0
+						data.zsj = 0
+						data.njy = 0
+						data.nje = 0
+						data.tbnj = 0
+						this.addonRes[safeid] = {
+							'年缴保费': 100
+						}
+					} else if(safeid === '400' || safeid === '399') { // 优护宝定期，优爱宝定期
+						if(this.mainSafeYear > 50) {
+							data.safe_year = this.mainSafeYear + '00'
+						} else {
+							data.safe_year = this.mainSafeYear
+						}
+					} else if(safeid === '398') { // 附加金掌柜年金保险
+						data.pay_year = 1
+						data.safe_year = 1
+						data.derate_money = this.cache.derate_money398
+						data.flag = this.cache.derate_money398
+						this.addonRes[safeid] = {
+							'年缴保费': this.cache.derate_money398
+						}
+					} else if(safeid === '386' || safeid === '387' || safeid === '388') { // 国华康运金生附加豁免保险费重大疾病保险（2017）
+						data.pay_year = 1
+						data.safe_year = 1
+						if(this.addonRes[385]) {
+							data.base_money = (periodMoney + Number(this.addonRes[385]['年缴保费'])) * (this.mainPayYear - 1)
+						} else if(this.addonRes[19389]) {
+							data.base_money = (periodMoney + Number(this.addonRes[19389]['年缴保费'])) * (this.mainPayYear - 1)
+						} else {
+							data.base_money = periodMoney * (this.mainPayYear - 1)
+						}
+						data.flag = 0
+					} else if(safeid === '385') { // 国华康运金生附加养老年金
+						data.pay_year = this.mainPayYear
+						data.safe_year = '8500'
+						data.base_money = periodMoney * this.mainPayYear
+						data.flag = 0
+					} else if(safeid === '384') { // 国华人寿康运金生
+						data.flag = money / 10000
+					} else if(safeid === '183') { // 中英人寿附加交通意外伤害保险
+						data.pay_year = this.flag[safeid]
+						data.safe_year = this.flag[1831]
+						data.base_money = this.cache.base_money183
+						data.flag = 0
+					} else if(safeid === '383') { // 中英人寿附加额外给付重大疾病保险（B 款）
+						data.pay_year = this.flag[safeid]
+						data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
+						data.base_money = this.cache.base_money383
+						data.flag = 0
+					} else if(safeid === '4343') { // 中英人寿附加额外给付重大疾病保险
+						data.pay_year = this.flag[safeid]
+						data.safe_year = this.flag[safeid]
+						data.base_money = this.cache.base_money4343
+						data.flag = 0
+					} else if(safeid === '379') {
+						// 国华盛世鑫悦
+						data.flag = this.flag[safeid]
+						data.base_money = 0
+						data.safe_year = 10000
+					} else if(safeid === '378') {
+						// 恒大福享今生
+						data.level = 2 // 不知道为什么要传这个才能做计划书
+						data.flag = this.flag[safeid]
+					} else if(safeid === '377') { // 信泰千万人生
+						data.flag = 0
+					} else if(safeid === '370') { // 信泰附加投保人豁免保险费重大疾病保险
+						data.pay_year = py
+						data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
+						data.base_money = periodMoney
+					} else if(safeid === '380') { // 乐安心的附加险乐相伴豁免B款
+						data.pay_year = py
+						data.safe_year = py
+						data.year_fee = periodMoney
+					} else if(safeid === '368') {
+						//  附加康乐一生轻症保险
+						data.pay_year = this.mainPayYear
+						data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
+						data.base_money = money * 0.2
+					} else if(safeid === '367') {
+						//  附加康乐一生投保人豁免保费重大疾病保险
+						data.pay_year = py
+						data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
+						if(this.addonRes[368]) {
+							data.base_money = Number(periodMoney) + Number(this.addonRes[368].年缴保费)
+						} else {
+							data.base_money = periodMoney
+						}
+					} else if(safeid === '365') {
+						data.safe_year = this.mainSafeYear === 70 ? 7000 : 0
+					} else if(safeid === '366') {
+						//  复星乐健一生住院
+						data.flag = this.fxljys366.shebao + this.fxljys366.zytc
+						data = Object.assign(data, {
+							zynmp: this.fxljys366.zynmp, // 住院年免赔
+							zfbl: 1, // 自负比例
+							mznmp: this.fxljys366.mznmp, // 门诊年免赔
+							mzptcmp: this.fxljys366.mzptcmp, // 门诊普通次免赔
+							mztxcimp: this.fxljys366.mztxcimp // 门诊特需次免赔
+						})
+					} else if(safeid === '374') {
+						//  复星乐健一生门诊
+						data.flag = this.fxljys366.shebao + this.fxljys366.mztc
+						data = Object.assign(data, {
+							zynmp: this.fxljys366.zynmp, // 住院年免赔
+							zfbl: 1, // 自负比例
+							mznmp: this.fxljys366.mznmp, // 门诊年免赔
+							mzptcmp: this.fxljys366.mzptcmp, // 门诊普通次免赔
+							mztxcimp: this.fxljys366.mztxcimp // 门诊特需次免赔
+						})
+					} else if(safeid === '362') {
+						// 信泰百万健康重大疾病
+						data.pay_year = this.mainPayYear
+						data.safe_year = this.flag[safeid]
+						data.flag = this.flag[safeid]
+					} else if(safeid === '360') {
+						// 恒大鑫福年金
+						data.pay_year = this.mainPayYear
+						data.safe_year = this.mainSafeYear
+						data.flag = 0
+					} else if(safeid === '352') {
+						// 中国人保尊赢人生
+						data.pay_year = this.mainPayYear
+						data.safe_year = this.mainSafeYear
+						data.flag = this.flag[safeid]
+					} else if(safeid === '354') {
+						// 中国人保尊赢人生附加
+						data.pay_year = 1
+						data.safe_year = 1
+						data.flag = this.cache.derate_money354
+					} else if(safeid === '349') {
+						// 工银附加金账户
+						data.pay_year = 1
+						data.safe_year = 1
+						data.flag = this.cache.derate_money349
+					} else if(safeid === '333') {
+						// 乐行天下附加
+						data.pay_year = this.mainPayYear
+						data.safe_year = this.mainSafeYear
+						data.base_money = 100
+					} else if(safeid === '332') {
+						// 乐行天下附加
+						data.pay_year = this.mainPayYear
+						data.safe_year = this.mainSafeYear
+						data.base_money = this.flag[safeid]
+					} else if(safeid === '318') {
+						// 乐行天下主险
+						data = Object.assign(data, {
+							money_one: this.cache.pay_money332,
+							money_two: this.cache.pay_money333
+						})
+					} else if(safeid === '295') {
+						// 恒祥
+						data.pay_year = 1
+						data.safe_year = 1
+						data.base_money = this.cache.base_money295
+					} else if(safeid === '294') {
+						// 恒顺
+						data.pay_year = 1
+						data.safe_year = 1
+						data.base_money = this.flag[safeid] > 50000 ? this.flag[safeid].toString().substr(1) : this.flag[safeid]
+						data.flag = this.flag[safeid]
+					} else if(safeid === '293') {
+						// 尊享安康
+						data.pay_year = 1
+						data.safe_year = 1
+						data.base_money = 500000
+						data.flag = this.flag[safeid]
+					} else if(safeid === '291') { // 附加金管家年金保险
+						data.pay_year = 1
+						data.safe_year = 1
+						data.derate_money = this.cache.derate_money291
+						data.flag = this.cache.derate_money291
+					} else if(safeid === '290') { // 金财D
+						data.level = 2
+						data.derate_money = this.cache.derate_money291
+					} else if(safeid === '289') {
+						// 附加投保人豁免2017
+						data.pay_year = py
+						data.safe_year = py
+						data.base_money = periodMoney
+					} else if(safeid === '292') {
+						data.base_money = money * 50000
+					} else if(safeid === '285' || safeid === '284') {
+						// 附加豁免保险费重大疾病保险 附加豁免保险费定期寿险
+						data.pay_year = py
+						data.safe_year = py
+						data.base_money = periodMoney
+					} else if(safeid === '189') {
+						// 中英人寿附加保费豁免重大疾病保险
+						data.pay_year = this.mainPayYear
+						data.safe_year = this.mainPayYear
+						data.base_money = periodMoney
+					} else if(safeid === '281') {
+						data.pay_year = this.mainPayYear
+						data.safe_year = this.mainPayYear
+						if(this.addonRes[183] && this.addonRes[383]) {
+							data.base_money = periodMoney + this.addonRes[183]['年缴保费'] + this.addonRes[383]['年缴保费']
+						} else if(this.addonRes[183]) {
+							data.base_money = periodMoney + this.addonRes[183]['年缴保费']
+						} else if(this.addonRes[383]) {
+							data.base_money = periodMoney + this.addonRes[383]['年缴保费']
+						} else {
+							data.base_money = periodMoney
+						}
+					} else if(safeid === '205') {
+						data.flag = this.flag[safeid]
+						data.level = 0
+					} else if(safeid === '273') {
+						data.pay_year = 1
+						data.safe_year = 1
+						data.flag = this.flag[safeid]
+					} else if(safeid === '235' || safeid === '236' || safeid === '237') {
+						data.pay_year = 1
+						data.safe_year = 1
+						data.base_money = periodMoney
+						data.flag = this.flag[safeid]
+					} else if(safeid === '196') { // 附加住院津贴医疗保险
+						data.pay_year = 1
+						data.safe_year = 1
+						if(periodMoney >= 1000 && periodMoney <= 3000) {
+							data.base_money = 1
+						} else if(periodMoney > 3000 && periodMoney <= 10000) {
+							data.base_money = 2
+						} else if(periodMoney > 10000 && periodMoney <= 20000) {
+							data.base_money = 3
+						} else if(periodMoney > 20000 && periodMoney <= 30000) {
+							data.base_money = 5
+						} else if(periodMoney > 30000 && periodMoney <= 50000) {
+							data.base_money = 7
+						} else if(periodMoney > 50000) {
+							data.base_money = 10
+						}
+						data.year_fee = periodMoney
+					} else if(safeid === '177') { // 附加御立方三号重大疾病保险-工银
+						data.base_money = money
+					} else if(safeid === '175') { // 附加乐无忧住院医疗保险
+						data.pay_year = 1
+						data.safe_year = 1
+						data.flag = this.flag[safeid]
+					} else if(safeid === '148') { // 附加综合意外伤害保险
+						data.pay_year = 1
+						data.safe_year = 1
+						data.base_money = this.cache.base_money148
+						data.flag = this.flag[safeid]
+					} else if(safeid === '147' || safeid === '146') {
+						// 附加住院费用医疗保险  附加意外伤害医疗B
+						data.pay_year = 1
+						data.safe_year = 1
+						data.base_money = money
+						data.year_fee = periodMoney
+						data.flag = this.flag[safeid]
+					} else if(safeid === '131') { // 附加乐相伴豁免保险费重大疾病保险
+						data.pay_year = py
+						data.safe_year = py
+						data.year_fee = periodMoney
+					} else if(safeid === '121') {
+						data.pay_year = 1
+						data.safe_year = 1
+						data.base_money = 250000
+					} else if(safeid === '94') {
+						data.base_money = periodMoney * this.mainPayYear
+						data.safe_year = 85
+					} else if(safeid === '86') {
+						data.pay_year = py
+						data.safe_year = py
+						data.base_money = periodMoney
+					} else if(safeid === '11') {
+						data.safe_year = 999
+						data.pay_year = 1
+						data.base_money = 0
+					}
+
+					if(isMain) {
+						this.mainInsData = data
+					} else {
+						this.addonInsData[safeid] = data
+						if(noNeedCal.indexOf(safeid) > -1) {
+							return false
+						}
+					}
+					console.log(JSON.stringify({safes: JSON.stringify([data])}))
+					mui.ajax(config.baseUrl, {
+			            data: {
+			                server: 'Proposal.add',
+			                device: 'mobile',
+			                data: JSON.stringify({
+									safes: JSON.stringify([data])
+						            })
+			            },
+			            dataType: 'json',
+			            type: 'post',
+			            success: function (ret) {
+			                if(ret.data.data &&
+								ret.data.data[safeid] &&
+								ret.data.data[safeid].main &&
+								ret.data.data[safeid].main.list &&
+								ret.data.data[safeid].main.list[1]) {
+								if(isMain) {
+									let data = ret.data.data[safeid].main.list[1]
+									if(this.isBaseMoney && !this.fuBaseMoney) {
+										if(safeid === '366') {
+											this.insurance.period_money = Number(data['住院总保费'])
+										} else {
+											this.insurance.period_money = Number(Number(data['年缴保费']).toFixed(2))
+										}
+									} else if(this.isBaseMoney && this.fuBaseMoney) {
+										this.insurance.period_money = Number(Number(data['年缴保费']).toFixed(2))
+										this.insurance.money = Number(Number(ret.data.data[safeid].base_money).toFixed(2))
+									} else {
+										if(safeid === '360') {
+											this.insurance.money = Number(data['保额'])
+										} else {
+											this.insurance.money = Number(Number(ret.data.data[safeid].base_money).toFixed(2))
+										}
+									}
+									if(safeid !== '318' && safeid !== '366') {
+										this.resetAddon()
+									}
+									this.checkMainFee(safeid)
+								} else {
+									this.addonRes[safeid] = ret.data.data[safeid].main.list[1]
+									if(safeid === '332') {
+										this.cache.pay_money332 = this.addonRes[safeid]['年缴保费'] || this.addonRes[safeid]['年缴保费(元)']
+									} else if(safeid === '333') {
+										this.cache.pay_money333 = this.addonRes[safeid]['年缴保费'] || this.addonRes[safeid]['年缴保费(元)']
+									} else if(safeid === '374') {
+										this.fxljys366.mzmoney = this.addonRes[safeid]['门诊总保费']
+									}
+									this.$forceUpdate()
+								}
+							} else {
+								mui.toast('计算出错,请重试！')
+							}
+			            },
+			            error: function () {
+			                mui.toast('网络异常：404')
+			            }
+		        	});
+
+//					utils.post('Prospectus/CreateBook3', qs.stringify({
+//						safes: JSON.stringify([data])
+//					})).then(ret => {
+//						if(ret.data.data &&
+//							ret.data.data[safeid] &&
+//							ret.data.data[safeid].main &&
+//							ret.data.data[safeid].main.list &&
+//							ret.data.data[safeid].main.list[1]) {
+//							if(isMain) {
+//								let data = ret.data.data[safeid].main.list[1]
+//								if(this.isBaseMoney && !this.fuBaseMoney) {
+//									if(safeid === '366') {
+//										this.insurance.period_money = Number(data['住院总保费'])
+//									} else {
+//										this.insurance.period_money = Number(Number(data['年缴保费']).toFixed(2))
+//									}
+//								} else if(this.isBaseMoney && this.fuBaseMoney) {
+//									this.insurance.period_money = Number(Number(data['年缴保费']).toFixed(2))
+//									this.insurance.money = Number(Number(ret.data.data[safeid].base_money).toFixed(2))
+//								} else {
+//									if(safeid === '360') {
+//										this.insurance.money = Number(data['保额'])
+//									} else {
+//										this.insurance.money = Number(Number(ret.data.data[safeid].base_money).toFixed(2))
+//									}
+//								}
+//								if(safeid !== '318' && safeid !== '366') {
+//									this.resetAddon()
+//								}
+//								this.checkMainFee(safeid)
+//							} else {
+//								this.addonRes[safeid] = ret.data.data[safeid].main.list[1]
+//								if(safeid === '332') {
+//									this.cache.pay_money332 = this.addonRes[safeid]['年缴保费'] || this.addonRes[safeid]['年缴保费(元)']
+//								} else if(safeid === '333') {
+//									this.cache.pay_money333 = this.addonRes[safeid]['年缴保费'] || this.addonRes[safeid]['年缴保费(元)']
+//								} else if(safeid === '374') {
+//									this.fxljys366.mzmoney = this.addonRes[safeid]['门诊总保费']
+//								}
+//								this.$forceUpdate()
+//							}
+//						} else {
+//							this.$toast.open('计算出错', 'error')
+//						}
+//					}).catch(this.errorCb)
+				},
+			}
+		})
 		mui.init();
-		document.querySelector('#document_term').addEventListener('tap', function() {
-			var _self = this;
-			if(_self.picker) {
-				_self.picker.show(function(rs) {
-					console.log('选择结果: ' + rs.text);
-					_self.picker.dispose();
-					_self.picker = null;
-				});
-			} else {
-				var optionsJson = this.getAttribute('data-options') || '{}';
-				var options = JSON.parse(optionsJson);
-				_self.picker = new mui.DtPicker(options);
-				_self.picker.show(function(rs) {
-					console.log('选择结果: ' + rs.text);
-					_self.picker.dispose();
-					_self.picker = null;
-				});
-			}
-		});
-		
-		mui('body').on('tap', 'a', function() {
-			var href = this.getAttribute('href');
-			var id = this.getAttribute("data-wid");
-			
-			if(href && ~href.indexOf('.html')) {
-				//打开新窗口
-				mui.openWindow({
-					url:href,
-					id:id,
-					show:animateObj.aniDetal
-				});
-			}
 
-
-		});
-		
 		mui.plusReady(function() {
 			statusbar();
-			
+
 			var winH = window.innerHeight;
 			var titHeight = document.querySelector('#Js-header').offsetHeight;
+			document.querySelector('#Js-content').style.height = (winH - titHeight) + 'px';
 			
-			document.querySelector('#Js-content').style.height = (winH - titHeight) +'px';	
+			ins.appl = plus.webview.currentWebview().appl
+			ins.assu = plus.webview.currentWebview().assu
+			
+			var data = {
+				server: 'PolicyIns.getCompanyList',
+				device: 'mobile'
+			};
+			mui.post(config.baseUrl, data, function(res) {
+				if(res.code == 1) {
+					ins.company = res.data
+				} else {
+					mui.toast('加载失败')
+				}
+			})
 		})
 	</script>
-</html>
 
+</html>

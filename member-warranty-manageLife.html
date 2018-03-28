@@ -70,7 +70,8 @@
 										</div>
 									</div>
 									<div class="BL-txt-r button">
-										<button class="BL-btn-white BL-pad-lr-2" id="aaa" v-if="isReceipt">回执</button>
+										<button class="BL-btn-white BL-pad-lr-2" id="aaa" v-if="isReceipt">电子回执</button>
+										<button class="BL-btn-white BL-pad-lr-2" id="aaa" v-if="isReceipt">纸质回执</button>
 										<a :data-wid="item.policy_id" href="member-warranty-manageLife-detail.html" class="BL-btn-blue BL-pad-lr-2 BL-mar-l-1">详情</a>
 									</div>
 								</div>
@@ -91,6 +92,7 @@
 	<script src="js/mui.pullToRefresh.material.js"></script>
 	<script src="js/vue.min.js"></script>
 	<script type="text/javascript">
+		var user_id;
 		var manageLife = new Vue({
 			el: '#Js-content',
 			data: {
@@ -119,20 +121,6 @@
 		});
 		mui.init();
 		(function($) {
-			var data = {
-				channel_id: 1,
-				type: 'account',
-				data: JSON.stringify({
-					keyword: '陆惠忠',
-					password: 123456
-				})
-			}
-			$.post("http://www.luckyins.com/api/api/login", data, function(res) {
-				if(res.code) {
-					console.log(res.msg)
-				}
-			});
-
 			//阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
 			$('#Js-warrantyList .mui-scroll-wrapper').scroll({
@@ -141,6 +129,7 @@
 				deceleration: deceleration
 			});
 			$.plusReady(function() {
+				user_id = JSON.parse(plus.storage.getItem("userinfo")).id
 				var winH = window.innerHeight;
 				var divHeight = document.querySelector('#Js-teamFilter').offsetHeight;
 				document.querySelector('#Js-warrantyList').style.height = winH - divHeight + 'px';
@@ -194,51 +183,58 @@
 
 				//循环初始化所有下拉刷新，上拉加载。
 				var pullAjax = function() {
-					var data = {
-						server: 'PolicyIns.PolicyManage',
-						data: JSON.stringify({
-							user_id: 807,
-							ins_type: manageLife.warranty_type.value, // 保单类型
-							state: manageLife.warranty_state.value, // 保单状态必选传的是对象
-							month: manageLife.warranty_date.value,
-							isRenewal: '' //传1显示代理人接收的保单，传2或者不传表示显示代理人自己保单和接收的保单
-						}),
-						device: 'pad'
-					};
-					$.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
-						if(res.code == 1) {
-							if(res.data.totalRows > manageLife.warranty_list.length && !manageLife.selectData){
-								manageLife.warranty_list = manageLife.warranty_list.concat(res.data.list)
-								self.endPullUpToRefresh(false)
-							}else if(manageLife.selectData && i == 0){
-								manageLife.warranty_list = res.data.list
-								self.endPullUpToRefresh(false)
-								self.refresh(true);
-							}else if(manageLife.selectData && i != 0 && res.data.totalRows > manageLife.warranty_list.length){
-								manageLife.warranty_list = manageLife.warranty_list.concat(res.data.list)
-								self.endPullUpToRefresh(false)
-							}else{
-								self.endPullUpToRefresh(true)
+					mui.ajax(config.baseUrl, {
+			            data: {
+			                server: 'PolicyIns.PolicyManage',
+			                device: 'mobile',
+			                data: JSON.stringify({
+									user_id: user_id,
+									ins_type: manageLife.warranty_type.value, // 保单类型
+									state: manageLife.warranty_state.value, // 保单状态必选传的是对象
+									month: manageLife.warranty_date.value,
+									isRenewal: '' //传1显示代理人接收的保单，传2或者不传表示显示代理人自己保单和接收的保单
+								})
+			            },
+			            dataType: 'json',
+			            type: 'post',
+			            success: function (res) {
+			               	if(res.code == 1) {
+								if(res.data.totalRows > manageLife.warranty_list.length && !manageLife.selectData){
+									manageLife.warranty_list = manageLife.warranty_list.concat(res.data.list)
+									self.endPullUpToRefresh(false)
+								}else if(manageLife.selectData && i == 0){
+									manageLife.warranty_list = res.data.list
+									self.endPullUpToRefresh(false)
+									self.refresh(true);
+								}else if(manageLife.selectData && i != 0 && res.data.totalRows > manageLife.warranty_list.length){
+									manageLife.warranty_list = manageLife.warranty_list.concat(res.data.list)
+									self.endPullUpToRefresh(false)
+								}else{
+									self.endPullUpToRefresh(true)
+								}
+								$.each(res.data.ins_type, function(index, item) {
+									manageLife.ins_type.push({
+										value: item.id,
+										text: item.enum_name
+									})
+								});
+								$.each(res.data.state, function(index, item) {
+									manageLife.state.push({
+										value: index,
+										text: item
+									})
+								});
+								warrantyType.setData(manageLife.ins_type);
+								warrantyState.setData(manageLife.state);
+							} else {
+								manageLife.warranty_list = []
+	                            self.endPullUpToRefresh(true)
 							}
-							$.each(res.data.ins_type, function(index, item) {
-								manageLife.ins_type.push({
-									value: item.id,
-									text: item.enum_name
-								})
-							});
-							$.each(res.data.state, function(index, item) {
-								manageLife.state.push({
-									value: index,
-									text: item
-								})
-							});
-							warrantyType.setData(manageLife.ins_type);
-							warrantyState.setData(manageLife.state);
-						} else {
-							manageLife.warranty_list = []
-                            self.endPullUpToRefresh(true)
-						}
-					});
+			            },
+			            error: function () {
+			                mui.toast('网络异常：404')
+			            }
+			    	});
 				}
 				$('#Js-warrantyList .mui-scroll').pullToRefresh({
 					up: { // 上拉加载更多

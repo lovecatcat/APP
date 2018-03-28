@@ -105,6 +105,7 @@
 	<script type="text/javascript">
 		mui.init();
 		var parent_self;
+		var user_id;
 		var plansTotal = new Vue({
 		 	el: '#Js-plansTotal',
 		 	data: {
@@ -140,6 +141,7 @@
 
 				var pl_id = plus.webview.currentWebview().pl_id //获取从列表从过来的plid
 				parent_self = plus.webview.getWebviewById('member_plans_detail')//父级id
+				user_id = JSON.parse(plus.storage.getItem("userinfo")).id
 
 				//获取汇总数据
 					var data = {
@@ -152,59 +154,79 @@
 						device: 'mobile'
 					};
 					mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
-						if(res.code == 1) {
-//							if(res.data.content) {
-//								// 第一个plid下面的数据，主plid
-//								mui.each(res.data.content, function(index, item){
-//									plansTotal.total_list = plansTotal.total_list.concat(item)
-//								})
-//							}
-							if(res.data.content) {
-								// 第一个plid下面的数据，主plid
-								mui.each(res.data.content, function(index, item){
-									groupList(item, res.data.id)
-								})
-							}
-							if(res.data.child){
-								mui.each(res.data.child, function(index, item){
-									var pl_id = item.id
-									mui.each(res.data.child[index].content, function(i, m){
-										groupList(m, pl_id)
-									})
-								})
-		                    }
-						} else {
-							alert(res.msg)
-						}
+						
 					});
+					mui.ajax(config.baseUrl, {
+			            data: {
+			                server: 'Proposal.log',
+			                device: 'mobile',
+			                data: JSON.stringify({
+									user_id: user_id,
+									fields: "", 
+									pl_id: pl_id
+								}),
+			            },
+			            dataType: 'json',
+			            type: 'post',
+			            success: function (res) {
+			               	if(res.code == 1) {
+								if(res.data.content) {
+									// 第一个plid下面的数据，主plid
+									mui.each(res.data.content, function(index, item){
+										groupList(item, res.data.id)
+									})
+								}
+								if(res.data.child){
+									mui.each(res.data.child, function(index, item){
+										var pl_id = item.id
+										mui.each(res.data.child[index].content, function(i, m){
+											groupList(m, pl_id)
+										})
+									})
+			                    }
+							} else {
+								mui.toast(res.msg)
+							}
+			            },
+			            error: function () {
+			                mui.toast('网络异常：404')
+			            }
+			    	});
 					
 					//添加弹框sure自定义事件监听,从弹框返回来的确定状态
 					window.addEventListener('sure',function(event){
-	                    var data = {
-	                        server: 'Proposal.delete',
-	                        data: JSON.stringify({
-	                            pl_id: plansTotal.delPl_id,
-	                            genre: plansTotal.delGenre
-	                        }),
-	                        device: 'mobile'
-	                    };
-						$.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
-							if(res.code == 1) {
-								mui.toast('删除成功')
-	//							var child = _thisObj.parentNode.parentNode.parentNode
-	//							var parent= document.getElementById("Js-plansTotal");
-	//							parent.removeChild(child)
-							} else {
-	                            mui.toast('删除失败')
-							}
-						});
+						mui.ajax(config.baseUrl, {
+				            data: {
+				                server: 'Proposal.log',
+				                device: 'mobile',
+				                data: JSON.stringify({
+		                            pl_id: plansTotal.delPl_id,
+		                            genre: plansTotal.delGenre
+		                        })
+				            },
+				            dataType: 'json',
+				            type: 'post',
+				            success: function (res) {
+				               	if(res.code == 1) {
+									mui.toast('删除成功')
+		//							var child = _thisObj.parentNode.parentNode.parentNode
+		//							var parent= document.getElementById("Js-plansTotal");
+		//							parent.removeChild(child)
+								} else {
+		                            mui.toast('删除失败')
+								}
+				            },
+				            error: function () {
+				                mui.toast('网络异常：404')
+				            }
+				    	});
 					});
 					//在线投保按钮
 					document.querySelector('#goIns').addEventListener('tap', function() {
 						//打开弹框
 //						alert(JSON.stringify(goIns_data))
 						mui.fire(parent_self,'show', {
-							formID : 'member_plans_total2',
+							formID : 'member_plans_total',
 							goIns_data: plansTotal.goIns_data
 						});
 			        });

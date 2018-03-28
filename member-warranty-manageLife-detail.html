@@ -200,7 +200,7 @@
         //阻尼系数
         var deceleration = mui.os.ios ? 0.003 : 0.0009;
 
-        $.ready(function() {
+        $.plusReady(function() {
             statusbar();
             var winH = window.innerHeight;
 			var titHeight = document.querySelector('#Js-header').offsetHeight;
@@ -214,7 +214,7 @@
 				}),
 				device: 'pad'
 			};
-			$.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
+			$.post(config.baseUrl, data, function(res) {
 				if(res.code) {
 					lifeDetail.policyInfo = res.data.policyInfo
 					lifeDetail.productInfo = res.data.productInfo

@@ -72,20 +72,6 @@
 				var i = 0;
 
 				//循环初始化所有下拉刷新，上拉加载。
-				var data = {
-				channel_id: 1,
-				type: 'account',
-				data: JSON.stringify({
-					keyword: '陆惠忠',
-					password: 123456
-					})
-				}
-				$.post("http://www.luckyins.com/api/api/login", data, function(res) {
-					if(res.code) {
-						console.log(res.msg)
-					} 
-				});
-			
 				$('#Js-newsList .mui-scroll').pullToRefresh({
 						up: { // 上拉加载更多
 							auto: true, // 自动上拉一次
@@ -93,24 +79,31 @@
 								i++;
 								var self = this;
 								setTimeout(function() {
-									var data = {
-										server: 'Information.queue',
-										data: JSON.stringify({
-											amount: 15, //每页显示的条数
-											page: i, //请求的页码
-											type: 'MBJ003' //云课堂
-										}),
-										device: 'pad'
-									}
-									$.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
-										if(res.code == 1 && i <= res.data.pageCount) {
-											newsList.newsList_data = newsList.newsList_data.concat(res.data.queue)
-											self.endPullUpToRefresh();
-										}else{
-											console.log(res.msg)
-											self.endPullUpToRefresh(true);
-										}
-									});
+									mui.ajax(config.baseUrl, {
+							            data: {
+							                server: 'Information.queue',
+							                device: 'mobile',
+							                data: JSON.stringify({
+													amount: 15, //每页显示的条数
+													page: i, //请求的页码
+													type: 'MBJ003' //行业资讯
+												}),
+							            },
+							            dataType: 'json',
+							            type: 'post',
+							            success: function (res) {
+							               	if(res.code == 1 && i <= res.data.pageCount) {
+												newsList.newsList_data = newsList.newsList_data.concat(res.data.queue)
+												self.endPullUpToRefresh();
+											}else{
+												console.log(res.msg)
+												self.endPullUpToRefresh(true);
+											}
+							            },
+							            error: function () {
+							                mui.toast('网络异常：404')
+							            }
+							    	});
 
 								}, 1000);
 							}

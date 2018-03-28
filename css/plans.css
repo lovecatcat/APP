@@ -1,4 +1,3 @@
-
 /*公共*/
 .BL-ul{
 	list-style: none;
@@ -15,6 +14,7 @@
 .BL-ul li span{
 	display: inline-block;
 	float: left;
+	text-align: center;
 	box-sizing: border-box;
 	width: 25%;
 	padding: 1rem 0;
@@ -290,7 +290,7 @@
 }
 
 .plans-detail-design-button button{
-
+	min-width: 5rem ;
 	height: 2.6875rem;
 }
 .plans-detail-table{
@@ -340,26 +340,26 @@ table tbody tr td{
 .BL-segmented-control.mui-scroll-wrapper, .BL-segmented-control.mui-scroll-wrapper .mui-scroll{
 	height: 4.25rem;
 }
-.BL-segmented-control .mui-control-item {
+.BL-segmented-control .plans-nav {
 	line-height: 0rem !important;
 	padding: 0 1.25rem !important;
 }
-.BL-segmented-control .mui-control-item span{
+.BL-segmented-control .plans-nav span{
 	display: inline-block;
 	line-height: 4.0625rem;
 	padding: 0 .53125rem;
 	border-bottom: 0.1875rem solid #ffffff !important;
 }
-.BL-segmented-control .mui-control-item i{
+.BL-segmented-control .plans-nav i{
 	font-size: 1.9rem;
     line-height: 1.5rem;
     color: #bfbfbf;
     border: none;
 }
-.BL-segmented-control .mui-control-item.mui-active{
+.BL-segmented-control .plans-nav.mui-active{
 	border-bottom: 0 none !important;
 }
-.BL-segmented-control .mui-control-item.mui-active span{
+.BL-segmented-control .plans-nav.mui-active span{
 	color: #3b9cf5 !important;
 	border-bottom: 0.1875rem solid #3b9cf5 !important;
 }
@@ -401,6 +401,7 @@ table tbody tr td{
 }
 .mui-switch-mini {
     width: 4.6875rem;
+    background-color: #fff;
 }
 
 .mui-switch {
@@ -435,6 +436,14 @@ table tbody tr td{
 .input-wrap input {
 	height: 2.9375rem;
     border: 1px solid #c8c8c8;
+    border-radius: .3125rem;
+    text-align: left;
+    padding-left: 1rem;
+	font-size: 1.4375rem;
+}
+.input-wrap select {
+	line-height: 2.9375rem;
+    border: 1px solid #c8c8c8 !important;
     border-radius: .3125rem;
     text-align: left;
     padding-left: 1rem;
@@ -498,4 +507,7 @@ table tbody tr td{
 	float: right;
 	height: 2.6878rem;
 	margin-right: 1.5rem;
+}
+.form-button-group{
+	
 }

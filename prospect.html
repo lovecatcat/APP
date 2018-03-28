@@ -9,12 +9,12 @@
 		<link href="css/module.css" rel="stylesheet" />
 		<link href="css/plans.css" rel="stylesheet" />
 		<script src="js/config.js" type="text/javascript"></script>
+		
 	</head>
 
 	<body class="BL-bg-f2f">
 		<header id="Js-header" class="BL-bg-fff">
 			<div class="BL-mod-headbar">
-				<!--<a class="mui-action-back mui-icon-left-nav BL-icon"></a>-->
 			    <h1 class="BL-title">计划书制作</h1>
 		    </div>
 		</header>
@@ -23,14 +23,14 @@
 			<!--计划书方案选项 begin-->
 			<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
 				<div class="mui-scroll">
-					<a data-wid="plans_total.html" class="mui-control-item mui-active">
-						<span>汇总</span>
+					<div data-wid="prospect_main" href="prospect-main.html" class="plans-nav mui-active">
+						<span>泰康</span>
 						<i class="mui-icon mui-icon-clear"></i>
-					</a>
-					<a data-wid="plans_detail.html" class="mui-control-item">
+					</div>
+					<div data-wid="prospect_main" href="prospect-main.html" class="plans-nav">
 						<span>万年青</span>
 						<i class="mui-icon mui-icon-clear"></i>
-					</a>
+					</div>
 				</div>	
 			</div>
 			<!--计划书方案选项 end -->
@@ -45,178 +45,84 @@
                 </div>
 			</div>
 			<!--方案名称 end -->
-			<!--投保人信息 begin -->
-			<div class="BL-bg-fff BL-mar-t-1 prospect-info">
-				<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
-					<div class="BL-pad-lr-1_5">投保人信息</div>
-					<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac">
-						<span>投</span><i class="displace-icon"></i><span>被</span>
-					</button>
-				</div>  
-				<div class="BL-pad-lr-1_5 BL-pad-b-1 main">
-					<div class="BL-ub BL-rel BL-mar-t-1 input-item">
-						<label>姓名</label>
-						<div class="input-wrap">
-                            <input type="text" placeholder="请输入真实姓名">
-                            <div class="form-clear-icon">
-                                <span class="mui-icon mui-icon-clear"></span>
-                            </div>
-                        </div>
-                        <div class="right-orange-btn address-icon"></div>
-					</div>
-					<div class="BL-ub BL-rel BL-mar-t-1 input-item">
-                        <label class="">年龄</label>
-                        <div class="input-wrap box-f-1">
-                            <input type="text" placeholder="长期有效">
-                            <div class="ins-date-icon"></div>
-                        </div>
-                        <div class="ins-date-icon box-f-1"></div>
-                        <div class="input-wrap box-f-1 BL-mar-l-1">
-                            <input type="number" placeholder="2020-01-01">
-                            <div class="ins-down-icon"></div>
-                        </div>
-                    </div>
-					<div class="BL-ub BL-rel BL-mar-t-1 input-item">
-                        <label class="">性别</label>	
-                        <div class="input-wrap box-f-1">
-                            <button class="BL-btn-white">男</button>
-                            <button class="BL-btn-gray">女</button>
-                        </div>
-                   </div>
-				</div>
-			</div>
-			<!--投保人信息 end -->
-			<!--被保人信息 begin -->
-			<div class="BL-bg-fff BL-mar-t-1 prospect-info">
-				<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
-					<div class="BL-pad-lr-1_5">被保人信息</div>
-					<div class="BL-abs">
-						<div class="mui-switch mui-switch-mini">
-							<div class="mui-switch-handle"></div>
-						</div>
-					</div>
-				</div>  
-				<div class="BL-pad-lr-1_5 BL-pad-b-1 main">
-					<div class="BL-ub BL-rel BL-mar-t-1 input-item">
-						<label>姓名</label>
-						<div class="input-wrap">
-                            <input type="text" placeholder="请输入真实姓名">
-                            <div class="form-clear-icon">
-                                <span class="mui-icon mui-icon-clear"></span>
-                            </div>
-                        </div>
-                        <div class="right-orange-btn address-icon"></div>
-					</div>
-					<div class="BL-ub BL-rel BL-mar-t-1 input-item">
-                        <label class="">年龄</label>
-                        <div class="input-wrap box-f-1">
-                            <input type="text" placeholder="长期有效">
-                            <div class="ins-date-icon"></div>
-                        </div>
-                        <div class="input-wrap box-f-1 BL-mar-l-1">
-                            <input type="number" placeholder="2020-01-01">
-                            <div class="ins-down-icon"></div>
-                        </div>
-                    </div>
-					<div class="BL-ub BL-rel BL-mar-t-1 input-item">
-                        <label class="">性别</label>	
-                        <div class="input-wrap box-f-1">
-                            <button class="BL-btn-white">男</button>
-                            <button class="BL-btn-gray">女</button>
-                        </div>
-                   </div>
-				</div>
-			</div>
-			<!--被保人信息 end -->
-			<!--险种信息 begin -->
-			<div class="BL-bg-fff BL-mar-t-1 BL-pad-b-1 prospect-info clearfloat">
-				<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
-					<div class="BL-pad-lr-1_5">险种信息</div>
-					<button class="BL-btn-blue BL-abs BL-pad-lr-1">添加险种</button>
-				</div>
-				<!--主险信息 begin -->
-				<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff">
-					<div class="BL-ub plans-total-content BL-pad-b-1">
-						<div class="BL-ub-f4">
-							<span class="plans-total-font BL-ftz-46">dfdfdf东方大饭店发</span>
-							<div class="plans-total-font BL-ftz-42">首年保费:1234546</div>
-						</div>
-						<div class="BL-ub-f1 BL-txt-r">
-							<button class="BL-btn-white BL-ftz-42">删除</button>
-							<button class="BL-btn-blue BL-ftz-42">编辑</button>
-						</div>
-					</div>
-					<ul class="BL-ul BL-col-999 BL-col-999 BL-ftz-42">
-						<li>
-							<span>保险金额</span>
-							<span>保险期间</span>
-							<span>缴费年限</span>
-							<span>首年保费</span>
-						</li>
-						<li>
-							<span>402350</span>
-							<span>终身</span>
-							<span>10</span>
-							<span class="hm-color__red year_fee">650000</span>
-						</li>
-					</ul>
-				</div>
-				<!--主险信息 end -->
-				<!--附加险信息 begin -->
-				<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff">
-					<div class="BL-ub plans-total-content BL-pad-b-1">
-						<div class="BL-ub-f4">
-							<span class="BL-col-ff8201 plans-total-font BL-ftz-46">[附加]</span>
-							<span class="plans-total-font BL-ftz-46">dfdfdf东方大饭店发</span>
-							<div class="plans-total-font BL-ftz-42">首年保费:1234546</div>
-						</div>
-						<div class="BL-ub-f1 BL-txt-r">
-							<button class="BL-btn-white BL-ftz-42">删除</button>
-						</div>
-					</div>
-					<ul class="BL-ul BL-col-999 BL-ftz-42">
-						<li>
-							<span>保险金额</span>
-							<span>保险期间</span>
-							<span>缴费年限</span>
-							<span>首年保费</span>
-						</li>
-						<li>
-							<span>402350</span>
-							<span>终身</span>
-							<span>10</span>
-							<span class="hm-color__red year_fee">650000</span>
-						</li>
-					</ul>
-				</div>
-				<!--附加险信息 end -->
-				<button class="BL-btn-white BL-ftz-42 BL-mar-t-1 BL-pad-lr-2 prospect-info-button">+添加附加险</button>
-			</div>
-			<!--险种信息 end -->
+		 
+			
 		</div>
-		<footer id="Js-footer" class="BL-footer BL-bg-fff">
-			<div class="BL-ub BL-ub-ac BL-ub-f1">
-				<div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll">
-					<div class="context">
-						总保费: <span class="BL-col-ff8201">222222</span>
-					</div>
-				</div>
-				<a class="BL-foot-btn-sign BL-foot-btn-det BL-bg-3b9cf5">
-					生成计划书
-				</a>
-			</div>
-		</footer>
+	 
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/prospect.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/webviewGroup.js" type="text/javascript"></script>
 	<script type="text/javascript">
+	
+		
 		mui.init();
 
 		mui.plusReady(function() {
 			statusbar();
-			var winH = window.innerHeight;
-			var topHeight = document.getElementById('Js-header').offsetHeight;
-			var fotHeight = document.getElementById('Js-footer').offsetHeight;
-			document.querySelector('#Js-content').style.height = (winH - topHeight - fotHeight) + 'px';	
+
+			var winH = window.screen.height / sizeObj.dpl;
+			var topHeight = document.querySelector('#Js-header').offsetHeight / sizeObj.dpl;
+			var divHeight = document.querySelector('#Js-content').offsetHeight / sizeObj.dpl;
+			var _divH = topHeight + divHeight + 1; // 头部高度
+			var _viewH = winH - _divH; // 内容区域高度
+			var _self = plus.webview.currentWebview();
+			
+			//跳链接
+			var group = new webviewGroup(_self.id, {
+				topHeight: _divH,
+				viewHeight: _viewH,
+				isDrag: false,
+				items: [{
+					id: "prospect_main",
+					url: "prospect-main.html",
+					extras: {}
+				}],
+				onChange: function(obj) {
+								
+				}
+			});
+			mui(".mui-scroll").on("tap", ".plans-nav ", function(e) {
+			var c = document.querySelector(".plans-nav.mui-active");
+				if(c) {
+					c.classList.remove("mui-active");
+				}
+				this.classList.add("mui-active");
+			var wid = this.getAttribute("data-wid");
+			group.switchTab(wid);
+//			var id = this.getAttribute("data-id");
+//			var index = this.getAttribute("data-index");
+//			if(id){
+//				plansDetail.aloneId = id
+//				var alone_self = plus.webview.getWebviewById('member_plans_alone');
+//				var alone_table = plus.webview.getWebviewById('member_plans_alone_table');
+//				if(alone_self){
+//					setTimeout(function(){
+//						mui.fire(alone_self,'alone', {
+//							data: plansDetail.detail_list[index],
+//							adviser: plansDetail.adviser,
+//							pl_id: id
+//						});
+//					},300)
+//				}
+//			}
+			
+			
+		});
+			// 打开遮罩层，弹框,自定义事件监听
+			window.addEventListener('show', function(event) {
+				//获得事件参数
+				var formID = event.detail.formID;
+				//确定弹框
+				var	data = {
+						modalID : 'modal-config',
+						formID : formID
+					}
+				
+				showPopu("popup-content.html", "popup_content", 'center', data);
+	
+			})
 		})
 		
 	</script>

@@ -104,11 +104,21 @@
 			</div>
 			<!--提示-->
 			<div id="modal-config" class="BL-modal BL-modal-w70"  :class="{'BL-hide': isHide !== 'modal-config'}">
-			<div class="BL-modal-content">
-				<div class="BL-txt-c BL-pad-tb-1_5">确认删除 ?</div>
-				<div class="BL-modal-content-button">
-					<button type="button" @click="cancel">取消</button>
-					<button type="button" @click="sure">确认</button>
+				<div class="BL-modal-content">
+					<div class="BL-txt-c BL-pad-tb-1_5">确认删除 ?</div>
+					<div class="BL-modal-content-button">
+						<button type="button" @click="cancel">取消</button>
+						<button type="button" @click="sure">确认</button>
+					</div>
+				</div>
+			</div>
+			<div id="modal-plan" class="BL-modal BL-modal-w70"  :class="{'BL-hide': isHide !== 'modal-config'}">
+				<div class="BL-modal-content">
+					<div class="BL-txt-c BL-pad-tb-1_5">是否添加方案</div>
+					<div class="BL-modal-content-button">
+						<button type="button" @click="cancel">不添加</button>
+						<button type="button" @click="sure">添加</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -136,6 +146,8 @@
 						mui.fire(plus.webview.getWebviewById('member_plans_total'), 'sure');
 					}else if(this.formID == 'member_plans_alone'){
 						mui.fire(plus.webview.getWebviewById('member_plans_alone'), 'sure');
+					}else if(this.formID == 'prospect_main'){
+						mui.fire(plus.webview.getWebviewById('prospect_main'), 'sure');
 					}
 					popu.closepop();
 				},

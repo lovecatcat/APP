@@ -17,11 +17,7 @@
 			<div id="modal-bottom" class=" BL-modal-bottom-2 clearfloat" style="height: 80% !important;">
 				<header id="Js-header" class="BL-bg-fff">
 					<div class="BL-title">利益演示表</div>
-					<div class="plans-detail-design-button BL-mar-b-2 BL-ub BL-ub-pc" v-if="level.indexOf(formID) > -1 ">
-						<button class="BL-btn-gray BL-ftz-42 BL-mar-l-1 BL-pad-lr-1">低档 4.5%</button>
-						<button class="BL-btn-gray BL-ftz-42 BL-mar-l-1 BL-pad-lr-1">低档 4.5%</button>
-						<button class="BL-btn-blue BL-ftz-42 BL-mar-l-1 BL-pad-lr-1">低档 4.5%</button>
-					</div>
+					
 				</header>
 				 
 				<!--利益演示表-->
@@ -50,18 +46,57 @@
 		                            	<th v-for="(data, i) in item" v-if="i !== '被保险人年龄'">
 	                            			{{i}}
 	                            		</th>
-		                            	<th v-if="formID == '384'">
+		                            	<th v-if="formID == '384' && status">
 	                            			生存保险金
 	                            		</th>
+	                            		<div v-else-if="formID == '401' && status">
+			                            	<th >
+		                            			部分领取
+		                            		</th>
+			                            	<th >
+		                            			万能账户
+		                            		</th>
+			                            	<th >
+		                            			退保总利益
+		                            		</th>
+	                            		</div>
 		                            </tr>
 	                            </thead>
-	                            <tbody  v-if="behalfTable.indexOf(Number(formID)) > -1 ">
-	                            	<tr>
-	                            		<td>ddd</td>
+	                            <tbody v-if="status">
+	                            	<tr v-for="(item, index) in main" :key="index">
+	                            		<td v-for="(data, i) in item" v-if="i !== '被保险人年龄'">
+	                            			{{data , children[index][i] | capitalize}}
+	                            		</td>
+	                            		<td v-if="formID == '384' && status">
+	                            			{{children[index]['生存保险金']}}
+	                            		</td>
+	                            		<div v-else-if="formID == '401' && status">
+			                            	<td>
+			                            		{{children[index]['部分领取']}}
+			                            	</td>
+			                            	<td v-if="levelNum == 'min'">
+			                            		{{children[index]['万能账户低档']}}
+			                            	</td>
+			                            	<td v-else-if="levelNum == 'mid'">
+			                            		{{children[index]['万能账户中档']}}
+			                            	</td>
+			                            	<td v-else>
+			                            		{{children[index]['万能账户高档']}}
+			                            	</td>
+			                            	<td v-if="levelNum == 'min'">
+			                            		{{children[index]['退保总利益中档']}}
+			                            	</td>
+			                            	<td v-else-if="levelNum == 'mid'">
+			                            		{{children[index]['退保总利益中档']}}
+			                            	</td>
+			                            	<td v-else>
+			                            		{{children[index]['退保总利益中档']}}
+			                            	</td>
+	                            		</div>
 	                            	</tr>
 	                            </tbody>
 	                            <tbody  v-else>
-	                            	<tr v-else v-for="(item, index) in main" :key="index">
+	                            	<tr v-for="(item, index) in main" :key="index">
 	                            		<td v-for="(data, i) in item" v-if="i !== '被保险人年龄'">
 	                            			{{data}}
 	                            		</td>
@@ -90,9 +125,22 @@
 				children: {},
 				pay_year: '',
 				safe_year: '',
+				levelNum : '',
 				behalfTable: [365, 377, 382, 384, 401, 19384, 19388], //主险利益演示表和附加险有关系的
-				level: [401, 378] //有中高低的
-			}
+				behalfChildren: [368, 398, 183, 383, 385, 404, 19385, 19389], //主险利益演示表和附加险有关系的
+				status: false //和附加险有没有关系
+			},
+			filters: {  
+	            capitalize: function (mainValue, childrenValue) {  
+	               var a = mainValue ? Number(mainValue) : 0 ;
+	               var b = childrenValue ? Number(childrenValue) : 0 ;
+	               return (a + b).toFixed(2)
+	            }  
+        	},
+        	methods :{
+        		
+        	}
+        	
 		})
 
 		mui.plusReady(function() {
@@ -103,6 +151,7 @@
 			modal.isHide = data.modalID
 			modal.formID = data.formID
 			modal.pay_year = data.pay_year
+			modal.levelNum = data.levelNum
 			
 			if(data.safe_year == '0'){
 				//终身
@@ -112,9 +161,15 @@
 			// 判断是不是需要附加险，是分别赋值，不是只赋值主险
 			if(modal.behalfTable.indexOf(Number(modal.formID)) > -1){
 				modal.main = data.list.main.list
-				modal.children = data.list.children
-//				alert(JSON.stringify(modal.main))
-//				alert(JSON.stringify(modal.children))
+//				modal.children = data.list.children
+				mui.each(data.list.children, function(index, item){
+					if(modal.behalfChildren.indexOf(Number(index)) > -1){
+						modal.status = true
+						modal.children = data.list.children[index].list
+					}
+				})
+				alert(JSON.stringify(modal.main))
+				alert(JSON.stringify(modal.children))
 			}else{
 				modal.main = data.list.list
 //				alert(JSON.stringify(modal.main))

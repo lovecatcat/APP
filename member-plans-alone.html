@@ -117,27 +117,27 @@
 				<div class="plans-detail-box BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff" >
 					<!--v-if="list.genre == '19385' || list.genre == '377' || list.genre == '404'"-->
 					<div class="BL-title">资金规划</div>
-					<div class="plans-detail-design BL-ub BL-pad-t-1">
-						<img src="images/plans/plansManage/130.png" class="BL-ub-f3">
-						<div class="BL-ub-f3 BL-pad-l-1">
-							<div class="BL-ftz-52 BL-pad-b-1">养老医疗险</div>
-							<div class="BL-col-999 BL-ftz-46">年龄<span class="BL-col-3b9cf5">50-90</span>岁</div>
-							<div class="BL-col-999 BL-ftz-46">领取<span class="BL-col-3b9cf5">5090</span>元/年</div>
-						</div>
-						<i class="BL-icon"></i>
+					<div class="plans-detail-design-button BL-mar-b-2 BL-ub BL-ub-pc" v-if="level.indexOf(Number(list.genre)) > -1 ">
+						<button type="button" class="BL-ftz-42 BL-mar-l-1 BL-pad-lr-2" :class="{'BL-btn-blue': levelNum === 'min', 'BL-btn-gray': levelNum !== 'min'}"  @click="changeLevel('min')">低档 </button>
+						<button type="button" class="BL-ftz-42 BL-mar-l-1 BL-pad-lr-2" :class="{'BL-btn-blue': levelNum === 'mid', 'BL-btn-gray': levelNum !== 'mid'}"  @click="changeLevel('mid')">中档 </button>
+						<button type="button" class="BL-ftz-42 BL-mar-l-1 BL-pad-lr-2" :class="{'BL-btn-blue': levelNum === 'max', 'BL-btn-gray': levelNum !== 'max'}"  @click="changeLevel('max')">高档 </button>
 					</div>
-					<div class="plans-detail-design BL-ub BL-pad-t-1">
-						<img src="images/plans/prospectus/ajb.jpg" class="BL-ub-f3">
-						<div class="BL-ub-f3 BL-pad-l-1">
-							<div class="BL-ftz-52 BL-pad-b-1">养老医疗险</div>
-							<div class="BL-col-999 BL-ftz-46">年龄<span class="BL-col-3b9cf5">50-90</span>岁</div>
-							<div class="BL-col-999 BL-ftz-46">领取<span class="BL-col-3b9cf5">5090</span>元/年</div>
+					<div v-if="manual_content && manual_content[levelNum]">
+						<div class="plans-detail-design BL-ub BL-pad-t-1" v-for="(item, index) in manual_content[levelNum]">
+							<img :src="item.imgUrl" class="BL-ub-f3">
+							<div class="BL-ub-f3 BL-pad-l-1">
+								<div class="BL-ftz-52 BL-pad-b-1">{{item.title}}</div>
+								<div class="BL-col-999 BL-ftz-46">年龄<span class="BL-col-3b9cf5">{{item.sAge}}-{{item.fAge}}</span>岁</div>
+								<div class="BL-col-999 BL-ftz-46">领取<span class="BL-col-3b9cf5">{{item.getMoney}}</span>元/年</div>
+							</div>
+							<i class="BL-icon" @click="designDel(index)"></i>
 						</div>
-						<i class="BL-icon"></i>
 					</div>
+					<div v-else>未添加资金规划</div>
+					
 					<div class="BL-txt-r BL-pad-t-1 plans-detail-design-button">
 						<button class="BL-btn-white BL-ftz-42 BL-mar-l-1 BL-pad-lr-1" @click="design(list.genre)">+添加规划</button>
-						<button class="BL-btn-blue BL-ftz-42 BL-mar-l-1 BL-pad-lr-1">保存</button>
+						<button class="BL-btn-blue BL-ftz-42 BL-mar-l-1 BL-pad-lr-1" @click="designSave(list.genre)">保存</button>
 					</div>
 				</div>
 				<!--资金规划-->
@@ -146,10 +146,11 @@
 				<div class="plans-detail-box BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5 BL-bg-fff clearfloat" v-if="list.genre !== '280' || list.genre !== '309'">
 					<div class="BL-title">利益演示表</div>
 					<div class="plans-detail-design-button BL-mar-b-2 BL-ub BL-ub-pc" >
-						<button class="BL-btn-blue BL-ftz-42 BL-mar-l-1 BL-pad-lr-1"  @click="table(list.genre)">查看</button>
+						<button class="BL-btn-blue BL-ftz-42 BL-mar-l-1 BL-pad-lr-2"  @click="table(list.genre)">查看</button>
 					</div>
 				
 				</div>
+			
 				<!--利益演示表-->
 				<div id="Js-plansDetail"></div>
 				<footer id="Js-footer" class="BL-footer BL-bg-fff">

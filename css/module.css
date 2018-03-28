@@ -658,4 +658,7 @@
 	width: 100%;
 	height: 100%;
 }
+.modal-form-img div img.active{
+	border: solid 1px #3B9CF5;
+}
 

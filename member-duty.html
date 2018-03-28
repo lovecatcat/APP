@@ -206,7 +206,10 @@
 	        }
 	    });
 	    
+	    var user_id;    // 用户id
+	    
 		mui.plusReady(function() {
+			user_id = JSON.parse(plus.storage.getItem("userinfo")).id
 			// 设置内容区域
 			statusbar();
 			var winH = window.innerHeight;
@@ -217,7 +220,7 @@
 			mui.ajax(config.baseUrl, {
 	            data: {
 	            	data: JSON.stringify({
-						user_id: 65
+						user_id: user_id
 					}),
 					server: 'user.getUserInfo',
 					device: 'mobile'
@@ -225,7 +228,7 @@
 	            dataType: "json",
 	            type: "get",
 	            success: function (ret) {
-	                if (ret.code) {
+	                if (ret.code == 1) {
 	                    duty.userInfo = ret.data.data;
 	                }
 	            },
@@ -247,7 +250,7 @@
 	            dataType: 'json',
 	            type: 'get',
 	            success: function (ret) {
-	                if (ret.code) {
+	                if (ret.code == 1) {
 	                	var data = ret.data
 //	                	alert(JSON.stringify(ret.data))
 	                	duty.status = true
@@ -278,7 +281,7 @@
 	            dataType: "json",
 	            type: "get",
 	            success: function (ret) {
-	                if (ret.code) {
+	                if (ret.code == 1) {
 	                    duty.wifiList = ret.data;
 	                    inter = setInterval(function () {
 	                    	if (isAndroid) {
@@ -372,7 +375,7 @@
          * @param {String} type 0: 上班卡    1：下班卡
          */
         function dutyAjax(jsonData, type) {
-//      	alert(JSON.stringify(jsonData))
+        	alert(JSON.stringify(jsonData))
             mui.ajax(config.baseUrl, {
                 data: {
                 	data: JSON.stringify(jsonData),
@@ -382,8 +385,10 @@
                 dataType: 'json',
                 type: 'post',
                 success: function (ret) {
-                    if (ret.code==1) {
+                  	alert(JSON.stringify(ret))
+                    if (ret.code == 1) {
                         for (var item in duty.dutyInfo) {
+                        	alert(ret.data[item])
                             if (ret.data[item]) {
                                 duty.dutyInfo[item] = ret.data[item];
                             }

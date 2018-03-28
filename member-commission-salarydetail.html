@@ -114,7 +114,7 @@
 				dataType: 'json',
 				type: 'get',
 				success: function (ret) {
-					if (ret.code) {
+					if (ret.code == 1) {
 						var data = ret.data
 						detail.totalAmount = data.totalAmount
 						if(data.lifeAmount) {

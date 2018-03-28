@@ -61,26 +61,6 @@
 								</a>
 							</div>
 						</div>
-						<!--<ul class="mui-table-view BL-mar-t-1">
-							<li class="mui-table-view-cell member-cmis-list-item cmis-item-count">
-								<a href="member-commission-countlist.html" class="mui-navigate-right BL-ub BL-ub-ac">
-									<i class="member-cmis-ico member-cmis-count"></i>
-									<div class="BL-pad-l-1">通算记录</div>
-						        </a>
-							</li>
-						    <li class="mui-table-view-cell member-cmis-list-item">
-						        <a href="member-commission-detail.html" class="mui-navigate-right">
-						            <div class="member-cmis-list-l">
-						                <p class='list-top-txt'>张晓晓（储蓄卡2512）</p>
-						                <p class='list-bottom-txt'>2018-01-08 06:00</p>
-						            </div>
-						            <div class="member-cmis-list-r BL-txt-r">
-						                <p class='list-top-txt'>-6000.00</p>
-						                <p class='list-bottom-txt'>已转账</p>
-						            </div>
-						        </a>
-						    </li>
-						</ul>-->
 					</template>
 				</div>
 			</div>
@@ -168,7 +148,7 @@
 	            dataType: 'json',
 	            type: 'get',
 	            success: function (ret) {
-	                if (ret.code) {
+	                if (ret.code == 1) {
 	                	cmis.account = ret.data
 	                	cmis.setExtBtnByTime(ret.data.now_time)
 	                }

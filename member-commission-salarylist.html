@@ -116,7 +116,7 @@
 						dataType: 'json',
 						type: 'get',
 						success: function (ret) {
-							if (ret.code) {
+							if (ret.code == 1) {
 								var data = ret.data 
 								if(i == 1 && i == data.totalPage) {
 									salary.list = data.data

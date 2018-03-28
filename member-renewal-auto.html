@@ -82,6 +82,8 @@
             list: []
 		}
 	});
+	
+	var user_id;
     (function($){
         //阻尼系数
         var deceleration = mui.os.ios ? 0.003 : 0.0009;
@@ -92,6 +94,7 @@
         });
 
         $.plusReady(function() {
+        	user_id = JSON.parse(plus.storage.getItem("userinfo")).id
         	// 预加续期详情
 			mui.preload({
 				url: 'member-renewal-liftdetail.html',
@@ -134,7 +137,7 @@
 				i++
 				var data = {
 					data: JSON.stringify({
-						user_id: '779',
+						user_id: user_id,
 						month: renewal.month_txt.value,
 						page: i
 					}),
@@ -146,7 +149,7 @@
 					dataType: 'json',
 					type: 'get',
 					success: function (ret) {
-						if (ret.code) {
+						if (ret.code == 1) {
 							var data = ret.data
 							renewal.count = data.totalRows
 							if(i == 1 && i == data.totalPage) {

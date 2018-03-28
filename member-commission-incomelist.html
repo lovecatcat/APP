@@ -47,46 +47,51 @@
 			<div id="Js-cmistab" class="BL-rel">
 				<div class="mui-content mui-scroll-wrapper BL-bg-f2f">
 					<div class="mui-scroll">
-						<template v-if="list.length > 0">
-							<div v-for="item in list">
-								<div class="mui-row member-cmis-tab-title BL-bg-fff BL-mar-t-1">
-									<div class="mui-col-sm-6 mui-col-xm-6 BL-txt-l">
-										<span class="BL-col-333">{{ item.day }}</span>
+						<template v-if="list">
+							<template v-if="list.length > 0">
+								<div v-for="item in list">
+									<div class="mui-row member-cmis-tab-title BL-bg-fff BL-mar-t-1">
+										<div class="mui-col-sm-6 mui-col-xm-6 BL-txt-l">
+											<span class="BL-col-333">{{ item.day }}</span>
+										</div>
+										<div class="mui-col-sm-6 mui-col-xm-6 BL-txt-r">
+											合计：<span class="BL-col-ff8201">{{ item.totalAmount }}</span>
+										</div>
 									</div>
-									<div class="mui-col-sm-6 mui-col-xm-6 BL-txt-r">
-										合计：<span class="BL-col-ff8201">{{ item.totalAmount }}</span>
+									<div class="member-cmis-tab BL-bg-fff">
+										<table style="width: 80rem;"> 
+											<thead>
+												<tr>
+													<th width="6%">序号</th>
+													<th width="14%" style="white-space:normal">保单号</th>
+													<th width="25%">险种</th>
+													<th width="10%">投保人</th>
+													<th width="15%">交单日期</th>
+													<th width="15%">标保（元）</th>
+													<th width="15%">佣金（元）</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr v-for="(item, index) in item.list" :key="index">
+													<td>{{ index+1 }}</td>
+													<td style="word-break:break-all">{{ item.policy_sn }}</td>
+													<td>{{ item.product_name }}</td>
+													<td>{{ item.holder_name }}</td>
+													<td>{{ item.commit_time }}</td>
+													<td>{{ item.over_fee }}</td>
+													<td>{{ item.fee  }}</td>
+												</tr>
+											</tbody>
+										</table>
 									</div>
 								</div>
-								<div class="member-cmis-tab BL-bg-fff">
-									<table style="width: 80rem;"> 
-										<thead>
-											<tr>
-												<th width="6%">序号</th>
-												<th width="14%" style="white-space:normal">保单号</th>
-												<th width="25%">险种</th>
-												<th width="10%">投保人</th>
-												<th width="15%">交单日期</th>
-												<th width="15%">标保（元）</th>
-												<th width="15%">佣金（元）</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr v-for="(item, index) in item.list" :key="index">
-												<td>{{ index+1 }}</td>
-												<td style="word-break:break-all">{{ item.policy_sn }}</td>
-												<td>{{ item.product_name }}</td>
-												<td>{{ item.holder_name }}</td>
-												<td>{{ item.commit_time }}</td>
-												<td>{{ item.over_fee }}</td>
-												<td>{{ item.fee  }}</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
+							</template>
+							<template v-else>
+								<div class="BL-pad-t-2 BL-txt-c BL-ftz-42 BL-col-999">没有更多数据了</div>
+							</template>
 						</template>
 						<template v-else>
-							<div class="BL-pad-t-2 BL-txt-c BL-ftz-42 BL-col-999">没有更多数据了</div>
+							<div class="BL-pad-t-1 BL-txt-c BL-ftz-42 BL-col-999">正在加载...</div>
 						</template>
 					</div>
 				</div>
@@ -109,7 +114,7 @@
 				mode: '1',
 				start_time: '',
 				end_time: '',
-				list: []
+				list: null
 			}
 		});
 		
@@ -149,7 +154,7 @@
 						dataType: 'json',
 						type: 'post',
 						success: function (ret) {
-							if (ret.code) {
+							if (ret.code == 1) {
 								var data = ret.data 
 								income.list = data
 							}
@@ -175,7 +180,7 @@
 						income.end_time = s
 						
 						i = 0
-						income.list = []
+						income.list = null
 						mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
 						getIncomelist(income.mode)
 					}
@@ -203,7 +208,7 @@
 					} else if (mode == 3) {
 						income.start_time = new Date().addMonth(-1).Format('yyyy-MM-dd')
 					}
-					income.list = []
+					income.list = null
 					mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
 					getIncomelist(income.mode)
 				});

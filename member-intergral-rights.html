@@ -14,7 +14,7 @@
 	</head>
 
 	<body class="BL-bg-f2f">
-		<div id="Js-content" class="mui-content">
+		<div id="Js-content" class="mui-content" v-cloak>
 			<!------------条件筛选 begin------------->
 			<div id="Js-intergralFilter" class="member-list-filter">
 				<!--日期搜索 begin-->
@@ -132,14 +132,13 @@
 						server: 'commission.Rights',
 						device: 'mobile'
 					};
-//					alert(JSON.stringify(data))
 					
 					mui.ajax(config.baseUrl, {
 						data: data,
 						dataType: 'json',
 						type: 'get',
 						success: function (ret) {
-							if (ret.code) {
+							if (ret.code == 1) {
 								var data = ret.data
 //								alert(JSON.stringify(data))
 								intergral.totalNum = data.totalNum

@@ -151,6 +151,8 @@
             }
         });
         
+        var user_id;    // 用户id
+        
 		(function($){
 			// 阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
@@ -162,20 +164,12 @@
 			
 			// 设置内容区域
 			$.plusReady(function() {
+				user_id = JSON.parse(plus.storage.getItem("userinfo")).id
+				
 				// 预加载个人业绩详情页
 				mui.preload({
 					url: 'team-personal-performance.html',
 					id: 'team_personal_performance',
-				});
-				
-				// 登录
-				var data = {
-					type: 'account',
-					channel_id: 1,
-					data: JSON.stringify({keyword: "陆惠忠", password: "123456"})
-				};
-				mui.post("http://www.luckyins.com/api/api/login", data, function(ret) {
-//					alert(ret.msg)
 				});
 				
 				// 定义全局变量： 开始时间start_time, 结束时间end_time
@@ -209,7 +203,7 @@
 				var getScore = function (start_time,end_time) {
 					var data1 = {
 		            	data: JSON.stringify({
-		            		user_id: 65,
+		            		user_id: user_id,
 		            		start_time: start_time.value,
 			            	end_time: end_time.value,
 			            	page: team.page,
@@ -223,7 +217,7 @@
 			            dataType: 'json',
 			            type: 'post',
 			            success: function (ret) {
-			                if (ret.code) {
+			                if (ret.code == 1) {
 			                    team.policy = ret.data.policy;
 			                    team.rank_list = ret.data.rank_list;
 			                    team.totalPage = ret.data.person.totalPage;
@@ -249,7 +243,7 @@
 				var getTempList = function(start_time,end_time,rank_id) {
 					var data2 = {
 						data: JSON.stringify({
-							user_id: 65,
+							user_id: user_id,
 							rank_id: team.rank_id,
 							page: team.page,
 							row: team.row,
@@ -264,7 +258,7 @@
 						dataType: 'json',
 						type: 'post',
 						success: function (ret) {
-							if (ret.code) {
+							if (ret.code == 1) {
 								team.totalPage = ret.data.totalPage;
 			                    if(team.page == 1) {
 			                    	team.person = ret.data.list

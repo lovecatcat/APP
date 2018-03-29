@@ -67,16 +67,12 @@
 					self.show(function(items) {
 						if(self.options.layer>0){
 							var htm = '';
-							var id = '';
 							for(var i=0; i<self.options.layer; i++){
 								htm += items[i].text + " ";
-								id += items[i].value + ";";
 							};
-							_this.innerText = value;
-							_this.setAttribute('data-value', htm);
+							_this.innerText = htm;
 						}else{
 							_this.innerText = items[0].text;
-							_this.setAttribute('data-value', items[0].value);
 						}
 		            });
 				});

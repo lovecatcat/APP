@@ -20,7 +20,7 @@
             <div class="mui-icon mui-icon-closeempty" id="close-ins-pop"></div>
             <p class="ins-font-md box-f-1">投保人信息</p>
             <div class="header-btn-save">
-                <button class="ins-btn sm-btn blue" @click="save_appl">保存</button>
+                <button class="ins-btn sm-btn blue" @click="checkAppl">保存</button>
             </div>
         </div>
         <div class="form-content margin-t-6_125 BL-pad-b-2">
@@ -376,8 +376,11 @@
         checkHeight: function (owner, val) {
             checkHeight(owner, val);
         },
-        save_appl: function () {
-            save_appl();
+        checkAppl: function () {
+            if(!checkAppl()){
+                return false;
+            }
+            console.log(JSON.stringify(this.applicant));
         }
     });
 

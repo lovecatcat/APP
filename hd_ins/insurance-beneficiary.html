@@ -35,20 +35,26 @@
                 </div>
             </div>
             <div v-show="!is_legal_benefic">
-                <div class="form-wrap margin-t_875">
+                <div class="form-wrap margin-t_875 border-b-e7e7e7">
                     <div class="input-item box-f-1 box-align-center">
                         <div class="box-f-1 ins-font-sm BL-col-3b9cf5">受益人</div>
                         <div class="box-f-2">
-                            <button class="ins-btn xxs-btn">收起
+                            <button class="ins-btn xs-btn">删除
                             </button>
-                            <button class="ins-btn xxs-btn">删除
-                            </button>
+                            <span class="bene-up-icon mui-icon mui-icon-arrowup"></span>
                         </div>
                     </div>
                 </div>
-                <div class="form-wrap margin-t_875">
-                    <div class="border-b-e7e7e7">
-                        <div class="item-title">证件信息</div>
+                <div class="form-wrap">
+                    <div class="input-item">
+                        <label class="">姓名</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" v-model.trim.lazy="beneficiary.fullname" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="beneficiary.fullname!=''"
+                                 @click="beneficiary.fullname=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
                     </div>
                     <div class="input-item">
                         <label class="">证件类型</label>
@@ -74,21 +80,6 @@
                             <input type="text" v-model.lazy="beneficiary.ID_expire_end" placeholder="请选择" readonly>
                         </div>
                         <div class="right-btn orange" @click="beneficiary.longTerm=!beneficiary.longTerm">长期有效</div>
-                    </div>
-                </div>
-                <div class="form-wrap margin-t_875">
-                    <div class="border-b-e7e7e7">
-                        <div class="item-title">个人信息</div>
-                    </div>
-                    <div class="input-item">
-                        <label class="">姓名</label>
-                        <div class="input-wrap box-f-1">
-                            <input type="text" v-model.trim.lazy="beneficiary.fullname" placeholder="请输入">
-                            <div class="form-clear-icon" v-show="beneficiary.fullname!=''"
-                                 @click="beneficiary.fullname=''">
-                                <span class="mui-icon mui-icon-clear"></span>
-                            </div>
-                        </div>
                     </div>
                     <div class="input-item" v-if="init&&init.gender">
                         <label class="">性别</label>

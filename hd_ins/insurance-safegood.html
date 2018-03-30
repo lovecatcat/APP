@@ -40,7 +40,8 @@
                     <label class="">交费期间</label>
                     <div class="input-wrap box-f-1 multi-btn">
                         <button class="ins-btn xs-btn" :class="{'blue':item.pay_year===insurance.pay_year}"
-                                v-for="(item,index) in pay_year" @click="insurance.pay_year=item.pay_year">
+                                :disabled="item.pay_year===insurance.pay_year"
+                                v-for="(item,index) in pay_year" @click="insurance.pay_year=item.pay_year,resetMoney()">
                             {{item.pay_year | payYearFilter}}
                         </button>
                     </div>
@@ -49,7 +50,9 @@
                     <label class="">保险期间</label>
                     <div class="input-wrap box-f-1 multi-btn">
                         <button class="ins-btn xs-btn" :class="{'blue':item.safe_year===insurance.safe_year}"
-                                v-for="(item,index) in safe_year" @click="insurance.safe_year=item.safe_year">
+                                :disabled="item.safe_year===insurance.safe_year"
+                                v-for="(item,index) in safe_year"
+                                @click="insurance.safe_year=item.safe_year,resetMoney()">
                             {{item.year | safeYearFilter}}
                         </button>
                     </div>
@@ -76,6 +79,7 @@
                         <label class="">基本保额(元)</label>
                         <div class="input-wrap box-f-1 multi-btn">
                             <button class="ins-btn xs-btn" :class="{'blue':index===insurance.money}"
+                                    :disabled="index===insurance.money"
                                     v-for="(item,index) in money_arr" @click="insurance.money=index">
                                 {{item}}
                             </button>
@@ -93,8 +97,9 @@
                 <template v-else-if="insurance.safe_id===fxjs">
                     <div class="input-item ins-pd-r-0" v-if="init&&init.nj_safe_year">
                         <label class="">年金保障年限</label>
-                        <div class="input-wrap box-f-1 multi-btn">
+                        <div class="input-wrap box-f-1">
                             <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.guarantee_term}"
+                                    :disabled="item.value===insurance.guarantee_term"
                                     v-for="(item,index) in init.nj_safe_year"
                                     @click="insurance.guarantee_term=item.value">
                                 {{item.text}}
@@ -177,14 +182,121 @@
                 </div>
             </div>
 
-            <div class="form-wrap margin-t_875" v-show="insurance.safe_id" v-for="(item,index) in Addons">
+            <div class="form-wrap margin-t_875" v-show="hasAddons" v-for="(item,index) in Addons"
+                 v-if="addonIns[index]">
                 <div class="input-item box-f-1">
                     <div class="box-f-3 ins-font-sm">{{item.name}}</div>
                     <div class="form-switch-note">投保</div>
-                    <div class="mui-switch mui-switch-mini" @toggle="chAddonState(index)">
+                    <div class="mui-switch mui-switch-mini" :id="'addon'+index" @click="chAddonState(index)">
                         <div class="mui-switch-handle"></div>
                     </div>
                 </div>
+                <!--附加投保人豁免2017-->
+                <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==tbrhm">
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money}}</span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            保障期间(年)&nbsp;<span class="BL-col-ff8201">终身</span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            交费期间(年)&nbsp;<span class="BL-col-ff8201">{{insurance.pay_year | payYearFilter}}</span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            <!--年缴保费(元)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].period_money}}</span>-->
+                        </li>
+                    </div>
+                </div>
+                <!--传家宝-->
+                <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==cjb">
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            交费期间(年)&nbsp;<span class="BL-col-ff8201">趸交</span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            保障期间(年)&nbsp;<span class="BL-col-ff8201">终身</span>
+                        </li>
+                    </div>
+
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            保费(元)&nbsp;<span class="BL-col-ff8201">100元</span>
+                        </li>
+                    </div>
+                </div>
+                <!--附加尊享安康-->
+                <template v-if="index===zxak">
+                    <div class="input-item ins-pd-r-0">
+                        <label class="">交费期间</label>
+                        <div class="input-wrap box-f-1 multi-btn">
+                            <button class="ins-btn xs-btn blue">趸交</button>
+                        </div>
+                    </div>
+                    <div class="input-item ins-pd-r-0">
+                        <label class="">保险期间</label>
+                        <div class="input-wrap box-f-1 multi-btn">
+                            <button class="ins-btn xs-btn blue">1年</button>
+                        </div>
+                    </div>
+                    <div class="input-item ins-pd-r-0">
+                        <label class="">保险金额</label>
+                        <div class="input-wrap box-f-1 multi-btn">
+                            <button class="ins-btn xs-btn" :class="{'blue':addonIns[index].money===500000}"
+                                    @click="insurance.pay_year=item.pay_year">50万
+                            </button>
+                            <button class="ins-btn xs-btn" :class="{'blue':addonIns[index].money===1000000}"
+                                    @click="insurance.pay_year=item.pay_year">100万
+                            </button>
+                            <button class="ins-btn xs-btn" :class="{'blue':addonIns[index].money===1500000}"
+                                    @click="insurance.pay_year=item.pay_year">150万
+                            </button>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">年缴保费(元)</label>
+                        <div class="input-wrap">
+                            <input type="number">
+                        </div>
+                        <div class="right-btn orange" @click="calMoney(index)">点击计算</div>
+                    </div>
+                </template>
+                <!--附加恒顺意外-->
+                <template v-if="index===hs">
+                    <div class="input-item ins-pd-r-0">
+                        <label class="">交费期间</label>
+                        <div class="input-wrap box-f-1 multi-btn">
+                            <button class="ins-btn xs-btn blue">趸交</button>
+                        </div>
+                    </div>
+                    <div class="input-item ins-pd-r-0">
+                        <label class="">保险期间</label>
+                        <div class="input-wrap box-f-1 multi-btn">
+                            <button class="ins-btn xs-btn blue">1年</button>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">基本保额(元)</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" placeholder="请输入">
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">年缴保费(元)</label>
+                        <div class="input-wrap">
+                            <input type="number">
+                        </div>
+                        <div class="right-btn orange">点击计算</div>
+                    </div>
+                </template>
             </div>
         </div>
     </div>
@@ -327,7 +439,7 @@
                     //对应的附加险
                     var child = items[0].child
                     var obj = {}
-                    for(var i in child){
+                    for (var i in child) {
                         obj[child[i]['id']] = child[i]
                     }
 //                    vm.resetAddons(init);
@@ -338,7 +450,7 @@
                     });
                 });
             },
-            //获取主险列表
+            //获取险种列表
             getIns: function () {
                 var vm = this
                 mui.ajax(baseURL + '/invoke', {
@@ -426,7 +538,7 @@
                         break
                 }
                 vm.$nextTick(function () {
-                    return vm.setAddonsShow(init)
+//                    return vm.setAddonsShow(init)
                 });
             },
             setAddonsShow: function (init) {
@@ -505,6 +617,11 @@
             },
             chAddonState: function (index) {
                 var vm = this
+                var id = 'addon' + index
+                if (index === '273') {
+                    mui('#' + id).switch().toggle();
+                    return false;
+                }
                 vm.addonsSelected[index] = !vm.addonsSelected[index];
                 if (!vm.addonIns[index]) return
                 if (index === cjb) {
@@ -523,7 +640,6 @@
 
                 switch (index) {
                     case tbrhm:
-                    case tbrhm2017:
                         if (!this.noSamePerson && vm.addonsSelected[index]) {
                             toast_text = '投保人和被保人是同一人时，不能附加' + name
                             vm.addonsSelected[index] = false
@@ -566,25 +682,145 @@
                 }
                 this.count = sum
             },
+            resetMoney: function (i) {
+                i = i || this.insurance.safe_id
+                console.log('重置【' + i + '】附加险')
+                if (i === fxjs || i === wnh) {
+                    this.insurance.money = ''
+                } else {
+                    this.insurance.period_money = ''
+                }
+                // 附加险重置
+                this.hasAddons = false
+                this.addonsSelected = {}
+                this.addonIns = {}
+                this.$forceUpdate()
+            },
+            checkAge: function (index) {
+                var toast_text = null
+                var pay_year = this.insurance.pay_year
+//                var age = this.assu_age
+//                var applAge = this.appl_age
+                var age = 20
+                var applAge = 20
+                var id = index === 0 ? this.insurance.safe_id : index
+                var name = this.Addons[id] ? this.Addons[id].name : this.main_insurance.name
+                console.log(age + applAge + pay_year + id + name)
+
+                if (toast_text) {
+                    mui.toast(toast_text, {duration: 'short', type: 'div'});
+                    return false
+                }
+
+                if (!id) return false
+
+                switch (id) {
+                    case hjjk: // 恒久健康终身重大疾病保险2017
+                        if ([1, 2, 5, 10].indexOf(pay_year) > -1 && age > 65) {
+                            toast_text = (pay_year === 1 ? '趸交' : pay_year + '年交') + '投保年龄上限为65岁'
+                        } else if (pay_year === 15 && age > 60) {
+                            toast_text = '15年交投保年龄上限为60岁'
+                        } else if (pay_year === 20 && age > 55) {
+                            toast_text = '20年交投保年龄上限为55岁'
+                        }
+                        break
+                    case tbrhm: // 附加投保人豁免
+                        if (applAge > 65) {
+                            toast_text = '投保人年龄大于65岁不能附加【' + name + '】'
+                        } else if (applAge < 66 && applAge > 60 && pay_year > 10) {
+                            toast_text = '投保人年龄大于60岁附加【' + name + '】时，主险只可选10年交'
+                        } else if (applAge < 61 && applAge > 55 && pay_year > 15) {
+                            toast_text = '投保人年龄大于55岁附加【' + name + '】时，主险只可选10年交、15年交'
+                        }
+                        if (toast_text) {
+                            mui.toast(toast_text, {duration: 'short', type: 'div'});
+                            return false
+                        }
+                        break
+                    case qwhh: // 千万护航两全保险
+                        if (age < 18 || age > 55) {
+                            toast_text = '投保年龄范围在18-55周岁'
+                        }
+                        break
+                    case zxak: //尊享
+                    case hs: // 恒顺
+                    case hx: //恒祥
+                        if (age > 55) {
+                            toast_text = '投保年龄上限为55周岁'
+                        }
+                        break
+                    case wnq: // 万年青
+                        if (pay_year + age > 70) {
+                            toast_text = pay_year + '年交投保年龄上限为' + (70 - pay_year) + '周岁'
+                        }
+                        break
+                    case fxjs: //福享金生
+                        if (this.assured.assured_gender === MALE && pay_year + age > 60) {
+                            toast_text = pay_year + '年交投保年龄上限为' + (60 - pay_year) + '周岁'
+                        } else if (this.assured.assured_gender === FEMALE && pay_year + age > 55) {
+                            toast_text = pay_year + '年交投保年龄上限为' + (55 - pay_year) + '周岁'
+                        }
+                        break
+                    case wnh: //万年红
+                        if ((pay_year === 3 || pay_year === 5) && (age > 65)) {
+                            toast_text = pay_year + '年交投保年龄上限为65周岁'
+                        } else if (pay_year === 10 && age > 60) {
+                            toast_text = pay_year + '年交投保年龄上限为60周岁'
+                        } else if (pay_year === 1 && age > 70) {
+                            toast_text = pay_year + '年交投保年龄上限为70周岁'
+                        }
+                        break
+                    default:
+                        break
+                }
+                if (toast_text) {
+                    mui.toast('【' + name + '】的' + toast_text, {duration: 'short', type: 'div'});
+                    return false
+                }
+                return true
+            },
+            checkForm: function () {
+                console.log('checkform');
+                const vm = this
+                var toast_text = null
+                if (!vm.insurance.safe_id) {
+                    toast_text = '请选择险种'
+                } else if (!vm.insurance.pay_year) {
+                    toast_text = '请选择交费期间'
+                } else if (!vm.insurance.safe_year) {
+                    toast_text = '请选择保险期间'
+                } else if (!vm.checkAge(0)) {
+                    return false
+                } else if ([hjjk, wnq, qwhh].indexOf(vm.insurance.safe_id) > -1 && !vm.insurance.money) { //保额
+                    toast_text = '请填写基本保险金额'
+                } else if (vm.insurance.safe_id === fxjs) { // 保费
+                    if (!vm.insurance.guarantee_term) {
+                        toast_text = '请选择年金保障年限'
+                    } else if (!vm.insurance.period_money) {
+                        toast_text = '请填写年缴保费'
+                    }
+                } else if (vm.insurance.safe_id === wnh) { // 万年红
+                    if (!vm.insurance.period_money) {
+                        toast_text = '请填写年缴保费'
+                    } else if (!vm.insurance.draw_freq) {
+                        toast_text = '请选择年金领取方式'
+                    }
+                }
+                if (toast_text) {
+                    mui.toast(toast_text, {duration: 'short', type: 'div'});
+                    return false
+                }
+                return true
+            },
             //试算
             calMoney: function (index) {
                 console.log('试算中');
                 var vm = this
                 var id = Number(vm.insurance.safe_id);
-                var basedata = {
-                    user_id: 1671, //vm.userinfo.id
-                    productInfo: [],
-                    insurant: {
-                        name: "abc", //vm.assured.assured_name
-                        birthday: "1992-01-10",//vm.assured.assured_birthday
-                        genderCode: "LAB0001"//vm.assured.assured_gender
-                    },
-                    applicant: {
-                        name: "efg",//vm.applicant.holder_name,
-                        birthday: "1980-01-01",//vm.applicant.holder_birthday,
-                        genderCode: "LAB0001"//vm.applicant.holder_gender
-                    }
-                };
+                var data = null
+                if (!vm.checkForm()) {
+                    return false
+                }
                 //是附加险
                 if (index) {
                     if (!vm.checkAddonsForm(index)) {
@@ -602,7 +838,7 @@
                         } else if (index === hs) { //恒顺
                             data.insurant.occupationCode = vm.assured.assured_job_code
                         }
-                        basedata.productInfo.push(product)
+                        data = product
                     }
                 } else {
                     console.log('试算主险')
@@ -619,9 +855,22 @@
                         main.premium = vm.insurance.period_money.toString()
                         main.guarantee_term = vm.insurance.guarantee_term
                     }
-                    basedata.productInfo.push(main)
+                    data = main
                 }
-                console.log(JSON.stringify(basedata));
+                var basedata = {
+                    user_id: '2185', //vm.userinfo.id
+                    productInfo: [data],
+                    insurant: {
+                        name: "abc", //vm.assured.assured_name
+                        birthday: "1992-01-10",//vm.assured.assured_birthday
+                        genderCode: "LAB0001"//vm.assured.assured_gender
+                    },
+                    applicant: {
+                        name: "efg",//vm.applicant.holder_name,
+                        birthday: "1980-01-01",//vm.applicant.holder_birthday,
+                        genderCode: "LAB0001"//vm.applicant.holder_gender
+                    }
+                };
                 //开始试算
                 mui.ajax(baseURL + '/invoke', {
                     data: {
@@ -642,24 +891,30 @@
                         if (res.code) {
                             var data = res.data
                             if (data.result === 'success') {
+                                console.log('cal-success')
                                 if (index) {
+                                    console.log('试算附加险' + index + '成功')
+                                    //试算附加险成功
+                                } else {
+                                    console.log('试算主险' + index + '成功')
                                     if (id === fxjs || id === wnh) {
+                                        console.log('amount:' + data.data.amount)
                                         vm.insurance.money = data.data.amount;
                                     } else {
+                                        console.log('period_money:' + data.data.premium)
                                         vm.insurance.period_money = data.data.premium;
                                     }
-                                } else {
-                                    //试算附加险成功
                                 }
                             } else {
+                                console.log('cal-failure')
                                 if (index) {
+                                    vm.addonIns[index].period_money = ''
+                                } else {
                                     if (id === fxjs || id === wnh) {
                                         vm.insurance.money = ''
                                     } else {
                                         vm.insurance.period_money = ''
                                     }
-                                } else {
-                                    vm.addonIns[index].period_money = ''
                                 }
                                 mui.toast(data.resultMsg, {duration: 'short', type: 'div'});
                                 return false;
@@ -681,9 +936,9 @@
                     toast_text = '请选择【' + name + '】的保险期间'
                 } else if (!addon.pay_year) {
                     toast_text = '请选择【' + name + '】的保险期间'
-                } else if (!addon.money && index !== tbrhm && index !== tbrhm2017) {
+                } else if (!addon.money && index !== tbrhm) {
                     toast_text = '请填写【' + name + '】的基本保险金额'
-                } else if (!this.noSamePerson && index !== tbrhm && index !== tbrhm2017) {
+                } else if (!this.noSamePerson && index !== tbrhm) {
                     toast_text = '投保人和被保人是同一人时，不能附加' + name
                 }
 

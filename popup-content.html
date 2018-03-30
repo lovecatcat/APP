@@ -22,7 +22,7 @@
 				</div>
 			</div>
 			<!-- 业绩表格(雨晴)-->
-			<div id="modal-table" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table'}">
+			<div id="modal-table-performance" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table-performance'}">
 				<div class="BL-modal-content BL-modal-tab">
 					<div class="BL-title">
 						{{ goIns_data.name }}
@@ -56,6 +56,51 @@
 									<template v-else>
 										<tr>
 											<td colspan="3" class="BL-col-999">暂无数据</td>
+										</tr>
+									</template>
+								</tbody>
+							</table>
+						</div>
+					</div>	
+				</div>
+			</div>
+			<!-- 计划书表格(雨晴)-->
+			<div id="modal-table-prospect" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table-prospect'}">
+				<div class="BL-modal-content BL-modal-tab">
+					<div class="BL-title">
+						{{ goIns_data.name }}
+					</div>
+					<div class="BL-modal-tab-body">
+						<table class="fixed-thead">
+							<thead>
+								<tr class="BL-col-3b9cf5">
+									<th width="40%">
+										<div>险种</div>
+									</th>
+									<th width="20%">
+										<div>保额(元)</div>
+									</th>
+									<th width="20%">
+										<div>保费(元)</div>
+									</th>
+									<th width="20%">投保人</th>
+								</tr>
+							</thead>
+						</table>
+						<div class="BL-modal-tab-scroll">
+							<table>
+								<tbody>
+									<template v-if="goIns_data.detail">
+										<tr v-for="(item,index) in goIns_data.detail" :key="index">
+											<td class="BL-txt-l" width="40%">{{ index+1 }}.{{ item.product_name }}</td>
+											<td width="20%">{{ item.base_money }}</td>
+											<td width="20%">{{ item.fee }}</td>
+											<td width="20%">{{ item.applicant }}</td>
+										</tr>
+									</template>
+									<template v-else>
+										<tr>
+											<td colspan="4" class="BL-col-999">暂无数据</td>
 										</tr>
 									</template>
 								</tbody>

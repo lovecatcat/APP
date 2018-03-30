@@ -89,6 +89,55 @@
 /*附加险*/
 .form-bgc-eee{background-color: #eee;margin: 1rem;}
 .form-bgc-eee li{line-height: 1.9375rem;color: #999;}
+/*签名*/
+.form-wrap .mui-icon-info {
+	font-size: 2rem;
+	color: #FFBA00;
+	margin-right: .5rem;
+}
+.sign-item {
+	display: -webkit-box;
+    display: -ms-flexbox;
+    padding: 0 0rem;
+    margin: 1rem 0;
+    position: relative;
+}
+.sign-btn {
+	width: 16%;
+    position: absolute;
+    right: 0rem;
+    height: 2.9375rem;
+    line-height: 2.9375rem;
+    font-size: 1.4375rem;
+    /* margin: 0 .5rem 0 1rem; */
+    text-align: center;
+    color: #ffba00 !important;
+}
+.sign-btn:before{
+	content: "";
+    height: 1.5rem;
+    width: 2px;
+    background: #e5e5e5;
+    overflow: hidden;
+    position: absolute;
+    left: -.5rem;
+    top: .85rem;
+}
+.sign-body {
+	height: 10rem;
+	width: 100%;
+    background-color: #fff;
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.27), 0 0 40px rgba(0,0,0,.08) inset;
+    box-shadow: 0 1px 4px rgba(0,0,0,.27), inset 0 0 40px rgba(0,0,0,.08);
+    border-radius: 4px;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
 /*计税器*/
 .tax-table td {
     text-align: center;

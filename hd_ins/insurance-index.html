@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="../css/mui.css" rel="stylesheet"/>
+    <link href="../css/common.css" rel="stylesheet"/>
+    <link href="../css/module.css" rel="stylesheet"/>
+    <link href="../css/insurance.css" rel="stylesheet"/>
+    <script src="../js/config.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css"/>
+</head>
+
+<body class="BL-bg-f2f">
+
+<header id="Js-header" class="BL-bg-fff">
+    <div class="BL-mod-headbar BL-mod-headbar-pos">
+        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+        <h1 class="BL-title">恒大在线投保</h1>
+    </div>
+</header>
+<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
+    <form class="mui-input-group BL-mar-t-1">
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" id="ins-applicant">
+            <label class="ins-font-md">投保人信息</label>
+            <input name="applicant" value="1" type="checkbox" v-model="applicant_save" disabled>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </div>
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" id="ins-assured">
+            <label class="ins-font-md">被保人信息</label>
+            <input name="assured" value="2" type="checkbox" v-model="assured_save" disabled>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </div>
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" id="ins-beneficiary">
+            <label class="ins-font-md">受益人信息</label>
+            <input name="beneficiary" value="3" type="checkbox" v-model="beneficiary_save" disabled>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </div>
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" id="ins-safegood">
+            <label class="ins-font-md">险种信息</label>
+            <input name="safegood" value="4" type="checkbox" v-model="safegood_save" disabled>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </div>
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" id="ins-healthinfo">
+            <label class="ins-font-md">健康告知信息</label>
+            <input name="healthinfo" value="5" type="checkbox" v-model="healthinfo_save" disabled>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </div>
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" id="ins-bank">
+            <label class="ins-font-md">付款信息</label>
+            <input name="bank" value="6" type="checkbox" v-model="bank_save" disabled>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </div>
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" id="ins-upload">
+            <label class="ins-font-md">上传证件</label>
+            <input name="bank" value="6" type="checkbox" v-model="bank_save" disabled>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </div>
+    </form>
+    <div class="BL-mar-t-3 BL-pad-lr-1_5">
+        <a type="button" class="form-btn blue" id="ins-sure">保存后发链接给客户签名投保</a>
+    </div>
+</div>
+<script src="../js/mui.min.js" type="text/javascript"></script>
+<script src="../js/vue.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mui.init();
+    var index = new Vue({
+        el: '#Js-content',
+        data: {
+            applicant_save: true,
+            assured_save: false,
+            beneficiary_save: false,
+            safegood_save: false,
+            healthinfo_save: false,
+            bank_save: false,
+            userinfo: ''
+        }
+    });
+
+    mui.plusReady(function () {
+        statusbar();
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+
+        mui('body').on('tap', '#ins-applicant', function () {
+            // 打开遮罩层，弹框
+            showPopu("insurance-applicant.html", "insurance_applicant", "bottom");
+        });
+        mui('body').on('tap', '#ins-beneficiary', function () {
+            // 打开遮罩层，弹框
+            showPopu("insurance-beneficiary.html", "insurance_beneficiary");
+        });
+        mui('body').on('tap', '#ins-bank', function () {
+            // 打开遮罩层，弹框
+            showPopu("insurance-bank.html", "insurance_bank");
+        });
+        mui('body').on('tap', '#ins-healthinfo', function () {
+            // 打开遮罩层，弹框
+            showPopu("insurance-healthinfo.html", "insurance_healthinfo", "bottom");
+        });
+        mui('body').on('tap', '#ins-safegood', function () {
+            // 打开遮罩层，弹框
+            showPopu("insurance-safegood.html", "insurance_safegood", "bottom");
+        });
+        mui('body').on('tap', '#ins-upload', function () {
+            // 打开遮罩层，弹框
+            showPopu("insurance-upload.html", "insurance_upload", "bottom");
+        });
+        mui('body').on('tap', '#ins-sure', function () {
+            // 打开遮罩层，弹框
+            showPopu("insurance-sign.html", "insurance_sign", "bottom");
+        });
+
+        var userinfo = JSON.parse(plus.storage.getItem('userinfo'));
+//        mui.ajax(baseURL + '/invoke', {
+//            data: {device: 'mobile', server: 'PolicyIns.getCompanyList'}, //获取保险公司
+//            data: {data: JSON.stringify({'supplier_id': 23}), device: 'mobile', server: 'PolicyIns.getProductList'}, //获取险种列表
+//            data: {data: JSON.stringify({'supplier_id': 23}), device: 'mobile', server: 'PolicyIns.initPolicyField'}, //初始化
+
+        //试算
+        var productInfo = {productId: "277", pay: 10, insure: "999", amount: "100000"};
+        var insurant = {name: "abc", birthday: "1992-01-10", genderCode: "LAB0001"};
+//      mui.ajax(baseURL + '/onlineInsured', {
+//          data: {
+//              data: JSON.stringify({
+//                  user_id: userinfo.user_id,
+//                  productInfo: [productInfo],
+//                  insurant: insurant
+//              }),
+//              company_code: 'HengDa',
+//              method: 'test_calc'
+//          },
+//          dataType: 'json',//服务器返回json格式数据
+//          type: 'post',//HTTP请求类型
+//          timeout: 10000,//超时时间设置为10秒；
+//          headers: {'Content-Type': 'application/json'},
+//          success: function (data) {
+//              console.log(JSON.stringify(data));
+//              if (data.data.result === 'sucess') {
+//                  //试算成功
+//                  console.log(data.data.premium);
+//              }
+//          },
+//          error: function (xhr, type, errorThrown) {
+//              alert(errorThrown);
+////                mui.toast(errorThrown, {duration: 'short', type: 'div'})
+//              return false
+//          }
+//      });
+        //
+    })
+</script>
+</body>
+</html>

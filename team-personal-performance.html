@@ -164,7 +164,7 @@
 	            dataType: 'json',
 	            type: 'post',
 	            success: function (ret) {
-	                if (ret.code) {
+	                if (ret.code == 1) {
 	                	team.count = ret.data.count
 	                	team.money = ret.data.money
 	                	team.activity_score = ret.data.activity_score

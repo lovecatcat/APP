@@ -54,11 +54,11 @@
 								</table>
 							</template>
 							<template v-else-if="list.length==0">
-								<div class="BL-pad-t-2 BL-txt-c BL-ftz-42 BL-col-999">没有更多数据了</div>
+								<div class="BL-pad-t-1 BL-txt-c BL-ftz-42 BL-col-999">没有更多数据了</div>
 							</template>
 						</template>
 						<template v-else>
-							<div class="BL-pad-t-2 BL-txt-c BL-ftz-42 BL-col-999">正在加载...</div>
+							<div class="BL-pad-t-1 BL-txt-c BL-ftz-42 BL-col-999">正在加载...</div>
 						</template>
 					</div>
 				</div>
@@ -85,6 +85,9 @@
 	            }
 			}
 		});
+		
+		var user_id;    // 用户id
+		
 		(function($){
 			// 阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
@@ -96,6 +99,8 @@
 			
 			// 设置内容区域
 			$.plusReady(function() {
+				user_id = JSON.parse(plus.storage.getItem("userinfo")).id
+
 				var winH = window.innerHeight;
 				var divHeight = document.querySelector('#Js-birthFilter').offsetHeight;
 				document.querySelector('#Js-birthtab').style.height = winH - divHeight + 'px';
@@ -121,39 +126,38 @@
 						getTeambirthData()
 					});
 				}, false);
+				
+				/**
+			     * 获取客户生日列表
+			     */
+				function getTeambirthData () {
+					mui.ajax(config.baseUrl, {
+			            data: {
+			            	data: JSON.stringify({
+			            		user_id: user_id,
+			            		month:team.month_txt.value
+			            	}),
+			                server: 'team.careInsure',
+			                device: 'mobile'
+			            },
+			            dataType: 'json',
+			            type: 'post',
+			            success: function (ret) {
+			                if (ret.code==1) {
+			                	team.count = ret.data.count
+			                    team.list = ret.data.list
+			                }
+			            },
+			            error: function () {
+			                plus.nativeUI.toast('网络异常：101')
+			            }
+		        	});
+				}
+				
+				// 初始化客户当月生日列表
+				getTeambirthData()
 			});
-			
-			// 初始化客户当月生日列表
-			getTeambirthData()
-			
 		}(mui));
-		
-		/**
-	     * 获取客户生日列表
-	     */
-		function getTeambirthData (month) {
-			mui.ajax(config.baseUrl, {
-	            data: {
-	            	data: JSON.stringify({
-	            		user_id: 65,
-	            		month:team.month_txt.value
-	            	}),
-	                server: 'team.careInsure',
-	                device: 'mobile'
-	            },
-	            dataType: 'json',
-	            type: 'post',
-	            success: function (ret) {
-	                if (ret.code) {
-	                	team.count = ret.data.count
-	                    team.list = ret.data.list
-	                }
-	            },
-	            error: function () {
-	                plus.nativeUI.toast('网络异常：101')
-	            }
-        	});
-		}
 	</script>
 </html>
 

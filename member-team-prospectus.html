@@ -59,8 +59,8 @@
 									<td width="10%">{{ index+1 }}</td>
 									<td width="30%">{{ item.user_name}}</td>
 									<td width="15%">{{ item.count }}</td>
-									<td width="25%">{{ item.add_time.substring(0,10) }}</td>
-									<td width="20%"><a href="">查看</a></td>
+									<td width="25%">{{ item.time }}</td>
+									<td width="20%" class="item_check BL-col-3b9cf5" :data-uid="item.id" :data-date="item.time" :data-name="item.user_name">查看</td>
 								</tr>
 							</tbody>
 						</table>
@@ -91,6 +91,7 @@
 			}
 		});
 		
+		var user_id;
 		(function($){
 			//阻尼系数
 			var deceleration = mui.os.ios?0.003:0.0009;
@@ -102,6 +103,8 @@
 			
 			// 设置内容区域
 			$.plusReady(function() {
+				user_id = JSON.parse(plus.storage.getItem("userinfo")).id
+				
 				var winH = window.innerHeight;
 				var divHeight = document.querySelector('#Js-teamFilter').offsetHeight;
 				document.querySelector('#Js-teamtab').style.height = winH - divHeight + 'px';
@@ -120,7 +123,7 @@
 						data: JSON.stringify({
 							start_time: team.start_time,
 							end_time: team.end_time,
-							user_id: 65,
+							user_id: user_id,
 							page: i,
 							row: team.row
 						}),
@@ -132,7 +135,7 @@
 						dataType: 'json',
 						type: 'post',
 						success: function (ret) {
-							if (ret.code) {
+							if (ret.code == 1) {
 								team.plan_num = ret.data.today_plan_num
 								team.people_num = ret.data.today_people_num
 								if(i == 1 && ret.data.count == ret.data.list.length) {
@@ -215,6 +218,45 @@
 					// 回到顶部
 					mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
 					self.pullUpLoading();
+				});
+				
+				var parent_self = plus.webview.getWebviewById('member_team')
+				// 详情查看事件
+				mui('.member-team-tab').on('tap','.item_check', function(e){
+					var uid = e.target.getAttribute('data-uid')
+					var udate = e.target.getAttribute('data-date')
+					var uname = e.target.getAttribute('data-name')
+					
+					mui.ajax(config.baseUrl, {
+						data: {
+							data: JSON.stringify({
+								user_id: uid,
+								date: udate
+							}),
+							server: 'team.getPlanInfo',
+							device: 'mobile'
+						},
+						dataType: 'json',
+						type: 'post',
+						success: function (ret) {
+							if (ret.code == 1) {
+								var prospect_data = {
+									name: uname,
+									detail: ret.data
+								}
+								// 调用弹出框
+								mui.fire(parent_self,'show', {
+									formID : 'member_team_prospect',
+									goIns_data: prospect_data
+								});
+							} else {
+								mui.toast(ret.msg, {duration: 'short', type: 'div'})
+							}
+						},
+						error: function () {
+							mui.toast('网络异常,请稍候再试');
+						}
+					});
 				});
 			});	
 			

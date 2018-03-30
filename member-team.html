@@ -12,16 +12,10 @@
 
 	<body class="BL-bg-f2f">
 		<header id="Js-header" class="BL-bg-fff">
-			<div class="BL-mod-headbar">
-				<div class="BL-ub BL-ub-ac headbar-search">
-					<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
-					<div class="search search-pro BL-ub BL-ub-ac BL-ub-f1">
-						<input type="search" name="Js-search" id="Js-search" value="搜索业务员姓名" class="BL-ub BL-ub-f1" />
-						<div class="button">
-							<span class="BL-bimg-contain">&nbsp;</span>
-						</div>
-					</div>
-				</div>
+			<div class="BL-mod-headbar BL-mod-headbar-pos">
+				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+				<h1 class="BL-title">团队管理</h1>
+				<a class="BL-icon BL-icon-search"></a>
 			</div>
 		</header>
 
@@ -48,33 +42,33 @@
 			var _viewH = winH - _divH; // 内容区域高度
 			var _self = plus.webview.currentWebview();
 			var group = new webviewGroup(_self.id, {
-					topHeight: _divH,
-					viewHeight:_viewH,
-					items: [{
-						id: "member_team_prospectus.html",
-						url: "member-team-prospectus.html",
-						extras: {}
-					}, {
-						id: "member_team_performance.html",
-						url: "member-team-performance.html",
-						extras: {}
-					}],
-					onChange: function(obj) {
-						var c = document.querySelector(".mui-control-item.mui-active");
-						if(c) {
-							c.classList.remove("mui-active");
-						}
-						var target = document.querySelector(".mui-slider-indicator .mui-control-item:nth-child(" + (parseInt(obj.index) + 1) + ")");
-						target.classList.add("mui-active");
-						if(target.scrollIntoView) {
-							target.scrollIntoView();
-						}
+				topHeight: _divH,
+				viewHeight:_viewH,
+				items: [{
+					id: "member_team_prospectus.html",
+					url: "member-team-prospectus.html",
+					extras: {}
+				}, {
+					id: "member_team_performance.html",
+					url: "member-team-performance.html",
+					extras: {}
+				}],
+				onChange: function(obj) {
+					var c = document.querySelector(".mui-control-item.mui-active");
+					if(c) {
+						c.classList.remove("mui-active");
 					}
-				});
-				mui(".mui-slider-indicator").on("tap", ".mui-control-item", function(e) {
-					var wid = this.getAttribute("data-wid");
-					group.switchTab(wid);
-				});
+					var target = document.querySelector(".mui-slider-indicator .mui-control-item:nth-child(" + (parseInt(obj.index) + 1) + ")");
+					target.classList.add("mui-active");
+					if(target.scrollIntoView) {
+						target.scrollIntoView();
+					}
+				}
+			});
+			mui(".mui-slider-indicator").on("tap", ".mui-control-item", function(e) {
+				var wid = this.getAttribute("data-wid");
+				group.switchTab(wid);
+			});
 			
 			// 打开遮罩层，弹框,自定义事件监听
 			window.addEventListener('show', function(event) {
@@ -82,17 +76,26 @@
 				var formID = event.detail.formID;
 				var goIns_data = event.detail.goIns_data;
 				var data = {};
-				if(goIns_data){
-					//在线投保弹框
-					data = {
-						modalID : 'modal-table',
-						formID : formID,
-						goIns_data : goIns_data
+				if ( formID == 'member_team_prospect') {
+					if(goIns_data){
+						//在线投保弹框
+						data = {
+							modalID : 'modal-table-prospect',
+							formID : formID,
+							goIns_data : goIns_data
+						}
 					}
-				}
-				
+				} else if (formID == 'member_team_performance') {
+					if(goIns_data){
+						//在线投保弹框
+						data = {
+							modalID : 'modal-table-performance',
+							formID : formID,
+							goIns_data : goIns_data
+						}
+					}
+				}				
 				showPopu("popup-content.html", "popup_content", 'center', data);
-	
 			})
 			
 		})

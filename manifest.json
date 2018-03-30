@@ -377,7 +377,10 @@
 					"ins2c.html",
 					"member-duty.html",
 					"shop.html",
-					"hd_ins/insurance-index.html"
+					"hd_ins/insurance-index.html",
+					"communic.html",
+					"recruit.html",
+					"product-detail.html"
 				],
 				"priority": 0
 			},
@@ -460,7 +463,8 @@
 				"refer": [
 					"product-detail.html",
 					"product-contrast.html",
-					"quickly-filter.html"
+					"quickly-filter.html",
+					"prospect-product.html"
 				],
 				"priority": 0
 			},
@@ -749,7 +753,9 @@
 					"images/icon/ico-duty-hswifi.png",
 					"images/icon/ico-duty-nowifi.png",
 					"js/config.js",
-					"js/vue.min.js"
+					"js/vue.min.js",
+					"images/icon/member-post.png",
+					"images/icon/member-zhanyejia.png"
 				],
 				"refer": [
 					"member-commission-account.html",
@@ -859,7 +865,11 @@
 					"images/icon/icon-displace.png",
 					"images/icon/icon-users.png",
 					"images/icon/icon-datepicker.jpg",
-					"js/config.js"
+					"js/config.js",
+					"js/prospect.js",
+					"prospect-main.html",
+					"js/webviewGroup.js",
+					"js/vue.min.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -1255,7 +1265,9 @@
 					"js/mui.picker.min.js",
 					"css/mui.picker.min.css",
 					"js/mui.picker.js",
-					"js/mui.dtpicker.js"
+					"js/mui.dtpicker.js",
+					"images/pic/logo.png",
+					"js/mui.poppicker.js"
 				],
 				"refer": [
 					"team-personal-performance.html"
@@ -1784,7 +1796,8 @@
 					"images/icon/nav-user-active.png",
 					"images/icon/sign.png",
 					"images/icon/sign-active.png",
-					"js/config.js"
+					"js/config.js",
+					"images/icon/plan_link.jpg"
 				],
 				"priority": 6,
 				"refer": []
@@ -1845,10 +1858,20 @@
 					"images/icon/icon-users.png",
 					"images/icon/icon-datepicker.jpg",
 					"js/config.js",
-					"images/plans/prospectus/ajb.jpg"
+					"images/plans/prospectus/ajb.jpg",
+					"js/plans.js",
+					"images/plans/prospectus/19390.jpg",
+					"images/plans/prospectus/19390_2.jpg",
+					"images/plans/prospectus/369_2.jpg",
+					"images/plans/prospectus/369.jpg",
+					"images/plans/prospectus/283.jpg",
+					"images/plans/prospectus/283_2.jpg"
 				],
 				"priority": 2,
-				"refer": []
+				"refer": [
+					"member-plans-alone-modal.html",
+					"member-plans-alone-design.html"
+				]
 			},
 			"member-plans-total.html": {
 				"href": "member-plans-total.html",
@@ -1877,7 +1900,8 @@
 					"images/icon/icon-displace.png",
 					"images/icon/icon-users.png",
 					"images/icon/icon-datepicker.jpg",
-					"js/config.js"
+					"js/config.js",
+					"js/plansData.js"
 				],
 				"priority": 4,
 				"refer": []
@@ -1907,15 +1931,17 @@
 					"css/news.css",
 					"images/icon/ico-eye1.png",
 					"images/icon/ico-good.png",
-					"js/config.js"
+					"js/config.js",
+					"member-plans-total.html",
+					"css/plans.css"
 				],
 				"refer": [
 					"member-plans-alone.html",
 					"news-cream.html",
-					"member-plans-total.html",
 					"news-tv-detail.html",
 					"news-business.html",
-					"news-finance.html"
+					"news-finance.html",
+					"popup-content.html"
 				],
 				"priority": 2
 			},
@@ -1958,10 +1984,15 @@
 					"images/plans/plansManage/130.png",
 					"images/plans/plansManage/369.png",
 					"images/plans/plansManage/401.png",
-					"images/plans/plansManage/19384.png"
+					"images/plans/plansManage/19384.png",
+					"images/plans/plansManage/292.png",
+					"images/plans/plansManage/74.png",
+					"images/plans/plansManage/290.png",
+					"images/plans/plansManage/363.png"
 				],
 				"refer": [
-					"member-plans-detail.html"
+					"member-plans-detail.html",
+					"popup-content.html"
 				],
 				"priority": 2
 			},
@@ -2158,7 +2189,8 @@
 					"js/interval-dtpicker.js",
 					"js/mui.pullToRefresh.js",
 					"js/mui.pullToRefresh.material.js",
-					"css/mui.css"
+					"css/mui.css",
+					"images/icon/ico-filter-active.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -2170,7 +2202,9 @@
 					"css/mui.css",
 					"css/member.css",
 					"images/icon/ico-duty-wifi.png",
-					"images/icon/ico-duty-address.png"
+					"images/icon/ico-duty-address.png",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -2206,9 +2240,14 @@
 					"js/mui.picker.js",
 					"js/mui.poppicker.js",
 					"css/mui.picker.min.css",
-					"js/mui.dtpicker.js"
+					"js/mui.dtpicker.js",
+					"images/icon/ico-down.png",
+					"css/member.css",
+					"css/mui.css"
 				],
-				"refer": [],
+				"refer": [
+					"member-warranty-manageLife-detail.html"
+				],
 				"priority": 0
 			},
 			"member-commission-salarydetail.html": {
@@ -2274,7 +2313,8 @@
 					"hd_ins/insurance-beneficiary.html",
 					"hd_ins/insurance-applicant.html",
 					"hd_ins/insurance-upload.html",
-					"hd_ins/insurance-safegood.html"
+					"hd_ins/insurance-safegood.html",
+					"hd_ins/insurance-sign.html"
 				],
 				"priority": 0
 			},
@@ -2382,7 +2422,109 @@
 				"resources": [
 					"css/mui.css",
 					"images/icon/ico-tax-question.png",
+					"css/form.css",
+					"css/member.css"
+				],
+				"refer": [
+					"member-tax-info.html"
+				],
+				"priority": 0
+			},
+			"prospect-main.html": {
+				"resources": [
+					"images/icon/icon-users.png",
+					"js/mui.picker.js",
+					"images/icon/icon-datepicker.jpg",
+					"images/icon/icon-displace.png",
+					"css/mui.picker.min.css",
+					"css/mui.css",
+					"js/mui.dtpicker.js",
+					"css/plans.css",
+					"css/module.css",
+					"css/common.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-warranty-manageCar.html": {
+				"resources": [
+					"css/mui.picker.min.css",
+					"css/mui.css",
+					"css/member.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"communic.html": {
+				"resources": [
+					"js/mui.indexedlist.js",
+					"css/mui.css"
+				],
+				"refer": [
+					"communic-detail.html"
+				],
+				"priority": 0
+			},
+			"communic-detail.html": {
+				"resources": [
+					"css/member.css",
+					"css/mui.css",
 					"css/form.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-plans-alone-modal.html": {
+				"resources": [
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"recruit.html": {
+				"resources": [
+					"css/mui.css",
+					"css/member.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-tax-info.html": {
+				"resources": [
+					"css/insurance.css",
+					"css/mui.picker.min.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"prospect-product.html": {
+				"resources": [
+					"css/mui.css",
+					"css/plans.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"hd_ins/insurance-sign.html": {
+				"resources": [
+					"images/icon/icon-upload.png",
+					"css/form.css",
+					"css/insurance.css",
+					"css/mui.picker.min.css",
+					"css/mui.css",
+					"css/signature.css",
+					"js/signature/signature_pad.js",
+					"js/copy.js"
+				],
+				"refer": [
+					"hd_ins/upload-img.html"
+				],
+				"priority": 0
+			},
+			"member-warranty-manageLife-detail.html": {
+				"resources": [
+					"css/mui.css"
 				],
 				"refer": [],
 				"priority": 0

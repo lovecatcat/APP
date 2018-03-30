@@ -1,0 +1,75 @@
+.signatures {
+  padding: .09rem .15rem;
+  background-color: #fff;
+}
+
+.signature-img{
+  max-width: 200px;
+  border-bottom: 1px solid #eee;
+}
+
+.signature-box {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  margin: .12rem .15rem .11rem;
+}
+
+.m-signature-pad {
+	position: relative;
+  width: 100%;
+}
+
+.m-signature-pad--body {
+  width: 100%;
+  background-color: #fff;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.08) inset;
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.08) inset;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.08) inset;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.m-signature-pad--body canvas {
+  width: 100%;
+  height: 100%;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.02) inset;
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.02) inset;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.02) inset;
+}
+
+.m-signature-pad--footer {
+  position: relative;
+  bottom: 0;
+}
+
+.m-signature-pad--footer .description {
+  color: #C3C3C3;
+  text-align: center;
+  margin-top: 1.8rem;
+  font-size: 1.3125rem;
+}
+
+.m-signature-pad--footer .left,
+.right {
+  position: absolute;
+  bottom: -.8rem;
+}
+
+.m-signature-pad--footer .left {
+  left: 0;
+}
+
+.m-signature-pad--footer .right {
+  right: 0;
+}

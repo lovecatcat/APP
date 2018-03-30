@@ -160,23 +160,18 @@
 	                "sign_in_wifi": '',			// wifi的mac地址，SSID码
 	                "sign_in_location": '',		// 打卡位置
 	                "sign_in_time": '',     	// 上班卡时间
-	                "sign_in_time_diff": '',	// 迟到分钟数
+	                "sign_in_diff": '',	// 迟到分钟数
 					// 下班
 					"sign_out_state": 0,   		// 状态
 	                "sign_out_wifi": '',		// wifi的mac地址，SSID码
 	                "sign_out_location": '',	// 打卡位置
-	                "sign_out_time": '',    	// 上班卡时间
-	                "sign_out_time_diff": '',	// 早退分钟数
+	                "sign_out_time": '',    	// 下班卡时间
+	                "sign_out_diff": '',	// 早退分钟数
 				},
 				// 考勤范围内的wifi列表
 				wifiList: null,
 				// 当前考勤范围内的wifi信息
-				wifiInfo: null,
-				// 打卡成功提示信息
-				dutySuccess: {
-					"sign_time": '',
-					"sign_location": ''
-				}
+				wifiInfo: null
 			},
 			created: function () {
 	            setInterval(function () {
@@ -238,39 +233,40 @@
         	});
         	
 			// 获取考勤记录
-	        mui.ajax(config.baseUrl, {
-	            data: {
-	            	data: JSON.stringify({
-	            		type: 'day',
-	            		date: new Date().addDays(0).Format('yyyy-MM-dd')
-	            	}),
-	                server: 'Attendance.PunchCardRecord',
-	                device: 'mobile'
-	            },
-	            dataType: 'json',
-	            type: 'get',
-	            success: function (ret) {
-	                if (ret.code == 1) {
-	                	var data = ret.data
-//	                	alert(JSON.stringify(ret.data))
-	                	duty.status = true
-	                    duty.dutyInfo.waycard = data.waycard
-	                    if (data) {
-	                        duty.dutyInfo = data;
-	                    }
-	                    if (!data || (data && data.sign_out_time < 1)) {
-	                        if (plus.networkinfo.CONNECTION_WIFI !== plus.networkinfo.getCurrentType()) {
-	                            plus.nativeUI.toast('切换内勤打卡，请开启WiFi')
-	                        }
-	                    }
-	                } else {
-	                    document.getElementById("message").innerHTML = ret.msg;
-	                }
-	            },
-	            error: function () {
-	                plus.nativeUI.toast('网络异常：102')
-	            }
-	        });
+			clockRecord ()
+//	        mui.ajax(config.baseUrl, {
+//	            data: {
+//	            	data: JSON.stringify({
+//	            		type: 'day',
+//	            		date: new Date().addDays(0).Format('yyyy-MM-dd')
+//	            	}),
+//	                server: 'Attendance.PunchCardRecord',
+//	                device: 'mobile'
+//	            },
+//	            dataType: 'json',
+//	            type: 'get',
+//	            success: function (ret) {
+//	                if (ret.code == 1) {
+//	                	var data = ret.data
+////	                	alert(JSON.stringify(ret.data))
+//	                	duty.status = true
+//	                    duty.dutyInfo.waycard = data.waycard
+//	                    if (data) {
+//	                        duty.dutyInfo = data;
+//	                    }
+//	                    if (!data || (data && data.sign_out_time < 1)) {
+//	                        if (plus.networkinfo.CONNECTION_WIFI !== plus.networkinfo.getCurrentType()) {
+//	                            plus.nativeUI.toast('切换内勤打卡，请开启WiFi')
+//	                        }
+//	                    }
+//	                } else {
+//	                    document.getElementById("message").innerHTML = ret.msg;
+//	                }
+//	            },
+//	            error: function () {
+//	                plus.nativeUI.toast('网络异常：102')
+//	            }
+//	        });
 	        
 	        // 获取考勤范围内的WiFi
 	        mui.ajax(config.baseUrl, {
@@ -305,10 +301,8 @@
 	            var address = p.address
 	            address = [address.province, address.city, address.district, address.street, address.streetNum, address.poiName]
 	            var addresses = address.join('') || p.addresses
-	            console.log('获取定位:' + addresses)
 	            duty_address = addresses;
 	        }, function (e) {
-	            console.log("Geolocation error: " + e.message);
 	            plus.nativeUI.toast('无法获取当前位置，请检查是否开启定位', {
 	                duration: 'long'
 	            })
@@ -318,6 +312,43 @@
 	            enableHighAccuracy: true,
 	        });
 		});
+		/**
+		 * 获取打卡记录
+		 */
+		function clockRecord() {
+			mui.ajax(config.baseUrl, {
+	            data: {
+	            	data: JSON.stringify({
+	            		type: 'day',
+	            		date: new Date().addDays(0).Format('yyyy-MM-dd')
+	            	}),
+	                server: 'Attendance.PunchCardRecord',
+	                device: 'mobile'
+	            },
+	            dataType: 'json',
+	            type: 'get',
+	            success: function (ret) {
+	                if (ret.code == 1) {
+	                	var data = ret.data
+	                	duty.status = true
+	                    duty.dutyInfo.waycard = data.waycard
+	                    if (data) {
+	                        duty.dutyInfo = data;
+	                    }
+	                    if (!data || (data && data.sign_out_time < 1)) {
+	                        if (plus.networkinfo.CONNECTION_WIFI !== plus.networkinfo.getCurrentType()) {
+	                            plus.nativeUI.toast('切换内勤打卡，请开启WiFi')
+	                        }
+	                    }
+	                } else {
+	                    document.getElementById("message").innerHTML = ret.msg;
+	                }
+	            },
+	            error: function () {
+	                plus.nativeUI.toast('网络异常：102')
+	            }
+	        });
+		}
 		
 		/**
 	     * 考勤打卡
@@ -338,6 +369,7 @@
 	        }
 	
 	        jsonData['mac'] = plus.device.uuid
+//			jsonData['mac'] = '50:da:00:f5:3c:71'
 	
 	        //判断是否更新打卡
 	        if (flag == 0) {
@@ -375,7 +407,6 @@
          * @param {String} type 0: 上班卡    1：下班卡
          */
         function dutyAjax(jsonData, type) {
-        	alert(JSON.stringify(jsonData))
             mui.ajax(config.baseUrl, {
                 data: {
                 	data: JSON.stringify(jsonData),
@@ -385,30 +416,9 @@
                 dataType: 'json',
                 type: 'post',
                 success: function (ret) {
-                  	alert(JSON.stringify(ret))
                     if (ret.code == 1) {
-                        for (var item in duty.dutyInfo) {
-                        	alert(ret.data[item])
-                            if (ret.data[item]) {
-                                duty.dutyInfo[item] = ret.data[item];
-                            }
-                        }
-                        if (type === 0) {
-                            duty.dutySuccess["sign_time"] = ret.data['sign_in_time'];
-                            duty.dutySuccess["sign_location"] = ret.data['sign_in_location'];
-                        } else if (type === 1) {
-                            duty.dutySuccess["sign_time"] = ret.data['sign_out_time'];
-                            duty.dutySuccess["sign_location"] = ret.data['sign_out_location'];
-                        }
-//                      // 弹出框
-//                      var data = {
-//							modalID : 'modal-duty-success',
-//							formID : 'member_duty_success',
-//							goIns_data: duty.dutySuccess
-//				    	}
-//                      // 打开遮罩层，弹框
-//          			showPopu("member-duty-success.html", "member_duty_success", "center", data);
-            			
+						clockRecord ()    // 获取打卡记录
+                        mui.toast('打卡成功', {duration: 'short', type: 'div'})
                     } else {
                         mui.alert(ret.msg);
                     }

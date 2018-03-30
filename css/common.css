@@ -294,6 +294,9 @@ i {
 .BL-col-ff8201 {
 	color: #ff8201 !important;
 }
+.BL-col-ffba00{
+	color: #ffba00 !important;
+}
 
 /* 圆弧角  = BL-radiu-[a(全部), l-(左), lr-(左右), r-(右), t-(上), tb-(上下), b-(下)] */
 
@@ -336,6 +339,10 @@ i {
 
 .BL-pad-l-2 {
 	padding-left: 2rem;
+}
+
+.BL-pad-l-2_5 {
+	padding-left: 2.5rem;
 }
 
 .BL-pad-l-3 {
@@ -467,7 +474,10 @@ i {
 .BL-mar-b-2 {
 	margin-bottom: 2rem;
 }
-
+.BL-mar-tb-1 {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
 
 /* 重写mui加载更多样式 */
 

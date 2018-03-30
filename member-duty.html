@@ -124,7 +124,7 @@
 				</
 				<!-- 下班 End -->
 				<div class="BL-ub BL-ub-pc BL-mar-t-3">
-					<a class="statsbtn-duty" href="member-duty-stats.html" style="display: block;">查看考勤记录<a>
+					<a class="statsbtn-duty" data-wid="member_duty_stats" href="member-duty-stats.html" style="display: block;">查看考勤记录</a>
 				</div>
 			</div>
 			<div v-else id="message" class="member-duty-message BL-pad-tb-3 BL-txt-c"></div>
@@ -210,6 +210,16 @@
 			var winH = window.innerHeight;
 			var titHeight = document.querySelector('#Js-header').offsetHeight;
 			document.querySelector('#Js-duty').style.height = winH - titHeight + 'px';
+			
+			mui('body').on('tap', '.statsbtn-duty', function(){
+		        var href = this.getAttribute('href');
+		        var id = this.getAttribute("data-wid");
+				mui.openWindow({
+                    url: href,
+                    id: id,
+                    show: animateObj.aniDetal
+                });
+			});
 			
 			// 获取个人详细信息
 			mui.ajax(config.baseUrl, {

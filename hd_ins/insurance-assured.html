@@ -18,190 +18,266 @@
     <div class="ins-dialog lg">
         <div class="dialog-header">
             <div class="mui-icon mui-icon-closeempty" id="close-ins-pop"></div>
-            <p class="ins-font-md box-f-1">投保人信息</p>
+            <p class="ins-font-md box-f-1">被保人信息</p>
             <div class="header-btn-save">
                 <button class="ins-btn sm-btn blue">保存</button>
             </div>
         </div>
         <div class="form-content margin-t-6_125 BL-pad-b-2">
-            <div class="form-wrap">
-                <div class="border-b-e7e7e7">
-                    <div class="item-title">投保人声明（备注说明）</div>
-                </div>
-                <form class="mui-input-group BL-pad-b-1">
-                    <div class="mui-input-row mui-radio mui-left ins-radio-left">
-                        <label class="ins-font-sm">仅为中国税收居民</label>
-                        <input name="radio" type="radio" value="1" v-model="applicant.holder_isTaxResidents">
-                    </div>
-                    <div class="mui-input-row mui-radio mui-left ins-radio-left">
-                        <label class="ins-font-sm">仅为非居民</label>
-                        <input name="radio" type="radio" value="2" v-model="applicant.holder_isTaxResidents">
-                    </div>
-                    <div class="mui-input-row mui-radio mui-left ins-radio-left">
-                        <label class="ins-font-sm">既是中国税收居民又是其他国家(地区)税收居民</label>
-                        <input name="radio" type="radio" value="3" v-model="applicant.holder_isTaxResidents">
-                    </div>
-                </form>
-            </div>
-            <div class="form-wrap margin-t_875">
-                <div class="border-b-e7e7e7">
-                    <div class="item-title">证件信息</div>
-                </div>
-                <div class="input-item">
-                    <label class="">证件类型</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" placeholder="请选择" readonly v-model="applicant.holder_ID_type">
-                        <div class="ins-down-icon"></div>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">证件号码</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="number" placeholder="请输入" v-model="applicant.holder_ID_no">
-                        <div class="form-clear-icon">
-                            <span class="mui-icon mui-icon-clear"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">证件有效期</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" placeholder="长期有效">
-                        <div class="ins-down-icon"></div>
-                    </div>
-                    <div class="input-wrap box-f-1 BL-mar-l-1">
-                        <input type="number" placeholder="2020-01-01" v-model="applicant.holder_ID_expire_end">
-                        <div class="ins-down-icon"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-wrap margin-t_875">
-                <div class="border-b-e7e7e7">
-                    <div class="item-title">个人信息</div>
-                </div>
-                <div class="input-item">
-                    <label class="">姓名</label>
-                    <div class="input-wrap">
-                        <input type="text" v-model="applicant.holder_name">
-                        <div class="form-clear-icon">
-                            <span class="mui-icon mui-icon-clear"></span>
-                        </div>
-                    </div>
-                    <div class="right-btn orange address-icon"></div>
-                </div>
-                <div class="input-item">
-                    <label class="">性别</label>
-                    <div class="input-wrap box-f-1">
-                        <button class="ins-btn sm-btn">男</button>
-                        <button class="ins-btn sm-btn blue">女</button>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">出生日期</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" v-model="applicant.holder_birthday">
-                        <div class="ins-date-icon"></div>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">国籍</label>
-                    <div class="input-wrap">
-                        <input type="text" placeholder="中国" v-model="applicant.holder_nation">
-                        <div class="form-clear-icon">
-                            <span class="mui-icon mui-icon-clear"></span>
-                        </div>
-                    </div>
-                    <div class="right-btn orange">同投保人</div>
-                </div>
-                <div class="input-item">
-                    <label class="">手机号码</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="number" v-model="applicant.holder_mobile">
-                        <div class="form-clear-icon">
-                            <span class="mui-icon mui-icon-clear"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">职业</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" placeholder="请选择" readonly v-model="applicant.holder_job_code">
-                        <div class="ins-down-icon"></div>
-                    </div>
-                </div>
+            <div class="form-wrap" v-if="init&&init.is_assured" v-cloak>
                 <div class="input-item ins-pd-r-0">
-                    <label class="">婚姻状况</label>
+                    <label class="">是投保人的</label>
                     <div class="input-wrap box-f-1 multi-btn">
-                        <button class="ins-btn xs-btn">未婚</button>
-                        <button class="ins-btn xs-btn blue">已婚</button>
-                        <button class="ins-btn xs-btn">丧偶</button>
-                        <button class="ins-btn xs-btn">离婚</button>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">年收入(万元)</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="number" v-model="applicant.holder_salary_avg">
-                        <div class="form-clear-icon">
-                            <span class="mui-icon mui-icon-clear"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">收入来源</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" disabled placeholder="请选择" v-model="applicant.holder_salary_from">
-                        <div class="ins-down-icon"></div>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">身高</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="number" v-model="applicant.holder_height">
-                        <div class="form-clear-icon">
-                            <span class="mui-icon mui-icon-clear"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">体重</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="number" v-model="applicant.holder_weight">
-                        <div class="form-clear-icon">
-                            <span class="mui-icon mui-icon-clear"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">邮箱</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" v-model="applicant.holder_email">
+                        <button class="ins-btn xs-btn" :class="{'blue':item.value===assured.rel_insured_holder}"
+                                v-for="(item,index) in init.is_assured" @click="assured.rel_insured_holder=item.value">
+                            {{item.text}}
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="form-wrap margin-t_875">
-                <div class="border-b-e7e7e7">
-                    <div class="item-title">居住信息</div>
+            <div v-show="!(assured.rel_insured_holder===ISASSURED)">
+                <div class="form-wrap margin-t_875" v-if="init&&init.tax_type" v-cloak>
+                    <div class="border-b-e7e7e7">
+                        <div class="item-title">被保人声明（备注说明）</div>
+                    </div>
+                    <form class="mui-input-group BL-pad-b-1">
+                        <div class="mui-input-row mui-radio mui-left ins-radio-left"
+                             v-for="(item,index) in init.tax_type">
+                            <label class="ins-font-sm">{{item.text}}</label>
+                            <input name="radio" type="radio" :value="item.value"
+                                   v-model="assured.assured_isTaxResidents">
+                        </div>
+                    </form>
                 </div>
-                <div class="input-item">
-                    <label class="">通讯地址</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" placeholder="请选择" readonly>
-                        <div class="ins-down-icon"></div>
+                <div class="form-wrap margin-t_875">
+                    <div class="border-b-e7e7e7">
+                        <div class="item-title">证件信息</div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">证件类型</label>
+                        <div class="input-wrap box-f-1">
+                            <div class="input" id="ID_type">
+                                {{assured.assured_ID_type_name}}
+                            </div>
+                            <div class="ins-down-icon"></div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">证件号码</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" placeholder="请输入" v-model.trim.lazy="assured.assured_ID_no">
+                            <div class="form-clear-icon" v-show="assured.assured_ID_no!=''"
+                                 @click="assured.assured_ID_no=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">证件有效期</label>
+                        <div class="input-wrap search-date" data-options='{"type":"date"}'>
+                            <input type="text" v-model.lazy="assured.assured_ID_expire_end" placeholder="请选择">
+                        </div>
+                        <div class="right-btn orange" @click="longTerm=!longTerm">长期有效</div>
                     </div>
                 </div>
-                <div class="input-item">
-                    <label class="">详细地址</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" v-model="applicant.holder_contact_address">
+                <div class="form-wrap margin-t_875">
+                    <div class="border-b-e7e7e7">
+                        <div class="item-title">个人信息</div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">姓名</label>
+                        <div class="input-wrap">
+                            <input type="text" v-model="assured.assured_name"
+                                   @change="checkName('被保人',assured.assured_name)" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.assured_name!=''"
+                                 @click="assured.assured_name">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                        <div class="right-btn orange address-icon"></div>
+                    </div>
+                    <div class="input-item" v-if="init&&init.gender">
+                        <label class="">性别</label>
+                        <div class="input-wrap box-f-1">
+                            <button class="ins-btn sm-btn"
+                                    :class="{'blue':assured.assured_gender===item.value}"
+                                    v-for="(item,index) in init.gender"
+                                    @click="assured.assured_gender=item.value"
+                                    :disabled="IDNO.indexOf(assured.assured_ID_type)>-1">{{item.text}}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">出生日期</label>
+                        <div class="input-wrap box-f-1 search-date" data-options='{"type":"date"}'>
+                            <input type="text" v-model.lazy="assured.assured_birthday" placeholder="请选择" readonly>
+                            <div class="ins-date-icon"></div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">国籍</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" v-model.lazy="assured.assured_nation" readonly>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">手机号码</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" v-model="assured.assured_mobile"
+                                   @change="checkPhone('被保人',assured.assured_mobile)" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.assured_mobile!=''"
+                                 @click="assured.assured_mobile=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">职业</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" placeholder="请选择" readonly v-model="assured.assured_job_code">
+                            <div class="ins-down-icon"></div>
+                        </div>
+                    </div>
+                    <div class="input-item ins-pd-r-0" v-if="init&&init.marriage">
+                        <label class="">婚姻状况</label>
+                        <div class="input-wrap box-f-1 multi-btn">
+                            <button class="ins-btn xs-btn" :class="{'blue':item.value===assured.assured_marriage}"
+                                    v-for="(item,index) in init.marriage" @click="assured.assured_marriage=item.value">
+                                {{item.text}}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">年收入(万元)</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" v-model.trim="assured.assured_salary_avg" @change="checkEarnings(2,assured.assured_salary_avg)" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.assured_salary_avg!=''"
+                                 @click="assured.assured_salary_avg=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">收入来源</label>
+                        <div class="input-wrap box-f-1">
+                            <div class="input" id="annual_source" :data-value="assured.assured_salary_from">
+                                {{assured.assured_salary_from_name}}
+                            </div>
+                            <div class="ins-down-icon"></div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">身高(cm)</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" v-model.number.lazy="assured.assured_height" @change="checkHeight('被保人',assured.assured_height)" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.assured_height!=''"
+                                 @click="assured.assured_height=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">体重(kg)</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" v-model.number.lazy="assured.assured_weight" @change="checkWeight('被保人',assured.assured_weight)" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.assured_weight!=''"
+                                 @click="assured.assured_weight=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">邮箱</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" v-model.lazy="assured.assured_email"
+                                   @change="checkEmail('被保人',assured.assured_email)" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.assured_email!=''"
+                                 @click="assured.assured_email=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="input-item box-f-1">
-                <div class="box-f-3 ins-font-sm BL-col-3b9cf5">是否已参加当地社会基本医疗保险（或公费医疗）？</div>
-                <div class="box-f-1 ins-switch">
-                    <div class="mui-switch mui-switch-mini">
-                        <div class="mui-switch-handle"></div>
+                <div class="form-wrap margin-t_875">
+                    <div class="border-b-e7e7e7">
+                        <div class="item-title">居住信息</div>
+                    </div>
+                    <div class="input-item box-f-1 box-align-center">
+                        <div class="box-f-1 ins-font-sm BL-col-3b9cf5">是否与投保人同地址？</div>
+                        <div class="box-f-2">
+                            <button class="ins-btn xs-btn BL-mar-r-1" :class="{'blue':assured.addr_type}"
+                                    @click="assured.addr_type=!assured.addr_type">是
+                            </button>
+                            <button class="ins-btn xs-btn" :class="{'blue':!assured.addr_type}"
+                                    @click="assured.addr_type=!assured.addr_type">否
+                            </button>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">现在住址</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" placeholder="请选择" readonly>
+                            <div class="ins-down-icon"></div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">详细地址</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" v-model="assured.assured_home_address"
+                                   @change="checkAddress(assured.assured_home_address,'被保人')" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.assured_home_address!=''"
+                                 @click="assured.assured_home_address=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">邮编</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" v-model.lazy="assured.assured_home_zip"
+                                   @change="checkZipcode('被保人',assured.assured_home_zip)" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.assured_home_zip!=''"
+                                 @click="assured.assured_home_zip=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">通讯地址</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" placeholder="请选择" readonly>
+                            <div class="ins-down-icon"></div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">详细地址</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" v-model="assured.assured_contact_address" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.assured_contact_address!=''"
+                                 @click="assured.assured_contact_address=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">邮编</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" v-model.lazy="assured.holder_home_zip"
+                                   @change="checkZipcode('被保人',assured.holder_home_zip)" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.holder_home_zip!=''"
+                                 @click="assured.holder_home_zip=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-item box-f-1">
+                    <div class="box-f-3 ins-font-sm BL-col-3b9cf5">是否已参加当地社会基本医疗保险（或公费医疗）？</div>
+                    <div class="box-f-1 ins-switch">
+                        <div class="mui-switch mui-switch-mini"
+                             @click="assured.assured_has_SSID=!assured.assured_has_SSID">
+                            <div class="mui-switch-handle"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -213,45 +289,154 @@
 </body>
 <script src="../js/mui.min.js" type="text/javascript"></script>
 <script src="../js/vue.min.js" type="text/javascript"></script>
+<script src="../js/mui.picker.js"></script>
+<script src="../js/mui.poppicker.js"></script>
+<script src="../js/mui.dtpicker.js"></script>
+<script src="../js/IDValidator.min.js"></script>
+<script src="method.js"></script>
 <script type="text/javascript">
     mui.init();
 
-    var applicant = new Vue({
+    var assu = new Vue({
         el: '#Js-content',
         data: {
-            applicant: {
-                holder_name: '', //姓名
-                holder_ID_type: '', //证件类型
-                holder_ID_no: '', //证件号码
-                holder_birthday: '', //出生日期
-                holder_ID_expire_end: '', //证件有效期
-                holder_gender: '',//性别
-                holder_mobile: '',//手机号
-                holder_email: '',//邮箱
-                holder_height: '',//身高
-                holder_weight: '',//体重
-                holder_nation: '',//国籍
-                holder_salary_from: '',//收入来源
-                holder_salary_avg: '',//年收入
-                holder_contact_province: '',//省
-                holder_contact_city: '',//市
-                holder_contact_district: '',//区
-                holder_contact_address: '', //地址详情
-                holder_has_SSID: '',//是否有社保
-                holder_marriage:'',//婚姻状况
-                holder_job_code: '',//职业
-                holder_isTaxResidents: '' //税收标识
+            init: {},
+            longTerm: false,
+            assu_age: '',//被保人年龄
+            assured: {
+                rel_insured_holder: '',//是投保人的
+                assured_name: '', //姓名
+                assured_ID_type: '', //证件类型
+                assured_ID_type_name: '请选择', //证件类型名
+                assured_ID_no: '', //证件号码
+                assured_birthday: '', //出生日期
+                assured_ID_expire_end: '', //证件有效期
+                assured_gender: '', //性别  1男  2女
+                assured_mobile: '',//手机号
+                assured_email: '',//邮箱
+                assured_height: '',//身高
+                assured_weight: '',//体重
+                assured_nation: '中国',//国籍
+                assured_salary_from: '',//收入来源
+                assured_salary_from_name: '请选择',//收入来源名
+                assured_salary_avg: '',//年收入
+
+                addr_type: false,//是否所有地址同投保人,
+                assured_home_province: '',//现在住址【省】
+                assured_home_city: '',//现在住址【市】
+                assured_home_district: '',//现在住址【区】
+                assured_home_address: '', //现在住址【地址详情】
+                assured_home_zip: '',//现在住址【邮编】
+                assured_contact_province: '',//通讯地址【省】
+                assured_contact_city: '',//通讯地址【市】
+                assured_contact_district: '',//通讯地址【区】
+                assured_contact_address: '', //通讯地址【地址详情】
+                assured_contact_zip: '',//通讯地址【邮编】
+
+                assured_has_SSID: false,//是否有社保
+                assured_marriage: '',//婚姻状况
+                assured_job_code: '',//职业
+                assured_isTaxResidents: '' //税收标识
             }
+        },
+        created: function () {
+            //字段初始化
+            this.assured.assured_gender = MALE;
+
+            this.$watch('assured.holder_ID_no', function (val) {
+                IDValidate(IDcard, val, '被保人');
+            });
+            this.$watch('assured.assured_birthday', function (val) {
+                this.assu_age = getAge(val);
+                var toast_text = null;
+                var type = this.assured.assured_ID_type;
+                if (this.assu_age < 46 && type === IDcard && this.assured.assured_ID_expire_end === '9999-12-31') {
+                    this.assured.assured_ID_expire_end = ''
+                }
+                if (this.assu_age > 2 && type === BORNid) {
+                    toast_text = '小于2周岁才能选择出生证';
+                } else if ((this.assu_age < 2 || this.assu_age > 16) && type === BOOKLET) {
+                    toast_text = '2-16周岁才能选择户口本';
+                }
+                if (toast_text) {
+                    mui.toast(toast_text, {duration: 'short', type: 'div'});
+                    return false;
+                }
+            })
+        },
+        checkPhone: function (owner, val) {
+            checkPhone(owner, val);
+        },
+        checkEmail: function (owner, val) {
+            checkEmail(owner, val);
+        },
+        checkEarnings: function (owner, val) {
+            checkEarnings(owner, val);
+        },
+        checkWeight: function (owner, val) {
+            checkWeight(owner, val);
+        },
+        checkHeight: function (owner, val) {
+            checkHeight(owner, val);
+        },
+        checkName: function (owner, val) {
+            checkName(owner, val);
         }
     });
 
     mui.plusReady(function () {
-        var popu = new ClosePopu(); // 实例化关闭窗口对象
+        var init = plus.webview.currentWebview().data;
+        assu.init = init;
 
+        //证件类型选择
+        var idtype = new mui.PopPicker();
+        idtype.setData(init.ID_type);
+        document.querySelector('#ID_type').addEventListener('tap', function () {
+            idtype.show(function (items) {
+                assu.assured.assured_ID_type = items[0].value;
+                assu.assured.assured_ID_type_name = items[0].text;
+            })
+        })
+        //收入来源选择
+        var annual = new mui.PopPicker();
+        annual.setData(init.annual_source);
+        document.querySelector('#annual_source').addEventListener('tap', function () {
+            annual.show(function (items) {
+                assu.assured.assured_salary_from = items[0].value;
+                assu.assured.assured_salary_from_name = items[0].text;
+            })
+        })
+
+        //日期选择
+        mui('.search-date').each(function (i, d) {
+            d.addEventListener('tap', function () {
+                var optionsJson = this.getAttribute('data-options') || '{}';
+                var options = JSON.parse(optionsJson);
+                var _this = this
+                var picker = new mui.DtPicker(options);
+                picker.show(function (rs) {
+                    if (i === 0) {
+                        assu.assured.assured_ID_expire_end = rs.text;
+                    } else if (i === 1) {
+                        assu.assured.assured_birthday = rs.text;
+                    }
+                    _this.querySelector('input').value = rs.text;
+                    picker.dispose();
+                });
+            }, false);
+        });
+        //
+
+        var popu = new ClosePopu(); // 实例化关闭窗口对象
         mui('body').on('tap', '#close-ins-pop', function () {
             // 关闭遮罩层，弹框
             popu.closepop();
         });
+
+        mui('body').on('tap', '#maskInit', function () {
+            // 关闭遮罩层，弹框
+            popu.closepop();
+        }, false);
     });
 </script>
 </html>

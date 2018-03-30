@@ -64,20 +64,14 @@
                 <div class="mui-icon mui-icon-arrowright"></div>
             </div>
         </div>
-        <div class="mui-input-row mui-checkbox ins-checkbox-right" id="ins-upload">
-            <label class="ins-font-md">上传证件</label>
-            <input name="bank" value="6" type="checkbox" v-model="bank_save" disabled>
-            <div class="form-list-icon">
-                <div class="mui-icon mui-icon-arrowright"></div>
-            </div>
-        </div>
     </form>
     <div class="BL-mar-t-3 BL-pad-lr-1_5">
-        <a type="button" class="form-btn blue" id="ins-sure">保存后发链接给客户签名投保</a>
+        <a type="button" class="form-btn blue" href="auto2c-choose.html" data-wid="auto2c_choose">下一步</a>
     </div>
 </div>
 <script src="../js/mui.min.js" type="text/javascript"></script>
 <script src="../js/vue.min.js" type="text/javascript"></script>
+<script src="method.js"></script>
 <script type="text/javascript">
     mui.init();
     var index = new Vue({
@@ -89,7 +83,8 @@
             safegood_save: false,
             healthinfo_save: false,
             bank_save: false,
-            userinfo: ''
+            userinfo: '',
+            init: {}
         }
     });
 
@@ -100,16 +95,21 @@
         document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
 
         mui('body').on('tap', '#ins-applicant', function () {
+//            console.log(JSON.stringify(index.init))
             // 打开遮罩层，弹框
-            showPopu("insurance-applicant.html", "insurance_applicant", "bottom");
+            showPopu("insurance-applicant.html", "insurance_applicant", "bottom", index.init);
+        });
+        mui('body').on('tap', '#ins-assured', function () {
+            // 打开遮罩层，弹框
+            showPopu("insurance-assured.html", "insurance_assured", "bottom", index.init);
         });
         mui('body').on('tap', '#ins-beneficiary', function () {
             // 打开遮罩层，弹框
-            showPopu("insurance-beneficiary.html", "insurance_beneficiary");
+            showPopu("insurance-beneficiary.html", "insurance_beneficiary", "bottom", index.init);
         });
         mui('body').on('tap', '#ins-bank', function () {
             // 打开遮罩层，弹框
-            showPopu("insurance-bank.html", "insurance_bank");
+            showPopu("insurance-bank.html", "insurance_bank", "bottom", index.init);
         });
         mui('body').on('tap', '#ins-healthinfo', function () {
             // 打开遮罩层，弹框
@@ -117,15 +117,7 @@
         });
         mui('body').on('tap', '#ins-safegood', function () {
             // 打开遮罩层，弹框
-            showPopu("insurance-safegood.html", "insurance_safegood", "bottom");
-        });
-        mui('body').on('tap', '#ins-upload', function () {
-            // 打开遮罩层，弹框
-            showPopu("insurance-upload.html", "insurance_upload", "bottom");
-        });
-        mui('body').on('tap', '#ins-sure', function () {
-            // 打开遮罩层，弹框
-            showPopu("insurance-sign.html", "insurance_sign", "bottom");
+            showPopu("insurance-safegood.html", "insurance_safegood", "bottom", index.init);
         });
 
         var userinfo = JSON.parse(plus.storage.getItem('userinfo'));
@@ -135,36 +127,93 @@
 //            data: {data: JSON.stringify({'supplier_id': 23}), device: 'mobile', server: 'PolicyIns.initPolicyField'}, //初始化
 
         //试算
-        var productInfo = {productId: "277", pay: 10, insure: "999", amount: "100000"};
-        var insurant = {name: "abc", birthday: "1992-01-10", genderCode: "LAB0001"};
-//      mui.ajax(baseURL + '/onlineInsured', {
-//          data: {
-//              data: JSON.stringify({
-//                  user_id: userinfo.user_id,
-//                  productInfo: [productInfo],
-//                  insurant: insurant
-//              }),
-//              company_code: 'HengDa',
-//              method: 'test_calc'
-//          },
-//          dataType: 'json',//服务器返回json格式数据
-//          type: 'post',//HTTP请求类型
-//          timeout: 10000,//超时时间设置为10秒；
-//          headers: {'Content-Type': 'application/json'},
-//          success: function (data) {
-//              console.log(JSON.stringify(data));
-//              if (data.data.result === 'sucess') {
-//                  //试算成功
-//                  console.log(data.data.premium);
-//              }
-//          },
-//          error: function (xhr, type, errorThrown) {
-//              alert(errorThrown);
-////                mui.toast(errorThrown, {duration: 'short', type: 'div'})
-//              return false
-//          }
-//      });
-        //
+//        var productInfo = {productId: "277", pay: 10, insure: "999", amount: "100000"};
+//        var insurant = {name: "abc", birthday: "1992-01-10", genderCode: "LAB0001"};
+//        mui.ajax(baseURL + '/onlineInsured', {
+//            data: {
+//                data: JSON.stringify({
+//                    user_id: userinfo.user_id,
+//                    productInfo: [productInfo],
+//                    insurant: insurant
+//                }),
+//                company_code: 'HengDa',
+//                method: 'test_calc'
+//            },
+        //整理下拉框需要的数据
+        function dataToselect(data) {
+            var arr = [];
+            mui.each(data, function (ind, ite) {
+                arr.push({
+                    text: ite.enum_name,
+                    value: ite.id
+                });
+            });
+            return arr;
+        }
+
+//初始化下拉数据获取
+        mui.ajax(baseURL + '/invoke', {
+            data: {data: JSON.stringify({'supplier_id': SCID}), device: 'mobile', server: 'PolicyIns.initPolicyField'},
+            dataType: 'json',//服务器返回json格式数据
+            type: 'post',//HTTP请求类型
+            timeout: 10000,//超时时间设置为10秒；
+            headers: {'Content-Type': 'application/json'},
+            success: function (data) {
+                console.log(JSON.stringify(data));
+                if (data.code) {
+                    var res = {}
+                    var data = data.data;
+                    mui.each(data, function (index, item) {
+                        var itemdata = item.child;
+                        if (item.cate === 'AA') {
+                            res.ID_type = dataToselect(itemdata); //证件类型
+                        } else if (item.cate === 'AB') {
+                            res.gender = dataToselect(item.child); //性别
+                        } else if (item.cate === 'AC') {
+                            res.is_assured = dataToselect(item.child); //与投保人关系
+                        } else if (item.cate === 'AD') {
+                            res.marriage = dataToselect(item.child); //婚姻状况
+                        } else if (item.cate === 'AE') {
+                            res.occupation = dataToselect(item.child); //职业
+                        } else if (item.cate === 'AF') {
+                            res.annual_source = dataToselect(item.child);//收入来源
+                        } else if (item.cate === 'AG') {
+                            res.social_security = dataToselect(item.child); //是否有社保
+                        } else if (item.cate === 'AH') {
+                            res.tax_type = dataToselect(item.child); //税收类型
+                        } else if (item.cate === 'AI') {
+                            res.nation = dataToselect(item.child); //国籍
+                        } else if (item.cate === 'AJ') {
+                            res.drving_type = dataToselect(item.child); //驾照类型
+                        } else if (item.cate === 'AL') {
+                            res.resident_type = dataToselect(item.child); //居民类型
+                        } else if (item.cate === 'AN') {
+                            res.relation_beneficiary = dataToselect(item.child); //受益人与被保人关系
+                        } else if (item.cate === 'AO') {
+                            res.beneficiary_type = dataToselect(item.child); //受益人类型 法定 指定
+                        } else if (item.cate === 'AP') {
+                            res.benefit_type = dataToselect(item.child); //受益类型 身故
+                        } else if (item.cate === 'AV') {
+                            res.bank_code = dataToselect(item.child); //银行代码
+                        } else if (item.cate === 'area') {
+                            res.province = dataToselect(item.child); //省
+                        } else if (item.cate === 'BB') {
+                            res.nj_safe_year = dataToselect(item.child); //年金保障年限
+                        } else if (item.cate === 'BC') {
+                            res.nj_get_way = dataToselect(item.child); //年金领取方式
+                        } else if (item.cate === 'BD') {
+                            res.nj_get_type = dataToselect(item.child); //年金领取类型
+                        }
+                    });
+                    index.init = res;
+                }
+            },
+            error: function (xhr, type, errorThrown) {
+//                mui.toast(errorThrown, {duration: 'short', type: 'div'})
+                return false
+            }
+        });
+
     })
 </script>
 </body>

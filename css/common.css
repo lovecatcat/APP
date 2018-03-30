@@ -478,7 +478,10 @@ i {
 	margin-top: 1rem;
 	margin-bottom: 1rem;
 }
-
+.BL-mar-t-b-2 {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
 /* 重写mui加载更多样式 */
 
 .mui-pull-bottom-pocket {
@@ -725,3 +728,4 @@ input[type='color']{
 .mui-indexed-list .mui-table-view-cell:after{
 	left: 1rem;
 }
+

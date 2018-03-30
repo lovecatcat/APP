@@ -4,12 +4,12 @@
 		"iPhone"
 	],
 	"id": "H517AA33E",
-	"name": "汇盟e家",
+	"name": "保险人",
 	"version": {
-		"name": "2.0.0",
+		"name": "1.9.0328",
 		"code": "83"
 	},
-	"description": "汇盟e家 mobile",
+	"description": "保险人 mobile",
 	"icons": {
 		"72": "icon.png"
 	},

@@ -253,7 +253,7 @@
 <!----------- 打卡按键  end   -------------->
 
 </body>
-<script src="js/mui.js" type="text/javascript"></script>
+<script src="js/mui.min.js" type="text/javascript"></script>
 <script src="js/vue.min.js" type="text/javascript"></script>
 <script src="js/cacheImg.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -386,7 +386,9 @@
                     temp = '<div class="mui-slider-indicator">' + temp + '</div>';
                     append(document.getElementById("slider-html"), bhtml);
                     append(document.getElementById("slider"), temp);
-                    mui("#slider").slider();
+                    mui('.mui-slider')[0].setAttribute('data-slider', '');
+                    mui('.mui-slider').slider();
+                    
                     //
                     index.safegoods_1 = data.data.list['重疾保障'];
                     index.safegoods_2 = data.data.list['养老规划'];

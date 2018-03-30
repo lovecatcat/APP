@@ -54,12 +54,16 @@
             };
             
             // 运行环境切换到后台，开始倒数20分钟，重启应用
+            var apptype;
             document.addEventListener("pause", function(){
-            	var timer = null;
-            	clearTimeout(timer);
-            	timer = setTimeout(function(){
-            		plus.runtime.restart();	
-            	}, 20*60000)
+            	if(apptype != "pause"){
+            		apptype = "pause";
+            		var timer = null;
+	            	clearTimeout(timer);
+	            	timer = setTimeout(function(){
+	            		plus.runtime.restart();	
+	            	}, 20*60000)	
+            	}
             }, false);
             
 			/**
@@ -163,7 +167,7 @@
 				var wvId = url.substring(startIndex + 1, endIndex);
 				return wvId;
 			}
-			
+				
 		});
 	</script>
 

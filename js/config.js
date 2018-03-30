@@ -15,6 +15,44 @@ var sizeObj = (function(win) {
 	}
 })(window);
 
+
+/**
+ * 重新封装mui-Ajax
+ */
+var luckyAjax = function(options){
+	plus.nativeUI.showWaiting();
+	var defaults = {
+		url:config.baseUrl,
+		data:{
+			device: 'pad'
+		},
+		dataType: 'json',//服务器返回json格式数据
+		type: 'post',//HTTP请求类型
+		timeout: 10000,//超时时间设置为10秒；
+		headers: {'Content-Type': 'application/json'}
+	};
+	var opt = mui.extend(true, defaults, options);
+	console.log(opt);
+	
+	mui.ajax(opt.url, {
+		data:opt.data,
+		dataType:opt.dataType,
+		type:opt.type,
+		timeout:opt.timeout,
+		success:function(data){
+			plus.nativeUI.closeWaiting();
+			opt.success(data);
+		},
+		error:function(xhr, type, errorThrown){
+			//opt.error(xhr, type, errorThrown);
+			plus.nativeUI.closeWaiting();
+		    mui.toast(errorThrown, {duration: 'short', type: 'div'});
+		    return false
+		}
+	})
+}
+
+
 /**
  * 配置所有打开/关闭新窗口(page),切换窗口动画(tab),详情页窗口动画(detal)
  */

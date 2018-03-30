@@ -80,20 +80,13 @@
 				var group = document.getElementById("Js-group");
 				list.style.height = (window.innerHeight - header.offsetHeight) + 'px';
 				
-				plus.nativeUI.showWaiting();
-		        mui.ajax('http://www.luckyins.com/api/api/invoke', {
-		            data: {
-		                device: 'pad',
-		                server: 'user.getCustomerList',
-		                data: JSON.stringify({user_id:userinfo.id, row:9999})
-		            },
-		            dataType: 'json',//服务器返回json格式数据
-		            type: 'post',//HTTP请求类型
-		            timeout: 10000,//超时时间设置为10秒；
-		            headers: {'Content-Type': 'application/json'},
-		            success: function (data) {
-						console.log(JSON.stringify(data))
-		                plus.nativeUI.closeWaiting();
+				luckyAjax({
+					data: {
+			            server: 'team.getCustomerList',
+			            data: JSON.stringify({user_id:userinfo.id, row:9999})
+			        },
+			        success:function(data){
+			        	console.log(JSON.stringify(data))
 		                if(data.code){
 		                	var dataArr = data.data.list; // 获取数据
 		                	var arrange = {}; // 重新整理所有数据排序 按A~Z排列
@@ -119,16 +112,9 @@
 							});
 							group.innerHTML = htm;
 							new mui.IndexedList(list); // 初始化
-		                }
-		                
-		            },
-		            error: function (xhr, type, errorThrown) {
-		            	plus.nativeUI.closeWaiting();
-		                mui.toast(errorThrown, {duration: 'short', type: 'div'});
-		                return false
-		            }
-		        });
-				
+		                }	
+			        }
+				});
 				
 				mui('body').on('tap', '.mui-indexed-list-item', function(){
 					var id = this.getAttribute('data-id');

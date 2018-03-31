@@ -18,7 +18,7 @@
     <div class="ins-dialog lg">
         <div class="dialog-header">
             <div class="mui-icon mui-icon-closeempty" id="close-ins-pop"></div>
-            <p class="ins-font-md box-f-1">险种信息</p>
+            <p class="ins-font-md box-f-1">险种信息{{hasAddons}}</p>
             <div class="header-btn-save">
                 <button class="ins-btn sm-btn blue">保存</button>
             </div>
@@ -315,6 +315,8 @@
                             <input type="number" placeholder="50~200(元/天)" v-model.number.lazy="addonIns[index].money">
                         </div>
                     </div>
+                    <div class="input-item ins-font-xs BL-col-999">保额范围是<span class="BL-col-ff8201">50~{{assu_age > 17 ? '200' : '100'}}（元/天）</span>
+                    </div>
                     <div class="input-item">
                         <label class="">年缴保费(元)</label>
                         <div class="input-wrap">
@@ -345,6 +347,7 @@
     var safe = new Vue({
         el: '#Js-content',
         data: {
+            assu_age: 20,
             assured: {
                 assured_gender: 'LAB0001'
             },

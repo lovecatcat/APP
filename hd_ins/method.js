@@ -473,3 +473,28 @@ var checkAssured = function () {
     }
     return true
 };
+
+var getCityArea = function (id, cb) {
+    luckyAjax({
+        data: {
+            url: config.baseUrl,
+            server: 'PolicyIns.getArea',
+            data: JSON.stringify({id: id})
+        },
+        success: function (res) {
+            if (res.code) {
+                var arr = [];
+                mui.each(res.data, function (ind, ite) {
+                    arr.push({
+                        text: ite.name,
+                        value: ite.id,
+                        zip: ite.zip_code
+                    });
+                });
+                cb(arr)
+            } else {
+                cb()
+            }
+        }
+    })
+}

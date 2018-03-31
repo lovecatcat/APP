@@ -20,13 +20,9 @@
 		</header>
 		<div id="Js-content" class="mui-content communic" style="background: none;overflow-y: auto;">
 			<div id="Js-topic" class="BL-ub BL-ub-pc BL-ub-ac communic-topic">
-				<div class="BL-ub BL-ub-ver">
-					<div class="topic-img">
-						姓
-					</div>
-					<div class="topic-name">
-						客户全名
-					</div>
+				<div class="BL-ub BL-ub-ac BL-ub-ver">
+					<div class="topic-img" id="Js-surname"></div>
+					<div class="topic-name" id="Js-name"></div>
 				</div>	
 			</div>
 			<div id="Js-infos" class="communic-info BL-bg-f2f">
@@ -35,41 +31,42 @@
 				        <li class="fItem BL-ub BL-ub-f1">
 				            <a href="javascript:;" class="BL-ub BL-ub-ac BL-ub-f1">
 				                <div class="form-list-label">体验积分</div>
-				                <div id="Js-integ" class="form-list-control BL-txt-r BL-col-999">96100.38</div>
+				                <div id="Js-integ" class="form-list-control BL-txt-r BL-col-999"></div>
 				            </a>
 				        </li>
 				        <li class="fItem BL-ub BL-ub-f1">
 				            <a href="javascript:;" class="BL-ub BL-ub-ac BL-ub-f1">
 				                <div class="form-list-label">电话</div>
-				                <div id="Js-phone" class="form-list-control BL-txt-r BL-mar-r-2 BL-col-333"></div>
+				                <div id="Js-phone" class="form-list-control BL-txt-r BL-col-333"></div>
 				            </a>
 				        </li>
 				        <li class="fItem BL-ub BL-ub-f1">
 				            <a href="javascript:;" class="BL-ub BL-ub-ac BL-ub-f1">
 				                <div class="form-list-label">身份证号</div>
-				                <div id="Js-ID" class="form-list-control BL-txt-r BL-mar-r-2 BL-col-333"></div>
+				                <div id="Js-ID" class="form-list-control BL-txt-r BL-col-333"></div>
 				            </a>
 				        </li>
 				        <li class="fItem BL-ub BL-ub-f1">
 				            <a href="javascript:;" class="BL-ub BL-ub-ac BL-ub-f1">
 				                <div class="form-list-label">地址</div>
-				                <div id="Js-address" class="form-list-control BL-txt-r BL-mar-r-2 BL-col-333"></div>
+				                <div id="Js-address" class="form-list-control BL-txt-r BL-col-333"></div>
 				            </a>
 				        </li>
 				        <li class="fItem BL-ub BL-ub-ac BL-ub-f1">
 				            <a href="javascript:;" class="BL-ub BL-ub-ac BL-ub-f1">
 				                <div class="form-list-label">出生日期</div>
-				                <div id="Js-birthday" class="form-list-control BL-txt-r BL-mar-r-2 BL-col-333"></div>
+				                <div id="Js-birthday" class="form-list-control BL-txt-r BL-col-333"></div>
 				            </a>
 				        </li>
 				   </ul>
 			   </div>
 			</div>
+			</template>
 		</div>
 		<script src="js/mui.min.js"></script>
+		<script src="js/vue.min.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
-			
 			mui.plusReady(function() {
 				statusbar();
 				var header  = document.getElementById('Js-header');
@@ -79,16 +76,28 @@
 				var id = plus.webview.currentWebview().noId;
 				content.style.height = (window.innerHeight - header.offsetHeight) + 'px';
 				infomat.style.minHeight = (content.offsetHeight - topic.offsetHeight) + 'px';
-				
+				var card_no = plus.webview.currentWebview().noId;
 				luckyAjax({
 					data: {
 			            server: 'team.getUserInfo',
-			            data: JSON.stringify({card_no:id})
+			            data: JSON.stringify({card_no: card_no})
 			        },
 			        success:function(data){
-		                if(data.code){
-		                	
-		                }	
+		                if(data.code == 1){
+		                	var data = data.data
+		                	document.getElementById('Js-surname').innerHTML = data.user_name.substring(0,1) 
+		                	document.getElementById('Js-name').innerHTML = data.user_name
+		                	document.getElementById('Js-name').innerHTML = data.user_name
+		                	document.getElementById('Js-integ').innerHTML = data.pay_points
+		                	document.getElementById('Js-phone').innerHTML = data.tel
+		                	document.getElementById('Js-ID').innerHTML = data.card_no
+		                	document.getElementById('Js-address').innerHTML = data.address
+		                	document.getElementById('Js-birthday').innerHTML = data.birthday
+		                } else {
+							mui.alert(data.msg, '提示', function() {
+								plus.webview.currentWebview().close()
+			                });
+		                }
 			        }
 				});
 			});

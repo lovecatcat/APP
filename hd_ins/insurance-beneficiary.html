@@ -13,7 +13,7 @@
 
 <body>
 
-<div id="Js-content" class="mui-content BL-rel">
+<div id="Js-content" class="mui-content BL-rel" v-cloak>
     <!--弹窗 begin-->
     <div class="ins-dialog lg">
         <div class="dialog-header">
@@ -35,145 +35,155 @@
                 </div>
             </div>
             <div v-show="!is_legal_benefic">
-                <div class="form-wrap margin-t_875 border-b-e7e7e7">
-                    <div class="input-item box-f-1 box-align-center">
-                        <div class="box-f-1 ins-font-sm BL-col-3b9cf5">受益人</div>
-                        <div class="box-f-2">
-                            <button class="ins-btn xs-btn">删除
-                            </button>
-                            <span class="bene-up-icon mui-icon mui-icon-arrowup"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-wrap">
-                    <div class="input-item">
-                        <label class="">姓名</label>
-                        <div class="input-wrap box-f-1">
-                            <input type="text" v-model.trim.lazy="beneficiary.fullname" placeholder="请输入">
-                            <div class="form-clear-icon" v-show="beneficiary.fullname!=''"
-                                 @click="beneficiary.fullname=''">
-                                <span class="mui-icon mui-icon-clear"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-item">
-                        <label class="">证件类型</label>
-                        <div class="input-wrap box-f-1">
-                            <div class="input" id="ID_type">
-                                {{beneficiary.ID_type_name}}
-                            </div>
-                            <div class="ins-down-icon"></div>
-                        </div>
-                    </div>
-                    <div class="input-item">
-                        <label class="">证件号码</label>
-                        <div class="input-wrap box-f-1">
-                            <input type="number" v-model.trim.lazy="beneficiary.ID_no" placeholder="请输入">
-                            <div class="form-clear-icon" v-show="beneficiary.ID_no!=''" @click="beneficiary.ID_no=''">
-                                <span class="mui-icon mui-icon-clear"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-item">
-                        <label class="">证件有效期</label>
-                        <div class="input-wrap search-date" data-options='{"type":"date"}'>
-                            <input type="text" v-model.lazy="beneficiary.ID_expire_end" placeholder="请选择" readonly>
-                        </div>
-                        <div class="right-btn orange" @click="beneficiary.longTerm=!beneficiary.longTerm">长期有效</div>
-                    </div>
-                    <div class="input-item" v-if="init&&init.gender">
-                        <label class="">性别</label>
-                        <div class="input-wrap box-f-1">
-                            <button class="ins-btn sm-btn"
-                                    :class="{'blue':beneficiary.gender===item.value}"
-                                    v-for="(item,index) in init.gender"
-                                    @click="beneficiary.gender=item.value">{{item.text}}
-                            </button>
-                        </div>
-                    </div>
-                    <div class="input-item">
-                        <label class="">出生日期</label>
-                        <div class="input-wrap box-f-1 search-date" data-options='{"type":"date"}'>
-                            <input type="text" v-model.lazy="beneficiary.birthday" placeholder="请选择" readonly>
-                            <div class="ins-date-icon"></div>
-                        </div>
-                    </div>
-                    <div class="input-item" v-if="init&&init.relation_beneficiary">
-                        <label class="">是被保人的</label>
-                        <div class="input-wrap box-f-1 multi-btn">
-                            <button class="ins-btn xs-btn"
-                                    :class="{'blue':item.value===beneficiary.beneficiary_is_insured}"
-                                    v-for="(item,index) in init.relation_beneficiary"
-                                    @click="beneficiary.beneficiary_is_insured=item.value">
-                                {{item.text}}
-                            </button>
-                        </div>
-                    </div>
-                    <div class="input-item">
-                        <label class="">受益顺序</label>
-                        <div class="input-wrap box-f-1">
-                            <input type="number" v-model.number="beneficiary.sort_order" placeholder="请输入">
-                            <div class="form-clear-icon" v-show="beneficiary.sort_order!=''"
-                                 @click="beneficiary.sort_order=''">
-                                <span class="mui-icon mui-icon-clear"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-item">
-                        <label class="">受益比例(%)</label>
-                        <div class="input-wrap box-f-1">
-                            <input type="number" v-model.number="beneficiary.rate" placeholder="请输入">
-                            <div class="form-clear-icon" v-show="beneficiary.rate!=''" @click="beneficiary.rates=''">
-                                <span class="mui-icon mui-icon-clear"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-item ins-font-xs BL-col-999">同一受益顺序的受益人受益份额之和为<span
-                            class="BL-col-ff8201">100%</span>
-                    </div>
-                    <div class="input-item box-f-1 box-align-center">
-                        <div class="box-f-1 ins-font-sm BL-col-3b9cf5">是否与投被保人同地址？</div>
-                        <div class="box-f-2">
-                            <button class="ins-btn xxs-btn" @click="beneficiary.addr_type=1"
-                                    :class="{'blue':beneficiary.addr_type===1}">同投保人
-                            </button>
-                            <button class="ins-btn xxs-btn" @click="beneficiary.addr_type=2"
-                                    :class="{'blue':beneficiary.addr_type===2}">同被保人
-                            </button>
-                            <button class="ins-btn xs-btn" @click="beneficiary.addr_type=3"
-                                    :class="{'blue':beneficiary.addr_type===3}">否
-                            </button>
-                        </div>
-                    </div>
-                    <div class="input-item">
-                        <label class="">通讯地址</label>
-                        <div class="input-wrap box-f-1">
-                            <input type="text" placeholder="请选择" readonly>
-                            <div class="ins-down-icon"></div>
-                        </div>
-                    </div>
-                    <div class="input-item">
-                        <label class="">详细地址</label>
-                        <div class="input-wrap box-f-1">
-                            <input type="text" placeholder="请输入" v-model.lazy="beneficiary.address">
-                        </div>
-                    </div>
-                    <div class="input-item">
-                        <label class="">邮编</label>
-                        <div class="input-wrap box-f-1">
-                            <input type="number" placeholder="请输入" v-model.lazy="beneficiary.zip">
-                        </div>
-                    </div>
-                </div>
-                <div class="BL-mar-t-b-2 BL-pad-lr-1">
-                    <a type="button" class="form-btn" href="auto2c-choose.html" data-wid="auto2c_choose">+添加受益人</a>
+                <bene ref="beneficiary"
+                	  :init="init" 
+                	  v-for="(value,k) in beneficiariesIndex" 
+                	  :index="k"
+                	  :val="value"
+                      :key="value"
+                      :count="beneficiariesIndex.length">
+                </bene>
+                <div class="BL-mar-tb-1 BL-pad-lr-1">
+                    <a type="button" class="form-btn" @click="addBeneficiary">+添加受益人</a>
                 </div>
             </div>
         </div>
     </div>
     <!--弹窗 end-->
-
 </div>
+<template id="bene">
+	<div>
+		<div class="form-wrap margin-t_875 border-b-e7e7e7">
+	        <div class="input-item box-f-1 box-align-center input-item-title">
+	            <div class="box-f-1 ins-font-sm BL-col-3b9cf5"><span v-if="count>1">第{{ index+1 }}个</span>受益人</div>
+	            <div class="box-f-2" v-if="count > 1">
+	                <button class="ins-btn xs-btn" @click="$parent.delBeneficiary(val)">删除</button>
+	                <span class="bene-up-icon mui-icon mui-icon-arrowup" @click="unfold(index)" :class="{'bene-up-icon-rotate':show}"></span>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="form-wrap" v-show="show">
+	        <div class="input-item">
+	            <label class="">姓名</label>
+	            <div class="input-wrap box-f-1">
+	                <input type="text" v-model.trim.lazy="beneficiary.fullname" placeholder="请输入">
+	                <div class="form-clear-icon" v-show="beneficiary.fullname!=''"
+	                     @click="beneficiary.fullname=''">
+	                    <span class="mui-icon mui-icon-clear"></span>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="input-item">
+	            <label class="">证件类型</label>
+	            <div class="input-wrap box-f-1">
+	                <div class="input" id="ID_type">
+	                    {{beneficiary.ID_type_name}}
+	                </div>
+	                <div class="ins-down-icon"></div>
+	            </div>
+	        </div>
+	        <div class="input-item">
+	            <label class="">证件号码</label>
+	            <div class="input-wrap box-f-1">
+	                <input type="number" v-model.trim.lazy="beneficiary.ID_no" placeholder="请输入">
+	                <div class="form-clear-icon" v-show="beneficiary.ID_no!=''" @click="beneficiary.ID_no=''">
+	                    <span class="mui-icon mui-icon-clear"></span>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="input-item">
+	            <label class="">证件有效期</label>
+	            <div class="input-wrap search-date" data-options='{"type":"date"}'>
+	                <input type="text" v-model.lazy="beneficiary.ID_expire_end" placeholder="请选择" readonly>
+	            </div>
+	            <div class="right-btn orange" @click="beneficiary.longTerm=!beneficiary.longTerm">长期有效</div>
+	        </div>
+	        <div class="input-item" v-if="init&&init.gender">
+	            <label class="">性别</label>
+	            <div class="input-wrap box-f-1">
+	                <button class="ins-btn sm-btn"
+	                        :class="{'blue':beneficiary.gender===item.value}"
+	                        v-for="(item,index) in init.gender"
+	                        @click="beneficiary.gender=item.value">{{item.text}}
+	                </button>
+	            </div>
+	        </div>
+	        <div class="input-item">
+	            <label class="">出生日期</label>
+	            <div class="input-wrap box-f-1 search-date" data-options='{"type":"date"}'>
+	                <input type="text" v-model.lazy="beneficiary.birthday" placeholder="请选择" readonly>
+	                <div class="ins-date-icon"></div>
+	            </div>
+	        </div>
+	        <div class="input-item" v-if="init&&init.relation_beneficiary">
+	            <label class="">是被保人的</label>
+	            <div class="input-wrap box-f-1 multi-btn">
+	                <button class="ins-btn xs-btn"
+	                        :class="{'blue':item.value===beneficiary.beneficiary_is_insured}"
+	                        v-for="(item,index) in init.relation_beneficiary"
+	                        @click="beneficiary.beneficiary_is_insured=item.value">
+	                    {{item.text}}
+	                </button>
+	            </div>
+	        </div>
+	        <div class="input-item">
+	            <label class="">受益顺序</label>
+	            <div class="input-wrap box-f-1">
+	                <input type="number" v-model.number="beneficiary.sort_order" placeholder="请输入">
+	                <div class="form-clear-icon" v-show="beneficiary.sort_order!=''"
+	                     @click="beneficiary.sort_order=''">
+	                    <span class="mui-icon mui-icon-clear"></span>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="input-item">
+	            <label class="">受益比例(%)</label>
+	            <div class="input-wrap box-f-1">
+	                <input type="number" v-model.number="beneficiary.rate" placeholder="请输入">
+	                <div class="form-clear-icon" v-show="beneficiary.rate!=''" @click="beneficiary.rates=''">
+	                    <span class="mui-icon mui-icon-clear"></span>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="input-item ins-font-xs BL-col-999">同一受益顺序的受益人受益份额之和为<span
+	            class="BL-col-ff8201">100%</span>
+	        </div>
+	        <div class="input-item box-f-1 box-align-center">
+	            <div class="box-f-1 ins-font-sm BL-col-3b9cf5">是否与投被保人同地址？</div>
+	            <div class="box-f-2">
+	                <button class="ins-btn xxs-btn" @click="beneficiary.addr_type=1"
+	                        :class="{'blue':beneficiary.addr_type===1}">同投保人
+	                </button>
+	                <button class="ins-btn xxs-btn" @click="beneficiary.addr_type=2"
+	                        :class="{'blue':beneficiary.addr_type===2}">同被保人
+	                </button>
+	                <button class="ins-btn xs-btn" @click="beneficiary.addr_type=3"
+	                        :class="{'blue':beneficiary.addr_type===3}">否
+	                </button>
+	            </div>
+	        </div>
+	        <div class="input-item">
+	            <label class="">通讯地址</label>
+	            <div class="input-wrap box-f-1">
+	                <input type="text" placeholder="请选择" readonly>
+	                <div class="ins-down-icon"></div>
+	            </div>
+	        </div>
+	        <div class="input-item">
+	            <label class="">详细地址</label>
+	            <div class="input-wrap box-f-1">
+	                <input type="text" placeholder="请输入" v-model.lazy="beneficiary.address">
+	            </div>
+	        </div>
+	        <div class="input-item">
+	            <label class="">邮编</label>
+	            <div class="input-wrap box-f-1">
+	                <input type="number" placeholder="请输入" v-model.lazy="beneficiary.zip">
+	            </div>
+	        </div>
+	    </div>
+    </div>
+</template>
 </body>
 <script src="../js/mui.min.js" type="text/javascript"></script>
 <script src="../js/vue.min.js" type="text/javascript"></script>
@@ -184,36 +194,138 @@
 <script src="method.js"></script>
 <script type="text/javascript">
     mui.init();
-
+	Vue.component('bene',{
+	    template:'#bene',
+	    props: {
+		    init: {
+		      type: Object,
+		      required: true
+		    },
+		    index: {
+		      type: Number,
+		      required: true
+		    },
+		    val: {
+		      type: Number,
+		      required: true
+		    },
+		    count: {
+		        type: Number,
+		        required: true
+		    }
+		},
+	    data() { 
+	    	return {
+	    		show: true,
+	    		beneficiary: {
+	                beneficiary_is_insured: '',//与被保人关系
+	                fullname: '',//姓名
+	                ID_type: '',//证件类型
+	                ID_type_name: '请选择',//证件类型名称
+	                ID_no: '',//证件号码
+	                longTerm: false,//长期有效
+	                ID_expire_end: '',//证件有效期
+	                gender: '',//性别
+	                birthday: '',//出生日期
+	                zip: '',//邮编
+	                sort_order: '',//受益顺序
+	                rate: '',//受益比例
+	                type: '',//受益类型：身故
+	                addr_type: 3,//地址类型 1同投保人 2同被保人 3否
+	                province: '',
+	                city: '',
+	                district: '',
+	                address: ''//详细地址
+           		}
+	    	}
+	    },
+	    methods: {
+        	// 展开收起
+			unfold (index) {
+				this.$parent.par_unfold(index, 1)
+			},
+		}
+	})
     var bene = new Vue({
         el: '#Js-content',
         data: {
             init: {},
             is_legal_benefic: false,
-            beneficiary: {
-                beneficiary_is_insured: '',//与被保人关系
-                fullname: '',//姓名
-                ID_type: '',//证件类型
-                ID_type_name: '请选择',//证件类型名称
-                ID_no: '',//证件号码
-                longTerm: false,//长期有效
-                ID_expire_end: '',//证件有效期
-                gender: '',//性别
-                birthday: '',//出生日期
-                zip: '',//邮编
-                sort_order: '',//受益顺序
-                rate: '',//受益比例
-                type: '',//受益类型：身故
-                addr_type: 3,//地址类型 1同投保人 2同被保人 3否
-                province: '',
-                city: '',
-                district: '',
-                address: ''//详细地址
-            }
+            beneficiariesIndex: [1], //受益人索引
+            nenesum: 4 // 受益人数量
         },
-        created: function () {
-            //字段初始化
-            this.beneficiary.gender = MALE;
+        methods: {
+        	// 添加受益人
+			addBeneficiary() {
+			    if (this.beneficiariesIndex.length === this.nenesum) {
+			    	mui.toast('受益人合计不得指定超过' + this.nenesum + '位', {duration: 'short', type: 'div'})
+			      	return false
+			    }
+			    let max = this.beneficiariesIndex.length > 0 ? Math.max(...this.beneficiariesIndex) : 0
+			    if (!this.checkAllBens()) return false
+			    this.beneficiariesIndex.push(max + 1)
+			    this.$nextTick(() => {
+				    this.updateBeneficiaryRatio()
+				    this.par_unfold(this.beneficiariesIndex.length-1, 0)
+			    })
+			},
+			// 删除受益人
+			delBeneficiary(val) {
+				let vm = this
+			    mui.confirm('确认删除受益人吗？', '提示', ['确定', '取消'], function (e) {
+	                if (e.index == 0) {
+	                	let index = vm.beneficiariesIndex.indexOf(val)
+	                	console.log('index:'+ index)
+			    		vm.beneficiariesIndex.splice(index, 1)
+			    		bene.$nextTick(() => {
+					        vm.updateBeneficiaryRatio()
+					        if (vm.beneficiariesIndex.length == 1) {
+					        	vm.par_unfold(vm.beneficiariesIndex.length - 1,0)
+					        }
+					    })
+	                } else {
+	                	mui.toast('取消删除', {duration: 'short', type: 'div'})
+	                }
+	            })
+			},
+			// 校验受益人
+			checkAllBens () {
+				return true
+			},
+			// 更新收益份额
+			updateBeneficiaryRatio() {
+			    let countOne = 0
+			    for (let j in this.$refs.beneficiary) {
+			      	let item = this.$refs.beneficiary[j]
+			      	if (item.beneficiary.sort_order == 1) {
+			        	countOne++
+			      	}
+			    }
+			    for (let k in this.$refs.beneficiary) {
+			      	let jitem = this.$refs.beneficiary[k]
+			      	if (jitem.beneficiary.sort_order === 1) return
+			      	let ratio = parseInt(100 / countOne)
+			      	if (k > 0 && Number(k) === this.$refs.beneficiary.length - 1) {
+			        	jitem.beneficiary.rate = 100 - ratio * (countOne - 1)
+			      	} else {
+			        	jitem.beneficiary.rate = ratio
+			     	}
+			    }
+			},
+			// index：第几个， flag: 0 非操作(添加or删除)， 1 操作(展开or收起)
+			par_unfold (index, flag) {
+				console.log("长度：" + this.$refs.beneficiary.length)
+				for (let i in this.$refs.beneficiary) {
+					let item = this.$refs.beneficiary[i]
+			      	if (i == index && flag == 1) {
+			      		item.show = !item.show
+			      	} else if (i == index && flag == 0) {
+			      		item.show = true
+			      	}else {
+			      		item.show = false
+			      	}
+			   }
+			}
         }
     });
     mui.plusReady(function () {

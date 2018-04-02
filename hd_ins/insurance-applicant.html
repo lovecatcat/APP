@@ -26,7 +26,7 @@
         <div class="form-content margin-t-6_125 BL-pad-b-2" v-cloak>
             <div class="form-wrap" v-if="init&&init.tax_type">
                 <div class="border-b-e7e7e7">
-                    <div class="item-title">投保人声明（备注说明）</div>
+                    <div class="item-title">投保人声明</div>
                 </div>
                 <form class="mui-input-group BL-pad-b-1">
                     <div class="mui-input-row mui-radio mui-left ins-radio-left" v-for="(item,index) in init.tax_type">
@@ -43,7 +43,6 @@
                     <label class="">证件类型</label>
                     <div class="input-wrap box-f-1">
                         <input type="text" v-model="applicant.holder_ID_type_name" class="BL-col-666" readonly>
-                        <!--<div class="ins-down-icon"></div>-->
                     </div>
                 </div>
                 <div class="input-item">
@@ -59,9 +58,10 @@
                 <div class="input-item">
                     <label class="">证件有效期</label>
                     <div class="input-wrap search-date" data-options='{"type":"date"}'>
-                        <input type="text" v-model.lazy="applicant.holder_ID_expire_end" placeholder="请选择">
+                        <input type="text" v-model.lazy="applicant.holder_ID_expire_end" placeholder="请选择"
+                               :disabled="longTerm">
                     </div>
-                    <div class="right-btn orange" @click="longTerm=!longTerm">长期有效</div>
+                    <div class="right-btn orange" :class="{'active':longTerm}" @click="longTerm=!longTerm">长期有效</div>
                 </div>
             </div>
             <div class="form-wrap margin-t_875">
@@ -80,19 +80,18 @@
                     </div>
                     <div class="right-btn orange address-icon"></div>
                 </div>
-                <div class="input-item" v-if="init&&init.gender">
+                <div class="input-item">
                     <label class="">性别</label>
                     <div class="input-wrap box-f-1">
                         <button class="ins-btn sm-btn"
                                 :class="{'blue':applicant.holder_gender===item.value}"
-                                v-for="(item,index) in init.gender"
-                                @click="applicant.holder_gender=item.value">{{item.text}}
+                                v-for="(item,index) in init.gender" disabled>{{item.text}}
                         </button>
                     </div>
                 </div>
                 <div class="input-item">
                     <label class="">出生日期</label>
-                    <div class="input-wrap box-f-1 search-date" data-options='{"type":"date"}'>
+                    <div class="input-wrap box-f-1">
                         <input type="text" v-model.lazy="applicant.holder_birthday" placeholder="请选择" readonly>
                         <div class="ins-date-icon"></div>
                     </div>
@@ -100,7 +99,7 @@
                 <div class="input-item">
                     <label class="">国籍</label>
                     <div class="input-wrap box-f-1">
-                        <input type="text" v-model.lazy="applicant.holder_nation" readonly>
+                        <input type="text" class="BL-col-666" v-model.lazy="applicant.holder_nation" readonly>
                     </div>
                 </div>
                 <div class="input-item">
@@ -114,13 +113,36 @@
                         </div>
                     </div>
                 </div>
+                <template>
                 <div class="input-item">
                     <label class="">职业</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" placeholder="请选择" readonly v-model="applicant.holder_job_code">
+                    <div class="input-wrap box-f-1" id="occu-first">
+                        <input type="text" placeholder="请选择" readonly v-model="applicant.holder_job_name" readonly>
                         <div class="ins-down-icon"></div>
                     </div>
                 </div>
+                <div class="input-item">
+                    <label class=""></label>
+                    <div class="input-wrap box-f-1">
+                        <input type="text" placeholder="请选择" readonly v-model="applicant.holder_job_code" readonly>
+                        <div class="ins-down-icon"></div>
+                    </div>
+                </div>
+                <div class="input-item">
+                    <label class=""></label>
+                    <div class="input-wrap box-f-1">
+                        <input type="text" placeholder="请选择" readonly v-model="applicant.holder_job_code" readonly>
+                        <div class="ins-down-icon"></div>
+                    </div>
+                </div>
+                <div class="input-item">
+                    <label class=""></label>
+                    <div class="input-wrap box-f-1">
+                        <input type="text" placeholder="请选择" readonly v-model="applicant.holder_job_code" readonly>
+                        <div class="ins-down-icon"></div>
+                    </div>
+                </div>
+                </template>
                 <div class="input-item ins-pd-r-0" v-if="init&&init.marriage">
                     <label class="">婚姻状况</label>
                     <div class="input-wrap box-f-1 multi-btn">
@@ -245,10 +267,8 @@
                 <div class="input-item">
                     <label class="">通讯地区</label>
                     <div class="input-wrap box-f-1">
-                        <div class="input flex">
-                            <div class="flex-1" id="appl-province">{{applicant.holder_contact_province_name}}</div>
-                            <div class="flex-1" id="appl-city">{{applicant.holder_contact_city_name}}</div>
-                            <div class="flex-1" id="appl-area">{{applicant.holder_contact_district_name}}</div>
+                        <div class="input" id="address-select">
+                            请选择
                         </div>
                         <div class="ins-down-icon"></div>
                     </div>
@@ -296,6 +316,7 @@
 <script src="../js/mui.picker.js"></script>
 <script src="../js/mui.poppicker.js"></script>
 <script src="../js/mui.dtpicker.js"></script>
+<script src="../js/city.data-3.js"></script>
 <script src="../js/IDValidator.min.js"></script>
 <script src="method.js"></script>
 <script type="text/javascript">
@@ -353,8 +374,17 @@
             this.applicant.holder_ID_type = IDcard;
             this.applicant.holder_gender = MALE;
 
+            this.$watch('applicant.holder_isTaxResidents', function (val) {
+                if (val && val !== TAXTYPE) {
+                    mui.toast('根据您声明的内容，请选择线下投保并提交相关资料', {duration: 'short', type: 'div'});
+                    return false;
+                }
+            });
             this.$watch('applicant.holder_ID_no', function (val) {
                 IDValidate(IDcard, val, '投保人');
+            });
+            this.$watch('longTerm', function (val) {
+                this.applicant.holder_ID_expire_end = val ? '9999-12-31' : ''
             });
 
             this.$watch('applicant.holder_birthday', function (val) {
@@ -419,56 +449,30 @@
 
             })
         })
-        //省
-        var province = new mui.PopPicker();
-        var city = new mui.PopPicker();
-        var area = new mui.PopPicker();
-        province.setData(init.province);
-        console.log(JSON.stringify(init.province))
-        document.querySelector('#appl-province').addEventListener('tap', function () {
-            province.show(function (items) {
-                appl.applicant.holder_contact_province = items[0].value;
-                appl.applicant.holder_contact_province_name = items[0].text;
-                appl.applicant.holder_contact_city = ''
-                appl.applicant.holder_contact_city_name = '请选择'
-                appl.applicant.holder_contact_district = ''
-                appl.applicant.holder_contact_district_name = '请选择'
-                getCityArea(items[0].value,function(e){
-                    city.setData(e)
-                })
-            })
-        })
-        document.querySelector('#appl-city').addEventListener('tap', function () {
-            city.show(function (items) {
-                appl.applicant.holder_contact_city = items[0].value;
-                appl.applicant.holder_contact_city_name = items[0].text;
-                appl.applicant.holder_contact_zip = items[0].zip;
-                appl.applicant.holder_contact_district = ''
-                getCityArea(items[0].value,function(e){
-                    if(e){
-                        area.setData(e)
-                        appl.applicant.holder_contact_district_name = '请选择'
-                    } else {
-                        area.hide()
-                        appl.applicant.holder_contact_district_name = ''
-                    }
-                })
-            })
-        })
-        document.querySelector('#appl-area').addEventListener('tap', function () {
-            area.show(function (items) {
-                appl.applicant.holder_contact_district = items[0].value;
-                appl.applicant.holder_contact_district_name = items[0].text;
-                appl.applicant.holder_contact_zip = items[0].zip;
-            })
-        })
+        //选择省市区
+        var _getParam = function (obj, param) {
+            return obj[param] || '';
+        };
+        var cityPicker3 = new mui.PopPicker({
+            layer: 3
+        });
+        cityPicker3.setData(cityData3);
+        document.querySelector('#address-select').addEventListener('tap', function () {
+            var _self = this;
+            cityPicker3.show(function (items) {
+                appl.applicant.holder_contact_province = _getParam(items[0], 'value')
+                appl.applicant.holder_contact_city = _getParam(items[1], 'value')
+                appl.applicant.holder_contact_district = _getParam(items[2], 'value')
+                appl.applicant.holder_contact_zip = _getParam(items[2], 'zip')
+                _self.innerText = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
+            });
+        }, false);
         //日期选择
         mui('.search-date').each(function (i, d) {
             d.addEventListener('tap', function () {
                 var optionsJson = this.getAttribute('data-options') || '{}';
                 var options = JSON.parse(optionsJson);
                 var picker = new mui.DtPicker(options);
-                alert(1)
                 picker.show(function (rs) {
                     if (i === 0) {
                         appl.applicant.holder_ID_expire_end = rs.text;
@@ -481,10 +485,23 @@
             }, false);
         });
         //深圳区获取
-        getCityArea(appl.applicant.holder_home_city,function(e){
+        getCityArea(appl.applicant.holder_home_city, function (e) {
             district.setData(e)
         })
-        //
+        //职业
+        var occuFirst = new mui.PopPicker();
+        var occuSecond = new mui.PopPicker();
+        var occuThree = new mui.PopPicker();
+        occuFirst.setData(init.occupation);
+        document.querySelector('#occu-first').addEventListener('tap', function () {
+            occuFirst.show(function (items) {
+                appl.applicant.holder_job_name = items[0].text;
+                appl.applicant.holder_job_code = items[0].value;
+                getCityArea(items[0].value,function (e) {
+
+                })
+            })
+        })
         var popu = new ClosePopu(); // 实例化关闭窗口对象
         mui('body').on('tap', '#close-ins-pop', function () {
             // 关闭遮罩层，弹框

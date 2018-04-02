@@ -227,16 +227,11 @@
         }
         console.log(JSON.stringify(basedata));
         plus.nativeUI.showWaiting();
-        mui.ajax('http://www.luckyins.com/api/api/invoke', {
+        luckyAjax({
             data: {
-                device: 'mobile',
                 server: 'lifeProduct.getProductList',
                 data: JSON.stringify(basedata)
             },
-            dataType: 'json',//服务器返回json格式数据
-            type: 'post',//HTTP请求类型
-            timeout: 10000,//超时时间设置为10秒；
-            headers: {'Content-Type': 'application/json'},
             success: function (data) {
                 console.log(JSON.stringify(data))
                 plus.nativeUI.closeWaiting();

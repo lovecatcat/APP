@@ -120,25 +120,6 @@
             showPopu("insurance-safegood.html", "insurance_safegood", "bottom", index.init);
         });
 
-        var userinfo = JSON.parse(plus.storage.getItem('userinfo'));
-//        mui.ajax(baseURL + '/invoke', {
-//            data: {device: 'mobile', server: 'PolicyIns.getCompanyList'}, //获取保险公司
-//            data: {data: JSON.stringify({'supplier_id': 23}), device: 'mobile', server: 'PolicyIns.getProductList'}, //获取险种列表
-//            data: {data: JSON.stringify({'supplier_id': 23}), device: 'mobile', server: 'PolicyIns.initPolicyField'}, //初始化
-
-        //试算
-//        var productInfo = {productId: "277", pay: 10, insure: "999", amount: "100000"};
-//        var insurant = {name: "abc", birthday: "1992-01-10", genderCode: "LAB0001"};
-//        mui.ajax(baseURL + '/onlineInsured', {
-//            data: {
-//                data: JSON.stringify({
-//                    user_id: userinfo.user_id,
-//                    productInfo: [productInfo],
-//                    insurant: insurant
-//                }),
-//                company_code: 'HengDa',
-//                method: 'test_calc'
-//            },
         //整理下拉框需要的数据
         function dataToselect(data, type) {
             var arr = [];
@@ -153,9 +134,8 @@
 
         //初始化下拉数据获取
         luckyAjax({
-            data: {data: JSON.stringify({'supplier_id': SCID}), device: 'mobile', server: 'PolicyIns.initPolicyField'},
+            data: {data: JSON.stringify({'supplier_id': SCID}), server: 'PolicyIns.initPolicyField'},
             success: function (data) {
-                console.log(JSON.stringify(data));
                 if (data.code) {
                     var res = {}
                     var data = data.data;
@@ -202,12 +182,7 @@
                         }
                     });
                     index.init = res;
-                    getCityData(index.init.province)
                 }
-            },
-            error: function (xhr, type, errorThrown) {
-//                mui.toast(errorThrown, {duration: 'short', type: 'div'})
-                return false
             }
         });
 

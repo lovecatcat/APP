@@ -114,34 +114,34 @@
                     </div>
                 </div>
                 <template>
-                <div class="input-item">
-                    <label class="">职业</label>
-                    <div class="input-wrap box-f-1" id="occu-first">
-                        <input type="text" placeholder="请选择" readonly v-model="applicant.holder_job_name" readonly>
-                        <div class="ins-down-icon"></div>
+                    <div class="input-item">
+                        <label class="">职业</label>
+                        <div class="input-wrap box-f-1" id="occu-first">
+                            <input type="text" placeholder="请选择" readonly v-model="applicant.holder_job_name" readonly>
+                            <div class="ins-down-icon"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="input-item">
-                    <label class=""></label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" placeholder="请选择" readonly v-model="applicant.holder_job_code" readonly>
-                        <div class="ins-down-icon"></div>
+                    <div class="input-item">
+                        <label class=""></label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" placeholder="请选择" readonly v-model="applicant.holder_job_code" readonly>
+                            <div class="ins-down-icon"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="input-item">
-                    <label class=""></label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" placeholder="请选择" readonly v-model="applicant.holder_job_code" readonly>
-                        <div class="ins-down-icon"></div>
+                    <div class="input-item">
+                        <label class=""></label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" placeholder="请选择" readonly v-model="applicant.holder_job_code" readonly>
+                            <div class="ins-down-icon"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="input-item">
-                    <label class=""></label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" placeholder="请选择" readonly v-model="applicant.holder_job_code" readonly>
-                        <div class="ins-down-icon"></div>
+                    <div class="input-item">
+                        <label class=""></label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" placeholder="请选择" readonly v-model="applicant.holder_job_code" readonly>
+                            <div class="ins-down-icon"></div>
+                        </div>
                     </div>
-                </div>
                 </template>
                 <div class="input-item ins-pd-r-0" v-if="init&&init.marriage">
                     <label class="">婚姻状况</label>
@@ -497,11 +497,15 @@
             occuFirst.show(function (items) {
                 appl.applicant.holder_job_name = items[0].text;
                 appl.applicant.holder_job_code = items[0].value;
-                getCityArea(items[0].value,function (e) {
-
+                getOccu(items[0].value, function (res) {
+                    occuSecond.setData(res)
+                    console.log(JSON.stringify(res))
+                    getOccu(items[0].value, function (ret) {
+                        occuThree.setData(ret)
+                    })
                 })
-            })
-        })
+            });
+        });
         var popu = new ClosePopu(); // 实例化关闭窗口对象
         mui('body').on('tap', '#close-ins-pop', function () {
             // 关闭遮罩层，弹框

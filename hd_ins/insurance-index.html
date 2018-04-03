@@ -134,7 +134,10 @@
 
         //初始化下拉数据获取
         luckyAjax({
-            data: {data: JSON.stringify({'supplier_id': SCID}), server: 'PolicyIns.initPolicyField'},
+            data: {
+                data: JSON.stringify({'supplier_id': SCID}),
+                server: 'PolicyIns.initPolicyField'
+            },
             success: function (data) {
                 if (data.code) {
                     var res = {}

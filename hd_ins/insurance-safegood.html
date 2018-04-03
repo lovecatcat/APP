@@ -498,16 +498,11 @@
             //获取险种列表
             getIns: function () {
                 var vm = this
-                mui.ajax(baseURL + '/invoke', {
+                luckyAjax({
                     data: {
                         data: JSON.stringify({'supplier_id': SCID}),
-                        device: 'mobile',
                         server: 'PolicyIns.getProductList'
                     }, //获取险种列表
-                    dataType: 'json',//服务器返回json格式数据
-                    type: 'post',//HTTP请求类型
-                    timeout: 10000,//超时时间设置为10秒；
-                    headers: {'Content-Type': 'application/json'},
                     success: function (res) {
                         console.log(JSON.stringify(res));
                         if (res.code == 1) {
@@ -912,7 +907,7 @@
                     }
                 };
                 //开始试算
-                mui.ajax(baseURL + '/invoke', {
+                luckyAjax({
                     data: {
                         data: JSON.stringify({
                             msg: basedata,
@@ -922,10 +917,6 @@
                         server: 'PolicyIns.onlineInsured',
                         device: 'mobile'
                     },
-                    dataType: 'json',//服务器返回json格式数据
-                    type: 'post',//HTTP请求类型
-                    timeout: 10000,//超时时间设置为10秒；
-                    headers: {'Content-Type': 'application/json'},
                     success: function (res) {
                         console.log(JSON.stringify(res));
                         if (res.code) {

@@ -490,7 +490,7 @@ var astypeChange = function () {
 
 var getCityArea = function (id, cb) {
     luckyAjax({
-        data:{
+        data: {
             server: 'PolicyIns.getArea',
             data: JSON.stringify({'id': id})
         },
@@ -510,4 +510,17 @@ var getCityArea = function (id, cb) {
             }
         }
     })
+}
+
+var getOccu = function (id, cb) {
+    luckyAjax({
+        data: {data: JSON.stringify({'id': id}), server: 'PolicyIns.getBasicEnumCode'},
+        success: function (data) {
+            if (data.code) {
+                cb(data.data)
+            } else {
+                cb()
+            }
+        }
+    });
 }

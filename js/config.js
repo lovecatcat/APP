@@ -50,7 +50,9 @@ var luckyAjax = function(options){
 		},
 		error:function(xhr, type, errorThrown){
 			//opt.error(xhr, type, errorThrown);
-			plus.nativeUI.closeWaiting();
+			if(!options.closeWaiting){
+				plus.nativeUI.closeWaiting();
+			}
 		    mui.toast(errorThrown, {duration: 'short', type: 'div'});
 		    return false
 		}

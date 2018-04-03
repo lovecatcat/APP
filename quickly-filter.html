@@ -23,34 +23,6 @@
 </header>
 
 <div id="Js-content" class="mui-content product">
-    <!------------条件筛选 begin------------->
-    <!--<div id="Js-productFilter" class="product-filter">-->
-
-    <!--&lt;!&ndash;分类栏目 begin&ndash;&gt;-->
-    <!--<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">-->
-    <!--<div class="mui-scroll">-->
-    <!--<a class="mui-control-item mui-active">-->
-    <!--医疗-->
-    <!--</a>-->
-    <!--<a class="mui-control-item">-->
-    <!--重疾-->
-    <!--</a>-->
-    <!--<a class="mui-control-item">-->
-    <!--意外-->
-    <!--</a>-->
-    <!--<a class="mui-control-item">-->
-    <!--航旅-->
-    <!--</a>-->
-    <!--<a class="mui-control-item">-->
-    <!--车险-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--&lt;!&ndash;分类栏目 end &ndash;&gt;-->
-
-    <!--</div>-->
-    <!------------条件筛选 end  ------------->
-
     <!------------保险公司列表 begin------------->
     <div id="Js-business" class="product-filter">
         <div class="filter-business">
@@ -97,15 +69,10 @@
             //接收上一个页面传来的公司id
             company.companyId = plus.webview.currentWebview().company_id;
             plus.nativeUI.showWaiting();
-            $.ajax('http://www.luckyins.com/api/api/invoke', {
+            luckyAjax({
                 data: {
-                    device: 'pad',
                     server: 'lifeProduct.getCompanyList'
                 },
-                dataType: 'json',//服务器返回json格式数据
-                type: 'post',//HTTP请求类型
-                timeout: 10000,//超时时间设置为10秒；
-                headers: {'Content-Type': 'application/json'},
                 success: function (data) {
                     plus.nativeUI.closeWaiting();
                     console.log(JSON.stringify(data));
@@ -114,7 +81,6 @@
                         var winH = window.innerHeight;
                         var titHeight = document.querySelector('#Js-header').offsetHeight;
                         document.querySelector('#Js-business').style.height = winH - titHeight + 'px';
-//                        $.toast(data.msg, {duration: 'short', type: 'div'});
                     } else {
                         $.toast(data.msg, {duration: 'short', type: 'div'});
                         return false;

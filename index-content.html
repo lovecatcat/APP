@@ -354,17 +354,12 @@
             }
         })
         plus.nativeUI.showWaiting();
-        console.log(JSON.stringify(index.bannerList));
-        mui.ajax('http://www.luckyins.com/api/api/invoke', {
+//        console.log(JSON.stringify(index.bannerList));
+        luckyAjax({
             data: {
-                device: 'mobile',
                 server: 'lifeProduct.getIndexProductList',
                 data: JSON.stringify({ins_type: 'LBI0001,LBI0002,LBI0004,LBI0005'})
             },
-            dataType: 'json',//服务器返回json格式数据
-            type: 'post',//HTTP请求类型
-            timeout: 10000,//超时时间设置为10秒；
-            headers: {'Content-Type': 'application/json'},
             success: function (data) {
                 console.log(JSON.stringify(data));
                 plus.nativeUI.closeWaiting();

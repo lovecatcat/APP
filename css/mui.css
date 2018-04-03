@@ -4704,16 +4704,16 @@ body > .mui-progressbar
     border-color: #f7f7f7;
     background-color: #f7f7f7;
 }
-.mui-switch.mui-dragging .mui-switch-handle
-{
-    width: 38px;
-}
-.mui-switch.mui-dragging.mui-active .mui-switch-handle
-{
-    left: -11px;
+/*.mui-switch.mui-dragging .mui-switch-handle*/
+/*{*/
+    /*width: 38px;*/
+/*}*/
+/*.mui-switch.mui-dragging.mui-active .mui-switch-handle*/
+/*{*/
+    /*left: -11px;*/
 
-    width: 38px;
-}
+    /*width: 38px;*/
+/*}*/
 .mui-switch.mui-active
 {
     border-color: #4cd964;

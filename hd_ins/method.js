@@ -31,7 +31,8 @@ var BEN_ISASSURED = 'LAN0001'; //受益人是被保人
 var BEN_DEFAULT = 'LAO0001';//受益人法定
 var BEN_SPEC = 'LAO0002';//受益人指定
 var SY_TYPE = 'LAP0001'; //受益类型：身故
-
+var has_social_security = 'LAG0001'; //有社保
+var no_social_security = 'LAG0002';//无社保
 
 // 身份邮编对照表
 var zipcodes = {
@@ -173,11 +174,13 @@ var checkEmail = function (owner, email) {
 var checkName = function (owner, name) {
     var toast_text = null
     var strLength = 0
-    for (var i = 0; i < name.length; i++) {
-        if ((name.charCodeAt(i) < 0) || (name.charCodeAt(i) > 255)) {
-            strLength = strLength + 3
-        } else {
-            strLength = strLength + 1
+    if (name) {
+        for (var i = 0; i < name.length; i++) {
+            if ((name.charCodeAt(i) < 0) || (name.charCodeAt(i) > 255)) {
+                strLength = strLength + 3
+            } else {
+                strLength = strLength + 1
+            }
         }
     }
     console.log('校验名字' + owner + name + strLength);
@@ -473,3 +476,51 @@ var checkAssured = function () {
     }
     return true
 };
+//出生证、户口本 长期有效
+var astypeChange = function () {
+    assu.assured.assured_ID_no = ''
+    if (assu.assured.assured_ID_type === BOOKLET || assu.assured.assured_ID_type === BORNid) {
+        assu.assured.assured_ID_expire_end = '9999-12-31'
+        assu.longTerm = true
+    } else {
+        assu.assured.assured_ID_expire_end = ''
+        assu.longTerm = false
+    }
+};
+
+var getCityArea = function (id, cb) {
+    luckyAjax({
+        data: {
+            server: 'PolicyIns.getArea',
+            data: JSON.stringify({'id': id})
+        },
+        success: function (res) {
+            if (res.code) {
+                var arr = [];
+                mui.each(res.data, function (ind, ite) {
+                    arr.push({
+                        text: ite.name,
+                        value: ite.id,
+                        zip: ite.zip_code
+                    });
+                });
+                cb(arr)
+            } else {
+                cb()
+            }
+        }
+    })
+}
+
+var getOccu = function (id, cb) {
+    luckyAjax({
+        data: {data: JSON.stringify({'id': id}), server: 'PolicyIns.getBasicEnumCode'},
+        success: function (data) {
+            if (data.code) {
+                cb(data.data)
+            } else {
+                cb()
+            }
+        }
+    });
+}

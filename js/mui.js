@@ -6626,6 +6626,21 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			isActive: this.classList.contains(CLASS_ACTIVE)
 		});
 	};
+    Toggle.prototype.toggleAct = function(animate) {
+        var classList = this.classList;
+        if (animate === false) {
+            this.handle.style.webkitTransitionDuration = this.element.style.webkitTransitionDuration = '0s';
+        } else {
+            this.handle.style.webkitTransitionDuration = this.element.style.webkitTransitionDuration = '.2s';
+        }
+        if (classList.contains(CLASS_ACTIVE)) {
+            classList.remove(CLASS_ACTIVE);
+            this.handle.style.webkitTransform = 'translate(0,0)';
+        } else {
+            classList.add(CLASS_ACTIVE);
+            this.handle.style.webkitTransform = 'translate(' + this.handleX + 'px,0)';
+        }
+    };
 	Toggle.prototype.setTranslateX = $.animationFrame(function(x) {
 		if (!this.isDragging) {
 			return;

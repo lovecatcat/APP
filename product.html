@@ -157,6 +157,9 @@
                 handler: function (val) {
                     if (val && val !== 4) {
                         this.page = 0;
+                        mui('#Js-productList .mui-scroll-wrapper').each(function(){
+			    			this.setAttribute('data-scroll', '');
+				    	});
                         loaddata(true);
                     }
                 }
@@ -164,6 +167,9 @@
             current_instype: {
                 handler: function () {
                     this.page = 0;
+                    mui('#Js-productList .mui-scroll-wrapper').each(function(){
+			    		this.setAttribute('data-scroll', '');
+				    });
                     loaddata(true);
                 }
             }
@@ -226,7 +232,6 @@
             basedata.company_id = product.companyId;
         }
         console.log(JSON.stringify(basedata));
-        plus.nativeUI.showWaiting();
         luckyAjax({
             data: {
                 server: 'lifeProduct.getProductList',
@@ -234,7 +239,6 @@
             },
             success: function (data) {
                 console.log(JSON.stringify(data))
-                plus.nativeUI.closeWaiting();
                 if (data.code) {
                     if (product.page >= data.data.totalPage) {
                         self.endPullUpToRefresh(true);
@@ -254,11 +258,6 @@
                     mui.toast(data.msg, {duration: 'short', type: 'div'});
                     return false;
                 }
-            },
-            error: function (xhr, type, errorThrown) {
-            	plus.nativeUI.closeWaiting();
-                mui.toast(errorThrown, {duration: 'short', type: 'div'});
-                return false
             }
         });
     };

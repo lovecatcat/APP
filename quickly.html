@@ -155,6 +155,9 @@
                 handler: function (val) {
                     if (val && val !== 4) {
                         this.page = 0;
+                        mui('#Js-productList .mui-scroll-wrapper').each(function(){
+			    			this.setAttribute('data-scroll', '');
+				    	});
                         loaddata(true);
                     }
                 }
@@ -162,6 +165,9 @@
             current_instype: {
                 handler: function () {
                     this.page = 0;
+                    mui('#Js-productList .mui-scroll-wrapper').each(function(){
+			    		this.setAttribute('data-scroll', '');
+				    });
                     loaddata(true);
                 }
             }

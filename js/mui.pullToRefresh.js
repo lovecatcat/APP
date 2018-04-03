@@ -361,6 +361,7 @@
 				this.element.removeEventListener('dragup', this);
 				window.removeEventListener('scroll', this);
 			} else {
+				this.finished = false;
 				this.pullUpTipsIcon.innerHTML = this.options.up.contentdown;
 			}
 			this.loading = false;

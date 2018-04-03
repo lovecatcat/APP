@@ -96,16 +96,11 @@
         var str = goods_id.split(",")
         //打开loading
         plus.nativeUI.showWaiting();
-        mui.ajax('http://www.luckyins.com/api/api/invoke', {
+        luckyAjax({
             data: {
-                device: 'pad',
                 server: 'lifeProduct.compare',
                 data: JSON.stringify({product_id: goods_id})
             },
-            dataType: 'json',//服务器返回json格式数据
-            type: 'post',//HTTP请求类型
-            timeout: 10000,//超时时间设置为10秒；
-            headers: {'Content-Type': 'application/json'},
             success: function (data) {
             // console.log(JSON.stringify(data))
                 if (data.code) {
@@ -177,9 +172,6 @@
                     mui.toast(data.msg, {duration: 'short', type: 'div'});
                     return false;
                 }
-            }, error: function (xhr, type, errorThrown) {
-                mui.toast(errorThrown, {duration: 'short', type: 'div'});
-                return false
             }
         });
         

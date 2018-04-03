@@ -22,7 +22,8 @@
 <div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
     <ul class="mui-table-view form-list-cell">
         <li class="fItem BL-ub BL-ub-f1">
-            <a href="member-changepwd.html" data-wid="member-changepwd" class="mui-navigate-right form-list-label BL-ub-f1">
+            <a href="member-changepwd.html" data-wid="member-changepwd"
+               class="mui-navigate-right form-list-label BL-ub-f1">
                 修改密码
             </a>
         </li>
@@ -76,12 +77,26 @@
         document.querySelector('#Js-content').style.height = (winH - titHeight) + 'px';
         //退出登录
         document.querySelector('#quit').addEventListener("tap", function () {
-            plus.storage.clear();
-            isLogin();
+            luckyAjax({
+                url: config.moduleURL + 'logout',
+                success: function (res) {
+                    if (res.code) {
+                        plus.storage.clear();
+                        mui.openWindow({
+                            url: 'login.html',
+                            id: 'login',
+                            show: animateObj.aniPage
+                        });
+                    } else {
+                        mui.toast('退出失败', {duration: 'short', type: 'div'});
+                        return false
+                    }
+                }
+            })
         });
-        
+
         document.querySelector('#Js-version').innerText = plus.runtime.version;
-        
+
     })
 </script>
 </html>

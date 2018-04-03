@@ -38,7 +38,7 @@
             <div v-show="!(assured.rel_insured_holder===ISASSURED)">
                 <div class="form-wrap margin-t_875" v-if="init&&init.tax_type" v-cloak>
                     <div class="border-b-e7e7e7">
-                        <div class="item-title">被保人声明（备注说明）</div>
+                        <div class="item-title">被保人声明</div>
                     </div>
                     <form class="mui-input-group BL-pad-b-1">
                         <div class="mui-input-row mui-radio mui-left ins-radio-left"
@@ -75,9 +75,11 @@
                     <div class="input-item">
                         <label class="">证件有效期</label>
                         <div class="input-wrap search-date" data-options='{"type":"date"}'>
-                            <input type="text" v-model.lazy="assured.assured_ID_expire_end" placeholder="请选择">
+                            <input type="text" v-model.lazy="assured.assured_ID_expire_end" placeholder="请选择"
+                                   :disabled="longTerm">
                         </div>
-                        <div class="right-btn orange" @click="longTerm=!longTerm">长期有效</div>
+                        <div class="right-btn orange" :class="{'active':longTerm}" @click="longTerm=!longTerm">长期有效
+                        </div>
                     </div>
                 </div>
                 <div class="form-wrap margin-t_875">
@@ -96,12 +98,12 @@
                         </div>
                         <div class="right-btn orange address-icon"></div>
                     </div>
-                    <div class="input-item" v-if="init&&init.gender">
+                    <div class="input-item">
                         <label class="">性别</label>
                         <div class="input-wrap box-f-1">
                             <button class="ins-btn sm-btn"
-                                    :class="{'blue':assured.assured_gender===item.value}"
                                     v-for="(item,index) in init.gender"
+                                    :class="{'blue':assured.assured_gender===item.value}"
                                     @click="assured.assured_gender=item.value"
                                     :disabled="IDNO.indexOf(assured.assured_ID_type)>-1">{{item.text}}
                             </button>
@@ -110,7 +112,9 @@
                     <div class="input-item">
                         <label class="">出生日期</label>
                         <div class="input-wrap box-f-1 search-date" data-options='{"type":"date"}'>
-                            <input type="text" v-model.lazy="assured.assured_birthday" placeholder="请选择" readonly>
+                            <input type="text"
+                                   v-model.lazy="assured.assured_birthday"
+                                   :disabled="IDNO.indexOf(assured.assured_ID_type)>-1"placeholder="请选择" readonly>
                             <div class="ins-date-icon"></div>
                         </div>
                     </div>
@@ -150,7 +154,8 @@
                     <div class="input-item">
                         <label class="">年收入(万元)</label>
                         <div class="input-wrap box-f-1">
-                            <input type="number" v-model.trim="assured.assured_salary_avg" @change="checkEarnings(2,assured.assured_salary_avg)" placeholder="请输入">
+                            <input type="number" v-model.trim="assured.assured_salary_avg"
+                                   @change="checkEarnings(2,assured.assured_salary_avg)" placeholder="请输入">
                             <div class="form-clear-icon" v-show="assured.assured_salary_avg!=''"
                                  @click="assured.assured_salary_avg=''">
                                 <span class="mui-icon mui-icon-clear"></span>
@@ -169,7 +174,8 @@
                     <div class="input-item">
                         <label class="">身高(cm)</label>
                         <div class="input-wrap box-f-1">
-                            <input type="number" v-model.number.lazy="assured.assured_height" @change="checkHeight('被保人',assured.assured_height)" placeholder="请输入">
+                            <input type="number" v-model.number.lazy="assured.assured_height"
+                                   @change="checkHeight('被保人',assured.assured_height)" placeholder="请输入">
                             <div class="form-clear-icon" v-show="assured.assured_height!=''"
                                  @click="assured.assured_height=''">
                                 <span class="mui-icon mui-icon-clear"></span>
@@ -179,7 +185,8 @@
                     <div class="input-item">
                         <label class="">体重(kg)</label>
                         <div class="input-wrap box-f-1">
-                            <input type="number" v-model.number.lazy="assured.assured_weight" @change="checkWeight('被保人',assured.assured_weight)" placeholder="请输入">
+                            <input type="number" v-model.number.lazy="assured.assured_weight"
+                                   @change="checkWeight('被保人',assured.assured_weight)" placeholder="请输入">
                             <div class="form-clear-icon" v-show="assured.assured_weight!=''"
                                  @click="assured.assured_weight=''">
                                 <span class="mui-icon mui-icon-clear"></span>
@@ -262,10 +269,10 @@
                     <div class="input-item">
                         <label class="">邮编</label>
                         <div class="input-wrap box-f-1">
-                            <input type="number" v-model.lazy="assured.holder_home_zip"
-                                   @change="checkZipcode('被保人',assured.holder_home_zip)" placeholder="请输入">
-                            <div class="form-clear-icon" v-show="assured.holder_home_zip!=''"
-                                 @click="assured.holder_home_zip=''">
+                            <input type="number" v-model.lazy="assured.assured_home_zip"
+                                   @change="checkZipcode('被保人',assured.assured_home_zip)" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.assured_home_zip!=''"
+                                 @click="assured.assured_home_zip=''">
                                 <span class="mui-icon mui-icon-clear"></span>
                             </div>
                         </div>
@@ -296,6 +303,15 @@
 <script src="method.js"></script>
 <script type="text/javascript">
     mui.init();
+
+    //主列表点击事件
+    mui('body').on('tap', '.address-icon', function () {
+        mui.openWindow({
+            url: '../communic.html',
+            id: 'communic',
+            show: animateObj.aniDetal
+        })
+    })
 
     var assu = new Vue({
         el: '#Js-content',
@@ -343,8 +359,17 @@
             //字段初始化
             this.assured.assured_gender = MALE;
 
-            this.$watch('assured.holder_ID_no', function (val) {
+            this.$watch('assured.assured_ID_no', function (val) {
                 IDValidate(IDcard, val, '被保人');
+            });
+            this.$watch('assured.assured_isTaxResidents', function (val) {
+                if(val&&val!==TAXTYPE){
+                    mui.toast('根据您声明的内容，请选择线下投保并提交相关资料', {duration: 'short', type: 'div'});
+                    return false;
+                }
+            });
+            this.$watch('longTerm', function (val) {
+                this.assured.assured_ID_expire_end = val ? '9999-12-31' : ''
             });
             this.$watch('assured.assured_birthday', function (val) {
                 this.assu_age = getAge(val);
@@ -395,6 +420,7 @@
             idtype.show(function (items) {
                 assu.assured.assured_ID_type = items[0].value;
                 assu.assured.assured_ID_type_name = items[0].text;
+                astypeChange();
             })
         })
         //收入来源选择
@@ -410,6 +436,9 @@
         //日期选择
         mui('.search-date').each(function (i, d) {
             d.addEventListener('tap', function () {
+                if (IDNO.indexOf(assu.assured.assured_ID_type) > -1) {
+                    return false
+                }
                 var optionsJson = this.getAttribute('data-options') || '{}';
                 var options = JSON.parse(optionsJson);
                 var _this = this
@@ -420,7 +449,6 @@
                     } else if (i === 1) {
                         assu.assured.assured_birthday = rs.text;
                     }
-                    _this.querySelector('input').value = rs.text;
                     picker.dispose();
                 });
             }, false);

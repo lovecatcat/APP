@@ -18,7 +18,7 @@
     <div class="ins-dialog lg">
         <div class="dialog-header">
             <div class="mui-icon mui-icon-closeempty" id="close-ins-pop"></div>
-            <p class="ins-font-md box-f-1">险种信息</p>
+            <p class="ins-font-md box-f-1">险种信息{{hasAddons}}</p>
             <div class="header-btn-save">
                 <button class="ins-btn sm-btn blue">保存</button>
             </div>
@@ -68,7 +68,8 @@
                     <div class="input-item">
                         <label class="">年缴保费(元)</label>
                         <div class="input-wrap">
-                            <input type="number" v-model.number.lazy="insurance.period_money" readonly>
+                            <input type="number" class="BL-col-ff8201" v-model.number.lazy="insurance.period_money"
+                                   readonly>
                         </div>
                         <div class="right-btn orange" @click="calMoney()">点击计算</div>
                     </div>
@@ -88,7 +89,8 @@
                     <div class="input-item">
                         <label class="">年缴保费(元)</label>
                         <div class="input-wrap">
-                            <input type="number" v-model.number.lazy="insurance.period_money" readonly>
+                            <input type="number" class="BL-col-ff8201" v-model.number.lazy="insurance.period_money"
+                                   readonly>
                         </div>
                         <div class="right-btn orange" @click="calMoney()">点击计算</div>
                     </div>
@@ -115,7 +117,7 @@
                     <div class="input-item">
                         <label class="">基本保额(元)</label>
                         <div class="input-wrap">
-                            <input type="number" v-model.number.lazy="insurance.money" readonly>
+                            <input type="number" class="BL-col-ff8201" v-model.number.lazy="insurance.money" readonly>
                         </div>
                         <div class="right-btn orange" @click="calMoney()">点击计算</div>
                     </div>
@@ -132,6 +134,16 @@
                 </template>
                 <!--万年红-->
                 <template v-else-if="insurance.safe_id===wnh">
+                    <div class="input-item ins-pd-r-0" v-if="init&&init.nj_get_way">
+                        <label class="">年金领取方式</label>
+                        <div class="input-wrap box-f-1 multi-btn">
+                            <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.draw_freq}"
+                                    v-for="(item,index) in init.nj_get_way"
+                                    @click="insurance.draw_freq=item.value">
+                                {{item.text}}
+                            </button>
+                        </div>
+                    </div>
                     <div class="input-item">
                         <label class="">年缴保费(元)</label>
                         <div class="input-wrap box-f-1">
@@ -145,16 +157,6 @@
                         </div>
                         <div class="right-btn orange" @click="calMoney()">点击计算</div>
                     </div>
-                    <div class="input-item ins-pd-r-0" v-if="init&&init.nj_get_way">
-                        <label class="">年金领取方式</label>
-                        <div class="input-wrap box-f-1 multi-btn">
-                            <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.draw_freq}"
-                                    v-for="(item,index) in init.nj_get_way"
-                                    @click="insurance.draw_freq=item.value">
-                                {{item.text}}
-                            </button>
-                        </div>
-                    </div>
                 </template>
                 <!--万年青-->
                 <template v-else>
@@ -167,7 +169,8 @@
                     <div class="input-item">
                         <label class="">年缴保费(元)</label>
                         <div class="input-wrap">
-                            <input type="number" v-model.number.lazy="insurance.period_money" readonly>
+                            <input type="number" class="BL-col-ff8201" v-model.number.lazy="insurance.period_money"
+                                   readonly>
                         </div>
                         <div class="right-btn orange" @click="calMoney()">点击计算</div>
                     </div>
@@ -187,7 +190,7 @@
                 <div class="input-item box-f-1">
                     <div class="box-f-3 ins-font-sm">{{item.name}}</div>
                     <div class="form-switch-note">投保</div>
-                    <div class="mui-switch mui-switch-mini" :id="'addon'+index" @click="chAddonState(index)">
+                    <div class="mui-switch mui-switch-mini" :id="'addon'+index" @tap="chAddonState(index)">
                         <div class="mui-switch-handle"></div>
                     </div>
                 </div>
@@ -234,7 +237,7 @@
                     </div>
                 </div>
                 <!--附加尊享安康-->
-                <template v-if="index===zxak">
+                <template v-if="index==zxak">
                     <div class="input-item ins-pd-r-0">
                         <label class="">交费期间</label>
                         <div class="input-wrap box-f-1 multi-btn">
@@ -249,28 +252,23 @@
                     </div>
                     <div class="input-item ins-pd-r-0">
                         <label class="">保险金额</label>
-                        <div class="input-wrap box-f-1 multi-btn">
-                            <button class="ins-btn xs-btn" :class="{'blue':addonIns[index].money===500000}"
-                                    @click="insurance.pay_year=item.pay_year">50万
-                            </button>
-                            <button class="ins-btn xs-btn" :class="{'blue':addonIns[index].money===1000000}"
-                                    @click="insurance.pay_year=item.pay_year">100万
-                            </button>
-                            <button class="ins-btn xs-btn" :class="{'blue':addonIns[index].money===1500000}"
-                                    @click="insurance.pay_year=item.pay_year">150万
+                        <div class="input-wrap box-f-1 multi-btn" v-for="(ite,ind) in zxmoney_arr">
+                            <button class="ins-btn xs-btn" :class="{'blue':addonIns[index].money===ind}"
+                                    :disabled="addonIns[index].money===ind"
+                                    @click="changeAddon(index,ind)">{{ite}}
                             </button>
                         </div>
                     </div>
                     <div class="input-item">
                         <label class="">年缴保费(元)</label>
                         <div class="input-wrap">
-                            <input type="number">
+                            <input type="number" v-model="addonIns[index].period_money">
                         </div>
                         <div class="right-btn orange" @click="calMoney(index)">点击计算</div>
                     </div>
                 </template>
                 <!--附加恒顺意外-->
-                <template v-if="index===hs">
+                <template v-if="index==hs">
                     <div class="input-item ins-pd-r-0">
                         <label class="">交费期间</label>
                         <div class="input-wrap box-f-1 multi-btn">
@@ -286,15 +284,45 @@
                     <div class="input-item">
                         <label class="">基本保额(元)</label>
                         <div class="input-wrap box-f-1">
-                            <input type="number" placeholder="请输入">
+                            <input type="number" placeholder="请输入" v-model.number.lazy="addonIns[index].money">
                         </div>
                     </div>
                     <div class="input-item">
                         <label class="">年缴保费(元)</label>
                         <div class="input-wrap">
-                            <input type="number">
+                            <input type="number" v-model.number.lazy="addonIns[index].period_money">
                         </div>
-                        <div class="right-btn orange">点击计算</div>
+                        <div class="right-btn orange" @click="calMoney(index)">点击计算</div>
+                    </div>
+                </template>
+                <!--附加恒祥住院-->
+                <template v-if="index==hx">
+                    <div class="input-item ins-pd-r-0">
+                        <label class="">交费期间</label>
+                        <div class="input-wrap box-f-1 multi-btn">
+                            <button class="ins-btn xs-btn blue">趸交</button>
+                        </div>
+                    </div>
+                    <div class="input-item ins-pd-r-0">
+                        <label class="">保险期间</label>
+                        <div class="input-wrap box-f-1 multi-btn">
+                            <button class="ins-btn xs-btn blue">1年</button>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">保额(元/天)</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" placeholder="50~200(元/天)" v-model.number.lazy="addonIns[index].money">
+                        </div>
+                    </div>
+                    <div class="input-item ins-font-xs BL-col-999">保额范围是<span class="BL-col-ff8201">50~{{assu_age > 17 ? '200' : '100'}}（元/天）</span>
+                    </div>
+                    <div class="input-item">
+                        <label class="">年缴保费(元)</label>
+                        <div class="input-wrap">
+                            <input type="number" v-model.number.lazy="addonIns[index].period_money">
+                        </div>
+                        <div class="right-btn orange" @click="calMoney(index)">点击计算</div>
                     </div>
                 </template>
             </div>
@@ -306,7 +334,7 @@
 
 </div>
 </body>
-<script src="../js/mui.min.js" type="text/javascript"></script>
+<script src="../js/mui.js" type="text/javascript"></script>
 <script src="../js/vue.min.js" type="text/javascript"></script>
 <script src="../js/mui.picker.js"></script>
 <script src="../js/mui.poppicker.js"></script>
@@ -319,13 +347,25 @@
     var safe = new Vue({
         el: '#Js-content',
         data: {
+            assu_age: 20,
+            assured: {
+                assured_gender: 'LAB0001'
+            },
+            applicant: {
+                holder_gender: 'LAB0001'
+            },
             init: {}, //初始化数据
             safegoods: null, //所有产品
-            money_arr: { //千万护航保费选项
+            money_arr: { //千万护航保额选项
                 '50000': '5万',
                 '100000': '10万',
                 '150000': '15万',
                 '200000': '20万'
+            },
+            zxmoney_arr: { //尊享安康保额选项
+                '500000': '50万',
+                '1000000': '100万',
+                '1500000': '150万'
             },
             insurances: [], //保存的险种
             Addons: {}, //所有附加险
@@ -386,6 +426,11 @@
             }
         },
         methods: {
+            changeAddon: function (index, money) {
+                this.addonIns[index].money = money
+                this.addonIns[index].period_money = ''
+                this.$forceUpdate()
+            },
             // 重置主险信息
             resetMainIns: function () {
                 this.insurance = {
@@ -442,8 +487,8 @@
                     for (var i in child) {
                         obj[child[i]['id']] = child[i]
                     }
-//                    vm.resetAddons(init);
                     vm.Addons = obj
+                    vm.resetAddons(init);
                     //初始化switch
                     vm.$nextTick(function () {
                         mui('.mui-switch').switch();
@@ -453,16 +498,11 @@
             //获取险种列表
             getIns: function () {
                 var vm = this
-                mui.ajax(baseURL + '/invoke', {
+                luckyAjax({
                     data: {
                         data: JSON.stringify({'supplier_id': SCID}),
-                        device: 'mobile',
                         server: 'PolicyIns.getProductList'
                     }, //获取险种列表
-                    dataType: 'json',//服务器返回json格式数据
-                    type: 'post',//HTTP请求类型
-                    timeout: 10000,//超时时间设置为10秒；
-                    headers: {'Content-Type': 'application/json'},
                     success: function (res) {
                         console.log(JSON.stringify(res));
                         if (res.code == 1) {
@@ -538,21 +578,17 @@
                         break
                 }
                 vm.$nextTick(function () {
-//                    return vm.setAddonsShow(init)
+                    return vm.setAddonsShow(init)
                 });
             },
             setAddonsShow: function (init) {
                 console.log('setAddonsShow')
                 var vm = this
                 var hasAddons = false
-                console.log(JSON.stringify(vm.showAddonIns));
                 for (var i in vm.showAddonIns) {
                     console.log(i)
                     if (vm.showAddonIns[i] === true) {
                         hasAddons = true
-                        console.log(11111111)
-                        console.log(vm.Addons[i])
-                        console.log(11111111)
                         if (vm.Addons[i]) {
                             vm.setAddons(i, init)
                         }
@@ -561,9 +597,8 @@
                 vm.hasAddons = hasAddons
             },
             setAddons: function (i, init) {
-                console.log('setAddons')
+                console.log('setAddons' + i)
                 var vm = this
-                console.log(JSON.stringify(vm.Addons))
                 var tml = {
                     safe_id: i, //险种
                     safe_year: '', //保险期间
@@ -573,6 +608,7 @@
                 }
                 console.log(i + ', 是否初始化：' + init)
                 if (i === tbrhm) {
+                    console.log('豁免')
                     var item = {}
                     for (var j in vm.Addons[i].ratio) {
                         item = vm.Addons[i].ratio[j]
@@ -586,7 +622,8 @@
                         tml.safe_year = item.pay_year
                     }
                     tml.money = vm.insurance.period_money
-                } else if (i !== tbrhm) {
+                } else {
+                    console.log('非豁免')
                     if (vm.Addons[i].ratio.length === 1) {
                         tml.safe_year = vm.Addons[i].ratio[0].safe_year
                         tml.pay_year = vm.Addons[i].ratio[0].pay_year
@@ -595,14 +632,13 @@
                 }
                 console.log('设置附加险,ID:' + i)
                 vm.addonIns[i] = tml
-
                 if (init) {
                     console.log('初始化附加险')
                     var kitem = {}
                     for (var k in vm.insurances) {
                         kitem = vm.insurances[k]
                         if (k > 0 && kitem.safe_id === i) {
-                            vm.$set(vm.addonsSelected, kitem.safe_id, true)
+                            vm.addonsSelected[kitem.safe_id] = true
                             vm.addonIns[kitem.safe_id] = {
                                 safe_id: kitem.safe_id,
                                 safe_year: kitem.safe_year,
@@ -614,14 +650,11 @@
                         }
                     }
                 }
+
             },
             chAddonState: function (index) {
+                console.log('toggle')
                 var vm = this
-                var id = 'addon' + index
-                if (index === '273') {
-                    mui('#' + id).switch().toggle();
-                    return false;
-                }
                 vm.addonsSelected[index] = !vm.addonsSelected[index];
                 if (!vm.addonIns[index]) return
                 if (index === cjb) {
@@ -661,6 +694,7 @@
                 }
                 if (toast_text) {
                     mui.toast(toast_text, {duration: 'short', type: 'div'});
+                    mui('#addon'+ index).switch().toggleAct(false);
                     return false;
                 } else {
                     if (vm.addonsSelected[index] && !vm.addonIns[index].period_money) {
@@ -705,7 +739,7 @@
                 var applAge = 20
                 var id = index === 0 ? this.insurance.safe_id : index
                 var name = this.Addons[id] ? this.Addons[id].name : this.main_insurance.name
-                console.log(age + applAge + pay_year + id + name)
+//              console.log(age + applAge + pay_year + id + name)
 
                 if (toast_text) {
                     mui.toast(toast_text, {duration: 'short', type: 'div'});
@@ -814,6 +848,7 @@
             },
             //试算
             calMoney: function (index) {
+                alert('ss' + index)
                 console.log('试算中');
                 var vm = this
                 var id = Number(vm.insurance.safe_id);
@@ -872,7 +907,7 @@
                     }
                 };
                 //开始试算
-                mui.ajax(baseURL + '/invoke', {
+                luckyAjax({
                     data: {
                         data: JSON.stringify({
                             msg: basedata,
@@ -882,19 +917,20 @@
                         server: 'PolicyIns.onlineInsured',
                         device: 'mobile'
                     },
-                    dataType: 'json',//服务器返回json格式数据
-                    type: 'post',//HTTP请求类型
-                    timeout: 10000,//超时时间设置为10秒；
-                    headers: {'Content-Type': 'application/json'},
                     success: function (res) {
                         console.log(JSON.stringify(res));
                         if (res.code) {
                             var data = res.data
+                            vm.$nextTick(function () {
+                                mui('.mui-switch').switch();
+                            });
                             if (data.result === 'success') {
                                 console.log('cal-success')
                                 if (index) {
                                     console.log('试算附加险' + index + '成功')
                                     //试算附加险成功
+                                    vm.addonIns[index].period_money = data.data.premium;
+                                    vm.$forceUpdate()
                                 } else {
                                     console.log('试算主险' + index + '成功')
                                     if (id === fxjs || id === wnh) {
@@ -904,6 +940,8 @@
                                         console.log('period_money:' + data.data.premium)
                                         vm.insurance.period_money = data.data.premium;
                                     }
+                                    // 重置附加险
+                                    vm.resetAddons();
                                 }
                             } else {
                                 console.log('cal-failure')
@@ -944,6 +982,7 @@
 
                 if (toast_text) {
                     mui.toast(toast_text, {duration: 'short', type: 'div'});
+                    mui('#addon' + index).switch().toggle();
                     return false
                 }
                 return this.checkAddonMoney(index) && this.checkAge(index)
@@ -984,6 +1023,7 @@
                 }
                 if (toast_text) {
                     mui.toast(name + toast_text, {duration: 'short', type: 'div'});
+                    mui('#addon' + index).switch().toggle();
                     return false
                 }
                 return true

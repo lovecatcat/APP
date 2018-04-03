@@ -109,16 +109,11 @@
         function getData(id) {
             console.log(JSON.stringify({product_id: id}));
             plus.nativeUI.showWaiting();
-            mui.ajax('http://www.luckyins.com/api/api/invoke', {
+            luckyAjax({
                 data: {
                     data: JSON.stringify({product_id: id}),
-                    device: 'pad',
                     server: 'lifeProduct.getProductInfo'
                 },
-                dataType: 'json',//服务器返回json格式数据
-                type: 'post',//HTTP请求类型
-                timeout: 10000,//超时时间设置为10秒；
-                headers: {'Content-Type': 'application/json'},
                 success: function (data) {
                     plus.nativeUI.closeWaiting();
                     console.log(JSON.stringify(data))
@@ -129,10 +124,6 @@
                         mui.toast(data.msg, {duration: 'short', type: 'div'})
                         return false;
                     }
-                },
-                error: function (xhr, type, errorThrown) {
-                    mui.toast(errorThrown, {duration: 'short', type: 'div'})
-                    return false
                 }
             });
         }

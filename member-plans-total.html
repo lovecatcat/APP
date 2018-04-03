@@ -103,6 +103,7 @@
 	<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/plansData.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
+		var user_id;
 		mui.init();
 		var parent_self;
 		var plansTotal = new Vue({
@@ -144,6 +145,7 @@
 
 				var pl_id = plus.webview.currentWebview().pl_id //获取从列表从过来的plid
 				parent_self = plus.webview.getWebviewById('member_plans_detail') //父级id
+				user_id = JSON.parse(plus.storage.getItem("userinfo")).id;
 
 				//获取汇总数据
 				luckyAjax({
@@ -166,6 +168,7 @@
 								})
 							}
 							if(res.data.child) {
+//								alert(JSON.stringify(res.data.child))
 								mui.each(res.data.child, function(index, item) {
 									var pl_id = item.id
 									mui.each(res.data.child[index].content, function(i, m) {

@@ -42,6 +42,7 @@
 	<script src="js/webviewGroup.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/vue.min.js"></script>
 	<script type="text/javascript">
+		var user_id;
 		var plansDetail = new Vue({
 			el: '#Js-content',
 			data: {
@@ -63,7 +64,7 @@
 			var _divH = topHeight + divHeight + 1; // 头部高度
 			var _viewH = winH - _divH; // 内容区域高度
 			var _self = plus.webview.currentWebview();
-
+			 user_id = JSON.parse(plus.storage.getItem("userinfo")).id;
 			var pl_id = plus.webview.currentWebview().pl_id //获取从列表从过来的plid
 			//		plus.storage.setItem('plans-total', res.data.list);
 			plansDetail.aloneId = pl_id

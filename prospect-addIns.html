@@ -1601,7 +1601,7 @@
 			var winH = window.innerHeight;
 			var titHeight = document.querySelector('#Js-header').offsetHeight;
 			document.querySelector('#Js-content').style.height = (winH - titHeight) + 'px';
-			
+			user_id = JSON.parse(plus.storage.getItem("userinfo")).id;
 			
 			parent_self = plus.webview.getWebviewById('prospect') //父级id
 			ins.plan_id = plus.webview.currentWebview().plan_id //id

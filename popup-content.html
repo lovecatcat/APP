@@ -22,7 +22,7 @@
 				</div>
 			</div>
 			<!-- 业绩表格(雨晴)-->
-			<div id="modal-table-performance" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table-performance'}">
+			<div id="modal-table-performance" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table-performance'}" v-if="goIns_data">
 				<div class="BL-modal-content BL-modal-tab">
 					<div class="BL-title">
 						{{ goIns_data.name }}
@@ -65,7 +65,7 @@
 				</div>
 			</div>
 			<!-- 计划书表格(雨晴)-->
-			<div id="modal-table-prospect" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table-prospect'}">
+			<div id="modal-table-prospect" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table-prospect'}" v-if="goIns_data">
 				<div class="BL-modal-content BL-modal-tab">
 					<div class="BL-title">
 						{{ goIns_data.name }}

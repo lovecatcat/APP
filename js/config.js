@@ -3,7 +3,6 @@ var config = {
     moduleURL: 'http://ts-www.luckyins.com/api/api/'
 };
 var baseURL = 'http://ts-www.luckyins.com/api/api/';
-var user_id = JSON.parse(plus.storage.getItem("userinfo")).id;
 
 /**
  * 根据不同手机的屏幕Dpi，计算并重置屏幕缩放比例

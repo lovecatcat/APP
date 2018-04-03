@@ -1,5 +1,4 @@
 mui.init();
-
 var aloneDetail = new Vue({
 	el: '#Js-alone',
 	data: {
@@ -8,17 +7,17 @@ var aloneDetail = new Vue({
 		main: {}, //主险信息
 		children: {}, //附加险信息,
 		adviser: '', //业务员信息
-		tk: [130, 318, 348, 363],
-		gh: [272, 316, 379, 384, 19388],
-		gy: [283, 19384],
-		pa: [280],
-		xt: [210, 313, 361, 377],
-		zy: [165, 319, 382, 19390, 19391],
-		hd: [288, 292, 360, 369, 378, 401],
+		tk: [121, 301, 334],
+		gh: [256, 300, 349, 354, 16201],
+		gy: [267, 16197],
+		pa: [264],
+		xt: [197, 332, 347],
+		zy: [155, 302, 352, 16203, 16204],
+		hd: [272, 276, 340, 348, 370],
 		al: [309],
-		fx: [364, 365, 366],
-		behalfTable: [365, 377, 382, 384, 401, 19384, 19388], //主险利益演示表和附加险有关系的
-		level: [401, 378, 377], //有中高低的
+		fx: [335, 336, 337],
+		behalfTable: [336, 347, 352, 354, 370, 16197, 16201], //主险利益演示表和附加险有关系的
+		level: [370, 348, 347], //有中高低的
 		levelNum: 'mid',
 		manual_content: {},
 		plansText: {}, //文案
@@ -58,7 +57,7 @@ var aloneDetail = new Vue({
 					formID : id, //险种id
 					list : list,
 					pay_year : aloneDetail.list.pay_year,
-					safe_year : aloneDetail.pl_id,
+					safe_year : aloneDetail.list.safe_year,
 					levelNum : this.levelNum
 				}
 			//打开弹框
@@ -88,21 +87,23 @@ var aloneDetail = new Vue({
 
 		},
 		designSave: function(id){
-			alert(JSON.stringify(this.manual_content))
-			var data = {
-				server: 'Proposal.writeManualContent',
-				data: JSON.stringify({
-					pl_id: aloneDetail.pl_id,
-					manual_content: this.manual_content
-				}),
-				device: 'mobile'
-			};
-			mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
-				if(res.code == 1) {
-					mui.toast('保存成功')
-				} else { 
-					mui.toast(res.msg)
-				}
+//			alert(JSON.stringify(this.manual_content))
+			luckyAjax({
+				data: {
+		            server: 'Proposal.writeManualContent',
+		            device: 'mobile',
+		            data: JSON.stringify({
+						pl_id: aloneDetail.pl_id,
+						manual_content: this.manual_content
+					})
+		        },
+		        success:function(res){
+		        	if(res.code == 1) {
+						mui.toast('保存成功')
+					} else { 
+						mui.toast(res.msg)
+					}
+		        }
 			});
 
 		},
@@ -133,7 +134,7 @@ var aloneDetail = new Vue({
 		   //接收单个计划书数据alone
 			window.addEventListener('alone',function(event){
 				var data = event.detail.data
-//				console.log(JSON.stringify(data.main))
+//				alert(JSON.stringify(data.main))
 				aloneDetail.list = data
 				aloneDetail.adviser = event.detail.adviser
 				aloneDetail.pl_id = event.detail.pl_id
@@ -1613,20 +1614,22 @@ var aloneDetail = new Vue({
 				aloneDetail.plansText = plans
 //				alert(aloneDetail.pl_id)
 				if(aloneDetail.level.indexOf(Number(aloneDetail.list.genre)) > -1 ){
-		        	var data = {
-						server: 'Proposal.getSingleProposal',
-						data: JSON.stringify({
-							pl_id: aloneDetail.pl_id,
-							user_id: 65
-						}),
-						device: 'mobile'
-					};
-					mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
-						if(res.code == 1) {
-							aloneDetail.manual_content = res.data.manual_content
-						} else { 
-							mui.toast(res.msg)
-						}
+					luckyAjax({
+						data: {
+				            server: 'Proposal.getSingleProposal',
+				            device: 'mobile',
+				            data: JSON.stringify({
+								pl_id: aloneDetail.pl_id,
+								user_id: user_id
+							})
+				        },
+				        success:function(res){
+				        	if(res.code == 1) {
+								aloneDetail.manual_content = res.data.manual_content
+							} else { 
+								mui.toast(res.msg)
+							}
+				        }
 					});
 		        }
 			});

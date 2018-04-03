@@ -61,7 +61,7 @@
 								</tbody>
 							</table>
 						</div>
-					</div>	
+					</div>
 				</div>
 			</div>
 			<!-- 计划书表格(雨晴)-->
@@ -133,12 +133,12 @@
 					</div>
 				</div>
 			</div>
-			<div id="modal-plan" class="BL-modal BL-modal-w70"  :class="{'BL-hide': isHide !== 'modal-config'}">
+			<div id="modal-plan" class="BL-modal BL-modal-w70"  :class="{'BL-hide': isHide !== 'modal-plan'}">
 				<div class="BL-modal-content">
 					<div class="BL-txt-c BL-pad-tb-1_5">是否添加方案</div>
 					<div class="BL-modal-content-button">
-						<button type="button" @click="cancel">不添加</button>
-						<button type="button" @click="sure">添加</button>
+						<button type="button" @click="cancel('pushPlan')">不添加</button>
+						<button type="button" @click="sure('addPlan')">添加</button>
 					</div>
 				</div>
 			</div>
@@ -158,21 +158,36 @@
 				goIns_data: ''
 			},
 			methods: {
-				sure: function(){
+				sure: function(addPlan){
 					//点击确定，吧状态传回去
-					if(this.formID == 'member_plans_manage'){
-						mui.fire(plus.webview.getWebviewById('member_plans_manage'), 'sure');
-					}else if(this.formID == 'member_plans_total'){
-						mui.fire(plus.webview.getWebviewById('member_plans_total'), 'sure');
-					}else if(this.formID == 'member_plans_alone'){
-						mui.fire(plus.webview.getWebviewById('member_plans_alone'), 'sure');
-					}else if(this.formID == 'prospect_main'){
-						mui.fire(plus.webview.getWebviewById('prospect_main'), 'sure');
+					if(addPlan == 'addPlan'){
+						if(this.formID == 'prospect'){
+							mui.fire(plus.webview.getWebviewById('prospect'), 'addPlan');
+						}
+					}else{
+						if(this.formID == 'member_plans_manage'){
+							mui.fire(plus.webview.getWebviewById('member_plans_manage'), 'sure');
+						}else if(this.formID == 'member_plans_total'){
+							mui.fire(plus.webview.getWebviewById('member_plans_total'), 'sure');
+						}else if(this.formID == 'member_plans_alone'){
+							mui.fire(plus.webview.getWebviewById('member_plans_alone'), 'sure');
+						}else if(this.formID == 'prospect'){
+							mui.fire(plus.webview.getWebviewById('prospect'), 'sure', {data: modal.goIns_data});
+						}
 					}
+
 					popu.closepop();
 				},
-				cancel: function(){
-					popu.closepop();
+				cancel: function(addPlan){
+					if(addPlan == 'pushPlan'){
+						if(this.formID == 'prospect'){
+							mui.fire(plus.webview.getWebviewById('prospect'), 'pushPlan');
+						}
+						popu.closepop();
+					}else{
+						popu.closepop();
+					}
+
 				}
 			}
 		})

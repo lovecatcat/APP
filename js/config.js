@@ -3,6 +3,8 @@ var config = {
     moduleURL: 'http://ts-www.luckyins.com/api/api/'
 };
 var baseURL = 'http://ts-www.luckyins.com/api/api/';
+var user_id = JSON.parse(plus.storage.getItem("userinfo")).id;
+
 /**
  * 根据不同手机的屏幕Dpi，计算并重置屏幕缩放比例
  */
@@ -92,7 +94,6 @@ function statusbar() {
     document.querySelector('#Js-header').style.paddingTop = barTop + 'px';
     plus.navigator.setStatusBarStyle('dark');
 };
-
 //判断用户是否登录
 function isLogin() {
     var flag = plus.storage.getItem('timestamp')
@@ -105,7 +106,6 @@ function isLogin() {
         });
     }
 }
-
 // 打开遮罩层，弹框
 function showPopu(url, id, type, data) {
     var _self = plus.webview.currentWebview();

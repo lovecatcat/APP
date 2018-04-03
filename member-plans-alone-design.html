@@ -179,20 +179,22 @@
 					this.ImgSrc = src
 				},
 				ImageData :function() { //获取数据
-					var data = {
-						server: 'Proposal.getProposalPicture',
-						data: JSON.stringify({
-							cate: this.nav-1,
-							tip: '' 
-						}),
-						device: 'mobile'
-					};
-					mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
-						if(res.code == 1) {
-							modal.imageData = res.data.child
-						} else { 
-							mui.toast(res.msg)
-						}
+					luckyAjax({
+						data: {
+				            server: 'Proposal.getProposalPicture',
+				            device: 'mobile',
+				            data: JSON.stringify({
+								cate: this.nav-1,
+								tip: '' 
+							})
+				        },
+				        success:function(res){
+				        	if(res.code == 1) {
+								modal.imageData = res.data.child
+							} else { 
+								mui.toast(res.msg)
+							}
+				        }
 					});
 			
 				}

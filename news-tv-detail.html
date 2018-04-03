@@ -114,23 +114,18 @@
 				document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
 				//点赞
 				document.querySelector('.goods').addEventListener('tap', function() {
-					mui.ajax(config.baseUrl, {
-			            data: {
-			                server: 'Information.praise',
-			                device: 'mobile',
-			                data: JSON.stringify({id: newsDetail.newsTvDetail_data.id})
-			            },
-			            dataType: 'json',
-			            type: 'post',
-			            success: function (res) {
-			               if(res.code) {
+			    	luckyAjax({
+						data: {
+				            server: 'Information.praise',
+				            device: 'mobile',
+				            data: JSON.stringify({id: newsDetail.newsTvDetail_data.id})
+				        },
+				        success:function(data){
+				        	if(res.code) {
 								newsDetail.newsTvDetail_data.praise_num = res.data.praise_num
 							} 
-			            },
-			            error: function () {
-			                mui.toast('网络异常：404')
-			            }
-			    	});
+				        }
+					});
 				});
 		
 		
@@ -140,25 +135,20 @@
 				var id = event.detail.id;
 				console.log(id)
 				//根据id向服务器请求新闻详情
-				mui.ajax(config.baseUrl, {
-		            data: {
-		                server: 'Information.content',
-		                device: 'mobile',
-		                data: JSON.stringify({id: id}),
-		            },
-		            dataType: 'json',
-		            type: 'post',
-		            success: function (res) {
-		               if(res.code == 1) {
+				luckyAjax({
+					data: {
+			            server: 'Information.content',
+			            device: 'mobile',
+			            data: JSON.stringify({id: id})
+			        },
+			        success:function(data){
+			        	if(res.code == 1) {
 							newsDetail.newsTvDetail_data = res.data
 						}else{
 							console.log(res.msg)
 						}
-		            },
-		            error: function () {
-		                mui.toast('网络异常：404')
-		            }
-		    	});
+			        }
+				});
 
 			});
 		})

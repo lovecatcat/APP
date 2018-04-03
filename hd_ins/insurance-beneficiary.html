@@ -154,7 +154,7 @@
                     class="BL-col-ff8201">100%</span>
             </div>
             <div class="input-item box-f-1 box-align-center">
-                <div class="box-f-1 ins-font-sm BL-col-3b9cf5">是否与投被保人同地址{{beneficiary.addr_type}}？</div>
+                <div class="box-f-1 ins-font-sm BL-col-3b9cf5">是否与投被保人同地址？</div>
                 <div class="box-f-2">
                     <button class="ins-btn xxs-btn" @click="beneficiary.addr_type=1"
                             :class="{'blue':beneficiary.addr_type===1}">同投保人
@@ -340,7 +340,7 @@
                     return false
                 }
                 let max = this.beneficiariesIndex.length > 0 ? Math.max(...this.beneficiariesIndex) : 0
-                if (!this.checkAllBens()) return false
+//                if (!this.checkAllBens()) return false
                 this.beneficiariesIndex.push(max + 1)
                 this.$nextTick(() => {
                     this.updateBeneficiaryRatio()
@@ -414,9 +414,9 @@
                         toastText = owner + '出生日期不能为空'
                     } else if (age < 0) {
                         toastText = '请输入' + owner + '正确的出生日期'
-                    } else if (age >= 16 && type !== '15376') {
+                    } else if (age >= 16 && type !== IDcard) {
                         toastText = owner + '年满16周岁不允许选择证件类型为户口本和出生证'
-                    } else if (age >= 2 && type === '15382') {
+                    } else if (age >= 2 && type === IDcard) {
                         toastText = owner + '年满2周岁不允许选择证件类型为出生证'
                     } else if (!item.beneficiary.beneficiary_is_insured) {
                         toastText = '请选择' + owner + '与被保人关系'

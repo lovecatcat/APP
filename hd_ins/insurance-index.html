@@ -64,9 +64,16 @@
                 <div class="mui-icon mui-icon-arrowright"></div>
             </div>
         </div>
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" id="ins-pic">
+            <label class="ins-font-md">上传证件</label>
+            <input name="bank" value="6" type="checkbox" v-model="bank_save" disabled>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </div>
     </form>
     <div class="BL-mar-t-3 BL-pad-lr-1_5">
-        <a type="button" class="form-btn blue" href="auto2c-choose.html" data-wid="auto2c_choose">下一步</a>
+        <a type="button" id="ins-save" class="form-btn blue">保存后发链接给客户签名投保</a>
     </div>
 </div>
 <script src="../js/mui.min.js" type="text/javascript"></script>
@@ -119,7 +126,14 @@
             // 打开遮罩层，弹框
             showPopu("insurance-safegood.html", "insurance_safegood", "bottom", index.init);
         });
-
+        mui('body').on('tap', '#ins-pic', function () {
+            // 打开遮罩层，弹框
+            showPopu("insurance-upload.html", "insurance_upload", "bottom");
+        });
+        mui('body').on('tap', '#ins-save', function () {
+            // 打开遮罩层，弹框
+            showPopu("insurance-sign.html", "insurance_sign", "bottom");
+        });
         //整理下拉框需要的数据
         function dataToselect(data, type) {
             var arr = [];

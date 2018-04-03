@@ -73,6 +73,50 @@ var zipcodes = {
     '3877': ['99'],
     '24021': ['99']
 };
+
+//数据初始化
+var applicant = {
+    holder_name: '张三', //姓名
+    holder_ID_type: IDcard, //证件类型
+    holder_ID_type_name: '身份证', //证件类型名
+    holder_ID_no: '542221198105086418', //证件号码
+    holder_birthday: '1981-05-08', //出生日期
+    holder_ID_expire_end: '2020-01-01', //证件有效期
+    holder_gender: MALE,//性别  1男  2女
+    holder_mobile: '15923526890',//手机号
+    holder_email: '454522525@126.com',//邮箱
+    holder_height: '160',//身高
+    holder_weight: '50',//体重
+    holder_nation: NATION,//国籍
+    holder_salary_from: 'LAF0001',//收入来源
+    holder_salary_from_name: '工薪',//收入来源名
+    holder_salary_avg: '20',//年收入
+
+    holder_home_province: '20',//现在住址【省】
+    holder_home_city: '323',//现在住址【市】
+    holder_home_district: '',//现在住址【区】
+    holder_home_district_name: '请选择',//现在住址【区】名称
+    holder_home_address: '', //现在住址【地址详情】
+    holder_home_zip: '',//现在住址【邮编】
+    mail_addr_type: false,//（通讯地址）同现在住址
+    holder_contact_province: '',//通讯地址【省】
+    holder_contact_city: '',//通讯地址【市】
+    holder_contact_district: '',//通讯地址【区】
+    holder_contact_province_name: '请选择',//通讯地址【省】名称
+    holder_contact_city_name: '请选择',//通讯地址【市】名称
+    holder_contact_district_name: '请选择',//通讯地址【区】名称
+    holder_contact_address: '', //通讯地址【地址详情】
+    holder_contact_zip: '',//通讯地址【邮编】
+
+    holder_has_SSID: '',//是否有社保
+    holder_marriage: '',//婚姻状况
+    holder_job_code: '',//职业
+    holder_job_name: '',//职业名称
+    holder_isTaxResidents: '', //税收标识
+    resident_type: '' //居民类型
+};
+//
+
 //证件号校验
 var IDValidate = function (type, id, owner) {
     var Validator = new IDValidator();
@@ -389,7 +433,7 @@ var checkAppl = function () {
         return false
     } else if (!checkWeight('投保人', appl.applicant.holder_weight)) {
         return false
-    } else if (!appl.checkEmail('投保人', appl.applicant.holder_email)) {
+    } else if (!checkEmail('投保人', appl.applicant.holder_email)) {
         return false
     } else if (!appl.applicant.resident_type) {
         toast_text = '投保人居民类型不能为空'
@@ -421,21 +465,40 @@ var checkAppl = function () {
     }
     return true;
 };
+//校验被保人信息
 var checkAssured = function () {
     console.info('校验被保人信息')
     var toast_text = null
     const vm = this
-    if (!vm.checkName('被保人', assu.assured.assured_name)) { //被保人
-        return false
+    if (!assu.assured.rel_insured_holder) {
+        toast_text = '请选择与投保人关系'
+    } else if (!assu.assured.assured_isTaxResidents) {
+        toast_text = '请选择被保人居民税收类型'
     } else if (!assu.assured.assured_ID_type) {
         toast_text = '被保人证件类型不能为空'
     } else if (!IDValidate(assu.assured.assured_ID_type, assu.assured.assured_ID_no, '被保人')) {
         return false
     } else if (!checkTerm(assu.assured.assured_ID_expire_end, '被保人')) {
         return false
+    } else if (!vm.checkName('被保人', assu.assured.assured_name)) { //被保人
+        return false
     } else if (!assu.assured.assured_birthday) {
         toast_text = '被保人出生日期不能为空'
     } else if (!checkPhone('被保人', assu.assured.assured_mobile)) {
+        return false
+    } else if (!assu.assured.assured_job_code) {
+        toast_text = '被保人职业不能为空'
+    } else if (!checkOccupation('被保人')) {
+        return false
+    } else if (!checkEarnings(2, assu.assured.assured_salary_avg)) {
+        return false
+    } else if (!assu.assured.assured_marriage) {
+        toast_text = '被保人婚姻状况不能为空'
+    } else if (!assu.assured.assured_salary_from) {
+        toast_text = '被保人收入来源不能为空'
+    } else if (!checkHeight('被保人', assu.assured.assured_height)) {
+        return false
+    } else if (!checkWeight('被保人', assu.assured.assured_weight)) {
         return false
     } else if (!assu.assured.assured_home_province) {
         toast_text = '被保人现在住址【省级】不能为空'
@@ -446,28 +509,6 @@ var checkAssured = function () {
     } else if (!checkAddress(assu.assured.assured_home_address, '被保人')) {
         return false
     } else if (!checkZipcode(assu.assured.assured_home_zip, assu.assured.assured_home_province, '被保人')) {
-        return false
-    } else if (assu.assured.addr_type === 0 && !assu.assured.assured_contact_province) {
-        toast_text = '被保人通讯地区【省级】不能为空'
-    } else if (assu.assured.addr_type === 0 && !assu.assured.assured_contact_city && assu.assured.assured_contact_province !== '3877') {
-        toast_text = '被保人通讯地区【市级】不能为空'
-    } else if (assu.assured.addr_type === 0 && !assu.assured.assured_contact_district && assu.assured.assured_contact_province !== '3877') {
-        toast_text = '被保人通讯地区【县/区】不能为空'
-    } else if (assu.assured.addr_type === 0 && !checkAddress(assu.assured.assured_contact_address, '被保人通讯')) {
-        return false
-    } else if (assu.assured.addr_type === 0 && !checkZipcode(assu.assured.assured_contact_zip, assu.assured.assured_contact_province, '投保人通讯')) {
-        return false
-    } else if (!assu.assured.assured_job_code) {
-        toast_text = '被保人职业不能为空'
-    } else if (!checkOccupation('被保人')) {
-        return false
-    } else if (!assu.assured.assured_marriage) {
-        toast_text = '被保人婚姻状况不能为空'
-    } else if (!checkEarnings(2, assu.assured.assured_salary_avg)) {
-        return false
-    } else if (!checkHeight('被保人', assu.assured.assured_height)) {
-        return false
-    } else if (!checkWeight('被保人', assu.assured.assured_weight)) {
         return false
     }
     if (toast_text) {
@@ -517,7 +558,14 @@ var getOccu = function (id, cb) {
         data: {data: JSON.stringify({'id': id}), server: 'PolicyIns.getBasicEnumCode'},
         success: function (data) {
             if (data.code) {
-                cb(data.data)
+                var arr = [];
+                mui.each(data.data, function (ind, ite) {
+                    arr.push({
+                        text: ite.name,
+                        value: ite.id
+                    });
+                });
+                cb(arr)
             } else {
                 cb()
             }

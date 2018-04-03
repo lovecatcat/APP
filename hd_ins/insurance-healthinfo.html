@@ -23,7 +23,7 @@
                 <button class="ins-btn sm-btn blue">保存</button>
             </div>
         </div>
-        <div class="form-content margin-t-6_125 BL-pad-b-2">
+        <div class="form-content margin-t-6_125 BL-pad-b-2" v-if="matters">
             <div class="form-wrap">
                 <ul class="table-wrap">
                     <li class="item">
@@ -99,6 +99,269 @@
 <script src="method.js"></script>
 <script type="text/javascript">
     mui.init();
+    const appforms = {
+        '144': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '145': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '146': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '147': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '149': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '150': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '151': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '152': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '153': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '154': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '155': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '156': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '157': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '158': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '159': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '160': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '161': [{
+            title: '吸烟数量',
+            type: 'number',
+            msg: '请输入吸烟数量, 保留整数',
+            reg: /^\d+$/,
+            value: ''
+        }, {
+            title: '烟龄',
+            type: 'number',
+            msg: '请输入烟龄, 保留整数',
+            reg: /^\d+$/,
+            value: ''
+        }, {
+            type: 'textarea',
+            value: '',
+            must: false
+        }],
+        '162': [{
+            title: '饮酒种类',
+            type: 'text',
+            value: ''
+        }, {
+            title: '每天饮酒量(两)',
+            type: 'number',
+            msg: '请输入每天饮酒量, 保留整数',
+            reg: /^\d+$/,
+            value: ''
+        }, {
+            title: '酒龄',
+            type: 'number',
+            msg: '请输入酒龄, 保留整数',
+            reg: /^\d+$/,
+            value: ''
+        }, {
+            title: '停止原因及时间',
+            type: 'textarea',
+            value: '',
+            must: false
+        }],
+        '163': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '165': [{
+            chief: '164',
+            type: 'textarea',
+            value: ''
+        }],
+        '166': [{
+            chief: '164',
+            type: 'textarea',
+            value: ''
+        }],
+        '167': [{
+            title: '怀孕周数',
+            type: 'number',
+            msg: '请输入怀孕周数, 保留整数',
+            reg: /^\d+$/,
+            chief: '164',
+            value: ''
+        }, {
+            type: 'textarea',
+            chief: '164',
+            value: ''
+        }],
+        '168': [{
+            title: '出生身高(cm)',
+            type: 'number',
+            msg: '请输入出生身高, 保留整数',
+            reg: /^\d+$/,
+            value: ''
+        }, {
+            title: '出生体重(Kg)',
+            msg: '请输入正确的出生体重，保留2位小数',
+            reg: /^\d+(.\d{0,2})?$/,
+            type: 'number',
+            value: ''
+        }],
+        '169': [{
+            chief: '168',
+            type: 'textarea',
+            value: ''
+        }],
+        '170': [{
+            chief: '168',
+            type: 'textarea',
+            value: ''
+        }],
+        '172': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '173': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '174': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '175': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '176': [{
+            title: '公司名称',
+            type: 'text',
+            value: ''
+        }, {
+            title: '索赔日期',
+            type: 'date',
+            value: ''
+        }, {
+            title: '索赔金额',
+            type: 'text',
+            value: ''
+        }, {
+            title: '索赔事由',
+            type: 'textarea',
+            value: ''
+        }],
+        '177': [{
+            title: '驾照类型',
+            type: 'select',
+            options: {
+                'A1': 'A1',
+                'A2': 'A2',
+                'A3': 'A3',
+                'B1': 'B1',
+                'B2': 'B2',
+                'C1': 'C1',
+                'C2': 'C2',
+                'C3': 'C3',
+                'C4': 'C4',
+                'D': 'D',
+                'E': 'E',
+                'F': 'F',
+                'M': 'M',
+                'N': 'N',
+                'P': 'P'
+            },
+            value: ''
+        }, {
+            title: '签发日期',
+            type: 'date',
+            value: ''
+        }, {
+            title: '驾龄(年)',
+            msg: '请输入整数',
+            type: 'number',
+            reg: /^\d+$/,
+            value: '',
+            must: false
+        }, {
+            title: '车辆类型',
+            type: 'text',
+            /*     options: {
+                  '00': '自用',
+                  '01': '货用',
+                  '99': '其他'
+                }, */
+            value: '',
+            must: false
+        }, {
+            title: '用途',
+            type: 'text',
+            value: '',
+            must: false
+        }],
+        '178': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '179': [{
+            title: '国家/地区',
+            type: 'text',
+            value: ''
+        }, {
+            title: '缘由',
+            type: 'text',
+            value: ''
+        }, {
+            title: '滞留时间',
+            type: 'text',
+            value: ''
+        }]
+    }
     var health = new Vue({
         el: '#Js-content',
         data: {

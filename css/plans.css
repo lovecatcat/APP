@@ -345,14 +345,15 @@ table tbody tr td{
 	padding: 0 1.25rem !important;
 }
 .BL-segmented-control .plans-nav span{
-	display: inline-block;
-	line-height: 4.0625rem;
 	padding: 0 .53125rem;
 	border-bottom: 0.1875rem solid #ffffff !important;
 }
 .BL-segmented-control .plans-nav i{
+	width: 5rem;
+	background: red;
+    height: 4.0265rem;
+    line-height: 4.0265rem;
 	font-size: 1.9rem;
-    line-height: 1.5rem;
     color: #bfbfbf;
     border: none;
 }
@@ -491,8 +492,11 @@ table tbody tr td{
 .input-item button{
 	height: 2.9375rem;
 	line-height: 2.9375rem;
-	font-size: 1.625rem;
+	font-size: 1.4375rem;
 	padding: 0 2.5rem;
+}
+.input-item button.ins-btn{
+	padding: 0 1rem;
 }
 .ins-date-icon {
     background: url(../images/icon/icon-datepicker.jpg) center no-repeat;

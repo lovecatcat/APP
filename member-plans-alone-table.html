@@ -30,8 +30,10 @@
 	                            </tr>
                             </thead>
                             <tbody class="BL-bg-f2f">
-	                            <tr v-for="(item, index) in main" :key="index"  v-if="index < safe_year">
-	                            	<td class="td_age">{{item.被保险人年龄}}</td>
+	                            <tr v-for="(item, index) in main" :key="index"  v-if="Number(index) < safe_year">
+	                            	<td >
+                            			{{item[0]}} 
+                            		</td>
 	                            </tr>
 	                           
 	                        </tbody>
@@ -42,9 +44,9 @@
                     		
                     		<table class="BL-ftz-46">
 	                            <thead class=" BL-col-3b9cf5">
-		                            <tr v-if="index == '1'" v-for="(item, index) in main" :key="index">
-		                            	<th v-for="(data, i) in item" v-if="i !== '被保险人年龄'">
-	                            			{{i}}
+		                            <tr>
+		                            	<th v-for="(item, index) in describes" :key="index" v-if="item.title !== '被保险人年龄'">
+	                            			{{item.title}}
 	                            		</th>
 		                            	<th v-if="formID == '384' && status">
 	                            			生存保险金
@@ -96,8 +98,8 @@
 	                            	</tr>
 	                            </tbody>
 	                            <tbody  v-else>
-	                            	<tr v-for="(item, index) in main" :key="index">
-	                            		<td v-for="(data, i) in item" v-if="i !== '被保险人年龄'">
+	                            	<tr v-for="(item, index) in main" :key="index" >
+	                            		<td v-for="(data, i) in item" v-if="i !== 0">
 	                            			{{data}}
 	                            		</td>
 	                            	</tr>
@@ -123,12 +125,14 @@
 				formID: '', 
 				main: {},
 				children: {},
+				describes: {},
 				pay_year: '',
 				safe_year: '',
 				levelNum : '',
 				behalfTable: [365, 377, 382, 384, 401, 19384, 19388], //主险利益演示表和附加险有关系的
 				behalfChildren: [368, 398, 183, 383, 385, 404, 19385, 19389], //主险利益演示表和附加险有关系的
-				status: false //和附加险有没有关系
+				status: false,//和附加险有没有关系
+				nj : null
 			},
 			filters: {  
 	            capitalize: function (mainValue, childrenValue) {  
@@ -153,7 +157,7 @@
 			modal.pay_year = data.pay_year
 			modal.levelNum = data.levelNum
 			
-			if(data.safe_year == '0'){
+			if(data.safe_year == 0){
 				//终身
 				modal.safe_year = 999
 			}
@@ -172,10 +176,15 @@
 				alert(JSON.stringify(modal.children))
 			}else{
 				modal.main = data.list.list
+				modal.describes = data.list.describes
 //				alert(JSON.stringify(modal.main))
 				
 			}
-			
+			mui.each(modal.describes, function(index,item){
+				if(item.title == '年缴保费'){
+					modal.nj = index
+				}
+			})
 			
 
 			// 点击关闭遮罩层，弹框

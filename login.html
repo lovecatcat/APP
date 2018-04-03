@@ -137,7 +137,7 @@
                     mui.toast('手机号格式不正确', {duration: 'short', type: 'div'});
                     return false;
                 }
-                mui.ajax('http://www.luckyins.com/api/api/invoke', {
+                mui.ajax('http://ts-www.luckyins.com/api/api/invoke', {
                     data: {data: JSON.stringify({tel: this.tel}), device: 'pad', server: 'user.sendSms'},
                     dataType: 'json',//服务器返回json格式数据
                     type: 'post',//HTTP请求类型
@@ -219,7 +219,7 @@
                 basedata = {channel_id: channel_id, type: 'sms', data: JSON.stringify({tel: tel, code: code})}
             }
             plus.nativeUI.showWaiting();
-            mui.ajax('http://www.luckyins.com/api/api/login', {
+            mui.ajax('http://ts-www.luckyins.com/api/api/login', {
                 data: basedata,
                 dataType: 'json',
                 type: 'post',

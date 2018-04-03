@@ -1,193 +1,183 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>计划书方案</title>
-	<link href="css/mui.css" rel="stylesheet" />
-	<link href="css/common.css" rel="stylesheet" />
-	<link href="css/module.css" rel="stylesheet" />
-	<link href="css/plans.css" rel="stylesheet" />
-	<script src="js/config.js" type="text/javascript"></script>
-</head>
 
-<body class="BL-bg-f2f">
-	<header id="Js-header" class="BL-bg-fff">
-		<div class="BL-mod-headbar BL-mod-headbar-pos">
-			<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
-			<h1 class="BL-title">计划书方案</h1>
-			<a class="BL-icon BL-icon-share"></a>
-		</div>
-	</header>
+	<head>
+		<meta charset="utf-8">
+		<title>计划书方案</title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/module.css" rel="stylesheet" />
+		<link href="css/plans.css" rel="stylesheet" />
+		<script src="js/config.js" type="text/javascript"></script>
+	</head>
 
-	<div id="Js-content" class="mui-content" v-cloak>
-		<div>
-			<!--分类栏目 begin-->
-			<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
-				<div class="mui-scroll">
-					<div data-wid="member_plans_total" href="member-plans-total.html" class="plans-nav mui-active">
-						<span>汇总</span>
-					</div>
-					<div data-wid="member_plans_alone" href="member-plans-alone.html" class="plans-nav" 
-						v-for="(item, index) in detail_list" :key="index" :data-id="pl_id[index]" :data-index="index">
-						<span >{{item.main.short_name}}</span>
+	<body class="BL-bg-f2f">
+		<header id="Js-header" class="BL-bg-fff">
+			<div class="BL-mod-headbar BL-mod-headbar-pos">
+				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+				<h1 class="BL-title">计划书方案</h1>
+				<a class="BL-icon BL-icon-share"></a>
+			</div>
+		</header>
+
+		<div id="Js-content" class="mui-content" v-cloak>
+			<div>
+				<!--分类栏目 begin-->
+				<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
+					<div class="mui-scroll">
+						<div data-wid="member_plans_total" href="member-plans-total.html" class="plans-nav mui-active">
+							<span>汇总</span>
+						</div>
+						<div data-wid="member_plans_alone" href="member-plans-alone.html" class="plans-nav" v-for="(item, index) in detail_list" :key="index" :data-id="pl_id[index]" :data-index="index">
+							<span>{{item.main.short_name}}</span>
+						</div>
 					</div>
 				</div>
+				<!--分类栏目 end -->
 			</div>
-			<!--分类栏目 end -->
 		</div>
-	</div>
 
-</body>
-<script src="js/mui.min.js" type="text/javascript"></script>
-<script src="js/webviewGroup.js" type="text/javascript"></script>
-<script type="text/javascript" src="js/vue.min.js" ></script>
-<script type="text/javascript">
-	var user_id;
-	var plansDetail = new Vue({
-		el: '#Js-content',
-		data: {
-			detail_list: [],
-			pl_id: [],
-			aloneId: '',
-			adviser: ''
-		}
-	})
-	mui.init();
-
-	mui.plusReady(function() {
-
-		statusbar();
-
-		var winH = window.screen.height / sizeObj.dpl;
-		var topHeight = document.querySelector('#Js-header').offsetHeight / sizeObj.dpl;
-		var divHeight = document.querySelector('#Js-content').offsetHeight / sizeObj.dpl;
-		var _divH = topHeight + divHeight + 1; // 头部高度
-		var _viewH = winH - _divH; // 内容区域高度
-		var _self = plus.webview.currentWebview();
-		
-		user_id = JSON.parse(plus.storage.getItem("userinfo")).id
-		var pl_id = plus.webview.currentWebview().pl_id //获取从列表从过来的plid
-//		plus.storage.setItem('plans-total', res.data.list);
-		plansDetail.aloneId = pl_id
-		//跳链接
-		var group = new webviewGroup(_self.id, {
-			topHeight: _divH,
-			viewHeight: _viewH,
-			isDrag: false,
-			items: [{
-				id: "member_plans_total",
-				url: "member-plans-total.html",
-				extras: {
-					pl_id: pl_id
-				}
-			}, {
-				id: "member_plans_alone",
-				url: "member-plans-alone.html",
-				extras: {}
-			}],
-			onChange: function(obj) {
-							
+	</body>
+	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/webviewGroup.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script type="text/javascript">
+		var plansDetail = new Vue({
+			el: '#Js-content',
+			data: {
+				detail_list: [],
+				pl_id: [],
+				aloneId: '',
+				adviser: ''
 			}
-		});
-		mui(".mui-scroll").on("tap", ".plans-nav ", function(e) {
-			var c = document.querySelector(".plans-nav.mui-active");
+		})
+		mui.init();
+
+		mui.plusReady(function() {
+
+			statusbar();
+
+			var winH = window.screen.height / sizeObj.dpl;
+			var topHeight = document.querySelector('#Js-header').offsetHeight / sizeObj.dpl;
+			var divHeight = document.querySelector('#Js-content').offsetHeight / sizeObj.dpl;
+			var _divH = topHeight + divHeight + 1; // 头部高度
+			var _viewH = winH - _divH; // 内容区域高度
+			var _self = plus.webview.currentWebview();
+
+			var pl_id = plus.webview.currentWebview().pl_id //获取从列表从过来的plid
+			//		plus.storage.setItem('plans-total', res.data.list);
+			plansDetail.aloneId = pl_id
+			//跳链接
+			var group = new webviewGroup(_self.id, {
+				topHeight: _divH,
+				viewHeight: _viewH,
+				isDrag: false,
+				items: [{
+					id: "member_plans_total",
+					url: "member-plans-total.html",
+					extras: {
+						pl_id: pl_id
+					}
+				}, {
+					id: "member_plans_alone",
+					url: "member-plans-alone.html",
+					extras: {}
+				}],
+				onChange: function(obj) {
+
+				}
+			});
+			mui(".mui-scroll").on("tap", ".plans-nav ", function(e) {
+				var c = document.querySelector(".plans-nav.mui-active");
 				if(c) {
 					c.classList.remove("mui-active");
 				}
 				this.classList.add("mui-active");
-			var wid = this.getAttribute("data-wid");
-			group.switchTab(wid);
-			var id = this.getAttribute("data-id");
-			var index = this.getAttribute("data-index");
-			if(id){
-				plansDetail.aloneId = id
-				var alone_self = plus.webview.getWebviewById('member_plans_alone');
-				var alone_table = plus.webview.getWebviewById('member_plans_alone_table');
-				if(alone_self){
-					setTimeout(function(){
-						mui.fire(alone_self,'alone', {
-							data: plansDetail.detail_list[index],
-							adviser: plansDetail.adviser,
-							pl_id: id
-						});
-					},300)
+				var wid = this.getAttribute("data-wid");
+				group.switchTab(wid);
+				var id = this.getAttribute("data-id");
+				var index = this.getAttribute("data-index");
+				if(id) {
+					plansDetail.aloneId = id
+					var alone_self = plus.webview.getWebviewById('member_plans_alone');
+					var alone_table = plus.webview.getWebviewById('member_plans_alone_table');
+					if(alone_self) {
+						setTimeout(function() {
+							mui.fire(alone_self, 'alone', {
+								data: plansDetail.detail_list[index],
+								adviser: plansDetail.adviser,
+								pl_id: id
+							});
+						}, 300)
+					}
 				}
-			}
-			
-			
-		});
-		
-		//获取汇总数据
-		mui.ajax(config.baseUrl, {
-            data: {
-                server: 'Proposal.log',
-                device: 'mobile',
-                data: JSON.stringify({
+
+			});
+
+			//获取汇总数据
+			luckyAjax({
+				data: {
+					server: 'Proposal.log',
+					device: 'mobile',
+					data: JSON.stringify({
 						user_id: user_id,
-						fields: "", 
+						fields: "",
 						pl_id: pl_id
 					})
-            },
-            dataType: 'json',
-            type: 'post',
-            success: function (res) {
-               if(res.code == 1) {
-					plansDetail.adviser = res.data.adviser
-					if(res.data.content) {
-						// 第一个plid下面的数据，主plid
-						mui.each(res.data.content, function(index, item){
-							plansDetail.detail_list = plansDetail.detail_list.concat(item)
-							plansDetail.pl_id.push(res.data.id)
-						})
-					}
-					
-					if(res.data.child){
-						mui.each(res.data.child, function(index, item){
-							plansDetail.pl_id.push(res.data.child[index].id)
-							mui.each(res.data.child[index].content, function(i, m){
-								plansDetail.detail_list = plansDetail.detail_list.concat(m)
+				},
+				success: function(res) {
+					if(res.code == 1) {
+						plansDetail.adviser = res.data.adviser
+						if(res.data.content) {
+							// 第一个plid下面的数据，主plid
+							mui.each(res.data.content, function(index, item) {
+								plansDetail.detail_list = plansDetail.detail_list.concat(item)
+								plansDetail.pl_id.push(res.data.id)
 							})
-						})
-	                }
-					
+						}
+
+						if(res.data.child) {
+							mui.each(res.data.child, function(index, item) {
+								plansDetail.pl_id.push(res.data.child[index].id)
+								mui.each(res.data.child[index].content, function(i, m) {
+									plansDetail.detail_list = plansDetail.detail_list.concat(m)
+								})
+							})
+						}
+
+					} else {
+						mui.toast(res.msg)
+						mui.back()
+					}
+				}
+			});
+
+			// 打开遮罩层，弹框,自定义事件监听
+			window.addEventListener('show', function(event) {
+				//获得事件参数
+				var formID = event.detail.formID;
+				var goIns_data = event.detail.goIns_data;
+				var data = {};
+				if(goIns_data) {
+					//在线投保弹框
+					data = {
+						modalID: 'modal-list',
+						formID: formID,
+						goIns_data: goIns_data
+					}
 				} else {
-					mui.toast(res.msg)
-					mui.back()
+					//确定弹框
+					data = {
+						modalID: 'modal-config',
+						formID: formID
+					}
 				}
-            },
-            error: function () {
-                mui.toast('网络异常：404')
-            }
-    	});
 
-		
+				showPopu("popup-content.html", "popup_content", 'center', data);
 
-		// 打开遮罩层，弹框,自定义事件监听
-		window.addEventListener('show', function(event) {
-			//获得事件参数
-			var formID = event.detail.formID;
-			var goIns_data = event.detail.goIns_data;
-			var data = {};
-			if(goIns_data){
-				//在线投保弹框
-				data = {
-					modalID : 'modal-list',
-					formID : formID,
-					goIns_data : goIns_data
-				}
-			}else{
-				//确定弹框
-				data = {
-					modalID : 'modal-config',
-					formID : formID
-				}
-			}
-			
-			showPopu("popup-content.html", "popup_content", 'center', data);
+			})
 
 		})
-
-	})
-</script>
+	</script>
 
 </html>

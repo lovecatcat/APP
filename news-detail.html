@@ -148,17 +148,19 @@
 			  var id = event.detail.id;
 			  console.log(id) 
 			  //根据id向服务器请求新闻详情
-			  	var data = {
-					server: 'Information.content',
-					data: JSON.stringify({id: id}),
-					device: 'pad'
-				}
-			  	mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
-					if(res.code == 1) {
-						newsDetail.newsDetail_data = res.data
-					}else{
-						console.log(res.msg)
-					}
+				luckyAjax({
+					data: {
+			            server: 'Information.content',
+			            device: 'mobile',
+			            data: JSON.stringify({id: id})
+			        },
+			        success:function(data){
+			        	if(res.code == 1) {
+							newsDetail.newsDetail_data = res.data
+						}else{
+							console.log(res.msg)
+						}
+			        }
 				});
 			});
 			

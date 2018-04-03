@@ -40,12 +40,12 @@
 					<div class="BL-ub BL-rel BL-mar-t-1 input-item">
                         <label class="">年龄</label>
                         <div class="input-wrap box-f-1 search-date" data-options='{"type":"date"}'>
-                            <input v-model="appl.birthday" type="text" placeholder="选择生日">
+                            <input v-model.lazy="appl.birthday" type="text" placeholder="选择生日">
                             <div class="ins-date-icon" ></div>
                         </div>
                         <div class="ins-date-icon box-f-1"></div>
                         <div class="input-wrap box-f-1 BL-mar-l-1">
-                            <input v-model="appl.age" type="number" placeholder="输入年龄">
+                            <input v-model.lazy.trim="appl.age" type="number" placeholder="输入年龄">
                             <div class="form-clear-icon" v-show="appl.age != ''">
                                 <span class="mui-icon mui-icon-clear" @click="appl.age = '' "></span>
                             </div>
@@ -77,7 +77,7 @@
 					<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 						<label>姓名</label>
 						<div class="input-wrap">
-                            <input  v-model.trim="assu.name"
+                            <input  v-model.lazy.trim="assu.name"
                             	@change="checkName(assu.name, '被保人')"
                             	type="text" placeholder="请输入真实姓名">
                             <div class="form-clear-icon" v-show="assu.name != ''">
@@ -89,11 +89,11 @@
 					<div class="BL-ub BL-rel BL-mar-t-1 input-item">
                         <label class="">年龄</label>
                         <div class="input-wrap box-f-1 search-date" data-options='{"type":"date"}'>
-                            <input v-model="assu.birthday" type="text" placeholder="选择生日">
+                            <input v-model.lazy="assu.birthday" type="text" placeholder="选择生日">
                             <div class="ins-date-icon"></div>
                         </div>
                         <div class="input-wrap box-f-1 BL-mar-l-1">
-                            <input v-model="assu.age" type="number" placeholder="输入年龄">
+                            <input v-model.lazy.trim="assu.age" type="number" placeholder="输入年龄">
                             <div class="form-clear-icon" v-show="assu.age != ''">
                                 <span class="mui-icon mui-icon-clear" @click="assu.age = '' "></span>
                             </div>
@@ -118,6 +118,7 @@
 					<button class="BL-btn-blue BL-abs BL-pad-lr-1" @click="addIns">添加险种</button>
 				</div>
 				<!--主险信息 begin -->
+				
 				<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff">
 					<div class="BL-ub plans-total-content BL-pad-b-1">
 						<div class="BL-ub-f4">
@@ -175,25 +176,14 @@
 				<!--附加险信息 end -->
 				<button class="BL-btn-white BL-ftz-42 BL-mar-t-1 BL-pad-lr-2 prospect-info-button">+添加附加险</button>
 			</div>
+			<div id="Js-plansDetail"></div>
 			<!--险种信息 end -->
-			<footer id="Js-footer" class="BL-footer BL-bg-fff">
-				<div class="BL-ub BL-ub-ac BL-ub-f1">
-					<div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll">
-						<div class="context">
-							总保费: <span class="BL-col-ff8201">222222</span>
-						</div>
-					</div>
-					<a class="BL-foot-btn-sign BL-foot-btn-det BL-bg-3b9cf5" @click="pushPlan">
-						生成计划书
-					</a>
-				</div>
-			</footer>
 		</div>
 		
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
-	<!--<script src="js/prospect.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="js/prospect.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/mui.picker.js"></script>
 	<script src="js/mui.dtpicker.js"></script>
 	<script type="text/javascript">
@@ -201,6 +191,7 @@
 		var prospect = new Vue({
 			el: '#Js-content',
 			data: {
+				plan_id: 1, //默认为第一个
 				appl: {
 					name: '',
 					age: '',
@@ -212,8 +203,42 @@
 					age: '',
 					sex: true,
 					birthday: ''
-				}
+				},
+			 	 ins: null,
 			},
+			watch: {
+		      appl: {
+		        handler (val) {
+			        //更改了数据，传回父页面接受
+			        mui.fire(parent_self,'SET_APPL', {
+						plan_id: this.plan_id,
+						data: val
+					});
+		        },
+		        deep: true
+		      },
+		      assu: {
+		        handler (val) {
+			       //更改了数据，传回父页面接受
+			        mui.fire(parent_self,'SET_ASSU', {
+						plan_id: this.plan_id,
+						data: val
+					});
+		        },
+		        deep: true
+		      },
+		      edit: {
+		        handler (val) {
+		        	console.log(this.plan_id)
+			        if (this.plans.length === this.id) {
+			            this.appl.name = val.name
+			            this.appl.age = val.age
+			            this.appl.sex = val.sex
+			        }
+		        },
+		        deep: true
+		      }
+		    },
 			methods: {
 				parseVueObj: function (Obj) {
 				    return JSON.parse(JSON.stringify(Obj))
@@ -252,31 +277,27 @@
 				    	return true;
 				    }
 				},
-				keepSame: function(){
+				keepSame: function(){ //同投保人
 					this.assu = Object.assign({}, this.assu, this.parseVueObj(this.appl))
 				},
-				displace:function(){
+				displace: function(){ //投被保人替换
 					var appl = this.appl
 					var assu = this.assu
 					this.appl = Object.assign({}, this.appl, this.parseVueObj(assu))
 					this.assu = Object.assign({}, this.assu, this.parseVueObj(appl))
 				},
-				addIns: function(){
+				addIns: function(){ //添加险种
 					mui.openWindow({
 						id: 'prospect_addIns',
 						url: 'prospect-addIns.html',
 						show: animateObj.aniDetal,
 						extras:{
 							appl: this.appl,
-							assu: this.assu
+							assu: this.assu,
+							plan_id: this.plan_id
 						}
 					});
 				},
-				pushPlan: function(){
-					mui.fire(parent_self,'show', {
-						formID : 'prospect_main'
-					});
-				}
 			}
 			
 		})
@@ -285,9 +306,9 @@
 		(function($){
 			$.plusReady(function() {
 	//			statusbar();
-//				var winH = window.innerHeight;
+				var winH = window.innerHeight;
 //				var fotHeight = document.querySelector('#Js-footer').offsetHeight;
-//				document.querySelector('#Js-content').style.height = (winH - fotHeight) + 'px';
+//				document.querySelector('#Js-plansDetail').style.height = fotHeight + 'px';
 				parent_self = plus.webview.getWebviewById('prospect')//父级id
 				// 日期选择插件
 				var dates = $('.search-date');
@@ -330,9 +351,29 @@
 				    }
 				};
 				
-				//添加弹框sure自定义事件监听,从弹框返回来的确定状态
-				window.addEventListener('sure',function(event){
-                     alert(111)
+				
+				//接收子页面保存的险种信息
+				window.addEventListener('SET_PLAN',function(event){
+					var data = event.detail.data
+					 alert(JSON.stringify(data))
+				});
+				// 接受当前index的数据
+				window.addEventListener('CHG_PLAN', function(event) {
+					var index = event.detail.index;
+					prospect.plan_id = event.detail.plan_id;
+					var data = event.detail.data;
+					prospect.appl = data.appl
+					prospect.assu = data.assu
+					prospect.ins = data.ins
+					alert(JSON.stringify(prospect.ins))
+				});
+				//接收險種數據
+				window.addEventListener('SET_INS', function(event){
+					var id = event.detail.plan_id
+					var data = event.detail.ins
+					prospect.ins = Object.assign({}, prospect.ins, prospect.parseVueObj(data))
+//					alert(JSON.stringify(prospect.ins))
+	
 				});
 			})
 		}(mui));		

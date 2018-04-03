@@ -77,32 +77,27 @@
 								i++;
 								var self = this;
 								setTimeout(function() {
-									mui.ajax(config.baseUrl, {
-							            data: {
-							                server: 'Information.queue',
-							                device: 'mobile',
-							                data: JSON.stringify({
-													amount: 15, //每页显示的条数
+									luckyAjax({
+										data: {
+								            server: 'Information.queue',
+								            device: 'mobile',
+								            data: JSON.stringify({
+								              		amount: 15, //每页显示的条数
 													page: i, //请求的页码
-													type: 'MBJ001' //行业资讯
-												}),
-							            },
-							            dataType: 'json',
-							            type: 'post',
-							            success: function (res) {
-							               	if(res.code == 1 && i <= res.data.pageCount) {
+													type: 'MBJ001' //行业资讯v
+								            })
+								        },
+								        success:function(data){
+								        		if(res.code == 1 && i <= res.data.pageCount) {
 												newsList.newsList_data = newsList.newsList_data.concat(res.data.queue)
 												self.endPullUpToRefresh();
 											}else{
 												console.log(res.msg)
 												self.endPullUpToRefresh(true);
 											}
-							            },
-							            error: function () {
-							                mui.toast('网络异常：404')
-							            }
-							    	});
-
+								        }
+									});
+									
 								}, 1000);
 							}
 						}

@@ -23,12 +23,11 @@ const AppSelect = {
     readonly: Boolean
   },
   template: `
-  <div class="input-item">
-    <label class="">{{label}}</label>
-    <div class="input-wrap box-f-1">
-            <slot></slot>
-        	<div v-if="!readonly" class="form-clear-icon" ><span class="mui-icon mui-icon-arrowdown"></span></div>
-    </div>
+	<div class="input-item ins-pd-r-0">
+	   	<label class="">{{label}}</label>
+	    <div class="input-wrap box-f-1 multi-btn">
+	        <slot name="button"></slot>
+	    </div>
 	</div>
   `
 }

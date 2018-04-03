@@ -21,9 +21,9 @@
 					<span class="BL-col-3b9cf5">{{content.mainList.applicant}}</span>
 					<span class="BL-pad-l-3">被保人</span>
 					<span class="BL-col-3b9cf5">{{content.mainList.assured}}</span>
-				</div> 
+				</div>
 				<!--描述：主險信息 begin -->
-				<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff" >
+				<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff">
 					<div class="BL-ub plans-total-content BL-pad-b-1">
 						<div class="BL-ub-f4">
 							<span class="plans-total-font BL-ftz-46">{{content.mainList.name}}</span>
@@ -46,23 +46,23 @@
 							<span>{{content.mainList.safe_year}}</span>
 							<span>{{content.mainList.pay_year}}</span>
 							<span class="year_fee">{{content.mainList.year_fee}}</span>
-							
+
 						</li>
 					</ul>
 				</div>
 				<!--描述：主險信息 end-->
 				<!--描述：附加險信息 begin-->
-				<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff" v-for="(child, i) in content.childrenList" :key="i">
+				<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff" v-for="(child, i) in content.childrenList" :key="i" v-if="'show' + String(index) + i">
 					<div class="BL-ub plans-total-content BL-pad-b-1">
 						<div class="BL-ub-f4">
 							<!--乐健一生门急诊医疗保险是主险-->
 							<!--泰康健康优享住院费用医疗保险是主险-->
-							<span class="BL-col-ff8201 plans-total-font BL-ftz-46" v-if="i !== '374' && i !== '10503'">[附加]</span>
+							<span class="BL-col-ff8201 plans-total-font BL-ftz-46" v-if="i !== '374' && i !== '10503'">[附加]{{String(index) + i}}</span>
 							<span class="plans-total-font BL-ftz-46">{{child.name}}</span>
 						</div>
 						<!--必须附加的附加险不能删除-->
 						<div class="BL-ub-f1 BL-txt-r" v-if="mustSelected.indexOf(i) < 0">
-							<button class="BL-btn-white BL-ftz-42"  @click="del(content.mainList.pl_id, child.genre)">删除</button>
+							<button class="BL-btn-white BL-ftz-42" @click="del(content.mainList.pl_id, child.genre, String(index) + i)">删除</button>
 						</div>
 					</div>
 					<ul class="BL-ul BL-col-999 BL-ftz-42">
@@ -105,30 +105,33 @@
 	<script type="text/javascript">
 		mui.init();
 		var parent_self;
-		var user_id;
 		var plansTotal = new Vue({
-		 	el: '#Js-plansTotal',
-		 	data: {
-		 		total_list: [],
-		 		plansData : [],
-		 		mustSelected: ['291', '177', '11', '333', '332', '349', '354'], //必须附加的附加险
-		 		delPl_id: '',
-		 		delGenre: '',
-		 		goIns_data: []
-		 	},
-		 	methods: {
-		 		del: function(pl_id, genre){
-		 			this.delPl_id = pl_id;
-		 			this.delGenre = genre;
-		 			mui.fire(parent_self,'show', {formID :'member_plans_total'});
-		 		}
-		 	}
+			el: '#Js-plansTotal',
+			data: {
+				total_list: [],
+				plansData: [],
+				mustSelected: ['291', '177', '11', '333', '332', '349', '354'], //必须附加的附加险
+				delPl_id: '',
+				delGenre: '',
+				delId: '',
+				goIns_data: []
+			},
+			methods: {
+				del: function(pl_id, genre, id) {
+					this.delPl_id = pl_id;
+					this.delGenre = genre;
+					this.delId = id
+					mui.fire(parent_self, 'show', {
+						formID: 'member_plans_total'
+					});
+				}
+			}
 		});
 
 		(function($) {
 			//阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
-			
+
 			$.plusReady(function() {
 				var winH = window.innerHeight;
 				var fotHeight = document.querySelector('#Js-footer').offsetHeight;
@@ -136,100 +139,79 @@
 
 				mui('body').on('tap', '#btn', function() {
 					var _self = plus.webview.getWebviewById('member_plans_detail.html')
-					mui.fire(_self,'show');
+					mui.fire(_self, 'show');
 				});
 
 				var pl_id = plus.webview.currentWebview().pl_id //获取从列表从过来的plid
-				parent_self = plus.webview.getWebviewById('member_plans_detail')//父级id
-				user_id = JSON.parse(plus.storage.getItem("userinfo")).id
+				parent_self = plus.webview.getWebviewById('member_plans_detail') //父级id
 
 				//获取汇总数据
-					var data = {
+				luckyAjax({
+					data: {
 						server: 'Proposal.log',
+						device: 'mobile',
 						data: JSON.stringify({
-							user_id: 65,
-							fields: "", 
+							user_id: user_id,
+							fields: "",
 							pl_id: pl_id
-						}),
-						device: 'mobile'
-					};
-					mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
-						
-					});
-					mui.ajax(config.baseUrl, {
-			            data: {
-			                server: 'Proposal.log',
-			                device: 'mobile',
-			                data: JSON.stringify({
-									user_id: user_id,
-									fields: "", 
-									pl_id: pl_id
-								}),
-			            },
-			            dataType: 'json',
-			            type: 'post',
-			            success: function (res) {
-			               	if(res.code == 1) {
-								if(res.data.content) {
-									// 第一个plid下面的数据，主plid
-									mui.each(res.data.content, function(index, item){
-										groupList(item, res.data.id)
-									})
-								}
-								if(res.data.child){
-									mui.each(res.data.child, function(index, item){
-										var pl_id = item.id
-										mui.each(res.data.child[index].content, function(i, m){
-											groupList(m, pl_id)
-										})
-									})
-			                    }
-							} else {
-								mui.toast(res.msg)
+						})
+					},
+					success: function(res) {
+						if(res.code == 1) {
+							if(res.data.content) {
+//								alert(JSON.stringify(res.data.content))
+								// 第一个plid下面的数据，主plid
+								mui.each(res.data.content, function(index, item) {
+									groupList(item, res.data.id)
+								})
 							}
-			            },
-			            error: function () {
-			                mui.toast('网络异常：404')
-			            }
-			    	});
-					
-					//添加弹框sure自定义事件监听,从弹框返回来的确定状态
-					window.addEventListener('sure',function(event){
-						mui.ajax(config.baseUrl, {
-				            data: {
-				                server: 'Proposal.log',
-				                device: 'mobile',
-				                data: JSON.stringify({
-		                            pl_id: plansTotal.delPl_id,
-		                            genre: plansTotal.delGenre
-		                        })
-				            },
-				            dataType: 'json',
-				            type: 'post',
-				            success: function (res) {
-				               	if(res.code == 1) {
-									mui.toast('删除成功')
-		//							var child = _thisObj.parentNode.parentNode.parentNode
-		//							var parent= document.getElementById("Js-plansTotal");
-		//							parent.removeChild(child)
-								} else {
-		                            mui.toast('删除失败')
-								}
-				            },
-				            error: function () {
-				                mui.toast('网络异常：404')
-				            }
-				    	});
+							if(res.data.child) {
+								mui.each(res.data.child, function(index, item) {
+									var pl_id = item.id
+									mui.each(res.data.child[index].content, function(i, m) {
+										groupList(m, pl_id)
+									})
+								})
+							}
+						} else {
+							mui.toast(res.msg)
+						}
+					}
+				});
+
+				//添加弹框sure自定义事件监听,从弹框返回来的确定状态
+				window.addEventListener('sure', function(event) {
+					luckyAjax({
+						data: {
+							server: 'Proposal.log',
+							device: 'mobile',
+							data: JSON.stringify({
+								pl_id: plansTotal.delPl_id,
+								genre: plansTotal.delGenre
+							})
+						},
+						success: function(res) {
+							if(res.code == 1) {
+								mui.toast('删除成功')
+								plansTotal.delId = false 
+								//							var child = _thisObj.parentNode.parentNode.parentNode
+								//							var parent= document.getElementById("Js-plansTotal");
+								//							parent.removeChild(child)
+							} else {
+								mui.toast('删除失败')
+							}
+						}
 					});
-					//在线投保按钮
-					document.querySelector('#goIns').addEventListener('tap', function() {
-						//打开弹框
-//						alert(JSON.stringify(goIns_data))
-						mui.fire(parent_self,'show', {
-							formID : 'member_plans_total',
-							goIns_data: plansTotal.goIns_data
-						});
-			        });
+				});
+				//在线投保按钮
+				document.querySelector('#goIns').addEventListener('tap', function() {
+					//打开弹框
+					//						alert(JSON.stringify(goIns_data))
+					mui.fire(parent_self, 'show', {
+						formID: 'member_plans_total',
+						goIns_data: plansTotal.goIns_data
+					});
+				});
 			});
 		}(mui));
 	</script>

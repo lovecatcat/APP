@@ -7,6 +7,9 @@
 }
 .BL-ul li{
 	border: 1px solid #e7e7e7;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .BL-ul li:first-child{
 	border-bottom: none;
@@ -349,8 +352,6 @@ table tbody tr td{
 	border-bottom: 0.1875rem solid #ffffff !important;
 }
 .BL-segmented-control .plans-nav i{
-	width: 5rem;
-	background: red;
     height: 4.0265rem;
     line-height: 4.0265rem;
 	font-size: 1.9rem;

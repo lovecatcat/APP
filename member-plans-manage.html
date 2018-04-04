@@ -100,6 +100,7 @@
 	<script src="js/mui.pullToRefresh.material.js"></script>
 	<script src="js/vue.min.js"></script>
 	<script type="text/javascript">
+		var user_id;
 		var i = 0;
 		var plansManage = new Vue({
 			el: "#Js-content",
@@ -215,7 +216,7 @@
 				var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 				document.querySelector('#Js-planList').style.height = winH - titHeight - divHeight - fotHeight + 'px';
 				//document.querySelector('#Js-list').style.height = (winH - topHeight - mainHeight) + 'px';
-				
+				user_id = JSON.parse(plus.storage.getItem("userinfo")).id;
 				var self;
 				//循环初始化所有下拉刷新，上拉加载。
 				var pullAjax = function() {

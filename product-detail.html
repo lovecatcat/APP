@@ -74,12 +74,14 @@
             //额外参数
             if(id == 'prospect_product'){
             	extras = {product_id: pid};
+
             }else{
             	if (flag) {
 	                var data = JSON.parse(JSON.stringify(detail.info));
 	                extras = {list: data, flag: 2};
 	            }	
             };
+            	alert(pid)
             
             mui.openWindow({
                 url: href,
@@ -98,6 +100,7 @@
             methods: {
                 //用手机浏览器打开pdf
                 showStatement: function () {
+                	
                     var url = this.info.statement;
                     plus.runtime.openURL(url);
                 }

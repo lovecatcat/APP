@@ -14,7 +14,9 @@
 		<div id="modal" v-cloak>
 
 			<div id="modal-bottom" class="BL-modal-bottom">
-				<div class="BL-modal-content BL-pad-lr-1_5" id="modal-content"></div>
+				<div class="BL-modal-content BL-pad-lr-1_5" id="modal-content" v-html="html">
+					
+				</div>
 			</div>
 
 		</div>
@@ -28,7 +30,8 @@
 			el: '#modal',
 			data: {
 				isHide: '', //要弹哪个框
-				formID: '' //要谈哪个险种详情
+				formID: '', //要谈哪个险种详情
+				html: ''
 			}
 		})
 
@@ -43,7 +46,7 @@
 			mui.ajax(config.baseUrl, {
 				data: {
 					data: JSON.stringify({
-						product_id: 340
+						product_id: modal.formID
 					}),
 					server: 'lifeProduct.getProductDescribe',
 					device: 'mobile'
@@ -52,7 +55,7 @@
 				type: 'post',
 				success: function (ret) {
 					if (ret.code == 1) {
-						document.getElementById('modal-content').innerHTML = ret.data.LBG0006.describe
+						modal.html = ret.data.LBG0006.describe
 					}
 				},
 				error: function () {

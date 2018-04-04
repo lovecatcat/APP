@@ -48,7 +48,7 @@
 		                            	<th v-for="(item, index) in describes" :key="index" v-if="item.title !== '被保险人年龄'">
 	                            			{{item.title}}
 	                            		</th>
-		                            	<th v-if="formID == '384' && status">
+		                            	<!--<th v-if="formID == '384' && status">
 	                            			生存保险金
 	                            		</th>
 	                            		<div v-else-if="formID == '401' && status">
@@ -61,7 +61,7 @@
 			                            	<th >
 		                            			退保总利益
 		                            		</th>
-	                            		</div>
+	                            		</div>-->
 		                            </tr>
 	                            </thead>
 	                            <tbody v-if="status">

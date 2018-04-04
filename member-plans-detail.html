@@ -28,7 +28,8 @@
 						<div data-wid="member_plans_total" href="member-plans-total.html" class="plans-nav mui-active">
 							<span>汇总</span>
 						</div>
-						<div data-wid="member_plans_alone" href="member-plans-alone.html" class="plans-nav" v-for="(item, index) in detail_list" :key="index" :data-id="pl_id[index]" :data-index="index">
+						<div data-wid="member_plans_alone" href="member-plans-alone.html" class="plans-nav" v-for="(item, index) in detail_list"
+							 :key="index" :data-id="pl_id[index]" :data-index="index" v-if="item">
 							<span>{{item.main.short_name}}</span>
 						</div>
 					</div>
@@ -42,6 +43,7 @@
 	<script src="js/webviewGroup.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/vue.min.js"></script>
 	<script type="text/javascript">
+		var user_id;
 		var plansDetail = new Vue({
 			el: '#Js-content',
 			data: {
@@ -63,7 +65,7 @@
 			var _divH = topHeight + divHeight + 1; // 头部高度
 			var _viewH = winH - _divH; // 内容区域高度
 			var _self = plus.webview.currentWebview();
-
+			 user_id = JSON.parse(plus.storage.getItem("userinfo")).id;
 			var pl_id = plus.webview.currentWebview().pl_id //获取从列表从过来的plid
 			//		plus.storage.setItem('plans-total', res.data.list);
 			plansDetail.aloneId = pl_id
@@ -144,7 +146,6 @@
 								})
 							})
 						}
-
 					} else {
 						mui.toast(res.msg)
 						mui.back()
@@ -174,6 +175,27 @@
 				}
 
 				showPopu("popup-content.html", "popup_content", 'center', data);
+
+			});
+			
+			//删除的附加险，要在这个页面删除
+			window.addEventListener('delIns', function(event) {
+				//获得事件参数
+				var i = event.detail.index;
+				var genre= event.detail.genre;
+				var fj= event.detail.fj;
+				if(fj){
+					mui.each(plansDetail.detail_list[i].children, function(index, item){
+					 	if(index == genre){
+					 		plansDetail.detail_list[i].children[genre] = null
+					 	}
+					})
+				}else{
+					delete plansDetail.detail_list[i]
+				}
+				
+				plansDetail.$forceUpdate()
+//				alert(JSON.stringify(plansDetail.detail_list))
 
 			})
 

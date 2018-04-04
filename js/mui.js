@@ -6641,6 +6641,18 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
             this.handle.style.webkitTransform = 'translate(' + this.handleX + 'px,0)';
         }
     };
+    Toggle.prototype.toggleCur = function(animate) {
+        var classList = this.classList;
+        if (animate === false) {
+            classList.remove(CLASS_ACTIVE);
+            this.handle.style.webkitTransform = 'translate(0,0)';
+            this.handle.style.webkitTransitionDuration = this.element.style.webkitTransitionDuration = '0s';
+        } else {
+            classList.add(CLASS_ACTIVE);
+            this.handle.style.webkitTransform = 'translate(' + this.handleX + 'px,0)';
+            this.handle.style.webkitTransitionDuration = this.element.style.webkitTransitionDuration = '.2s';
+        }
+    };
 	Toggle.prototype.setTranslateX = $.animationFrame(function(x) {
 		if (!this.isDragging) {
 			return;

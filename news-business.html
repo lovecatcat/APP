@@ -88,7 +88,7 @@
 								            })
 								        },
 								        success:function(res){
-								        		if(res.code == 1 && i <= res.data.pageCount) {
+								        		if(res.code = 1 && i <= res.data.pageCount) {
 												newsList.newsList_data = newsList.newsList_data.concat(res.data.queue)
 												self.endPullUpToRefresh();
 											}else{

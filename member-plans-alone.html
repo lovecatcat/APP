@@ -23,15 +23,15 @@
 					<img :src="'images/plans/prospectus/'+ Number(list.genre) + '.jpg'" alt="导航图" >
 				</div>
 				<div class="plans-detail-fixed">
-					<div v-if="tk.indexOf(Number(list.genre)) > -1">泰康人寿</div>
-					<div v-else-if="gh.indexOf(Number(list.genre)) > -1">国华人寿</div>
-					<div v-else-if="gy.indexOf(Number(list.genre)) > -1">工银安盛</div>
-					<div v-else-if="pa.indexOf(Number(list.genre)) > -1">平安人寿</div>
-					<div v-else-if="xt.indexOf(Number(list.genre)) > -1">信泰人寿</div>
-					<div v-else-if="zy.indexOf(Number(list.genre)) > -1">中英人寿</div>
-					<div v-else-if="hd.indexOf(Number(list.genre)) > -1">恒大人寿</div>
-					<div v-else-if="al.indexOf(Number(list.genre)) > -1">安联财险</div>
-					<div v-else-if="fx.indexOf(Number(list.genre)) > -1">复星联合</div>
+					<div v-if="tk.indexOf(Number(list.genre)) > -1" @click="company(list.genre)">泰康人寿</div>
+					<div v-else-if="gh.indexOf(Number(list.genre)) > -1" @click="company(list.genre)">国华人寿</div>
+					<div v-else-if="gy.indexOf(Number(list.genre)) > -1" @click="company(list.genre)">工银安盛</div>
+					<div v-else-if="pa.indexOf(Number(list.genre)) > -1" @click="company(list.genre)">平安人寿</div>
+					<div v-else-if="xt.indexOf(Number(list.genre)) > -1" @click="company(list.genre)">信泰人寿</div>
+					<div v-else-if="zy.indexOf(Number(list.genre)) > -1" @click="company(list.genre)">中英人寿</div>
+					<div v-else-if="hd.indexOf(Number(list.genre)) > -1" @click="company(list.genre)">恒大人寿</div>
+					<div v-else-if="al.indexOf(Number(list.genre)) > -1" @click="company(list.genre)">安联财险</div>
+					<div v-else-if="fx.indexOf(Number(list.genre)) > -1" @click="company(list.genre)">复星联合</div>
 					<div @click="clause">条款详情</div>
 					<div>绿通服务</div>
 				</div>
@@ -90,18 +90,18 @@
 				<!--保险利益-->
 				<div class="plans-detail-box BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff" >
 					<div class="BL-title">保险利益</div>
-					<div class="plans-detail-behalf" v-for="(item,index) in plansText[list.genre]">
+					<div class="plans-detail-behalf" v-for="(item,index) in plansText" v-if="item.content">
                     	<div class="title BL-ftz-52">
                     		<em></em>
                     		<span>{{item.title}}</span>
-                    		<button class="BL-btn-white BL-ftz-42 BL-mar-l-1" v-if="item.isDetail" @click="detail(list.genre +'_' +(index+1))">明细</button>
+                    		<button class="BL-btn-white BL-ftz-42 BL-mar-l-1" v-if="item.isEntity == 1" @click="detail">明细</button>
                     	</div>
-                        <div class="content BL-pad-l-1" v-for="(item2, index) in item.list">
-                            <div class="BL-ftz-46" v-if="item2.money">
-                                (一) <span class="BL-col-ff8201">{{item2.money}}</span>元/年
+                        <div class="content BL-pad-l-1">
+                            <div class="BL-ftz-46">
+                                (一) <span class="BL-col-ff8201">{{item.value}}</span>元/年
                             </div>
-                            <p class="BL-col-999 BL-ftz-46">
-                            	{{item2.txt}}
+                            <p class="BL-col-999 BL-ftz-46" v-html="item.content">
+                            	 
                             </p>
                         </div>
                     </div>
@@ -109,8 +109,8 @@
 			 
 				<!--保险利益-->
 				<!--产品图片-->
-				<div class="plans-detail-box plans-detail-box-img BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff">
-					<img :src="'images/plans/prospectus/'+ Number(list.genre) + '_2.jpg'" alt="产品图片" >
+				<div class="plans-detail-box plans-detail-box-img BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff" v-html="imageDescribe">
+					<!--<img :src="'images/plans/prospectus/'+ Number(list.genre) + '_2.jpg'" alt="产品图片" >-->
 				</div>
 				<!--产品图片-->
 				<!--资金规划-->
@@ -133,7 +133,7 @@
 							<i class="BL-icon" @click="designDel(index)"></i>
 						</div>
 					</div>
-					<div v-else>未添加资金规划</div>
+					<div class="BL-txt-c BL-ftz-42" v-else>未添加资金规划</div>
 					
 					<div class="BL-txt-r BL-pad-t-1 plans-detail-design-button">
 						<button class="BL-btn-white BL-ftz-42 BL-mar-l-1 BL-pad-lr-1" @click="design(list.genre)">+添加规划</button>

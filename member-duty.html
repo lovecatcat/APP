@@ -244,40 +244,7 @@
         	
 			// 获取考勤记录
 			clockRecord ()
-//	        mui.ajax(config.baseUrl, {
-//	            data: {
-//	            	data: JSON.stringify({
-//	            		type: 'day',
-//	            		date: new Date().addDays(0).Format('yyyy-MM-dd')
-//	            	}),
-//	                server: 'Attendance.PunchCardRecord',
-//	                device: 'mobile'
-//	            },
-//	            dataType: 'json',
-//	            type: 'get',
-//	            success: function (ret) {
-//	                if (ret.code == 1) {
-//	                	var data = ret.data
-////	                	alert(JSON.stringify(ret.data))
-//	                	duty.status = true
-//	                    duty.dutyInfo.waycard = data.waycard
-//	                    if (data) {
-//	                        duty.dutyInfo = data;
-//	                    }
-//	                    if (!data || (data && data.sign_out_time < 1)) {
-//	                        if (plus.networkinfo.CONNECTION_WIFI !== plus.networkinfo.getCurrentType()) {
-//	                            plus.nativeUI.toast('切换内勤打卡，请开启WiFi')
-//	                        }
-//	                    }
-//	                } else {
-//	                    document.getElementById("message").innerHTML = ret.msg;
-//	                }
-//	            },
-//	            error: function () {
-//	                plus.nativeUI.toast('网络异常：102')
-//	            }
-//	        });
-	        
+			
 	        // 获取考勤范围内的WiFi
 	        mui.ajax(config.baseUrl, {
 	            data: {
@@ -338,6 +305,7 @@
 	            dataType: 'json',
 	            type: 'get',
 	            success: function (ret) {
+	            	console.log(JSON.stringify(ret))
 	                if (ret.code == 1) {
 	                	var data = ret.data
 	                	duty.status = true
@@ -379,7 +347,6 @@
 	        }
 	
 	        jsonData['mac'] = plus.device.uuid
-//			jsonData['mac'] = '50:da:00:f5:3c:71'
 	
 	        //判断是否更新打卡
 	        if (flag == 0) {

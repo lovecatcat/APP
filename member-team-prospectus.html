@@ -135,6 +135,7 @@
 						dataType: 'json',
 						type: 'post',
 						success: function (ret) {
+							console.log(JSON.stringify(ret))
 							if (ret.code == 1) {
 								team.plan_num = ret.data.today_plan_num
 								team.people_num = ret.data.today_people_num

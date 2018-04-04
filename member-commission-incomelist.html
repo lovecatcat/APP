@@ -154,6 +154,7 @@
 						dataType: 'json',
 						type: 'post',
 						success: function (ret) {
+							console.log(JSON.stringify(ret))
 							if (ret.code == 1) {
 								var data = ret.data 
 								income.list = data
@@ -182,7 +183,7 @@
 						i = 0
 						income.list = null
 						mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
-						getIncomelist(income.mode)
+						getIncomelist()
 					}
 				});
 				
@@ -210,7 +211,7 @@
 					}
 					income.list = null
 					mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
-					getIncomelist(income.mode)
+					getIncomelist()
 				});
 			});	
 		}(mui));

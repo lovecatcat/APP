@@ -21,7 +21,7 @@
 				</header>
 				 
 				<!--利益演示表-->
-				<div id="Js-content"  class="BL-overFlow-autoY" style="height: 90%;overflow-y: scroll;overflow-x: hidden;">
+				<div>
 					<div  style="width: 12%; float: left;">
                         <table class="BL-ftz-46">
                             <thead class=" BL-col-3b9cf5">
@@ -29,41 +29,36 @@
 	                                <th>年龄</th>
 	                            </tr>
                             </thead>
+                        </table> 
+                    </div>
+                    <div id="right_div1" class="plans-detail-table" style="width: 88%;float: left;">
+                   		 <table class="BL-ftz-46">
+                			 <thead class=" BL-col-3b9cf5">
+	                            <tr>
+	                            	<th v-for="(item, index) in describes" :key="index" v-if="item.title !== '被保险人年龄'">
+                            			{{item.title}}
+                            		</th>
+	                            </tr>
+                            </thead>
+                		</table>
+                	</div>
+				</div>
+				
+				<div id="Js-content"  class="BL-overFlow-autoY" style="width:100%;height: 90%;overflow-y: scroll;overflow-x: hidden;">	
+					<div  style="width: 12%; float: left;">
+                        <table class="BL-ftz-46">
                             <tbody class="BL-bg-f2f">
 	                            <tr v-for="(item, index) in main" :key="index"  v-if="Number(index) < safe_year">
 	                            	<td >
-                            			{{item[0]}} 
+                            			{{item[nl]}} 
                             		</td>
 	                            </tr>
-	                           
 	                        </tbody>
                         </table> 
                     </div>
-                    <div class="plans-detail-table" style="width: 88%;float: left;">
+                    <div id="right_div2" class="plans-detail-table" style="width: 88%;float: left;">
                     	<div>
-                    		
                     		<table class="BL-ftz-46">
-	                            <thead class=" BL-col-3b9cf5">
-		                            <tr>
-		                            	<th v-for="(item, index) in describes" :key="index" v-if="item.title !== '被保险人年龄'">
-	                            			{{item.title}}
-	                            		</th>
-		                            	<!--<th v-if="formID == '384' && status">
-	                            			生存保险金
-	                            		</th>
-	                            		<div v-else-if="formID == '401' && status">
-			                            	<th >
-		                            			部分领取
-		                            		</th>
-			                            	<th >
-		                            			万能账户
-		                            		</th>
-			                            	<th >
-		                            			退保总利益
-		                            		</th>
-	                            		</div>-->
-		                            </tr>
-	                            </thead>
 	                            <tbody v-if="status">
 	                            	<tr v-for="(item, index) in main" :key="index">
 	                            		<td v-for="(data, i) in item" v-if="i !== '被保险人年龄'">
@@ -98,11 +93,25 @@
 	                            	</tr>
 	                            </tbody>
 	                            <tbody  v-else>
-	                            	<tr v-for="(item, index) in main" :key="index" >
-	                            		<td v-for="(data, i) in item" v-if="i !== 0">
+	                            	<tr style="height: 0;visibility: hidden;">
+		                            	<td style="height: 0;padding-top: 0; padding-bottom: 0; line-height: 0;" v-for="(item, index) in describes" :key="index" v-if="item.title !== '被保险人年龄'">
+	                            			{{item.title}}
+	                            		</td>
+		                            </tr>
+	                            	<tr v-for="(item, index) in main" :key="index">
+	                            		<td v-for="(data, i) in item" v-if="i === njbf && index > pay_year">
+	                            			{{0}}
+	                            		</td>
+	                            		<td v-for="(data, i) in item" v-if="i === njbf && index <= pay_year">
+	                            			{{data}}
+	                            		</td>
+	                            		<td v-for="(data, i) in item" v-if="i !== njbf && i !== nl ">
 	                            			{{data}}
 	                            		</td>
 	                            	</tr>
+	                            	<!--<tr v-for="(item, index) in main" :key="index" v-if="index > pay_year">
+	                            		
+	                            	</tr>-->
 	                            </tbody>
 	                        </table>
                     	</div>
@@ -126,13 +135,15 @@
 				main: {},
 				children: {},
 				describes: {},
+				
 				pay_year: '',
 				safe_year: '',
 				levelNum : '',
 				behalfTable: [365, 377, 382, 384, 401, 19384, 19388], //主险利益演示表和附加险有关系的
 				behalfChildren: [368, 398, 183, 383, 385, 404, 19385, 19389], //主险利益演示表和附加险有关系的
 				status: false,//和附加险有没有关系
-				nj : null
+				nl : null, //年龄index
+				njbf: null //保费index
 			},
 			filters: {  
 	            capitalize: function (mainValue, childrenValue) {  
@@ -148,6 +159,14 @@
 		})
 
 		mui.plusReady(function() {
+			
+				
+			var right_div2 = document.getElementById("right_div2");
+	        right_div2.onscroll = function () {
+	            var right_div2_top = this.scrollTop;
+	            var right_div2_left = this.scrollLeft;
+	            document.getElementById("right_div1").scrollLeft = right_div2_left;
+	        }
 
 			// 实例化关闭窗口对象
 			popu = new ClosePopu();
@@ -181,8 +200,11 @@
 				
 			}
 			mui.each(modal.describes, function(index,item){
-				if(item.title == '年缴保费'){
-					modal.nj = index
+				if(item.title == '被保险人年龄'){
+					modal.nl = index
+				}
+				if(item.title == '年缴保费' || item.title == '年缴保费(元)'){
+					modal.njbf = index
 				}
 			})
 			

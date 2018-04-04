@@ -177,7 +177,10 @@
 							<!--主险信息 end -->
 
 						</div>
+						
+						<div class="clearfloat BL-pad-b-1">
 							<button class="BL-btn-white BL-ftz-42 BL-mar-t-1 BL-pad-lr-2 prospect-info-button">+添加附加险</button>
+						</div>
 
 					</template>
 
@@ -372,8 +375,14 @@
 					this.assu = Object.assign({}, this.assu, this.parseVueObj(appl))
 				},
 				addIns: function() { //添加险种
-					if(this.appl.name == '' || this.appl.age == '' || this.assu.age == '' || this.assu.age == '') {
-						mui.toast('请先完善投、被保人信息')
+					if(!this.checkName(this.appl.name, '投保人')) {
+						return false;
+					} else if(!this.checkAge(this.appl.age, '被保人')) {
+						return false;
+					} else if(!this.checkName(this.assu.name, '被保人')) {
+						return false;
+					} else if(!this.checkAge(this.assu.age, '被保人')) {
+						return false;
 					} else {
 						mui.openWindow({
 							id: 'prospect_addIns',

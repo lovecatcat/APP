@@ -1017,7 +1017,7 @@ var methods = {
 		} else {
 			if(mustSelected.indexOf(index) > -1) {
 				toastText = '该附加险必须附加，不能取消'
-				this.$toast.open(toastText)
+				mui.toast(toastText)
 				this.addonsSelected[index] = true
 				this.calMoney(false, index) // 试算附加险
 			} else if(index === '1168') {
@@ -1283,9 +1283,9 @@ var methods = {
 		}
 
 		if(toastText) {
-			this.$toast.open(toastText)
-			this.addonsSelected[safeid] = false
-			this.$forceUpdate()
+			mui.toast(toastText)
+//			this.addonsSelected[safeid] = false
+//			this.$forceUpdate()
 			return false
 		}
 		return true
@@ -2097,7 +2097,7 @@ var methods = {
 						safe_year: ret.data.data[-1][genre].safe_year,
 						pay_year: ret.data.data[-1][genre].pay_year,
 						money: ret.data.data[-1][genre].base_money, // 基本保险金额
-						period_money: vm.addonRes[safeid]['年缴保费'] || vm.addonRes[safeid]['年缴保费(元)'], // 年交保费
+						period_money: vm.addonRes[safeid]['年缴保费'] || vm.addonRes[safeid]['年缴保费(元)']|| vm.addonRes[safeid]['累计保费'], // 年交保费
 						flag: ret.data.data[-1][genre].flag,
 						fj: true
 					}
@@ -2126,7 +2126,7 @@ var methods = {
 		}
 		if(this.insurance.safe_id === '318' && !this.insurance.period_money && !this.insurance.money) {
 			// 乐行天下
-			this.$toast.open('请乐行天下先计算主险保费')
+			mui.toast('请乐行天下先计算主险保费')
 			return false
 		}
 		let bool = true
@@ -2138,7 +2138,7 @@ var methods = {
 		mustSelected.forEach(item => {
 			if(this.Addons[item] && !this.addonsSelected[item]) {
 				let name = this.Addons[item].name
-				this.$toast.open('【' + name + '】为必选')
+				mui.toast('【' + name + '】为必选')
 				bool = false
 			}
 		})

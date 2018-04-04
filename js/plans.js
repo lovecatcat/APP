@@ -1,4 +1,5 @@
 mui.init();
+var user_id;
 var aloneDetail = new Vue({
 	el: '#Js-alone',
 	data: {
@@ -142,7 +143,7 @@ var aloneDetail = new Vue({
 	document.querySelector('#Js-plansDetail').style.height = fotHeight + 'px';
 
 	$.plusReady(function() {
-
+		user_id = JSON.parse(plus.storage.getItem("userinfo")).id
 		var parent_self = plus.webview.getWebviewById('member_plans_detail') //父级id
 		//接收单个计划书数据alone
 		window.addEventListener('alone', function(event) {

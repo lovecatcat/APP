@@ -1035,12 +1035,22 @@
 										<button slot="button" class="ins-btn xs-btn blue">1年</button>
 									</div>
 								</div>
-								<app-input label="年缴保费(元)">
+								<!--<app-input label="年缴保费(元)">
 									<input slot="input"  v-model.number="cache.derate_money12E20010" type="number" placeholder="请填写年缴保费（元）">
 									<div slot="icon" @click="cache.derate_money12E20010 = ''" v-show="cache.derate_money12E20010 != ''" class="form-clear-icon">
 										<span class="mui-icon mui-icon-clear"></span>
 									</div>
-								</app-input>
+								</app-input>-->
+								<div class="input-item">
+									<label class="">年缴保费(元)</label>
+									<div class="input-wrap">
+										<input v-model.number="cache.derate_money12E20010" type="number" placeholder="请填写年缴保费（元）">
+										<div slot="icon" @click="cache.derate_money12E20010 = ''" v-show="cache.derate_money12E20010 != ''" class="form-clear-icon">
+											<span class="mui-icon mui-icon-clear"></span>
+										</div>
+									</div>
+									<div class="right-btn orange" @click="calMoney(false, item.code)">点击计算</div>
+								</div>
 							</div>
 						</template>
 						 <!-- 金掌柜年金保险 -->
@@ -1476,7 +1486,8 @@
 		const calMoneyIns = ['3188', 'ANIA', '12D00080', 'LA075', 'LA063'] // 算保额的主险
 		const fuMoneyIns = ['A66'] // 通过附加算主险,只有乐行天下
 		const mustSelected = ['291', '177', '11', 'RSD', 'RSC', '349', '8111'] // 必须附加的附加险
-		const noNeedCal = ['291', '11', '349', '12E20010', 'LA073', 'DAR'] // 不需要计算的险种
+//		const noNeedCal = ['291', '11', '349', '12E20010', 'LA073', 'DAR'] // 不需要计算的险种
+		const noNeedCal = ['291', '11', '349', 'LA073', 'DAR'] // 不需要计算的险种
 		const directNeedCal = ['RH7B', 'WPJP', 'HB024', 'RSD', '1161', '1168', '116501', '116502', '116503', '404', 'JCR', 'HI', 'ACIWP', 'NWPD', '33F00030', 'JER', 'FXKLYSFJ', 'FJKLYSQZ',] // 直接 计算的险种
 		var user_id;
 		var pushData;

@@ -22,7 +22,7 @@
             <div class="mui-icon mui-icon-closeempty" id="close-ins-pop"></div>
             <p class="ins-font-md box-f-1">信息确认</p>
             <div class="header-btn-save">
-                <button class="ins-btn sm-btn blue">保存</button>
+                <button class="ins-btn sm-btn blue" id="saveSign">保存</button>
             </div>
         </div>
         <div class="form-content margin-t-6_125 BL-pad-b-1">
@@ -54,11 +54,13 @@
                 </div>
                 <div class="BL-pad-a1">
                     <!--<div class="BL-ftz-46">-->
-                        <!--1. 本人已阅读<a class="BL-col-3b9cf5"><strong>《恒大万年红终身年金保险条款》</strong></a>、和<a class="BL-col-3b9cf5"><strong>《投保提示书》</strong></a>，了解本产品的特点。<br>-->
-                        <!--2. 本人已阅读<a class="BL-col-3b9cf5"><strong>《投保须知》</strong></a>、<a class="BL-col-3b9cf5"><strong>《声明授权与签名》</strong></a>。-->
+                    <!--1. 本人已阅读<a class="BL-col-3b9cf5"><strong>《恒大万年红终身年金保险条款》</strong></a>、和<a class="BL-col-3b9cf5"><strong>《投保提示书》</strong></a>，了解本产品的特点。<br>-->
+                    <!--2. 本人已阅读<a class="BL-col-3b9cf5"><strong>《投保须知》</strong></a>、<a class="BL-col-3b9cf5"><strong>《声明授权与签名》</strong></a>。-->
                     <!--</div>-->
                     <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1">
-                        <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读<a class="BL-col-3b9cf5"><strong>《恒大万年红终身年金保险条款》</strong></a>、和<a class="BL-col-3b9cf5"><strong>《投保提示书》</strong></a>、<a class="BL-col-3b9cf5"><strong>《投保须知》</strong></a>、<a class="BL-col-3b9cf5"><strong>《声明授权与签名》</strong></a>，并确认无误
+                        <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读<a class="BL-col-3b9cf5"><strong>《恒大万年红终身年金保险条款》</strong></a>、和<a
+                                class="BL-col-3b9cf5"><strong>《投保提示书》</strong></a>、<a class="BL-col-3b9cf5"><strong>《投保须知》</strong></a>、<a
+                                class="BL-col-3b9cf5"><strong>《声明授权与签名》</strong></a>，并确认无误
                             <input name="checkbox" value="Item1" type="checkbox" style="top: 20px; left: 0px;">
                         </label>
                     </div>
@@ -133,6 +135,20 @@
 
     mui.plusReady(function () {
         popu = new ClosePopu(); // 实例化关闭窗口对象
+        //
+        //保存
+        document.querySelector('#saveSign').addEventListener('tap', function () {
+            if (!img.checkForm()) {
+                return false
+            }
+            plus.storage.setItem('hengda_sign', JSON.stringify({
+                appl_signature: img.appl_signature,
+                assu_signature: img.assu_signature
+            }));
+            popu.closepop();
+            mui.back();
+        })
+        //
         mui('body').on('tap', '#close-ins-pop', function () {
             // 关闭遮罩层，弹框
             popu.closepop();
@@ -163,17 +179,19 @@
                 height: (canvas.parentNode.offsetWidth * lwRatio).toFixed(0) + 'px'
             }
             var vm = this
+
             function resizeCanvas() {
                 var ratio = Math.max(window.devicePixelRatio || 1, 1)
                 canvas.width = canvas.offsetWidth * ratio
                 canvas.height = canvas.offsetWidth * lwRatio * ratio
                 canvas.getContext('2d').scale(ratio, ratio)
             }
+
             window.onresize = resizeCanvas
             resizeCanvas()
             vm.signature = new SignaturePad(canvas, {
-                minWidth: 3,
-                maxWidth: 3
+                minWidth: 2,
+                maxWidth: 3.5
             })
         },
         destroyed() {
@@ -222,6 +240,19 @@
         methods: {
             sure: function () {
                 popu.closepop();
+            },
+            checkForm: function () {
+                var toast_text = null;
+                if (!this.appl_signature) {
+                    toast_text = '投保人签名不能为空';
+                } else if (!this.assu_signature) {
+                    toast_text = '被保人签名不能为空';
+                }
+                if (toast_text) {
+                    mui.toast(toast_text, {duration: 'short', type: 'div'});
+                    return false;
+                }
+                return true;
             },
             getSignature: function (index) {
                 if (!index) return

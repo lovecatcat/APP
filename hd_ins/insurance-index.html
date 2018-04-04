@@ -66,14 +66,21 @@
         </div>
         <div class="mui-input-row mui-checkbox ins-checkbox-right" id="ins-pic">
             <label class="ins-font-md">上传证件</label>
-            <input name="bank" value="6" type="checkbox" v-model="bank_save" disabled>
+            <input name="bank" value="6" type="checkbox" v-model="upload_save" disabled>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </div>
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" id="ins-sign">
+            <label class="ins-font-md">签名信息</label>
+            <input name="bank" value="6" type="checkbox" v-model="sign_save" disabled>
             <div class="form-list-icon">
                 <div class="mui-icon mui-icon-arrowright"></div>
             </div>
         </div>
     </form>
     <div class="BL-mar-t-3 BL-pad-lr-1_5">
-        <a type="button" id="ins-save" class="form-btn blue">保存后发链接给客户签名投保</a>
+        <a type="button" id="ins-save" class="form-btn blue">提交</a>
     </div>
 </div>
 <script src="../js/mui.min.js" type="text/javascript"></script>
@@ -90,6 +97,8 @@
             safegood_save: false,
             healthinfo_save: false,
             bank_save: false,
+            sign_save: false,
+            upload_save: false,
             userinfo: '',
             init: {}
         }
@@ -130,10 +139,11 @@
             // 打开遮罩层，弹框
             showPopu("insurance-upload.html", "insurance_upload", "bottom");
         });
-        mui('body').on('tap', '#ins-save', function () {
+        mui('body').on('tap', '#ins-sign', function () {
             // 打开遮罩层，弹框
             showPopu("insurance-sign.html", "insurance_sign", "bottom");
         });
+
         //整理下拉框需要的数据
         function dataToselect(data, type) {
             var arr = [];
@@ -202,8 +212,168 @@
                 }
             }
         });
+        //申请核保
+        document.querySelector('#ins-save').addEventListener('tap', function () {
+            var userinfo = JSON.parse(plus.storage.getItem('userinfo'));
+            console.log(1)
+            var applicant = JSON.parse(plus.storage.getItem('hengda_applicant'))
+            var assured = JSON.parse(plus.storage.getItem('hengda_assured'))
+            var beneficiary = plus.storage.getItem('hengda_beneficiary') ? JSON.parse(plus.storage.getItem('hengda_beneficiary')) : ''
+            var safegoods = JSON.parse(plus.storage.getItem('hengda_safegoods'))
+            var bank = JSON.parse(plus.storage.getItem('hengda_bank'))
+            var upload = JSON.parse(plus.storage.getItem('hengda_upload'))
+            var sign = JSON.parse(plus.storage.getItem('hengda_sign'))
+            var healthinfo = JSON.parse(plus.storage.getItem('hengda_healthinfo'))
+            console.log(JSON.stringify(sign))
+            //
+            var pushdata = {}
+            pushdata.id = ''
+            pushdata.supplier_id = SCID.toString()
+            pushdata.ins_area = '323' //深圳
+            pushdata.sales_channel = '2'
+            pushdata.user_id = userinfo.id
+            //投保人信息
+            let applfieldFilter = ['mail_addr_type', 'holder_ID_type_name', 'holder_nation_name', 'holder_salary_from_name', 'holder_home_district_name', 'holder_contact_province_name', 'holder_contact_city_name', 'holder_contact_district_name', 'holder_job_code', 'holder_job_name', 'holder_isTaxResidents']
+            for (let i in applicant) {
+                if (applfieldFilter.indexOf(i) > -1) continue
+                pushdata[i] = applicant[i]
+            }
+            pushdata.holder_job_code = {'1': 'LAE0538', '2': 'LAE0539', '3': 'LAE0540'};
 
+            //被保人信息
+            var insured = {}
+            let assufieldFilter = ['addr_type', 'insured_isTaxResidents', 'insured_job_name', 'insured_ID_type_name', 'insured_nation_name', 'insured_salary_from_name', 'insured_home_district_name', 'insured_job_code']
+            for (let i in assured) {
+                if (assufieldFilter.indexOf(i) > -1) continue
+                insured[i] = assured[i]
+            }
+            insured.insured_job_code = {'1': 'LAE0538', '2': 'LAE0539', '3': 'LAE0540'};
+            pushdata.insured = insured
+            //险种信息
+            var content = []
+            var safeitem = {}
+            var totalfee = 0
+            mui.each(safegoods, function (index, item) {
+                safeitem.is_main = 1 //是主险
+                safeitem.product_id = item.safe_id
+                safeitem.period_payment = item.pay_year
+                safeitem.period_guanantee = item.safe_year
+                safeitem.fee = item.period_money
+                safeitem.amount = item.money
+                totalfee += parseFloat(item.period_money).toFixed(2)
+                if (item.safe_id === qwhh) {
+                    safeitem.quantity = (item.money / 50000).toString()
+                }
+                safeitem.extend_items = {
+                    autoApl: item.autoApl ? 1 : 0,
+                    guarantee_term: item.guarantee_term,
+                    draw_freq: item.draw_freq,
+                    draw_age: item.draw_age,
+                    shareDrawType: item.shareDrawType
+                }
+                content.push(safeitem)
+            })
+            pushdata.total = totalfee //总保费
+            pushdata.content = content
+            //受益人信息
+            pushdata.beneficiary = []
+            if (!beneficiary) {
+                pushdata.is_legal_benefic = 1
+            } else {
+                pushdata.is_legal_benefic = 0
+                mui.each(beneficiary, function (index, item) {
+                    pushdata.beneficiary.push(item)
+                })
+            }
+            //银行信息
+            for (let i in bank) {
+                pushdata[i] = bank[i]
+            }
+            //健康告知
+            pushdata.matter = healthinfo
+            //影像
+            pushdata.img_json = {
+                '00': upload.document_front_img,
+                '01': upload.document_negative_img,
+                '06': sign.appl_signature,
+                '07': sign.assu_signature,
+                '08': upload.bank_front_img
+            }
+            //
+            var extend_items = {}
+            extend_items.isTaxResidents = applicant.holder_isTaxResidents;
+            extend_items.isTaxResidentsInsured = assured.insured_isTaxResidents;
+            extend_items.mail_addr_type = applicant.mail_addr_type ? 1 : 0
+            extend_items.addr_type = assured.addr_type ? 1 : 0
+            pushdata.extend_items = extend_items
+
+            console.log(JSON.stringify(pushdata))
+
+            save_ins(pushdata);
+        });
+
+        //保存保单
+        function save_ins(data) {
+            luckyAjax({
+                data: {data: JSON.stringify(data), server: 'PolicyIns.save'},
+                success: function (res) {
+                    console.log(JSON.stringify(res));
+                    if (res.code) {
+                        online_ins(res.data)
+                    } else {
+
+                    }
+                }
+            });
+        };
+
+        //核保
+        function online_ins(id) {
+            luckyAjax({
+                data: {
+                    data: JSON.stringify({
+                        msg: {policy_id: id},
+                        company_code: 'HengDa',
+                        method: 'insure'
+                    }),
+                    server: 'PolicyIns.onlineInsured',
+                    device: 'mobile'
+                },
+                success: function (res) {
+                    if (res.code) {
+                        upload_img(id)
+                    } else {
+
+                    }
+                }
+            });
+        };
+
+        //上传影像
+        function upload_img(id) {
+            luckyAjax({
+                data: {
+                    data: JSON.stringify({
+                        msg: {policy_id: id},
+                        company_code: 'HengDa',
+                        method: 'update_img'
+                    }),
+                    server: 'PolicyIns.onlineInsured',
+                    device: 'mobile'
+                },
+                success: function (res) {
+                    console.log(JSON.stringify(res));
+                    if (res.code) {
+                        //影像上传成功
+                    } else {
+
+                    }
+                }
+            });
+        };
+        //
     })
+
 </script>
 </body>
 </html>

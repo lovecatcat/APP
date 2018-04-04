@@ -21,38 +21,41 @@
             <div class="mui-icon mui-icon-closeempty" id="close-ins-pop"></div>
             <p class="ins-font-md box-f-1">上传证件</p>
             <div class="header-btn-save">
-                <button class="ins-btn sm-btn blue" @click="sure">保存</button>
+                <button class="ins-btn sm-btn blue" id="saveUpload">保存</button>
             </div>
         </div>
         <div class="form-content margin-t-6_125 BL-pad-b-1">
-        	<div class="form-wrap">
-	        	<div class="mui-row form-row">
-		            <div class="mui-col-sm-6 BL-mar-b-1">
-		                <div class="BL-txt-c">
-		                    <div class="form-upload BL-mar-r-1" model="document_front_img" :style="previewImg[0]" data-id="0">
-		                        <input type="file" accept="image/*" class="form-upload-img">
-		                    </div>
-		                    <span class="form-p BL-col-999">投保人身份证正面</span>
-		                </div>
-		            </div>
-		            <div class="mui-col-sm-6 BL-mar-b-1">
-		                <div class="BL-txt-c">
-		                    <div class="form-upload BL-mar-l-1" model="document_negative_img" :style="previewImg[1]" data-id="1">
-		                        <input type="file" accept="image/*" class="form-upload-img">
-		                    </div>
-		                    <span class="form-p BL-col-999">投保人身份证反面</span>
-		                </div>
-		            </div>
-		            <div class="mui-col-sm-6 BL-mar-b-1">
-		                <div class="BL-txt-c">
-		                    <div class="form-upload BL-mar-r-1" model="bank_front_img"  :style="previewImg[2]" data-id="2">
-		                        <input type="file" accept="image/*" class="form-upload-img">
-		                    </div>
-		                    <span class="form-p BL-col-999">银行卡正面</span>
-		                </div>
-		            </div>
-		        </div>
-	        </div>
+            <div class="form-wrap">
+                <div class="mui-row form-row">
+                    <div class="mui-col-sm-6 BL-mar-b-1">
+                        <div class="BL-txt-c">
+                            <div class="form-upload BL-mar-r-1" model="document_front_img" :style="previewImg[0]"
+                                 data-id="0">
+                                <input type="file" accept="image/*" class="form-upload-img">
+                            </div>
+                            <span class="form-p BL-col-999">投保人身份证正面</span>
+                        </div>
+                    </div>
+                    <div class="mui-col-sm-6 BL-mar-b-1">
+                        <div class="BL-txt-c">
+                            <div class="form-upload BL-mar-l-1" model="document_negative_img" :style="previewImg[1]"
+                                 data-id="1">
+                                <input type="file" accept="image/*" class="form-upload-img">
+                            </div>
+                            <span class="form-p BL-col-999">投保人身份证反面</span>
+                        </div>
+                    </div>
+                    <div class="mui-col-sm-6 BL-mar-b-1">
+                        <div class="BL-txt-c">
+                            <div class="form-upload BL-mar-r-1" model="bank_front_img" :style="previewImg[2]"
+                                 data-id="2">
+                                <input type="file" accept="image/*" class="form-upload-img">
+                            </div>
+                            <span class="form-p BL-col-999">银行卡正面</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -64,60 +67,76 @@
 <script type="text/javascript">
     mui.init();
     var popu;
-    
-	var img = new Vue({
-		el: '#Js-content',
-		data: {
-			previewImg: [],           //上传图片
-			document_front_img: '',   // 证件照片正面
-    		document_negative_img: '', // 证件照片反面
-    		bank_front_img: ''
-		},
-		methods: {
-			sure: function () {
-				var toastText = null
-			    if (!img.document_front_img) {
-			    	toastText = '请上传身份证正面照片'
-			    } else if (!img.document_negative_img) {
-			    	toastText = '请上传身份证反面照片'
-			    } else if (!img.bank_front_img) {
-			    	toastText = '请上传银行卡正面照片'
-			    }
-			    if (toastText) {
-			    	mui.toast(toastText, {duration: 'short', type: 'div'})
+
+    var img = new Vue({
+        el: '#Js-content',
+        data: {
+            previewImg: [],           //上传图片
+            document_front_img: '',   // 证件照片正面
+            document_negative_img: '', // 证件照片反面
+            bank_front_img: ''
+        },
+        methods: {
+            sure: function () {
+                var toastText = null
+                if (!img.document_front_img) {
+                    toastText = '请上传身份证正面照片'
+                } else if (!img.document_negative_img) {
+                    toastText = '请上传身份证反面照片'
+                } else if (!img.bank_front_img) {
+                    toastText = '请上传银行卡正面照片'
+                }
+                if (toastText) {
+                    mui.toast(toastText, {duration: 'short', type: 'div'})
                     return false;
-			    }
-			    popu.closepop();
-			}
-		}
-	})
-	
+                }
+                return true
+            }
+        }
+    })
+
     mui.plusReady(function () {
-    	popu = new ClosePopu(); // 实例化关闭窗口对象
+        //
+        popu = new ClosePopu(); // 实例化关闭窗口对象
+        //
+        //保存
+        document.querySelector('#saveUpload').addEventListener('tap', function () {
+            if (!img.sure()) {
+                return false
+            }
+            plus.storage.setItem('hengda_upload', JSON.stringify({
+                document_front_img: img.document_front_img,
+                document_negative_img: img.document_negative_img,
+                bank_front_img: img.bank_front_img,
+            }));
+            popu.closepop();
+            mui.back();
+        })
+        //
         mui('body').on('tap', '#close-ins-pop', function () {
             // 关闭遮罩层，弹框
             popu.closepop();
         });
-        
+
         mui('body').on('tap', '.form-upload', function (e) {
-	    	var id = this.getAttribute('data-id')
-	        // 打开遮罩层，弹框
-	        showPopu("upload-img.html", "upload_img", "bottom", {id: id});
-	    });
+            var id = this.getAttribute('data-id')
+            // 打开遮罩层，弹框
+            showPopu("upload-img.html", "upload_img", "bottom", {id: id});
+        });
     });
     // 图片字段名
-	const fileName = [
-	  'document_front_img',
-	  'document_negative_img',
-	  'bank_front_img'
-	]
-	//获取要上传的头像
+    const fileName = [
+        'document_front_img',
+        'document_negative_img',
+        'bank_front_img'
+    ]
+    //获取要上传的头像
     window.addEventListener('uploadimg', function (event) {
-    	img[fileName[event.detail.id]] = event.detail.img
-    	img.$set(img.previewImg, event.detail.id, {
-        	'background': 'url(' + event.detail.img + ')'
+        img[fileName[event.detail.id]] = event.detail.img
+        img.$set(img.previewImg, event.detail.id, {
+            'background': 'url(' + event.detail.img + ')'
         })
-	})
+    })
 </script>
 
 </html>

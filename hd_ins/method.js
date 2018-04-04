@@ -33,46 +33,8 @@ var BEN_SPEC = 'LAO0002';//受益人指定
 var SY_TYPE = 'LAP0001'; //受益类型：身故
 var has_social_security = 'LAG0001'; //有社保
 var no_social_security = 'LAG0002';//无社保
-
-// 身份邮编对照表
-var zipcodes = {
-    '129': ['10'],
-    '147': ['30'],
-    '165': ['05', '06', '07'],
-    '348': ['03', '04'],
-    '479': ['01', '02', '13', '16'],
-    '594': ['11', '12'],
-    '713': ['13'],
-    '783': ['15', '16'],
-    '929': ['20'],
-    '948': ['21', '22'],
-    '1061': ['31', '32'],
-    '1174': ['23', '24'],
-    '1296': ['35', '36'],
-    '1391': ['33', '34'],
-    '1503': ['25', '26', '27'],
-    '1660': ['45', '46', '47'],
-    '1837': ['43', '44'],
-    '1955': ['41', '42'],
-    '2092': ['51', '52'],
-    '2290': ['53', '54'],
-    '2419': ['57'],
-    '2451': ['40'],
-    '2495': ['61', '62', '63', '64'],
-    '2700': ['55', '56'],
-    '2798': ['65', '66', '67'],
-    '2944': ['85'],
-    '3026': ['71', '72'],
-    '3150': ['73', '74'],
-    '3254': ['81'],
-    '3306': ['75'],
-    '3334': ['83', '84'],
-    '3453': ['99'],
-    '3844': ['99'],
-    '3866': ['99'],
-    '3877': ['99'],
-    '24021': ['99']
-};
+var marry_no = 'LAD0001'
+var marry_yes = 'LAD0002'
 
 //数据初始化
 var applicant = {
@@ -94,27 +56,79 @@ var applicant = {
 
     holder_home_province: '20',//现在住址【省】
     holder_home_city: '323',//现在住址【市】
-    holder_home_district: '',//现在住址【区】
-    holder_home_district_name: '请选择',//现在住址【区】名称
-    holder_home_address: '', //现在住址【地址详情】
-    holder_home_zip: '',//现在住址【邮编】
+    holder_home_district: '2235',//现在住址【区】
+    holder_home_district_name: '罗湖',//现在住址【区】名称
+    holder_home_address: '测试测试测是', //现在住址【地址详情】
+    holder_home_zip: '518021',//现在住址【邮编】
     mail_addr_type: false,//（通讯地址）同现在住址
-    holder_contact_province: '',//通讯地址【省】
-    holder_contact_city: '',//通讯地址【市】
+    holder_contact_province: '4',//通讯地址【省】
+    holder_contact_city: '87',//通讯地址【市】
     holder_contact_district: '',//通讯地址【区】
-    holder_contact_province_name: '请选择',//通讯地址【省】名称
-    holder_contact_city_name: '请选择',//通讯地址【市】名称
-    holder_contact_district_name: '请选择',//通讯地址【区】名称
-    holder_contact_address: '', //通讯地址【地址详情】
-    holder_contact_zip: '',//通讯地址【邮编】
+    holder_contact_province_name: '重庆',//通讯地址【省】名称
+    holder_contact_city_name: '万州',//通讯地址【市】名称
+    holder_contact_district_name: '',//通讯地址【区】名称
+    holder_contact_address: '哈哈哈哈哈哈或', //通讯地址【地址详情】
+    holder_contact_zip: '404000',//通讯地址【邮编】
 
-    holder_has_SSID: '',//是否有社保
-    holder_marriage: '',//婚姻状况
-    holder_job_code: '',//职业
-    holder_job_name: '',//职业名称
-    holder_isTaxResidents: '', //税收标识
-    resident_type: '' //居民类型
+    holder_has_SSID: no_social_security,//是否有社保
+    holder_marriage: marry_yes,//婚姻状况
+    holder_job_code: 'LAE0681',//职业
+    holder_job_name: '一般内勤人员',//职业名称
+    holder_isTaxResidents: TAXTYPE, //税收标识
+    resident_type: 'LAL0001' //居民类型
 };
+var assured = {
+    rel_insured_holder: 'LAC0002',//是投保人的  配偶
+    insured_name: '李四', //姓名
+    insured_ID_type: IDcard, //证件类型
+    insured_ID_type_name: '身份证', //证件类型名
+    insured_ID_no: '54222119810508456x', //证件号码
+    insured_birthday: '1980-05-08', //出生日期
+    insured_ID_expire_end: '2020-10-10', //证件有效期
+    insured_gender: FEMALE, //性别  1男  2女
+    insured_mobile: '15963254578',//手机号
+    insured_email: '54656565@126.com',//邮箱
+    insured_height: '170',//身高
+    insured_weight: '60',//体重
+    insured_nation: NATION,//国籍
+    insured_nation_name: '中国',//国籍
+    insured_salary_from: 'LAF0001',//收入来源
+    insured_salary_from_name: '工薪',//收入来源名
+    insured_salary_avg: '50',//年收入
+
+    addr_type: false,//是否所有地址同投保人,
+    insured_home_province: '20',//现在住址【省】
+    insured_home_city: '323',//现在住址【市】
+    insured_home_district: '2237',//现在住址【区】
+    insured_home_district_name: '南山',//现在住址【区】名称
+    insured_home_address: '分隔符付付付付付', //现在住址【地址详情】
+    insured_home_zip: '518051',//现在住址【邮编】
+
+    insured_has_SSID: false,//是否有社保
+    insured_marriage: marry_yes,//婚姻状况
+    insured_job_code: 'LAE0540',//职业
+    insured_job_name: '内勤人员',//职业名称
+    insured_isTaxResidents: TAXTYPE //税收标识
+}
+var beneficiary = {
+    beneficiary_is_insured: 'LAN0004',//与被保人关系
+    fullname: '洒洒水',//姓名
+    ID_type: BOOKLET,//证件类型
+    ID_type_name: '户口本',//证件类型名称
+    ID_no: '542221201705081201',//证件号码
+    ID_expire_end: '9999-12-31',//证件有效期
+    gender: MALE,//性别
+    birthday: '2017-05-08',//出生日期
+    sort_order: 1,//受益顺序
+    rate: '100',//受益比例
+    type: SY_TYPE,//受益类型：身故
+    addr_type: 3,//地址类型 1同投保人 2同被保人 3否
+    province: '20',
+    city: '323',
+    district: '2237',
+    address: '手动发发的发',//详细地址,
+    zip: '518051'//邮编
+}
 //
 
 //证件号校验
@@ -146,8 +160,8 @@ var IDValidate = function (type, id, owner) {
                         appl.applicant.holder_birthday = idInfo.birth;
                         appl.applicant.holder_gender = sexCode[idInfo.sex];
                     } else if (owner === '被保人') {
-                        assu.assured.assured_birthday = idInfo.birth;
-                        assu.assured.assured_gender = sexCode[idInfo.sex];
+                        assu.assured.insured_birthday = idInfo.birth;
+                        assu.assured.insured_gender = sexCode[idInfo.sex];
                     }
                 }
                 break;
@@ -166,6 +180,7 @@ var IDValidate = function (type, id, owner) {
 };
 //计算年龄
 var getAge = function (str) {
+    console.log(str)
     if (!str) return;
     var now = new Date();
     var year = now.getFullYear();
@@ -309,8 +324,6 @@ var checkZipcode = function (val, province, owner) {
         toast_text = owner + '地址邮编不能为空';
     } else if (!/^\d{6}$/.test(val)) {
         toast_text = '请输入' + owner + '6位数字的地址邮编';
-    } else if (zipcodes[province] && zipcodes[province].indexOf(val.substr(0, 2)) === -1) {
-        toast_text = owner + '地址所属省份邮编，与输入的邮政编码开头不符';
     }
     if (toast_text) {
         mui.toast(toast_text, {duration: 'short', type: 'div'});
@@ -330,8 +343,8 @@ var checkOccupation = function (owner) {
         sex = appl.applicant.holder_gender;
     } else if (owner === '被保人') {
         age = assu.assu_age;
-        occu = assu.assured.assured_job_code;
-        sex = assu.assured.assured_gender;
+        occu = assu.assured.insured_job_code;
+        sex = assu.assured.insured_gender;
     }
     console.log('职业：' + owner + 'age:' + age + ';occu:' + occu + ';sex:' + sex);
     if (sex === '15406' && occu === '7852') {
@@ -472,43 +485,43 @@ var checkAssured = function () {
     const vm = this
     if (!assu.assured.rel_insured_holder) {
         toast_text = '请选择与投保人关系'
-    } else if (!assu.assured.assured_isTaxResidents) {
+    } else if (!assu.assured.insured_isTaxResidents) {
         toast_text = '请选择被保人居民税收类型'
-    } else if (!assu.assured.assured_ID_type) {
+    } else if (!assu.assured.insured_ID_type) {
         toast_text = '被保人证件类型不能为空'
-    } else if (!IDValidate(assu.assured.assured_ID_type, assu.assured.assured_ID_no, '被保人')) {
+    } else if (!IDValidate(assu.assured.insured_ID_type, assu.assured.insured_ID_no, '被保人')) {
         return false
-    } else if (!checkTerm(assu.assured.assured_ID_expire_end, '被保人')) {
+    } else if (!checkTerm(assu.assured.insured_ID_expire_end, '被保人')) {
         return false
-    } else if (!vm.checkName('被保人', assu.assured.assured_name)) { //被保人
+    } else if (!vm.checkName('被保人', assu.assured.insured_name)) { //被保人
         return false
-    } else if (!assu.assured.assured_birthday) {
+    } else if (!assu.assured.insured_birthday) {
         toast_text = '被保人出生日期不能为空'
-    } else if (!checkPhone('被保人', assu.assured.assured_mobile)) {
+    } else if (!checkPhone('被保人', assu.assured.insured_mobile)) {
         return false
-    } else if (!assu.assured.assured_job_code) {
+    } else if (!assu.assured.insured_job_code) {
         toast_text = '被保人职业不能为空'
     } else if (!checkOccupation('被保人')) {
         return false
-    } else if (!checkEarnings(2, assu.assured.assured_salary_avg)) {
+    } else if (!checkEarnings(2, assu.assured.insured_salary_avg)) {
         return false
-    } else if (!assu.assured.assured_marriage) {
+    } else if (!assu.assured.insured_marriage) {
         toast_text = '被保人婚姻状况不能为空'
-    } else if (!assu.assured.assured_salary_from) {
+    } else if (!assu.assured.insured_salary_from) {
         toast_text = '被保人收入来源不能为空'
-    } else if (!checkHeight('被保人', assu.assured.assured_height)) {
+    } else if (!checkHeight('被保人', assu.assured.insured_height)) {
         return false
-    } else if (!checkWeight('被保人', assu.assured.assured_weight)) {
+    } else if (!checkWeight('被保人', assu.assured.insured_weight)) {
         return false
-    } else if (!assu.assured.assured_home_province) {
+    } else if (!assu.assured.insured_home_province) {
         toast_text = '被保人现在住址【省级】不能为空'
-    } else if (!assu.assured.assured_home_city && assu.assured.assured_home_province !== '3877') {
+    } else if (!assu.assured.insured_home_city && assu.assured.insured_home_province !== '3877') {
         toast_text = '被保人现在住址【市级】不能为空'
-    } else if (!assu.assured.assured_home_district && assu.assured.assured_home_province !== '3877') {
+    } else if (!assu.assured.insured_home_district && assu.assured.insured_home_province !== '3877') {
         toast_text = '被保人现在住址【县/区】不能为空'
-    } else if (!checkAddress(assu.assured.assured_home_address, '被保人')) {
+    } else if (!checkAddress(assu.assured.insured_home_address, '被保人')) {
         return false
-    } else if (!checkZipcode(assu.assured.assured_home_zip, assu.assured.assured_home_province, '被保人')) {
+    } else if (!checkZipcode(assu.assured.insured_home_zip, assu.assured.insured_home_province, '被保人')) {
         return false
     }
     if (toast_text) {
@@ -519,12 +532,12 @@ var checkAssured = function () {
 };
 //出生证、户口本 长期有效
 var astypeChange = function () {
-    assu.assured.assured_ID_no = ''
-    if (assu.assured.assured_ID_type === BOOKLET || assu.assured.assured_ID_type === BORNid) {
-        assu.assured.assured_ID_expire_end = '9999-12-31'
+    assu.assured.insured_ID_no = ''
+    if (assu.assured.insured_ID_type === BOOKLET || assu.assured.insured_ID_type === BORNid) {
+        assu.assured.insured_ID_expire_end = '9999-12-31'
         assu.longTerm = true
     } else {
-        assu.assured.assured_ID_expire_end = ''
+        assu.assured.insured_ID_expire_end = ''
         assu.longTerm = false
     }
 };

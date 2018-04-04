@@ -20,7 +20,7 @@
             <div class="mui-icon mui-icon-closeempty" id="close-ins-pop"></div>
             <p class="ins-font-md box-f-1">投保人信息</p>
             <div class="header-btn-save">
-                <button class="ins-btn sm-btn blue" @click="saveAppl">保存</button>
+                <button class="ins-btn sm-btn blue" id="saveAppl">保存</button>
             </div>
         </div>
         <div class="form-content margin-t-6_125 BL-pad-b-2" v-cloak>
@@ -48,7 +48,7 @@
                 <div class="input-item">
                     <label class="">证件号码</label>
                     <div class="input-wrap box-f-1">
-                        <input type="number" placeholder="请输入" v-model.trim.lazy="applicant.holder_ID_no">
+                        <input type="text" placeholder="请输入" v-model.trim.lazy="applicant.holder_ID_no">
                         <div class="form-clear-icon" v-show="applicant.holder_ID_no!=''"
                              @click="applicant.holder_ID_no=''">
                             <span class="mui-icon mui-icon-clear"></span>
@@ -99,7 +99,7 @@
                 <div class="input-item">
                     <label class="">国籍</label>
                     <div class="input-wrap box-f-1">
-                        <div class="input BL-col-666">中国</div>
+                        <input type="text" class="BL-col-666" v-model.lazy="applicant.holder_nation_name" readonly>
                     </div>
                 </div>
                 <div class="input-item">
@@ -114,7 +114,7 @@
                     </div>
                 </div>
                 <div class="input-item">
-                    <label class="">职业</label>
+                    <label class="">职业{{applicant.holder_job_code}}</label>
                     <div class="input-wrap box-f-1" id="occu-first">
                         <input type="text" placeholder="请选择" readonly v-model="applicant.holder_job_name" readonly>
                         <div class="ins-down-icon"></div>
@@ -203,7 +203,7 @@
                         <div class="input flex">
                             <div class="flex-1 BL-col-999">广东省</div>
                             <div class="flex-1 BL-col-999">深圳市</div>
-                            <div class="flex-1" id="appl-district">{{{{applicant.holder_home_district}}{{applicant.holder_home_district_name}}</div>
+                            <div class="flex-1" id="appl-district">{{applicant.holder_home_district_name}}</div>
                         </div>
                         <div class="ins-down-icon"></div>
                     </div>
@@ -329,6 +329,7 @@
                 holder_height: '',//身高
                 holder_weight: '',//体重
                 holder_nation: '',//国籍
+                holder_nation_name: '中国',//国籍
                 holder_salary_from: '',//收入来源
                 holder_salary_from_name: '请选择',//收入来源名
                 holder_salary_avg: '',//年收入
@@ -361,8 +362,11 @@
 //            字段初始化
             this.applicant.holder_ID_type = IDcard;
             this.applicant.holder_gender = MALE;
-//            this.applicant.holder_nation = NATION;
-
+            this.applicant.holder_nation = NATION;
+            //
+            this.applicant = Object.assign(this.applicant, applicant)
+            this.appl_age = getAge(this.applicant.holder_birthday)
+            //
             this.$watch('applicant.holder_isTaxResidents', function (val) {
                 if (val && val !== TAXTYPE) {
                     mui.toast('根据您声明的内容，请选择线下投保并提交相关资料', {duration: 'short', type: 'div'});
@@ -377,6 +381,7 @@
             });
 
             this.$watch('applicant.holder_birthday', function (val) {
+                console.log(1)
                 this.appl_age = getAge(val);
                 var toast_text = null;
                 if (this.appl_age < 18) {
@@ -389,14 +394,6 @@
                     return false;
                 }
             })
-        },
-        methods: {
-            saveAppl: function () {
-                if (!checkAppl()) {
-                    return false
-                }
-                console.log(JSON.stringify(this.applicant));
-            }
         }
     });
 
@@ -469,28 +466,28 @@
         occuFirst.setData(init.occupation);
         document.querySelector('#occu-first').addEventListener('tap', function () {
             occuFirst.show(function (items1) {
-                console.log(items1[0].text)
+                console.log(items1[0].value)
                 appl.applicant.holder_job_name = items1[0].text;
                 appl.applicant.holder_job_code = items1[0].value;
                 getOccu(items1[0].value, function (res1) {
                     if (!res1) return
                     occuSecond.setData(res1)
                     occuSecond.show(function (items2) {
-                        console.log(items2[0].text)
+                        console.log(items2[0].value)
                         appl.applicant.holder_job_name = items2[0].text;
                         appl.applicant.holder_job_code = items2[0].value;
                         getOccu(items2[0].value, function (res2) {
                             if (!res2) return
                             occuThird.setData(res2)
                             occuThird.show(function (items3) {
-                                console.log(items3[0].text)
+                                console.log(items3[0].value)
                                 appl.applicant.holder_job_name = items3[0].text;
                                 appl.applicant.holder_job_code = items3[0].value;
                                 getOccu(items3[0].value, function (res3) {
                                     if (!res3) return
                                     occuFourth.setData(res3)
                                     occuFourth.show(function (items4) {
-                                        console.log(items4[0].text)
+                                        console.log(items4[0].value)
                                         appl.applicant.holder_job_name = items4[0].text;
                                         appl.applicant.holder_job_code = items4[0].value;
                                     });
@@ -501,8 +498,19 @@
                 })
             });
         });
-//
+
         var popu = new ClosePopu(); // 实例化关闭窗口对象
+
+        //保存
+        document.querySelector('#saveAppl').addEventListener('tap', function () {
+            if (!checkAppl()) {
+                return false
+            }
+            plus.storage.setItem('hengda_applicant',JSON.stringify(appl.applicant));
+            popu.closepop();
+            mui.back();
+        })
+        //
         mui('body').on('tap', '#close-ins-pop', function () {
             // 关闭遮罩层，弹框
             popu.closepop();

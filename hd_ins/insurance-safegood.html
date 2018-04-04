@@ -20,7 +20,7 @@
             <div class="mui-icon mui-icon-closeempty" id="close-ins-pop"></div>
             <p class="ins-font-md box-f-1">险种信息{{hasAddons}}</p>
             <div class="header-btn-save">
-                <button class="ins-btn sm-btn blue">保存</button>
+                <button class="ins-btn sm-btn blue" id="saveGoods">保存</button>
             </div>
         </div>
         <div class="form-content margin-t-6_125 BL-pad-b-2">
@@ -789,9 +789,9 @@
                         }
                         break
                     case fxjs: //福享金生
-                        if (this.assured.assured_gender === MALE && pay_year + age > 60) {
+                        if (this.assured.insured_gender === MALE && pay_year + age > 60) {
                             toast_text = pay_year + '年交投保年龄上限为' + (60 - pay_year) + '周岁'
-                        } else if (this.assured.assured_gender === FEMALE && pay_year + age > 55) {
+                        } else if (this.assured.insured_gender === FEMALE && pay_year + age > 55) {
                             toast_text = pay_year + '年交投保年龄上限为' + (55 - pay_year) + '周岁'
                         }
                         break
@@ -848,7 +848,6 @@
             },
             //试算
             calMoney: function (index) {
-                alert('ss' + index)
                 console.log('试算中');
                 var vm = this
                 var id = Number(vm.insurance.safe_id);
@@ -869,9 +868,9 @@
                         product.amount = vm.addonIns[index].money.toString()
                         product.premium = vm.addonIns[index].period_money.toString()
                         if (index === zxak) { //尊享安康
-                            product.social_security = vm.assured.assured_has_SSID
+                            product.social_security = vm.assured.insured_has_SSID
                         } else if (index === hs) { //恒顺
-                            data.insurant.occupationCode = vm.assured.assured_job_code
+                            data.insurant.occupationCode = vm.assured.insured_job_code
                         }
                         data = product
                     }
@@ -896,9 +895,9 @@
                     user_id: '2185', //vm.userinfo.id
                     productInfo: [data],
                     insurant: {
-                        name: "abc", //vm.assured.assured_name
-                        birthday: "1992-01-10",//vm.assured.assured_birthday
-                        genderCode: "LAB0001"//vm.assured.assured_gender
+                        name: "abc", //vm.assured.insured_name
+                        birthday: "1992-01-10",//vm.assured.insured_birthday
+                        genderCode: "LAB0001"//vm.assured.insured_gender
                     },
                     applicant: {
                         name: "efg",//vm.applicant.holder_name,
@@ -1040,6 +1039,19 @@
 
         safe.getIns();
         var popu = new ClosePopu(); // 实例化关闭窗口对象
+        //
+        //保存
+        document.querySelector('#saveGoods').addEventListener('tap', function () {
+            if (!safe.checkForm()) {
+                return false
+            }
+            var insurances = []
+            insurances.push(safe.insurance);
+            plus.storage.setItem('hengda_safegoods',JSON.stringify(insurances));
+            popu.closepop();
+            mui.back();
+        })
+        //
         mui('body').on('tap', '#close-ins-pop', function () {
             // 关闭遮罩层，弹框
             popu.closepop();

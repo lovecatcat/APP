@@ -20,7 +20,7 @@
             <div class="mui-icon mui-icon-closeempty" id="close-ins-pop"></div>
             <p class="ins-font-md box-f-1">健康告知信息</p>
             <div class="header-btn-save">
-                <button class="ins-btn sm-btn blue">保存</button>
+                <button class="ins-btn sm-btn blue" id="saveHealthinfo">保存</button>
             </div>
         </div>
         <div class="form-content margin-t-6_125 BL-pad-b-2" v-if="matters">
@@ -370,6 +370,24 @@
     });
     mui.plusReady(function () {
         var popu = new ClosePopu(); // 实例化关闭窗口对象
+        //保存
+        document.querySelector('#saveHealthinfo').addEventListener('tap', function () {
+            var appitems = []
+            mui.each(health.matters, function (index, item) {
+                appitems.push({
+                    mv_id: item.id,
+                    insured_answer: '',
+                    holder_answer: '',
+                    insured_fields: 0,
+                    holder_fields: 0
+                })
+            })
+            console.log(JSON.stringify(appitems))
+            plus.storage.setItem('hengda_healthinfo', JSON.stringify(appitems));
+            popu.closepop();
+            mui.back();
+        })
+        //
         mui('body').on('tap', '#close-ins-pop', function () {
             // 关闭遮罩层，弹框
             popu.closepop();
@@ -377,7 +395,7 @@
 
         //获取健康告知题目
         luckyAjax({
-            data: {data: JSON.stringify({'supplier_id': SCID}), server: 'PolicyIns.getMatterList'},
+            data: {data: JSON.stringify({'supplier_id': SCID, 'version': 1}), server: 'PolicyIns.getMatterList'},
             success: function (res) {
                 console.log(JSON.stringify(res));
                 if (res.code) {

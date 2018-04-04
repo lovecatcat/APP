@@ -120,7 +120,7 @@
 				            device: 'mobile',
 				            data: JSON.stringify({id: newsDetail.newsTvDetail_data.id})
 				        },
-				        success:function(data){
+				        success:function(res){
 				        	if(res.code) {
 								newsDetail.newsTvDetail_data.praise_num = res.data.praise_num
 							} 
@@ -141,7 +141,7 @@
 			            device: 'mobile',
 			            data: JSON.stringify({id: id})
 			        },
-			        success:function(data){
+			        success:function(res){
 			        	if(res.code == 1) {
 							newsDetail.newsTvDetail_data = res.data
 						}else{

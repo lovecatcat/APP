@@ -87,8 +87,8 @@
 													type: 'MBJ001' //行业资讯v
 								            })
 								        },
-								        success:function(data){
-								        		if(res.code == 1 && i <= res.data.pageCount) {
+								        success:function(res){
+								        		if(res.code = 1 && i <= res.data.pageCount) {
 												newsList.newsList_data = newsList.newsList_data.concat(res.data.queue)
 												self.endPullUpToRefresh();
 											}else{

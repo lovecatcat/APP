@@ -43,12 +43,12 @@
                     </table>
                 </div>
             </li>
-            <li class="mui-table-view-cell  member-warranty-detail-item">
+            <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-b-1">
                 <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l mui-navigate-right">
                     <span class="BL-col-3b9cf5">险种信息</span>
                 </a>
                 <div class=" BL-pad-lr-1_5 BL-pad-tb-1_5  mui-table-view mui-table-view-chevron"  style="overflow: hidden">
-					<ul style="width: 30%;float: left;" class="BL-bg-f2f">
+					<ul style="width: 30%;float: left; " class="BL-bg-f2f">
                 		<li>险种名称</li>
                 		<li>保额/份数</li>
                 		<li>交费频次</li>
@@ -60,7 +60,7 @@
                 		
                 	</ul>
                     <div class="BL-ub" style="width: 70%;float: left;overflow-y: hidden;overflow-x: scroll;">
-                    	<ul style="width:50%;" v-for="item in productInfo">
+                    	<ul style="width:50%;border-left: none;" v-for="item in productInfo">
                     		<li>{{item.product_name}}</li>
                     		<li>{{item.amount}}</li>
                     		<li>{{item.period_payment}}</li>
@@ -73,7 +73,7 @@
                     </div>
                 </div>
             </li>
-            <li class="mui-table-view-cell member-warranty-detail-item">
+            <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-b-1">
                 <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l mui-navigate-right">
                     <span class="BL-col-3b9cf5">投保人信息</span>
                 </a>
@@ -90,7 +90,7 @@
                 		<li>职业</li>
                 		<li>通讯地址</li>
                 	</ul>
-                	<ul style="width: 60%;float: left;">
+                	<ul style="width: 60%;float: left;border-left: none;">
                 		<li>{{holderInfo.holder_name}}</li>
                 		<li>{{holderInfo.holder_gender_text}}</li>
                 		<li>{{holderInfo.holder_birthday}}</li>
@@ -105,15 +105,13 @@
                 	</ul>
                 </div>
             </li>
-            <li class="member-warranty-detail-item">
+            <li class="member-warranty-detail-item BL-mar-b-1" v-if="holderInfo.rel_holder_insured == '本人' || insuredInfo.rel_insured_holder == '本人'">
                 <div class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l">
                     <span class="BL-col-3b9cf5">被保人信息</span>
                     <div class="fr">同投保人</div>
                 </div>
-                <div class=" BL-pad-lr-1_5 BL-pad-tb-1">
-                </div>
             </li>
-            <li class="mui-table-view-cell mui-collapse member-warranty-detail-item">
+            <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-b-1" v-if="holderInfo.rel_holder_insured !== '本人' && insuredInfo.rel_insured_holder !== '本人'">
                 <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l mui-navigate-right">
                     <span class="BL-col-3b9cf5">被保人信息</span>
                 </a>
@@ -130,7 +128,7 @@
                 		<li>职业</li>
                 		<li>通讯地址</li>
                 	</ul>
-                	<ul style="width: 60%;float: left;">
+                	<ul style="width: 60%;float: left;border-left: none;">
                 		<li>{{insuredInfo.insured_name}}</li>
                 		<li>{{insuredInfo.insured_gender_text}}</li>
                 		<li>{{insuredInfo.insured_birthday}}</li>
@@ -144,32 +142,31 @@
                 	</ul>
                 </div>
             </li>
-            <li class="mui-table-view-cell mui-collapse member-warranty-detail-item">
+            <li class="member-warranty-detail-item BL-mar-b-1" v-if="beneficiaryInfo.length < 1">
+                <div class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l">
+                    <span class="BL-col-3b9cf5">受益人信息</span>
+                    <div class="fr">法定</div>
+                </div>
+            </li>
+            <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-b-1" v-if="beneficiaryInfo.length > 0">
                 <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l mui-navigate-right">
                     <span class="BL-col-3b9cf5">受益人信息</span>
                 </a>
                  <div class=" BL-pad-lr-1_5 BL-pad-tb-1_5  mui-table-view mui-table-view-chevron"  style="overflow: hidden">
 					<ul style="width: 30%;float: left;" class="BL-bg-f2f">
-                		<li>险种名称</li>
-                		<li>保额/份数</li>
-                		<li>交费频次</li>
-                		<li>交费年限</li>
-                		<li>保险期间</li>
-                		<li>期/趸交保费</li>
-                		<li>本期保费</li>
-                		<li>保险生效</li>
-                		
+                		<li>姓名</li>
+                		<li>性别</li>
+                		<li>出生日期</li>
+                		<li>证件类型</li>
+                		<li>证件号码</li>
                 	</ul>
                     <div class="BL-ub" style="width: 70%;float: left;overflow-y: hidden;overflow-x: scroll;">
-                    	<ul style="width:50%;" v-for="item in productInfo">
-                    		<li>{{item.product_name}}</li>
-                    		<li>{{item.amount}}</li>
-                    		<li>{{item.period_payment}}</li>
-                    		<li>{{item.period_payment}}</li>
-                    		<li>{{item.period_guanantee}}</li>
-                    		<li>{{item.fee}}</li>
-                    		<li>{{item.fee}}</li>
-                    		<li>{{item.underwrite_date}}</li>
+                    	<ul style="width:50%;border-left: none;" v-for="item in beneficiaryInfo">
+                    		<li>{{item.fullname}}</li>
+                    		<li>{{item.gender_text}}</li>
+                    		<li>{{item.birthday}}</li>
+                    		<li>{{item.id_type}}</li>
+                    		<li>{{item.ID_no}}</li>
                     	</ul>
                     </div>
                 </div>
@@ -206,23 +203,27 @@
 			var titHeight = document.querySelector('#Js-header').offsetHeight;
             document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
             var policy_id = plus.webview.currentWebview().policy_id;
-            var data = {
-				server: 'PolicyIns.policyDetails',
-				data: JSON.stringify({
-					policy_id: policy_id,
-					state: '', // 保单类型
-				}),
-				device: 'pad'
-			};
-			$.post(config.baseUrl, data, function(res) {
-				if(res.code) {
-					lifeDetail.policyInfo = res.data.policyInfo
-					lifeDetail.productInfo = res.data.productInfo
-					lifeDetail.holderInfo = res.data.holderInfo
-					lifeDetail.insuredInfo = res.data.insuredInfo
-					lifeDetail.beneficiaryInfo = res.data.beneficiaryInfo
-				} 
-			});
+			luckyAjax({
+					data: {
+			            server: 'PolicyIns.policyDetails',
+			            device: 'mobile',
+			            data: JSON.stringify({
+							policy_id: policy_id,
+							state: '', // 保单类型
+						}),
+			        },
+			        success:function(res){
+
+						if(res.code == 1){
+							lifeDetail.policyInfo = res.data.policyInfo
+							lifeDetail.productInfo = res.data.productInfo
+							lifeDetail.holderInfo = res.data.holderInfo
+							lifeDetail.insuredInfo = res.data.insuredInfo
+							lifeDetail.beneficiaryInfo = res.data.beneficiaryInfo
+						}
+					
+			        }
+				});
         });
     }(mui));
 </script>

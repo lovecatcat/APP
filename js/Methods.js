@@ -107,7 +107,7 @@ var methods = {
 			vm.insurance.safe_id = safeid
 			vm.Addons = []
 			vm.addonRes = {} //附加险清空
-			vm.planList = [] //列表信息清空
+			vm.planList = {} //列表信息清空
 			if(items[0].child) {
 				for(var i = 0; i < items[0].child.length; i++) {
 					var child = {
@@ -1123,8 +1123,11 @@ var methods = {
 		this.addonRes = {}
 		this.addonsSelected = {}
 		//      mui('.mui-switch ').switch().toggle();
-		//		mui('.mui-switch ').switch().toggleAct(false);
-
+		
+		mui('.mui-switch').each(function(index , item){
+			mui(this).switch().toggleCur(false);
+		})
+		
 	},
 	// 校验附加险投保年龄
 	checkExtraAge(safeid) {
@@ -1629,7 +1632,8 @@ var methods = {
 				server: 'Proposal.getProductInfo',
 				device: 'mobile',
 				data: JSON.stringify({
-					code: safeid
+					code: safeid,
+					id: ''
 				})
 			},
 			success: function(res) {
@@ -2004,7 +2008,7 @@ var methods = {
 			if(noNeedCal.indexOf(safeid) > -1) {
 				return false
 			}
-			alert(JSON.stringify(this.addonInsData[safeid]))
+//			alert(JSON.stringify(this.addonInsData[safeid]))
 		}
 		console.log(JSON.stringify({
 			safes: JSON.stringify([data])
@@ -2062,7 +2066,9 @@ var methods = {
 						period_money: vm.insurance.period_money, // 年交保费
 						fj: false
 					}
-					vm.planList.push(list)
+					vm.planList[safeid] = list
+//					vm.planList[safeid] = Object.assign({}, vm.planList[safeid], vm.parseVueObj(list))
+//					alert(JSON.stringify(vm.planList))
 				} else if(!isMain && ret.data.data &&
 					ret.data.data[-1][genre] &&
 					ret.data.data[-1][genre].main &&
@@ -2084,6 +2090,7 @@ var methods = {
 						vm.fxljysFXLJYS.mzmoney = vm.addonRes[safeid]['门诊总保费']
 					}
 					vm.$forceUpdate()
+					
 					let list = {
 						name: res.name,
 						safe_id: safeid,
@@ -2094,7 +2101,16 @@ var methods = {
 						flag: ret.data.data[-1][genre].flag,
 						fj: true
 					}
-					vm.planList.push(list)
+					vm.planList[safeid] = list
+//					for(var k = 0; k < vm.planList.length; k++){
+//						if(vm.planList[k].safe_id == safeid){
+//							vm.planList[k] = list
+//						}else{
+//							vm.planList.push(list)
+//						}
+//					}
+				
+					
 				} else {
 					mui.toast('计算出错,请重试！')
 				}
@@ -2141,7 +2157,8 @@ var methods = {
 				addon: this.addonInsData,
 				insurance: this.insurance
 			},
-			planList: this.planList
+			planList: this.planList,
+			safeid: this.insurance.safe_id
 		});
 
 		old_back()

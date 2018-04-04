@@ -97,7 +97,7 @@
             //接收上一个页面传来的公司id
             company.companyId = plus.webview.currentWebview().company_id;
             plus.nativeUI.showWaiting();
-            $.ajax('http://www.luckyins.com/api/api/invoke', {
+            $.ajax('http://ts-www.luckyins.com/api/api/invoke', {
                 data: {
                     device: 'pad',
                     server: 'lifeProduct.getCompanyList'

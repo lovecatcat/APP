@@ -97,7 +97,7 @@ var aloneDetail = new Vue({
 				}),
 				device: 'mobile'
 			};
-			mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
+			mui.post("http://ts-www.luckyins.com/api/api/invoke", data, function(res) {
 				if(res.code == 1) {
 					mui.toast('保存成功')
 				} else { 
@@ -1621,7 +1621,7 @@ var aloneDetail = new Vue({
 						}),
 						device: 'mobile'
 					};
-					mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
+					mui.post("http://ts-www.luckyins.com/api/api/invoke", data, function(res) {
 						if(res.code == 1) {
 							aloneDetail.manual_content = res.data.manual_content
 						} else { 

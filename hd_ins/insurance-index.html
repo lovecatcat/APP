@@ -167,7 +167,7 @@
             return arr;
         }
 
-//初始化下拉数据获取
+		//初始化下拉数据获取
         mui.ajax(baseURL + '/invoke', {
             data: {data: JSON.stringify({'supplier_id': SCID}), device: 'mobile', server: 'PolicyIns.initPolicyField'},
             dataType: 'json',//服务器返回json格式数据

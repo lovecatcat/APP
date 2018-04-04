@@ -109,7 +109,7 @@
         function getData(id) {
             console.log(JSON.stringify({product_id: id}));
             plus.nativeUI.showWaiting();
-            mui.ajax('http://www.luckyins.com/api/api/invoke', {
+            mui.ajax('http://ts-www.luckyins.com/api/api/invoke', {
                 data: {
                     data: JSON.stringify({product_id: id}),
                     device: 'pad',

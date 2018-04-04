@@ -4,12 +4,32 @@
     <list default="true" id="498c8627-e6d5-474f-af44-54872208893d" name="默认的" comment="Merge branch 'master' of http://172.16.2.31:3001/baihao/BH-mobileapp2&#10;&#10;# Conflicts:&#10;#&#9;css/common.css&#10;#&#9;css/plans.css&#10;#&#9;plans-detail.html&#10;#&#9;plans-total.html&#10;#&#9;plans.html">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/communic-detail.html" afterPath="$PROJECT_DIR$/communic-detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/insurance.css" afterPath="$PROJECT_DIR$/css/insurance.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hd_ins/insurance-beneficiary.html" afterPath="$PROJECT_DIR$/hd_ins/insurance-beneficiary.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hd_ins/insurance-applicant.html" afterPath="$PROJECT_DIR$/hd_ins/insurance-applicant.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hd_ins/insurance-index.html" afterPath="$PROJECT_DIR$/hd_ins/insurance-index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hd_ins/insurance-sign.html" afterPath="$PROJECT_DIR$/hd_ins/insurance-sign.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index-content.html" afterPath="$PROJECT_DIR$/index-content.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/config.js" afterPath="$PROJECT_DIR$/js/config.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/plans.js" afterPath="$PROJECT_DIR$/js/plans.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manifest.json" afterPath="$PROJECT_DIR$/manifest.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-duty-stats.html" afterPath="$PROJECT_DIR$/member-duty-stats.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-changepwd.html" afterPath="$PROJECT_DIR$/member-changepwd.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-commission-extract.html" afterPath="$PROJECT_DIR$/member-commission-extract.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-commission-incomelist.html" afterPath="$PROJECT_DIR$/member-commission-incomelist.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-duty.html" afterPath="$PROJECT_DIR$/member-duty.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-personalinfo.html" afterPath="$PROJECT_DIR$/member-personalinfo.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-plans-alone-design.html" afterPath="$PROJECT_DIR$/member-plans-alone-design.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-plans-manage.html" afterPath="$PROJECT_DIR$/member-plans-manage.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-plans-total.html" afterPath="$PROJECT_DIR$/member-plans-total.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-tax-cal.html" afterPath="$PROJECT_DIR$/member-tax-cal.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-team-prospectus.html" afterPath="$PROJECT_DIR$/member-team-prospectus.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news-detail.html" afterPath="$PROJECT_DIR$/news-detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/product-contrast-detail.html" afterPath="$PROJECT_DIR$/product-contrast-detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/product-contrast.html" afterPath="$PROJECT_DIR$/product-contrast.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/product-detail.html" afterPath="$PROJECT_DIR$/product-detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/product.html" afterPath="$PROJECT_DIR$/product.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/quickly-filter.html" afterPath="$PROJECT_DIR$/quickly-filter.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/quickly.html" afterPath="$PROJECT_DIR$/quickly.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/recruit.html" afterPath="$PROJECT_DIR$/recruit.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sns.html" afterPath="$PROJECT_DIR$/sns.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/team-personal-performance.html" afterPath="$PROJECT_DIR$/team-personal-performance.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,31 +43,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="upload-img.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hd_ins/upload-img.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="insurance-upload.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hd_ins/insurance-upload.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2714">
-              <caret line="118" column="9" lean-forward="false" selection-start-line="118" selection-start-column="9" selection-end-line="118" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="insurance-applicant.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hd_ins/insurance-applicant.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="23">
+              <caret line="346" column="43" lean-forward="false" selection-start-line="346" selection-start-column="32" selection-end-line="346" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/config.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="69">
+              <caret line="3" column="47" lean-forward="false" selection-start-line="3" selection-start-column="47" selection-end-line="3" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="method.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hd_ins/method.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3128">
+              <caret line="136" column="2" lean-forward="false" selection-start-line="122" selection-start-column="4" selection-end-line="136" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -64,8 +84,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>image.src</find>
-      <find>cons</find>
       <find>v-clock</find>
       <find>images</find>
       <find>banner_count</find>
@@ -94,6 +112,8 @@
       <find>plans-detail-fixed</find>
       <find>baseurl</find>
       <find>alert</find>
+      <find>getAge</find>
+      <find>getA</find>
     </findStrings>
     <replaceStrings>
       <replace>BL</replace>
@@ -178,10 +198,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="511" />
+    <option name="y" value="54" />
+    <option name="width" value="1573" />
+    <option name="height" value="1000" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -199,6 +219,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -206,17 +227,11 @@
               <item name="mobileapp2" type="b2602c69:ProjectViewProjectNode" />
               <item name="mobileapp2" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="mobileapp2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mobileapp2" type="462c0819:PsiDirectoryNode" />
-              <item name="hd_ins" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -277,6 +292,8 @@
       <workItem from="1522312498620" duration="632000" />
       <workItem from="1522389681220" duration="151000" />
       <workItem from="1522489872373" duration="9000" />
+      <workItem from="1522838247155" duration="764000" />
+      <workItem from="1522841224364" duration="12000" />
     </task>
     <task id="LOCAL-00001" summary="计划书模块">
       <created>1520420574558</created>
@@ -324,7 +341,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="267699000" />
+    <option name="totallyTimeSpent" value="268571000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -339,7 +356,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17270789" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17590618" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11304348" sideWeight="0.510661" order="7" side_tool="true" content_ui="tabs" />
@@ -440,13 +457,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/css/mui.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53">
-          <caret line="25" column="10" lean-forward="true" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/news-cloud.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="851">
@@ -620,13 +630,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="48" lean-forward="true" selection-start-line="3" selection-start-column="48" selection-end-line="3" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/member-plans-alone.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="248">
@@ -727,19 +730,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hd_ins/method.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/hd_ins/upload-img.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -754,14 +748,36 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2714">
           <caret line="118" column="9" lean-forward="false" selection-start-line="118" selection-start-column="9" selection-end-line="118" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ins2c-applicant(1).html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="47" lean-forward="false" selection-start-line="3" selection-start-column="47" selection-end-line="3" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hd_ins/method.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3128">
+          <caret line="136" column="2" lean-forward="false" selection-start-line="122" selection-start-column="4" selection-end-line="136" selection-end-column="2" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hd_ins/insurance-applicant.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="23">
+          <caret line="346" column="43" lean-forward="false" selection-start-line="346" selection-start-column="32" selection-end-line="346" selection-end-column="43" />
           <folding />
         </state>
       </provider>

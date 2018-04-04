@@ -85,13 +85,12 @@
 			        success:function(data){
 		                if(data.code == 1){
 		                	var data = data.data
-		                	document.getElementById('Js-surname').innerHTML = data.user_name.substring(0,1) 
-		                	document.getElementById('Js-name').innerHTML = data.user_name
-		                	document.getElementById('Js-name').innerHTML = data.user_name
+		                	document.getElementById('Js-surname').innerHTML = data.name.substring(0,1) 
+		                	document.getElementById('Js-name').innerHTML = data.name
 		                	document.getElementById('Js-integ').innerHTML = data.pay_points
 		                	document.getElementById('Js-phone').innerHTML = data.tel
 		                	document.getElementById('Js-ID').innerHTML = data.card_no
-		                	document.getElementById('Js-address').innerHTML = data.address
+		                	document.getElementById('Js-address').innerHTML = data.home_address
 		                	document.getElementById('Js-birthday').innerHTML = data.birthday
 		                } else {
 							mui.alert(data.msg, '提示', function() {

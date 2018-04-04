@@ -35,7 +35,7 @@
 						<li class="fItem BL-ub BL-ub-f1">
 							<label class="form-list-label">金额（元）</label>
 							<div class="form-list-control BL-txt-r">
-								<input v-model="amount" type="text" placeholder="请输入">
+								<input v-model.lazy="amount" type="text" placeholder="请输入">
 							</div>
 							<div class="form-list-icon" v-show="amount != ''">
 								<span class="mui-icon mui-icon-clear" @click="amount = ''"></span>

@@ -134,7 +134,7 @@
 					device: 'pad',
 					data: JSON.stringify({id: newsDetail.newsTvDetail_data.id})
 					}
-				mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
+				mui.post("http://ts-www.luckyins.com/api/api/invoke", data, function(res) {
 					if(res.code) {
 						newsDetail.newsTvDetail_data.praise_num = res.data.praise_num
 					} 
@@ -153,7 +153,7 @@
 					data: JSON.stringify({id: id}),
 					device: 'pad'
 				}
-			  	mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
+			  	mui.post("http://ts-www.luckyins.com/api/api/invoke", data, function(res) {
 					if(res.code == 1) {
 						newsDetail.newsDetail_data = res.data
 					}else{

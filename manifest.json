@@ -929,7 +929,9 @@
 					"images/icon/ico-duty-nowifi.png",
 					"js/config.js"
 				],
-				"refer": [],
+				"refer": [
+					"member-commission-result.html"
+				],
 				"priority": 0
 			},
 			"member-commission-income.html": {
@@ -2413,7 +2415,9 @@
 					"images/icon/ico-tax-question.png",
 					"css/form.css"
 				],
-				"refer": [],
+				"refer": [
+					"member-tax-info.html"
+				],
 				"priority": 0
 			},
 			"prospect-main.html": {
@@ -2477,6 +2481,23 @@
 				],
 				"refer": [],
 				"priority": 0
+			},
+			"member-commission-result.html": {
+				"resources": [
+					"images/icon/ico-cmis-success.png",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-tax-info.html": {
+				"resources": [
+					"css/insurance.css",
+					"css/mui.picker.min.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {
@@ -2485,7 +2506,6 @@
 				"receipt-list.html",
 				"receipt-1.html",
 				"receipt-2.html",
-				"member-commission-result.html",
 				"images/pic/p8.jpg",
 				"css/mui.min.css",
 				"receipt-3.html",

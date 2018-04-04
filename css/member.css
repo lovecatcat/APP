@@ -887,12 +887,16 @@
 .member-warranty-detail-item table thead tr>td:first-child{
     background-color: #fff;
 }
+.member-warranty-detail-item ul{
+	border-bottom: 1px solid #d2d2d2;
+	border-left: 1px solid #d2d2d2;
+}
 .member-warranty-detail-item ul li{
 	font-size: 1.4375rem;
 	height: 6rem;
-	/*line-height: 6rem;*/
-	/*padding: 2rem 0;*/
-	border: 1px solid #d2d2d2;
+	box-sizing: border-box;
+	border-top: 1px solid #d2d2d2;
+	border-right: 1px solid #d2d2d2;
 	text-align: center;
 	display: flex;
     align-items: center;

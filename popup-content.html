@@ -15,14 +15,14 @@
 			<!--列表(白豪)-->
 			<div id="modal-list" class="BL-modal BL-modal-w90 BL-pad-lr-2 BL-pad-tb-1_5 BL-ub BL-ub-ac" :class="{'BL-hide': isHide !== 'modal-list'}">
 				<div class="BL-modal-content">
-					<div class="BL-modal-list" v-for="item in goIns_data">
+					<div class="BL-modal-list" v-for="item in goIns_data" @click="showStatement(item.genre)">
 						<i class="BL-modal-icon-0"></i>
 						<span>{{item.name}}</span>
 					</div>
 				</div>
 			</div>
 			<!-- 业绩表格(雨晴)-->
-			<div id="modal-table-performance" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table-performance'}">
+			<div id="modal-table-performance" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table-performance'}" v-if="goIns_data">
 				<div class="BL-modal-content BL-modal-tab">
 					<div class="BL-title">
 						{{ goIns_data.name }}
@@ -65,7 +65,7 @@
 				</div>
 			</div>
 			<!-- 计划书表格(雨晴)-->
-			<div id="modal-table-prospect" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table-prospect'}">
+			<div id="modal-table-prospect" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table-prospect'}" v-if="goIns_data">
 				<div class="BL-modal-content BL-modal-tab">
 					<div class="BL-title">
 						{{ goIns_data.name }}
@@ -188,6 +188,29 @@
 						popu.closepop();
 					}
 
+				},
+				showStatement: function(genre){
+					var statement = ''
+					luckyAjax({
+						data: {
+							server: 'Proposal.getProductInfo',
+							device: 'mobile',
+							data: JSON.stringify({
+								code: '',
+								id: genre
+							})
+						},
+						success: function(res) {
+							if(res.code == 1) {
+									statement = res.code.statement
+									alert(JSON.stringify(statement))
+									
+									plus.runtime.openURL(statement);
+							} else {
+								mui.toast('加载失败')
+							}
+						}
+					});
 				}
 			}
 		})

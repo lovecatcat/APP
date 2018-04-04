@@ -17,7 +17,7 @@
 			<!--搜索 begin-->
 			<div id="Js-teamFilter" class="member-team-search member-warranty-search BL-ub BL-ub-ac BL-bg-fff">
 				<div class="search-date BL-rel">
-					<div class="BL-pad-lr-1" id='warranty_date' data-options='{"type":"month"}'>{{warranty_date.text}}</div>
+					<div class="BL-pad-lr-1" id='warranty_date' data-options='{"type":"month","beginYear":1950}'>{{warranty_date.text}}</div>
 
 					<div class="down BL-abs">
 						<span class="BL-bimg-contain search-down"></span>
@@ -45,7 +45,7 @@
 							<li class="member-warranty-list-item" v-for="item in warranty_list">
 								<div class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-46 BL-txt-l">
 									<span>保单号:</span>
-									<span>{{item.policy_id}}</span>
+									<span>{{item.policy_sn}}</span>
 									<span class="BL-col-3b9cf5 fr">{{item.state_name}}</span>
 								</div>
 								<div class="BL-pad-lr-1_5 BL-pad-tb-1_5">
@@ -162,6 +162,8 @@
 						manageLife.warranty_date.value = '';
 						manageLife.selectData = items[0].value;
 						i = 0; 
+						manageLife.warranty_list = []
+						mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
 	                   	pullAjax() 
 					});
 				}, false);
@@ -176,6 +178,8 @@
 						manageLife.warranty_date.value = '';
 						manageLife.selectData = String(items[0].value);
 						i = 0
+						manageLife.warranty_list = []
+						mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
 						pullAjax()
 					});
 				}, false);
@@ -192,28 +196,30 @@
 						manageLife.warranty_state.value = ''
 						_self.picker.dispose();
 						_self.picker = null;
+						i = 0;
+						manageLife.warranty_list = []
+						mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
 						pullAjax() 
 					}, false);
 				});
-
 				//循环初始化所有下拉刷新，上拉加载。
 				var pullAjax = function() {
-					mui.ajax(config.baseUrl, {
-			            data: {
-			                server: 'PolicyIns.PolicyManage',
-			                device: 'mobile',
-			                data: JSON.stringify({
-								user_id: 65,
+					plus.nativeUI.showWaiting();
+					luckyAjax({
+						data: {
+				            server: 'PolicyIns.PolicyManage',
+				            device: 'mobile',
+				            data: JSON.stringify({
+								user_id: user_id,
 								ins_type: manageLife.warranty_type.value, // 保单类型
 								state: manageLife.warranty_state.value, // 保单状态必选传的是对象
 								month: manageLife.warranty_date.value,
-								isRenewal: '' //传1显示代理人接收的保单，传2或者不传表示显示代理人自己保单和接收的保单
+								isRenewal: '', //传1显示代理人接收的保单，传2或者不传表示显示代理人自己保单和接收的保单
+								page: i
 							})
-			            },
-			            dataType: 'json',
-			            type: 'post',
-			            success: function (res) {
-//			            	alert(JSON.stringify(res))
+				        },
+				        success:function(res){
+							plus.nativeUI.closeWaiting();
 			               	if(res.code == 1) {
 								if(res.data.totalRows > manageLife.warranty_list.length && !manageLife.selectData){
 									manageLife.warranty_list = manageLife.warranty_list.concat(res.data.list)
@@ -242,15 +248,12 @@
 								});
 								warrantyType.setData(manageLife.ins_type);
 								warrantyState.setData(manageLife.state);
-							} else {
-								manageLife.warranty_list = []
+						
+				        	} else {
 	                            self.endPullUpToRefresh(true)
 							}
-			            },
-			            error: function () {
-			                mui.toast('网络异常：404')
-			            }
-			    	});
+				        }
+					});
 				}
 				$('#Js-warrantyList .mui-scroll').pullToRefresh({
 					up: { // 上拉加载更多
@@ -262,7 +265,6 @@
 						}
 					}
 				});
-
 			});
 
 			//跳转详情

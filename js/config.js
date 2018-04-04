@@ -22,7 +22,7 @@ var sizeObj = (function(win) {
  */
 var luckyAjax = function(options){
 	if(!options.closeWaiting){ // 默认打开加载中...
-		plus.nativeUI.showWaiting();	
+		plus.nativeUI.showWaiting();
 	}
 	var defaults = {
 		url:config.baseUrl,
@@ -36,7 +36,7 @@ var luckyAjax = function(options){
 	};
 	var opt = mui.extend(true, defaults, options);
 	console.log(opt);
-	
+
 	mui.ajax(opt.url, {
 		data:opt.data,
 		dataType:opt.dataType,
@@ -168,6 +168,6 @@ ClosePopu.prototype.closepop = function(){
 	this.self.close();
 	this.opener.setStyle({
 		mask: 'none'
-	});		
+	});
 }
 

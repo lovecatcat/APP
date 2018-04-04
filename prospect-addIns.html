@@ -191,7 +191,7 @@
 							<div class="input-item box-f-1" style="height: 2.8125rem;line-height: 2.8125rem;">
 								<div class="box-f-3 ins-font-sm">{{item.name}}</div>
 								<div class="form-switch-note ">投保</div>
-								<div :id="'addon'+ item.code" class="mui-switch mui-switch-mini" @click="chAddonState(item.code)">
+								<div :id="'addon'+ item.code" class="mui-switch mui-switch-mini" @tap="chAddonState(item.code)">
 									<div class="mui-switch-handle"></div>
 								</div>
 							</div>
@@ -1465,7 +1465,7 @@
 			</div>
 		</div>
 	</body>
-	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/mui.js" type="text/javascript"></script>
 	<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/mui.picker.js"></script>
 	<script src="js/mui.dtpicker.js"></script>
@@ -1561,7 +1561,7 @@
 					mzzfbl: 1 // 门诊自负比例
 				},
 				
-				planList: [] //险种列表信息
+				planList: {} //险种列表信息
 			},
 			filters: {
 				safeYearFilter: function(value) {
@@ -1601,12 +1601,13 @@
 			var winH = window.innerHeight;
 			var titHeight = document.querySelector('#Js-header').offsetHeight;
 			document.querySelector('#Js-content').style.height = (winH - titHeight) + 'px';
-			
+			user_id = JSON.parse(plus.storage.getItem("userinfo")).id;
 			
 			parent_self = plus.webview.getWebviewById('prospect') //父级id
 			ins.plan_id = plus.webview.currentWebview().plan_id //id
 			ins.appl = plus.webview.currentWebview().appl
 			ins.assu = plus.webview.currentWebview().assu
+			ins.planTime = plus.webview.currentWebview().planTime
 
 			var data = {
 				server: 'PolicyIns.getCompanyList',
@@ -1631,13 +1632,12 @@
 			old_back = mui.back;
 			mui.back = function() {
 				var data = {
-					main: this.mainInsurance,
+					main: ins.mainInsurance,
 					addon: {},
-					insurance: this.insurance
+					insurance: ins.insurance
 				}
 				alert(JSON.stringify(data))
-				mui.fire(parent_self, 'SET_INS', {
-					plan_id: this.plan_id,
+				mui.fire(parent_self, 'SET_TIME', {
 					ins: data
 				});
 				old_back();

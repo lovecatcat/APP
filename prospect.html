@@ -23,16 +23,17 @@
 				<!--计划书方案选项 begin-->
 				<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
 					<div class="mui-scroll">
-						<div data-wid="prospect_main" href="prospect-main.html" class="plans-nav mui-active" v-for="plan,index in plans" :key="plan.id" :data-id="plans[index].id" :data-index="index" :id="'plan'+ plans[index].id">
+						<div data-wid="prospect_main" href="prospect-main.html" 
+							class="plans-nav mui-active" v-for="plan,index in plans" :key="plan.id" :data-id="plans[index].id" :data-index="index" :id="'plan'+ plans[index].id">
 							<span v-if="!plans[index].assu.name">保障计划</span>
 							<span v-else>{{plans[index].assu.name}}</span>
-							<i class="mui-icon mui-icon-clear" @click="removePlan(index)"></i>
+							<i class="mui-icon mui-icon-clear" @tap="removePlan(index)" ></i>
 						</div>
 					</div>
 				</div>
 				<!--计划书方案选项 end -->
 				<!--方案名称 begin -->
-				<div class="BL-ub BL-rel BL-bg-fff BL-pad-lr-1_5 BL-pad-tb-1 input-item">
+				<div class="BL-ub BL-rel BL-bg-fff BL-pad-lr-1_5 BL-pad-tb-1 input-item" style="margin: 1rem 0 0 0;">
 					<label>计划名称</label>
 					<div class="input-wrap input-wrap-planName box-f-1">
 						<input type="text" placeholder="请输入">
@@ -48,7 +49,7 @@
 			<div id="Js-content" class="mui-content BL-overFlow-autoY">
 
 				<!--投保人信息 begin -->
-				<div class="BL-bg-fff prospect-info">
+				<div class="BL-bg-fff prospect-info BL-mar-t-1">
 					<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
 						<div class="BL-pad-lr-1_5">投保人信息</div>
 						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @click="displace">
@@ -69,7 +70,7 @@
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">年龄</label>
 							<div class="input-wrap box-f-1">
-								<input v-model.number.lazy.trim="appl.age" type="number" placeholder="输入年龄">
+								<input v-model.number.lazy.trim="appl.age" @change="checkAge(appl.age, '投保人')" type="number" placeholder="输入年龄">
 								<div class="form-clear-icon" v-show="appl.age != ''">
 									<span class="mui-icon mui-icon-clear" @click="appl.age = '' "></span>
 								</div>
@@ -116,7 +117,7 @@
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">年龄</label>
 							<div class="input-wrap box-f-1">
-								<input v-model.number.lazy.trim="assu.age" type="number" placeholder="输入年龄">
+								<input v-model.number.lazy.trim="assu.age" @change="checkAge(assu.age, '被保人')" type="number" placeholder="输入年龄">
 								<div class="form-clear-icon" v-show="assu.age != ''">
 									<span class="mui-icon mui-icon-clear" @click="assu.age = '' "></span>
 								</div>
@@ -137,13 +138,13 @@
 				</div>
 				<!--被保人信息 end -->
 				<!--险种信息 begin -->
-				<div class="BL-bg-fff BL-mar-t-1 prospect-info clearfloat" :class="{ 'BL-pad-b-3' : planList[plan_id].length > 0}">
+				<div class="BL-bg-fff BL-mar-t-1 prospect-info clearfloat" :class="{'BL-pad-b-3' : planList[plan_id].length > 0}">
 					<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
 						<div class="BL-pad-lr-1_5">险种信息</div>
 						<button class="BL-btn-blue BL-abs BL-pad-lr-1" @click="addIns">添加险种</button>
 					</div>
-					<template v-if="planList&&planList[plan_id]" :key="index">
-						<div class="clearfloat" v-if="planList[plan_id]" v-for="item,index in planList[plan_id]" :key="index">
+					<template v-if="planList&&planList[plan_id]" v-for="item1,index1 in planList[plan_id]" :key="index1">
+						<div class="clearfloat" v-if="item1" v-for="item,index in item1" :key="index">
 							<!--主险信息 begin -->
 							<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff">
 								<div class="BL-ub plans-total-content BL-pad-b-1">
@@ -153,7 +154,7 @@
 										<div class="plans-total-font BL-ftz-42">首年保费:{{item.period_money}}</div>
 									</div>
 									<div class="BL-ub-f1 BL-txt-r">
-										<button class="BL-btn-white BL-ftz-42" @click="del(index)">删除</button>
+										<button class="BL-btn-white BL-ftz-42" @click="del(index1, index, item.fj)">删除</button>
 										<button class="BL-btn-blue BL-ftz-42" v-if="!item.fj">编辑</button>
 									</div>
 								</div>
@@ -174,9 +175,9 @@
 
 							</div>
 							<!--主险信息 end -->
-							<button class="BL-btn-white BL-ftz-42 BL-mar-t-1 BL-pad-lr-2 prospect-info-button">+添加附加险</button>
 
 						</div>
+							<button class="BL-btn-white BL-ftz-42 BL-mar-t-1 BL-pad-lr-2 prospect-info-button">+添加附加险</button>
 
 					</template>
 
@@ -213,6 +214,7 @@
 				</div>
 				<!--险种信息 end -->
 			</div>
+			<!--<div id="Js-plansDetail"></div>-->
 			<footer id="Js-footer" class="BL-footer BL-bg-fff">
 				<div class="BL-ub BL-ub-ac BL-ub-f1">
 					<div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll">
@@ -229,10 +231,8 @@
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
-	<!--<script src="js/prospect.js" type="text/javascript" charset="utf-8"></script>-->
 	<script src="js/mui.picker.js"></script>
 	<script src="js/mui.dtpicker.js"></script>
-	<!--<script src="js/webviewGroup.js" type="text/javascript"></script>-->
 	<script type="text/javascript">
 		var prospect = new Vue({
 			el: '#prospect',
@@ -270,10 +270,11 @@
 					sex: true,
 					birthday: ''
 				},
-				planList: {
+				planList: { //保险计划的列表
 					1: []
 				},
-				count: 0
+				count: 0, //总保费
+				planTime: {} //临时保存的数据
 			},
 			watch: {
 				appl: {
@@ -347,6 +348,20 @@
 						return true;
 					}
 				},
+				checkAge: function(age, owner) { //校验年龄
+					var toastText = false
+					if(!age) {
+						toastText = owner + '年龄不能为空'
+					}else if(age < 18 && owner == '投保人'){
+						toastText = owner + '不能小于18周岁'
+					}
+					if(toastText) {
+						mui.toast(toastText);
+						return false;
+					} else {
+						return true;
+					}
+				},
 				keepSame: function() { //同投保人
 					this.assu = Object.assign({}, this.assu, this.parseVueObj(this.appl))
 				},
@@ -367,14 +382,18 @@
 							extras: {
 								appl: this.appl,
 								assu: this.assu,
-								plan_id: this.plan_id
+								plan_id: this.plan_id,
+								planTime: this.planTime
 							}
 						});
 					}
 				},
-				del: function(index) {
-					for(var i = 0; i < this.planList[this.plan_id].length; i++) {
-						this.planList[this.plan_id].splice(index, 1)
+				del: function(index1, index, fj) {
+					if(fj){
+						delete this.planList[this.plan_id][index1][index];
+					}else{
+						delete this.planList[this.plan_id][index1];
+//						this.planList[this.plan_id][index1] = null
 					}
 					this.$forceUpdate()
 				},
@@ -413,6 +432,7 @@
 			var topHeight = document.querySelector('#Js-header').offsetHeight;
 			var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 			document.querySelector('#Js-content').style.height = winH - topHeight - fotHeight + 'px';
+//			document.querySelector('#Js-plansDetail').style.height = fotHeight + 'px';
 
 			mui(".mui-scroll").on("tap", ".plans-nav ", function(e) {
 				var c = document.querySelector(".plans-nav.mui-active");
@@ -537,51 +557,40 @@
 				prospect.plans.splice(index, 1)
 				//				 alert(JSON.stringify(prospect.plans))
 			});
-			//每个对应nav里面的数据，进行了更改投保人
-			//			window.addEventListener('SET_APPL', function(event){
-			//				var id = event.detail.plan_id
-			//				var data = event.detail.data
-			//				for(var i = 0; i < prospect.plans.length; i++){
-			//					if(prospect.plans[i].id == id){
-			//						prospect.plans[i].appl = data
-			//					}
-			//				}
-			////				alert(JSON.stringify(prospect.plans))
-			//			});
-			//每个对应nav里面的数据，进行了更改被保人
-			//			window.addEventListener('SET_ASSU', function(event){
-			//				var id = event.detail.plan_id
-			//				var data = event.detail.data
-			//				for(var i = 0; i < prospect.plans.length; i++){
-			//					if(prospect.plans[i].id == id){
-			//						prospect.plans[i].assu = data
-			//					}
-			//				}
-			//				alert(JSON.stringify(prospect.plans))
-			//				});
 			//接收险种数据
 			window.addEventListener('SET_INS', function(event) {
 				var id = event.detail.plan_id
 				var data = event.detail.ins
+				var safeid = event.detail.safeid
+				var planList = event.detail.planList
 				for(var i = 0; i < prospect.plans.length; i++) {
 					if(prospect.plans[i].id == id) {
 						prospect.plans[i].ins.push(data)
 					}
 				}
-				//				prospect.planList[id] = []
-				//				prospect.planList[id].push(event.detail.planList)
 				prospect.planList[id] = prospect.planList[id].concat(event.detail.planList)
 				let count = 0;
 				for(var i in prospect.planList) {
 					var item = prospect.planList[i]
-					for(var j = 0; j < item.length; j++) {
-						count += Number(item[j].period_money)
-					}
+						for(var j = 0; j < item.length; j++) {
+							for(var k in item[j]) {
+								count += Number(item[j][k].period_money)
+							}
+							
+						}
+					
 				}
 				prospect.count = count.toFixed(2)
 				prospect.$forceUpdate()
-				alert(JSON.stringify(prospect.plans))
-				alert(JSON.stringify(prospect.planList))
+//				alert(JSON.stringify(prospect.plans))
+//				alert(JSON.stringify(prospect.planList))
+
+			});
+			//接收没有完成的险种数据
+			window.addEventListener('SET_TIME', function(event) {
+				var data = event.detail.ins
+				prospect.planTime = data
+				alert(JSON.stringify(prospect.planTime))
 
 			});
 			//不添加，即生成
@@ -626,7 +635,7 @@
 					}
 				}
 
-				alert(JSON.stringify(data))
+//				alert(JSON.stringify(data))
 				luckyAjax({
 					data: {
 			            server: 'Proposal.add',
@@ -635,8 +644,20 @@
 			              safes: JSON.stringify(data)
 			            })
 			        },
-			        success:function(data){
-			        	alert(data.msg)
+			        success:function(res){
+
+						if(res.code == 1){
+							var id = res.data.data[0].pl_id
+							mui.openWindow({
+								id: 'member_plans_detail',
+								url: 'member-plans-detail.html',
+								show: animateObj.aniDetal,
+								extras: {
+									pl_id: id //pl_id
+								}
+							});
+						}
+					
 			        }
 				});
 			});

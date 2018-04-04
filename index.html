@@ -36,6 +36,7 @@
 
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/Tunnel.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		var navHeight = document.querySelector('#Js-nav').offsetHeight / sizeObj.dpl;
 		//localStorage.setItem("navHeight", document.querySelector('#Js-nav').offsetHeight); // 储存底部导航高度 
@@ -52,6 +53,14 @@
                 });
                 return false;
             };
+            
+            Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
+		        //console.log('Message:' + Tunnel._webSocket.readyState);
+		        console.log(event.data);
+		        //如果获取到消息，心跳检测重置
+		        //拿到任何消息都说明当前连接是正常的
+		        
+		    });
             
             // 运行环境切换到后台，开始倒数20分钟，重启应用
             var apptype;

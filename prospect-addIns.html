@@ -44,7 +44,7 @@
 						<button slot="button" class="ins-btn xs-btn" 
 							:class="{'blue':item.safe_year===insurance.safe_year}" 
 							:disabled="item.safe_year===insurance.safe_year" v-for="(item,index) in mainSyAttr" @click="insurance.safe_year=item.safe_year, resetFee()">
-				            {{item.year | safeYearFilter}}
+				            {{item.year, insurance.safe_id | safeYearFilter}}
 				        </button>
 					</app-select>
 					<app-select label="缴费年限">
@@ -1470,7 +1470,7 @@
 				</template>
 
 			</template>
-			<div class="form-button-group BL-mar-t-2 BL-pad-lr-1_5" @click="savePlan()">
+			<div class="form-button-group BL-mar-t-2 BL-mar-b-2 BL-pad-lr-1_5" @click="savePlan()">
 				<a type="button" class="form-btn">保存</a>
 			</div>
 		</div>
@@ -1509,7 +1509,7 @@
 					text: '请选择险种',
 					ratio: []
 				}, //主险数据
-				Addons: [],
+				Addons: {},
 				mainSyAttr: [], //保险期间
 				mainPyAttr: [], //缴费期间
 				sc_id: '', //选择的公司
@@ -1575,10 +1575,10 @@
 				planList: {} //险种列表信息
 			},
 			filters: {
-				safeYearFilter: function(value) {
-					if(value == 25 && insurance.safe_id == '1166'){
+				safeYearFilter: function(value, safeid) {
+					if(value == 25 && safeid == '1166'){
 						return '至25岁';
-					}else if(value == 10000 && insurance.safe_id == '3188'){
+					}else if(value == 10000 && safeid == '3188'){
 						return '至100岁';
 					} else if(value > 50 && value !== '999' && value !== 999) {
 						return '至' + value + '岁';

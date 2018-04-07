@@ -19,8 +19,9 @@ var aloneDetail = new Vue({
 		hd: [272, 276, 340, 348, 370],
 		al: [309],
 		fx: [335, 336, 337],
-		behalfTable: [336, 347, 352, 354, 370, 16197, 16201], //主险利益演示表和附加险有关系的
-		level: [370, 348, 347], //有中高低的
+		behalfTable: [256, 347, 352, 354, 370, 16197, 16201], //主险利益演示表和附加险有关系的
+		haveDesign: [354, 16197, 348, 370],
+		haveLevel: [370, 348, 347], //有中高低的
 		levelNum: 'mid',
 		manual_content: {},
 		plansText: {}, //文案
@@ -156,7 +157,7 @@ var aloneDetail = new Vue({
 			
 //			aloneDetail.plansText = plans
 			//				alert(aloneDetail.pl_id)
-			if(aloneDetail.level.indexOf(Number(aloneDetail.list.genre)) > -1) {
+			if(aloneDetail.haveLevel.indexOf(Number(aloneDetail.list.genre)) > -1) {
 				luckyAjax({
 					data: {
 						server: 'Proposal.getSingleProposal',

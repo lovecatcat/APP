@@ -47,11 +47,14 @@ var methods = {
 			pay_year: '',
 			money: '',
 			period_money: ''
-		}
-		this.prospectus_type = ''
-		this.prospectus_types = []
+		};
+		this.prospectus_type = '';
+		this.prospectus_types = [];
 		this.mainSyAttr = [];
 		this.mainPyAttr = [];
+		this.Addons = {};
+		this.addonRes = {}; //附加险清空
+		this.planList = {} //列表信息清空
 	},
 	companyChanged: function() { //公司下拉
 		var vm = this;
@@ -98,6 +101,7 @@ var methods = {
 		var vm = this;
 		mainType.show(function(items) {
 			vm.resetMainIns(); //重置
+			
 			vm.main.text = items[0].text;
 			vm.main.value = items[0].value;
 			vm.main.ratio = items[0].ratio;
@@ -105,9 +109,7 @@ var methods = {
 			const safeid = vm.mainInsurance
 			if(!safeid) return
 			vm.insurance.safe_id = safeid
-			vm.Addons = []
-			vm.addonRes = {} //附加险清空
-			vm.planList = {} //列表信息清空
+			
 			if(items[0].child) {
 				for(var i = 0; i < items[0].child.length; i++) {
 					var child = {
@@ -115,14 +117,13 @@ var methods = {
 						safe_id: items[0].child[i].product_id,
 						code: items[0].child[i].code
 					} //附加险
-					vm.Addons.push(child)
+					vm.Addons[items[0].child[i].code] = child
 				}
 			}
 
 			vm.$nextTick(function() {
 				mui('.mui-switch').switch();
 			});
-			//			alert(vm.insurance.safe_id)
 
 			// 保险期间
 			let mainSyAttr = vm.unique(items[0].ratio, 'safe_year') // 去重
@@ -134,12 +135,10 @@ var methods = {
 			} else {
 				vm.insurance.safe_year = ''
 			}
-
 			// 缴费年限
 			let mainPyAttr = vm.unique(items[0].ratio, 'pay_year') // 去重
 			mainPyAttr = mainPyAttr.sort((a, b) => a.pay_year - b.pay_year) // 排序
 			vm.mainPyAttr = mainPyAttr
-
 			if(mainPyAttr.length === 1) {
 				vm.insurance.pay_year = mainPyAttr[0].pay_year
 			} else {
@@ -209,7 +208,7 @@ var methods = {
 					vm.prospectus_types = []
 					break
 			}
-			console.log(JSON.stringify(vm.prospectus_types))
+//			console.log(JSON.stringify(vm.prospectus_types))
 			// 部分险种输入 保额， 算保费
 			vm.isBaseMoney = calMoneyIns.indexOf(safeid) === -1
 			vm.fuBaseMoney = fuMoneyIns.indexOf(safeid) !== -1
@@ -1052,6 +1051,7 @@ var methods = {
 				this.flag['PFR1'] = ''
 				this.$delete(this.addonInsData, index)
 				this.$delete(this.addonRes, index)
+				this.$delete(this.planList, index)
 			}
 			this.$forceUpdate()
 		}
@@ -1135,9 +1135,10 @@ var methods = {
 		let applAge = Number(this.appl.age)
 		let mainSafeYear = this.mainSafeYear
 		let mainPayYear = this.mainPayYear
-		let payOverage = Number(this.insurance.pay_year) - 1 + applAge // 期满年龄
+		let payOverage = Number(this.insurance.pay_year) - 1 + applAge // 期满年龄\
+		let name = this.Addons[safeid].name
 		let toastText = null
-
+		
 		switch(safeid) {
 			//泰康
 			case 'RH7B':
@@ -1178,6 +1179,7 @@ var methods = {
 				//工银
 			case 'AMRB':
 			case 'HR':
+			case 'HI':
 				if(applAge > 68) {
 					toastText = '被豁免合同投保人年龄不能大于68周岁'
 				}
@@ -1187,12 +1189,7 @@ var methods = {
 					toastText = '被保人年龄不能大于70周岁'
 				}
 				break
-			case 'HI':
-				if(applAge > 68) {
-					toastText = '被豁免合同投保人年龄不能大于68周岁'
-				}
-				break
-
+			
 				//信泰
 			case '31A00050': // 附加信泰百万健康重大疾病
 				if(mainPayYear === 1 && assuAge > 50) {
@@ -1263,7 +1260,7 @@ var methods = {
 				//复星
 			case 'FXKLYSFJ': // 附加康乐一生投保人豁免保费重大疾病保险
 				if(applAge > 50) {
-					toastText = '投保人年龄不能大于50周岁，不可附加该险种'
+					toastText = '投保人年龄不能大于50周岁'
 				}
 				break
 			case 'FJKLYSQZ': //
@@ -1283,9 +1280,9 @@ var methods = {
 		}
 
 		if(toastText) {
-			mui.toast(toastText)
-//			this.addonsSelected[safeid] = false
-//			this.$forceUpdate()
+			mui.toast('【' + name + '】' + toastText)
+			this.addonsSelected[safeid] = false
+			this.$forceUpdate()
 			return false
 		}
 		return true
@@ -1295,6 +1292,7 @@ var methods = {
 		let toastText = null
 		let flag = this.flag[safeid]
 		let periodMoney = this.insurance.period_money
+		let name = this.Addons[safeid].name
 		let assuAge = Number(this.assu.age)
 		switch(safeid) {
 			//泰康
@@ -1599,9 +1597,18 @@ var methods = {
 		}
 		if(toastText) {
 			this.$delete(this.addonRes, safeid)
-			mui.toast(toastText)
+			mui.toast('【' + name + '】' + toastText)
 			this.$forceUpdate()
 			return false
+		}
+		return true
+	},
+	// 校验附加险保费
+	checkExtraFee(safeid) {
+		let name = this.Addons[safeid].name
+		if(!this.addonRes[safeid]){
+			mui.toast('请先计算【' + name + '】')
+			return false;
 		}
 		return true
 	},
@@ -2067,8 +2074,6 @@ var methods = {
 						fj: false
 					}
 					vm.planList[safeid] = list
-//					vm.planList[safeid] = Object.assign({}, vm.planList[safeid], vm.parseVueObj(list))
-//					alert(JSON.stringify(vm.planList))
 				} else if(!isMain && ret.data.data &&
 					ret.data.data[-1][genre] &&
 					ret.data.data[-1][genre].main &&
@@ -2102,15 +2107,6 @@ var methods = {
 						fj: true
 					}
 					vm.planList[safeid] = list
-//					for(var k = 0; k < vm.planList.length; k++){
-//						if(vm.planList[k].safe_id == safeid){
-//							vm.planList[k] = list
-//						}else{
-//							vm.planList.push(list)
-//						}
-//					}
-				
-					
 				} else {
 					mui.toast('计算出错,请重试！')
 				}
@@ -2124,7 +2120,7 @@ var methods = {
 		} else if(!this.checkMainFee(this.insurance.safe_id)) {
 			return false
 		}
-		if(this.insurance.safe_id === '318' && !this.insurance.period_money && !this.insurance.money) {
+		if(this.insurance.safe_id === 'A66' && !this.insurance.period_money && !this.insurance.money) {
 			// 乐行天下
 			mui.toast('请乐行天下先计算主险保费')
 			return false
@@ -2134,6 +2130,9 @@ var methods = {
 			if(this.addonsSelected[i] && !this.checkExtraForm(i)) {
 				bool = false
 			}
+			if(this.addonsSelected[i] && !this.checkExtraFee(i)) {
+				bool = false 
+			}
 		}
 		mustSelected.forEach(item => {
 			if(this.Addons[item] && !this.addonsSelected[item]) {
@@ -2142,6 +2141,7 @@ var methods = {
 				bool = false
 			}
 		})
+		alert(bool)
 		return bool
 	},
 	savePlan: function() { //保存

@@ -155,7 +155,7 @@
 									</div>
 									<div class="BL-ub-f1 BL-txt-r">
 										<button class="BL-btn-white BL-ftz-42" @click="del(index1, index, item.fj)">删除</button>
-										<button class="BL-btn-blue BL-ftz-42" v-if="!item.fj">编辑</button>
+										<button class="BL-btn-blue BL-ftz-42" v-if="!item.fj" @click="editIns(index1, item.safeid)">编辑</button>
 									</div>
 								</div>
 								<ul class="BL-ul BL-col-999 BL-col-999 BL-ftz-42">
@@ -397,14 +397,29 @@
 						});
 					}
 				},
-				del: function(index1, index, fj) {
+				del: function(index1, index, fj) { //删除险种
 					if(fj){
-						delete this.planList[this.plan_id][index1][index];
+						this.$delete(this.planList[this.plan_id][index1], index)
 					}else{
-						delete this.planList[this.plan_id][index1];
-//						this.planList[this.plan_id][index1] = null
+						this.$delete(this.planList[this.plan_id], index1)
+						alert(JSON.stringify(this.planList))
 					}
 					this.$forceUpdate()
+				},
+				editIns:function(index1, safeid) { //编辑险种
+					alert(index1)
+					alert(safeid)
+					mui.openWindow({
+						id: 'prospect_addIns',
+						url: 'prospect-addIns.html',
+						show: animateObj.aniDetal,
+						extras: {
+							appl: this.appl,
+							assu: this.assu,
+							plan_id: this.plan_id,
+							planTime: this.planTime
+						}
+					});
 				},
 				removePlan: function(index) { //删除方案
 					alert(index)

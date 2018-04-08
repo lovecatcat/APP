@@ -155,7 +155,7 @@
 									</div>
 									<div class="BL-ub-f1 BL-txt-r">
 										<button class="BL-btn-white BL-ftz-42" @click="del(index1, index, item.fj)">删除</button>
-										<button class="BL-btn-blue BL-ftz-42" v-if="!item.fj" @click="editIns(index1, item.safeid)">编辑</button>
+										<button class="BL-btn-blue BL-ftz-42 BL-hide" v-if="!item.fj" @click="editIns(index1, item.safeid)">编辑</button>
 									</div>
 								</div>
 								<ul class="BL-ul BL-col-999 BL-col-999 BL-ftz-42">
@@ -179,45 +179,13 @@
 						</div>
 						
 						<div class="clearfloat BL-pad-b-1">
-							<button class="BL-btn-white BL-ftz-42 BL-mar-t-1 BL-pad-lr-2 prospect-info-button">+添加附加险</button>
+							<button class="BL-btn-white BL-ftz-42 BL-mar-t-1 BL-pad-lr-2 prospect-info-button BL-hide">+添加附加险</button>
 						</div>
 
 					</template>
-
-					<!--附加险信息 begin -->
-					<!--<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff">
-					<div class="BL-ub plans-total-content BL-pad-b-1">
-						<div class="BL-ub-f4">
-							<span class="BL-col-ff8201 plans-total-font BL-ftz-46">[附加]</span>
-							<span class="plans-total-font BL-ftz-46">dfdfdf东方大饭店发</span>
-							<div class="plans-total-font BL-ftz-42">首年保费:1234546</div>
-						</div>
-						<div class="BL-ub-f1 BL-txt-r">
-							<button class="BL-btn-white BL-ftz-42">删除</button>
-						</div>
-					</div>
-					<ul class="BL-ul BL-col-999 BL-ftz-42">
-						<li>
-							<span>保险金额</span>
-							<span>保险期间</span>
-							<span>缴费年限</span>
-							<span>首年保费</span>
-						</li>
-						<li>
-							<span>402350</span>
-							<span>终身</span>
-							<span>10</span>
-							<span class="hm-color__red year_fee">650000</span>
-						</li>
-					</ul>
-					<button class="BL-btn-white BL-ftz-42 BL-mar-t-1 BL-pad-lr-2 prospect-info-button">+添加附加险</button>
-				</div>-->
-					<!--附加险信息 end -->
-
 				</div>
 				<!--险种信息 end -->
 			</div>
-			<!--<div id="Js-plansDetail"></div>-->
 			<footer id="Js-footer" class="BL-footer BL-bg-fff">
 				<div class="BL-ub BL-ub-ac BL-ub-f1">
 					<div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll">
@@ -402,8 +370,18 @@
 						this.$delete(this.planList[this.plan_id][index1], index)
 					}else{
 						this.$delete(this.planList[this.plan_id], index1)
-						alert(JSON.stringify(this.planList))
 					}
+					let count = 0;
+					for(var i in prospect.planList) {
+						var item = prospect.planList[i]
+							for(var j = 0; j < item.length; j++) {
+								for(var k in item[j]) {
+									count += Number(item[j][k].period_money)
+								}
+							}
+						
+					}
+					prospect.count = count.toFixed(2)
 					this.$forceUpdate()
 				},
 				editIns:function(index1, safeid) { //编辑险种
@@ -456,7 +434,6 @@
 			var topHeight = document.querySelector('#Js-header').offsetHeight;
 			var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 			document.querySelector('#Js-content').style.height = winH - topHeight - fotHeight + 'px';
-//			document.querySelector('#Js-plansDetail').style.height = fotHeight + 'px';
 
 			mui(".mui-scroll").on("tap", ".plans-nav ", function(e) {
 				var c = document.querySelector(".plans-nav.mui-active");

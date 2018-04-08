@@ -61,6 +61,14 @@ var aloneDetail = new Vue({
 		},
 		table: function(id) {
 			var list = {};
+			var manData = {
+				appl_sex: this.list.appl_sex,
+				appl_age: this.list.appl_age,
+				assu_sex: this.list.assu_sex,
+				assu_age: this.list.assu_age,
+				pay_year: this.list.pay_year,
+				year_fee: this.list.year_fee,
+			}
 			// 判断是不是需要附加险，是传全部，不是只传主险
 			if(this.behalfTable.indexOf(Number(id)) > -1) {
 				list = this.list
@@ -73,7 +81,8 @@ var aloneDetail = new Vue({
 				list: list,
 				pay_year: aloneDetail.list.pay_year,
 				safe_year: aloneDetail.list.safe_year,
-				levelNum: this.levelNum
+				levelNum: this.levelNum,
+				manData: manData
 			}
 			//打开弹框
 			showPopu("member-plans-alone-table.html", "member_plans_alone_table", 'bottom', data);

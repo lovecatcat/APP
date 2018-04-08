@@ -35,7 +35,7 @@
                    		 <table class="BL-ftz-46">
                 			 <thead class=" BL-col-3b9cf5">
 	                            <tr>
-	                            	<th v-for="(item, index) in mainDescribes" :key="index" v-if="item.title !== '被保险人年龄'">
+	                            	<th style="min-width: 300px;" v-for="(item, index) in mainDescribes" :key="index" v-if="item.title !== '被保险人年龄'">
                             			{{item.title}}
                             		</th>
                             		<template v-if="formID == '256' && status">
@@ -49,6 +49,18 @@
                             			<th>满期生存金</th>
                             			<th>现金价值</th>
                             			<th>生存保险金</th>
+	                            	</template>
+                            		<template v-else-if="formID == '16197' && status">
+                            			<th>养老年金</th>
+                            			<th>附加满期金</th>
+                            			<th>附加退保金</th>
+                            			<th>附加身故保险金</th>
+                            			<th>部分领取</th>
+	                            	</template>
+                            		<template v-else-if="formID == '370' && status">
+                            			<th>部分领取</th>
+                            			<th>万能账户</th>
+                            			<th>退保总利益</th>
 	                            	</template>
 	                            </tr>
                             </thead>
@@ -74,7 +86,7 @@
                     		<table class="BL-ftz-46">
 	                            <tbody v-if="status">
 	                            	<tr style="height: 0;visibility: hidden;">
-		                            	<td style="height: 0;padding-top: 0; padding-bottom: 0; line-height: 0;" 
+		                            	<td style="height: 0;padding-top: 0; padding-bottom: 0; line-height: 0;min-width: 300px;" 
 		                            		v-for="(item, index) in mainDescribes" :key="index" v-if="item.title !== '被保险人年龄'">
 	                            			{{item.title}}
 	                            		</td>
@@ -90,6 +102,18 @@
 	                            			<td style="height: 0;padding-top: 0; padding-bottom: 0; line-height: 0;" >现金价值</td>
 	                            			<td style="height: 0;padding-top: 0; padding-bottom: 0; line-height: 0;" >生存保险金</td>
 	                            		</template>
+	                            		<template v-else-if="formID == '16197' && status">
+	                            			<td style="height: 0;padding-top: 0; padding-bottom: 0; line-height: 0;" >养老年金</td>
+	                            			<td style="height: 0;padding-top: 0; padding-bottom: 0; line-height: 0;" >附加满期金</td>
+	                            			<td style="height: 0;padding-top: 0; padding-bottom: 0; line-height: 0;" >附加退保金</td>
+	                            			<td style="height: 0;padding-top: 0; padding-bottom: 0; line-height: 0;" >附加身故保险金</td>
+	                            			<td style="height: 0;padding-top: 0; padding-bottom: 0; line-height: 0;" >部分领取</td>
+		                            	</template>
+	                            		<template v-else-if="formID == '370' && status">
+	                            			<td style="height: 0;padding-top: 0; padding-bottom: 0; line-height: 0;" >部分领取</td>
+	                            			<td style="height: 0;padding-top: 0; padding-bottom: 0; line-height: 0;" >万能账户</td>
+	                            			<td style="height: 0;padding-top: 0; padding-bottom: 0; line-height: 0;" >退保总利益</td>
+		                            	</template>
 		                            </tr>
 	                            	<tr v-for="(item, index) in main" :key="index" v-if="index <= len">
 	                            		<template v-if="formID == '256'">
@@ -161,11 +185,63 @@
 		                            		</td>
 	                            			
 	                            		</template>
+	                            		<template v-else-if="formID == '16197'">
+	                            			<!--工银鑫丰盈-->
+	                            			<td v-for="(data, i) in item" v-if="i !== nl">
+		                            			<template v-if="i !== njbf">
+		                            				{{data}}
+		                            			</template>
+		                            		</td>
+		                            		<td>
+		                            			{{children[index][1]}}
+		                            		</td>
+		                            		<td>
+		                            			{{children[index][5]}}
+		                            		</td>
+		                            		<td>
+		                            			{{children[index][6]}}
+		                            		</td>
+	                            			<td>
+		                            			{{children[index][8]}}
+		                            		</td>
+	                            			<td>
+		                            			{{children[index][7]}}
+		                            		</td>
+	                            		</template>
+	                            		<template v-else-if="formID == '370'">
+	                            			<!--恒大万年红-->
+	                            			<td v-for="(data, i) in item" v-if="i !== nl">
+		                            			<template v-if="i !== njbf">
+		                            				{{data}}
+		                            			</template>
+		                            		</td>
+		                            		<td>
+		                            			{{children[index][6]}}
+		                            		</td>
+		                            		<td v-if="levelNum == 'min'">
+		                            			{{children[index][7]}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'mid'">
+		                            			{{children[index][9]}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'max'">
+		                            			{{children[index][8]}}
+		                            		</td>
+		                            		<td v-if="levelNum == 'min'">
+		                            			{{children[index][12]}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'mid'">
+		                            			{{children[index][13]}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'max'">
+		                            			{{children[index][14]}}
+		                            		</td>
+	                            		</template>
 	                            	</tr>
 	                            </tbody>
 	                            <tbody  v-else>
 	                            	<tr style="height: 0;visibility: hidden;">
-		                            	<td style="height: 0;padding-top: 0; padding-bottom: 0; line-height: 0;" 
+		                            	<td style="height: 0;padding-top: 0; padding-bottom: 0; line-height: 0;min-width: 300px;" 
 		                            		v-for="(item, index) in mainDescribes" :key="index" v-if="item.title !== '被保险人年龄'">
 	                            			{{item.title}}
 	                            		</td>
@@ -211,10 +287,10 @@
 				pay_year: '',
 				safe_year: '',
 				levelNum : '',
-				behalfTable: [256, 354, 16201, 384, 401, 19384, 19388], //主险利益演示表和附加险有关系的
-				//国华康运一生a,国华康运金生,国华少儿
-				behalfChildren: [87, 355, 16202, 383, 385, 404, 19385, 19389], //主险利益演示表和附加险有关系的
-				//国华康运一生附加年金，国华康运金生养老年金  ,国华少儿年金
+				behalfTable: [256, 354, 16201, 16197, 370, 19384, 19388], //主险利益演示表和附加险有关系的
+				//国华康运一生a,国华康运金生,国华少儿,鑫丰盈年金保险，万年红
+				behalfChildren: [87, 355, 16202, 16198, 373, 404, 19385, 19389], //主险利益演示表和附加险有关系的
+				//国华康运一生附加年金，国华康运金生养老年金  ,国华少儿年金,鑫丰盈养老年金，万年红
 				status: false,//和附加险有没有关系
 				nl : null, //年龄index
 				njbf: null, //保费index
@@ -246,10 +322,13 @@
 			// 实例化关闭窗口对象
 			popu = new ClosePopu();
 			var data = plus.webview.currentWebview().data;
+			var user_id = JSON.parse(plus.storage.getItem("userinfo")).id
+			var manData;
 			modal.isHide = data.modalID
 			modal.formID = data.formID
 			modal.pay_year = data.pay_year
 			modal.levelNum = data.levelNum
+			manData = data.manData
 			if(data.safe_year == 0){
 				//终身
 				modal.safe_year = 999
@@ -281,12 +360,20 @@
 //				alert(JSON.stringify(modal.main))
 				
 			}
+			var njy,
+                nje,
+                tbnj;
 			mui.each(modal.mainDescribes, function(index,item){
 				if(item.title == '被保险人年龄'){
 					modal.nl = index
 				}
 				if(item.title == '年缴保费' || item.title == '年缴保费(元)'){
 					modal.njbf = index
+				}
+				if(modal.formID == '370'){
+					njy = item.title == '年金' ? index : 0
+					nje = item.title == '年金' ? index : 0
+					tbnj = item.title == '特别年金' ? index : 0
 				}
 			})
 			//处理渲染的行数
@@ -297,7 +384,60 @@
 				modal.len = 105
 			}
 			
-
+			if(modal.formID == '370'){
+				alert(JSON.stringify(manData))
+				
+			}
+			var calMoney = function (isMain, safeid) {
+				var ret = {};
+				ret.user_id = user_id;
+                ret.applicant = '';
+                ret.appl_sex = manData.appl_sex;
+                ret.appl_age = manData.appl_age;
+                ret.assured = '';
+                ret.assu_sex =  manData.assu_sex;
+                ret.assu_age = manData.assu_age;
+                ret.pay_year = manData.pay_year;
+                ret.safe_year = 0;
+                ret.year_fee = manData.year_fee;
+                ret.derate_money = 0;
+                ret.base_money = 0;
+                ret.warranty_year = 105;
+                ret.fj = false; // 包含附加险
+                ret.type = "";
+                ret.is_save = 0;
+                ret.flag = 0;
+                ret.sa_one = 0;
+                ret.fa_one = 0;
+                ret.money_one = 0;
+                ret.sa_two = 0;
+                ret.fa_two = 0;
+                ret.money_two = 0;
+                ret.sa_three = 0;
+                ret.fa_three = 0;
+                ret.money_three = 0;
+                ret.sa_four = 0;
+                ret.fa_four = 0;
+                ret.money_four = 0;
+                ret.sa_five = 0;
+                ret.fa_five = 0;
+                ret.money_five = 0;
+                ret.sa_six = 0;
+                ret.fa_six = 0;
+                ret.money_six = 0;
+                ret.sa_seven = 0;
+                ret.fa_seven = 0;
+                ret.money_seven = 0;
+                ret.sa_eight = 0;
+                ret.fa_eight = 0;
+                ret.money_eight = 0;
+                ret.sa_night = 0;
+                ret.fa_night = 0;
+                ret.money_night = 0;
+                ret.sa_ten = 0;
+                ret.fa_ten = 0;
+                ret.money_ten = 0;
+			}
 			// 点击关闭遮罩层，弹框
 			mui('body').on('tap', '#maskInit', function() {
 				// 关闭遮罩层，弹框

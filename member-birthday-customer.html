@@ -131,27 +131,23 @@
 			     * 获取客户生日列表
 			     */
 				function getTeambirthData () {
-					mui.ajax(config.baseUrl, {
-			            data: {
-			            	data: JSON.stringify({
+					luckyAjax({
+						data: {
+				            server: 'team.careInsure',
+				            data: JSON.stringify({
 			            		user_id: user_id,
 			            		month:team.month_txt.value
 			            	}),
-			                server: 'team.careInsure',
-			                device: 'mobile'
-			            },
-			            dataType: 'json',
-			            type: 'post',
-			            success: function (ret) {
-			                if (ret.code==1) {
+				        },
+				        success:function(ret){
+			                if (ret.code == 1) {
 			                	team.count = ret.data.count
 			                    team.list = ret.data.list
+			                } else {
+			                	mui.toast(ret.msg, {duration: 'short', type: 'div'})
 			                }
-			            },
-			            error: function () {
-			                plus.nativeUI.toast('网络异常：101')
-			            }
-		        	});
+				        }
+					});
 				}
 				
 				// 初始化客户当月生日列表

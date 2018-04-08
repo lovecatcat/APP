@@ -38,7 +38,7 @@
 					</div>
 				</div>
 				<!--日期筛选 end -->
-				<div v-show="mode==4" id="Js-showDate" class="BL-pad-t-1 BL-pad-lr-1_5 BL-ftz-42 BL-col-999">
+				<div v-show="mode==4" id="Js-showDate" class="BL-pad-t-1 BL-pad-lr-1_5 BL-ftz-42 BL-col-999 BL-bg-f2f">
 					筛选时间：<span class="Js-fday">{{ start_time }}</span> --- <span class="Js-sday">{{ end_time }}</span>
 				</div>
 			</div>
@@ -140,27 +140,21 @@
 			     * @param {String} mode 时间搜索模式    1:全部，2:七天，3:一个月， 4:筛选
 			     */
 			    var getIncomelist = function() {
-					var data = {
-						data: JSON.stringify({
-							start: income.start_time,
-							end: income.end_time,
-						}),
-						server: 'commission.Income',
-						device: 'mobile'
-					};
-					
-					mui.ajax(config.baseUrl, {
-						data: data,
-						dataType: 'json',
-						type: 'post',
-						success: function (ret) {
+					luckyAjax({
+						data: {
+				            server: 'commission.Income',
+				            data: JSON.stringify({
+								start: income.start_time,
+								end: income.end_time,
+							}),
+				        },
+				        success: function (ret) {
 							if (ret.code == 1) {
 								var data = ret.data 
 								income.list = data
-							}
-						},
-						error: function () {
-							mui.toast('网络异常,请稍候再试');
+							} else {
+			                	mui.toast(ret.msg, {duration: 'short', type: 'div'})
+			                }
 						}
 					});
 				};
@@ -182,7 +176,7 @@
 						i = 0
 						income.list = null
 						mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
-						getIncomelist(income.mode)
+						getIncomelist()
 					}
 				});
 				
@@ -210,7 +204,7 @@
 					}
 					income.list = null
 					mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
-					getIncomelist(income.mode)
+					getIncomelist()
 				});
 			});	
 		}(mui));

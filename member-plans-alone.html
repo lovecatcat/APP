@@ -114,10 +114,10 @@
 				</div>
 				<!--产品图片-->
 				<!--资金规划-->
-				<div class="plans-detail-box BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff" >
+				<div class="plans-detail-box BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff" v-if="haveDesign.indexOf(Number(list.genre)) > -1 ">
 					<!--v-if="list.genre == '19385' || list.genre == '377' || list.genre == '404'"-->
 					<div class="BL-title">资金规划</div>
-					<div class="plans-detail-design-button BL-mar-b-2 BL-ub BL-ub-pc" v-if="level.indexOf(Number(list.genre)) > -1 ">
+					<div class="plans-detail-design-button BL-mar-b-2 BL-ub BL-ub-pc" v-if="haveLevel.indexOf(Number(list.genre)) > -1 ">
 						<button type="button" class="BL-ftz-42 BL-mar-l-1 BL-pad-lr-2" :class="{'BL-btn-blue': levelNum === 'min', 'BL-btn-gray': levelNum !== 'min'}"  @click="changeLevel('min')">低档 </button>
 						<button type="button" class="BL-ftz-42 BL-mar-l-1 BL-pad-lr-2" :class="{'BL-btn-blue': levelNum === 'mid', 'BL-btn-gray': levelNum !== 'mid'}"  @click="changeLevel('mid')">中档 </button>
 						<button type="button" class="BL-ftz-42 BL-mar-l-1 BL-pad-lr-2" :class="{'BL-btn-blue': levelNum === 'max', 'BL-btn-gray': levelNum !== 'max'}"  @click="changeLevel('max')">高档 </button>

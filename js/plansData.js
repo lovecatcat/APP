@@ -22,6 +22,7 @@
 		mui.each(describes, function(index, item) {
 			listMain[item.title] = main.list[1][index]
 		})
+//		alert(JSON.stringify(listMain))
 		if(parent_id == 349) {
 			safe_year = '至100周岁'
 		} else if(parent_id == 16197) {
@@ -62,7 +63,7 @@
 			} else {
 				base_money = '计划三'
 			}
-		} else if(parent_id == 349) {
+		} else if(parent_id == 347) {
 			base_money = listMain["保险金额"];
 		} else if(parent_id == 360) {
 			base_money = listMain["保额"];
@@ -133,6 +134,7 @@
 					mui.each(describes2, function(index, item) {
 						list[item.title] = tml.list[1][index]
 					})
+//					alert(JSON.stringify(list))
 					var children_base_money,
 						children_safe_year = 1,
 						children_pay_year = 1,
@@ -152,6 +154,11 @@
 							children_base_money = base_money;
 							children_safe_year = tml.flag + '岁';
 							children_pay_year = content.pay_year;
+							break;
+						case '367': //金掌柜年金保险（万能型）
+							children_base_money = '—';
+							children_safe_year = '终身';
+							children_year_fee = list["累计保费"];
 							break;
 							//复星
 						case '344': //复星联合乐健一生门急诊保险

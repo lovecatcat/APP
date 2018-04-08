@@ -1,4 +1,5 @@
 mui.init();
+var user_id;
 var aloneDetail = new Vue({
 	el: '#Js-alone',
 	data: {
@@ -18,8 +19,9 @@ var aloneDetail = new Vue({
 		hd: [272, 276, 340, 348, 370],
 		al: [309],
 		fx: [335, 336, 337],
-		behalfTable: [336, 347, 352, 354, 370, 16197, 16201], //主险利益演示表和附加险有关系的
-		level: [370, 348, 347], //有中高低的
+		behalfTable: [256, 347, 352, 354, 370, 16197, 16201], //主险利益演示表和附加险有关系的
+		haveDesign: [354, 16197, 348, 370],
+		haveLevel: [370, 348, 347], //有中高低的
 		levelNum: 'mid',
 		manual_content: {},
 		plansText: {}, //文案
@@ -59,6 +61,14 @@ var aloneDetail = new Vue({
 		},
 		table: function(id) {
 			var list = {};
+			var manData = {
+				appl_sex: this.list.appl_sex,
+				appl_age: this.list.appl_age,
+				assu_sex: this.list.assu_sex,
+				assu_age: this.list.assu_age,
+				pay_year: this.list.pay_year,
+				year_fee: this.list.year_fee,
+			}
 			// 判断是不是需要附加险，是传全部，不是只传主险
 			if(this.behalfTable.indexOf(Number(id)) > -1) {
 				list = this.list
@@ -71,7 +81,8 @@ var aloneDetail = new Vue({
 				list: list,
 				pay_year: aloneDetail.list.pay_year,
 				safe_year: aloneDetail.list.safe_year,
-				levelNum: this.levelNum
+				levelNum: this.levelNum,
+				manData: manData
 			}
 			//打开弹框
 			showPopu("member-plans-alone-table.html", "member_plans_alone_table", 'bottom', data);
@@ -142,7 +153,7 @@ var aloneDetail = new Vue({
 	document.querySelector('#Js-plansDetail').style.height = fotHeight + 'px';
 
 	$.plusReady(function() {
-
+		user_id = JSON.parse(plus.storage.getItem("userinfo")).id
 		var parent_self = plus.webview.getWebviewById('member_plans_detail') //父级id
 		//接收单个计划书数据alone
 		window.addEventListener('alone', function(event) {
@@ -155,7 +166,7 @@ var aloneDetail = new Vue({
 			
 //			aloneDetail.plansText = plans
 			//				alert(aloneDetail.pl_id)
-			if(aloneDetail.level.indexOf(Number(aloneDetail.list.genre)) > -1) {
+			if(aloneDetail.haveLevel.indexOf(Number(aloneDetail.list.genre)) > -1) {
 				luckyAjax({
 					data: {
 						server: 'Proposal.getSingleProposal',

@@ -54,12 +54,39 @@
                 return false;
             };
             
+            window.addEventListener('isStopTunnel', function(data){
+            	if(Tunnel._webSocket && data.flag){
+                	Tunnel._isStop = false;
+                	Tunnel._webSocket.close();
+                };		
+            }, false)
+            
             Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
 		        //console.log('Message:' + Tunnel._webSocket.readyState);
 		        console.log(event.data);
 		        //如果获取到消息，心跳检测重置
 		        //拿到任何消息都说明当前连接是正常的
-		        
+		        var _info = '';
+				switch (JSON.parse(event.data).code){
+				    case 1:
+				        _info = '非法连接';
+				        break;
+				    case 2:
+				        _info = '非法用户';
+				        break;
+				    case 3:
+				        _info = '您的帐号在其它设备上登录，注销当前帐号';
+				        break;
+				}
+				
+				if(_info != ''){
+					Tunnel._isStop = false;
+					Tunnel._webSocket.close();
+					plus.storage.clear();
+					mui.alert(_info, '操作提示', '确定', function(){
+						plus.runtime.restart();		
+					});
+				}
 		    });
             
             // 运行环境切换到后台，开始倒数20分钟，重启应用

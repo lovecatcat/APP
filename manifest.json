@@ -4,12 +4,12 @@
 		"iPhone"
 	],
 	"id": "H517AA33E",
-	"name": "保险人",
+	"name": "保险+",
 	"version": {
-		"name": "1.9.0405",
+		"name": "1.9.0408",
 		"code": "83"
 	},
-	"description": "保险人 mobile",
+	"description": "保险plus mobile",
 	"icons": {
 		"72": "icon.png"
 	},

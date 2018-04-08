@@ -251,7 +251,8 @@
 					"images/icon/ico-ring.png",
 					"images/icon/ico-search.png",
 					"images/icon/sign.png",
-					"images/icon/sign-active.png"
+					"images/icon/sign-active.png",
+					"js/Tunnel.js"
 				],
 				"refer": [
 					"member.html",
@@ -840,7 +841,10 @@
 					"js/prospect.js",
 					"prospect-main.html",
 					"js/webviewGroup.js",
-					"js/vue.min.js"
+					"js/vue.min.js",
+					"js/mui.picker.js",
+					"css/mui.picker.min.css",
+					"js/mui.dtpicker.js"
 				],
 				"refer": [
 					"popup-content.html"
@@ -1949,10 +1953,23 @@
 					"images/plans/plansManage/130.png",
 					"images/plans/plansManage/369.png",
 					"images/plans/plansManage/401.png",
-					"images/plans/plansManage/19384.png"
+					"images/plans/plansManage/19384.png",
+					"images/plans/plansManage/264.png",
+					"images/plans/plansManage/354.png",
+					"images/plans/plansManage/121.png",
+					"images/plans/plansManage/337.png",
+					"images/plans/plansManage/370.png",
+					"images/plans/plansManage/347.png",
+					"images/plans/plansManage/16197.png",
+					"images/plans/plansManage/16201.png",
+					"images/plans/plansManage/267.png",
+					"images/plans/plansManage/340.png",
+					"images/plans/plansManage/301.png",
+					"images/plans/plansManage/256.png"
 				],
 				"refer": [
-					"member-plans-detail.html"
+					"member-plans-detail.html",
+					"popup-content.html"
 				],
 				"priority": 2
 			},
@@ -2028,7 +2045,9 @@
 					"member-intergral-all.html",
 					"css/mui.css",
 					"member-intergral-activity.html",
-					"css/member.css"
+					"css/member.css",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [
 					"member-intergral-experience.html",
@@ -2149,7 +2168,8 @@
 					"js/interval-dtpicker.js",
 					"js/mui.pullToRefresh.js",
 					"js/mui.pullToRefresh.material.js",
-					"css/mui.css"
+					"css/mui.css",
+					"images/icon/ico-filter-active.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -2161,7 +2181,9 @@
 					"css/mui.css",
 					"css/member.css",
 					"images/icon/ico-duty-wifi.png",
-					"images/icon/ico-duty-address.png"
+					"images/icon/ico-duty-address.png",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [],
 				"priority": 0

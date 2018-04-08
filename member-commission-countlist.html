@@ -38,7 +38,7 @@
 					</div>
 				</div>
 				<!--日期筛选 end -->
-				<div v-show="mode==4" id="Js-showDate" class="BL-pad-t-1 BL-pad-lr-1_5 BL-ftz-42 BL-col-999">
+				<div v-show="mode==4" id="Js-showDate" class="BL-pad-tb-1 BL-pad-lr-1_5 BL-ftz-42 BL-col-999 BL-bg-f2f">
 					筛选时间：<span class="Js-fday">{{ start_time }}</span> --- <span class="Js-sday">{{ end_time }}</span>
 				</div>
 			</div>
@@ -88,7 +88,7 @@
 				var winH = window.innerHeight;
 				var titHeight = document.querySelector('#Js-header').offsetHeight;
 				var divHeight = document.querySelector('#Js-cmisFilter').offsetHeight;
-				document.querySelector('#Js-cmisList').style.height = winH - titHeight - divHeight + 'px';
+				document.querySelector('#Js-content').style.height = winH - titHeight - divHeight + 'px';
 				//document.querySelector('#Js-list').style.height = (winH - topHeight - mainHeight) + 'px';
 
 				var i = 0;
@@ -100,7 +100,6 @@
 						auto: true, // 自动上拉一次
 						callback: function() {
 							i++;
-
 							var self = this;
 							setTimeout(function() {
 								var ul = self.element.querySelector('.mui-table-view');

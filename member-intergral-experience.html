@@ -132,25 +132,20 @@
 			     */
 			    var getIntergrallist = function () {
 					i++
-					var data = {
-						data: JSON.stringify({
-							user_id: user_id,
-							type_points: '1',
-							type_amount: intergral.type_amount,
-							start_time: intergral.start_time,
-							end_time: intergral.end_time,
-							page: i,
-							row: intergral.row
-						}),
-						server: 'user.getPointsList',
-						device: 'mobile'
-					};
-					
-					mui.ajax(config.baseUrl, {
-						data: data,
-						dataType: 'json',
-						type: 'get',
-						success: function (ret) {
+					luckyAjax({
+						data: {
+				            server: 'user.getPointsList',
+				            data: JSON.stringify({
+								user_id: user_id,
+								type_points: '1',
+								type_amount: intergral.type_amount,
+								start_time: intergral.start_time,
+								end_time: intergral.end_time,
+								page: i,
+								row: intergral.row
+							}),
+				        },
+				        success: function (ret) {
 							if (ret.code == 1) {
 								var data = ret.data
 								console.log(JSON.stringify(data))
@@ -169,11 +164,10 @@
 								} else {
 									self.endPullUpToRefresh(true)
 								}
+							} else {
+								mui.toast(ret.msg, {duration: 'short', type: 'div'})
 							}
 						},
-						error: function () {
-							mui.toast('网络异常,请稍候再试');
-						}
 					});
 				};
 			    

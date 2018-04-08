@@ -40,8 +40,8 @@
 			<!--考勤打卡begin-->
 			<div v-if="status" class="member-duty-content BL-mar-t-1 BL-bg-fff">
 				<!-- 上班 Begin -->
+				<p class="duty-tip">上班时间09:00</p>
 				<div v-if="status && dutyInfo.sign_in_state == 0" class="member-duty-btn-box">
-					<p class="duty-tip">上班时间09:00</p>
 					<div class="member-duty-btn" :class="{ 'duty-in': wifiInfo, 'duty-out': !wifiInfo }" onclick="clock(0,0)">
 						<div class="duty-type">上班打卡</div>
 						<div class="duty-time BL-pad-t-1">{{ curtimeData.time }}</div>
@@ -82,46 +82,47 @@
 					</p>
 				</div>
 				<p class="member-duty-line" v-if="dutyInfo.waycard != 'outside'"></p>
-				<!-- 下班 Begin 外勤人员HAK0002不需要打下班卡-->
-				<div v-if="status && dutyInfo.sign_out_state == 0 && dutyInfo.waycard != 'outside'" class="member-duty-btn-box">
+				<!-- 下班 Begin 外勤人员outside不需要打下班卡-->
+				<template v-if="dutyInfo.waycard != 'outside'">
 					<p class="duty-tip">下班时间17:30</p>
-					<div class="member-duty-btn" :class="{ 'duty-in': wifiInfo, 'duty-out': !wifiInfo }" onclick="clock(1,0)">
-						<div class="duty-type">下班打卡</div>
-						<div class="duty-time BL-pad-t-1">{{ curtimeData.time }}</div>
+					<div v-if="dutyInfo.sign_out_state == 0 && dutyInfo.waycard != 'outside' && dutyInfo.sign_in_state != 0" class="member-duty-btn-box">
+						<div class="member-duty-btn" :class="{ 'duty-in': wifiInfo, 'duty-out': !wifiInfo }" onclick="clock(1,0)">
+							<div class="duty-type">下班打卡</div>
+							<div class="duty-time BL-pad-t-1">{{ curtimeData.time }}</div>
+						</div>
+						<p class="duty-tip BL-ub BL-ub-ac BL-ub-pc BL-pad-tb-1_5" v-if="wifiInfo">
+							<i class="member-duty-hswifi BL-bimg-contain BL-ub BL-ub-pc"></i>
+							已进入Wifi考勤范围：{{ wifiInfo.ssid }}
+						</p>
+						<p class="duty-tip BL-ub BL-ub-ac BL-ub-pc BL-pad-tb-1_5" v-else>
+							<i class="member-duty-nowifi BL-bimg-contain BL-ub BL-ub-pc"></i>
+							当前不在考勤范围内
+						</p>
 					</div>
-					<p class="duty-tip BL-ub BL-ub-ac BL-ub-pc BL-pad-tb-1_5" v-if="wifiInfo">
-						<i class="member-duty-hswifi BL-bimg-contain BL-ub BL-ub-pc"></i>
-						已进入Wifi考勤范围：{{ wifiInfo.ssid }}
-					</p>
-					<p class="duty-tip BL-ub BL-ub-ac BL-ub-pc BL-pad-tb-1_5" v-else>
-						<i class="member-duty-nowifi BL-bimg-contain BL-ub BL-ub-pc"></i>
-						当前不在考勤范围内
-					</p>
-				</div>
-				<div v-if="status && dutyInfo.sign_out_state != 0 && dutyInfo.waycard != 'outside'" class="member-duty-context">
-					<p class="duty-tip BL-ub BL-ub-ac">下班时间17:30 <span v-if="dutyInfo.sign_out_time" class="BL-col-333">（打卡时间{{ dutyInfo.sign_out_time }}）</span></p>
-					<p v-if="dutyInfo.sign_out_wifi" class="duty-tip BL-ub BL-ub-ac">
-						<i class="member-duty-wifi BL-bimg-contain BL-ub BL-ub-pc BL-mar-r-1"></i>
-						{{ dutyInfo.sign_out_wifi | getWifiName }}
-					</p>
-					<p v-if="dutyInfo.sign_out_location" class="duty-tip BL-ub BL-ub-ac">
-						<i class="member-duty-address BL-bimg-contain BL-ub BL-ub-pc BL-mar-r-1"></i>
-						{{ dutyInfo.sign_out_location }}
-					</p>
-					<p class="duty-tip BL-ub BL-ub-ac">
-						<span v-if="dutyInfo.sign_out_state==1" class="duty-status duty-normal BL-ub BL-ub-ac BL-ub-pc">
-							正常
-						</span>
-						<span v-if="dutyInfo.sign_out_state==2" class="duty-status duty-abnormal BL-ub BL-ub-ac BL-ub-pc">
-							早退
-						</span>
-						<i v-if="dutyInfo.sign_out_diff">{{ dutyInfo.sign_out_diff | formatMinutes }}</i>
-					</p>
-					<p class="duty-tip BL-ub BL-ub-ac">
-						<span class="duty-updatebtn" onclick="clock(1,1)">更新打卡</span>
-					</p>
-				</div>
-				</
+					<div v-if="dutyInfo.sign_out_state != 0 && dutyInfo.waycard != 'outside' && dutyInfo.sign_in_state != 0" class="member-duty-context">
+						<p class="duty-tip BL-ub BL-ub-ac">下班时间17:30 <span v-if="dutyInfo.sign_out_time" class="BL-col-333">（打卡时间{{ dutyInfo.sign_out_time }}）</span></p>
+						<p v-if="dutyInfo.sign_out_wifi" class="duty-tip BL-ub BL-ub-ac">
+							<i class="member-duty-wifi BL-bimg-contain BL-ub BL-ub-pc BL-mar-r-1"></i>
+							{{ dutyInfo.sign_out_wifi | getWifiName }}
+						</p>
+						<p v-if="dutyInfo.sign_out_location" class="duty-tip BL-ub BL-ub-ac">
+							<i class="member-duty-address BL-bimg-contain BL-ub BL-ub-pc BL-mar-r-1"></i>
+							{{ dutyInfo.sign_out_location }}
+						</p>
+						<p class="duty-tip BL-ub BL-ub-ac">
+							<span v-if="dutyInfo.sign_out_state==1" class="duty-status duty-normal BL-ub BL-ub-ac BL-ub-pc">
+								正常
+							</span>
+							<span v-if="dutyInfo.sign_out_state==2" class="duty-status duty-abnormal BL-ub BL-ub-ac BL-ub-pc">
+								早退
+							</span>
+							<i v-if="dutyInfo.sign_out_diff">{{ dutyInfo.sign_out_diff | formatMinutes }}</i>
+						</p>
+						<p class="duty-tip BL-ub BL-ub-ac">
+							<span class="duty-updatebtn" onclick="clock(1,1)">更新打卡</span>
+						</p>
+					</div>
+				</template>
 				<!-- 下班 End -->
 				<div class="BL-ub BL-ub-pc BL-mar-t-3">
 					<a class="statsbtn-duty" data-wid="member_duty_stats" href="member-duty-stats.html" style="display: block;">查看考勤记录</a>
@@ -154,7 +155,7 @@
 				status: '',  	// 能否考勤标志
 				// 考勤信息
 				dutyInfo: {
-					"waycard": '',  // 内外勤卡标志   AG0002外勤(外勤无需打下班卡),其他需要
+					"waycard": '',  // 内外勤卡标志   outside外勤(外勤无需打下班卡),其他需要
 					// 上班
 					"sign_in_state": 0,   		// 状态
 	                "sign_in_wifi": '',			// wifi的mac地址，SSID码
@@ -222,38 +223,31 @@
 			});
 			
 			// 获取个人详细信息
-			mui.ajax(config.baseUrl, {
-	            data: {
-	            	data: JSON.stringify({
+			luckyAjax({
+				data: {
+		            server: 'user.getUserInfo',
+		            data: JSON.stringify({
 						user_id: user_id
-					}),
-					server: 'user.getUserInfo',
-					device: 'mobile'
-	            },
-	            dataType: "json",
-	            type: "get",
-	            success: function (ret) {
+					})
+		        },
+		        success: function (ret) {
 	                if (ret.code == 1) {
 	                    duty.userInfo = ret.data.data;
+	                } else {
+	                	mui.toast(ret.msg, {duration: 'short', type: 'div'})
 	                }
-	            },
-	            error: function () {
-	                plus.nativeUI.toast('网络异常：101')
-	            }
-        	});
+				}
+			});
         	
 			// 获取考勤记录
 			clockRecord ()
 			
 	        // 获取考勤范围内的WiFi
-	        mui.ajax(config.baseUrl, {
-	            data: {
-					server: 'Attendance.WifiList',
-					device: 'mobile'
-	            },
-	            dataType: "json",
-	            type: "get",
-	            success: function (ret) {
+	        luckyAjax({
+				data: {
+		            server: 'Attendance.WifiList'
+		        },
+		        success: function (ret) {
 	                if (ret.code == 1) {
 	                    duty.wifiList = ret.data;
 	                    inter = setInterval(function () {
@@ -262,16 +256,12 @@
 	                    	} else if (isiOS) {
 	                    		duty.wifiInfo = getMac(ret.data);
 	                    	}
-	                        
 	                    }, 1000)
 	                } else {
-	                    plus.nativeUI.toast(ret.msg)
+	                    mui.toast(ret.msg, {duration: 'short', type: 'div'})
 	                }
-	            },
-	            error: function () {
-	                plus.nativeUI.toast('网络异常：103')
-	            }
-        	});
+				}
+			});
 	        
 	        // 获取当前设备所处的位置
 	        plus.geolocation.watchPosition(function (p) {
@@ -293,19 +283,16 @@
 		 * 获取打卡记录
 		 */
 		function clockRecord() {
-			mui.ajax(config.baseUrl, {
-	            data: {
-	            	data: JSON.stringify({
+			luckyAjax({
+				data: {
+		            server: 'Attendance.PunchCardRecord',
+		            data: JSON.stringify({
 	            		type: 'day',
 	            		date: new Date().addDays(0).Format('yyyy-MM-dd')
-	            	}),
-	                server: 'Attendance.PunchCardRecord',
-	                device: 'mobile'
-	            },
-	            dataType: 'json',
-	            type: 'get',
-	            success: function (ret) {
-	            	console.log(JSON.stringify(ret))
+	            	})
+		        },
+		        success: function (ret) {
+	                console.log(JSON.stringify(ret))
 	                if (ret.code == 1) {
 	                	var data = ret.data
 	                	duty.status = true
@@ -321,11 +308,8 @@
 	                } else {
 	                    document.getElementById("message").innerHTML = ret.msg;
 	                }
-	            },
-	            error: function () {
-	                plus.nativeUI.toast('网络异常：102')
-	            }
-	        });
+				}
+			});
 		}
 		
 		/**
@@ -383,27 +367,21 @@
          * @param {Object} jsonData 打卡数据
          * @param {String} type 0: 上班卡    1：下班卡
          */
-        function dutyAjax(jsonData, type) {
-            mui.ajax(config.baseUrl, {
-                data: {
-                	data: JSON.stringify(jsonData),
-                	server: 'Attendance.PunchCard',
-					device: 'mobile'
-                },
-                dataType: 'json',
-                type: 'post',
-                success: function (ret) {
+        function dutyAjax(jsonData, type) {            
+            luckyAjax({
+				data: {
+		            server: 'Attendance.PunchCard',
+		            data: JSON.stringify(jsonData)
+		        },
+		        success: function (ret) {
                     if (ret.code == 1) {
 						clockRecord ()    // 获取打卡记录
                         mui.toast('打卡成功', {duration: 'short', type: 'div'})
                     } else {
-                        mui.alert(ret.msg);
+                    	mui.toast(ret.msg, {duration: 'short', type: 'div'})
                     }
                 },
-                error: function () {
-                    plus.nativeUI.toast('网络异常：103')
-                }
-            })
+			});
         }
 	</script>
 </html>

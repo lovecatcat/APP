@@ -23,7 +23,7 @@
 				</div>
 			</div>
 	        <div class="member-birth-sum BL-abs">
-	        	应续期共：<i class="BL-col-3b9cf5">{{ count }}</i>件
+	        	应续期共：<i class="BL-col-3b9cf5">{{ count }} </i>件
 	        </div>
 	    </div>
 	    <!--日期搜索 end -->
@@ -130,24 +130,20 @@
 			}, false);
 			//循环初始化和上拉加载。
 			/**
-		     * 获取提取列表
+		     * 获取续期列表
 		     */
 		    var getRenewalist = function () {
 				i++
-				var data = {
-					data: JSON.stringify({
-						user_id: user_id,
-						month: renewal.month_txt.value,
-						page: i
-					}),
-					server: 'PolicyIns.renewalPolicyManage',
-					device: 'mobile'
-				};
-				mui.ajax(config.baseUrl, {
-					data: data,
-					dataType: 'json',
-					type: 'get',
-					success: function (ret) {
+				luckyAjax({
+					data: {
+			            server: 'PolicyIns.renewalPolicyManage',
+			            data: JSON.stringify({
+							user_id: user_id,
+							month: renewal.month_txt.value,
+							page: i
+						}),
+			        },
+			        success: function (ret) {
 						if (ret.code == 1) {
 							var data = ret.data
 							renewal.count = data.totalRows
@@ -165,9 +161,6 @@
 							renewal.count = 0
 							self.endPullUpToRefresh(true)
 						}
-					},
-					error: function () {
-						mui.toast('网络异常,请稍候再试');
 					}
 				});
 			};

@@ -410,6 +410,12 @@
 	font-size: 4rem;
 	right: 1.5rem;
 }
+.member-team-roleFixed {
+	position: fixed;
+	width: 100%;
+	z-index: 100;
+	top: 0;
+}
 /*团队搜索*/
 .member-team-search {
 	height: 5.625rem;

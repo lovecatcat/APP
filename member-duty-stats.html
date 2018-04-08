@@ -87,9 +87,9 @@
 							</div>
 						</div>
 					</div>-->
-					<div class="section section-tip">
+					<!--<div class="section section-tip">
 						注：以纸质加班申请为准
-					</div>
+					</div>-->
 				</template>
 				<template v-if="flag=='day'">
 					<div v-if="data_day" class="member-duty-context">
@@ -161,25 +161,6 @@
 				data_day: null,    // 日期考勤数据
 				count: null,      // 月份打卡数据统计
 				wifilist: null
-			},
-			created: function () {
-				// 获取考勤范围内的WiFi
-		        mui.ajax(config.baseUrl, {
-		            data: {
-						server: 'Attendance.WifiList',
-						device: 'mobile'
-		            },
-		            dataType: "json",
-		            type: "get",
-		            success: function (ret) {
-		                if (ret.code) {
-		                    duty.wifiList = ret.data;
-		                }
-		            },
-		            error: function () {
-		                plus.nativeUI.toast('网络异常：103')
-		            }
-	        	});
 			}
 		});
 		
@@ -208,8 +189,17 @@
 			var winH = window.innerHeight;
 			var titHeight = document.querySelector('#Js-header').offsetHeight;
 			document.querySelector('#Js-duty').style.height = (winH - titHeight) + 'px';
-			// 获取当前月份数据
-			dutyAjax(duty.month)
+			// 获取考勤范围内的WiFi
+        	luckyAjax({
+				data: {
+		            server: 'Attendance.WifiList',
+		        },
+		        success: function (ret) {
+	                if (ret.code == 1) {
+	                    duty.wifiList = ret.data;
+	                }
+				}
+			});
 			
 			mySchedule.el.addEventListener('tap', function(e) {
 				var dater = e.target.getAttribute('data-dater');  // 获取日期
@@ -231,66 +221,88 @@
 					}
 				}
 			}, false)
+			// 获取当前月份数据
+			dutyAjax(duty.month)
 		});
 		
 		// 获取月份考勤数据
 		function dutyAjax(month) {
-			 mui.ajax(config.baseUrl, {
-	            data: {
-	            	data: JSON.stringify({
+			luckyAjax({
+				data: {
+		            server: 'Attendance.PunchCardRecord',
+		            data: JSON.stringify({
 	            		type: 'month',
 	            		date: month
 	            	}),
-	                server: 'Attendance.PunchCardRecord',
-	                device: 'mobile'
-	            },
-	            dataType: 'json',
-	            type: 'get',
-	            success: function (ret) {
-	            	console.log(JSON.stringify(ret))
+		        },
+		        success: function (ret) {
+		        	console.log(JSON.stringify(ret))
 	                if (ret.code == 1) {
 	                	var data = []
-	                	var intfullDay = getDaybymonth(duty.month)
+	                	var intfullDay = getDaybymonth(month)
 	                	var dataMonth = ret.data.data
 	                	duty.count = ret.data.count
 	                	// 1：正常（蓝色）， 2： 迟到（橙色）， 3：异常（红色），4：休息（字体灰色），5：无状态（字体黑色）
 	                	if(dataMonth) {
 	                		var flag = ''
 	                		for(var i = 1; i <= intfullDay; i++) {
-		                		if(dataMonth.hasOwnProperty(i)) {
-		                			if(dataMonth[i].sign_in_state == '1' || dataMonth[i].sign_in_state == '2') {
-		                				if(dataMonth[i].sign_out_state == '2') {
-		                					data.push({status:3, date:i, data_json:dataMonth[i]});
-		                				} else if (dataMonth[i].sign_out_state == '-1') {
-		                					data.push({status:3, date:i, data_json:dataMonth[i]});
-		                				} else if (dataMonth[i].sign_in_state == '2' && dataMonth[i].sign_out_state == '1'){
-		                					data.push({status:2, date:i, data_json:dataMonth[i]});
-		                				} else {
-		                					data.push({status:1, date:i, data_json:dataMonth[i]});
-		                				}
-		                			} else if(dataMonth[i].sign_in_state == '-1'){
-		                				data.push({ status:3, date:i, data_json:dataMonth[i]});
-		                			}
+	                			var d = (i < 10 ? "0" + i : i)
+		                		if(dataMonth.hasOwnProperty(d)) {
+		                			var in_state = dataMonth[d].sign_in_state
+		                			var out_state = dataMonth[d].sign_out_state
+									if (dataMonth[d].waycard == 'outside') { // 外勤人员
+										if(in_state == '2') {
+											data.push({status: 2, date:i, data_json:dataMonth[d]});
+										} else if (in_state == '1'){
+											data.push({status: 1, date:i, data_json:dataMonth[d]});
+										} else if (in_state == '-1'){
+											data.push({status: 3, date:i, data_json:dataMonth[d]});
+										}
+									} else {  // 内勤人员
+										if(in_state == '1' || in_state == '2') {
+			                				if (out_state == '2') {
+			                					data.push({status: 3, date:i, data_json:dataMonth[d]});
+			                				} else if (out_state == '-1') {
+			                					data.push({status: 3, date:i, data_json:dataMonth[d]});
+			                				} else if (in_state == '2' && out_state == '1'){
+			                					data.push({status: 2, date:i, data_json:dataMonth[d]});
+			                				} else if (in_state == '2' && out_state == '0') {
+			                					data.push({status: 2, date:i, data_json:dataMonth[d]});
+			                				} else {
+			                					data.push({status: 1, date:i, data_json:dataMonth[d]});
+			                				}
+			                			} else if(in_state == '-1'){
+			                				data.push({ status: 3, date:i, data_json:dataMonth[d]});
+			                			}
+									}
 		                			flag = i
 		                		} else {
 		                			data.push({ status: 5, date:i, data_json: ''});
 		                		}
 		                	}
-
+	                		
 	                		// 设置休息
-	                		for(var j = 0; j < flag; j++) {
-	                			if(data[j].status == 5) {
-	                				data[j].status = 4
-	                			}
+	                		if (duty.month == month) {
+	                			var day = new Date().getDate();
+	                			for(var j = 0; j < intfullDay; j++) {
+		                			if(data[j].status == 5 && j < day) {
+		                				data[j].status = 4
+		                			}
+		                		}
+	                		} else {
+	                			for(var j = 0; j < intfullDay; j++) {
+		                			if(data[j].status == 5) {
+		                				data[j].status = 4
+		                			}
+		                		}
 	                		}
 	                	}
 						mySchedule.curMonthFun(data);
+	                } else {
+	                    mui.toast(ret.msg, {duration: 'short', type: 'div'})
 	                }
-	            },
-	            error: function () {
-	                plus.nativeUI.toast('网络异常：102')
-	            }
-	        });
+				}
+			});
 		};
 		
 		// 获取某个月的总天数

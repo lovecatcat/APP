@@ -41,14 +41,14 @@
 								<span class="mui-icon mui-icon-clear" @click="amount = ''"></span>
 							</div>
 						</li>
-						<li class="fItem BL-ub BL-ub-f1">
+						<!--<li class="fItem BL-ub BL-ub-f1">
 							<label class="form-list-label">实发（元）</label>
 							<div class="form-list-control BL-txt-r">{{ actual }}</div>
 						</li>
 						<li class="fItem BL-ub BL-ub-f1">
 							<label class="form-list-label">预留（元）</label>
 							<div class="form-list-control BL-txt-r">{{ reserve }}</div>
-						</li>
+						</li>-->
 					</ul>
 					<div class="form-button-group">
 						<a href="javascript:;" class="form-btn" @click="apply">提交</a>
@@ -68,8 +68,8 @@
 			data: {
 				account: null,
 		        amount: '',
-		        actual: '',  // 实发金额
-		        reserve: '', // 预留金额
+//		        actual: '',  // 实发金额
+//		        reserve: '', // 预留金额
 		        uploading: false  //是否提交标志
 			},
 			methods: {
@@ -78,10 +78,10 @@
 			        if(!vm.checkAmount(amount, canPay)) {
 			          return false
 			        }
-			        // 计算实发金额
-			        vm.actual = (parseFloat(amount)*0.7).toFixed(2)
-			        // 计算预留金额
-			        vm.reserve = (parseFloat(amount)*0.3).toFixed(2)
+//			        // 计算实发金额
+//			        vm.actual = (parseFloat(amount)*0.7).toFixed(2)
+//			        // 计算预留金额
+//			        vm.reserve = (parseFloat(amount)*0.3).toFixed(2)
 			    },
 			    checkAmount: function (amount,canPay) {
 			    	let toast_text = null
@@ -100,10 +100,10 @@
 			        return true
 			    },
 			    apply: function () {
-			    	 let vm = this
+			    	let vm = this
 			        // 避免重复提交
 			        if (vm.uploading) {
-			          mui.toast('请勿重复提交')
+			          mui.toast('请勿重复提交', {duration: 'short', type: 'div'})
 			          return false
 			        }
 			        
@@ -119,18 +119,16 @@
 			        
 			        // 提交数据
 			        vm.uploading = true
-			        mui.toast('正在提交...')
-			        mui.ajax(config.baseUrl, {
+			        mui.toast('正在提交...', {duration: 'short', type: 'div'})
+			        
+			        luckyAjax({
 						data: {
-							data: JSON.stringify({
+				            server: 'commission.Apply',
+				            data: JSON.stringify({
 								amount: vm.amount
-							}),
-							server: 'commission.Apply',
-							device: 'mobile'
-						},
-						dataType: 'json',
-						type: 'post',
-						success: function (ret) {
+							})
+				        },
+				        success: function (ret) {
 							//打开新窗口
 							mui.openWindow({
 								id:"member-commission-result",
@@ -141,9 +139,6 @@
 									msg: ret.msg
 								}
 							});
-						},
-						error: function () {
-							mui.toast('网络异常,请稍候再试');
 						}
 					});
 			    }
@@ -169,30 +164,26 @@
 				var winH = window.innerHeight;
 				var titHeight = document.querySelector('#Js-header').offsetHeight;
 				document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+				// 获取账户信息
+				getAccount()
 			});
-			// 获取账户信息
-			getAccount()
-			
 		}(mui));
 		
 		// 获取账户信息
 		function getAccount() {
-			mui.ajax(config.baseUrl, {
-	            data: {
-	                server: 'commission.Account',
-	                device: 'mobile'
-	            },
-	            dataType: 'json',
-	            type: 'get',
-	            success: function (ret) {
-	                if (ret.code == 1) {
+			luckyAjax({
+				data: {
+		            server: 'commission.Account',
+		        },
+		        success: function (ret) {
+					if (ret.code == 1) {
 	                	extract.account = ret.data
+	                } else {
+	                	mui.toast(ret.msg, {duration: 'short', type: 'div'})
 	                }
-	            },
-	            error: function () {
-	                plus.nativeUI.toast('网络异常：101')
-	            }
-        	});
+				}
+			});
 		};
+		
 	</script>
 </html>

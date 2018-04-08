@@ -38,7 +38,7 @@
 					</div>
 				</div>
 				<!--日期筛选 end -->
-				<div v-show="mode==4" id="Js-showDate" class="BL-pad-t-1 BL-pad-lr-1_5 BL-ftz-42 BL-col-999">
+				<div v-show="mode==4" id="Js-showDate" class="BL-pad-t-1 BL-pad-lr-1_5 BL-ftz-42 BL-col-999 BL-bg-f2f">
 					筛选时间：<span class="Js-fday">{{ start_time }}</span> --- <span class="Js-sday">{{ end_time }}</span>
 				</div>
 			</div>
@@ -109,7 +109,6 @@
 					url: 'member-commission-detail.html',
 					id: 'member_commission_detail',
 				});
-//				var detailPage = null;
 				
 				statusbar();
 				var winH = window.innerHeight;
@@ -126,23 +125,18 @@
 			     */
 			    var getApplylist = function (mode) {
 					i++
-					var data = {
-						data: JSON.stringify({
-							start: apply.start_time,
-							end: apply.end_time,
-							page: i
-						}),
-						server: 'commission.ApplyList',
-						device: 'mobile'
-					};
-					mui.ajax(config.baseUrl, {
-						data: data,
-						dataType: 'json',
-						type: 'get',
-						success: function (ret) {
+					luckyAjax({
+						data: {
+				            server: 'commission.ApplyList',
+				            data: JSON.stringify({
+								start: apply.start_time,
+								end: apply.end_time,
+								page: i
+							})
+				        },
+				        success: function (ret) {
 							if (ret.code == 1) {
 								var data = ret.data 
-//								alert(JSON.stringify(ret.data))
 								if(i == 1 && i == data.totalPage) {
 									apply.list = data.data
 									self.endPullUpToRefresh(true)
@@ -152,10 +146,9 @@
 								} else {
 									self.endPullUpToRefresh(true)
 								}
-							}
-						},
-						error: function () {
-							mui.toast('网络异常,请稍候再试');
+							} else {
+			                	mui.toast(ret.msg, {duration: 'short', type: 'div'})
+			                }
 						}
 					});
 				};
@@ -224,8 +217,7 @@
 				});
 				
 				mui('.mui-table-view').on('tap', 'a', function(e) {
-				  	var data = this.getAttribute('data-json');
-					 
+				  	var data = this.getAttribute('data-json');		 
 //					//触发详情页面的id事件
 					mui.fire(plus.webview.getWebviewById('member_commission_detail'),'applyId',{
 					    'data': data

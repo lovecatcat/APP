@@ -3,32 +3,29 @@
   <component name="ChangeListManager">
     <list default="true" id="498c8627-e6d5-474f-af44-54872208893d" name="默认的" comment="Merge branch 'master' of http://172.16.2.31:3001/baihao/BH-mobileapp2&#10;&#10;# Conflicts:&#10;#&#9;css/common.css&#10;#&#9;css/plans.css&#10;#&#9;plans-detail.html&#10;#&#9;plans-total.html&#10;#&#9;plans.html">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/communic-detail.html" afterPath="$PROJECT_DIR$/communic-detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hd_ins/insurance-applicant.html" afterPath="$PROJECT_DIR$/hd_ins/insurance-applicant.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hd_ins/insurance-index.html" afterPath="$PROJECT_DIR$/hd_ins/insurance-index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index-content.html" afterPath="$PROJECT_DIR$/index-content.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/config.js" afterPath="$PROJECT_DIR$/js/config.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/plans.js" afterPath="$PROJECT_DIR$/js/plans.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/communic.html" afterPath="$PROJECT_DIR$/communic.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/member.css" afterPath="$PROJECT_DIR$/css/member.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manifest.json" afterPath="$PROJECT_DIR$/manifest.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-changepwd.html" afterPath="$PROJECT_DIR$/member-changepwd.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-birthday-customer.html" afterPath="$PROJECT_DIR$/member-birthday-customer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-birthday-team.html" afterPath="$PROJECT_DIR$/member-birthday-team.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-commission-account.html" afterPath="$PROJECT_DIR$/member-commission-account.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-commission-applylist.html" afterPath="$PROJECT_DIR$/member-commission-applylist.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-commission-countlist.html" afterPath="$PROJECT_DIR$/member-commission-countlist.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-commission-detail.html" afterPath="$PROJECT_DIR$/member-commission-detail.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-commission-extract.html" afterPath="$PROJECT_DIR$/member-commission-extract.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-commission-incomelist.html" afterPath="$PROJECT_DIR$/member-commission-incomelist.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-commission-salarydetail.html" afterPath="$PROJECT_DIR$/member-commission-salarydetail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-commission-salarylist.html" afterPath="$PROJECT_DIR$/member-commission-salarylist.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-duty-stats.html" afterPath="$PROJECT_DIR$/member-duty-stats.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-duty.html" afterPath="$PROJECT_DIR$/member-duty.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-personalinfo.html" afterPath="$PROJECT_DIR$/member-personalinfo.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-plans-alone-design.html" afterPath="$PROJECT_DIR$/member-plans-alone-design.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-plans-manage.html" afterPath="$PROJECT_DIR$/member-plans-manage.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-plans-total.html" afterPath="$PROJECT_DIR$/member-plans-total.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-tax-cal.html" afterPath="$PROJECT_DIR$/member-tax-cal.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-intergral-activity.html" afterPath="$PROJECT_DIR$/member-intergral-activity.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-intergral-experience.html" afterPath="$PROJECT_DIR$/member-intergral-experience.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-intergral-rights.html" afterPath="$PROJECT_DIR$/member-intergral-rights.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-renewal-auto.html" afterPath="$PROJECT_DIR$/member-renewal-auto.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-renewal-life.html" afterPath="$PROJECT_DIR$/member-renewal-life.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-renewal-liftdetail.html" afterPath="$PROJECT_DIR$/member-renewal-liftdetail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-team-performance.html" afterPath="$PROJECT_DIR$/member-team-performance.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-team-prospectus.html" afterPath="$PROJECT_DIR$/member-team-prospectus.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/news-detail.html" afterPath="$PROJECT_DIR$/news-detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/product-contrast-detail.html" afterPath="$PROJECT_DIR$/product-contrast-detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/product-contrast.html" afterPath="$PROJECT_DIR$/product-contrast.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/product-detail.html" afterPath="$PROJECT_DIR$/product-detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/product.html" afterPath="$PROJECT_DIR$/product.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/quickly-filter.html" afterPath="$PROJECT_DIR$/quickly-filter.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/quickly.html" afterPath="$PROJECT_DIR$/quickly.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/recruit.html" afterPath="$PROJECT_DIR$/recruit.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sns.html" afterPath="$PROJECT_DIR$/sns.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/team-personal-performance.html" afterPath="$PROJECT_DIR$/team-personal-performance.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -43,31 +40,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="insurance-applicant.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/hd_ins/insurance-applicant.html">
+      <file leaf-file-name="member-intergral-rights.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/member-intergral-rights.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="346" column="43" lean-forward="false" selection-start-line="346" selection-start-column="32" selection-end-line="346" selection-end-column="43" />
+            <state relative-caret-position="506">
+              <caret line="22" column="94" lean-forward="false" selection-start-line="22" selection-start-column="94" selection-end-line="22" selection-end-column="94" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/config.js">
+      <file leaf-file-name="team-personal-performance.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/team-personal-performance.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="69">
-              <caret line="3" column="47" lean-forward="false" selection-start-line="3" selection-start-column="47" selection-end-line="3" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="method.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hd_ins/method.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3128">
-              <caret line="136" column="2" lean-forward="false" selection-start-line="122" selection-start-column="4" selection-end-line="136" selection-end-column="2" />
+            <state relative-caret-position="436">
+              <caret line="28" column="99" lean-forward="false" selection-start-line="28" selection-start-column="99" selection-end-line="28" selection-end-column="99" />
               <folding />
             </state>
           </provider>
@@ -84,7 +71,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>v-clock</find>
       <find>images</find>
       <find>banner_count</find>
       <find>slider</find>
@@ -114,12 +100,14 @@
       <find>alert</find>
       <find>getAge</find>
       <find>getA</find>
+      <find>data-options</find>
     </findStrings>
     <replaceStrings>
       <replace>BL</replace>
     </replaceStrings>
     <dirStrings>
       <dir>D:\Program Files\phpstudy\WWW\mobileapp2</dir>
+      <dir>E:\project\mobileapp2\mobileapp2</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -137,8 +125,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/plans-detail.html" />
-        <option value="$PROJECT_DIR$/news-detail.html" />
         <option value="$PROJECT_DIR$/plans.html" />
         <option value="$PROJECT_DIR$/prospectus.html" />
         <option value="$PROJECT_DIR$/css/plans.css" />
@@ -188,6 +174,8 @@
         <option value="$PROJECT_DIR$/login.html" />
         <option value="$PROJECT_DIR$/hd_ins/insurance-upload.html" />
         <option value="D:/用户目录/我的文档/WeChat Files/anlo_561949210/Files/ahaa.vue" />
+        <option value="$PROJECT_DIR$/member-intergral-rights.html" />
+        <option value="$PROJECT_DIR$/team-personal-performance.html" />
       </list>
     </option>
   </component>
@@ -219,7 +207,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -231,7 +219,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -294,6 +282,9 @@
       <workItem from="1522489872373" duration="9000" />
       <workItem from="1522838247155" duration="764000" />
       <workItem from="1522841224364" duration="12000" />
+      <workItem from="1523149248848" duration="1596000" />
+      <workItem from="1523153531574" duration="861000" />
+      <workItem from="1523186581296" duration="10000" />
     </task>
     <task id="LOCAL-00001" summary="计划书模块">
       <created>1520420574558</created>
@@ -341,7 +332,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="268571000" />
+    <option name="totallyTimeSpent" value="271441000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -356,7 +347,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17590618" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18070363" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11304348" sideWeight="0.510661" order="7" side_tool="true" content_ui="tabs" />
@@ -442,7 +433,8 @@
     <MESSAGE value="合并" />
     <MESSAGE value="团队管理、考勤、生日跟踪、续期、佣金联调" />
     <MESSAGE value="优化" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化" />
+    <MESSAGE value="链接问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="链接问题" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -457,28 +449,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/news-cloud.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="851">
-          <caret line="37" column="25" lean-forward="true" selection-start-line="37" selection-start-column="25" selection-end-line="37" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/member-personalinfo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="135" column="82" lean-forward="true" selection-start-line="135" selection-start-column="24" selection-end-line="135" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/member-avatarmenu.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="582">
-          <caret line="84" column="27" lean-forward="true" selection-start-line="84" selection-start-column="27" selection-end-line="84" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/member-warranty-manage.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="167">
@@ -652,13 +622,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/team-personal-performance.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="12" column="11" lean-forward="true" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/用户目录/我的文档/WeChat Files/anlo_561949210/Files/ahaa.vue" />
     <entry file="file://$PROJECT_DIR$/communic.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -751,18 +714,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ins2c-applicant(1).html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ins2c-applicant(1).html" />
     <entry file="file://$PROJECT_DIR$/js/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
           <caret line="3" column="47" lean-forward="false" selection-start-line="3" selection-start-column="47" selection-end-line="3" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -770,7 +726,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3128">
           <caret line="136" column="2" lean-forward="false" selection-start-line="122" selection-start-column="4" selection-end-line="136" selection-end-column="2" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -778,6 +733,35 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
           <caret line="346" column="43" lean-forward="false" selection-start-line="346" selection-start-column="32" selection-end-line="346" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/member-tax-cal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-92">
+          <caret line="158" column="30" lean-forward="true" selection-start-line="158" selection-start-column="30" selection-end-line="158" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hd_ins/insurance-assured.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="76" column="60" lean-forward="false" selection-start-line="76" selection-start-column="60" selection-end-line="76" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/member-intergral-rights.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="22" column="94" lean-forward="false" selection-start-line="22" selection-start-column="94" selection-end-line="22" selection-end-column="94" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/team-personal-performance.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="28" column="99" lean-forward="false" selection-start-line="28" selection-start-column="99" selection-end-line="28" selection-end-column="99" />
           <folding />
         </state>
       </provider>

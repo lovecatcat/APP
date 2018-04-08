@@ -143,30 +143,24 @@
 		});
     });
     
-    function renewalPolicyDetails(){	
-    	var data = {
-			data: JSON.stringify({
-				policy_id: lifeDetail.policy_id,
-			}),
-			server: 'PolicyIns.renewalPolicyDetails',
-			device: 'mobile'
-		};
-		mui.ajax(config.baseUrl, {
-			data: data,
-			dataType: 'json',
-			type: 'get',
-			success: function (ret) {
+    function renewalPolicyDetails(){
+    	luckyAjax({
+			data: {
+	            server: 'PolicyIns.renewalPolicyDetails',
+	            data: JSON.stringify({
+					policy_id: lifeDetail.policy_id,
+				}),
+	        },
+	        success: function (ret) {
 				if (ret.code == 1) {
 					var data = ret.data
 					lifeDetail.policyInfo = data.policyInfo
-				}
-			},
-			error: function () {
-				mui.toast('网络异常,请稍候再试');
+				} else {
+                	mui.toast(ret.msg, {duration: 'short', type: 'div'})
+                }
 			}
 		});
 	};
-    
 </script>
 </html>
 

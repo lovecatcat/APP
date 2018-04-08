@@ -127,36 +127,31 @@
 				var winH = window.innerHeight;
 				var titHeight = document.querySelector('#Js-header').offsetHeight;
 				document.querySelector('#Js-cmis').style.height = winH - titHeight + 'px';
+				// 获取账号信息
+				getAccount()
 			})
 			// 改变头部搜索栏背景色
 			document.querySelector(".mui-scroll-wrapper").addEventListener('scroll', function(e) { 
 				var y = Math.abs(e.detail.y) * 0.01;
 				document.querySelector('#Js-header').style.background = "rgba(48,51,71," + y + ")";
 			});
-			// 获取账号信息
-			getAccount()
-			
 		}(mui));
 		
 		// 获取账户信息
 		function getAccount() {
-			mui.ajax(config.baseUrl, {
-	            data: {
-	                server: 'commission.Account',
-	                device: 'mobile'
-	            },
-	            dataType: 'json',
-	            type: 'get',
-	            success: function (ret) {
-	                if (ret.code == 1) {
+			luckyAjax({
+				data: {
+		            server: 'commission.Account',
+		        },
+		        success: function (ret) {
+					if (ret.code == 1) {
 	                	cmis.account = ret.data
 	                	cmis.setExtBtnByTime(ret.data.now_time)
+	                } else {
+	                	mui.toast(ret.msg, {duration: 'short', type: 'div'})
 	                }
-	            },
-	            error: function () {
-	                plus.nativeUI.toast('网络异常：101')
-	            }
-        	});
+				}
+			});
 		};
 		//主列表点击事件
 		mui('body').on('tap', 'a', function() {

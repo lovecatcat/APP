@@ -20,14 +20,14 @@
 		</header>
 		<!--日期搜索 begin-->
 		<div id="Js-teamFilter" class="member-team-search BL-ub BL-ub-ac BL-bg-fff">
-			<div class="search-date BL-ub BL-ub-ac">
-				<input id="start_time" class="BL-ub BL-ub-f1 date" type="text" data-options='{"type":"date"}'/>
+			<div class="search-date BL-ub BL-ub-ac" data-options='{"type":"date","beginYear":2000}'>
+				<div id="start_time" class="BL-ub BL-ub-f1 date BL-pad-l-1">开始日期</div>
 				<div class="down">
 					<span class="BL-bimg-contain search-down"></span>
 				</div>
 			</div>
-			<div class="search-date BL-ub BL-ub-ac">
-				<input id="end_time" class="BL-ub BL-ub-f1 date" type="text" data-options='{"type":"date"}'/>
+			<div class="search-date BL-ub BL-ub-ac" data-options='{"type":"date","beginYear":2000}'>
+				<div id="end_time" class="BL-ub BL-ub-f1 date BL-pad-l-1">结束日期</div>
 				<div class="down">
 					<span class="BL-bimg-contain search-down"></span>
 				</div>
@@ -64,7 +64,7 @@
 								</template>
 								<template v-else-if="list.length == 0">
 									<tr>
-										<td colspan="5">
+										<td colspan="4">
 											<div class="BL-txt-c BL-ftz-42 BL-col-999">没有相关数据</div>
 										</td>
 									</tr>
@@ -116,7 +116,7 @@
 			});
 			
 			// 日期选择
-			var dates = $('.date');
+			var dates = $('.search-date');
 			dates.each(function(i, d) {
 				d.addEventListener('tap', function() {
 					var optionsJson = this.getAttribute('data-options') || '{}';
@@ -124,7 +124,7 @@
 					var _this = this
 					var picker = new $.DtPicker(options);
 					picker.show(function(rs) {
-						_this.value = rs.text;
+						_this.querySelector('.date').innerHTML = rs.text;
 						picker.dispose();
 					});
 				}, false);
@@ -132,18 +132,28 @@
 			
 			// 点击搜索按钮事件
 			document.querySelector('#search').addEventListener('tap', function(){
-				var s_time = start_time.value
-				var e_time = end_time.value
+				var s_time = start_time.innerHTML
+				var e_time = end_time.innerHTML
+				if (s_time == '' || s_time == '开始日期') {
+					mui.toast("请选择开始日期", {duration: 'short', type: 'div'})
+					return
+				} else if (e_time == '' || e_time == '开始日期') {
+					mui.toast("请选择结束日期", {duration: 'short', type: 'div'})
+					return
+				} else if (s_time > e_time) {
+					mui.toast("开始日期不能大于结束日期", {duration: 'short', type: 'div'})
+					return
+				}
 				getMembers (uid, s_time, e_time)
 			})
 		}(mui));
 		
 		window.addEventListener('uId',function(e){
 			// 初始化当前月份和上个月份的个人业绩数据
-			start_time.value = new Date().addMonth(-1).Format('yyyy-MM-dd');
-			end_time.value = new Date().addDays(0).Format('yyyy-MM-dd');
+			start_time.innerHTML = new Date().addMonth(-1).Format('yyyy-MM-dd');
+			end_time.innerHTML = new Date().addDays(0).Format('yyyy-MM-dd');
 			uid = e.detail.uid;
-			getMembers(uid,start_time.value,end_time.value)
+			getMembers(uid,start_time.innerHTML,end_time.innerHTML)
 		});
 		/**
 		 * 获取个人业绩列表
@@ -151,32 +161,27 @@
 		 * @param {String} end_time  结束时间
 		 */
 		function getMembers(uid,start_time, end_time) {
-			alert(uid)
-			mui.ajax(config.baseUrl, {
-	            data: {
-	            	data: JSON.stringify({
+        	luckyAjax({
+				data: {
+		            server: 'team.getMembers',
+		            data: JSON.stringify({
 	            		user_id: uid,
 	            		start_time: start_time,
 	            		end_time: end_time
 	            	}),
-	                server: 'team.getMembers',
-	                device: 'mobile'
-	            },
-	            dataType: 'json',
-	            type: 'post',
-	            success: function (ret) {
+		        },
+		        success: function (ret) {
 	                if (ret.code == 1) {
 	                	team.count = ret.data.count
 	                	team.money = ret.data.money
 	                	team.activity_score = ret.data.activity_score
-	                    team.list = ret.data.list
+	                    team.list = (ret.data.list.length == 0 ? [] : ret.data.list)
 	                    document.querySelector('.BL-title').innerHTML = ret.data.name
+	                } else {
+	                	mui.toast(ret.msg, {duration: 'short', type: 'div'})
 	                }
 	            },
-	            error: function () {
-	                plus.nativeUI.toast('网络异常：101')
-	            }
-        	});
+			});		
 		}
 	</script>
 </html>

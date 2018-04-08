@@ -28,7 +28,7 @@
                 <div class="input-item ins-pd-r-0">
                     <label class="">是投保人的</label>
                     <div class="input-wrap box-f-1 multi-btn">
-                        <button class="ins-btn xs-btn" :class="{'blue':item.value===assured.rel_insured_holder}"
+                        <button class="ins-btn xs-btn" :class="{'blue':item.value===assured.rel_insured_holder}" :disabled="item.value===assured.rel_insured_holder"
                                 v-for="(item,index) in init.is_assured" @click="assured.rel_insured_holder=item.value">
                             {{item.text}}
                         </button>
@@ -146,7 +146,7 @@
                         <label class="">婚姻状况</label>
                         <div class="input-wrap box-f-1 multi-btn">
                             <button class="ins-btn xs-btn" :class="{'blue':item.value===assured.insured_marriage}"
-                                    v-for="(item,index) in init.marriage" @click="assured.insured_marriage=item.value">
+                                    v-for="(item,index) in init.marriage" :disabled="item.value===assured.insured_marriage" @click="assured.insured_marriage=item.value">
                                 {{item.text}}
                             </button>
                         </div>
@@ -212,10 +212,10 @@
                     <div class="input-item box-f-1 box-align-center">
                         <div class="box-f-1 ins-font-sm BL-col-999">是否与投保人同地址？</div>
                         <div class="box-f-2">
-                            <button class="ins-btn xs-btn BL-mar-r-1" :class="{'blue':assured.addr_type}"
+                            <button class="ins-btn xs-btn BL-mar-r-1" :class="{'blue':assured.addr_type}" :disabled="assured.addr_type"
                                     @click="assured.addr_type=!assured.addr_type">是
                             </button>
-                            <button class="ins-btn xs-btn" :class="{'blue':!assured.addr_type}"
+                            <button class="ins-btn xs-btn" :class="{'blue':!assured.addr_type}" :disabled="!assured.addr_type"
                                     @click="assured.addr_type=!assured.addr_type">否
                             </button>
                         </div>
@@ -287,7 +287,10 @@
         mui.openWindow({
             url: '../communic.html',
             id: 'communic',
-            show: animateObj.aniDetal
+            show: animateObj.aniDetal,
+            extras:{
+				type: 'onlineIns'
+			}
         })
     })
 
@@ -478,9 +481,40 @@
                 return false
             }
             plus.storage.setItem('hengda_assured',JSON.stringify(assu.assured));
+            mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
+                item: 'assured_save'
+            });
             popu.closepop();
             mui.back();
         })
+        //
+        window.addEventListener('getMemberId', function (event) {
+	        var memberid = event.detail.id
+	        luckyAjax({
+				data: {
+		            server: 'team.getUserInfo',
+		            data: JSON.stringify({card_no:memberid})
+		        },
+		        success:function(data){
+	                if(data.code){
+	                	console.log(JSON.stringify(data.data));
+	                	var info = data.data;
+	                	assu.assured.insured_name = info.name;
+	                	assu.assured.insured_ID_no = info.card_no;
+	                	assu.assured.insured_salary_avg = info.salary_avg;
+	                	assu.assured.insured_mobile = info.tel;
+	                	assu.assured.insured_home_province = info.home_province;
+	                	assu.assured.insured_home_city = info.home_city;
+	                	assu.assured.insured_home_district = info.home_district;
+	                	assu.assured.insured_home_zip = info.home_zip;
+	                	district.pickers[0].setSelectedValue(info.home_district, 2000);
+	                	assu.assured.insured_home_address = info.home_address;
+	                	assu.assured.insured_weight = info.weight;
+	                	assu.assured.insured_height = info.height;
+	                }	
+		        }
+			});
+	    });
         //
         mui('body').on('tap', '#close-ins-pop', function () {
             // 关闭遮罩层，弹框

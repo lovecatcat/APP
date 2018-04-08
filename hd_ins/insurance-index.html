@@ -91,7 +91,7 @@
     var index = new Vue({
         el: '#Js-content',
         data: {
-            applicant_save: true,
+            applicant_save: false,
             assured_save: false,
             beneficiary_save: false,
             safegood_save: false,
@@ -144,6 +144,10 @@
             showPopu("insurance-sign.html", "insurance_sign", "bottom");
         });
 
+		//
+		window.addEventListener('saveFlag', function (e) {
+			index[e.detail.item] = true
+        });
         //整理下拉框需要的数据
         function dataToselect(data, type) {
             var arr = [];

@@ -2,19 +2,19 @@ var SCID = 19;
 var onlineIns = ['272', '276', '340', '348', '370', '16328']; // 上线的主险id
 //               恒久    护航    青  福享金生    红     青
 //主险
-var qwhh = 276; //千万护航
-var hjjk = 272; //恒久健康
-var fxjs = 348; //福享金生
-var wnh = 370; //万年红
-var wnq = 340; //万年青
+var qwhh = '276'; //千万护航
+var hjjk = '272'; //恒久健康
+var fxjs = '348'; //福享金生
+var wnh = '370'; //万年红
+var wnq = '340'; //万年青
 
 //附加险
-var tbrhm = 273; //投保人豁免重疾2017版
-var hx = 279; //恒祥
-var hs = 278; //恒顺
-var zxak = 277; //尊享安康
-var hjax = 16205; //恒久安心住院
-var cjb = 16340; //传家宝
+var tbrhm = '273'; //投保人豁免重疾2017版
+var hx = '279'; //恒祥
+var hs = '278'; //恒顺
+var zxak = '277'; //尊享安康
+var hjax = '16205'; //恒久安心住院
+var cjb = '373'; //传家宝
 
 var zrwnzh = 'LBD0001' //转入万能账户
 
@@ -114,7 +114,6 @@ var beneficiary = {
     beneficiary_is_insured: 'LAN0004',//与被保人关系
     fullname: '洒洒水',//姓名
     ID_type: BOOKLET,//证件类型
-    ID_type_name: '户口本',//证件类型名称
     ID_no: '542221201705081201',//证件号码
     ID_expire_end: '9999-12-31',//证件有效期
     gender: MALE,//性别

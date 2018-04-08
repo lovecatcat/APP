@@ -126,6 +126,7 @@
                 <div class="input-wrap box-f-1 multi-btn">
                     <button class="ins-btn xs-btn"
                             :class="{'blue':item.value===beneficiary.beneficiary_is_insured}"
+                            :disabled="item.value===beneficiary.beneficiary_is_insured"
                             v-for="(item,index) in init.relation_beneficiary"
                             @click="beneficiary.beneficiary_is_insured=item.value">
                         {{item.text}}
@@ -138,6 +139,7 @@
                     <button class="ins-btn xs-btn"
                             v-for="(item,ind) in count"
                             :class="{'blue':ind+1===beneficiary.sort_order}"
+                            :disabled="ind+1===beneficiary.sort_order"
                             @click="beneficiary.sort_order=ind">
                         {{ind+1}}
                     </button>
@@ -158,13 +160,13 @@
             <div class="input-item box-f-1 box-align-center">
                 <div class="box-f-1 ins-font-sm BL-col-3b9cf5">是否与投被保人同地址？</div>
                 <div class="box-f-2">
-                    <button class="ins-btn xxs-btn" @click="beneficiary.addr_type=1"
+                    <button class="ins-btn xxs-btn" @click="beneficiary.addr_type=1" :disabled="beneficiary.addr_type===1"
                             :class="{'blue':beneficiary.addr_type===1}">同投保人
                     </button>
-                    <button class="ins-btn xxs-btn" @click="beneficiary.addr_type=2"
+                    <button class="ins-btn xxs-btn" @click="beneficiary.addr_type=2" :disabled="beneficiary.addr_type===2"
                             :class="{'blue':beneficiary.addr_type===2}">同被保人
                     </button>
-                    <button class="ins-btn xs-btn" @click="beneficiary.addr_type=3"
+                    <button class="ins-btn xs-btn" @click="beneficiary.addr_type=3" :disabled="beneficiary.addr_type===3"
                             :class="{'blue':beneficiary.addr_type===3}">否
                     </button>
                 </div>
@@ -174,7 +176,7 @@
                     <label class="">通讯地区</label>
                     <div class="input-wrap box-f-1">
                         <div class="input" id="address-select">
-                            请选择
+                            {{address_select}}
                         </div>
                         <div class="ins-down-icon"></div>
                     </div>
@@ -234,6 +236,7 @@
                 show: true,
                 longTerm: false,//长期有效
                 ID_type_name: '请选择',//证件类型名称
+                address_select: '请选择',
                 beneficiary: {
                     beneficiary_is_insured: '',//与被保人关系
                     fullname: '',//姓名
@@ -260,6 +263,8 @@
             vm.beneficiary.type = SY_TYPE
             //
             this.beneficiary = Object.assign(this.beneficiary, beneficiary)
+            this.ID_type_name = '户口本'
+            this.address_select = '广东 深圳 南山'
             this.longTerm = true
             //
             vm.$watch('longTerm', (val) => {
@@ -518,6 +523,9 @@
             } else {
                 plus.storage.setItem('hengda_beneficiary', JSON.stringify(data));
             }
+            mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
+                item: 'beneficiary_save'
+            });
             popu.closepop();
             mui.back();
         })

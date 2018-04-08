@@ -109,6 +109,9 @@
                 document_negative_img: img.document_negative_img,
                 bank_front_img: img.bank_front_img,
             }));
+            mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
+                item: 'upload_save'
+            });
             popu.closepop();
             mui.back();
         })

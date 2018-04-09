@@ -23,75 +23,75 @@
                 <button class="ins-btn sm-btn blue" id="saveHealthinfo">保存</button>
             </div>
         </div>
-        <div class="form-content margin-t-6_125 BL-pad-b-2" v-if="matters">
+        <div class="form-content margin-t-6_125 BL-pad-b-2">
             <div class="form-wrap">
             	<!--投保人-->
-                <div class="table-wrap" v-if="showAppl">
+                <div class="table-wrap" v-if="showAppl&&matters" v-cloak>
                     <div class="item">
                         <ul class="flex table-title">
                             <li class="flex-1">投保人健康告知</li>
                             <li class="item-operate" @tap="appfolder=!appfolder">操作</li>
                         </ul>
                     </div>
-                    <div v-for="(item,index) in matters" v-if="isShow(index)" v-show="!appfolder">
+                    <div v-for="(item,index) in matters" v-if="isShow(index,1)" v-show="!appfolder">
                         <ul class="flex">
-                            <li class="flex-1">{{item.entry}}.{{item.id}}&nbsp;{{item.content}}</li>
+                            <li class="flex-1">{{item.entry}}.&nbsp;{{item.content}}</li>
                             <li class="item-operate BL-mar-t-1" v-if="['10','11','5'].indexOf(item.entry)===-1">
                                 <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.app_amswer[item.id]}" :disabled="clientvalue.app_amswer[item.id]" @tap="appChange(item.id,true)">是</button>
                                 <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.app_amswer[item.id]}" :disabled="!clientvalue.app_amswer[item.id]" @tap="appChange(item.id,false)">否</button>
                             </li>
                         </ul>
                         <template v-if="appforms[item.id] && (clientvalue.app_amswer[item.id]||item.entry==11)">
-				            <app-form :forms="appforms[item.id]"></app-form>
-				        </template>
+                            <app-form :forms="appforms[item.id]"></app-form>
+                        </template>
                         <template v-if="item.child">
-        					<div v-for="childitem in item.child" :key="childitem.id">
-        						<ul class="flex">
-		                            <li class="flex-1">{{childitem.entry}}.&nbsp;{{childitem.content}}</li>
-		                            <li class="item-operate BL-mar-t-1">
-		                            	<button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.app_amswer[childitem.id]}" :disabled="clientvalue.app_amswer[childitem.id]" @tap="appChange(childitem.id,true)">是</button>
-                                		<button class="ins-btn sm-btn" :class="{'blue':!clientvalue.app_amswer[childitem.id]}" :disabled="!clientvalue.app_amswer[childitem.id]" @tap="appChange(childitem.id,false)">否</button>
-		                            </li>
-		                        </ul>
-		                        <template v-if="appforms[childitem.id] && clientvalue.app_amswer[childitem.id]">
-						            <app-form :forms="appforms[childitem.id]"></app-form>
-						        </template>
-        				</template>
+                            <div v-for="childitem in item.child" :key="childitem.id">
+                                <ul class="flex">
+                                    <li class="flex-1">{{childitem.entry}}.&nbsp;{{childitem.content}}</li>
+                                    <li class="item-operate BL-mar-t-1">
+                                        <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.app_amswer[childitem.id]}" :disabled="clientvalue.app_amswer[childitem.id]" @tap="appChange(childitem.id,true)">是</button>
+                                        <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.app_amswer[childitem.id]}" :disabled="!clientvalue.app_amswer[childitem.id]" @tap="appChange(childitem.id,false)">否</button>
+                                    </li>
+                                </ul>
+                                <template v-if="appforms[childitem.id] && clientvalue.app_amswer[childitem.id]">
+                                    <app-form :forms="appforms[childitem.id]"></app-form>
+                                </template>
+                        </template>
         			</div>
                 </div>
                 <!--投保人-->
             	<!--被保人-->
-                <div class="table-wrap" v-else>
+                <div class="table-wrap" v-if="matters" v-cloak>
                     <div class="item">
                         <ul class="flex table-title">
                             <li class="flex-1">被保人健康告知</li>
                             <li class="item-operate" @tap="assfolder=!assfolder">操作</li>
                         </ul>
                     </div>
-                    <div v-for="(item,index) in matters" v-if="isShow(index)" v-show="!assfolder">
+                    <div v-for="(item,index) in matters" v-if="isShow(index,2)" v-show="!assfolder">
                         <ul class="flex">
-                            <li class="flex-1">{{item.entry}}.{{item.id}}&nbsp;{{item.content}}</li>
+                            <li class="flex-1">{{item.entry}}.&nbsp;{{item.content}}</li>
                             <li class="item-operate BL-mar-t-1" v-if="['10','11','5'].indexOf(item.entry)===-1">
                                 <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.ass_amswer[item.id]}" :disabled="clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,true)">是</button>
                                 <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.ass_amswer[item.id]}" :disabled="!clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,false)">否</button>
                             </li>
                         </ul>
                         <template v-if="assforms[item.id] && (clientvalue.ass_amswer[item.id]||item.entry==11)">
-				            <app-form :forms="assforms[item.id]"></app-form>
-				        </template>
+                            <app-form :forms="assforms[item.id]"></app-form>
+                        </template>
                         <template v-if="item.child">
-        					<div v-for="childitem in item.child" :key="childitem.id">
-        						<ul class="flex">
-		                            <li class="flex-1">{{childitem.entry}}.&nbsp;{{childitem.content}}</li>
-		                            <li class="item-operate BL-mar-t-1">
-		                            	<button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.ass_amswer[childitem.id]}" :disabled="clientvalue.ass_amswer[childitem.id]" @tap="assChange(childitem.id,true)">是</button>
-                                		<button class="ins-btn sm-btn" :class="{'blue':!clientvalue.ass_amswer[childitem.id]}" :disabled="!clientvalue.ass_amswer[childitem.id]" @tap="assChange(childitem.id,false)">否</button>
-		                            </li>
-		                        </ul>
-		                        <template v-if="assforms[childitem.id] && clientvalue.ass_amswer[childitem.id]">
-						            <app-form :forms="assforms[childitem.id]"></app-form>
-						        </template>
-        				</template>
+                            <div v-for="childitem in item.child" :key="childitem.id">
+                                <ul class="flex">
+                                    <li class="flex-1">{{childitem.entry}}.&nbsp;{{childitem.content}}</li>
+                                    <li class="item-operate BL-mar-t-1">
+                                        <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.ass_amswer[childitem.id]}" :disabled="clientvalue.ass_amswer[childitem.id]" @tap="assChange(childitem.id,true)">是</button>
+                                        <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.ass_amswer[childitem.id]}" :disabled="!clientvalue.ass_amswer[childitem.id]" @tap="assChange(childitem.id,false)">否</button>
+                                    </li>
+                                </ul>
+                                <template v-if="assforms[childitem.id] && clientvalue.ass_amswer[childitem.id]">
+                                    <app-form :forms="assforms[childitem.id]"></app-form>
+                                </template>
+                        </template>
         			</div>
                 </div>
                 <!--被保人-->
@@ -188,13 +188,13 @@
             value: ''
         }],
         '161': [{
-            title: '吸烟数量',
+            title: '吸烟数量(支)',
             type: 'number',
             msg: '请输入吸烟数量, 保留整数',
             reg: /^\d+$/,
             value: ''
         }, {
-            title: '烟龄',
+            title: '烟龄(年)',
             type: 'number',
             msg: '请输入烟龄, 保留整数',
             reg: /^\d+$/,
@@ -215,7 +215,7 @@
             reg: /^\d+$/,
             value: ''
         }, {
-            title: '酒龄',
+            title: '酒龄(年)',
             type: 'number',
             msg: '请输入酒龄, 保留整数',
             reg: /^\d+$/,
@@ -690,10 +690,10 @@
 		    }
     	},
         data: {
-        	appfolder:true,
+        	appfolder:false,
         	assfolder:false,
-            isAssuWm: true, //被保人是否为女性
-            isApplWm: true, //投保人是否为女性
+            isAssuWm: false, //被保人是否为女性
+            isApplWm: false, //投保人是否为女性
             matters: {},
             promise: false,
             showAppl: false,
@@ -741,18 +741,21 @@
 		      console.log(ret)
 		      return ret
 		    },
-        	isShow(i) {
-			  if (i === 0 || i === 4) {
-			    return false
-			  }
-			  if (i === 10 && !this.isAssuWm && !this.isApplWm) {
-			    return false
-			  }
-			  if (i === 11 && this.assuAge > 2) {
-			    return false
-			  }
-			  return true
-			},
+            isShow(i, type) {
+                if (i === 0 || i === 12) {
+                    return false
+                }
+                if (i === 10 && type === 1 && !this.isApplWm ) {
+                    return false
+                }
+                if (i === 10 && type === 2 && !this.isAssuWm ) {
+                    return false
+                }
+                if (i === 11 && (type === 1 || (i === 11 && type === 2 && this.assuAge > 2))) {
+                    return false
+                }
+                return true
+            },
 			assChange(id,state){
 				this.clientvalue.ass_amswer[id] = state;
 				this.$forceUpdate();
@@ -857,14 +860,20 @@
         var popu = new ClosePopu(); // 实例化关闭窗口对象
         //
         var safegoods = JSON.parse(plus.storage.getItem('hengda_safegoods'));
-        if (safegoods && safegoods[tbrhm]) {
-            health.showAppl = true
+        console.log(JSON.stringify(safegoods))
+        if (safegoods) {
+            mui.each(safegoods, function (index, item) {
+                if (item.safe_id === tbrhm) {
+                    health.showAppl = true
+                    health.appfolder = false
+                }
+            })
         }
         var applicant = JSON.parse(plus.storage.getItem('hengda_applicant'));
         var assured = JSON.parse(plus.storage.getItem('hengda_assured'));
         health.assuAge = getAge(assured.insured_birthday)
-        health.isAssuWm = applicant.holder_gender === FEMALE ? true : false
-        health.isApplWm = assured.insured_gender === FEMALE ? true : false
+        health.isApplWm = applicant.holder_gender === FEMALE ? true : false
+        health.isAssuWm = assured.insured_gender === FEMALE ? true : false
         //保存
         document.querySelector('#saveHealthinfo').addEventListener('tap', function () {
         	if (!health.checkForm()) {
@@ -897,7 +906,7 @@
 
         //获取健康告知题目
         luckyAjax({
-            data: {data: JSON.stringify({'supplier_id': SCID, 'version': 1}), server: 'PolicyIns.getMatterList'},
+            data: {data: JSON.stringify({'supplier_id': SCID, 'version': '1'}), server: 'PolicyIns.getMatterList'},
             success: function (res) {
                 console.log(JSON.stringify(res));
                 if (res.code) {

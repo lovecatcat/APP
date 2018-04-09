@@ -160,10 +160,10 @@
             <div class="input-item box-f-1 box-align-center">
                 <div class="box-f-1 ins-font-sm BL-col-3b9cf5">是否与投被保人同地址？</div>
                 <div class="box-f-2">
-                    <button class="ins-btn xxs-btn" @click="beneficiary.addr_type=1" :disabled="beneficiary.addr_type===1"
+                    <button class="ins-btn xxs-btn" @click="beneficiary.addr_type=1,sameaddress(1)" :disabled="beneficiary.addr_type===1"
                             :class="{'blue':beneficiary.addr_type===1}">同投保人
                     </button>
-                    <button class="ins-btn xxs-btn" @click="beneficiary.addr_type=2" :disabled="beneficiary.addr_type===2"
+                    <button class="ins-btn xxs-btn" @click="beneficiary.addr_type=2,sameaddress(2)" :disabled="beneficiary.addr_type===2"
                             :class="{'blue':beneficiary.addr_type===2}">同被保人
                     </button>
                     <button class="ins-btn xs-btn" @click="beneficiary.addr_type=3" :disabled="beneficiary.addr_type===3"
@@ -273,17 +273,16 @@
             vm.$watch('beneficiary.ID_no', () => {
                 const type = vm.beneficiary.ID_type
                 console.log('type:' + type)
-            const id = vm.beneficiary.ID_no
-            if (!type || !id) return
-            var Validator = new IDValidator();
-            if (IDValidate(type, id, '第' + (vm.index + 1) + '个受益人') && (type === IDcard || type === BOOKLET)) {
-                const idInfo = Validator.getInfo(id)
-                console.log(idInfo)
-                vm.beneficiary.birthday = idInfo.birth || ''
-                vm.beneficiary.gender = [FEMALE, MALE][idInfo.sex]
-            }
-        })
-            ;
+                const id = vm.beneficiary.ID_no
+                if (!type || !id) return
+                var Validator = new IDValidator();
+                if (IDValidate(type, id, '第' + (vm.index + 1) + '个受益人') && (type === IDcard || type === BOOKLET)) {
+                    const idInfo = Validator.getInfo(id)
+                    console.log(idInfo)
+                    vm.beneficiary.birthday = idInfo.birth || ''
+                    vm.beneficiary.gender = [FEMALE, MALE][idInfo.sex]
+                }
+            });
             vm.$nextTick(() => {
                 //证件类型选择
                 document.querySelector('#ID_type').addEventListener('tap', function () {
@@ -334,6 +333,20 @@
             // 展开收起
             unfold(index) {
                 this.$parent.par_unfold(index, 1)
+            },
+            sameaddress(type) {
+                if (type === 1) {
+                    this.beneficiary.province = this.$parent.applicant.holder_home_province
+                    this.beneficiary.city = this.$parent.applicant.holder_home_city
+                    this.beneficiary.district = this.$parent.applicant.holder_home_district
+                    this.beneficiary.address = this.$parent.applicant.holder_home_address
+                } else (type === 2)
+                {
+                    this.beneficiary.province = this.$parent.assured.insured_home_province
+                    this.beneficiary.city = this.$parent.assured.insured_home_city
+                    this.beneficiary.district = this.$parent.assured.insured_home_district
+                    this.beneficiary.address = this.$parent.assured.insured_home_address
+                }
             }
         }
     })
@@ -341,6 +354,8 @@
         el: '#Js-content',
         data: {
             init: {},
+            applicant: {},
+            assured: {},
             is_legal_benefic: false,
             beneficiariesIndex: [1], //受益人索引
             nenesum: 4 // 受益人数量
@@ -352,15 +367,13 @@
                     mui.toast('受益人合计不得指定超过' + this.nenesum + '位', {duration: 'short', type: 'div'})
                     return false
                 }
-                let max = this.beneficiariesIndex.length > 0 ? Math.max(...this.beneficiariesIndex
-            ) :
-                0
+                let max = this.beneficiariesIndex.length > 0 ? Math.max(...this.beneficiariesIndex) : 0;
                 if (!this.checkAllBens()) return false
                 this.beneficiariesIndex.push(max + 1)
                 this.$nextTick(() => {
                     this.updateBeneficiaryRatio()
-                this.par_unfold(this.beneficiariesIndex.length - 1, 0)
-            })
+                    this.par_unfold(this.beneficiariesIndex.length - 1, 0)
+                })
             },
             // 删除受益人
             delBeneficiary(val) {
@@ -507,6 +520,10 @@
     mui.plusReady(function () {
         var init = plus.webview.currentWebview().data;
         bene.init = init;
+        var applicant = JSON.parse(plus.storage.getItem('hengda_applicant'))
+        var assured = JSON.parse(plus.storage.getItem('hengda_assured'))
+        bene.applicant = applicant
+        bene.assured = assured
         //证件类型选择
         idtype.setData(init.ID_type);
         //

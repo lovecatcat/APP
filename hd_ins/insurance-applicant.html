@@ -123,7 +123,7 @@
                 <div class="input-item ins-pd-r-0" v-if="init&&init.marriage">
                     <label class="">婚姻状况</label>
                     <div class="input-wrap box-f-1 multi-btn">
-                        <button class="ins-btn xs-btn" :class="{'blue':item.value===applicant.holder_marriage}"
+                        <button class="ins-btn xs-btn" :class="{'blue':item.value===applicant.holder_marriage}" :disabled="item.value===applicant.holder_marriage"
                                 v-for="(item,index) in init.marriage" @click="applicant.holder_marriage=item.value">
                             {{item.text}}
                         </button>
@@ -192,6 +192,7 @@
                     <div class="input-wrap box-f-1">
                         <button class="ins-btn sm-btn"
                                 :class="{'blue':applicant.resident_type===item.value}"
+                                :disabled="applicant.resident_type===item.value"
                                 v-for="(item,index) in init.resident_type"
                                 @click="applicant.resident_type=item.value">{{item.text}}
                         </button>
@@ -201,8 +202,8 @@
                     <label class="">投保地区</label>
                     <div class="input-wrap box-f-1">
                         <div class="input flex">
-                            <div class="flex-1 BL-col-999">广东省</div>
-                            <div class="flex-1 BL-col-999">深圳市</div>
+                            <div class="flex-1 BL-col-999">广东</div>
+                            <div class="flex-1 BL-col-999">深圳</div>
                             <div class="flex-1" id="appl-district">{{applicant.holder_home_district_name}}</div>
                         </div>
                         <div class="ins-down-icon"></div>
@@ -233,10 +234,10 @@
                 <div class="input-item box-f-1 box-align-center">
                     <div class="box-f-1 ins-font-sm BL-col-999">通讯地址是否同现在住址？</div>
                     <div class="box-f-2">
-                        <button class="ins-btn xs-btn BL-mar-r-1" :class="{'blue':applicant.mail_addr_type}"
-                                @click="applicant.mail_addr_type=!applicant.mail_addr_type">是
+                        <button class="ins-btn xs-btn BL-mar-r-1" :class="{'blue':applicant.mail_addr_type}" :disabled="applicant.mail_addr_type"
+                                @click="applicant.mail_addr_type=!applicant.mail_addr_type,sameaddress()">是
                         </button>
-                        <button class="ins-btn xs-btn" :class="{'blue':!applicant.mail_addr_type}"
+                        <button class="ins-btn xs-btn" :class="{'blue':!applicant.mail_addr_type}" :disabled="!applicant.mail_addr_type"
                                 @click="applicant.mail_addr_type=!applicant.mail_addr_type">否
                         </button>
                     </div>
@@ -246,7 +247,7 @@
                         <label class="">通讯地区</label>
                         <div class="input-wrap box-f-1">
                             <div class="input" id="address-select">
-                                请选择
+                                {{applicant.holder_contact_province_name}}&nbsp;{{applicant.holder_contact_city_name}}&nbsp;{{applicant.holder_contact_district_name}}
                             </div>
                             <div class="ins-down-icon"></div>
                         </div>
@@ -355,7 +356,8 @@
 
                 holder_has_SSID: '',//是否有社保
                 holder_marriage: '',//婚姻状况
-                holder_job_code: '',//职业
+                holder_job_code: {},//职业
+                temp_holder_job_code: '',//职业代码
                 holder_job_name: '',//职业名称
                 holder_isTaxResidents: '', //税收标识
                 resident_type: '' //居民类型
@@ -396,6 +398,18 @@
                     return false;
                 }
             })
+        },
+        methods:{
+            sameaddress: function () {
+                this.applicant.holder_contact_province = this.applicant.holder_home_province
+                this.applicant.holder_contact_city = this.applicant.holder_home_city
+                this.applicant.holder_contact_district = this.applicant.holder_home_district
+                this.applicant.holder_contact_province_name = '广东'
+                this.applicant.holder_contact_city_name = '深圳'
+                this.applicant.holder_contact_district_name = this.applicant.holder_home_district_name
+                this.applicant.holder_contact_address = this.applicant.holder_home_address
+                this.applicant.holder_contact_zip = this.applicant.holder_home_zip
+            }
         }
     });
 
@@ -467,31 +481,40 @@
         var occuFourth = new mui.PopPicker();
         occuFirst.setData(init.occupation);
         document.querySelector('#occu-first').addEventListener('tap', function () {
+            var arr = {}
             occuFirst.show(function (items1) {
+                arr[1] = items1[0].value
                 console.log(items1[0].value)
                 appl.applicant.holder_job_name = items1[0].text;
-                appl.applicant.holder_job_code = items1[0].value;
+                appl.applicant.holder_job_code = arr;
+                appl.applicant.temp_holder_job_code = items1[0].value;
                 getOccu(items1[0].value, function (res1) {
                     if (!res1) return
                     occuSecond.setData(res1)
                     occuSecond.show(function (items2) {
+                        arr[2] = items2[0].value
                         console.log(items2[0].value)
                         appl.applicant.holder_job_name = items2[0].text;
-                        appl.applicant.holder_job_code = items2[0].value;
+                        appl.applicant.holder_job_code = arr;
+                        appl.applicant.temp_holder_job_code = items2[0].value;
                         getOccu(items2[0].value, function (res2) {
                             if (!res2) return
                             occuThird.setData(res2)
                             occuThird.show(function (items3) {
+                                arr[3] = items3[0].value
                                 console.log(items3[0].value)
                                 appl.applicant.holder_job_name = items3[0].text;
-                                appl.applicant.holder_job_code = items3[0].value;
+                                appl.applicant.holder_job_code = arr;
+                                appl.applicant.temp_holder_job_code = items3[0].value;
                                 getOccu(items3[0].value, function (res3) {
                                     if (!res3) return
                                     occuFourth.setData(res3)
                                     occuFourth.show(function (items4) {
+                                        arr[4] = items4[0].value
                                         console.log(items4[0].value)
                                         appl.applicant.holder_job_name = items4[0].text;
-                                        appl.applicant.holder_job_code = items4[0].value;
+                                        appl.applicant.holder_job_code = arr;
+                                        appl.applicant.temp_holder_job_code = items4[0].value;
                                     });
                                 })
                             });
@@ -505,6 +528,7 @@
 
         //保存
         document.querySelector('#saveAppl').addEventListener('tap', function () {
+            console.log(JSON.stringify(appl.applicant.holder_job_code))
             if (!checkAppl()) {
                 return false
             }

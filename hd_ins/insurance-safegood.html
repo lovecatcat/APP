@@ -439,6 +439,7 @@
             pay_year: {}, //交费期间下拉数据
             safe_year: {},//保险期间下拉数据
             insurance: { // 主险投保信息
+                is_main: 1,
                 safe_id: '',
                 safe_year: '',
                 pay_year: '',
@@ -495,6 +496,7 @@
             // 重置主险信息
             resetMainIns: function () {
                 this.insurance = {
+                    is_main: 1,
                     safe_id: '',
                     safe_year: '',
                     pay_year: '',

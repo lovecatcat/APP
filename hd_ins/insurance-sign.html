@@ -38,11 +38,11 @@
                         3. 待客户（投被保人）完成签名后，并在签名处点击获取签名<br>
                     </div>
                     <div class="BL-ub BL-ub-ac BL-ub-pc BL-pad-t-1">
-                        <button class="form-btn ins-btn sm-btn btn-copy" data-url="https://ts-cloud.ehuimeng.com/Wechat/signature?owner=appl_signature">复制投保人签名链接
+                        <button class="form-btn ins-btn sm-btn btn-copy" :data-url="'//ts-cloud.ehuimeng.com/ins_sign/signature3.0?owner=appl_signature&war_id='+war_id">复制投保人签名链接
                         </button>
                     </div>
                     <div class="BL-ub BL-ub-ac BL-ub-pc BL-pad-t-1">
-                        <button class="form-btn ins-btn sm-btn btn-copy" data-url="https://ts-cloud.ehuimeng.com/Wechat/signature?owner=assu_signature">复制被保人签名链接
+                        <button class="form-btn ins-btn sm-btn btn-copy" :data-url="'//ts-cloud.ehuimeng.com/ins_sign/signature3.0?owner=assu_signature&war_id='+war_id">复制被保人签名链接
                         </button>
                     </div>
                 </div>
@@ -134,21 +134,15 @@
 
     mui.plusReady(function () {
         popu = new ClosePopu(); // 实例化关闭窗口对象
-        //
+        img.war_id = plus.webview.currentWebview().data
+
         //保存
         document.querySelector('#saveSign').addEventListener('tap', function () {
+            plus.storage.removeItem('hengda_warid')
             if (!img.checkForm()) {
                 return false
             }
-            plus.storage.setItem('hengda_sign', JSON.stringify({
-                appl_signature: img.appl_signature,
-                assu_signature: img.assu_signature
-            }));
-            mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
-                item: 'sign_save'
-            });
-            popu.closepop();
-            mui.back();
+            online_ins(img.war_id)
         })
         //
         mui('body').on('tap', '#close-ins-pop', function () {
@@ -162,6 +156,51 @@
                 mui.toast("复制成功", {duration: 'short', type: 'div'})
             }
         });
+        //核保
+        function online_ins(id) {
+            luckyAjax({
+                data: {
+                    data: JSON.stringify({
+                        msg: {policy_id: id},
+                        company_code: 'HengDa',
+                        method: 'insure'
+                    }),
+                    server: 'PolicyIns.onlineInsured',
+                    device: 'mobile'
+                },
+                success: function (res) {
+                    if (res.code) {
+                        upload_img(id)
+                    } else {
+
+                    }
+                }
+            });
+        };
+
+        //上传影像
+        function upload_img(id) {
+            luckyAjax({
+                data: {
+                    data: JSON.stringify({
+                        msg: {policy_id: id},
+                        company_code: 'HengDa',
+                        method: 'update_img'
+                    }),
+                    server: 'PolicyIns.onlineInsured',
+                    device: 'mobile'
+                },
+                success: function (res) {
+                    console.log(JSON.stringify(res));
+                    if (res.code) {
+                        //影像上传成功
+                    } else {
+
+                    }
+                }
+            });
+        };
+        //
     });
 
     Vue.component('sign', {
@@ -231,6 +270,7 @@
     var img = new Vue({
         el: '#Js-content',
         data: {
+            war_id: '',
             appl_signature: '',
             assu_signature: '',
             showSign: {
@@ -260,7 +300,22 @@
                 if (!index) return
                 plus.nativeUI.showWaiting();
                 // 获取签名的ajax
-                alert(index)
+                console.log(this.war_id)
+                luckyAjax({
+                    data: {
+                        data: JSON.stringify({policy_id: this.war_id}),
+                        server: 'PolicyIns.policyDetails',
+                        device: 'mobile'
+                    },
+                    success: function (res) {
+                        console.log(JSON.stringify(res));
+                        if (res.code) {
+                            //影像上传成功
+                        } else {
+
+                        }
+                    }
+                });
 //			    mui.ajax(config.baseUrl, {
 //	                data: JSON.stringify({
 //	                	id: warId

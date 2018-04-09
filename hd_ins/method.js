@@ -1,4 +1,4 @@
-var SCID = 19;
+var SCID = '19';
 var onlineIns = ['272', '276', '340', '348', '370', '16328']; // 上线的主险id
 //               恒久    护航    青  福享金生    红     青
 //主险
@@ -330,41 +330,7 @@ var checkZipcode = function (val, province, owner) {
     }
     return true;
 };
-//职业限制
-var checkOccupation = function (owner) {
-    var toast_text = null;
-    var age = null;
-    var occu = null;
-    var sex = null;
-    if (owner === '投保人') {
-        age = appl.appl_age;
-        occu = appl.applicant.holder_job_code;
-        sex = appl.applicant.holder_gender;
-    } else if (owner === '被保人') {
-        age = assu.assu_age;
-        occu = assu.assured.insured_job_code;
-        sex = assu.assured.insured_gender;
-    }
-    console.log('职业：' + owner + 'age:' + age + ';occu:' + occu + ';sex:' + sex);
-    if (sex === '15406' && occu === '7852') {
-        //家庭主妇
-        toast_text = owner + '职业类别与性别不符';
-    } else if (age < 16 && occu !== '7530' && occu !== '7853' && occu !== '7850' && occu !== '7691') {
-        //（军警校除外）（17周岁以下） | 学龄前儿童 | 无业人员 | 警校学生
-        toast_text = owner + '职业类别与年龄不符';
-    } else if (age >= 18 && (occu === '7530' || occu === '7853')) {
-        //（军警校除外）（17周岁以下） | 学龄前儿童
-        toast_text = owner + '职业类别与年龄不符';
-    } else if (age < 45 && occu === '7849') {
-        //离退休人员
-        toast_text = owner + '职业类别与年龄不符';
-    }
-    if (toast_text) {
-        mui.toast(toast_text, {duration: 'short', type: 'div'});
-        return false;
-    }
-    return true;
-};
+
 //校验年收入
 var checkEarnings = function (owner, value) {
     var toast_text = null;
@@ -522,6 +488,41 @@ var checkAssured = function () {
         return false
     } else if (!checkZipcode(assu.assured.insured_home_zip, assu.assured.insured_home_province, '被保人')) {
         return false
+    }
+    if (toast_text) {
+        mui.toast(toast_text, {duration: 'short', type: 'div'});
+        return false
+    }
+    return true
+};
+//职业限制
+var checkOccupation = function(owner) {
+    let toast_text = null
+    let age = null
+    let occu = null
+    let sex = null
+    if (owner === '投保人') {
+        age = getAge(appl.applicant.holder_birthday)
+        occu = appl.applicant.temp_holder_job_code
+        sex = appl.applicant.holder_gender
+    } else if (owner === '被保人') {
+        age = getAge(assu.assured.insured_birthday)
+        occu = assu.assured.insured_temp_job_code
+        sex = assu.assured.insured_gender
+    }
+    console.log('职业：' + owner + 'age:' + age + ';occu:' + occu + ';sex:' + sex)
+    if (sex === MALE && occu === 'LAE0968') {
+        //家庭主妇
+        toast_text = owner + '职业类别与性别不符'
+    } else if (age < 16 && occu !== 'LAE0646' && occu !== 'LAE0969' && occu !== 'LAE0966' && occu !== 'LAE0807') {
+        //军警校除外(17周岁以下) | 学龄前儿童 | 无业人员 | 警校学生
+        toast_text = owner + '职业类别与年龄不符'
+    } else if (age >= 18 && (occu === 'LAE0646' || occu === 'LAE0969')) {
+        // 军警校除外(17周岁以下) | 学龄前儿童
+        toast_text = owner + '职业类别与年龄不符'
+    } else if (age < 45 && occu === 'LAE0965') {
+        //离退休人员
+        toast_text = owner + '职业类别与年龄不符'
     }
     if (toast_text) {
         mui.toast(toast_text, {duration: 'short', type: 'div'});

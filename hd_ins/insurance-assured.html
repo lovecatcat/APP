@@ -213,7 +213,7 @@
                         <div class="box-f-1 ins-font-sm BL-col-999">是否与投保人同地址？</div>
                         <div class="box-f-2">
                             <button class="ins-btn xs-btn BL-mar-r-1" :class="{'blue':assured.addr_type}" :disabled="assured.addr_type"
-                                    @click="assured.addr_type=!assured.addr_type">是
+                                    @click="assured.addr_type=!assured.addr_type,sameappladdress()">是
                             </button>
                             <button class="ins-btn xs-btn" :class="{'blue':!assured.addr_type}" :disabled="!assured.addr_type"
                                     @click="assured.addr_type=!assured.addr_type">否
@@ -225,8 +225,8 @@
                             <label class="">投保地区</label>
                             <div class="input-wrap box-f-1">
                                 <div class="input flex">
-                                    <div class="flex-1 BL-col-999">广东省</div>
-                                    <div class="flex-1 BL-col-999">深圳市</div>
+                                    <div class="flex-1 BL-col-999">广东</div>
+                                    <div class="flex-1 BL-col-999">深圳</div>
                                     <div class="flex-1" id="assu-district">{{assured.insured_home_district_name}}</div>
                                 </div>
                                 <div class="ins-down-icon"></div>
@@ -298,6 +298,7 @@
         el: '#Js-content',
         data: {
             init: {},
+            applicant:{},
             longTerm: false,
             assu_age: '',//被保人年龄
             assured: {
@@ -329,7 +330,8 @@
 
                 insured_has_SSID: false,//是否有社保
                 insured_marriage: '',//婚姻状况
-                insured_job_code: '',//职业
+                insured_job_code: {},//职业
+                insured_temp_job_code: '',//职业代码
                 insured_job_name: '',//职业名称
                 insured_isTaxResidents: '' //税收标识
             }
@@ -372,13 +374,22 @@
                     return false;
                 }
             })
+        },
+        methods:{
+            sameappladdress:function () {
+                this.assured.insured_home_district = this.applicant.holder_home_district
+                this.assured.insured_home_district_name = this.applicant.holder_home_district_name
+                this.assured.insured_home_address = this.applicant.holder_home_address
+                this.assured.insured_home_zip = this.applicant.holder_home_zip
+            }
         }
     });
 
     mui.plusReady(function () {
         var init = plus.webview.currentWebview().data;
         assu.init = init;
-
+        var applicant = JSON.parse(plus.storage.getItem('hengda_applicant'))
+        assu.applicant = applicant
         //深圳投保地区
         var district = new mui.PopPicker();
         document.querySelector('#assu-district').addEventListener('tap', function () {
@@ -440,31 +451,36 @@
         var occuFourth = new mui.PopPicker();
         occuFirst.setData(init.occupation);
         document.querySelector('#occu-first').addEventListener('tap', function () {
+            var arr = {}
             occuFirst.show(function (items1) {
-                console.log(items1[0].text)
+                arr[1] = items1[0].value
                 assu.assured.insured_job_name = items1[0].text;
-                assu.assured.insured_job_code = items1[0].value;
+                assu.assured.insured_job_code = arr;
+                assu.assured.insured_temp_job_code = items1[0].value
                 getOccu(items1[0].value, function (res1) {
                     if (!res1) return
                     occuSecond.setData(res1)
                     occuSecond.show(function (items2) {
-                        console.log(items2[0].text)
+                        arr[2] = items2[0].value
                         assu.assured.insured_job_name = items2[0].text;
-                        assu.assured.insured_job_code = items2[0].value;
+                        assu.assured.insured_job_code = arr;
+                        assu.assured.insured_temp_job_code = items2[0].value
                         getOccu(items2[0].value, function (res2) {
                             if (!res2) return
                             occuThird.setData(res2)
                             occuThird.show(function (items3) {
-                                console.log(items3[0].text)
+                                arr[3] = items3[0].value
                                 assu.assured.insured_job_name = items3[0].text;
-                                assu.assured.insured_job_code = items3[0].value;
+                                assu.assured.insured_job_code = arr;
+                                assu.assured.insured_temp_job_code = items3[0].value
                                 getOccu(items3[0].value, function (res3) {
                                     if (!res3) return
                                     occuFourth.setData(res3)
                                     occuFourth.show(function (items4) {
-                                        console.log(items4[0].text)
+                                        arr[4] = items4[0].value
                                         assu.assured.insured_job_name = items4[0].text;
-                                        assu.assured.insured_job_code = items4[0].value;
+                                        assu.assured.insured_job_code = arr;
+                                        assu.assured.insured_temp_job_code = items4[0].value
                                     });
                                 })
                             });

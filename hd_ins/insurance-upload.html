@@ -29,7 +29,7 @@
                 <div class="mui-row form-row">
                     <div class="mui-col-sm-6 BL-mar-b-1">
                         <div class="BL-txt-c">
-                            <div class="form-upload BL-mar-r-1" model="document_front_img" :style="previewImg[0]"
+                            <div class="form-upload BL-mar-r-1" model="appl_front_img" :style="previewImg[0]"
                                  data-id="0">
                                 <input type="file" accept="image/*" class="form-upload-img">
                             </div>
@@ -38,17 +38,53 @@
                     </div>
                     <div class="mui-col-sm-6 BL-mar-b-1">
                         <div class="BL-txt-c">
-                            <div class="form-upload BL-mar-l-1" model="document_negative_img" :style="previewImg[1]"
+                            <div class="form-upload BL-mar-l-1" model="appl_negative_img" :style="previewImg[1]"
                                  data-id="1">
                                 <input type="file" accept="image/*" class="form-upload-img">
                             </div>
                             <span class="form-p BL-col-999">投保人身份证反面</span>
                         </div>
                     </div>
+                    <div class="mui-col-sm-6 BL-mar-b-1" v-show="assured.rel_insured_holder!==ISASSURED" v-if="assured.insured_ID_type===IDcard">
+                        <div class="BL-txt-c">
+                            <div class="form-upload BL-mar-r-1" model="assu_front_img" :style="previewImg[2]"
+                                 data-id="2">
+                                <input type="file" accept="image/*" class="form-upload-img">
+                            </div>
+                            <span class="form-p BL-col-999">被保人身份证正面</span>
+                        </div>
+                    </div>
+                    <div class="mui-col-sm-6 BL-mar-b-1" v-show="assured.rel_insured_holder!==ISASSURED" v-if="assured.insured_ID_type===IDcard">
+                        <div class="BL-txt-c">
+                            <div class="form-upload BL-mar-l-1" model="assu_negative_img" :style="previewImg[3]"
+                                 data-id="3">
+                                <input type="file" accept="image/*" class="form-upload-img">
+                            </div>
+                            <span class="form-p BL-col-999">被保人身份证反面</span>
+                        </div>
+                    </div>
+                    <div class="mui-col-sm-6 BL-mar-b-1" v-show="assured.rel_insured_holder!==ISASSURED" v-if="assured.insured_ID_type===BOOKLET">
+                        <div class="BL-txt-c">
+                            <div class="form-upload BL-mar-l-1" model="assu_booklet_img" :style="previewImg[4]"
+                                 data-id="4">
+                                <input type="file" accept="image/*" class="form-upload-img">
+                            </div>
+                            <span class="form-p BL-col-999">被保人户口本</span>
+                        </div>
+                    </div>
+                    <div class="mui-col-sm-6 BL-mar-b-1" v-show="assured.rel_insured_holder!==ISASSURED" v-if="assured.insured_ID_type===BORNid">
+                        <div class="BL-txt-c">
+                            <div class="form-upload BL-mar-l-1" model="assu_born_img" :style="previewImg[5]"
+                                 data-id="5">
+                                <input type="file" accept="image/*" class="form-upload-img">
+                            </div>
+                            <span class="form-p BL-col-999">被保人出生证</span>
+                        </div>
+                    </div>
                     <div class="mui-col-sm-6 BL-mar-b-1">
                         <div class="BL-txt-c">
-                            <div class="form-upload BL-mar-r-1" model="bank_front_img" :style="previewImg[2]"
-                                 data-id="2">
+                            <div class="form-upload BL-mar-r-1" model="bank_front_img" :style="previewImg[6]"
+                                 data-id="6">
                                 <input type="file" accept="image/*" class="form-upload-img">
                             </div>
                             <span class="form-p BL-col-999">银行卡正面</span>
@@ -64,6 +100,7 @@
 </body>
 <script src="../js/mui.min.js" type="text/javascript"></script>
 <script src="../js/vue.min.js" type="text/javascript"></script>
+<script src="method.js" type="text/javascript"></script>
 <script type="text/javascript">
     mui.init();
     var popu;
@@ -71,19 +108,32 @@
     var img = new Vue({
         el: '#Js-content',
         data: {
+            assured: {},
             previewImg: [],           //上传图片
-            document_front_img: '',   // 证件照片正面
-            document_negative_img: '', // 证件照片反面
-            bank_front_img: ''
+            appl_front_img: '',   // 投保人身份证正面
+            assu_front_img: '',   // 被保人身份证正面
+            appl_negative_img: '', // 投保人身份证反面
+            assu_negative_img: '', // 被保人身份证反面
+            assu_booklet_img: '', // 被保人户口本
+            assu_born_img: '', // 被保人出生证
+            bank_front_img: '' //银行卡
         },
         methods: {
             sure: function () {
                 var toastText = null
-                if (!img.document_front_img) {
-                    toastText = '请上传身份证正面照片'
-                } else if (!img.document_negative_img) {
-                    toastText = '请上传身份证反面照片'
-                } else if (!img.bank_front_img) {
+                if (!this.appl_front_img) {
+                    toastText = '请上传投保人身份证正面照片'
+                } else if (!this.appl_negative_img) {
+                    toastText = '请上传投保人身份证反面照片'
+                } else if (this.assured.insured_ID_type === IDcard && !img.assu_front_img) {
+                    toastText = '请上传被保人身份证正面照片'
+                } else if (this.assured.insured_ID_type === IDcard && !img.assu_negative_img) {
+                    toastText = '请上传被保人身份证反面照片'
+                } else if (this.assured.insured_ID_type === BOOKLET && !img.assu_booklet_img) {
+                    toastText = '请上传被保人户口本照片'
+                } else if (this.assured.insured_ID_type === BORNid && !img.assu_born_img) {
+                    toastText = '请上传被保人出生证照片'
+                }else if (!img.bank_front_img) {
                     toastText = '请上传银行卡正面照片'
                 }
                 if (toastText) {
@@ -96,19 +146,28 @@
     })
 
     mui.plusReady(function () {
-        //
         popu = new ClosePopu(); // 实例化关闭窗口对象
-        //
+
+        var assured = JSON.parse(plus.storage.getItem('hengda_assured'))
+        img.assured = assured
         //保存
         document.querySelector('#saveUpload').addEventListener('tap', function () {
             if (!img.sure()) {
                 return false
             }
-            plus.storage.setItem('hengda_upload', JSON.stringify({
-                document_front_img: img.document_front_img,
-                document_negative_img: img.document_negative_img,
-                bank_front_img: img.bank_front_img,
-            }));
+            var img_json = {}
+            img_json['00'] = img.appl_front_img
+            img_json['01'] = img.appl_negative_img
+            if(img.assured.insured_ID_type === IDcard ){
+                img_json['02'] = img.assu_front_img
+                img_json['03'] = img.assu_negative_img
+            } else if(img.assured.insured_ID_type === BOOKLET){
+                img_json['04'] = img.assu_booklet_img
+            } else if(img.assured.insured_ID_type === BORNid){
+                img_json['05'] = img.assu_born_img
+            }
+            img_json['08'] = img.bank_front_img
+            plus.storage.setItem('hengda_upload', JSON.stringify(img_json));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'upload_save'
             });
@@ -129,8 +188,12 @@
     });
     // 图片字段名
     const fileName = [
-        'document_front_img',
-        'document_negative_img',
+        'appl_front_img',
+        'appl_negative_img',
+        'assu_front_img',
+        'assu_negative_img',
+        'assu_booklet_img',
+        'assu_born_img',
         'bank_front_img'
     ]
     //获取要上传的头像

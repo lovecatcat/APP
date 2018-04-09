@@ -1209,3 +1209,42 @@ input[type='text'].member-tax-input{
 	margin-top: 1.625rem;
 	text-align: center;
 }
+
+/* 闪电增员 */
+.req-header{
+	background: url(../images/member/req-banner.jpg) no-repeat center 0;
+	background-size: 100% auto;
+	position: relative;
+	height: 21.0625rem;
+}
+.req-iconLeft{
+	position: absolute;
+	color: #ffffff;
+	left: 1rem;
+	top: 2.5rem;
+	z-index: 10;
+}
+.req-header .bd{
+	padding-top: 1.25rem;
+}
+.req-context{
+	margin-top: 1rem;
+	text-align: center;
+}
+.req-context img{
+	width: 7.5rem;
+	height: 7.5rem;
+	border-radius: 100%;
+}
+.req-context p{
+	color: #ffffff;
+	font-size: 1.45rem;
+	margin-top: .5rem;
+}
+.req-content{
+	padding-top: 4rem;
+}
+.req-content .req-wechat{
+	padding: 2rem 0;
+	width: 16rem;	
+}

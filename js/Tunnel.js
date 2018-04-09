@@ -33,6 +33,11 @@ var Tunnel = {
     _isStop: false,
 
     /**
+     * 重新连接次数
+     */
+    _rNumber: 0,
+
+    /**
      * 创建WS实例
      * @param uid 用户ID
      * @param flag  用户终端唯一标识
@@ -102,8 +107,14 @@ var Tunnel = {
 
         Tunnel._lockReconnect = true;
 
-        //没连接上会一直重连，设置延迟避免请求过多
+        //没连接上会一直重连，设置延迟避免请求过多.超过五次停止
+        if(Tunnel._rNumber >= 5){
+            Tunnel._isStop = true;
+            return;
+        }
+
         setTimeout(function () {
+            Tunnel._rNumber++;
             Tunnel.Create();
             Tunnel._lockReconnect = false;
         }, 5000);

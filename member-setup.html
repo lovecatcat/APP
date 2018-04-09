@@ -59,14 +59,12 @@
         var href = this.getAttribute('href');
         var id = this.getAttribute("data-wid");
 
-        if (href && ~href.indexOf('.html')) {
-            //打开新窗口
-            mui.openWindow({
-                url: href,
-                id: id,
-                show: animateObj.aniDetal
-            });
-        }
+        //打开新窗口
+        mui.openWindow({
+            url: href,
+            id: id,
+            show: animateObj.aniDetal
+        });
     });
 
     mui.plusReady(function () {
@@ -81,12 +79,13 @@
                 url: config.moduleURL + 'logout',
                 success: function (res) {
                     if (res.code) {
+                    	var index_ws = plus.webview.getLaunchWebview();
+                    	mui.fire(index_ws,'isStopTunnel',{'flag':true});
                         plus.storage.clear();
-                        mui.openWindow({
-                            url: 'login.html',
-                            id: 'login',
-                            show: animateObj.aniPage
-                        });
+                        
+                        setTimeout(function(){
+                        	plus.runtime.restart();	
+                        }, 100);
                     } else {
                         mui.toast('退出失败', {duration: 'short', type: 'div'});
                         return false

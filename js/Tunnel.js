@@ -60,7 +60,6 @@ var Tunnel = {
      */
     InitEventHandle: function () {
         Tunnel._webSocket.onclose = function () {
-        	console.log("a")
             if(!Tunnel._isStop) {
                 Tunnel.Reconnect(Tunnel._url);
             }

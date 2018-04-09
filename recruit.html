@@ -35,17 +35,17 @@
 
     (function ($) {
         $.plusReady(function () {
-        	var userinfo = plus.storage.getItem('userinfo');
+        	var userinfo = JSON.parse(plus.storage.getItem('userinfo'));
             statusbar();
         	
-        	document.getElementById('Js-cord').setAttribute('src', 'http://ts-www.luckyins.com/api/api/invoke?server=user.getQrcode&device=mobile&data={"user_id":"'+ userinfo.id +'"}')
+        	document.getElementById('Js-cord').setAttribute('src', config.baseUrl + '?server=user.getQrcode&device=mobile&data={"user_id":"'+ userinfo.id +'"}')
 	        
 	        document.getElementById("Js-openShare").addEventListener("tap", function() {
 			    //分享内容，开发者可自定义
 			    var message = {
 			        title: "新人注册", //名字
-			        content: "【汇盟保险，更专业的保险管家】",
-			        href: 'http://cloud.ehuimeng.com/Wechat/WxAddUserShare?admin_id=' + userinfo.id, //分享出去后，点击跳转地址
+			        content: "【保险plus，更专业的保险管家】",
+			        href: config.link + 'register/register.html?parent_id=' + userinfo.id, //分享出去后，点击跳转地址
 			        thumbs: ["_www/images/pic/logo.png"] //分享缩略图
 			    }
 			    //调起分享

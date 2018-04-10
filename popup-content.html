@@ -16,7 +16,9 @@
 			<div id="modal-list" class="BL-modal BL-modal-w90 BL-pad-lr-2 BL-pad-tb-1_5 BL-ub BL-ub-ac" :class="{'BL-hide': isHide !== 'modal-list'}">
 				<div class="BL-modal-content">
 					<div class="BL-modal-list" v-for="item in goIns_data" @click="showStatement(item.genre)">
-						<i class="BL-modal-icon-0"></i>
+						<i class="BL-modal-icon-2" v-if="item.istrue == true"></i>
+						<i class="BL-modal-icon-3" v-else-if ="item.istrue == false"></i>
+						<i class="BL-modal-icon-0" v-else></i>
 						<span>{{item.name}}</span>
 					</div>
 				</div>
@@ -26,7 +28,7 @@
 				<div class="BL-modal-content BL-modal-tab">
 					<div class="BL-title">
 						{{ goIns_data.name }}
-					</div>
+					</div> 
 					<div class="BL-modal-tab-body">
 						<table class="fixed-thead">
 							<thead>

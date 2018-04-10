@@ -98,7 +98,7 @@
 						</app-select>
 						<!-- 国华盛世鑫悦 -->
 						<app-select label="生存金方式" v-else-if="insurance.safe_id === '3188'">
-							<button slot="button" v-for="num in ['1', '2', '3']" class="ins-btn xs-btn" :class="{'blue': num == flag[insurance.safe_id]}" :disabled="num == flag[insurance.safe_id]" @click="flagChanged(insurance.safe_id, num), prospectus_type = num, resetFee()">
+							<button slot="button" v-for="num in ['1', '2', '3']" class="ins-btn xs-btn" :class="{'blue':item.value===prospectus_type}" :disabled="num == flag[insurance.safe_id]" @click="flagChanged(insurance.safe_id, num), prospectus_type = num, insurance.money=num, resetFee()">
 					             	方式{{num}}
 					        </button>
 						</app-select>
@@ -687,7 +687,7 @@
 						<template v-if="item.code === 'NADD' && addonsSelected[item.code]">
 							<div class="form-wrap form-bgc-eee">
 								<div class="input-item">
-									<label class="">保险期间(年)</label>
+									<label class="">保险金额</label>
 									<div class="input-wrap box-f-1">
 										<input type="number" placeholder="5万到300万" v-model.number="cache.base_moneyNADD" @change="flagChanged(item.code)"/>
 										<div slot="icon" v-show="cache.base_moneyNADD != '', flagChanged(item.code)" @click="cache.base_moneyNADD = ''" class="form-clear-icon">
@@ -804,26 +804,26 @@
 						<!--工银-->
 						<!--恒大-->
 						<!--附加投保人豁免保费重大疾病保险2017版-->
-						<template v-if="item.code === 'HB024'  && addonsSelected[item.code]">
+						<template v-if="item.code === 'HB024'  && addonRes[item.code]">
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs">
-										保险金额(元)&nbsp;<span class="BL-col-ff8201">250000</span>
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money}}</span>
 									</li>
 								</div>
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs">
-										保险期间(年)&nbsp;<span class="BL-col-ff8201">1</span>
+										保险期间(年)&nbsp;<span class="BL-col-ff8201">终身</span>
 									</li>
 								</div>
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs">
-										缴费年限(年)&nbsp;<span class="BL-col-ff8201">1</span>
+										缴费年限(年)&nbsp;<span class="BL-col-ff8201">{{mainPayYear - 1}}</span>
 									</li>
 								</div>
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs">
-										年缴保费(元)&nbsp;<span class="BL-col-ff8201">500</span>
+										年缴保费(元)&nbsp;<span class="BL-col-ff8201">{{addonRes[item.code]['年缴保费']}}</span>
 									</li>
 								</div>
 							</div>
@@ -1097,18 +1097,20 @@
 						 <!-- 金掌柜年金保险 -->
 						 <template v-if="item.code==='12E20010' && addonsSelected[item.code]">
 							<div class="form-wrap form-bgc-eee">
-								<div class="input-item">
-									<label class="">保险期间(年)</label>
-									<div class="input-wrap box-f-1">
-										<button slot="button" class="ins-btn xs-btn blue">终身</button>
+								<template v-if="addonRes[item.code]">
+							 		<div class="input-item">
+										<label class="">保险期间(年)</label>
+										<div class="input-wrap box-f-1">
+											<button slot="button" class="ins-btn xs-btn blue">终身</button>
+										</div>
 									</div>
-								</div>
-								<div class="input-item">
-									<label class="">缴费年限(年)</label>
-									<div class="input-wrap box-f-1">
-										<button slot="button" class="ins-btn xs-btn blue">1年</button>
+									<div class="input-item">
+										<label class="">缴费年限(年)</label>
+										<div class="input-wrap box-f-1">
+											<button slot="button" class="ins-btn xs-btn blue">1年</button>
+										</div>
 									</div>
-								</div>
+							 	</template>
 								<div class="input-item">
 									<label class="">年缴保费(元)</label>
 									<div class="input-wrap">

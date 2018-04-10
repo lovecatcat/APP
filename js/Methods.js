@@ -55,6 +55,12 @@ var methods = {
 		this.Addons = {};
 		this.addonRes = {}; //附加险清空
 		this.planList = {} //列表信息清空
+		this.flag = {}
+		this.addonRes = {}
+		this.addonsSelected = {}
+		mui('.mui-switch').each(function(index , item){
+			mui(this).switch().toggleCur(false);
+		})
 	},
 	companyChanged: function() { //公司下拉
 		var vm = this;
@@ -1139,8 +1145,6 @@ var methods = {
 		//      }
 		this.addonRes = {}
 		this.addonsSelected = {}
-		//      mui('.mui-switch ').switch().toggle();
-		
 		mui('.mui-switch').each(function(index , item){
 			mui(this).switch().toggleCur(false);
 		})
@@ -1486,7 +1490,7 @@ var methods = {
 				} else if(this.flag['PFR1'] === '7000' && assuAge > 45 && flag === '19') {
 					toastText = '该附加险保险期间为至70岁且19年交被保人年龄不能超过45岁'
 				} else if(this.flag['PFR1'] === '7000' && assuAge > 45 && flag === '20') { 
-					toastText = '该附加险保险期间为至70岁且19年交被保人年龄不能超过45岁'
+					toastText = '该附加险保险期间为至70岁且20年交被保人年龄不能超过45岁'
 				} else if(this.flag['PFR1'] === '7500' && assuAge > 65 && flag === '1') {
 					toastText = '该附加险保险期间为至75岁且趸交被保人年龄不能超过60岁'
 				} else if(this.flag['PFR1'] === '7500' && assuAge > 65 && flag === '3') {
@@ -2017,7 +2021,10 @@ var methods = {
 			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
 			data.base_money = this.cache.base_moneyCKRA
 			data.flag = 0
-		} else if(safeid === 'FXKLYSFJ') { //复星
+		} else if(safeid === 'FXKLYSB') { //复星
+			//  b款
+			data.safe_year = this.mainSafeYear === 999 ? 0 : 7000
+		}  else if(safeid === 'FXKLYSFJ') { //复星
 			//  附加康乐一生投保人豁免保费重大疾病保险
 			data.pay_year = py
 			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
@@ -2118,7 +2125,7 @@ var methods = {
 						period_money: vm.insurance.period_money, // 年交保费
 						fj: false
 					}
-					vm.planList[safeid] = list
+					vm.planList[0] = list  
 				} else if(!isMain && ret.data.data &&
 					ret.data.data[-1][genre] &&
 					ret.data.data[-1][genre].main &&

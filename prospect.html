@@ -321,9 +321,9 @@
 				},
 				checkAge: function(age, owner) { //校验年龄
 					var toastText = false
-					if(!age) {
+					if(age == '' && age != 0) {
 						toastText = owner + '年龄不能为空'
-					}else if(age < 18 && owner == '投保人'){
+					}else if(Number(age) < 18 && owner == '投保人'){
 						toastText = owner + '不能小于18周岁'
 					}
 					if(toastText) {
@@ -345,11 +345,12 @@
 				addIns: function() { //添加险种
 					if(!this.checkName(this.appl.name, '投保人')) {
 						return false;
-					} else if(!this.checkAge(this.appl.age, '被保人')) {
+					} else if(!this.checkAge(this.appl.age, '投保人')) {
 						return false;
 					} else if(!this.checkName(this.assu.name, '被保人')) {
 						return false;
-					} else if(!this.checkAge(this.assu.age, '被保人')) {
+					} else if(this.assu.age === '') {
+						mui.toast('被保人年龄不能为空')
 						return false;
 					} else {
 						mui.openWindow({
@@ -366,9 +367,22 @@
 					}
 				},
 				del: function(index1, index, fj) { //删除险种
+					//找到plans对应的ins中的一个
+					var ins;
+					for(var i = 0; i < prospect.plans.length; i++) {
+						if(this.plans[i].id == this.plan_id) {
+							
+							ins = this.plans[i].ins
+						}
+					}
+//					alert(JSON.stringify(ins[index1+1]))
 					if(fj){
+//						alert(index)
+						this.$delete(ins[index1+1].addon, index)
+//						alert(JSON.stringify(ins[index1+1]))
 						this.$delete(this.planList[this.plan_id][index1], index)
 					}else{
+						ins.splice(index1+1, 1)
 						this.$delete(this.planList[this.plan_id], index1)
 					}
 					let count = 0;
@@ -382,6 +396,7 @@
 						
 					}
 					prospect.count = count.toFixed(2)
+				
 					this.$forceUpdate()
 				},
 				editIns:function(index1, safeid) { //编辑险种
@@ -400,7 +415,6 @@
 					});
 				},
 				removePlan: function(index) { //删除方案
-					alert(index)
 					if(this.plans.length < 2) {
 						mui.toast('只剩一个方案，不能删除')
 						return false
@@ -636,7 +650,11 @@
 					}
 				}
 
-//				alert(JSON.stringify(data))
+				alert(JSON.stringify(data))
+				if(data.length < 1){
+					mui.toast('请先完成一个方案') 
+					return false;
+				}
 				luckyAjax({
 					data: {
 			            server: 'Proposal.add',

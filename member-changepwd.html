@@ -89,7 +89,7 @@
                         mui.toast(toast_text, {duration: 'short', type: 'div'});
                         return false;
                     }
-                    mui.ajax('http://www.luckyins.com/api/api/invoke', {
+                    mui.ajax('http://ts-www.luckyins.com/api/api/invoke', {
                         data: {
                             data: JSON.stringify({user_id: userinfo.id, old: this.old_pwd, new: this.new_pwd}),
                             device: 'pad',

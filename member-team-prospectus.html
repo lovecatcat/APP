@@ -119,22 +119,18 @@
 			     */
 				var getPlanlist = function (mode) {
 					i++
-					var data = {
-						data: JSON.stringify({
-							start_time: team.start_time,
-							end_time: team.end_time,
-							user_id: user_id,
-							page: i,
-							row: team.row
-						}),
-						server: 'team.getPlanList',
-						device: 'mobile'
-					};
-					mui.ajax(config.baseUrl, {
-						data: data,
-						dataType: 'json',
-						type: 'post',
-						success: function (ret) {
+					luckyAjax({
+						data: {
+				            server: 'team.getPlanList',
+				            data: JSON.stringify({
+								start_time: team.start_time,
+								end_time: team.end_time,
+								user_id: user_id,
+								page: i,
+								row: team.row
+							}),
+				        },
+			            success: function (ret) {
 							if (ret.code == 1) {
 								team.plan_num = ret.data.today_plan_num
 								team.people_num = ret.data.today_people_num
@@ -150,11 +146,10 @@
 								} else {
 									self.endPullUpToRefresh(true)
 								}
-							}
+							} else {
+			                	mui.toast(ret.msg, {duration: 'short', type: 'div'})
+			                }
 						},
-						error: function () {
-							mui.toast('网络异常,请稍候再试');
-						}
 					});
 				};
 
@@ -227,18 +222,15 @@
 					var udate = e.target.getAttribute('data-date')
 					var uname = e.target.getAttribute('data-name')
 					
-					mui.ajax(config.baseUrl, {
+					luckyAjax({
 						data: {
-							data: JSON.stringify({
+				            server: 'team.getPlanInfo',
+				            data: JSON.stringify({
 								user_id: uid,
 								date: udate
 							}),
-							server: 'team.getPlanInfo',
-							device: 'mobile'
-						},
-						dataType: 'json',
-						type: 'post',
-						success: function (ret) {
+				        },
+			            success: function (ret) {
 							if (ret.code == 1) {
 								var prospect_data = {
 									name: uname,
@@ -253,13 +245,9 @@
 								mui.toast(ret.msg, {duration: 'short', type: 'div'})
 							}
 						},
-						error: function () {
-							mui.toast('网络异常,请稍候再试');
-						}
 					});
 				});
 			});	
-			
 		}(mui));
 	</script>
 </html>

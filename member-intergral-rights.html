@@ -19,14 +19,14 @@
 			<div id="Js-intergralFilter" class="member-list-filter">
 				<!--日期搜索 begin-->
 				<div id="Js-teamFilter" class="member-team-search BL-ub BL-ub-ac BL-ub-f1 BL-bg-fff">
-					<div class="search-date BL-ub BL-ub-ac"  data-options='{"type":"date"}'>
-						<input id="start_time" class="BL-ub BL-ub-f1 date" type="text" placeholder="选择日期"/>
+					<div class="search-date BL-ub BL-ub-ac"  data-options='{"type":"date","beginYear":2000}'>
+						<div class="BL-ub BL-ub-f1 date BL-pad-l-1" id="start_time">开始日期</div>
 						<div class="down">
 							<span class="BL-bimg-contain search-down"></span>
 						</div>
 					</div>
-					<div class="search-date BL-ub BL-ub-ac" data-options='{"type":"date"}'>
-						<input id="end_time" class="BL-ub BL-ub-f1 date" type="text" placeholder="选择日期"/>
+					<div class="search-date BL-ub BL-ub-ac" data-options='{"type":"date","beginYear":2000}'>
+						<div class="BL-ub BL-ub-f1 date BL-pad-l-1" id="end_time">结束日期</div>
 						<div class="down">
 							<span class="BL-bimg-contain search-down"></span>
 						</div>
@@ -109,7 +109,7 @@
 			var end_time = document.getElementById("end_time")
 			
 			
-			$.ready(function() {
+			$.plusReady(function() {
 				var winH = window.innerHeight;
 				var divHeight = document.querySelector('#Js-intergralFilter').offsetHeight;
 				document.querySelector('#Js-intergraltab').style.height = winH - divHeight + 'px';
@@ -123,24 +123,18 @@
 			     */
 			    var getRightslist = function () {
 					i++
-					var data = {
-						data: JSON.stringify({
-							start: intergral.start_time,
-							end: intergral.end_time,
-							page: i
-						}),
-						server: 'commission.Rights',
-						device: 'mobile'
-					};
-					
-					mui.ajax(config.baseUrl, {
-						data: data,
-						dataType: 'json',
-						type: 'get',
-						success: function (ret) {
+					luckyAjax({
+						data: {
+				            server: 'commission.Rights',
+				            data: JSON.stringify({
+								start: intergral.start_time,
+								end: intergral.end_time,
+								page: i
+							}),
+				        },
+				        success: function (ret) {
 							if (ret.code == 1) {
 								var data = ret.data
-//								alert(JSON.stringify(data))
 								intergral.totalNum = data.totalNum
 								intergral.totalRow = data.totalRow
 								
@@ -158,9 +152,6 @@
 								}
 							}
 						},
-						error: function () {
-							mui.toast('网络异常,请稍候再试');
-						}
 					});
 				};
 			    
@@ -178,8 +169,20 @@
 				
 				// 点击顶部搜索按钮事件
 				document.querySelector('#search').addEventListener('tap', function(){
-					intergral.start_time = start_time.value
-					intergral.end_time = end_time.value
+					intergral.start_time = start_time.innerHTML
+					intergral.end_time = end_time.innerHTML
+					// 判断搜索时间
+					if (intergral.start_time == '' || intergral.start_time == '开始日期') {
+						mui.toast('请选择开始日期', {duration: 'short', type: 'div'})
+						return
+					} else if (intergral.end_time == '' || intergral.end_time == '结束日期') {
+						mui.toast('请选择结束日期', {duration: 'short', type: 'div'})
+						return
+					} else if (intergral.start_time > intergral.end_time) {
+						mui.toast('结束日期不能大于开始日期', {duration: 'short', type: 'div'})
+						return
+					}
+					
 					i = 0
 					intergral.list = []
 					self.refresh(true)
@@ -197,7 +200,7 @@
 						var _this = this
 						var picker = new $.DtPicker(options);
 						picker.show(function(rs) {
-							_this.querySelector('input').value = rs.text;
+							_this.querySelector('.date').innerText = rs.text;
 							picker.dispose();
 						});
 					}, false);

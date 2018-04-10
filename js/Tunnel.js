@@ -28,6 +28,16 @@ var Tunnel = {
     _action: null,
 
     /**
+     * 是否停止全局请求
+     */
+    _isStop: false,
+
+    /**
+     * 重新连接次数
+     */
+    _rNumber: 0,
+
+    /**
      * 创建WS实例
      * @param uid 用户ID
      * @param flag  用户终端唯一标识
@@ -55,24 +65,36 @@ var Tunnel = {
      */
     InitEventHandle: function () {
         Tunnel._webSocket.onclose = function () {
-            Tunnel.Reconnect(Tunnel._url);
+            if(!Tunnel._isStop) {
+                Tunnel.Reconnect(Tunnel._url);
+            }
         };
         Tunnel._webSocket.onerror = function () {
-            Tunnel.Reconnect(Tunnel._url);
+            if(!Tunnel._isStop) {
+                Tunnel.Reconnect(Tunnel._url);
+            }
         };
         Tunnel._webSocket.onopen = function () {
             Tunnel._message.type = 1;
 
             /* 发送登入请求 */
             Tunnel._webSocket.send(JSON.stringify(Tunnel._message));
+
             //心跳检测重置
             Tunnel.HeartCheck.reset().start();
         };
 
-        Tunnel._webSocket.onmessage = Tunnel._action;
-        Tunnel._webSocket.addEventListener('message', function () {
-            Tunnel.HeartCheck.reset().start();
+        Tunnel._webSocket.addEventListener('message', function (event) {
+            /* 重复登录停止全局 */
+            var _message = JSON.parse(event.data);
+            if(parseInt(_message.code) > 0){
+                Tunnel.HeartCheck.reset();
+                Tunnel._isStop = true;
+            }else{
+                Tunnel.HeartCheck.reset().start();
+            }
         });
+        Tunnel._webSocket.onmessage = Tunnel._action;
     },
 
     /**
@@ -85,8 +107,14 @@ var Tunnel = {
 
         Tunnel._lockReconnect = true;
 
-        //没连接上会一直重连，设置延迟避免请求过多
+        //没连接上会一直重连，设置延迟避免请求过多.超过五次停止
+        if(Tunnel._rNumber >= 5){
+            Tunnel._isStop = true;
+            return;
+        }
+
         setTimeout(function () {
+            Tunnel._rNumber++;
             Tunnel.Create();
             Tunnel._lockReconnect = false;
         }, 5000);
@@ -96,7 +124,7 @@ var Tunnel = {
      * 心跳计时
      */
     HeartCheck: {
-        timeout: 60000,//60秒
+        timeout: 5000,//60秒
         timeoutObj: null,
         serverTimeoutObj: null,
         reset: function(){

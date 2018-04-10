@@ -4,12 +4,12 @@
 		"iPhone"
 	],
 	"id": "H517AA33E",
-	"name": "保险人",
+	"name": "保险+",
 	"version": {
-		"name": "1.9.0405",
+		"name": "1.9.0408",
 		"code": "83"
 	},
-	"description": "保险人 mobile",
+	"description": "保险plus mobile",
 	"icons": {
 		"72": "icon.png"
 	},
@@ -251,7 +251,8 @@
 					"images/icon/ico-ring.png",
 					"images/icon/ico-search.png",
 					"images/icon/sign.png",
-					"images/icon/sign-active.png"
+					"images/icon/sign-active.png",
+					"js/Tunnel.js"
 				],
 				"refer": [
 					"member.html",
@@ -289,11 +290,14 @@
 					"images/icon/sign-active.png",
 					"css/sns.css",
 					"images/icon/ico-time.png",
-					"js/config.js"
+					"js/config.js",
+					"sns-ongoing.html",
+					"sns-signing.html"
 				],
 				"refer": [
 					"sns-list-review.html",
-					"sns-detail.html"
+					"sns-detail.html",
+					"sns-end.html"
 				],
 				"priority": 0
 			},
@@ -437,8 +441,7 @@
 				"refer": [
 					"product-detail.html",
 					"product-contrast.html",
-					"quickly-filter.html",
-					"prospect-product.html"
+					"quickly-filter.html"
 				],
 				"priority": 0
 			},
@@ -843,9 +846,14 @@
 					"js/prospect.js",
 					"prospect-main.html",
 					"js/webviewGroup.js",
-					"js/vue.min.js"
+					"js/vue.min.js",
+					"js/mui.picker.js",
+					"css/mui.picker.min.css",
+					"js/mui.dtpicker.js"
 				],
-				"refer": [],
+				"refer": [
+					"popup-content.html"
+				],
 				"priority": 0
 			},
 			"member-commission-extract.html": {
@@ -904,7 +912,9 @@
 					"images/icon/ico-duty-nowifi.png",
 					"js/config.js"
 				],
-				"refer": [],
+				"refer": [
+					"member-commission-result.html"
+				],
 				"priority": 0
 			},
 			"member-commission-income.html": {
@@ -1240,8 +1250,8 @@
 					"css/mui.picker.min.css",
 					"js/mui.picker.js",
 					"js/mui.dtpicker.js",
-					"images/pic/logo.png",
-					"js/mui.poppicker.js"
+					"js/mui.poppicker.js",
+					"images/pic/logo.png"
 				],
 				"refer": [
 					"team-personal-performance.html"
@@ -1745,7 +1755,8 @@
 				"refer": [
 					"quickly-filter.html",
 					"product-detail.html",
-					"product-contrast.html"
+					"product-contrast.html",
+					"hd_ins/insurance-index.html"
 				],
 				"priority": 5
 			},
@@ -1832,20 +1843,10 @@
 					"images/icon/icon-users.png",
 					"images/icon/icon-datepicker.jpg",
 					"js/config.js",
-					"images/plans/prospectus/ajb.jpg",
-					"js/plans.js",
-					"images/plans/prospectus/19390.jpg",
-					"images/plans/prospectus/19390_2.jpg",
-					"images/plans/prospectus/369_2.jpg",
-					"images/plans/prospectus/369.jpg",
-					"images/plans/prospectus/283.jpg",
-					"images/plans/prospectus/283_2.jpg"
+					"images/plans/prospectus/ajb.jpg"
 				],
 				"priority": 2,
-				"refer": [
-					"member-plans-alone-modal.html",
-					"member-plans-alone-design.html"
-				]
+				"refer": []
 			},
 			"member-plans-total.html": {
 				"href": "member-plans-total.html",
@@ -1959,10 +1960,20 @@
 					"images/plans/plansManage/369.png",
 					"images/plans/plansManage/401.png",
 					"images/plans/plansManage/19384.png",
-					"images/plans/plansManage/292.png",
+					"images/plans/plansManage/264.png",
+					"images/plans/plansManage/354.png",
+					"images/plans/plansManage/121.png",
+					"images/plans/plansManage/337.png",
+					"images/plans/plansManage/370.png",
+					"images/plans/plansManage/347.png",
+					"images/plans/plansManage/16197.png",
+					"images/plans/plansManage/16201.png",
+					"images/plans/plansManage/267.png",
+					"images/plans/plansManage/340.png",
+					"images/plans/plansManage/301.png",
+					"images/plans/plansManage/256.png",
 					"images/plans/plansManage/74.png",
-					"images/plans/plansManage/290.png",
-					"images/plans/plansManage/363.png"
+					"images/plans/plansManage/209.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -2042,7 +2053,9 @@
 					"member-intergral-all.html",
 					"css/mui.css",
 					"member-intergral-activity.html",
-					"css/member.css"
+					"css/member.css",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [
 					"member-intergral-experience.html",
@@ -2063,7 +2076,9 @@
 			"member-birthday.html": {
 				"resources": [
 					"member-birthday-customer.html",
-					"css/mui.css"
+					"css/mui.css",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [
 					"member-birthday-team.html"
@@ -2191,7 +2206,8 @@
 					"js/mui.pullToRefresh.js",
 					"js/mui.pullToRefresh.material.js",
 					"js/interval-dtpicker.js",
-					"images/icon/ico-filter-active.png"
+					"images/icon/ico-filter-active.png",
+					"css/member.css"
 				],
 				"refer": [
 					"member-commission-salarylist.html"
@@ -2219,9 +2235,7 @@
 					"css/member.css",
 					"css/mui.css"
 				],
-				"refer": [
-					"member-warranty-manageLife-detail.html"
-				],
+				"refer": [],
 				"priority": 0
 			},
 			"member-commission-salarydetail.html": {
@@ -2279,7 +2293,8 @@
 					"css/mui.picker.min.css",
 					"css/mui.css",
 					"css/module.css",
-					"css/common.css"
+					"css/common.css",
+					"hd_ins/method.js"
 				],
 				"refer": [
 					"hd_ins/insurance-bank.html",
@@ -2288,7 +2303,8 @@
 					"hd_ins/insurance-applicant.html",
 					"hd_ins/insurance-upload.html",
 					"hd_ins/insurance-safegood.html",
-					"hd_ins/insurance-sign.html"
+					"hd_ins/insurance-sign.html",
+					"hd_ins/insurance-assured.html"
 				],
 				"priority": 0
 			},
@@ -2307,14 +2323,18 @@
 					"css/insurance.css",
 					"css/mui.picker.min.css",
 					"css/mui.css",
-					"images/icon/ico-down.png"
+					"images/icon/ico-down.png",
+					"js/IDValidator.min.js",
+					"js/mui.poppicker.js"
 				],
 				"refer": [],
 				"priority": 0
 			},
 			"hd_ins/insurance-applicant.html": {
 				"resources": [
-					"css/mui.css"
+					"css/mui.css",
+					"css/insurance.css",
+					"css/mui.picker.min.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -2347,7 +2367,10 @@
 				"resources": [
 					"css/insurance.css",
 					"css/mui.picker.min.css",
-					"css/mui.css"
+					"css/mui.css",
+					"js/IDValidator.min.js",
+					"js/mui.poppicker.js",
+					"images/icon/ico-down.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -2396,8 +2419,7 @@
 				"resources": [
 					"css/mui.css",
 					"images/icon/ico-tax-question.png",
-					"css/form.css",
-					"css/member.css"
+					"css/form.css"
 				],
 				"refer": [
 					"member-tax-info.html"
@@ -2411,28 +2433,22 @@
 					"images/icon/icon-datepicker.jpg",
 					"images/icon/icon-displace.png",
 					"css/mui.picker.min.css",
-					"css/mui.css",
 					"js/mui.dtpicker.js",
+					"css/mui.css",
 					"css/plans.css",
 					"css/module.css",
-					"css/common.css"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"member-warranty-manageCar.html": {
-				"resources": [
-					"css/mui.picker.min.css",
-					"css/mui.css",
-					"css/member.css"
+					"css/common.css",
+					"fonts/mui.ttf"
 				],
 				"refer": [],
 				"priority": 0
 			},
 			"communic.html": {
 				"resources": [
+					"css/mui.css",
 					"js/mui.indexedlist.js",
-					"css/mui.css"
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [
 					"communic-detail.html"
@@ -2442,23 +2458,40 @@
 			"communic-detail.html": {
 				"resources": [
 					"css/member.css",
+					"css/form.css",
 					"css/mui.css",
-					"css/form.css"
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [],
 				"priority": 0
 			},
-			"member-plans-alone-modal.html": {
+			"hd_ins/insurance-sign.html": {
 				"resources": [
+					"css/signature.css",
+					"js/signature/signature_pad.js",
+					"js/copy.js",
+					"css/form.css",
+					"css/insurance.css",
+					"css/mui.picker.min.css",
 					"css/mui.css"
 				],
 				"refer": [],
 				"priority": 0
 			},
-			"recruit.html": {
+			"hd_ins/insurance-assured.html": {
 				"resources": [
-					"css/mui.css",
-					"css/member.css"
+					"css/insurance.css",
+					"css/mui.picker.min.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-commission-result.html": {
+				"resources": [
+					"images/icon/ico-cmis-success.png",
+					"css/mui.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -2472,35 +2505,55 @@
 				"refer": [],
 				"priority": 0
 			},
-			"prospect-product.html": {
+			"recruit.html": {
 				"resources": [
-					"css/mui.css",
-					"css/plans.css"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"hd_ins/insurance-sign.html": {
-				"resources": [
-					"images/icon/icon-upload.png",
-					"css/form.css",
-					"css/insurance.css",
-					"css/mui.picker.min.css",
-					"css/mui.css",
-					"css/signature.css",
-					"js/signature/signature_pad.js",
-					"js/copy.js"
-				],
-				"refer": [
-					"hd_ins/upload-img.html"
-				],
-				"priority": 0
-			},
-			"member-warranty-manageLife-detail.html": {
-				"resources": [
+					"css/member.css",
 					"css/mui.css"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"sns-end.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"images/pic/p3.jpg",
+					"js/Date.js",
+					"js/interval-dtpicker.js",
+					"css/mui.css",
+					"css/sns.css"
+				],
+				"refer": [
+					"sns-detail.html"
+				],
+				"priority": 0
+			},
+			"sns-ongoing.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/mui.css",
+					"css/sns.css",
+					"js/Date.js",
+					"js/interval-dtpicker.js"
+				],
+				"refer": [
+					"sns-detail.html"
+				],
+				"priority": 0
+			},
+			"sns-signing.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/Date.js",
+					"js/interval-dtpicker.js",
+					"css/sns.css",
+					"css/mui.css"
+				],
+				"refer": [
+					"sns-detail.html"
+				],
 				"priority": 0
 			}
 		},
@@ -2510,7 +2563,6 @@
 				"receipt-list.html",
 				"receipt-1.html",
 				"receipt-2.html",
-				"member-commission-result.html",
 				"images/pic/p8.jpg",
 				"css/mui.min.css",
 				"receipt-3.html",

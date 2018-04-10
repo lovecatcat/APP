@@ -1,6 +1,7 @@
 var config = {
     baseUrl: 'http://ts-www.luckyins.com/api/api/invoke',  //团队管理服务器路径
-    moduleURL: 'http://ts-www.luckyins.com/api/api/'
+    moduleURL: 'http://ts-www.luckyins.com/api/api/',
+    link: 'http://ts-www.luckyins.com/index/' // 外部链接路径[闪电增员、]
 };
 
 /**

@@ -54,16 +54,7 @@
 				<div class="mui-indexed-list-alert"></div>
 				<div class="mui-indexed-list-inner">
 					<div class="mui-indexed-list-empty-alert">没有数据</div>
-					<ul id="Js-group" class="mui-table-view">
-						<!--<li data-group="A" class="mui-table-view-divider mui-indexed-list-group">A</li>
-						<li data-value="AKU" data-tags="AKeSu" class="mui-table-view-cell mui-indexed-list-item">阿克苏机场</li>
-						<li data-value="BPL" data-tags="ALaShanKou" class="mui-table-view-cell mui-indexed-list-item">阿拉山口机场</li>
-						<li data-value="AAT" data-tags="ALeTai" class="mui-table-view-cell mui-indexed-list-item">阿勒泰机场</li>
-						<li data-value="NGQ" data-tags="ALiKunSha" class="mui-table-view-cell mui-indexed-list-item">阿里昆莎机场</li>
-						<li data-value="AQG" data-tags="AnQingTianZhuShan" class="mui-table-view-cell mui-indexed-list-item">安庆天柱山机场</li>
-						<li data-value="MFM" data-tags="AoMenGuoJi" class="mui-table-view-cell mui-indexed-list-item">澳门国际机场</li>
-						<li data-group="B" class="mui-table-view-divider mui-indexed-list-group">B</li>-->	
-					</ul>
+					<ul id="Js-group" class="mui-table-view"></ul>
 				</div>
 			</div>
 		</div>
@@ -117,6 +108,15 @@
 				
 				mui('body').on('tap', '.mui-indexed-list-item', function(){
 					var id = this.getAttribute('data-id');
+					//在线投保选择通讯录
+					var type = plus.webview.currentWebview().type;
+					if(type === 'onlineIns') {
+						mui.fire(plus.webview.currentWebview().opener(), 'getMemberId', {
+		                    id: id
+		                });
+		                mui.back();
+					}
+					//
 					mui.openWindow({
 						url:'communic-detail.html',
 						id:'communic_detail',

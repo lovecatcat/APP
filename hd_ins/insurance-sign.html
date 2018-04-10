@@ -22,101 +22,105 @@
             <div class="mui-icon mui-icon-closeempty" id="close-ins-pop"></div>
             <p class="ins-font-md box-f-1">信息确认</p>
             <div class="header-btn-save">
-                <button class="ins-btn sm-btn blue">保存</button>
+                <button class="ins-btn sm-btn blue" id="saveSign">保存</button>
             </div>
         </div>
         <div class="form-content margin-t-6_125 BL-pad-b-1">
-        	<div class="form-wrap">
-        		<div class="border-b-e7e7e7">
-        			<div class="item-title">签名提示</div>
-        		</div>
-        		<div class="BL-pad-a1">
-        			<p class="BL-ftz-46 BL-col-333"><i class="mui-icon mui-icon-info"></i>分享签名链接操作提示：</p>
-	        		<div class="BL-ftz-46 BL-pad-l-2_5">
-	        			1. 点击下方按钮，复制链接<br>
-	        			2. 切换到微信或QQ，选择好友并粘贴发送<br>
-	        			3. 待客户（投被保人）完成签名后，继续补充下方内容，并在签名处点击获取签名<br>
-	        			<span class="BL-col-ffba00">4. 请勿使用微信或app右上角功能按钮直接分享链接给客户（会出现签名失败）</span>
-	        	    </div>
-	        	    <div class="BL-ub BL-ub-ac BL-ub-pc BL-pad-t-1">
-        				<button class="form-btn ins-btn sm-btn btn-copy" data-url="https://pan.baidu.com/">复制投保人签名链接</button>
-        			</div>
-        			<div class="BL-ub BL-ub-ac BL-ub-pc BL-pad-t-1">
-        				<button class="form-btn ins-btn sm-btn btn-copy" data-url="https://pan.baidu.com/">复制被保人签名链接</button>
-        			</div>
-        	    </div>
-        	</div>
-        	<div class="form-wrap margin-t_875">
-        	    <div class="border-b-e7e7e7">
-        			<div class="item-title">信息确认</div>
-        		</div>
-        		<div class="BL-pad-a1">
-	        	    <div class="BL-ftz-46">
-	        	    	1. 本人已阅读<a class="BL-col-3b9cf5"><strong>《恒大万年红终身年金保险条款》</strong></a>、和<a class="BL-col-3b9cf5"><strong>《投保提示书》</strong></a>，了解本产品的特点。<br>
-	        	    	2. 本人已阅读<a class="BL-col-3b9cf5"><strong>《投保须知》</strong></a>、<a class="BL-col-3b9cf5"><strong>《声明授权与签名》</strong></a>。
-	        	    </div>
-	        	    <div class="mui-input-row mui-checkbox mui-left BL-pad-t-1" >
-		                <label style="padding-left: 3rem;">阅知以上信息，并确认无误</a>
-		                <input name="checkbox" value="Item1" type="checkbox" style="top: 20px; left: 0px;">
-		            </div>
-	            </div>
-	        </div>
-	        <div class="form-wrap margin-t_875">
-	        	<div class="border-b-e7e7e7">
-        			<div class="item-title">手写签名</div>
-        		</div>
-        		<!-- 投保人签名Begin -->
-        		<div class="BL-pad-a1">
-	        		<div class="BL-ub BL-ub-ac BL-ub-pc">
-		        		<button class="form-btn ins-btn sm-btn" @click="getSignature(1)">获取投保人签名</button>
-		        	</div>
-		        	<div class="input-item sign-item">
-		        		<label>投保人签名：</label>
-		        		<div class="input-wrap">
-		        			<img class="signature-img" slot="input" :src="previewImg[1]" v-if="previewImg[1]">
-		        		</div>
-		        		<div class="sign-btn" @click="showSign[1] = true">签名</div>
-		        	</div>
-		        	<sign v-if="showSign[1]" index="1"></sign>
-	            </div>
-	            <!-- 投保人签名End -->
-	            <!-- 被保人签名Begin -->
-	            <div class="BL-pad-a1">
-	        		<div class="BL-ub BL-ub-ac BL-ub-pc">
-		        		<button class="form-btn ins-btn sm-btn" @click="getSignature(2)">获取被保人签名</button>
-		        	</div>
-		        	<div class="input-item sign-item">
-		        		<label>被保人签名：</label>
-		        		<div class="input-wrap">
-		        			<img class="signature-img" slot="input" :src="previewImg[2]" v-if="previewImg[2]">
-		        		</div>
-		        		<div class="sign-btn" @click="showSign[2] = true">签名</div>
-		        	</div>
-		        	<sign v-if="showSign[2]" index="2"></sign>
-	            </div>
-	            <!-- 被保人签名End -->
-	        </div>
+            <div class="form-wrap">
+                <div class="border-b-e7e7e7">
+                    <div class="item-title">签名提示</div>
+                </div>
+                <div class="BL-pad-a1">
+                    <p class="BL-ftz-46 BL-col-333"><i class="mui-icon mui-icon-info"></i>分享签名链接操作提示：</p>
+                    <div class="BL-ftz-46 BL-pad-l-2_5">
+                        1. 点击下方按钮，复制链接<br>
+                        2. 切换到微信或QQ，选择好友并粘贴发送<br>
+                        3. 待客户（投被保人）完成签名后，并在签名处点击获取签名<br>
+                    </div>
+                    <div class="BL-ub BL-ub-ac BL-ub-pc BL-pad-t-1">
+                        <button class="form-btn ins-btn sm-btn btn-copy" :data-url="'//ts-cloud.ehuimeng.com/ins_sign/signature3.0?owner=appl_signature&war_id='+war_id">复制投保人签名链接
+                        </button>
+                    </div>
+                    <div class="BL-ub BL-ub-ac BL-ub-pc BL-pad-t-1">
+                        <button class="form-btn ins-btn sm-btn btn-copy" :data-url="'//ts-cloud.ehuimeng.com/ins_sign/signature3.0?owner=assu_signature&war_id='+war_id">复制被保人签名链接
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-wrap margin-t_875">
+                <div class="border-b-e7e7e7">
+                    <div class="item-title">信息确认</div>
+                </div>
+                <div class="BL-pad-a1">
+                    <!--<div class="BL-ftz-46">-->
+                    <!--1. 本人已阅读<a class="BL-col-3b9cf5"><strong>《恒大万年红终身年金保险条款》</strong></a>、和<a class="BL-col-3b9cf5"><strong>《投保提示书》</strong></a>，了解本产品的特点。<br>-->
+                    <!--2. 本人已阅读<a class="BL-col-3b9cf5"><strong>《投保须知》</strong></a>、<a class="BL-col-3b9cf5"><strong>《声明授权与签名》</strong></a>。-->
+                    <!--</div>-->
+                    <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1">
+                        <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读<a class="BL-col-3b9cf5"><strong>《恒大万年红终身年金保险条款》</strong></a>、和<a
+                                class="BL-col-3b9cf5"><strong>《投保提示书》</strong></a>、<a class="BL-col-3b9cf5"><strong>《投保须知》</strong></a>、<a
+                                class="BL-col-3b9cf5"><strong>《声明授权与签名》</strong></a>，并确认无误
+                            <input name="checkbox" value="Item1" type="checkbox" style="top: 20px; left: 0px;">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-wrap margin-t_875">
+                <div class="border-b-e7e7e7">
+                    <div class="item-title">手写签名</div>
+                </div>
+                <!-- 投保人签名Begin -->
+                <div class="BL-pad-a1">
+                    <div class="BL-ub BL-ub-ac BL-ub-pc">
+                        <button class="form-btn ins-btn sm-btn" @click="getSignature(1)">获取投保人签名</button>
+                    </div>
+                    <div class="input-item sign-item">
+                        <label>投保人签名：</label>
+                        <div class="input-wrap">
+                            <img class="signature-img" slot="input" :src="previewImg[1]" v-if="previewImg[1]">
+                        </div>
+                        <div class="sign-btn" @click="showSign[1] = true">签名</div>
+                    </div>
+                    <sign v-if="showSign[1]" index="1"></sign>
+                </div>
+                <!-- 投保人签名End -->
+                <!-- 被保人签名Begin -->
+                <div class="BL-pad-a1">
+                    <div class="BL-ub BL-ub-ac BL-ub-pc">
+                        <button class="form-btn ins-btn sm-btn" @click="getSignature(2)">获取被保人签名</button>
+                    </div>
+                    <div class="input-item sign-item">
+                        <label>被保人签名：</label>
+                        <div class="input-wrap">
+                            <img class="signature-img" slot="input" :src="previewImg[2]" v-if="previewImg[2]">
+                        </div>
+                        <div class="sign-btn" @click="showSign[2] = true">签名</div>
+                    </div>
+                    <sign v-if="showSign[2]" index="2"></sign>
+                </div>
+                <!-- 被保人签名End -->
+            </div>
         </div>
     </div>
 </div>
 <!--弹窗 end-->
 <template id="sign">
     <div class="signature-box">
-	    <div :id="'signature-pad' + index" class="m-signature-pad">
-	      <div class="m-signature-pad--body" :style="styles">
-	        <canvas :id="'canvas'+index"></canvas>
-	      </div>
-	      <div class="m-signature-pad--footer">
-	        <div class="description">请用正楷字体签名</div>
-	        <div class="left">
-	          <button type="button" class="ins-btn xs-btn clear" @click="clear">清除</button>
-	        </div>
-	        <div class="right">
-	          <button type="button" class="ins-btn xs-btn save"  @click="save(index)">保存</button>
-	        </div>
-	      </div>
-	    </div>
-	</div>
+        <div :id="'signature-pad' + index" class="m-signature-pad">
+            <div class="m-signature-pad--body" :style="styles">
+                <canvas :id="'canvas'+index"></canvas>
+            </div>
+            <div class="m-signature-pad--footer">
+                <div class="description">请用正楷字体签名</div>
+                <div class="left">
+                    <button type="button" class="ins-btn xs-btn clear" @click="clear">清除</button>
+                </div>
+                <div class="right">
+                    <button type="button" class="ins-btn xs-btn save" @click="save(index)">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 </body>
 <script src="../js/mui.min.js" type="text/javascript"></script>
@@ -126,103 +130,191 @@
 <script type="text/javascript">
     mui.init();
     var popu;
-    	
+
     mui.plusReady(function () {
-    	popu = new ClosePopu(); // 实例化关闭窗口对象
+        popu = new ClosePopu(); // 实例化关闭窗口对象
+        img.war_id = plus.webview.currentWebview().data
+
+        //保存
+        document.querySelector('#saveSign').addEventListener('tap', function () {
+            plus.storage.removeItem('hengda_warid')
+            if (!img.checkForm()) {
+                return false
+            }
+            online_ins(img.war_id)
+        })
+        //
         mui('body').on('tap', '#close-ins-pop', function () {
             // 关闭遮罩层，弹框
             popu.closepop();
         });
-        
+
         mui('body').on('tap', '.btn-copy', function (e) {
-	    	var copy_url = this.getAttribute('data-url')
-	    	if(Clipbord(copy_url)) {
-	    		mui.toast("复制成功", {duration: 'short', type: 'div'})
-	    	}
-	    });
+            var copy_url = this.getAttribute('data-url')
+            if (Clipbord(copy_url)) {
+                mui.toast("复制成功", {duration: 'short', type: 'div'})
+            }
+        });
+        //核保
+        function online_ins(id) {
+            luckyAjax({
+                data: {
+                    data: JSON.stringify({
+                        msg: {policy_id: id},
+                        company_code: 'HengDa',
+                        method: 'insure'
+                    }),
+                    server: 'PolicyIns.onlineInsured',
+                    device: 'mobile'
+                },
+                success: function (res) {
+                    if (res.code) {
+                        upload_img(id)
+                    } else {
+
+                    }
+                }
+            });
+        };
+
+        //上传影像
+        function upload_img(id) {
+            luckyAjax({
+                data: {
+                    data: JSON.stringify({
+                        msg: {policy_id: id},
+                        company_code: 'HengDa',
+                        method: 'update_img'
+                    }),
+                    server: 'PolicyIns.onlineInsured',
+                    device: 'mobile'
+                },
+                success: function (res) {
+                    console.log(JSON.stringify(res));
+                    if (res.code) {
+                        //影像上传成功
+                    } else {
+
+                    }
+                }
+            });
+        };
+        //
     });
-    
-    Vue.component('sign',{
-	    template:'#sign',
-	    props: ['index'],
-	    data() { 
-	    	return { 
-	    		signature: null,
-      			styles: null
-	    	} 
-	    },
-	    mounted() {
-	    	const lwRatio = 2 / 5
-		    var canvas = document.getElementById('canvas' + this.index)
-		    if (!canvas) return
-		    this.styles = {
-		      	height: (canvas.parentNode.offsetWidth * lwRatio).toFixed(0) + 'px'
-		    }
-		    
-		    var vm = this
-		
-		    function resizeCanvas() {
-		      	var ratio = Math.max(window.devicePixelRatio || 1, 1)
-		      	canvas.width = canvas.offsetWidth * ratio
-		      	canvas.height = canvas.offsetWidth * lwRatio * ratio
-		      	canvas.getContext('2d').scale(ratio, ratio)
-		    }
-		    window.onresize = resizeCanvas
-		    resizeCanvas()
-		    vm.signature = new SignaturePad(canvas)
-		},
-		destroyed() {
-		    this.signature.off()
-		    this.signature = null
-		},
-	    methods: { 
-	    	clear() { 
-	    		this.signature && this.signature.clear()
-	    	},
-	    	save(index) {
-	    		if (this.signature.isEmpty()) {
-		        	mui.toast("签名不能为空", {duration: 'short', type: 'div'})
-		        	return
-			    }
-	    		var base64 = this.signature.toDataURL()
-	    		if(index == 1) {
-	    			this.setApplSN(base64)
-	    		} else if (index == 2) {
-	    			this.setAssuSN(base64)
-	    		}
-		        this.$parent.showSign[this.index] = false
-		        this.clear()
-	    	},
-	    	setApplSN(base64) {
-			    base64 && (this.$parent.appl_signature = base64, this.$parent.previewImg[1] = base64)
-			    this.$forceUpdate()
-			},
-			setAssuSN(base64) {
-			    base64 && (this.$parent.assu_signature = base64, this.$parent.previewImg[2] = base64)
-			    this.$forceUpdate()
-			},
-	    }
-	})
-	var img = new Vue({
-		el: '#Js-content',
-		data: {
-			appl_signature: '',
-			assu_signature: '',
-			showSign: {
-			    1: false,
-			    2: false
-			},
-			previewImg: [], //上传图片
-		},
-		methods: {
-			sure: function () {
-			    popu.closepop();
-			},
-			getSignature: function (index) {
-			    if (!index) return
-			    plus.nativeUI.showWaiting();
-			    // 获取签名的ajax
-			    alert(index)
+
+    Vue.component('sign', {
+        template: '#sign',
+        props: ['index'],
+        data() {
+            return {
+                signature: null,
+                styles: null
+            }
+        },
+        mounted() {
+            const lwRatio = 2 / 5
+            var canvas = document.getElementById('canvas' + this.index)
+            if (!canvas) return
+            this.styles = {
+                height: (canvas.parentNode.offsetWidth * lwRatio).toFixed(0) + 'px'
+            }
+            var vm = this
+
+            function resizeCanvas() {
+                var ratio = Math.max(window.devicePixelRatio || 1, 1)
+                canvas.width = canvas.offsetWidth * ratio
+                canvas.height = canvas.offsetWidth * lwRatio * ratio
+                canvas.getContext('2d').scale(ratio, ratio)
+            }
+
+            window.onresize = resizeCanvas
+            resizeCanvas()
+            vm.signature = new SignaturePad(canvas, {
+                minWidth: 2,
+                maxWidth: 3.5
+            })
+        },
+        destroyed() {
+            this.signature.off()
+            this.signature = null
+        },
+        methods: {
+            clear() {
+                this.signature && this.signature.clear()
+            },
+            save(index) {
+                if (this.signature.isEmpty()) {
+                    mui.toast("签名不能为空", {duration: 'short', type: 'div'})
+                    return
+                }
+                var base64 = this.signature.toDataURL()
+                if (index == 1) {
+                    this.setApplSN(base64)
+                } else if (index == 2) {
+                    this.setAssuSN(base64)
+                }
+                this.$parent.showSign[this.index] = false
+                this.clear()
+            },
+            setApplSN(base64) {
+                base64 && (this.$parent.appl_signature = base64, this.$parent.previewImg[1] = base64)
+                this.$forceUpdate()
+            },
+            setAssuSN(base64) {
+                base64 && (this.$parent.assu_signature = base64, this.$parent.previewImg[2] = base64)
+                this.$forceUpdate()
+            },
+        }
+    })
+    var img = new Vue({
+        el: '#Js-content',
+        data: {
+            war_id: '',
+            appl_signature: '',
+            assu_signature: '',
+            showSign: {
+                1: false,
+                2: false
+            },
+            previewImg: [], //上传图片
+        },
+        methods: {
+            sure: function () {
+                popu.closepop();
+            },
+            checkForm: function () {
+                var toast_text = null;
+                if (!this.appl_signature) {
+                    toast_text = '投保人签名不能为空';
+                } else if (!this.assu_signature) {
+                    toast_text = '被保人签名不能为空';
+                }
+                if (toast_text) {
+                    mui.toast(toast_text, {duration: 'short', type: 'div'});
+                    return false;
+                }
+                return true;
+            },
+            getSignature: function (index) {
+                if (!index) return
+                plus.nativeUI.showWaiting();
+                // 获取签名的ajax
+                console.log(this.war_id)
+                luckyAjax({
+                    data: {
+                        data: JSON.stringify({policy_id: this.war_id}),
+                        server: 'PolicyIns.policyDetails',
+                        device: 'mobile'
+                    },
+                    success: function (res) {
+                        console.log(JSON.stringify(res));
+                        if (res.code) {
+                            //影像上传成功
+                        } else {
+
+                        }
+                    }
+                });
 //			    mui.ajax(config.baseUrl, {
 //	                data: JSON.stringify({
 //	                	id: warId
@@ -254,8 +346,8 @@
 //	                    return false;
 //	                }
 //	            });
-			},
-		}
-	})
+            },
+        }
+    })
 </script>
 </html>

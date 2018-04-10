@@ -290,11 +290,14 @@
 					"images/icon/sign-active.png",
 					"css/sns.css",
 					"images/icon/ico-time.png",
-					"js/config.js"
+					"js/config.js",
+					"sns-ongoing.html",
+					"sns-signing.html"
 				],
 				"refer": [
 					"sns-list-review.html",
-					"sns-detail.html"
+					"sns-detail.html",
+					"sns-end.html"
 				],
 				"priority": 0
 			},
@@ -353,7 +356,9 @@
 					"member-duty.html",
 					"shop.html",
 					"hd_ins/insurance-index.html",
-					"communic.html"
+					"communic.html",
+					"recruit.html",
+					"product-detail.html"
 				],
 				"priority": 0
 			},
@@ -1750,7 +1755,8 @@
 				"refer": [
 					"quickly-filter.html",
 					"product-detail.html",
-					"product-contrast.html"
+					"product-contrast.html",
+					"hd_ins/insurance-index.html"
 				],
 				"priority": 5
 			},
@@ -1965,7 +1971,9 @@
 					"images/plans/plansManage/267.png",
 					"images/plans/plansManage/340.png",
 					"images/plans/plansManage/301.png",
-					"images/plans/plansManage/256.png"
+					"images/plans/plansManage/256.png",
+					"images/plans/plansManage/74.png",
+					"images/plans/plansManage/209.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -2068,7 +2076,9 @@
 			"member-birthday.html": {
 				"resources": [
 					"member-birthday-customer.html",
-					"css/mui.css"
+					"css/mui.css",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [
 					"member-birthday-team.html"
@@ -2493,6 +2503,57 @@
 					"css/mui.css"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"recruit.html": {
+				"resources": [
+					"css/member.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"sns-end.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"images/pic/p3.jpg",
+					"js/Date.js",
+					"js/interval-dtpicker.js",
+					"css/mui.css",
+					"css/sns.css"
+				],
+				"refer": [
+					"sns-detail.html"
+				],
+				"priority": 0
+			},
+			"sns-ongoing.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/mui.css",
+					"css/sns.css",
+					"js/Date.js",
+					"js/interval-dtpicker.js"
+				],
+				"refer": [
+					"sns-detail.html"
+				],
+				"priority": 0
+			},
+			"sns-signing.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/Date.js",
+					"js/interval-dtpicker.js",
+					"css/sns.css",
+					"css/mui.css"
+				],
+				"refer": [
+					"sns-detail.html"
+				],
 				"priority": 0
 			}
 		},

@@ -109,42 +109,30 @@
         var winH = window.innerHeight;
         var titHeight = document.querySelector('#Js-header').offsetHeight;
         document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+        console.log(plus.storage.getItem('hengda_ids'))
 
         mui('body').on('tap', '#ins-applicant', function () {
-//            console.log(JSON.stringify(index.init))
-            // 打开遮罩层，弹框
             showPopu("insurance-applicant.html", "insurance_applicant", "bottom", index.init);
         });
         mui('body').on('tap', '#ins-assured', function () {
-            // 打开遮罩层，弹框
             showPopu("insurance-assured.html", "insurance_assured", "bottom", index.init);
         });
         mui('body').on('tap', '#ins-beneficiary', function () {
-            // 打开遮罩层，弹框
             showPopu("insurance-beneficiary.html", "insurance_beneficiary", "bottom", index.init);
         });
         mui('body').on('tap', '#ins-bank', function () {
-            // 打开遮罩层，弹框
             showPopu("insurance-bank.html", "insurance_bank", "bottom", index.init);
         });
         mui('body').on('tap', '#ins-healthinfo', function () {
-            // 打开遮罩层，弹框
             showPopu("insurance-healthinfo.html", "insurance_healthinfo", "bottom");
         });
         mui('body').on('tap', '#ins-safegood', function () {
-            // 打开遮罩层，弹框
             showPopu("insurance-safegood.html", "insurance_safegood", "bottom", index.init);
         });
         mui('body').on('tap', '#ins-pic', function () {
-            // 打开遮罩层，弹框
             showPopu("insurance-upload.html", "insurance_upload", "bottom");
         });
-//        mui('body').on('tap', '#ins-sign', function () {
-//            // 打开遮罩层，弹框
-//            showPopu("insurance-sign.html", "insurance_sign", "bottom");
-//        });
 
-		//
 		window.addEventListener('saveFlag', function (e) {
 			index[e.detail.item] = true
         });
@@ -218,7 +206,17 @@
         });
         //申请核保
         document.querySelector('#ins-save').addEventListener('tap', function () {
+            var toast_text = null
             var userinfo = JSON.parse(plus.storage.getItem('userinfo'));
+            var ids = plus.storage.getItem('hengda_ids')?JSON.parse(plus.storage.getItem('hengda_ids')):'';
+            var war_id = ids && ids.policy_id ? Number(ids.policy_id) : ''
+            var insured_id = ids && ids.insured_id ? Number(ids.insured_id) : ''
+            console.log(JSON.stringify(ids))
+//            "policy_id":"6278","insured_id":6278,"content_id":[12314,12315,12316],"beneficiary_id":[6598],"matterValue_id":[20]
+            war_id && deleteItem(war_id, '', 'content')
+            war_id && deleteItem(war_id, '', 'beneficiary')
+            war_id && deleteItem(war_id, '', 'matter_value')
+
             var applicant = JSON.parse(plus.storage.getItem('hengda_applicant'))
             var assured = JSON.parse(plus.storage.getItem('hengda_assured'))
             var beneficiary = plus.storage.getItem('hengda_beneficiary') ? JSON.parse(plus.storage.getItem('hengda_beneficiary')) : ''
@@ -227,16 +225,30 @@
             var upload = JSON.parse(plus.storage.getItem('hengda_upload'))
             var sign = JSON.parse(plus.storage.getItem('hengda_sign'))
             var healthinfo = JSON.parse(plus.storage.getItem('hengda_healthinfo'))
+            //
+            if (!applicant) {
+                toast_text = '请填写投保人信息';
+            } else if (!assured) {
+                toast_text = '请填写被保人信息';
+            } else if (!beneficiary) {
+                toast_text = '请填写受益人信息';
+            }
+            if(toast_text){
+                mui.toast(toast_text);
+                return false;
+            }
+            //
             console.log(JSON.stringify(sign))
             //
             var pushdata = {}
-            pushdata.id = ''
+            pushdata.id = war_id
             pushdata.supplier_id = SCID
             pushdata.ins_area = '323' //深圳
             pushdata.sales_channel = '2'
+            pushdata.is_first = '1'
             pushdata.user_id = userinfo.id
             //投保人信息
-            let applfieldFilter = ['temp_holder_job_code','mail_addr_type', 'holder_ID_type_name', 'holder_nation_name', 'holder_salary_from_name', 'holder_home_district_name', 'holder_contact_province_name', 'holder_contact_city_name', 'holder_contact_district_name', 'holder_job_name', 'holder_isTaxResidents']
+            let applfieldFilter = ['resident_type', 'temp_holder_job_code','mail_addr_type', 'holder_ID_type_name', 'holder_nation_name', 'holder_salary_from_name', 'holder_home_district_name', 'holder_contact_province_name', 'holder_contact_city_name', 'holder_contact_district_name', 'holder_job_name', 'holder_isTaxResidents']
             for (let i in applicant) {
                 if (applfieldFilter.indexOf(i) > -1) continue
                 pushdata[i] = applicant[i]
@@ -244,11 +256,13 @@
 
             //被保人信息
             var insured = {}
-            let assufieldFilter = ['insured_temp_job_code','addr_type', 'insured_isTaxResidents', 'insured_job_name', 'insured_ID_type_name', 'insured_nation_name', 'insured_salary_from_name', 'insured_home_district_name']
+            insured.id = insured_id
+            let assufieldFilter = ['insured_has_SSID','insured_temp_job_code','addr_type', 'insured_isTaxResidents', 'insured_job_name', 'insured_ID_type_name', 'insured_nation_name', 'insured_salary_from_name', 'insured_home_district_name']
             for (let i in assured) {
                 if (assufieldFilter.indexOf(i) > -1) continue
                 insured[i] = assured[i]
             }
+            insured.has_insured_SSID = assured.insured_has_SSID ? has_social_security : no_social_security
             pushdata.insured = insured
             //险种信息
             var content = []
@@ -275,7 +289,7 @@
                 }
                 content.push(safeitem)
             })
-            console.log(JSON.stringify(content))
+
             pushdata.total = totalfee.toFixed(2) //总保费
             pushdata.content = content
             //受益人信息
@@ -298,22 +312,35 @@
             pushdata.img_json = upload
             //
             var extend_items = {}
+            extend_items.resident_type = applicant.resident_type;
             extend_items.isTaxResidents = applicant.holder_isTaxResidents;
             extend_items.isTaxResidentsInsured = assured.insured_isTaxResidents;
             extend_items.mail_addr_type = applicant.mail_addr_type ? 1 : 0
             extend_items.addr_type = assured.addr_type ? 1 : 0
             pushdata.extend_items = extend_items
 
+            console.log('==================')
             console.log(JSON.stringify(pushdata))
 
-            var war_id = plus.storage.getItem('hengda_warid')
-            if (war_id) {
-                showPopu("insurance-sign.html", "insurance_sign", "bottom", war_id);
-            } else {
-                save_ins(pushdata);
-            }
+            save_ins(pushdata);
         });
-
+        //删除保存的某条数据
+        function deleteItem(war_id, itemId, type) {
+            luckyAjax({
+                data: {
+                    data: JSON.stringify({"table": type, "id": itemId, "policy_id": war_id}),
+                    server: 'PolicyIns.deleteInsInfo'
+                },
+                success: function (res) {
+                    console.log(JSON.stringify(res));
+                    if (res.code) {
+                        //
+                    } else {
+                        mui.toast(res.msg)
+                    }
+                }
+            });
+        }
         //保存保单
         function save_ins(data) {
             luckyAjax({
@@ -321,8 +348,8 @@
                 success: function (res) {
                     console.log(JSON.stringify(res));
                     if (res.code) {
-                        plus.storage.setItem('hengda_warid',JSON.stringify(res.data));
-                        showPopu("insurance-sign.html", "insurance_sign", "bottom", res.data);
+                        plus.storage.setItem('hengda_ids',JSON.stringify(res.data));
+                        showPopu("insurance-sign.html", "insurance_sign", "bottom", res.data.policy_id);
                     } else {
                         mui.toast(res.msg)
                     }

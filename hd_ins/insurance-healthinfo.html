@@ -882,12 +882,29 @@
         	//
             var appitems = []
             mui.each(health.matters, function (index, item) {
+                var insured_answer = health.clientvalue.ass_amswer[item.id] ? 1 : 0
+                var holder_answer = health.clientvalue.app_amswer[item.id] ? 1 : 0
+                var insured_fields = health.clientvalue.fields[item.id]?health.clientvalue.fields[item.id]:''
+                var holder_fields = health.clientvalue.app_fields[item.id]?health.clientvalue.app_fields[item.id]:''
+                if (item.id === 46) {
+                    //投被保人身高、体重
+                    holder_answer = 1
+                    insured_answer = 1
+                    holder_fields = Number(applicant.holder_height).toFixed(2) + '|' + Number(applicant.holder_weight).toFixed(2)
+                    insured_fields = Number(assured.insured_height).toFixed(2) + '|' + Number(assured.insured_weight).toFixed(2)
+                } else if (item.id === 171) {
+                    //投被保人年收入、收入来源
+                    holder_answer = 1
+                    insured_answer = 1
+                    holder_fields = applicant.holder_salary_avg + '|' + applicant.holder_salary_from
+                    insured_fields = assured.insured_salary_avg + '|' + assured.insured_salary_from
+                }
 	            appitems.push({
                     mv_id: item.id,
-                    insured_answer: health.clientvalue.ass_amswer[item.id] ? 1 : 0,
-                    holder_answer: health.clientvalue.app_amswer[item.id] ? 1 : 0,
-                    insured_fields: health.clientvalue.app_fields[item.id],
-                    holder_fields: health.clientvalue.fields[item.id]
+                    insured_answer: insured_answer,
+                    holder_answer: holder_answer,
+                    insured_fields: insured_fields,
+                    holder_fields: holder_fields
             	})
             })
             console.log(JSON.stringify(appitems))

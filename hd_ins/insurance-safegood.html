@@ -1002,6 +1002,8 @@
                                     //试算附加险成功
                                     vm.addonIns[index].period_money = data.data.product[1].premium;
                                     vm.$forceUpdate()
+                                    console.log('+++++++')
+                                    console.log(JSON.stringify(vm.addonIns))
                                 } else {
                                     console.log('试算主险' + index + '成功')
                                     if (id === fxjs || id === wnh) {
@@ -1011,6 +1013,8 @@
                                         console.log('period_money:' + data.data.product[0].premium)
                                         vm.insurance.period_money = data.data.product[0].premium;
                                     }
+                                    console.log('+-------+')
+                                    console.log(JSON.stringify(vm.addonIns))
                                     // 重置附加险
                                     vm.resetAddons();
                                 }
@@ -1118,19 +1122,7 @@
 //
         var applicant = JSON.parse(plus.storage.getItem('hengda_applicant'));
         var assured = JSON.parse(plus.storage.getItem('hengda_assured'));
-        var beneficiary = JSON.parse(plus.storage.getItem('hengda_beneficiary'));
-        if (!applicant) {
-            toast_text = '请先填写投保人信息';
-        } else if (!assured) {
-            toast_text = '请先填写被保人信息';
-        } else if (!beneficiary) {
-            toast_text = '请先填写受益人信息';
-        }
-        if(toast_text){
-            mui.toast(toast_text);
-            popu.closepop();
-            mui.back();
-        }
+
         safe.assu_age = getAge(assured.insured_birthday)
         safe.applicant = applicant
         safe.assured = assured
@@ -1140,13 +1132,16 @@
 
         //保存
         document.querySelector('#saveGoods').addEventListener('tap', function () {
+            console.log(JSON.stringify(safe.addonsSelected))
             if (!safe.checkForm()) {
                 return false
             }
             var insurances = []
             insurances.push(safe.insurance);
             safe.addonIns && mui.each(safe.addonIns, function (index, item) {
-                insurances.push(item)
+                if (safe.addonsSelected[item.safe_id]) {
+                    insurances.push(item)
+                }
             })
             console.log(JSON.stringify(insurances))
             plus.storage.setItem('hengda_safegoods', JSON.stringify(insurances));

@@ -474,43 +474,50 @@
             district.setData(e)
         })
         //职业
-        var occuFirst = new mui.PopPicker();
-        var occuSecond = new mui.PopPicker();
-        var occuThird = new mui.PopPicker();
-        var occuFourth = new mui.PopPicker();
-        occuFirst.setData(init.occupation);
+		var arrOccu = [];
+		for(var i=0;i<4;i++){
+			arrOccu.push(new mui.PopPicker());	
+		}
+		mui.each(arrOccu, function(index, item){
+			item.cancel.addEventListener('tap', function(event) {
+				appl.applicant.holder_job_name = '';
+                appl.applicant.holder_job_code = {};
+                appl.applicant.temp_holder_job_code = '';		
+			}, false);	
+		})
+        arrOccu[0].setData(init.occupation);
         document.querySelector('#occu-first').addEventListener('tap', function () {
             var arr = {}
-            occuFirst.show(function (items1) {
+            arrOccu[0].show(function (items1) {
                 arr[1] = items1[0].value
-                console.log(items1[0].value)
+                //console.log(items1[0].value)
                 appl.applicant.holder_job_name = items1[0].text;
                 appl.applicant.holder_job_code = arr;
                 appl.applicant.temp_holder_job_code = items1[0].value;
                 getOccu(items1[0].value, function (res1) {
                     if (!res1) return
-                    occuSecond.setData(res1)
-                    occuSecond.show(function (items2) {
+                    arrOccu[1].setData(res1)
+                    arrOccu[1].show(function (items2) {
                         arr[2] = items2[0].value
-                        console.log(items2[0].value)
+                        //console.log(items2[0].value)
                         appl.applicant.holder_job_name = items2[0].text;
                         appl.applicant.holder_job_code = arr;
                         appl.applicant.temp_holder_job_code = items2[0].value;
                         getOccu(items2[0].value, function (res2) {
                             if (!res2) return
-                            occuThird.setData(res2)
-                            occuThird.show(function (items3) {
+                            arrOccu[2].setData(res2)
+                            arrOccu[2].show(function (items3) {
                                 arr[3] = items3[0].value
-                                console.log(items3[0].value)
+                                //console.log(items3[0].value)
                                 appl.applicant.holder_job_name = items3[0].text;
                                 appl.applicant.holder_job_code = arr;
                                 appl.applicant.temp_holder_job_code = items3[0].value;
                                 getOccu(items3[0].value, function (res3) {
                                     if (!res3) return
-                                    occuFourth.setData(res3)
-                                    occuFourth.show(function (items4) {
+                                    arrOccu[3].setData(res3)
+                                    arrOccu[3].show(function (items4) {
                                         arr[4] = items4[0].value
-                                        console.log(items4[0].value)
+                                        //console.log(items4[0].value)
                                         appl.applicant.holder_job_name = items4[0].text;
                                         appl.applicant.holder_job_code = arr;
                                         appl.applicant.temp_holder_job_code = items4[0].value;

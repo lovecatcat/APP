@@ -357,6 +357,7 @@
             applicant: {},
             assured: {},
             is_legal_benefic: false,
+            benefited: null, //所有受益人份额
             beneficiariesIndex: [1], //受益人索引
             nenesum: 4 // 受益人数量
         },
@@ -469,8 +470,7 @@
                 if (len > 0) {
                     levels.sort((a, b) => {
                         return a > b
-                    }
-                )
+                    });
                     for (let m = 0; m < len; m++) {
                         if (levels[m + 1] && (levels[m + 1] - levels[m] > 1)) {
                             mui.toast('受益顺序必须从1开始且连续', {duration: 'short', type: 'div'})
@@ -479,6 +479,21 @@
                     }
                 }
                 vm.benefited = benefited
+                return true
+            },
+            checkRatio() {
+                if (!this.is_legal_benefic) return true //法定受益人
+                let benefited = this.benefited
+                for (let j = 1; j <= 4; j++) {
+                    let sum = 0
+                    for (let k = 0; k < benefited[j].length; k++) {
+                        sum += benefited[j][k]
+                    }
+                    if (sum !== 100 && benefited[j].length > 0) {
+                        mui.toast('受益顺序为' + j + '的受益人的受益比例和需为100%', {duration: 'short', type: 'div'})
+                        return false
+                    }
+                }
                 return true
             },
             // 更新收益份额

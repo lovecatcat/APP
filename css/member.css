@@ -277,8 +277,8 @@
 	padding: .5rem 1rem .5rem 1.5rem;
 }
 .member-cmis-list-item a.mui-navigate-right {
-	margin: 0rem -1.5rem;
-	font-size: 1.9rem;
+/*	margin: 0rem -1.5rem;*/
+	font-size: 1.625rem;
 }
 .member-cmis-list-item:after {
 	left: 1.5rem;
@@ -610,6 +610,7 @@
 	color: #999999;
 	font-size: 1.4375rem;
 	padding-bottom: .5rem;
+	padding-right: 1.5rem;
 }
 .duty-tip .member-duty-wifi {
 	display: inline-block;

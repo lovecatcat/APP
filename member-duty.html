@@ -40,7 +40,7 @@
 			<!--考勤打卡begin-->
 			<div v-if="status" class="member-duty-content BL-mar-t-1 BL-bg-fff">
 				<!-- 上班 Begin -->
-				<p class="duty-tip">上班时间09:00</p>
+				<p class="duty-tip" v-show="dutyInfo.sign_in_state == 0">上班时间09:00</p>
 				<div v-if="status && dutyInfo.sign_in_state == 0" class="member-duty-btn-box">
 					<div class="member-duty-btn" :class="{ 'duty-in': wifiInfo, 'duty-out': !wifiInfo }" onclick="clock(0,0)">
 						<div class="duty-type">上班打卡</div>
@@ -84,7 +84,7 @@
 				<p class="member-duty-line" v-if="dutyInfo.waycard != 'outside'"></p>
 				<!-- 下班 Begin 外勤人员outside不需要打下班卡-->
 				<template v-if="dutyInfo.waycard != 'outside'">
-					<p class="duty-tip">下班时间17:30</p>
+					<p class="duty-tip" v-show="dutyInfo.sign_out_state == 0">下班时间17:30</p>
 					<div v-if="dutyInfo.sign_out_state == 0 && dutyInfo.waycard != 'outside' && dutyInfo.sign_in_state != 0" class="member-duty-btn-box">
 						<div class="member-duty-btn" :class="{ 'duty-in': wifiInfo, 'duty-out': !wifiInfo }" onclick="clock(1,0)">
 							<div class="duty-type">下班打卡</div>
@@ -292,7 +292,7 @@
 	            	})
 		        },
 		        success: function (ret) {
-	                console.log(JSON.stringify(ret))
+		        	console.log(JSON.stringify(ret))
 	                if (ret.code == 1) {
 	                	var data = ret.data
 	                	duty.status = true

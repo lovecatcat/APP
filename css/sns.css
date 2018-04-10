@@ -1,10 +1,9 @@
 
 /* 活动中  */
-.sns-acting{}
-.sns-acting .sns-acting-cell{
+.sns-acting-cell{
 	padding-left: 1.25rem;	
 }
-.sns-acting .sns-acting-cell .cItem{
+.sns-acting-cell .cItem{
 	padding: 1rem 1rem 1rem 0rem;
 	border-bottom: 1px solid #e5e5e5;
 }
@@ -13,6 +12,11 @@
 	height: 14.3125rem;
 	border: 1px solid #bbb8b8;
 }
+.sns-acting-cell .cItem .img img{
+	width: 100%;
+	height: 100%;
+}
+
 .sns-acting-cell .cItem .context{
 	margin-left: 1.5625rem;
 }
@@ -31,14 +35,13 @@
 }
 .sns-acting-cell .cItem .context .date, .sns-acting-cell .cItem .context .place, .sns-acting-cell .cItem .context .state{
 	position: relative;
-	padding-left: 4.8rem;
 }
 .sns-acting-cell .cItem .context .tit-name{
 	font-size: 1.4375rem;
 	color: #999999;
-	position: absolute;
+	/*position: absolute;
 	left: 0;
-	top: 0;
+	top: 0;*/
 }
 .sns-acting-cell .cItem .context .tit-text{
 	font-size: 1.4375rem;
@@ -48,12 +51,20 @@
 	font-weight: 500;
 	color: #ff8201;
 }
-
-
+.mui-table-view.sns-acting-cell:before {
+	height: 0px;
+}
+.mui-table-view.sns-acting-cell:after {
+	height: 0px;
+}
 /* 活动详情 */
 .sns-detail-section{
 	margin-top: .625rem;
 	background-color: #ffffff;
+}
+.banner img {
+	width: 100%;
+	height: 22rem;
 }
 .sns-detail-wrapper .context{
 	padding: 2.1875rem 1.25rem;			
@@ -110,6 +121,99 @@
 .tab-content{
 	padding: .625rem 1.25rem 1.25rem;
 }
+.tab-content .content {
+	min-height: 20rem;
+}
+.tab-content .content *{
+	font-size: 1.4375rem !important;
+	color: #333333 !important;
+}
+.tab-content .content img {
+	width: 100% !important;
+	height: 20rem !important;
+}
+/* 活动报名 */
+.BL-modal-sns {
+	width: 90%;
+    background: #fff;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    left: 50%;
+}
 
+.input-item {
+    display: -moz-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    padding: 0 1rem;
+    margin: 1.28rem 0;
+    position: relative;
+}
+.input-item label {
+    display: block;
+    width: 25%;
+    font-size: 1.4375rem;
+    line-height: 2.9375rem;
+}
+.input-wrap {
+    position: relative;
+    width: 63%;
+}
+.input-item input[type='text'], input[type='search'], input[type='password'], input[type='datetime'], input[type='datetime-local'], input[type='date'], input[type='month'], input[type='time'], input[type='week'], input[type='number'], input[type='email'], input[type='url'], input[type='tel'], input[type='color'] {
+    text-align: left;
+    padding-left: 1rem;
+    height: 2.9375rem;
+    line-height: 2.9375rem;
+}
 
+.input-wrap .input, .input-wrap input {
+    border: 1px solid #c8c8c8;
+    border-radius: .3125rem;
+    font-size: 1.4375rem;
+}
 
+.right-btn {
+	width: 7rem;
+    position: absolute;
+    right: .1rem;
+    height: 2.9375rem;
+    line-height: 2.9375rem;
+    font-size: 1.125rem;
+    border-radius: .3125rem;
+    text-align: center;
+    padding: 0 .5rem;
+}
+.right-btn.orange {
+    border: 1px solid #ff9212;
+    color: #ff9212;
+}
+.right-btn.orange:disabled {
+	border: 1px solid #666;
+    color: #666;
+}
+.sns-btn.blue {
+    background-color: #3b9cf5;
+    color: #fff;
+}
+.sns-btn.grey {
+	background-color: #CCCCCC;
+    color: #fff;
+}
+.sns-btn {
+	border-radius: .3rem;
+    font-size: 1.3125rem;
+    height: 3.125rem;
+    line-height: 3.125rem;
+    padding: 0 2.3rem;
+}
+.mui-backdrop {
+    position: fixed;
+    z-index: 998;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .5);
+}

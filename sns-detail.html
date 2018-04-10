@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="utf-8">
 		<title></title>
@@ -10,7 +9,6 @@
 		<link href="css/sns.css" rel="stylesheet" />
 		<script src="js/config.js" type="text/javascript"></script>
 	</head>
-
 	<body class="BL-bg-f2f">
 		<header id="Js-header" class="BL-bg-fff">
 			<div class="BL-mod-headbar BL-mod-headbar-pos">
@@ -18,119 +16,302 @@
 				<h1 class="BL-title">SNS活动</h1>
 			</div>
 		</header>
-
-		<div id="Js-content" class="mui-content BL-rel">
-
-			<div class="mui-scroll-wrapper">
-				<div class="mui-scroll sns-detail">
-
-					<div class="sns-detail-section sns-detail-wrapper">
-						<div class="banner"><img src="images/pic/p4.jpg" /></div>
-						<div class="context">
-							<div class="context-title">
-								<span id="date">2017/11/22</span>
-								<span id="title">汇盟龙华机构组织粤园参观活动构组织粤园参观活动</span>
+		<div id="Js-sns">
+			<div id="Js-content" class="mui-content BL-rel">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll sns-detail">
+						<div v-if="info" class="sns-detail-section sns-detail-wrapper">
+							<div class="banner">
+								<img :src="info.sns_pic"/>
 							</div>
-							<div class="context-cont">
-								<div class="BL-ub BL-ub-f1 section">
-									<p>报名时间：</p>
-									<p class="BL-ub-f1">
-										<span>2017/11/17 00:00</span> 至 <span>2017/11/22 00:00</span>	
-									</p>
+							<div class="context">
+								<div class="context-title">
+									<span id="date">{{ info.sns_add_time | setSnsTime }}</span>
+									<span id="title">{{ info.sns_name }}</span>
 								</div>
-								<div class="BL-ub BL-ub-f1 section">
-									<p>活动时间：</p>
-									<p class="BL-ub-f1">
-										<span>2017/11/17 00:00</span> 至 <span>2017/11/22 00:00</span>	
-									</p>
+								<div class="context-cont">
+									<div class="BL-ub BL-ub-f1 section">
+										<p>报名时间：</p>
+										<p class="BL-ub-f1">
+											<span>{{ info.sns_application_period.split("|")[0] }}</span> 至 <span>{{ info.sns_application_period.split("|")[1] }}</span>	
+										</p>
+									</div>
+									<div class="BL-ub BL-ub-f1 section">
+										<p>活动时间：</p>
+										<p class="BL-ub-f1">
+											<span>{{ info.sns_time.split("|")[0] }}</span> 至 <span>{{ info.sns_time.split("|")[1] }}</span>		
+										</p>
+									</div>
+									<div class="BL-ub BL-ub-f1 section">
+										<p>地点：</p>
+										<p class="BL-ub-f1">
+											<span>{{ info.address_detail }}</span>	
+										</p>
+									</div>
+									<div class="BL-ub BL-ub-f1 section">
+										<p>限额：</p>
+										<p class="BL-ub-f1">
+											<span id="" class="BL-col-ff8201">{{ info.sns_limit_num }}</span><span>人</span>	
+										</p>
+									</div>
+									<div class="BL-ub BL-ub-ac BL-ub-pj section">
+										<div class="BL-ub BL-ub-ac statu">
+											<div class="statu-icon BL-bimg-full"></div>
+											<span v-if="info.status == 1" :data-status="info.status">活动报名中</span>
+											<span v-if="info.status == 2" :data-status="info.status">活动进行中</span>
+											<span v-if="info.status == 3" :data-status="info.status">活动已结束</span>
+										</div>		
+										<p>
+											<span class="BL-col-ff8201">{{ info.user_total }}</span><span>人已报名</span>
+										</p>
+									</div>
+									<div class="BL-radiu-a_5 tips" v-if="info.sns_tips">
+										{{ info.sns_tips }}	
+									</div>
 								</div>
-								<div class="BL-ub BL-ub-f1 section">
-									<p>地点：</p>
-									<p class="BL-ub-f1">
-										<span>广东省广州市经济技术开发区永顺大道西126号发区永顺大道西126号</span>	
-									</p>
+							</div>
+						</div>
+						
+						<div v-if="info" class="sns-detail-section sns-detail-tab">
+							<div class="BL-ub BL-ub-ac tab-control">
+								<div class="ctrl-menu" :class="{'active': menu==1}">
+									<a @click="menu = 1">详情</a>	
 								</div>
-								<div class="BL-ub BL-ub-f1 section">
-									<p>限额：</p>
-									<p class="BL-ub-f1">
-										<span id="" class="BL-col-ff8201">200</span><span>人</span>	
-									</p>
+								<div class="ctrl-menu" :class="{'active': menu==2}">
+									<a @click="menu = 2">活动剪影</a>	
 								</div>
-								<div class="BL-ub BL-ub-ac BL-ub-pj section">
-									<div class="BL-ub BL-ub-ac statu">
-										<div class="statu-icon BL-bimg-full"></div>
-										<span id="">活动进行中</span>
-									</div>		
-									<p>
-										<span class="BL-col-ff8201">18</span><span>人已报名</span>
-									</p>
+								<div class="ctrl-menu" :class="{'active': menu==3}">
+									<a @click="menu = 3">报名成员</a>	
 								</div>
-								<div class="BL-radiu-a_5 tips">
-									如遇因个人原因已用积分报名但不能来参加活动，积分概不退换！		
+							</div>
+							<div class="tab-content">
+								<div class="content" :class="{'mui-hidden': menu!=1 }">
+									<div v-html="info.sns_content"></div>
 								</div>
+								<div class="content" :class="{'mui-hidden': menu!=2 }">
+									<div v-html="info.sns_silhouette == ''? '<p>暂无数据！</p>':info.sns_silhouette"></div>
+								</div>	
+								<div class="content" :class="{'mui-hidden': menu!=3 }">
+									<span v-for="item in info.sns_join_user_name">
+										{{ item.really_name }}&nbsp;&nbsp;&nbsp;
+									</span>	
+								</div>	
 							</div>
 						</div>
 					</div>
-					
-					<div class="sns-detail-section sns-detail-tab">
-						<div class="BL-ub BL-ub-ac tab-control">
-							<div class="ctrl-menu active">
-								<a>详情</a>	
-							</div>
-							<div class="ctrl-menu">
-								<a>活动剪影</a>	
-							</div>
-							<div class="ctrl-menu">
-								<a>报名成员</a>	
-							</div>
-						</div>
-						<div class="tab-content">
-							<div class="content">
-								<img src="images/pic/p5.jpg" data-preview-src="" data-preview-group="1" />
-								<img src="images/pic/p5.jpg" data-preview-src="" data-preview-group="1" />
-								<img src="images/pic/p5.jpg" data-preview-src="" data-preview-group="1" />
-							</div>	
-							<div class="content mui-hidden">
-							2	
-							</div>	
-							<div class="content mui-hidden">
-							3	
-							</div>	
-						</div>
-					</div>
-
 				</div>
 			</div>
-
+			<footer id="Js-footer" class="BL-footer BL-bg-fff">
+				<div class="BL-ub BL-ub-ac BL-ub-f1">
+					<div v-if="info" class="BL-ub BL-ub-f1 BL-ub-ae BL-foot-integ">
+						<div id="" class="integ-number">
+							{{ info.sns_integral }}
+						</div>
+						<div class="integ-text">
+							活动积分
+						</div>
+					</div>
+					<div v-if="info" class="BL-foot-btn-sign">
+						<span v-if="info.status == 1"  @click="show_sign=true">我要报名</span>
+						<span v-if="info.status == 2">活动进行中</span>
+						<span v-if="info.status == 3">活动已结束</span>
+					</div>
+				</div>
+			</footer>
+			<!-- 报名区域 -->
+			<div class="mui-backdrop" v-show="show_sign" @click.stop="cancel"></div>
+			<div class="BL-modal-sns BL-pad-tb-1_5" v-show="show_sign">
+					<div class="input-item BL-ub BL-ub-ac BL-ub-pc">
+	                    <label>手机号码</label>
+	                    <div class="input-wrap box-f-1">
+	                        <input type="text" placeholder="请输入" v-model="mobile" @change="checkMobile">
+	                    </div>
+	                </div>
+	                <div class="input-item BL-ub BL-ub-ac BL-ub-pc">
+	                	<label>验证码</label>
+	                	<div class="input-wrap box-f-1">
+	                		<input type="text" v-model="code" placeholder="请输入" style="width: 60%;">
+	                		<button class="right-btn orange" id="Js-sms" :disabled="disabled" @click="sendCode">{{ text }}</button>
+	                	</div>
+                	</div>
+	                <div class="input-item BL-ub BL-ub-ac BL-ub-pc">
+	                    <label>报名人数</label>
+	                    <div class="input-wrap box-f-1">
+	                        <input type="text" placeholder="请输入" v-model="num" @change="needScore(num)">
+	                    </div>
+	                </div>
+	                <div class="input-item BL-ub BL-ub-ac BL-ub-pc">
+	                    <label>所需积分</label>
+	                    <div class="input-wrap box-f-1">
+	                        <input type="text" v-model="need_score" disabled="disabled">
+	                    </div>
+	                </div>
+	                <div class="input-item BL-ub BL-ub-ac BL-ub-pc">
+	                	<label></label>
+	                	<div class="input-wrap box-f-1">
+		                	<button class="sns-btn blue" @click="sure">确定</button>
+		                	<button class="sns-btn grey BL-mar-l-1" @click="cancel">取消</button>
+	                	</div>
+	                </div>
+	            </div>
 		</div>
-
-		<footer id="Js-footer" class="BL-footer BL-bg-fff">
-			<div class="BL-ub BL-ub-ac BL-ub-f1">
-				<div id="" class="BL-ub BL-ub-f1 BL-ub-ae BL-foot-integ">
-					<div id="" class="integ-number">
-						280
-					</div>
-					<div class="integ-text">
-						活动积分
-					</div>
-				</div>
-				<div id="" class="BL-foot-btn-sign">
-					我要报名
-				</div>
-			</div>
-		</footer>
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
-	<script type="text/javascript" src="js/mui.zoom.js" ></script>
-	<script type="text/javascript" src="js/mui.previewimage.js" ></script>
+	<script src="js/interval-dtpicker.js" type="text/javascript"></script>
+	<script src="js/mui.pullToRefresh.js"></script>
+	<script src="js/mui.pullToRefresh.material.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/Date.js"></script>
 	<script type="text/javascript">
 		mui.init();
+		var sns = new Vue({
+			el: '#Js-sns',
+			data: {
+				info: null,
+				menu: 1,
+				mobile: '',
+				need_score: '',
+				num: '',
+				code: '',
+				show_sign: false,
+				disabled: false,
+            	second: 60,
+            	time: 0,
+            	timeHH:''
+			},
+			computed: {
+		      text() {
+		        return this.time > 0 ? this.time + 's' : '获取验证码'
+		      }
+		    },
+			methods: {
+				sure: function() {
+					if(!sns.checkMobile()) {
+						return false
+					} else if (sns.code == '') {
+						mui.toast('请输入验证码', {duration: 'short', type: 'div'});
+	                    return false;
+					} else if (!sns.checkNum()) {
+						return false
+					}
+					
+					luckyAjax({
+	                    data: {
+				            server: 'Sns.save',
+				            data: JSON.stringify({
+				            	sns_id: sns.info.sns_id,
+								mobile: sns.mobile,
+	                    		code: sns.code,
+	                    		num: sns.num,
+	                    		money: sns.need_score
+							})
+				        },
+	                    success: function (data) {
+	                        if (data.code == 1) {
+	                            mui.toast('报名成功', {duration: 'short', type: 'div'})
+	                            sns.show_sign = false
+	                            plus.webview.currentWebview().reload()
+	                        } else {
+	                            mui.toast(data.msg, {duration: 'short', type: 'div'})
+	                            return false;
+	                        }
+	                    }
+	                });
+	                
+				},
+				cancel: function() {
+					let vm = this
+					vm.show_sign = false
+				},
+				checkMobile: function() {
+					var mobile = sns.mobile
+	                if (!mobile.trim()) {
+	                    mui.toast('请输入手机号', {duration: 'short', type: 'div'});
+	                    return false;
+	                } else if (!/^1[3|4|5|6|7|8][0-9]{9}$/.test(mobile)) {
+	                    mui.toast('手机号格式不正确', {duration: 'short', type: 'div'});
+	                    return false;
+	                }
+	                return true
+				},
+				checkNum: function() {
+					var num = sns.num
+					if (!num) {
+						mui.toast('请输入报名人数', {duration: 'short', type: 'div'});
+	                    return false;
+					} else if (!/^[1-9][0-9]*$/.test(num)) {
+	                    mui.toast('报名人数输入不正确', {duration: 'short', type: 'div'});
+	                    return false;
+	                }
+					return true
+				},
+				needScore: function(val) {
+					if(!this.checkNum()){
+	                	return false
+	                }
+					if (this.info.sns_integral_serialize && this.info.sns_integral_serialize[val] != undefined) {
+				  		this.need_score = this.info.sns_integral_serialize[val]
+					} else {
+					  this.need_score = val * this.info.sns_integral
+					}
+				},
+				//发送验证码
+	            sendCode: function () {
+	            	let vm = this
+	            	
+	            	if(!vm.checkMobile()) {
+	            		return false
+	            	}
+//	            	vm.disabled = true
+//	                vm.sended()
+	                luckyAjax({
+	                    data: {
+				            server: 'user.sendSms',
+				            data: JSON.stringify({
+								tel: sns.mobile,
+	                    		channel_id: 2
+							})
+				        },
+	                    success: function (data) {
+	                        if (data.code === 1) {
+	                            vm.disabled = true
+	                			vm.sended()
+	                            mui.toast(data.msg, {duration: 'short', type: 'div'})
+	                        } else {
+	                            mui.toast(data.msg, {duration: 'short', type: 'div'})
+	                            return false;
+	                        }
+	                    }
+	                });
+	            },
+	            run: function () {
+			        this.time = this.second
+			        this.timer()
+			    },
+	            sended: function () {
+			        this.run()
+			        this.disabled = true
+			    },
+	            timer: function () {
+			        if (this.time > 0) {
+			          this.time--
+			          this.timeHH = setTimeout(() => {
+			            this.timer()
+			          }, 1000)
+			        } else {
+			          this.disabled = false
+			        }
+			    },
+			}
+		});
 		
-		//非plus环境
-		if(!mui.os.plus) {
-			mui.previewImage(); // H5 非原生图片预览		
-		}
-		
+		//Vue过滤器
+        Vue.filter('setSnsTime', function(timestamp) {
+        	var time = new Date(timestamp*1000)   // 时间戳转成日期
+	        var timeFormat = time.Format('yyyy-MM-dd')
+	        return timeFormat
+        });
+        
 		mui('.mui-scroll-wrapper').scroll({
 			scrollY: true, //是否竖向滚动
 			scrollX: false, //是否横向滚动
@@ -148,23 +329,26 @@
 			var winH = window.innerHeight;
 			var titHeight = document.querySelector('#Js-header').offsetHeight;
 			var fotHeight = document.querySelector('#Js-footer').offsetHeight;
-			document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
+			document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
 			
-		    var images = [].slice.call(document.querySelectorAll('.content img'));
-		    var urls = [];
-		    images.forEach(function(item) {
-		    	urls.push(item.src);
-		    });
-		    mui('.content').on('tap', 'img', function() {
-		        var index = images.indexOf(this);
-		        plus.nativeUI.previewImage(urls, {
-		          current: index,
-		          loop: false, //默认不支持轮播
-		          indicator: 'number'
-		        });
-		    });
-			//console.log("当前页面URL："+plus.webview.currentWebview().getURL());
+			var sns_id = plus.webview.currentWebview().sns_id;
+			
+			// 获取sns详情
+			luckyAjax({
+				data: {
+		            server: 'Sns.getSnsInfo',
+		            data: JSON.stringify({
+						sns_id: sns_id
+					})
+		        },
+		        success: function (ret) {
+					if (ret.code == 1) {
+						sns.info = ret.data
+					} else {
+	                	mui.toast(ret.msg, {duration: 'short', type: 'div'})
+	                }
+				}
+			});
 		});
 	</script>
-
 </html>

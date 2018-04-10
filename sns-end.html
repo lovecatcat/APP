@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+	    <title>SNS活动</title>
+	    <link href="css/mui.css" rel="stylesheet"/>
+	    <link href="css/common.css" rel="stylesheet"/>
+	    <link href="css/module.css" rel="stylesheet"/>
+	    <link href="css/sns.css" rel="stylesheet"/>
+	    <script src="js/config.js" type="text/javascript"></script>
+	</head>
+	<body class="BL-bg-f2f">
+		<div id="Js-content" class="mui-content BL-rel">
+			<div class="mui-content mui-scroll-wrapper BL-bg-fff">
+				<div class="mui-scroll">
+					<!--活动中，数据列表-->
+	                <ul class="mui-table-view sns-acting-cell">
+	                    <li v-for="item in list" class="cItem BL-pad-a1">
+	                        <a :data-id="item.sns_id" data-wid="sns_detail" href="sns-detail.html" class="BL-ub BL-ub-f1">
+	                            <div class="img">
+	                                <img :src="item.sns_pic"/>
+	                            </div>
+	                            <div class="context BL-ub BL-ub-ver BL-ub-f1">
+	                                <h1 class="tit">{{ item.sns_name }}</h1>
+	                                <div class="date BL-ub BL-ub-ac">
+	                                    <span class="tit-name">时间 ：</span>
+	                                    <span class="tit-text">{{ item.sns_add_time | setSnsTime }}</span>
+	                                </div>
+	                                <div class="place BL-ub BL-ub-ac">
+	                                    <span class="tit-name">地点 ：</span>
+	                                    <span class="tit-text">{{ item.address_detail }}</span>
+	                                </div>
+	                                <div class="state BL-ub BL-ub-ac">
+	                                    <span class="tit-name" v-if="item.status == 1">报名中</span>
+	                                    <span class="tit-name" v-if="item.status == 2">进行中</span>
+	                                    <span class="tit-name" v-if="item.status == 3">已结束</span>
+	                                    <span class="tit-text">
+                                            <b>&nbsp;{{ item.user_total == ''? '0': item.user_total}}</b>人已报名
+                                        </span>
+	                                </div>
+	                            </div>
+	                        </a>
+	                    </li>
+	                </ul>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/interval-dtpicker.js" type="text/javascript"></script>
+	<script src="js/mui.pullToRefresh.js"></script>
+	<script src="js/mui.pullToRefresh.material.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/Date.js"></script>
+	<script type="text/javascript">
+		mui.init();
+		var sns = new Vue({
+			el: '#Js-content',
+			data: {
+				list: [],
+				row: 10
+			}
+		});
+	    //Vue过滤器
+        Vue.filter('setSnsTime', function(timestamp) {
+        	var time = new Date(timestamp*1000)   // 时间戳转成日期
+	        var timeFormat = time.Format('yyyy-MM-dd')
+	        return timeFormat
+        });
+        
+	    
+		(function($){
+			//阻尼系数
+			var deceleration = mui.os.ios ? 0.003 : 0.0009;
+			$('#Js-content .mui-scroll-wrapper').scroll({
+				bounce: true,
+				indicators: false, //是否显示滚动条
+				deceleration: deceleration
+			});
+			$.plusReady(function() {
+				var winH = window.innerHeight;
+				document.querySelector('#Js-content').style.height = winH + 'px';
+				
+				var self;
+				var i = 0;
+				
+				//循环初始化和上拉加载。
+				/**
+			     * 获取活动回顾列表
+			     */
+			    var getSnsList = function () {
+					i++
+					luckyAjax({
+						data: {
+				            server: 'Sns.getSnsList',
+				            data: JSON.stringify({
+				            	status: 3,
+				            	page: i,
+				            	row: sns.row
+							}),
+				        },
+				        success: function (ret) {
+							if (ret.code == 1) {
+								var data = ret.data
+								if(i == 1 && data.count == data.list.length) {
+									sns.list = data.list
+									self.endPullUpToRefresh(true)
+								} else if(i == 1 && data.count > data.list.length) {
+									sns.list = data.list
+									self.endPullUpToRefresh(false)
+								} else if(data.count > data.list.length && i <= data.totalPage) {
+									sns.list = sns.list.concat(data.list)
+									self.endPullUpToRefresh(false)
+								} else {
+									self.endPullUpToRefresh(true)
+								}
+							} else {
+								mui.toast(ret.msg, {duration: 'short', type: 'div'})
+							}
+						},
+					});
+				};
+			    
+			    $('#Js-content .mui-scroll').pullToRefresh({
+					up: { // 上拉加载更多
+						auto: true, // 自动上拉一次
+						contentrefresh: '正在加载...',
+        				contentnomore:'没有更多数据了',// 可选，请求完毕若没有更多数据时显示的提醒内容；
+						callback: function() {
+							self = this
+							getSnsList()
+						}
+					}
+				});
+				
+				mui('.mui-table-view').on('tap', 'a', function(e) {
+					var href = this.getAttribute('href');
+			        var id = this.getAttribute("data-wid");
+				  	var data_id = this.getAttribute('data-id');
+			       
+			        //打开新窗口
+			        mui.openWindow({
+			            url: href,
+			            id: id,
+			            show: animateObj.aniDetal,
+			            extras:{
+							sns_id: data_id  //扩展参数
+						}
+			        });
+				});
+			});	
+		}(mui));
+</script>
+</html>

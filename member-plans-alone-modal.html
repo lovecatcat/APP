@@ -31,6 +31,7 @@
 			data: {
 				isHide: '', //要弹哪个框
 				formID: '', //要谈哪个险种详情
+				title: '', //标题
 				html: ''
 			}
 		})
@@ -42,24 +43,25 @@
 			var data = plus.webview.currentWebview().data;
 			modal.isHide = data.modalID
 			modal.formID = data.formID
-			
-			mui.ajax(config.baseUrl, {
+			modal.title = data.id
+			luckyAjax({
 				data: {
+					server: 'lifeProduct.getProductDescribe',
+					device: 'mobile',
 					data: JSON.stringify({
 						product_id: modal.formID
-					}),
-					server: 'lifeProduct.getProductDescribe',
-					device: 'mobile'
+					})
 				},
-				dataType: 'json',
-				type: 'post',
-				success: function (ret) {
-					if (ret.code == 1) {
-						modal.html = ret.data.LBG0006.describe
+				success: function(res) {
+					if (res.code == 1) {
+						mui.each(res.data, function(index, item){
+							if(item.type_name == modal.title){
+								modal.html = item.describe
+							}
+						})
+					}else {
+						mui.toast('加载失败')
 					}
-				},
-				error: function () {
-					plus.nativeUI.toast('网络异常：102')
 				}
 			});
 

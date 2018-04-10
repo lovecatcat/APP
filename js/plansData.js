@@ -5,6 +5,7 @@
 	var clause_data = []; //条框数据
 	var totalMoney = 0; //总保费
 	var describes = null; //保险利益
+	var hd = [272, 276, 340, 348, 370];
 	var groupList = function(data, pl_id) {
 
 		var content = data;
@@ -22,6 +23,7 @@
 		mui.each(describes, function(index, item) {
 			listMain[item.title] = main.list[1][index]
 		})
+//		alert(JSON.stringify(listMain))
 		if(parent_id == 349) {
 			safe_year = '至100周岁'
 		} else if(parent_id == 16197) {
@@ -62,12 +64,10 @@
 			} else {
 				base_money = '计划三'
 			}
-		} else if(parent_id == 349) {
+		} else if(parent_id == 347 || parent_id == 301 || parent_id == 348|| parent_id == 370) {
 			base_money = listMain["保险金额"];
 		} else if(parent_id == 360) {
 			base_money = listMain["保额"];
-		} else if(parent_id == 301) {
-			base_money = listMain["保险金额"];
 		} else if(parent_id == 337) { //复星乐健一生住院保险
 			var fxflag = '';
 			if(content.flag.slice(0, 1) === 'B') {
@@ -97,7 +97,8 @@
 			clause_data = [];
 			goIns_data.push({
 				name: main.name,
-				genre: content.genre
+				genre: content.genre,
+				istrue: hd.indexOf(Number(content.genre)) > -1 ? true : false
 			});
 			clause_data.push({
 				name: main.name,
@@ -117,7 +118,8 @@
 			};
 			goIns_data.push({
 				name: main.name,
-				genre: content.genre
+				genre: content.genre,
+				istrue: hd.indexOf(Number(content.genre)) > -1 ? true : false
 			});
 		}
 
@@ -127,12 +129,20 @@
 			plansDataList.childrenList = [];
 			mui.each(children, function(index, tml) {
 				if(tml) {
-
+					if(!pl_id && ['377', '373', '367'].indexOf(index) > 0) {
+//						只有附加险有这个3个才有中高低
+						//348的中高低是福享今生主险自带
+						aloneDetail.haveLevel = true
+					}else if(!pl_id && index == '16198'){
+						//工银鑫丰盈只有在有附加年金才有资金规划
+						aloneDetail.haveDesign16197 = true
+					}
 					var list = {}
 					var describes2 = tml.describes
 					mui.each(describes2, function(index, item) {
 						list[item.title] = tml.list[1][index]
 					})
+//					alert(JSON.stringify(list))
 					var children_base_money,
 						children_safe_year = 1,
 						children_pay_year = 1,
@@ -141,6 +151,8 @@
 					if(list) {
 						children_year_fee = list["年缴保费"]
 					}
+				
+					
 					switch(index) {
 						// 信泰
 						case '341': //信泰附加投保人豁免保险费重大疾病保险
@@ -152,6 +164,11 @@
 							children_base_money = base_money;
 							children_safe_year = tml.flag + '岁';
 							children_pay_year = content.pay_year;
+							break;
+						case '367': //金掌柜年金保险（万能型）
+							children_base_money = '—';
+							children_safe_year = '终身';
+							children_year_fee = list["累计保费"];
 							break;
 							//复星
 						case '344': //复星联合乐健一生门急诊保险

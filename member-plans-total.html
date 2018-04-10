@@ -68,7 +68,7 @@
 					</div>
 					<ul class="BL-ul BL-col-999 BL-ftz-42">
 						<li>
-							<span>保险金额{{child.genre}}</span>
+							<span>保险金额</span>
 							<span>保险期间</span>
 							<span>缴费年限</span>
 							<span>首年保费</span>
@@ -227,7 +227,6 @@
 				//在线投保按钮
 				document.querySelector('#goIns').addEventListener('tap', function() {
 					//打开弹框
-									
 					mui.fire(parent_self, 'show', {
 						formID: 'member_plans_total',
 						goIns_data: plansTotal.goIns_data

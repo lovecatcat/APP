@@ -94,7 +94,7 @@
                     	<div class="title BL-ftz-52">
                     		<em></em>
                     		<span>{{item.title}}</span>
-                    		<button class="BL-btn-white BL-ftz-42 BL-mar-l-1" v-if="item.isEntity == 1" @click="detail">明细</button>
+                    		<button class="BL-btn-white BL-ftz-42 BL-mar-l-1" v-if="item.isEntity == 1" @click="detail(item.title)">明细</button>
                     	</div>
                         <div class="content BL-pad-l-1">
                             <div class="BL-ftz-46">
@@ -114,15 +114,15 @@
 				</div>
 				<!--产品图片-->
 				<!--资金规划-->
-				<div class="plans-detail-box BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff" >
+				<div class="plans-detail-box BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff" v-if="haveDesign.indexOf(Number(list.genre)) > -1 || haveDesign16197">
 					<!--v-if="list.genre == '19385' || list.genre == '377' || list.genre == '404'"-->
 					<div class="BL-title">资金规划</div>
-					<div class="plans-detail-design-button BL-mar-b-2 BL-ub BL-ub-pc" v-if="level.indexOf(Number(list.genre)) > -1 ">
+					<div class="plans-detail-design-button BL-mar-b-2 BL-ub BL-ub-pc" v-if="haveLevel || list.genre == 348">
 						<button type="button" class="BL-ftz-42 BL-mar-l-1 BL-pad-lr-2" :class="{'BL-btn-blue': levelNum === 'min', 'BL-btn-gray': levelNum !== 'min'}"  @click="changeLevel('min')">低档 </button>
 						<button type="button" class="BL-ftz-42 BL-mar-l-1 BL-pad-lr-2" :class="{'BL-btn-blue': levelNum === 'mid', 'BL-btn-gray': levelNum !== 'mid'}"  @click="changeLevel('mid')">中档 </button>
 						<button type="button" class="BL-ftz-42 BL-mar-l-1 BL-pad-lr-2" :class="{'BL-btn-blue': levelNum === 'max', 'BL-btn-gray': levelNum !== 'max'}"  @click="changeLevel('max')">高档 </button>
 					</div>
-					<div v-if="manual_content && manual_content[levelNum]">
+					<div v-if="manual_content && manual_content[levelNum] && manual_content[levelNum].length > 0 && list.genre != 348">
 						<div class="plans-detail-design BL-ub BL-pad-t-1" v-for="(item, index) in manual_content[levelNum]">
 							<img :src="item.imgUrl" class="BL-ub-f3">
 							<div class="BL-ub-f3 BL-pad-l-1">
@@ -133,9 +133,9 @@
 							<i class="BL-icon" @click="designDel(index)"></i>
 						</div>
 					</div>
-					<div class="BL-txt-c BL-ftz-42" v-else>未添加资金规划</div>
+					<div class="BL-txt-c BL-ftz-42" v-else-if="list.genre != 348">未添加资金规划</div>
 					
-					<div class="BL-txt-r BL-pad-t-1 plans-detail-design-button">
+					<div class="BL-txt-r BL-pad-t-1 plans-detail-design-button" v-if="list.genre !== 348">
 						<button class="BL-btn-white BL-ftz-42 BL-mar-l-1 BL-pad-lr-1" @click="design(list.genre)">+添加规划</button>
 						<button class="BL-btn-blue BL-ftz-42 BL-mar-l-1 BL-pad-lr-1" @click="designSave(list.genre)">保存</button>
 					</div>

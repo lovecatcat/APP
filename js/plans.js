@@ -20,8 +20,9 @@ var aloneDetail = new Vue({
 		al: [309],
 		fx: [335, 336, 337],
 		behalfTable: [256, 347, 352, 354, 370, 16197, 16201], //主险利益演示表和附加险有关系的
-		haveDesign: [354, 16197, 348, 370],
-		haveLevel: [370, 348, 347], //有中高低的
+		haveDesign: [354, 348, 370, 347],
+		haveDesign16197: false,
+		haveLevel: false, //有中高低的
 		levelNum: 'mid',
 		manual_content: {},
 		plansText: {}, //文案
@@ -32,7 +33,8 @@ var aloneDetail = new Vue({
 		detail: function(id) {
 			var data = {
 				modalID: 'modal-bottom',
-				formID: this.list.genre
+				formID: this.list.genre,
+				id: id
 			}
 			//打开弹框
 			showPopu("member-plans-alone-modal.html", "member_plans_alone_modal", 'bottom', data);
@@ -69,6 +71,7 @@ var aloneDetail = new Vue({
 				pay_year: this.list.pay_year,
 				year_fee: this.list.year_fee,
 			}
+			var design = this.manual_content[this.levelNum]
 			// 判断是不是需要附加险，是传全部，不是只传主险
 			if(this.behalfTable.indexOf(Number(id)) > -1) {
 				list = this.list
@@ -82,7 +85,8 @@ var aloneDetail = new Vue({
 				pay_year: aloneDetail.list.pay_year,
 				safe_year: aloneDetail.list.safe_year,
 				levelNum: this.levelNum,
-				manData: manData
+				manData: manData,
+				design: design
 			}
 			//打开弹框
 			showPopu("member-plans-alone-table.html", "member_plans_alone_table", 'bottom', data);
@@ -135,11 +139,9 @@ var aloneDetail = new Vue({
 			var arr = []
 			for(var i = 0; i < this.manual_content[this.levelNum].length; i++) {
 				if(index !== i) {
-					alert(222)
 					arr.push(this.manual_content[this.levelNum][i])
 				}
 			}
-			alert(JSON.stringify(arr))
 			this.manual_content[this.levelNum] = arr
 		}
 	}
@@ -163,10 +165,8 @@ var aloneDetail = new Vue({
 			aloneDetail.adviser = event.detail.adviser
 			aloneDetail.pl_id = event.detail.pl_id
 			groupList(data)
-			
-//			aloneDetail.plansText = plans
-			//				alert(aloneDetail.pl_id)
-			if(aloneDetail.haveLevel.indexOf(Number(aloneDetail.list.genre)) > -1) {
+			//规划
+			if(aloneDetail.haveDesign.indexOf(Number(aloneDetail.list.genre)) > -1) {
 				luckyAjax({
 					data: {
 						server: 'Proposal.getSingleProposal',
@@ -178,7 +178,7 @@ var aloneDetail = new Vue({
 					},
 					success: function(res) {
 						if(res.code == 1) {
-							aloneDetail.manual_content = res.data.manual_content
+							aloneDetail.manual_content = res.data.manual_content ? res.data.manual_content : aloneDetail.manual_content
 						} else {
 							mui.toast(res.msg)
 						}
@@ -214,7 +214,7 @@ var aloneDetail = new Vue({
 				},
 				success: function(res) {
 					if(res.code == 1) {
-						aloneDetail.imageDescribe = res.data['LBG0009'].describe
+						aloneDetail.imageDescribe = res.data['LBG0009'].describe || res.data['LBG0002'].describe
 					} else {
 						mui.toast('加载失败')
 					}
@@ -223,7 +223,9 @@ var aloneDetail = new Vue({
 		});
 		window.addEventListener('design', function(event) {
 			var data = event.detail.data
+//			aloneDetail.manual_content[aloneDetail.levelNum] = []
 			aloneDetail.manual_content[aloneDetail.levelNum].push(data)
+			aloneDetail.$forceUpdate()
 		});
 
 		//在线投保按钮

@@ -1,4 +1,4 @@
-/** 
+BL-modal-icon-0/** 
  *************
  ** 模块样式(BL-mod)  **
  ************* 
@@ -564,12 +564,19 @@
 	top: 50%;
 	left: 0;
 	transform: translate(0%, -50%);
+	background-size:cover ;
 }
 .BL-modal-icon-0 {
 	background: url(../images/icon/plan_link.jpg) no-repeat;
 }
 .BL-modal-icon-1 {
 	background: url(../images/icon/plan_link2.jpg) no-repeat;
+}
+.BL-modal-icon-2 {
+	background: url(../images/icon/ico-duty-hswifi.png) no-repeat;
+}
+.BL-modal-icon-3 {
+	background: url(../images/icon/ico-duty-nowifi.png) no-repeat;
 }
 /*雨晴表格弹框*/
 .BL-modal-tab {

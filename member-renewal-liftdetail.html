@@ -36,9 +36,9 @@
 				    				<span class="mui-col-sm-9">
 					    				保单号：{{ policyInfo.policy_sn }}
 					    			</span>
-					    			<span class="mui-col-sm-3 BL-txt-r">
+					    			<a class="mui-col-sm-3 BL-txt-r" @click="Detail">
 					    				查看保单
-					    			</span>	
+					    			</a>	
 				    			</div>
 			    			</div>
 			    		</div>
@@ -103,6 +103,7 @@
 							<div class="form-list-control BL-txt-r BL-col-3b9cf5">{{ policyInfo.company_tel}}</div>
 						</li>
 					</ul>
+					<p class="BL-pad-lr-1_5 BL-pad-tb-1 BL-ftz-46 BL-col-999">*若您申请过保单变更，以保险公司出具的信息为准。</p>
 				</template>
 			</div>
 		</div>
@@ -117,6 +118,19 @@
 		data: {
 			policy_id: '',   // 保单id
 			policyInfo: null //保单信息
+		},
+		methods: {
+			Detail: function() {
+				var id = this.policy_id;
+				mui.openWindow({
+					id: 'member_warranty_manageLife_detail',
+					url: 'member-warranty-manageLife-detail.html',
+					show: animateObj.aniDetal,
+					extras:{
+						policy_id: id  //扩展参数
+					}
+				});
+			}
 		}
 	});
 	
@@ -140,7 +154,7 @@
 			var policy_id = e.detail.policy_id;
 			lifeDetail.policy_id = policy_id
 			renewalPolicyDetails()
-		});
+		});	
     });
     
     function renewalPolicyDetails(){

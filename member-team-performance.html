@@ -36,8 +36,8 @@
 					<table width="100%" class="member-team-tab"> 
 						<thead>
 							<tr>
-								<th width="20%"></th>
-								<th width="15%">承保件数</th>
+								<th width="18%"></th>
+								<th width="17%">承保件数</th>
 								<th width="25%">承保标保</th>
 								<th width="20%">出单人数</th>
 								<th width="20%">操作</th>
@@ -45,7 +45,7 @@
 						</thead>
 						<tbody>
 							<tr v-for="(item,index) in policy" :key="index">
-                                <td>{{ item.name }}</td>
+                                <td>{{ item.rank_name }}</td>
                                 <td>{{ item.count }}</td>
                                 <td>{{ item.money==""?'0': item.money }}</td>
                                 <td>{{ item.people_num == null? "-" : item.people_num }}</td>
@@ -56,7 +56,7 @@
 				</div>
 			</div>
 			<div id="Js-teamRole" class="member-team-search BL-ub BL-ub-ac BL-ub-f1 BL-bg-fff" style="border-bottom: 1px solid #C7C7CC;">
-				<div class="search-role BL-rel">
+				<div class="search-role BL-rel" style="width: 13rem;">
 					<div class="BL-pad-lr-1" id="rank_search">{{rank_txt.text}}</div>
 					<div class="down BL-abs" style="right: 0rem; top: 1rem">
 						<span class="BL-bimg-contain search-down"></span>
@@ -105,14 +105,7 @@
 			el: '#Js-content',
 			data: {
 				flag: 1,  // 1:表示调用getScore接口，2:表示调用getTempList接口
-				policy: [
-					{"count": 0,"people_num": 0,"money": 0,"name": "本人","details": []},
-                    {"count": 0,"people_num": 0,"money": 0,"name": "事务所合伙人","details": []},
-                    {"count": 0,"people_num": 0,"money":0,"name": "高级合伙人","details":[]},
-                    {"count": 0,"people_num": 0,"money":0,"name": "合伙人","details":[]},
-                    {"count": 0,"people_num": 0,"money":0,"name": "顾问","details":[]},
-                    {"count": 0,"people_num": 0,"money":0,"name": "会员","details":[]}
-				],
+				policy: null,
 				policy_detail: null,
 				rank_list: null,
 				page: 1,
@@ -241,10 +234,9 @@
 			                    } else {
 			                    	team.person = team.person.concat(ret.data.person.list)
 			                    }
-			                    
 			                    $.each(ret.data.rank_list, function(index, item) {
 									team.rank.push({
-										value: item.rank_id,
+										value: item.id,
 										text: item.rank_name
 									})
 								});
@@ -294,13 +286,16 @@
 				var parent_self = plus.webview.getWebviewById('member_team')
 				// 详情查看事件
 				mui('.member-team-tab').on('tap','.item_check', function(e){
-					var data
 					var dataTeam = e.target.getAttribute('data-json')
-					// 调用弹出框
-					mui.fire(parent_self,'show', {
-						formID : 'member_team_performance',
-						goIns_data: JSON.parse(dataTeam)
-					});
+					if (JSON.parse(dataTeam).details.length!=0) {
+						// 调用弹出框
+						mui.fire(parent_self,'show', {
+							formID : 'member_team_performance',
+							goIns_data: JSON.parse(dataTeam)
+						});
+					} else {
+						mui.toast('暂无数据可查看', {duration: 'short', type: 'div'})
+					}
 				});
 				
 				

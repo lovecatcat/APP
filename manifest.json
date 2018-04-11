@@ -441,7 +441,8 @@
 				"refer": [
 					"product-detail.html",
 					"product-contrast.html",
-					"quickly-filter.html"
+					"quickly-filter.html",
+					"prospect-product.html"
 				],
 				"priority": 0
 			},
@@ -732,7 +733,8 @@
 					"js/config.js",
 					"js/vue.min.js",
 					"images/icon/member-post.png",
-					"images/icon/member-zhanyejia.png"
+					"images/icon/member-zhanyejia.png",
+					"images/icon/avatar-default.png"
 				],
 				"refer": [
 					"member-commission-account.html",
@@ -1973,7 +1975,13 @@
 					"images/plans/plansManage/301.png",
 					"images/plans/plansManage/256.png",
 					"images/plans/plansManage/74.png",
-					"images/plans/plansManage/209.png"
+					"images/plans/plansManage/209.png",
+					"images/plans/plansManage/276.png",
+					"images/plans/plansManage/335.png",
+					"images/plans/plansManage/155.png",
+					"images/plans/plansManage/16203.png",
+					"images/plans/plansManage/334.png",
+					"images/plans/plansManage/272.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -2100,7 +2108,9 @@
 					"images/icon/ico-pwdeye2.png",
 					"css/mui.css"
 				],
-				"refer": [],
+				"refer": [
+					"member-forgetpwd.html"
+				],
 				"priority": 0
 			},
 			"member-renewal-auto.html": {
@@ -2115,9 +2125,13 @@
 				"resources": [
 					"css/form.css",
 					"css/mui.picker.min.css",
-					"css/mui.css"
+					"css/mui.css",
+					"images/member/renewal-detail.png",
+					"images/pic/inscompany_logo.png"
 				],
-				"refer": [],
+				"refer": [
+					"member-warranty-manageLife-detail.html"
+				],
 				"priority": 0
 			},
 			"member-renewal.html": {
@@ -2125,7 +2139,9 @@
 					"js/webviewGroup.js",
 					"images/icon/ico-share.png",
 					"css/mui.css",
-					"member-renewal-life.html"
+					"member-renewal-life.html",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [
 					"member-renewal-auto.html"
@@ -2235,7 +2251,9 @@
 					"css/member.css",
 					"css/mui.css"
 				],
-				"refer": [],
+				"refer": [
+					"member-warranty-manageLife-detail.html"
+				],
 				"priority": 0
 			},
 			"member-commission-salarydetail.html": {
@@ -2313,7 +2331,8 @@
 					"images/icon/ico-down.png",
 					"css/mui.css",
 					"css/insurance.css",
-					"css/mui.picker.min.css"
+					"css/mui.picker.min.css",
+					"js/mui.poppicker.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2325,7 +2344,8 @@
 					"css/mui.css",
 					"images/icon/ico-down.png",
 					"js/IDValidator.min.js",
-					"js/mui.poppicker.js"
+					"js/mui.poppicker.js",
+					"js/city.data-3.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2334,9 +2354,15 @@
 				"resources": [
 					"css/mui.css",
 					"css/insurance.css",
-					"css/mui.picker.min.css"
+					"css/mui.picker.min.css",
+					"js/IDValidator.min.js",
+					"js/mui.poppicker.js",
+					"images/icon/ico-down.png",
+					"js/city.data-3.js"
 				],
-				"refer": [],
+				"refer": [
+					"communic.html"
+				],
 				"priority": 0
 			},
 			"hd_ins/insurance-upload.html": {
@@ -2370,7 +2396,8 @@
 					"css/mui.css",
 					"js/IDValidator.min.js",
 					"js/mui.poppicker.js",
-					"images/icon/ico-down.png"
+					"images/icon/ico-down.png",
+					"js/mui.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2491,7 +2518,8 @@
 			"member-commission-result.html": {
 				"resources": [
 					"images/icon/ico-cmis-success.png",
-					"css/mui.css"
+					"css/mui.css",
+					"css/form.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -2508,7 +2536,11 @@
 			"recruit.html": {
 				"resources": [
 					"css/member.css",
-					"css/mui.css"
+					"css/mui.css",
+					"images/member/req-tap.png",
+					"images/member/req-banner.jpg",
+					"images/member/req-title.png",
+					"images/member/req-hm.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -2554,6 +2586,31 @@
 				"refer": [
 					"sns-detail.html"
 				],
+				"priority": 0
+			},
+			"prospect-product.html": {
+				"resources": [
+					"css/mui.css",
+					"css/plans.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-warranty-manageLife-detail.html": {
+				"resources": [
+					"css/mui.picker.min.css",
+					"css/member.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-forgetpwd.html": {
+				"resources": [
+					"css/mui.css",
+					"css/form.css"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

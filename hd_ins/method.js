@@ -67,7 +67,7 @@ var applicant = {
     holder_contact_province_name: '重庆',//通讯地址【省】名称
     holder_contact_city_name: '万州',//通讯地址【市】名称
     holder_contact_district_name: '',//通讯地址【区】名称
-    holder_contact_address: '哈哈哈哈哈哈或', //通讯地址【地址详情】
+    holder_contact_address: '哈哈哈哈哈哈或分隔符付付付付付', //通讯地址【地址详情】
     holder_contact_zip: '404000',//通讯地址【邮编】
 
     holder_has_SSID: no_social_security,//是否有社保
@@ -101,7 +101,7 @@ var assured = {
     insured_home_city: '323',//现在住址【市】
     insured_home_district: '2237',//现在住址【区】
     insured_home_district_name: '南山',//现在住址【区】名称
-    insured_home_address: '分隔符付付付付付', //现在住址【地址详情】
+    insured_home_address: '分隔符付付付付付分隔符付付付付付', //现在住址【地址详情】
     insured_home_zip: '518051',//现在住址【邮编】
 
     insured_has_SSID: false,//是否有社保
@@ -116,7 +116,7 @@ var beneficiary = {
     ID_type: BOOKLET,//证件类型
     ID_no: '542221201705081201',//证件号码
     ID_expire_end: '9999-12-31',//证件有效期
-    gender: MALE,//性别
+    gender: FEMALE,//性别
     birthday: '2017-05-08',//出生日期
     sort_order: 1,//受益顺序
     rate: '100',//受益比例
@@ -125,7 +125,7 @@ var beneficiary = {
     province: '20',
     city: '323',
     district: '2237',
-    address: '手动发发的发',//详细地址,
+    address: '手动发发的发手动发发的发手动',//详细地址,
     zip: '518051'//邮编
 }
 //
@@ -134,7 +134,6 @@ var beneficiary = {
 var IDValidate = function (type, id, owner) {
     var Validator = new IDValidator();
     var toast_text = null;
-    console.log(id);
     if (!type) {
         toast_text = owner + '证件类型不能为空';
     } else if (!id) {
@@ -179,7 +178,6 @@ var IDValidate = function (type, id, owner) {
 };
 //计算年龄
 var getAge = function (str) {
-    console.log(str)
     if (!str) return;
     var now = new Date();
     var year = now.getFullYear();
@@ -196,7 +194,7 @@ var getAge = function (str) {
 };
 // 校验手机号
 var checkPhone = function (owner, phone) {
-    console.log('手机校验' + owner + phone);
+    // console.log('手机校验' + owner + phone);
     var toast_text = null;
     if (!phone) {
         toast_text = owner + '手机号码不能为空';
@@ -215,7 +213,7 @@ var checkPhone = function (owner, phone) {
 };
 
 var checkEmail = function (owner, email) {
-    console.log(owner + email);
+    // console.log(owner + email);
     const reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
     var toast_text = null;
     if (!email) {
@@ -241,7 +239,7 @@ var checkName = function (owner, name) {
             }
         }
     }
-    console.log('校验名字' + owner + name + strLength);
+    // console.log('校验名字' + owner + name + strLength);
     if (!name) {
         toast_text = owner + '姓名不能为空';
     } else if (strLength > 200) {
@@ -306,8 +304,8 @@ var checkAddress = function (val, owner) {
     var m = val.match(/[\u4e00-\u9fa5]{1}/g)
     if (!val) {
         toast_text = '请录入' + owner + '详细地址'
-    } else if (!m || m.length < 3) {
-        toast_text = owner + '详细地址填写有误,请确认至少有3个汉字'
+    } else if (!m || m.length < 12) {
+        toast_text = owner + '详细地址填写有误,请确认至少有12个汉字'
     }
     if (toast_text) {
         mui.toast(toast_text, {duration: 'short', type: 'div'});
@@ -318,7 +316,7 @@ var checkAddress = function (val, owner) {
 //校验邮编
 var checkZipcode = function (val, province, owner) {
     var toast_text = null;
-    console.log(val + province + owner);
+    // console.log(val + province + owner);
     if (!val) {
         toast_text = owner + '地址邮编不能为空';
     } else if (!/^\d{6}$/.test(val)) {
@@ -365,7 +363,7 @@ var checkHeight = function (owner, val) {
 };
 //校验体重
 var checkWeight = function (owner, val) {
-    console.log('校验' + owner + '体重:' + val)
+    // console.log('校验' + owner + '体重:' + val)
     if (!val) {
         mui.toast('请录入' + owner + '体重', {duration: 'short', type: 'div'});
         return false;
@@ -395,7 +393,7 @@ var checkAppl = function () {
         toast_text = '投保人不能大于60岁'
     } else if (!checkPhone('投保人', appl.applicant.holder_mobile)) {
         return false
-    } else if (!appl.applicant.holder_job_code) {
+    } else if (!appl.applicant.temp_holder_job_code) {
         toast_text = '投保人职业不能为空'
     } else if (!checkOccupation('投保人')) {
         return false
@@ -445,7 +443,7 @@ var checkAppl = function () {
 };
 //校验被保人信息
 var checkAssured = function () {
-    console.info('校验被保人信息')
+    // console.info('校验被保人信息')
     var toast_text = null
     const vm = this
     if (!assu.assured.rel_insured_holder) {
@@ -464,7 +462,7 @@ var checkAssured = function () {
         toast_text = '被保人出生日期不能为空'
     } else if (!checkPhone('被保人', assu.assured.insured_mobile)) {
         return false
-    } else if (!assu.assured.insured_job_code) {
+    } else if (!assu.assured.temp_insured_job_code) {
         toast_text = '被保人职业不能为空'
     } else if (!checkOccupation('被保人')) {
         return false
@@ -510,7 +508,7 @@ var checkOccupation = function(owner) {
         occu = assu.assured.insured_temp_job_code
         sex = assu.assured.insured_gender
     }
-    console.log('职业：' + owner + 'age:' + age + ';occu:' + occu + ';sex:' + sex)
+    // console.log('职业：' + owner + 'age:' + age + ';occu:' + occu + ';sex:' + sex)
     if (sex === MALE && occu === 'LAE0968') {
         //家庭主妇
         toast_text = owner + '职业类别与性别不符'

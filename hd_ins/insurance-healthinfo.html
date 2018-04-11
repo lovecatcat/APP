@@ -738,7 +738,6 @@
 		        mui.toast(msg, {duration: 'short', type: 'div'});
 		        ret = { status: false, msg }
 		      }
-		      console.log(ret)
 		      return ret
 		    },
             isShow(i, type) {
@@ -770,7 +769,7 @@
 		        if (item.id === id && !chief) {
 		          return i
 		        }
-		        if (this.matters[i].id === chief) {
+		        if (item.id === chief) {
 		          for (let j = 0; j < item.child.length; j++) {
 		            if (item.child[j].id === id) {
 		              return i + item.child[j].entry
@@ -781,14 +780,12 @@
 		      return -1
 		    },
 			checkForm() {
-				console.log('checkform')
 		      let toast_text = null
 		      let input = null
 		      let title = ''
 		      let msg = ''
 		      for (let i in this.clientvalue.ass_amswer) {
 		        if (this.clientvalue.ass_amswer[i] === true) {
-		        	console.log('true:'+i)
 		          let item = this.assforms[i]
 		          if (item && item.length) {
 		            let val = []
@@ -823,7 +820,7 @@
 		              for (let l = jitem.length - 1; l >= 0; l--) {
 		                input = jitem[l]
 		                title = input.title ? input.title : ''
-		                msg = '问题【' + this.getIndex(j, input.chief) + '】投保人' + title + '，'
+		                msg = '投保人问题【' + this.getIndex(Number(j), Number(input.chief)) + '】' + title + '，'
 		
 		                if (input.must !== false || input.value) {
 		                  let jret = this.change(input)
@@ -847,7 +844,6 @@
 		        return false
 		      }
 		      this.$forceUpdate()
-		      console.log(JSON.stringify(this.clientvalue))
 		      if (!this.promise) {
 		        mui.toast('请阅读用户承诺并确认', {duration: 'short', type: 'div'});
 		        return false
@@ -860,7 +856,6 @@
         var popu = new ClosePopu(); // 实例化关闭窗口对象
         //
         var safegoods = JSON.parse(plus.storage.getItem('hengda_safegoods'));
-        console.log(JSON.stringify(safegoods))
         if (safegoods) {
             mui.each(safegoods, function (index, item) {
                 if (item.safe_id === tbrhm) {
@@ -882,15 +877,52 @@
         	//
             var appitems = []
             mui.each(health.matters, function (index, item) {
-	            appitems.push({
-                    mv_id: item.id,
-                    insured_answer: health.clientvalue.ass_amswer[item.id] ? 1 : 0,
-                    holder_answer: health.clientvalue.app_amswer[item.id] ? 1 : 0,
-                    insured_fields: health.clientvalue.app_fields[item.id],
-                    holder_fields: health.clientvalue.fields[item.id]
-            	})
+                var insured_answer = health.clientvalue.ass_amswer[item.id] ? '1' : '0'
+                var holder_answer = health.clientvalue.app_amswer[item.id] ? '1' : '0'
+                var insured_fields = health.clientvalue.fields[item.id]?health.clientvalue.fields[item.id]:''
+                var holder_fields = health.clientvalue.app_fields[item.id]?health.clientvalue.app_fields[item.id]:''
+                if (item.id === 46) {
+                    //投被保人身高、体重
+                    holder_answer = '1'
+                    insured_answer = '1'
+                    holder_fields = parseInt(applicant.holder_height) + '|' + Number(applicant.holder_weight).toFixed(2)
+                    insured_fields = parseInt(assured.insured_height) + '|' + Number(assured.insured_weight).toFixed(2)
+                } else if (item.id === 171) {
+                    //投被保人年收入、收入来源
+                    holder_answer = '1'
+                    insured_answer = '1'
+                    holder_fields = applicant.holder_salary_avg + '|' + applicant.holder_salary_from
+                    insured_fields = assured.insured_salary_avg + '|' + assured.insured_salary_from
+                } else if (item.id === 173) {
+                    //投被保人是否有社保
+                    holder_answer = '1'
+                    insured_answer = '1'
+                    holder_fields = applicant.holder_has_SSID ? '有社保' : '无社保'
+                    insured_fields = assured.insured_has_SSID ? '有社保' : '无社保'
+                }
+                //168: 2岁及以下
+                //164: 女性补充告知
+                if ((item.id === 168 && health.assuAge <= 2) || (item.id === 164 && ((health.showAppl && health.isApplWm) || health.isAssuWm)) || (item.id !== 168 && item.id !== 164)) {
+                    appitems.push({
+                        mv_id: item.id,
+                        insured_answer: insured_answer,
+                        holder_answer: holder_answer,
+                        insured_fields: insured_fields,
+                        holder_fields: holder_fields
+                    })
+                    //子题目
+                    item.child && mui.each(item.child, function (key, value) {
+                        appitems.push({
+                            mv_id: value.id,
+                            insured_answer: health.clientvalue.ass_amswer[value.id] ? '1' : '0',
+                            holder_answer: health.clientvalue.app_amswer[value.id] ? '1' : '0',
+                            insured_fields: health.clientvalue.fields[value.id] ? health.clientvalue.fields[value.id] : '',
+                            holder_fields: health.clientvalue.app_fields[value.id] ? health.clientvalue.app_fields[value.id] : ''
+                        })
+                    })
+                }
+                //
             })
-            console.log(JSON.stringify(appitems))
             plus.storage.setItem('hengda_healthinfo', JSON.stringify(appitems));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'healthinfo_save'
@@ -908,7 +940,6 @@
         luckyAjax({
             data: {data: JSON.stringify({'supplier_id': SCID, 'version': '1'}), server: 'PolicyIns.getMatterList'},
             success: function (res) {
-                console.log(JSON.stringify(res));
                 if (res.code) {
                     health.matters = res.data;
                 } else {

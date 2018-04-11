@@ -168,6 +168,7 @@
 			el: '#Js-sns',
 			data: {
 				info: null,
+				channel_id: '',
 				menu: 1,
 				mobile: '',
 				need_score: '',
@@ -269,7 +270,7 @@
 				            server: 'user.sendSms',
 				            data: JSON.stringify({
 								tel: sns.mobile,
-	                    		channel_id: 2
+	                    		channel_id: sns.channel_id
 							})
 				        },
 	                    success: function (data) {
@@ -332,6 +333,7 @@
 			document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
 			
 			var sns_id = plus.webview.currentWebview().sns_id;
+			sns.channel_id = JSON.parse(plus.storage.getItem("userinfo")).channel_id
 			
 			// 获取sns详情
 			luckyAjax({

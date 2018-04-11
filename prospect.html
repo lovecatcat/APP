@@ -400,8 +400,8 @@
 					this.$forceUpdate()
 				},
 				editIns:function(index1, safeid) { //编辑险种
-					alert(index1)
-					alert(safeid)
+					//alert(index1)
+					//alert(safeid)
 					mui.openWindow({
 						id: 'prospect_addIns',
 						url: 'prospect-addIns.html',
@@ -605,7 +605,7 @@
 			window.addEventListener('SET_TIME', function(event) {
 				var data = event.detail.ins
 				prospect.planTime = data
-				alert(JSON.stringify(prospect.planTime))
+				//alert(JSON.stringify(prospect.planTime))
 
 			});
 			//不添加，即生成
@@ -650,7 +650,7 @@
 					}
 				}
 
-				alert(JSON.stringify(data))
+				//alert(JSON.stringify(data))
 				if(data.length < 1){
 					mui.toast('请先完成一个方案') 
 					return false;

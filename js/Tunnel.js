@@ -124,7 +124,7 @@ var Tunnel = {
      * 心跳计时
      */
     HeartCheck: {
-        timeout: 5000,//60秒
+        timeout: 18000,//3min
         timeoutObj: null,
         serverTimeoutObj: null,
         reset: function(){

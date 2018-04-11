@@ -11,7 +11,7 @@ var store = {
 }
 
 function checkUpdate(version) {
-    var checkUrl = "https://www.ehuimeng.com/Public/Uploads/app/check.json";
+    var checkUrl = "https://www.ehuimeng.com/Public/Uploads/app/checklev.json";
     mui.getJSON(checkUrl + '?_=' + new Date().toString(), function (data) {
         var os = mui.os.android ? 'Android' : 'iOS';
         if (os === 'Android') {

@@ -42,6 +42,7 @@
 		//localStorage.setItem("navHeight", document.querySelector('#Js-nav').offsetHeight); // 储存底部导航高度 
 		
 		mui.plusReady(function() {
+			var nums = 0;
             var userinfo = plus.storage.getItem('userinfo');
             if(!userinfo){
                 mui.openWindow({
@@ -78,8 +79,11 @@
 				        _info = '您的帐号在其它设备上登录，已经注销当前帐号';
 				        break;
 				}
-				
 				if(_info != ''){
+					nums++;
+				};
+				
+				if(_info != '' && nums ==1){
 					Tunnel._isStop = false;
 					Tunnel._webSocket.close();
 					plus.storage.clear();
@@ -87,7 +91,7 @@
 						plus.runtime.restart();		
 					});
 				}
-		    });
+		    });		
             
             // 运行环境切换到后台，开始倒数20分钟，重启应用
             var apptype;

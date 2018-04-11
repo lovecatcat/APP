@@ -37,7 +37,10 @@
                     元起
                 </div>
             </div>
-            <div class="BL-foot-btn-sign a-link" data-wid="hd_insurance-index" href="hd_ins/insurance-index.html">
+            <div class="BL-foot-btn-sign a-link" data-wid="hd_insurance-index" href="hd_ins/insurance-index.html" v-if="info.company_id===19">
+                我要投保
+            </div>
+            <div class="BL-foot-btn-sign" v-else>
                 我要投保
             </div>
         </div>
@@ -81,8 +84,7 @@
 	                extras = {list: data, flag: 2};
 	            }	
             };
-            	//alert(pid)
-            
+
             mui.openWindow({
                 url: href,
                 id: id,

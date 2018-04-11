@@ -18,7 +18,7 @@
     <div class="ins-dialog lg">
         <div class="dialog-header">
             <div class="mui-icon mui-icon-closeempty" id="close-ins-pop"></div>
-            <p class="ins-font-md box-f-1">险种信息{{hasAddons}}</p>
+            <p class="ins-font-md box-f-1">险种信息</p>
             <div class="header-btn-save">
                 <button class="ins-btn sm-btn blue" id="saveGoods">保存</button>
             </div>
@@ -509,9 +509,11 @@
                     autoApl: false //是否自动垫交
                 }
             },
+//            setMain(){
+//
+//            },
             //主险change
             showType: function () {
-                var init = false
                 var vm = this
                 safegoods.show(function (items) {
                     vm.resetMainIns(); //重置主险信息
@@ -563,7 +565,7 @@
                         server: 'PolicyIns.getProductList'
                     }, //获取险种列表
                     success: function (res) {
-                        console.log(JSON.stringify(res));
+//                        console.log(JSON.stringify(res));
                         if (res.code == 1) {
                             var data = []
                             vm.safegoods = res.data;
@@ -583,14 +585,14 @@
                 });
             },
             resetAddons: function (init) {
-                console.log('resetAddons')
+//                console.log('resetAddons')
                 var vm = this
                 var safe_id = vm.insurance.safe_id.toString()
                 var money = vm.insurance.money
                 var pay_year = vm.insurance.pay_year
                 var safe_year = vm.insurance.safe_year
                 var period_money = vm.insurance.period_money
-                console.log('重置对应附加险' + safe_id + safe_year + pay_year + money + period_money);
+//                console.log('重置对应附加险' + safe_id + safe_year + pay_year + money + period_money);
                 for (var a in vm.addonsSelected) {
                     vm.addonsSelected[a] = false
                 }
@@ -646,14 +648,14 @@
                 });
             },
             setAddonsShow: function (init) {
-                console.log('setAddonsShow')
+//                console.log('setAddonsShow')
                 var vm = this
                 var hasAddons = false
-                console.log(JSON.stringify(vm.showAddonIns))
+//                console.log(JSON.stringify(vm.showAddonIns))
                 for (var i in vm.showAddonIns) {
-                    console.log(i)
+//                    console.log(i)
                     if (vm.showAddonIns[i] === true) {
-                        console.log('true')
+//                        console.log('true')
                         hasAddons = true
                         if (vm.Addons[i]) {
                             vm.setAddons(i, init)
@@ -666,7 +668,7 @@
                 });
             },
             setAddons: function (i, init) {
-                console.log('setAddons' + i)
+//                console.log('setAddons' + i)
                 var vm = this
                 var tml = {
                     safe_id: i, //险种
@@ -675,17 +677,13 @@
                     money: '', //基本保险金额
                     period_money: '' //年缴保费
                 }
-                console.log(i + ', 是否初始化：' + init)
+//                console.log(i + ', 是否初始化：' + init)
                 if (i === tbrhm) {
-                    console.log('豁免')
                     var item = {}
                     for (var j in vm.Addons[i].ratio) {
                         item = vm.Addons[i].ratio[j]
-                        console.log(typeof vm.insurance.pay_year)
-                        console.log(typeof item.pay_year)
                         if (vm.insurance.pay_year - 1 === +item.pay_year) {
                             tml.pay_year = item.pay_year
-                            console.log('p:' + tml.pay_year)
                             break
                         }
                     }
@@ -695,21 +693,19 @@
                     }
                     tml.money = vm.insurance.period_money
                 } else {
-                    console.log('非豁免')
                     if (vm.Addons[i].ratio.length === 1) {
                         tml.safe_year = vm.Addons[i].ratio[0].safe_year
                         tml.pay_year = vm.Addons[i].ratio[0].pay_year
                     }
                     tml.money = ''
                 }
-                console.log('设置附加险,ID:' + i)
+//                console.log('设置附加险,ID:' + i)
                 vm.addonIns[i] = tml
                 if (init) {
-                    console.log('初始化附加险')
+//                    console.log('初始化附加险')
                     var kitem = {}
                     for (var k in vm.insurances) {
                         kitem = vm.insurances[k]
-                        console.log(typeof kitem.safe_id)
                         if (k > 0 && kitem.safe_id === i) {
                             vm.addonsSelected[kitem.safe_id] = true
                             vm.addonIns[kitem.safe_id] = {
@@ -726,7 +722,6 @@
 
             },
             chAddonState: function (index) {
-                console.log('toggle' + index)
                 var vm = this
                 vm.addonsSelected[index] = !vm.addonsSelected[index];
                 if (!vm.addonIns[index]) return
@@ -790,7 +785,7 @@
             },
             resetMoney: function (i) {
                 i = (i || this.insurance.safe_id).toString()
-                console.log('重置【' + i + '】附加险')
+//                console.log('重置【' + i + '】附加险')
                 if (i === fxjs || i === wnh) {
                     this.insurance.money = ''
                 } else {
@@ -886,7 +881,7 @@
                 return true
             },
             checkForm: function () {
-                console.log('checkform');
+//                console.log('checkform');
                 const vm = this
                 var toast_text = null
                 var id = vm.insurance.safe_id.toString()
@@ -921,7 +916,7 @@
             },
             //试算
             calMoney: function (index) {
-                console.log('试算中');
+//                console.log('试算中');
                 var vm = this
                 var id = vm.insurance.safe_id.toString();
                 if (!vm.checkForm()) {
@@ -957,7 +952,6 @@
                 basedata.productInfo.push(main)
                 //是附加险
                 if (index) {
-                    console.log(typeof index)
                     if (!vm.checkAddonsForm(index)) {
                         return false
                     }
@@ -976,7 +970,7 @@
                         basedata.productInfo.push(product)
                     }
                 }
-                console.log(JSON.stringify(basedata))
+//                console.log(JSON.stringify(basedata))
                 //开始试算
                 luckyAjax({
                     data: {
@@ -989,39 +983,32 @@
                         device: 'mobile'
                     },
                     success: function (res) {
-                        console.log(JSON.stringify(res));
                         if (res.code && res.data) {
                             var data = res.data
                             vm.$nextTick(function () {
                                 mui('.mui-switch').switch();
                             });
                             if (data.result === 'success') {
-                                console.log('cal-success')
+//                                console.log('cal-success')
                                 if (index) {
-                                    console.log('试算附加险' + index + '成功')
+//                                    console.log('试算附加险' + index + '成功')
                                     //试算附加险成功
                                     vm.addonIns[index].period_money = data.data.product[1].premium;
                                     vm.$forceUpdate()
-                                    console.log('+++++++')
-                                    console.log(JSON.stringify(vm.addonIns))
                                 } else {
-                                    console.log('试算主险' + index + '成功')
+//                                    console.log('试算主险' + index + '成功')
                                     if (id === fxjs || id === wnh) {
-                                        console.log('amount:' + data.data.product[0].amount)
                                         vm.insurance.money = data.data.product[0].amount.substr(0, data.data.product[0].amount.length - 1);
                                     } else {
-                                        console.log('period_money:' + data.data.product[0].premium)
                                         vm.insurance.period_money = data.data.product[0].premium;
                                     }
-                                    console.log('+-------+')
-                                    console.log(JSON.stringify(vm.addonIns))
                                     // 重置附加险
                                     vm.resetAddons();
                                 }
                                 vm.countFee()
                                 vm.$forceUpdate()
                             } else {
-                                console.log('cal-failure')
+//                                console.log('cal-failure')
                                 if (index) {
                                     vm.addonIns[index].period_money = ''
                                 } else {
@@ -1035,13 +1022,13 @@
                                 return false;
                             }
                         } else {
-                            console.log('试算失败')
+//                            console.log('试算失败')
                         }
                     }
                 });
             },
             checkAddonsForm: function (index) {
-                console.log('附加险表单校验' + index)
+//                console.log('附加险表单校验' + index)
                 var addon = this.addonIns[index]
                 var name = this.Addons[index].name
                 var toast_text = null
@@ -1072,7 +1059,7 @@
 
                 var name = '【' + this.Addons[index].name + '】'
                 var money = +this.addonIns[index].money
-                console.log(index + money + '校验附加险保额')
+//                console.log(index + money + '校验附加险保额')
                 switch (index) {
                     case hs: // 附加恒顺意外伤害医疗保险
                         if (money < 2000) {
@@ -1112,13 +1099,11 @@
 
     mui.plusReady(function () {
         var popu = new ClosePopu(); // 实例化关闭窗口对象
-        var toast_text = null
         var userinfo = JSON.parse(plus.storage.getItem('userinfo'));
         safe.userinfo = userinfo;
 
         var init = plus.webview.currentWebview().data;
         safe.init = init;
-        console.log(JSON.stringify(init.nj_safe_year));
 //
         var applicant = JSON.parse(plus.storage.getItem('hengda_applicant'));
         var assured = JSON.parse(plus.storage.getItem('hengda_assured'));
@@ -1132,7 +1117,6 @@
 
         //保存
         document.querySelector('#saveGoods').addEventListener('tap', function () {
-            console.log(JSON.stringify(safe.addonsSelected))
             if (!safe.checkForm()) {
                 return false
             }
@@ -1143,7 +1127,6 @@
                     insurances.push(item)
                 }
             })
-            console.log(JSON.stringify(insurances))
             plus.storage.setItem('hengda_safegoods', JSON.stringify(insurances));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'safegood_save'

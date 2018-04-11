@@ -200,7 +200,7 @@
     window.addEventListener('uploadimg', function (event) {
         img[fileName[event.detail.id]] = event.detail.img
         img.$set(img.previewImg, event.detail.id, {
-            'background': 'url(' + event.detail.img + ')'
+            'backgroundImage': 'url(' + event.detail.img + ')'
         })
     })
 </script>

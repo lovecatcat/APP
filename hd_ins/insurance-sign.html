@@ -20,7 +20,7 @@
     <div class="ins-dialog lg">
         <div class="dialog-header">
             <div class="mui-icon mui-icon-closeempty" id="close-ins-pop"></div>
-            <p class="ins-font-md box-f-1">信息确认{{war_id}}</p>
+            <p class="ins-font-md box-f-1">信息确认</p>
             <div class="header-btn-save">
                 <button class="ins-btn sm-btn blue" id="saveSign">核保</button>
             </div>
@@ -136,12 +136,9 @@
         popu = new ClosePopu(); // 实例化关闭窗口对象
         img.war_id = plus.webview.currentWebview().data
         var assured = JSON.parse(plus.storage.getItem('hengda_assured'))
-        console.log(JSON.stringify(assured))
-        console.log(plus.storage.getItem('hengda_applicant'))
         img.assured = assured
         //保存
         document.querySelector('#saveSign').addEventListener('tap', function () {
-//            plus.storage.removeItem('hengda_ids')
             if (!img.checkForm()) {
                 return false
             }
@@ -156,8 +153,8 @@
                     device: 'mobile'
                 },
                 success: function (res) {
-                    console.log(JSON.stringify(res))
                     if (res.code) {
+                        mui.toast('核保中...')
                         online_ins()
                     } else {
                         mui.toast("该被保人有正在处理的保单，请稍后再次尝试。", {duration: 'short', type: 'div'})
@@ -192,9 +189,19 @@
                 },
                 success: function (res) {
                     if (res.code) {
-                        upload_img(id)
+                        if (res.data.resultCode === '00') {
+                            mui.toast('自核通过，影像上传中')
+                            upload_img(img.war_id)
+                        } else if (res.data.resultCode === '02') {
+                            mui.toast('进入人工核保，影像上传中')
+                            upload_img(img.war_id)
+                        } else {
+                            mui.toast(res.data.resultMsg)
+                            return false
+                        }
                     } else {
-
+                        mui.toast(res.msg)
+                        return false
                     }
                 }
             });
@@ -213,11 +220,48 @@
                     device: 'mobile'
                 },
                 success: function (res) {
-                    console.log(JSON.stringify(res));
                     if (res.code) {
-                        //影像上传成功
+                        if (res.data.resultCode === '00') {
+                            mui.toast('上传成功，承保中')
+                            ins_pay(id)
+                            return false
+                        } else {
+                            mui.toast(res.data.resultMsg)
+                            return false
+                        }
                     } else {
-
+                        mui.toast('上传失败')
+                    }
+                }
+            });
+        };
+        //
+        //承保
+        function ins_pay(id) {
+            luckyAjax({
+                data: {
+                    data: JSON.stringify({
+                        msg: {policy_id: id},
+                        company_code: 'HengDa',
+                        method: 'pay'
+                    }),
+                    server: 'PolicyIns.onlineInsured',
+                    device: 'mobile'
+                },
+                success: function (res) {
+                    if (res.code) {
+                        if (res.data.resultCode === '00') {
+                            mui.toast('承保成功');
+                            plus.webview.close('hd_insurance-index');
+                            popu.closepop();
+                            mui.back();
+                        } else {
+                            mui.toast(res.data.resultMsg)
+                            return false
+                        }
+                    } else {
+                        mui.toast('承保失败')
+                        return false
                     }
                 }
             });
@@ -318,11 +362,9 @@
                     }
                 }
                 data.id = vm.war_id
-//                console.log(JSON.stringify(data))
                 luckyAjax({
                     data: {data: JSON.stringify(data), server: 'PolicyIns.save'},
                     success: function (res) {
-                        console.log(JSON.stringify(res));
                         if (res.code) {
                             mui.toast(res.msg)
                         } else {
@@ -353,7 +395,6 @@
                 if (!index) return
                 plus.nativeUI.showWaiting();
                 // 获取签名的ajax
-                console.log(this.war_id)
                 luckyAjax({
                     data: {
                         data: JSON.stringify({policy_id: this.war_id}),
@@ -361,13 +402,11 @@
                         device: 'mobile'
                     },
                     success: function (res) {
-                        console.log(JSON.stringify(res));
                         if (res.code) {
                             var image = res.data.policyInfo.img_json
                             if ( index === 1 && image['06']) {
                                 toast_text = '成功获取投保人签名'
 	                        	vm.appl_signature = config.domain + image['06']
-                                console.log(vm.appl_signature)
                                 vm.$set(vm.previewImg, 1, config.domain + image['06'])
 	                        } else if ( index === 2 && image['07']) {
                                 toast_text = '成功获取被保人签名'

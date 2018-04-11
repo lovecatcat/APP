@@ -340,10 +340,6 @@
             //字段初始化
             this.assured.insured_gender = MALE;
             this.assured.insured_nation = NATION;
-            //
-            this.assured = Object.assign(this.assured, assured)
-            this.assu_age = getAge(this.assured.insured_birthday)
-            //
 
             this.$watch('assured.insured_ID_no', function (val) {
                 IDValidate(IDcard, val, '被保人');
@@ -390,6 +386,13 @@
         assu.init = init;
         var applicant = JSON.parse(plus.storage.getItem('hengda_applicant'))
         assu.applicant = applicant
+        //已填信息赋值
+        var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')) : ''
+        if(assured) {
+            assu.assured = Object.assign(assu.assured, assured)
+            assu.assu_age = getAge(assu.assured.insured_birthday)
+        }
+        //
         //深圳投保地区
         var district = new mui.PopPicker();
         document.querySelector('#assu-district').addEventListener('tap', function () {
@@ -520,7 +523,7 @@
 		        },
 		        success:function(data){
 	                if(data.code){
-	                	console.log(JSON.stringify(data.data));
+//	                	console.log(JSON.stringify(data.data));
 	                	var info = data.data;
 	                	assu.assured.insured_name = info.name;
 	                	assu.assured.insured_ID_no = info.card_no;

@@ -353,7 +353,7 @@
                 holder_contact_address: '', //通讯地址【地址详情】
                 holder_contact_zip: '',//通讯地址【邮编】
 
-                holder_has_SSID: '',//是否有社保
+                holder_has_SSID: false,//是否有社保
                 holder_marriage: '',//婚姻状况
                 holder_job_code: {},//职业
                 temp_holder_job_code: '',//职业代码
@@ -367,10 +367,7 @@
             this.applicant.holder_ID_type = IDcard;
             this.applicant.holder_gender = MALE;
             this.applicant.holder_nation = NATION;
-            //
-            this.applicant = Object.assign(this.applicant, applicant)
-            this.appl_age = getAge(this.applicant.holder_birthday)
-            //
+
             this.$watch('applicant.holder_isTaxResidents', function (val) {
                 if (val && val !== TAXTYPE) {
                     mui.toast('根据您声明的内容，请选择线下投保并提交相关资料', {duration: 'short', type: 'div'});
@@ -415,6 +412,13 @@
     mui.plusReady(function () {
         var init = plus.webview.currentWebview().data;
         appl.init = init;
+        //已填信息赋值
+        var applicant = plus.storage.getItem('hengda_applicant') ? JSON.parse(plus.storage.getItem('hengda_applicant')) : ''
+        if(applicant) {
+            appl.applicant = Object.assign(appl.applicant, applicant)
+            appl.appl_age = getAge(appl.applicant.holder_birthday)
+        }
+        //
         //收入来源选择
         var annual = new mui.PopPicker();
         annual.setData(init.annual_source);
@@ -475,9 +479,9 @@
         })
         //职业
 		var arrOccu = [];
-		for(var i=0;i<4;i++){
-			arrOccu.push(new mui.PopPicker());	
-		}
+        for (var i = 0; i < 4; i++) {
+            arrOccu.push(new mui.PopPicker());
+        }
 		mui.each(arrOccu, function(index, item){
 			item.cancel.addEventListener('tap', function(event) {
 				appl.applicant.holder_job_name = '';
@@ -534,7 +538,6 @@
 
         //保存
         document.querySelector('#saveAppl').addEventListener('tap', function () {
-            console.log(JSON.stringify(appl.applicant.holder_job_code))
             if (!checkAppl()) {
                 return false
             }

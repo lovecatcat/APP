@@ -43,10 +43,9 @@
         //从相册中选择
         mui('body').on('tap', '#choose-photo', function () {
             plus.gallery.pick(function (path) {
-                console.log(path)
                 imgtobase64(path);
             }, function (e) {
-                console.log("取消选择图片");
+//                console.log("取消选择图片");
             }, {filter: "image"});
         })
         //拍照上传
@@ -58,7 +57,7 @@
                     imgtobase64(plus.io.convertLocalFileSystemURL(path));
                 },
                 function (error) {
-                    console.log("Capture image failed: " + error.message);
+//                    console.log("Capture image failed: " + error.message);
                 },
                 {resolution: res, format: fmt}
            );

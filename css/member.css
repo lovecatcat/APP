@@ -924,7 +924,7 @@
 	margin: 0;
 	padding: 0 1.5rem;
 }
-.member-warranty-detail-item .mui-navigate-right:after, .mui-push-right:after{
+.member-warranty-detail-item .mui-navigate-right:after, .mui-push-right:after,.member-team-list-item .mui-navigate-right:after{
 	right: 1.5rem;
 }
 
@@ -1106,7 +1106,9 @@
 	font-weight: 600;
 	font-size: 1.875rem;
 }
-
+.renewal-detail-baaner a{
+	color: #FFFFFF;
+}
 /* 计税器 */
 .member-taxtab-bg {
 	background: rgb(211,233,252);

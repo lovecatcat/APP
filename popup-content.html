@@ -27,7 +27,7 @@
 			<div id="modal-table-performance" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table-performance'}" v-if="goIns_data">
 				<div class="BL-modal-content BL-modal-tab">
 					<div class="BL-title">
-						{{ goIns_data.name }}
+						{{ goIns_data.rank_name }}
 					</div> 
 					<div class="BL-modal-tab-body">
 						<table class="fixed-thead">
@@ -204,10 +204,8 @@
 						},
 						success: function(res) {
 							if(res.code == 1) {
-									statement = res.code.statement
-									//alert(JSON.stringify(statement))
-									
-									plus.runtime.openURL(statement);
+								statement = res.code.statement
+								plus.runtime.openURL(statement);
 							} else {
 								mui.toast('加载失败')
 							}

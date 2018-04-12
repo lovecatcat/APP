@@ -95,6 +95,7 @@ var methods = {
 							})
 						});
 						mainType.setData(data);
+						mainTypedata = data
 					} else {
 						mui.toast('加载失败')
 					}
@@ -196,18 +197,6 @@ var methods = {
 					}, {
 						value: 500000,
 						name: '50万'
-					}]
-					break
-				case '3188':
-					vm.prospectus_types = [{
-						value: '1',
-						name: '计划一'
-					}, {
-						value: '2',
-						name: '计划二'
-					}, {
-						value: '3',
-						name: '计划三'
 					}]
 					break
 				default:
@@ -1103,7 +1092,7 @@ var methods = {
 			this.cache.quotaHR = 2
 			this.flag['NADD'] = ''
 			this.cache.base_moneyNADD = 0
-		} else if(safeid === 'NAF') {
+		} else if(safeid === 'NAF' || safeid === 'NCR' || safeid === 'NCUA' || safeid === 'NCWA') {
 			this.flag['CKRA'] = ''
 			this.cache.base_moneyCKRA = ''
 			this.flag['PFR'] = ''
@@ -1316,7 +1305,7 @@ var methods = {
 	// 校验附加险保额
 	checkExtraForm(safeid) {
 		let toastText = null
-		let flag = this.flag[safeid]
+		let flag = Number(this.flag[safeid])
 		let periodMoney = this.insurance.period_money
 		let name = this.Addons[safeid].name
 		let assuAge = Number(this.assu.age)
@@ -1425,87 +1414,87 @@ var methods = {
 					toastText = '该附加险保险期间不能超过主险保险期间'
 				} else if(this.flag['PFR1'] === '7500' && (75 - assuAge > this.insurance.safe_year)) {
 					toastText = '该附加险保险期间不能超过主险保险期间'
-				} else if(this.flag['PFR1'] === '5500' && assuAge > 50 && flag === '1') {
+				} else if(this.flag['PFR1'] === '5500' && assuAge > 50 && flag === 1) {
 					toastText = '该附加险保险期间为至55岁且趸交被保人年龄不能超过50岁'
-				} else if(this.flag['PFR1'] === '5500' && assuAge > 45 && flag === '3') {
+				} else if(this.flag['PFR1'] === '5500' && assuAge > 45 && flag === 3) {
 					toastText = '该附加险保险期间为至55岁且3年交被保人年龄不能超过45岁'
-				} else if(this.flag['PFR1'] === '5500' && assuAge > 45 && flag === '5') {
+				} else if(this.flag['PFR1'] === '5500' && assuAge > 45 && flag === 5) {
 					toastText = '该附加险保险期间为至55岁且5年交被保人年龄不能超过45岁'
-				} else if(this.flag['PFR1'] === '5500' && assuAge > 40 && flag === '9') {
+				} else if(this.flag['PFR1'] === '5500' && assuAge > 40 && flag === 9) {
 					toastText = '该附加险保险期间为至55岁且9年交被保人年龄不能超过40岁'
-				} else if(this.flag['PFR1'] === '5500' && assuAge > 40 && flag === '10') {
+				} else if(this.flag['PFR1'] === '5500' && assuAge > 40 && flag === 10) {
 					toastText = '该附加险保险期间为至55岁且10年交被保人年龄不能超过40岁'
-				} else if(this.flag['PFR1'] === '5500' && assuAge > 35 && flag === '15') {
+				} else if(this.flag['PFR1'] === '5500' && assuAge > 35 && flag === 15) {
 					toastText = '该附加险保险期间为至55岁且15年交被保人年龄不能超过35岁'
-				} else if(this.flag['PFR1'] === '5500' && assuAge > 30 && flag === '19') {
+				} else if(this.flag['PFR1'] === '5500' && assuAge > 30 && flag === 19) {
 					toastText = '该附加险保险期间为至55岁且19年交被保人年龄不能超过30岁'
-				} else if(this.flag['PFR1'] === '5500' && assuAge > 30 && flag === '20') {
+				} else if(this.flag['PFR1'] === '5500' && assuAge > 30 && flag === 20) {
 					toastText = '该附加险保险期间为至55岁且20年交被保人年龄不能超过30岁'
-				} else if(this.flag['PFR1'] === '6000' && assuAge > 55 && flag === '1') {
+				} else if(this.flag['PFR1'] === '6000' && assuAge > 55 && flag === 1) {
 					toastText = '该附加险保险期间为至60岁且趸交被保人年龄不能超过55岁'
-				} else if(this.flag['PFR1'] === '6000' && assuAge > 50 && flag === '3') {
+				} else if(this.flag['PFR1'] === '6000' && assuAge > 50 && flag === 3) {
 					toastText = '该附加险保险期间为至60岁且3年交被保人年龄不能超过50岁'
-				} else if(this.flag['PFR1'] === '6000' && assuAge > 50 && flag === '5') {
+				} else if(this.flag['PFR1'] === '6000' && assuAge > 50 && flag === 5) {
 					toastText = '该附加险保险期间为至60岁且5年交被保人年龄不能超过50岁'
-				} else if(this.flag['PFR1'] === '6000' && assuAge > 45 && flag === '9') {
+				} else if(this.flag['PFR1'] === '6000' && assuAge > 45 && flag === 9) {
 					toastText = '该附加险保险期间为至60岁且9年交被保人年龄不能超过45岁'
-				} else if(this.flag['PFR1'] === '6000' && assuAge > 45 && flag === '10') {
+				} else if(this.flag['PFR1'] === '6000' && assuAge > 45 && flag === 10) {
 					toastText = '该附加险保险期间为至60岁且10年交被保人年龄不能超过45岁'
-				} else if(this.flag['PFR1'] === '6000' && assuAge > 40 && flag === '15') {
+				} else if(this.flag['PFR1'] === '6000' && assuAge > 40 && flag === 15) {
 					toastText = '该附加险保险期间为至60岁且15年交被保人年龄不能超过40岁'
-				} else if(this.flag['PFR1'] === '6000' && assuAge > 35 && flag === '19') {
+				} else if(this.flag['PFR1'] === '6000' && assuAge > 35 && flag === 19) {
 					toastText = '该附加险保险期间为至60岁且19年交被保人年龄不能超过35岁'
-				} else if(this.flag['PFR1'] === '6000' && assuAge > 35 && flag === '20') {
+				} else if(this.flag['PFR1'] === '6000' && assuAge > 35 && flag === 20) {
 					toastText = '该附加险保险期间为至60岁且20年交被保人年龄不能超过35岁'
-				} else if(this.flag['PFR1'] === '6500' && assuAge > 60 && flag === '1') {
+				} else if(this.flag['PFR1'] === '6500' && assuAge > 60 && flag === 1) {
 					toastText = '该附加险保险期间为至65岁且趸交被保人年龄不能超过60岁'
-				} else if(this.flag['PFR1'] === '6500' && assuAge > 55 && flag === '3') {
+				} else if(this.flag['PFR1'] === '6500' && assuAge > 55 && flag === 3) {
 					toastText = '该附加险保险期间为至65岁且3年交被保人年龄不能超过55岁'
-				} else if(this.flag['PFR1'] === '6500' && assuAge > 55 && flag === '5') {
+				} else if(this.flag['PFR1'] === '6500' && assuAge > 55 && flag === 5) {
 					toastText = '该附加险保险期间为至65岁且5年交被保人年龄不能超过55岁'
-				} else if(this.flag['PFR1'] === '6500' && assuAge > 50 && flag === '9') {
+				} else if(this.flag['PFR1'] === '6500' && assuAge > 50 && flag === 9) {
 					toastText = '该附加险保险期间为至65岁且9年交被保人年龄不能超过50岁'
-				} else if(this.flag['PFR1'] === '6500' && assuAge > 50 && flag === '10') {
+				} else if(this.flag['PFR1'] === '6500' && assuAge > 50 && flag === 10) {
 					toastText = '该附加险保险期间为至65岁且10年交被保人年龄不能超过50岁'
-				} else if(this.flag['PFR1'] === '6500' && assuAge > 45 && flag === '15') {
+				} else if(this.flag['PFR1'] === '6500' && assuAge > 45 && flag === 15) {
 					toastText = '该附加险保险期间为至65岁且15年交被保人年龄不能超过45岁'
-				} else if(this.flag['PFR1'] === '6500' && assuAge > 40 && flag === '19') {
+				} else if(this.flag['PFR1'] === '6500' && assuAge > 40 && flag === 19) {
 					toastText = '该附加险保险期间为至65岁且19年交被保人年龄不能超过40岁'
-				} else if(this.flag['PFR1'] === '6500' && assuAge > 40 && flag === '20') {
+				} else if(this.flag['PFR1'] === '6500' && assuAge > 40 && flag === 20) {
 					toastText = '该附加险保险期间为至65岁且20年交被保人年龄不能超过40岁'
-				} else if(this.flag['PFR1'] === '6500' && assuAge > 40 && flag === '20') {
+				} else if(this.flag['PFR1'] === '6500' && assuAge > 40 && flag === 20) {
 					toastText = '该附加险保险期间为至65岁且20年交被保人年龄不能超过40岁'
-				} else if(this.flag['PFR1'] === '7000' && assuAge > 65 && flag === '1') {
+				} else if(this.flag['PFR1'] === '7000' && assuAge > 65 && flag === 1) {
 					toastText = '该附加险保险期间为至70岁且趸交被保人年龄不能超过65岁'
-				} else if(this.flag['PFR1'] === '7000' && assuAge > 60 && flag === '3') {
+				} else if(this.flag['PFR1'] === '7000' && assuAge > 60 && flag === 3) {
 					toastText = '该附加险保险期间为至70岁且3年交被保人年龄不能超过60岁'
-				} else if(this.flag['PFR1'] === '7000' && assuAge > 60 && flag === '5') {
+				} else if(this.flag['PFR1'] === '7000' && assuAge > 60 && flag === 5) {
 					toastText = '该附加险保险期间为至70岁且5年交被保人年龄不能超过60岁'
-				} else if(this.flag['PFR1'] === '7000' && assuAge > 55 && flag === '9') {
+				} else if(this.flag['PFR1'] === '7000' && assuAge > 55 && flag === 9) {
 					toastText = '该附加险保险期间为至70岁且9年交被保人年龄不能超过55岁'
-				} else if(this.flag['PFR1'] === '7000' && assuAge > 55 && flag === '10') {
+				} else if(this.flag['PFR1'] === '7000' && assuAge > 55 && flag === 10) {
 					toastText = '该附加险保险期间为至70岁且10年交被保人年龄不能超过55岁'
-				} else if(this.flag['PFR1'] === '7000' && assuAge > 50 && flag === '15') {
+				} else if(this.flag['PFR1'] === '7000' && assuAge > 50 && flag === 15) {
 					toastText = '该附加险保险期间为至70岁且15年交被保人年龄不能超过50岁'
-				} else if(this.flag['PFR1'] === '7000' && assuAge > 45 && flag === '19') {
+				} else if(this.flag['PFR1'] === '7000' && assuAge > 45 && flag === 19) {
 					toastText = '该附加险保险期间为至70岁且19年交被保人年龄不能超过45岁'
-				} else if(this.flag['PFR1'] === '7000' && assuAge > 45 && flag === '20') { 
+				} else if(this.flag['PFR1'] === '7000' && assuAge > 45 && flag === 20) { 
 					toastText = '该附加险保险期间为至70岁且20年交被保人年龄不能超过45岁'
-				} else if(this.flag['PFR1'] === '7500' && assuAge > 65 && flag === '1') {
+				} else if(this.flag['PFR1'] === '7500' && assuAge > 65 && flag === 1) {
 					toastText = '该附加险保险期间为至75岁且趸交被保人年龄不能超过60岁'
-				} else if(this.flag['PFR1'] === '7500' && assuAge > 65 && flag === '3') {
+				} else if(this.flag['PFR1'] === '7500' && assuAge > 65 && flag === 3) {
 					toastText = '该附加险保险期间为至75岁且3年交被保人年龄不能超过65岁'
-				} else if(this.flag['PFR1'] === '7500' && assuAge > 65 && flag === '5') {
+				} else if(this.flag['PFR1'] === '7500' && assuAge > 65 && flag === 5) {
 					toastText = '该附加险保险期间为至75岁且5年交被保人年龄不能超过65岁'
-				} else if(this.flag['PFR1'] === '7500' && assuAge > 60 && flag === '9') {
+				} else if(this.flag['PFR1'] === '7500' && assuAge > 60 && flag === 9) {
 					toastText = '该附加险保险期间为至75岁且9年交被保人年龄不能超过60岁'
-				} else if(this.flag['PFR1'] === '7500' && assuAge > 60 && flag === '10') {
+				} else if(this.flag['PFR1'] === '7500' && assuAge > 60 && flag === 10) {
 					toastText = '该附加险保险期间为至75岁且10年交被保人年龄不能超过60岁'
-				} else if(this.flag['PFR1'] === '7500' && assuAge > 55 && flag === '15') {
+				} else if(this.flag['PFR1'] === '7500' && assuAge > 55 && flag === 15) {
 					toastText = '该附加险保险期间为至75岁且15年交被保人年龄不能超过55岁'
-				} else if(this.flag['PFR1'] === '7500' && assuAge > 50 && flag === '19') {
+				} else if(this.flag['PFR1'] === '7500' && assuAge > 50 && flag === 19) {
 					toastText = '该附加险保险期间为至75岁且19年交被保人年龄不能超过50岁'
-				} else if(this.flag['PFR1'] === '7500' && assuAge > 50 && flag === '20') {
+				} else if(this.flag['PFR1'] === '7500' && assuAge > 50 && flag === 20) {
 					toastText = '该附加险保险期间为至75岁且20年交被保人年龄不能超过50岁'
 				} else if(this.flag['PFR1'] === '15' && assuAge > 60) {
 					toastText = '该附加险保险期间为15年被保人年龄不能超过60岁'
@@ -2116,21 +2105,28 @@ var methods = {
 						vm.resetAddon()
 					}
 					vm.checkMainFee(safeid)
-					let list = {
+					let list = {  //主险要把公司信息也带回去，方便编辑功能
 						name: ret.name,
 						safe_id: safeid,
 						safe_year: vm.insurance.safe_year,
 						pay_year: vm.insurance.pay_year,
 						money: vm.insurance.money, // 基本保险金额
 						period_money: vm.insurance.period_money, // 年交保费
-						fj: false
+						fj: false,
+						company: ins.company,
+						main: ins.main,
+						mainSyAttr: ins.mainSyAttr,
+						mainPyAttr: ins.mainPyAttr,
+						Addons: ins.Addons,
+						insurance: ins.insurance,
+						mainTypedata: mainTypedata
 					}
 					vm.planList[0] = list  
 				} else if(!isMain && ret.data.data &&
 					ret.data.data[-1][genre] &&
 					ret.data.data[-1][genre].main &&
 					ret.data.data[-1][genre].main.list &&
-					ret.data.data[-1][genre].main.list[1]) {
+					ret.data.data[-1][genre].main.list[1]) { // 附加险
 					var i = 0;
 					var j = 0;
 					var res = ret.data.data[-1][genre].main
@@ -2154,7 +2150,7 @@ var methods = {
 						safe_year: ret.data.data[-1][genre].safe_year,
 						pay_year: ret.data.data[-1][genre].pay_year,
 						money: ret.data.data[-1][genre].base_money, // 基本保险金额
-						period_money: vm.addonRes[safeid]['年缴保费'] || vm.addonRes[safeid]['年缴保费(元)']|| vm.addonRes[safeid]['累计保费'], // 年交保费
+						period_money: ret.data.data[-1][genre].year_fee || vm.addonRes[safeid]['年缴保费'] || vm.addonRes[safeid]['年缴保费(元)']|| vm.addonRes[safeid]['累计保费'] || vm.addonRes[safeid]['门诊总保费'], // 年交保费
 						flag: ret.data.data[-1][genre].flag,
 						fj: true
 					}

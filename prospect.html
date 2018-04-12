@@ -155,7 +155,7 @@
 									</div>
 									<div class="BL-ub-f1 BL-txt-r">
 										<button class="BL-btn-white BL-ftz-42" @click="del(index1, index, item.fj)">删除</button>
-										<button class="BL-btn-blue BL-ftz-42 BL-hide" v-if="!item.fj" @click="editIns(index1, item.safeid)">编辑</button>
+										<button class="BL-btn-blue BL-ftz-42" v-if="!item.fj" @click="editIns(index1, item)">编辑</button>
 									</div>
 								</div>
 								<ul class="BL-ul BL-col-999 BL-col-999 BL-ftz-42">
@@ -166,9 +166,9 @@
 										<span>首年保费</span>
 									</li>
 									<li>
-										<span>{{item.money}}</span>
-										<span>{{item.safe_year}}</span>
-										<span>{{item.pay_year}}</span>
+										<span>{{(item.money).toFixed(2)}}</span>
+										<span>{{item.safe_year , item.safeid | safeYearFilter}}</span>
+										<span>{{item.pay_year | payYearFilter}}</span>
 										<span class="hm-color__red year_fee">{{item.period_money}}</span>
 									</li>
 								</ul>
@@ -245,7 +245,8 @@
 					1: []
 				},
 				count: 0, //总保费
-				planTime: {} //临时保存的数据
+				planTime: {}, //临时保存的数据
+				edit: false //是不是编辑状态
 			},
 			watch: {
 				appl: {
@@ -268,17 +269,35 @@
 						}
 					},
 					deep: true
+				}
+
+			},
+			filters: {
+				safeYearFilter: function(value, safeid) {
+					if(value == 25 && safeid == '1166'){
+						return '至25岁';
+					}else if(value == 10000 && safeid == '3188'){
+						return '至100岁';
+					} else if(value > 50 && value !== '999' && value !== 999) {
+						return '至' + value + '岁';
+					} else if(value < 50 && value > 0) {
+						return value + '年';
+					} else {
+						return '终身';
+					}
 				},
-				edit: {
-					handler(val) {
-						console.log(this.plan_id)
-						if(this.plans.length === this.id) {
-							this.appl.name = val.name
-							this.appl.age = val.age
-							this.appl.sex = val.sex
-						}
-					},
-					deep: true
+				payYearFilter: function(value) {
+					if(value === 1) {
+						return '趸交';
+					} else if(value < 60) {
+						console.log('filter');
+						return value + '年交';
+					} else {
+						return '至' + value + '岁';
+					}
+				},
+				moneyFilter: function(value) {
+					return value.toFixed(2)
 				}
 			},
 			methods: {
@@ -375,16 +394,14 @@
 							ins = this.plans[i].ins
 						}
 					}
-//					alert(JSON.stringify(ins[index1+1]))
-					if(fj){
-//						alert(index)
+					if(fj){ //附加
 						this.$delete(ins[index1+1].addon, index)
-//						alert(JSON.stringify(ins[index1+1]))
 						this.$delete(this.planList[this.plan_id][index1], index)
-					}else{
+					}else{ //主险
 						ins.splice(index1+1, 1)
 						this.$delete(this.planList[this.plan_id], index1)
 					}
+					//算总保费
 					let count = 0;
 					for(var i in prospect.planList) {
 						var item = prospect.planList[i]
@@ -399,9 +416,17 @@
 				
 					this.$forceUpdate()
 				},
-				editIns:function(index1, safeid) { //编辑险种
-					//alert(index1)
-					//alert(safeid)
+				editIns:function(index1, item) { //编辑险种
+					//找到plans对应的ins中的一个,险删掉当前的数据
+					var ins;
+					for(var i = 0; i < prospect.plans.length; i++) {
+						if(this.plans[i].id == this.plan_id) {
+							ins = this.plans[i].ins
+						}
+					}
+					ins.splice(index1+1, 1)
+					this.$delete(this.planList[this.plan_id], index1)
+					//打开ins把数据传过去
 					mui.openWindow({
 						id: 'prospect_addIns',
 						url: 'prospect-addIns.html',
@@ -410,9 +435,10 @@
 							appl: this.appl,
 							assu: this.assu,
 							plan_id: this.plan_id,
-							planTime: this.planTime
+							planTime: item
 						}
 					});
+					this.$forceUpdate()
 				},
 				removePlan: function(index) { //删除方案
 					if(this.plans.length < 2) {
@@ -421,7 +447,7 @@
 					}
 					var data = {
 						modalID: 'modal-config',
-						formID: 'prospect',
+						formID: 'prospect.html',
 						goIns_data: index
 					}
 
@@ -432,7 +458,7 @@
 					//点击生成计划书，弹框判断是否要添加方案
 					var data = {
 						modalID: 'modal-plan',
-						formID: 'prospect'
+						formID: 'prospect.html'
 					}
 					showPopu("popup-content.html", "popup_content", 'center', data);
 				}
@@ -448,6 +474,18 @@
 			var topHeight = document.querySelector('#Js-header').offsetHeight;
 			var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 			document.querySelector('#Js-content').style.height = winH - topHeight - fotHeight + 'px';
+			//汇总过来页面会带来totalData，不然没有
+			var totalData = plus.webview.currentWebview().totalData
+			var parent_pl_id = plus.webview.currentWebview().parent_pl_id
+			if(totalData){
+				prospect.edit = true;
+				prospect.appl.name = totalData.applicant;
+				prospect.appl.sex = totalData.appl_sex == 1 ? true : false;
+				prospect.appl.age = totalData.appl_age;
+				prospect.assu.name = totalData.assured;
+				prospect.assu.sex = totalData.assu_sex == 1 ? true : false;
+				prospect.assu.age = totalData.assu_age;
+			}
 
 			mui(".mui-scroll").on("tap", ".plans-nav ", function(e) {
 				var c = document.querySelector(".plans-nav.mui-active");
@@ -596,6 +634,7 @@
 					
 				}
 				prospect.count = count.toFixed(2)
+				prospect.planTime = {}
 				prospect.$forceUpdate()
 //				alert(JSON.stringify(prospect.plans))
 //				alert(JSON.stringify(prospect.planList))
@@ -605,7 +644,7 @@
 			window.addEventListener('SET_TIME', function(event) {
 				var data = event.detail.ins
 				prospect.planTime = data
-				//alert(JSON.stringify(prospect.planTime))
+//				alert(JSON.stringify(prospect.planTime))
 
 			});
 			//不添加，即生成
@@ -614,7 +653,7 @@
 				let fristChild = []
 				let otherChild = []
 				for(let i = 0; i < prospect.plans.length; i++) {
-					 let id = prospect.plans[i].id
+					let id = prospect.plans[i].id
 					prospect.plans[i].ins.splice(0, 1)
 					let planIns = prospect.plans[i].ins
 
@@ -648,37 +687,81 @@
 							}
 						}
 					}
+					if (prospect.edit && i === 0 && id === 1) { // 编辑接口 第一个是默认编辑
+			            luckyAjax({
+							data: {
+					            server: 'Proposal.edit',
+					            data: JSON.stringify({
+					            	pl_id: parent_pl_id,
+					            	mode: 'edit',
+					              	safes: JSON.stringify(fristChild)
+					            })
+					        },
+					        success:function(res){
+								if(res.code == 1){
+									console.log('111')
+								}
+					        }
+						});
+			        }
 				}
-
-				//alert(JSON.stringify(data))
-				if(data.length < 1){
+				if(data.length < 1 && fristChild.length < 1){
 					mui.toast('请先完成一个方案') 
 					return false;
 				}
-				luckyAjax({
-					data: {
-			            server: 'Proposal.add',
-			            device: 'mobile',
-			            data: JSON.stringify({
-			              safes: JSON.stringify(data)
-			            })
-			        },
-			        success:function(res){
+		        if (prospect.edit) { // 编辑添加接口 新添加的险种
+		        	luckyAjax({
+						data: {
+				            server: 'Proposal.edit',
+				            data: JSON.stringify({
+				            	pl_id: parent_pl_id,
+				            	mode: 'add',
+				              	safes: JSON.stringify(otherChild)
+				            })
+				        },
+				        success:function(res){
+							if(res.code == 1){
+								var wobj = plus.webview.getWebviewById("member_plans_detail");
+								var wobj1 = plus.webview.getWebviewById("member_plans_manage");
+								wobj.reload(true);
+								wobj1.reload(true);
+								mui.openWindow({
+									id: 'member_plans_detail',
+									url: 'member-plans-detail.html',
+									show: animateObj.aniDetal,
+									extras: {
+										pl_id: parent_pl_id //pl_id
+									}
+								});
+							}
+				        }
+					});
+		        }else{
+		        	luckyAjax({
+						data: {
+				            server: 'Proposal.add',
+				            data: JSON.stringify({
+				              safes: JSON.stringify(data)
+				            })
+				        },
+				        success:function(res){
 
-						if(res.code == 1){
-							var id = res.data.data[0].pl_id
-							mui.openWindow({
-								id: 'member_plans_detail',
-								url: 'member-plans-detail.html',
-								show: animateObj.aniDetal,
-								extras: {
-									pl_id: id //pl_id
-								}
-							});
-						}
-					
-			        }
-				});
+							if(res.code == 1){
+								var id = res.data.data[0].pl_id
+								mui.openWindow({
+									id: 'member_plans_detail',
+									url: 'member-plans-detail.html',
+									show: animateObj.aniDetal,
+									extras: {
+										pl_id: id //pl_id
+									}
+								});
+							}
+
+				        }
+					});
+		        }
+
 			});
 
 		});

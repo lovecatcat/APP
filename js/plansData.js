@@ -64,7 +64,7 @@
 			} else {
 				base_money = '计划三'
 			}
-		} else if(parent_id == 347 || parent_id == 301 || parent_id == 348|| parent_id == 370) {
+		} else if(parent_id == 347 || parent_id == 301 || parent_id == 348 || parent_id == 349 ||parent_id == 370 || parent_id == 16197) {
 			base_money = listMain["保险金额"];
 		} else if(parent_id == 360) {
 			base_money = listMain["保额"];
@@ -108,7 +108,11 @@
 			plansDataList.mainList = {
 				pl_id: pl_id,
 				applicant: content.applicant,
+				appl_sex: content.appl_sex,
+				appl_age: content.appl_age,
 				assured: content.assured,
+				assu_sex: content.assu_sex,
+				assu_age: content.assu_age,
 				name: main.name,
 				genre: content.genre,
 				safe_year: safe_year,
@@ -307,12 +311,6 @@
 							children_base_money = "—";
 							children_safe_year = "至105周岁";
 							children_year_fee = 100;
-							break;
-						case '349': //xia
-							children_base_money = "—";
-							children_safe_year = "100岁";
-							children_pay_year = tml.flag == 0 ? '—' : '1年';
-							children_year_fee = tml.flag;
 							break;
 							//国华
 						case '11':

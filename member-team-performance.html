@@ -104,7 +104,6 @@
 		var team = new Vue({
 			el: '#Js-content',
 			data: {
-				flag: 1,  // 1:表示调用getScore接口，2:表示调用getTempList接口
 				policy: null,
 				policy_detail: null,
 				rank_list: null,
@@ -199,8 +198,7 @@
 							mui.toast('结束时间不能大于开始日期', {duration: 'short', type: 'div'})
 							return false
 						}
-						// 重置接口标志， 页数, 总页数
-						team.flag = 2
+						// 重置页数, 总页数
 						team.page = 1
 						team.totalPage = ''
 						team.person = null
@@ -220,20 +218,12 @@
 				            data: JSON.stringify({
 			            		user_id: user_id,
 			            		start_time: start_time,
-				            	end_time: end_time,
-				            	page: team.page,
-				            	row: team.row
+				            	end_time: end_time
 			            	}),
 				        },
 				        success: function (ret) {
 			                if (ret.code == 1) {
 			                    team.policy = ret.data.policy;
-			                    team.totalPage = ret.data.person.totalPage;
-			                    if(team.page == 1) {
-			                    	team.person = ret.data.person.list
-			                    } else {
-			                    	team.person = team.person.concat(ret.data.person.list)
-			                    }
 			                    $.each(ret.data.rank_list, function(index, item) {
 									team.rank.push({
 										value: item.id,
@@ -280,10 +270,12 @@
 			            },
 					});
 				}
-				
+				// 获取业绩表格，获取团队成员业绩列表
 				getScore(start_time.innerHTML, end_time.innerHTML)
+				getTempList(start_time.innerHTML,end_time.innerHTML,'')
 				
 				var parent_self = plus.webview.getWebviewById('member_team')
+				
 				// 详情查看事件
 				mui('.member-team-tab').on('tap','.item_check', function(e){
 					var dataTeam = e.target.getAttribute('data-json')
@@ -312,12 +304,12 @@
 						mui.toast('结束时间不能大于开始日期', {duration: 'short', type: 'div'})
 						return false
 					}
-					// 重置接口标志， 页数
-					team.flag = 1
+					// 重置页数、总页数
 					team.page = 1
 					team.totalPage = ''
 					team.person = null
 					getScore (start_time.innerHTML, end_time.innerHTML)
+					getTempList(start_time.innerHTML,end_time.innerHTML,team.rank_txt.value)
 				});
 				
 				//触发详情页面的id事件
@@ -378,11 +370,7 @@
 						if (team.page > team.totalPage) {
 							return false;
 						} else {
-							if (team.flag === 1) {
-								getScore (start_time.innerHTML, end_time.innerHTML)
-			            	} else if (team.flag === 2) {
-			            		getTempList (start_time.innerHTML, start_time.innerHTML, team.rank_txt.value)
-			            	}
+			            	getTempList (start_time.innerHTML, start_time.innerHTML, team.rank_txt.value)
 						}
 		            }
 		        }

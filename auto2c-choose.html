@@ -18,7 +18,6 @@
 				<h1 class="BL-title">选择车险</h1>
 			</div>
 		</header>
-		
 		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
 			<ul class="mui-table-view form-list-cell">
 				<li class="fItem BL-ub BL-ub-f1">
@@ -248,25 +247,6 @@
 	<script src="js/mui.poppicker.js"></script>
 	<script type="text/javascript">
 		mui.init();
-		document.querySelector('#document_term').addEventListener('tap', function() {
-			var _self = this;
-			if(_self.picker) {
-				_self.picker.show(function(rs) {
-					console.log('选择结果: ' + rs.text);
-					_self.picker.dispose();
-					_self.picker = null;
-				});
-			} else {
-				var optionsJson = this.getAttribute('data-options') || '{}';
-				var options = JSON.parse(optionsJson);
-				_self.picker = new mui.DtPicker(options);
-				_self.picker.show(function(rs) {
-					console.log('选择结果: ' + rs.text);
-					_self.picker.dispose();
-					_self.picker = null;
-				});
-			}
-		})
 		mui.plusReady(function() {
 			statusbar();
 

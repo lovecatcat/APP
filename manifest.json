@@ -1357,9 +1357,14 @@
 					"images/icon/ico-search-blue.png",
 					"js/config.js",
 					"css/mui.picker.min.css",
-					"js/mui.picker.min.js"
+					"js/mui.picker.min.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/mui.poppicker.js"
 				],
-				"refer": [],
+				"refer": [
+					"auto2c-choose.html"
+				],
 				"priority": 0
 			},
 			"sns-detail.html": {
@@ -1457,7 +1462,9 @@
 					"images/icon/icon-upload.png",
 					"images/icon/ico-search-blue.png",
 					"js/config.js",
-					"css/mui.picker.min.css"
+					"css/mui.picker.min.css",
+					"js/mui.poppicker.js",
+					"js/mui.picker.min.js"
 				],
 				"priority": 3,
 				"refer": []
@@ -1521,7 +1528,9 @@
 					"images/icon/icon-upload.png",
 					"images/icon/ico-search-blue.png",
 					"js/config.js",
-					"css/mui.picker.min.css"
+					"css/mui.picker.min.css",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js"
 				],
 				"refer": [
 					"auto2c-choose.html",
@@ -1997,7 +2006,10 @@
 					"images/plans/plansManage/16203.png",
 					"images/plans/plansManage/334.png",
 					"images/plans/plansManage/272.png",
-					"images/plans/plansManage/300.png"
+					"images/plans/plansManage/300.png",
+					"images/plans/plansManage/352.png",
+					"images/plans/plansManage/349.png",
+					"images/plans/plansManage/348.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -2315,7 +2327,8 @@
 			},
 			"member-commission-salarydetail.html": {
 				"resources": [
-					"css/form.css"
+					"css/form.css",
+					"css/mui.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -2588,7 +2601,9 @@
 				"resources": [
 					"css/insurance.css",
 					"css/mui.picker.min.css",
-					"css/mui.css"
+					"css/mui.css",
+					"js/IDValidator.min.js",
+					"js/mui.poppicker.js"
 				],
 				"refer": [],
 				"priority": 0

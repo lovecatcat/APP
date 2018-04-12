@@ -163,8 +163,10 @@
 				sure: function(addPlan){
 					//点击确定，吧状态传回去
 					if(addPlan == 'addPlan'){
-						if(this.formID == 'prospect.html'){
-							mui.fire(plus.webview.getWebviewById('prospect.html'), 'addPlan');
+						if(this.formID == 'prospect'){
+							mui.fire(plus.webview.getWebviewById('prospect'), 'addPlan');
+						}else if(this.formID == 'prospect_product'){
+							mui.fire(plus.webview.getWebviewById('prospect_product'), 'addPlan');
 						}
 					}else{
 						if(this.formID == 'member_plans_manage'){
@@ -173,8 +175,10 @@
 							mui.fire(plus.webview.getWebviewById('member_plans_total'), 'sure');
 						}else if(this.formID == 'member_plans_alone'){
 							mui.fire(plus.webview.getWebviewById('member_plans_alone'), 'sure');
-						}else if(this.formID == 'prospect.html'){
-							mui.fire(plus.webview.getWebviewById('prospect.html'), 'sure', {data: modal.goIns_data});
+						}else if(this.formID == 'prospect'){
+							mui.fire(plus.webview.getWebviewById('prospect'), 'sure', {data: modal.goIns_data});
+						}else if(this.formID == 'prospect_product'){
+							mui.fire(plus.webview.getWebviewById('prospect_product'), 'sure', {data: modal.goIns_data});
 						}
 					}
 
@@ -182,8 +186,10 @@
 				},
 				cancel: function(addPlan){
 					if(addPlan == 'pushPlan'){
-						if(this.formID == 'prospect.html'){
-							mui.fire(plus.webview.getWebviewById('prospect.html'), 'pushPlan');
+						if(this.formID == 'prospect'){
+							mui.fire(plus.webview.getWebviewById('prospect'), 'pushPlan');
+						}else if(this.formID == 'prospect_product'){
+							mui.fire(plus.webview.getWebviewById('prospect_product'), 'pushPlan');
 						}
 						popu.closepop();
 					}else{

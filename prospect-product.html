@@ -16,8 +16,9 @@
 	<body class="BL-bg-f2f">
 		<div id="prospect">
 
-			<header id="Js-header" class="BL-bg-f2f">
-				<div class="BL-mod-headbar BL-bg-fff">
+			<header id="Js-header" class="BL-bg-fff">
+				<div class="BL-mod-headbar BL-mod-headbar-pos">
+					<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
 					<h1 class="BL-title">计划书制作</h1>
 				</div>
 				<!--计划书方案选项 begin-->
@@ -166,10 +167,8 @@
 										<span>首年保费</span>
 									</li>
 									<li>
-										<span v-if="item.money < 100">{{(item.money).toFixed(2)}}</span>
-										<span v-else>—</span>
+										<span>{{(item.money).toFixed(2)}}</span>
 										<span>{{item.safe_year , item.safeid | safeYearFilter}}</span>
-										
 										<span>{{item.pay_year | payYearFilter}}</span>
 										<span class="hm-color__red year_fee">{{item.period_money}}</span>
 									</li>
@@ -271,18 +270,8 @@
 						}
 					},
 					deep: true
-				},
-				edit: {
-					handler(val) {
-						console.log(this.plan_id)
-						if(this.plans.length === this.id) {
-							this.appl.name = val.name
-							this.appl.age = val.age
-							this.appl.sex = val.sex
-						}
-					},
-					deep: true
 				}
+
 			},
 			filters: {
 				safeYearFilter: function(value, safeid) {
@@ -459,7 +448,7 @@
 					}
 					var data = {
 						modalID: 'modal-config',
-						formID: 'prospect',
+						formID: 'prospect_product',
 						goIns_data: index
 					}
 
@@ -470,7 +459,7 @@
 					//点击生成计划书，弹框判断是否要添加方案
 					var data = {
 						modalID: 'modal-plan',
-						formID: 'prospect'
+						formID: 'prospect_product'
 					}
 					showPopu("popup-content.html", "popup_content", 'center', data);
 				}
@@ -488,8 +477,9 @@
 			document.querySelector('#Js-content').style.height = winH - topHeight - fotHeight + 'px';
 			//汇总过来页面会带来totalData，不然没有
 			var totalData = plus.webview.currentWebview().totalData
-			
+			var parent_pl_id = plus.webview.currentWebview().parent_pl_id
 			if(totalData){
+				prospect.edit = true;
 				prospect.appl.name = totalData.applicant;
 				prospect.appl.sex = totalData.appl_sex == 1 ? true : false;
 				prospect.appl.age = totalData.appl_age;
@@ -664,7 +654,7 @@
 				let fristChild = []
 				let otherChild = []
 				for(let i = 0; i < prospect.plans.length; i++) {
-					 let id = prospect.plans[i].id
+					let id = prospect.plans[i].id
 					prospect.plans[i].ins.splice(0, 1)
 					let planIns = prospect.plans[i].ins
 
@@ -698,37 +688,76 @@
 							}
 						}
 					}
+					if (prospect.edit && i === 0 && id === 1) { // 编辑接口 第一个是默认编辑
+			            luckyAjax({
+							data: {
+					            server: 'Proposal.edit',
+					            data: JSON.stringify({
+					            	pl_id: parent_pl_id,
+					            	mode: 'edit',
+					              	safes: JSON.stringify(fristChild)
+					            })
+					        },
+					        success:function(res){
+								if(res.code == 1){
+									console.log('111')
+								}
+					        }
+						});
+			        }
 				}
-
-//				alert(JSON.stringify(data))
-				if(data.length < 1){
+				if(data.length < 1 && fristChild.length < 1){
 					mui.toast('请先完成一个方案') 
 					return false;
 				}
-				luckyAjax({
-					data: {
-			            server: 'Proposal.add',
-			            device: 'mobile',
-			            data: JSON.stringify({
-			              safes: JSON.stringify(data)
-			            })
-			        },
-			        success:function(res){
+		        if (prospect.edit) { // 编辑添加接口 新添加的险种
+		        	luckyAjax({
+						data: {
+				            server: 'Proposal.edit',
+				            data: JSON.stringify({
+				            	pl_id: parent_pl_id,
+				            	mode: 'add',
+				              	safes: JSON.stringify(otherChild)
+				            })
+				        },
+				        success:function(res){
+							if(res.code == 1){
+								var wobj = plus.webview.getWebviewById("member_plans_detail");
+								var wobjTotal = plus.webview.getWebviewById("member_plans_total");
+//								var wobj1 = plus.webview.getWebviewById("member_plans_manage");
+								wobj.reload(true);
+								wobjTotal.reload(true);
+//								wobj1.reload(true);
+								mui.back()
+							}
+				        }
+					});
+		        }else{
+		        	luckyAjax({
+						data: {
+				            server: 'Proposal.add',
+				            data: JSON.stringify({
+				              safes: JSON.stringify(data)
+				            })
+				        },
+				        success:function(res){
 
-						if(res.code == 1){
-							var id = res.data.data[0].pl_id
-							mui.openWindow({
-								id: 'member_plans_detail',
-								url: 'member-plans-detail.html',
-								show: animateObj.aniDetal,
-								extras: {
-									pl_id: id //pl_id
-								}
-							});
-						}
-					
-			        }
-				});
+							if(res.code == 1){
+								var id = res.data.data[0].pl_id
+								mui.openWindow({
+									id: 'member_plans_detail',
+									url: 'member-plans-detail.html',
+									show: animateObj.aniDetal,
+									extras: {
+										pl_id: id //pl_id
+									}
+								});
+							}
+
+				        }
+					});
+		        }
+
 			});
 
 		});

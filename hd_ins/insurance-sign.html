@@ -137,6 +137,9 @@
         img.war_id = plus.webview.currentWebview().data
         var assured = JSON.parse(plus.storage.getItem('hengda_assured'))
         img.assured = assured
+        //赋值
+        img.getSignature(1,true);
+        img.getSignature(2,true);
         //保存
         document.querySelector('#saveSign').addEventListener('tap', function () {
             if (!img.checkForm()) {
@@ -333,7 +336,7 @@
                 this.$forceUpdate()
             },
         }
-    })
+    });
     var img = new Vue({
         el: '#Js-content',
         data: {
@@ -389,7 +392,7 @@
                 }
                 return true;
             },
-            getSignature: function (index) {
+            getSignature: function (index,notoast) {
                 var toast_text = null
                 var vm = this
                 if (!index) return
@@ -415,13 +418,15 @@
 	                        } else {
                                 toast_text = '签名不存在'
                             }
-                            if (toast_text) {
+                            if (toast_text && !notoast) {
                                 mui.toast(toast_text, {duration: 'short', type: 'div'});
                                 return false;
                             }
                         } else {
-                            mui.toast('签名不存在', {duration: 'short', type: 'div'});
-	                        return false;
+                            if (!notoast) {
+                                mui.toast('签名不存在', {duration: 'short', type: 'div'});
+                                return false;
+                            }
                         }
                     }
                 });

@@ -247,7 +247,7 @@
                         <label class="">通讯地区</label>
                         <div class="input-wrap box-f-1">
                             <div class="input" id="address-select">
-                                {{applicant.holder_contact_province_name}}&nbsp;{{applicant.holder_contact_city_name}}&nbsp;{{applicant.holder_contact_district_name}}
+                                {{applicant.holder_contact_address_select}}
                             </div>
                             <div class="ins-down-icon"></div>
                         </div>
@@ -351,6 +351,7 @@
                 holder_contact_city_name: '请选择',//通讯地址【市】名称
                 holder_contact_district_name: '请选择',//通讯地址【区】名称
                 holder_contact_address: '', //通讯地址【地址详情】
+                holder_contact_address_select: '请选择', //通讯地址【地址详情】
                 holder_contact_zip: '',//通讯地址【邮编】
 
                 holder_has_SSID: false,//是否有社保
@@ -453,7 +454,7 @@
                 appl.applicant.holder_contact_city = _getParam(items[1], 'value')
                 appl.applicant.holder_contact_district = _getParam(items[2], 'value')
                 appl.applicant.holder_contact_zip = _getParam(items[2], 'zip') ? _getParam(items[2], 'zip') : _getParam(items[1], 'zip')
-                _self.innerText = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
+                appl.applicant.holder_contact_address_select = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
             });
         }, false);
         //日期选择
@@ -543,7 +544,7 @@
             }
             plus.storage.setItem('hengda_applicant',JSON.stringify(appl.applicant));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
-                item: 'applicant_save'
+                item: 'applicant'
             });
             popu.closepop();
             mui.back();

@@ -503,12 +503,14 @@
         var popu = new ClosePopu(); // 实例化关闭窗口对象
         //保存
         document.querySelector('#saveAssu').addEventListener('tap', function () {
+            RSChanged(assu.applicant);
+            console.log(JSON.stringify(assu.assured))
             if (!checkAssured()) {
                 return false
             }
             plus.storage.setItem('hengda_assured',JSON.stringify(assu.assured));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
-                item: 'assured_save'
+                item: 'assured'
             });
             popu.closepop();
             mui.back();

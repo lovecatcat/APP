@@ -539,7 +539,7 @@ var astypeChange = function () {
         assu.longTerm = false
     }
 };
-
+//获取市/区
 var getCityArea = function (id, cb) {
     luckyAjax({
         data: {
@@ -563,7 +563,7 @@ var getCityArea = function (id, cb) {
         }
     })
 }
-
+//获取职业
 var getOccu = function (id, cb) {
     luckyAjax({
         data: {data: JSON.stringify({'id': id}), server: 'PolicyIns.getBasicEnumCode'},
@@ -582,4 +582,41 @@ var getOccu = function (id, cb) {
             }
         }
     });
+}
+
+//被保人为本人
+var RSChanged = function(applicant) {
+    if(assu.assured.rel_insured_holder ===ISASSURED){
+            assu.assured.insured_name= applicant.holder_name //姓名
+            assu.assured.insured_ID_type= IDcard //证件类型
+            assu.assured.insured_ID_type_name= '身份证' //证件类型名
+            assu.assured.insured_ID_no= applicant.holder_ID_no //证件号码
+            assu.assured.insured_birthday= applicant.holder_birthday //出生日期
+            assu.assured.insured_ID_expire_end= applicant.holder_ID_expire_end //证件有效期
+            assu.assured.insured_gender= applicant.holder_gender //性别  1男  2女
+            assu.assured.insured_mobile= applicant.holder_mobile//手机号
+            assu.assured.insured_email= applicant.holder_email//邮箱
+            assu.assured.insured_height= applicant.holder_height//身高
+            assu.assured.insured_weight= applicant.holder_weight//体重
+            assu.assured.insured_nation= NATION//国籍
+            assu.assured.insured_nation_name= '中国'//国籍
+            assu.assured.insured_salary_from= applicant.holder_salary_from//收入来源
+            assu.assured.insured_salary_from_name= applicant.holder_salary_from_name//收入来源名
+            assu.assured.insured_salary_avg= applicant.holder_salary_avg//年收入
+
+            assu.assured.addr_type= true//是否所有地址同投保人
+            assu.assured.insured_home_province= applicant.holder_contact_province//现在住址【省】
+            assu.assured.insured_home_city= applicant.holder_contact_city//现在住址【市】
+            assu.assured.insured_home_district= applicant.holder_contact_district//现在住址【区】
+            assu.assured.insured_home_district_name= applicant.holder_contact_district_name//现在住址【区】名称
+            assu.assured.insured_home_address= applicant.holder_contact_address //现在住址【地址详情】
+            assu.assured.insured_home_zip= applicant.holder_contact_zip//现在住址【邮编】
+
+            assu.assured.insured_has_SSID= applicant.holder_has_SSID//是否有社保
+            assu.assured.insured_marriage= applicant.holder_marriage//婚姻状况
+            assu.assured.insured_job_code= applicant.holder_job_code//职业
+            assu.assured.temp_insured_job_code= applicant.temp_holder_job_code//职业代码
+            assu.assured.insured_job_name= applicant.holder_job_name//职业名称
+            assu.assured.insured_isTaxResidents= applicant.holder_isTaxResidents
+    }
 }

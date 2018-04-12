@@ -37,6 +37,7 @@
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script src="js/Tunnel.js" type="text/javascript"></script>
+	<script src="js/upgrade.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		var navHeight = document.querySelector('#Js-nav').offsetHeight / sizeObj.dpl;
 		//localStorage.setItem("navHeight", document.querySelector('#Js-nav').offsetHeight); // 储存底部导航高度 
@@ -44,6 +45,14 @@
 		mui.plusReady(function() {
 			var nums = 0;
             var userinfo = plus.storage.getItem('userinfo');
+            
+            if (plus.runtime.appid !== 'HBuilder') { // 开发模式不检测更新
+                //获取版本号监测是否需要更新
+                plus.runtime.getProperty(plus.runtime.appid, function (inf) {
+                    checkUpdate(inf.version)
+                });
+            };
+            
             if(!userinfo){
                 mui.openWindow({
                     url:'login.html',
@@ -64,7 +73,7 @@
             
             Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
 		        //console.log('Message:' + Tunnel._webSocket.readyState);
-		        console.log(event.data);
+		        //console.log(event.data);
 		        //如果获取到消息，心跳检测重置
 		        //拿到任何消息都说明当前连接是正常的
 		        var _info = '';

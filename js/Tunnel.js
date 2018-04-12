@@ -15,7 +15,7 @@ var Tunnel = {
     /**
      * 传输报文(格式固定,否则服务器会拒绝登录)
      */
-    _message: {uid: 0, type: 0, flag: ''},
+    _message: {uid: 0, type: 0, flag: '', platform: '', userAgent: ''},
 
     /**
      * WS服务器地址
@@ -48,6 +48,8 @@ var Tunnel = {
         if(typeof(uid) != 'undefined' && typeof(flag) != 'undefined' && typeof(action) != 'undefined'){
             Tunnel._message.uid = uid;
             Tunnel._message.flag = flag;
+            Tunnel._message.platform = navigator.platform;
+            Tunnel._message.userAgent = navigator.userAgent;
             Tunnel._action = action;
         }
 
@@ -85,9 +87,9 @@ var Tunnel = {
         };
 
         Tunnel._webSocket.addEventListener('message', function (event) {
-            /* 重复登录停止全局 */
+            /* 重复登录及非法请求停止全局WS */
             var _message = JSON.parse(event.data);
-            if(parseInt(_message.code) > 0){
+            if(parseInt(_message.code) > 0 && parseInt(_message.code) < 9){
                 Tunnel.HeartCheck.reset();
                 Tunnel._isStop = true;
             }else{
@@ -124,7 +126,7 @@ var Tunnel = {
      * 心跳计时
      */
     HeartCheck: {
-        timeout: 18000,//3min
+        timeout: 8000,//60秒
         timeoutObj: null,
         serverTimeoutObj: null,
         reset: function(){

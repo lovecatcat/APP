@@ -16,7 +16,11 @@
 
 			<div id="modal-bottom" class=" BL-modal-bottom-2 clearfloat" style="height: 80% !important;">
 				<header id="Js-header" class="BL-bg-fff">
-					<div class="BL-title">利益演示表</div>
+					<div class="BL-title">利益演示表
+						<div class="form-clear-icon " @click="close" >
+							<span class="mui-icon mui-icon-clear BL-abs" style="top: 0;right: .1rem;"></span>
+						</div>
+					</div>
 					
 				</header>
 				 
@@ -338,7 +342,9 @@
 	            }  
         	},
         	methods :{
-        		
+        		close: function() {
+        			popu.closepop();
+        		}
         	}
         	
 		})

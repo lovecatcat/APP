@@ -447,7 +447,7 @@
 					}
 					var data = {
 						modalID: 'modal-config',
-						formID: 'prospect.html',
+						formID: 'prospect',
 						goIns_data: index
 					}
 
@@ -458,7 +458,7 @@
 					//点击生成计划书，弹框判断是否要添加方案
 					var data = {
 						modalID: 'modal-plan',
-						formID: 'prospect.html'
+						formID: 'prospect'
 					}
 					showPopu("popup-content.html", "popup_content", 'center', data);
 				}
@@ -474,18 +474,6 @@
 			var topHeight = document.querySelector('#Js-header').offsetHeight;
 			var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 			document.querySelector('#Js-content').style.height = winH - topHeight - fotHeight + 'px';
-			//汇总过来页面会带来totalData，不然没有
-			var totalData = plus.webview.currentWebview().totalData
-			var parent_pl_id = plus.webview.currentWebview().parent_pl_id
-			if(totalData){
-				prospect.edit = true;
-				prospect.appl.name = totalData.applicant;
-				prospect.appl.sex = totalData.appl_sex == 1 ? true : false;
-				prospect.appl.age = totalData.appl_age;
-				prospect.assu.name = totalData.assured;
-				prospect.assu.sex = totalData.assu_sex == 1 ? true : false;
-				prospect.assu.age = totalData.assu_age;
-			}
 
 			mui(".mui-scroll").on("tap", ".plans-nav ", function(e) {
 				var c = document.querySelector(".plans-nav.mui-active");
@@ -687,80 +675,35 @@
 							}
 						}
 					}
-					if (prospect.edit && i === 0 && id === 1) { // 编辑接口 第一个是默认编辑
-			            luckyAjax({
-							data: {
-					            server: 'Proposal.edit',
-					            data: JSON.stringify({
-					            	pl_id: parent_pl_id,
-					            	mode: 'edit',
-					              	safes: JSON.stringify(fristChild)
-					            })
-					        },
-					        success:function(res){
-								if(res.code == 1){
-									console.log('111')
-								}
-					        }
-						});
-			        }
 				}
-				if(data.length < 1 && fristChild.length < 1){
+				if(data.length < 1){
 					mui.toast('请先完成一个方案') 
 					return false;
 				}
-		        if (prospect.edit) { // 编辑添加接口 新添加的险种
-		        	luckyAjax({
-						data: {
-				            server: 'Proposal.edit',
-				            data: JSON.stringify({
-				            	pl_id: parent_pl_id,
-				            	mode: 'add',
-				              	safes: JSON.stringify(otherChild)
-				            })
-				        },
-				        success:function(res){
-							if(res.code == 1){
-								var wobj = plus.webview.getWebviewById("member_plans_detail");
-								var wobj1 = plus.webview.getWebviewById("member_plans_manage");
-								wobj.reload(true);
-								wobj1.reload(true);
-								mui.openWindow({
-									id: 'member_plans_detail',
-									url: 'member-plans-detail.html',
-									show: animateObj.aniDetal,
-									extras: {
-										pl_id: parent_pl_id //pl_id
-									}
-								});
-							}
-				        }
-					});
-		        }else{
-		        	luckyAjax({
-						data: {
-				            server: 'Proposal.add',
-				            data: JSON.stringify({
-				              safes: JSON.stringify(data)
-				            })
-				        },
-				        success:function(res){
+		     
+	        	luckyAjax({
+					data: {
+			            server: 'Proposal.add',
+			            data: JSON.stringify({
+			              safes: JSON.stringify(data)
+			            })
+			        },
+			        success:function(res){
+						if(res.code == 1){
+							var id = res.data.data[0].pl_id
+							mui.openWindow({
+								id: 'member_plans_detail',
+								url: 'member-plans-detail.html',
+								show: animateObj.aniDetal,
+								extras: {
+									pl_id: id //pl_id
+								}
+							});
+						}
 
-							if(res.code == 1){
-								var id = res.data.data[0].pl_id
-								mui.openWindow({
-									id: 'member_plans_detail',
-									url: 'member-plans-detail.html',
-									show: animateObj.aniDetal,
-									extras: {
-										pl_id: id //pl_id
-									}
-								});
-							}
-
-				        }
-					});
-		        }
+			        }
+				});
+		        
 
 			});
 

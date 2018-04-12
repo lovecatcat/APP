@@ -125,15 +125,19 @@
                     toastText = '请上传投保人身份证正面照片'
                 } else if (!this.appl_negative_img) {
                     toastText = '请上传投保人身份证反面照片'
-                } else if (this.assured.insured_ID_type === IDcard && !img.assu_front_img) {
-                    toastText = '请上传被保人身份证正面照片'
-                } else if (this.assured.insured_ID_type === IDcard && !img.assu_negative_img) {
-                    toastText = '请上传被保人身份证反面照片'
-                } else if (this.assured.insured_ID_type === BOOKLET && !img.assu_booklet_img) {
-                    toastText = '请上传被保人户口本照片'
-                } else if (this.assured.insured_ID_type === BORNid && !img.assu_born_img) {
-                    toastText = '请上传被保人出生证照片'
-                }else if (!img.bank_front_img) {
+                }
+                if(this.assured.rel_insured_holder!==ISASSURED){
+                    if (this.assured.insured_ID_type === IDcard && !img.assu_front_img) {
+                        toastText = '请上传被保人身份证正面照片'
+                    } else if (this.assured.insured_ID_type === IDcard && !img.assu_negative_img) {
+                        toastText = '请上传被保人身份证反面照片'
+                    } else if (this.assured.insured_ID_type === BOOKLET && !img.assu_booklet_img) {
+                        toastText = '请上传被保人户口本照片'
+                    } else if (this.assured.insured_ID_type === BORNid && !img.assu_born_img) {
+                        toastText = '请上传被保人出生证照片'
+                    }
+                }
+                if (!img.bank_front_img) {
                     toastText = '请上传银行卡正面照片'
                 }
                 if (toastText) {
@@ -144,12 +148,46 @@
             }
         }
     })
-
+    // 图片字段名
+    const fileName = [
+        'appl_front_img',
+        'appl_negative_img',
+        'assu_front_img',
+        'assu_negative_img',
+        'assu_booklet_img',
+        'assu_born_img',
+        'bank_front_img'
+    ]
     mui.plusReady(function () {
         popu = new ClosePopu(); // 实例化关闭窗口对象
 
-        var assured = JSON.parse(plus.storage.getItem('hengda_assured'))
+        var upload = plus.storage.getItem('hengda_upload') ? JSON.parse(plus.storage.getItem('hengda_upload')) : ''
+        var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')) : ''
         img.assured = assured
+        //赋值
+        var tempName = {
+            '00': 'appl_front_img',
+            '01': 'appl_negative_img',
+            '08': 'bank_front_img'
+        }
+        if (assured && assured.insured_ID_type === IDcard) {
+            tempName['02'] = 'assu_front_img'
+            tempName['03'] = 'assu_negative_img'
+        } else if (assured && assured.insured_ID_type === BOOKLET) {
+            tempName['04'] = 'assu_booklet_img'
+        } else if (assured && assured.insured_ID_type === BORNid) {
+            tempName['05'] = 'assu_born_img'
+        }
+        for (var i in tempName) {
+            var j = i === '08' ? 6 : Number(i)
+            if (upload && upload[i]) {
+                img[tempName[i]] = upload[i]
+                img.$set(img.previewImg, j, {
+                    'backgroundImage': 'url(' + upload[i] + ')'
+                })
+            }
+        }
+
         //保存
         document.querySelector('#saveUpload').addEventListener('tap', function () {
             if (!img.sure()) {
@@ -169,7 +207,7 @@
             img_json['08'] = img.bank_front_img
             plus.storage.setItem('hengda_upload', JSON.stringify(img_json));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
-                item: 'upload_save'
+                item: 'upload'
             });
             popu.closepop();
             mui.back();
@@ -186,16 +224,7 @@
             showPopu("upload-img.html", "upload_img", "bottom", {id: id});
         });
     });
-    // 图片字段名
-    const fileName = [
-        'appl_front_img',
-        'appl_negative_img',
-        'assu_front_img',
-        'assu_negative_img',
-        'assu_booklet_img',
-        'assu_born_img',
-        'bank_front_img'
-    ]
+
     //获取要上传的头像
     window.addEventListener('uploadimg', function (event) {
         img[fileName[event.detail.id]] = event.detail.img

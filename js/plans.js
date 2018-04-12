@@ -19,7 +19,7 @@ var aloneDetail = new Vue({
 		hd: [272, 276, 340, 348, 370],
 		al: [309],
 		fx: [335, 336, 337],
-		behalfTable: [256, 347, 352, 354, 370, 16197, 16201], //主险利益演示表和附加险有关系的
+		behalfTable: [256, 347, 354, 370, 16197, 16201], //主险利益演示表和附加险有关系的
 		haveDesign: [354, 348, 370, 347],
 		haveDesign16197: false,
 		haveLevel: false, //有中高低的

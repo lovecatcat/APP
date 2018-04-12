@@ -27,12 +27,12 @@
 					<div class="BL-ub plans-total-content BL-pad-b-1">
 						<div class="BL-ub-f4">
 							<span class="plans-total-font BL-ftz-46">{{content.mainList.name}}</span>
-							<span class="BL-col-3b9cf5 plans-total-font BL-ftz-46 BL-pad-l-1">详情</span>
+							<span class="BL-col-3b9cf5 plans-total-font BL-ftz-46 BL-pad-l-1" @click="detailLink(index)">详情</span>
 						</div>
 						<div class="BL-ub-f1 BL-txt-r">
 							<button class="BL-btn-white BL-ftz-42" v-if="index !== 0" 
 								@click="delIns(content.mainList.pl_id, content.mainList.genre, index, index, false)">删除</button>
-							<button class="BL-btn-blue BL-ftz-42">编辑</button>
+							<button class="BL-btn-blue BL-ftz-42" @click="edit(content.mainList)">编辑</button>
 						</div>
 					</div>
 					<ul class="BL-ul BL-col-999 BL-col-999 BL-ftz-42">
@@ -112,6 +112,7 @@
 			data: {
 				total_list: [],
 				plansData: [],
+				parent_pl_id: '',
 				mustSelected: ['304', '305'], //必须附加的附加险
 				delPl_id: '',
 				delGenre: '',
@@ -131,7 +132,23 @@
 					mui.fire(parent_self, 'show', {
 						formID: 'member_plans_total'
 					});
-				}
+				},
+				detailLink: function(index){ //详情按钮，去父页面触发
+					mui.fire(parent_self, 'link', {
+						index: index
+					});
+				},
+				edit: function(item){
+					mui.openWindow({
+						id: 'prospect.html',
+						url: 'prospect.html',
+						show: animateObj.aniDetal,
+						extras: {
+							totalData: item,
+							parent_pl_id :this.parent_pl_id
+						}
+					});
+				},
 			}
 		});
 
@@ -149,7 +166,8 @@
 					mui.fire(_self, 'show');
 				});
 
-				var pl_id = plus.webview.currentWebview().pl_id //获取从列表从过来的plid
+				var pl_id = plus.webview.currentWebview().pl_id //获取从列表从过来的plid,最大的
+				plansTotal.parent_pl_id = pl_id
 				parent_self = plus.webview.getWebviewById('member_plans_detail') //父级id
 				user_id = JSON.parse(plus.storage.getItem("userinfo")).id;
 

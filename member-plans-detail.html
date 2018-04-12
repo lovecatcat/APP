@@ -29,7 +29,7 @@
 							<span>汇总</span>
 						</div>
 						<div data-wid="member_plans_alone" href="member-plans-alone.html" class="plans-nav" v-for="(item, index) in detail_list"
-							 :key="index" :data-id="pl_id[index]" :data-index="index" v-if="item">
+							 :key="index" :data-id="pl_id[index]" :data-index="index" v-if="item" :id="'plan'+ index">
 							<span>{{item.main.short_name}}</span>
 						</div>
 					</div>
@@ -200,6 +200,40 @@
 				plansDetail.$forceUpdate()
 //				alert(JSON.stringify(plansDetail.detail_list))
 
+			})
+			
+			window.addEventListener('link', function(event) {
+				//获得事件参数
+				var i = event.detail.index;
+				setTimeout(function() {
+					var btn = document.getElementById('plan' + i);
+					//监听点击事件
+					btn.addEventListener("tap", function() {
+						var c = document.querySelector(".plans-nav.mui-active");
+						if(c) {
+							c.classList.remove("mui-active");
+						}
+						this.classList.add("mui-active");
+						var wid = this.getAttribute("data-wid");
+						var id = this.getAttribute("data-id");
+						var index = this.getAttribute("data-index");
+						if(id) {
+							plansDetail.aloneId = id
+							var alone_self = plus.webview.getWebviewById('member_plans_alone');
+							var alone_table = plus.webview.getWebviewById('member_plans_alone_table');
+							if(alone_self) {
+								setTimeout(function() {
+									mui.fire(alone_self, 'alone', {
+										data: plansDetail.detail_list[index],
+										adviser: plansDetail.adviser,
+										pl_id: id
+									});
+								}, 300)
+							}
+						}
+					});
+					mui.trigger(btn, 'tap');
+				}, 100)
 			})
 
 		})

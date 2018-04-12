@@ -541,7 +541,8 @@
 					"images/icon/nav-user-active.png",
 					"images/icon/sign.png",
 					"images/icon/sign-active.png",
-					"js/config.js"
+					"js/config.js",
+					"js/vue.min.js"
 				],
 				"refer": [
 					"news-detail.html",
@@ -576,7 +577,8 @@
 					"images/icon/sign.png",
 					"images/icon/sign-active.png",
 					"js/config.js",
-					"js/plusShare.js"
+					"js/plusShare.js",
+					"js/vue.min.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -810,7 +812,8 @@
 					"images/icon/icon-upload.png",
 					"images/icon/ico-search-blue.png",
 					"js/config.js",
-					"js/Date.js"
+					"js/Date.js",
+					"js/vue.min.js"
 				],
 				"refer": [
 					"member-commission-incomelist.html"
@@ -1085,7 +1088,9 @@
 					"images/icon/ico-eye.png",
 					"images/icon/ico-hide.png",
 					"js/config.js",
-					"js/interval-dtpicker.js"
+					"js/interval-dtpicker.js",
+					"js/vue.min.js",
+					"js/Date.js"
 				],
 				"refer": [
 					"member-commission-detail.html"
@@ -1144,7 +1149,8 @@
 					"images/icon/ico-duty-address.png",
 					"images/icon/ico-duty-hswifi.png",
 					"images/icon/ico-duty-nowifi.png",
-					"js/config.js"
+					"js/config.js",
+					"js/vue.min.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -1676,7 +1682,8 @@
 					"images/product/menu-pk.png"
 				],
 				"refer": [
-					"product-contrast.html"
+					"product-contrast.html",
+					"product-company.html"
 				],
 				"priority": 4
 			},
@@ -1784,7 +1791,8 @@
 					"images/icon/sign.png",
 					"images/icon/sign-active.png",
 					"js/config.js",
-					"images/icon/plan_link.jpg"
+					"images/icon/plan_link.jpg",
+					"images/icon/ico-duty-hswifi.png"
 				],
 				"priority": 6,
 				"refer": []
@@ -1845,10 +1853,17 @@
 					"images/icon/icon-users.png",
 					"images/icon/icon-datepicker.jpg",
 					"js/config.js",
-					"images/plans/prospectus/ajb.jpg"
+					"images/plans/prospectus/ajb.jpg",
+					"js/plans.js",
+					"images/plans/prospectus/276.jpg",
+					"images/plans/prospectus/301.jpg",
+					"images/plans/prospectus/334.jpg",
+					"images/plans/prospectus/121.jpg"
 				],
 				"priority": 2,
-				"refer": []
+				"refer": [
+					"member-plans-alone-table.html"
+				]
 			},
 			"member-plans-total.html": {
 				"href": "member-plans-total.html",
@@ -1981,7 +1996,8 @@
 					"images/plans/plansManage/155.png",
 					"images/plans/plansManage/16203.png",
 					"images/plans/plansManage/334.png",
-					"images/plans/plansManage/272.png"
+					"images/plans/plansManage/272.png",
+					"images/plans/plansManage/300.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -2049,7 +2065,12 @@
 					"css/mui.css",
 					"css/form.css",
 					"css/module.css",
-					"css/common.css"
+					"css/common.css",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"images/icon/avatar-default.png",
+					"js/vue.min.js",
+					"js/config.js"
 				],
 				"refer": [
 					"member-avatarmenu.html"
@@ -2063,7 +2084,11 @@
 					"member-intergral-activity.html",
 					"css/member.css",
 					"css/module.css",
-					"css/common.css"
+					"css/common.css",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/webviewGroup.js",
+					"js/config.js"
 				],
 				"refer": [
 					"member-intergral-experience.html",
@@ -2086,7 +2111,12 @@
 					"member-birthday-customer.html",
 					"css/mui.css",
 					"css/module.css",
-					"css/common.css"
+					"css/common.css",
+					"images/icon/ico-search-blue.png",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/webviewGroup.js",
+					"js/config.js"
 				],
 				"refer": [
 					"member-birthday-team.html"
@@ -2127,7 +2157,14 @@
 					"css/mui.picker.min.css",
 					"css/mui.css",
 					"images/member/renewal-detail.png",
-					"images/pic/inscompany_logo.png"
+					"images/pic/inscompany_logo.png",
+					"css/module.css",
+					"js/mui.min.js",
+					"css/common.css",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"css/member.css",
+					"js/config.js"
 				],
 				"refer": [
 					"member-warranty-manageLife-detail.html"
@@ -2141,7 +2178,11 @@
 					"css/mui.css",
 					"member-renewal-life.html",
 					"css/module.css",
-					"css/common.css"
+					"css/common.css",
+					"images/icon/ico-search-blue.png",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/config.js"
 				],
 				"refer": [
 					"member-renewal-auto.html"
@@ -2158,7 +2199,12 @@
 					"css/mui.picker.min.css",
 					"js/mui.dtpicker.js",
 					"css/member.css",
-					"css/mui.css"
+					"css/mui.css",
+					"js/vue.min.js",
+					"css/module.css",
+					"js/mui.min.js",
+					"css/common.css",
+					"js/config.js"
 				],
 				"refer": [
 					"member-renewal-liftdetail.html"
@@ -2173,7 +2219,12 @@
 					"images/icon/ico-down.png",
 					"css/member.css",
 					"js/mui.dtpicker.js",
-					"css/mui.css"
+					"css/mui.css",
+					"css/module.css",
+					"js/mui.min.js",
+					"css/common.css",
+					"js/vue.min.js",
+					"js/config.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2195,7 +2246,13 @@
 					"js/mui.pullToRefresh.js",
 					"js/mui.pullToRefresh.material.js",
 					"css/mui.css",
-					"images/icon/ico-filter-active.png"
+					"images/icon/ico-filter-active.png",
+					"js/vue.min.js",
+					"css/module.css",
+					"css/common.css",
+					"js/mui.min.js",
+					"css/member.css",
+					"js/config.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2292,7 +2349,18 @@
 			"member-intergral-experience.html": {
 				"resources": [
 					"css/mui.css",
-					"css/product.css"
+					"css/product.css",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/vue.min.js",
+					"images/icon/ico-filter.png",
+					"css/module.css",
+					"css/common.css",
+					"js/mui.min.js",
+					"css/member.css",
+					"js/Date.js",
+					"js/interval-dtpicker.js",
+					"js/config.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2437,7 +2505,16 @@
 					"css/mui.picker.min.css",
 					"css/mui.css",
 					"js/mui.dtpicker.js",
-					"images/icon/ico-down.png"
+					"images/icon/ico-down.png",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/vue.min.js",
+					"css/module.css",
+					"js/mui.min.js",
+					"css/common.css",
+					"css/member.css",
+					"js/Date.js",
+					"js/config.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2446,7 +2523,8 @@
 				"resources": [
 					"css/mui.css",
 					"images/icon/ico-tax-question.png",
-					"css/form.css"
+					"css/form.css",
+					"css/member.css"
 				],
 				"refer": [
 					"member-tax-info.html"
@@ -2609,6 +2687,13 @@
 				"resources": [
 					"css/mui.css",
 					"css/form.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-plans-alone-table.html": {
+				"resources": [
+					"css/mui.css"
 				],
 				"refer": [],
 				"priority": 0

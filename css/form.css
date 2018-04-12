@@ -78,7 +78,7 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'],i
     direction: rtl;
 }
 
-.form-list-icon .mui-icon {
+.form-list-icon .mui-icon{
     font-size: 1.9rem;
     line-height: 1.5rem;
     color: #bfbfbf;
@@ -92,6 +92,12 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'],i
 
 .form-list-icon .mui-icon-arrowright {
     color: #999;
+}
+.form-btn-newcar{
+	padding: .3rem 1.2rem;
+	font-size: 1.3175rem;
+    color: #999;
+    border-radius: .3rem;
 }
 
 /*修改mui单选框、复选框 */
@@ -350,3 +356,10 @@ input[type='text']:-ms-input-placeholder,input[type='password']:-ms-input-placeh
 /*条款*/
 .form-clause p{font-size: 1.3125rem;line-height: 1.875rem;color: #333;}
 .form-cal{font-size: 1.625rem;color: #3b9cf5;display: block;border-left: 1px solid #3b9cf5;padding-left: 1rem;}
+/* 浮动 */
+.form-float-left{
+	float: left
+}
+.form-float-right{
+	float: right
+}

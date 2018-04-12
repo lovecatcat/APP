@@ -26,11 +26,14 @@
         <div class="form-content margin-t-6_125 BL-pad-b-2">
             <div class="form-wrap">
                 <div class="input-item box-f-1 box-align-center">
-                    <div class="box-f-2 ins-font-sm">是否法定</div>
-                    <div class="box-f-1">
-                        <div class="mui-switch mui-switch-mini" @click="is_legal_benefic=!is_legal_benefic">
-                            <div class="mui-switch-handle"></div>
-                        </div>
+                    <div class="box-f-1 ins-font-sm">是否法定？</div>
+                    <div class="box-f-2">
+                        <button class="ins-btn xs-btn BL-mar-r-1" @click="is_legal_benefic=!is_legal_benefic" :disabled="is_legal_benefic"
+                                :class="{'blue':is_legal_benefic}">是
+                        </button>
+                        <button class="ins-btn xs-btn" @click="is_legal_benefic=!is_legal_benefic" :disabled="!is_legal_benefic"
+                                :class="{'blue':!is_legal_benefic}">否
+                        </button>
                     </div>
                 </div>
             </div>
@@ -200,7 +203,7 @@
     </div>
 </template>
 </body>
-<script src="../js/mui.min.js" type="text/javascript"></script>
+<script src="../js/mui.js" type="text/javascript"></script>
 <script src="../js/vue.min.js" type="text/javascript"></script>
 <script src="../js/mui.picker.js"></script>
 <script src="../js/mui.poppicker.js"></script>
@@ -212,14 +215,15 @@
     mui.init();
 
     var idtype = [];
-    var cityPicker = []
-    for (var i = 0; i < 4; i++) {
-        idtype.push(new mui.PopPicker());
-        cityPicker.push(new mui.PopPicker({layer: 3}));
-    }
+    var cityPicker = [];
 
     mui.plusReady(function () {
+        var popu = new ClosePopu(); // 实例化关闭窗口对象
 
+        for (var i = 0; i < 4; i++) {
+            idtype.push(new mui.PopPicker());
+            cityPicker.push(new mui.PopPicker({layer: 3}));
+        }
         mui('body').on('tap', '#close-ins-pop', function () {
             // 关闭遮罩层，弹框
             popu.closepop();
@@ -230,143 +234,6 @@
         }, false);
 
         //
-        Vue.component('bene', {
-            template: '#bene',
-            props: {
-                init: {
-                    type: Object,
-                    required: true
-                },
-                index: {
-                    type: Number,
-                    required: true
-                },
-                val: {
-                    type: Number,
-                    required: true
-                },
-                count: {
-                    type: Number,
-                    required: true
-                },
-                data: Object
-            },
-            data() {
-                return {
-                    show: true,
-                    longTerm: false,//长期有效
-                    ID_type_name: '请选择',//证件类型名称
-                    address_select: '请选择',
-                    beneficiary: {
-                        beneficiary_is_insured: '',//与被保人关系
-                        fullname: '',//姓名
-                        ID_type: '',//证件类型
-                        ID_no: '',//证件号码
-                        ID_expire_end: '',//证件有效期
-                        gender: '',//性别
-                        birthday: '',//出生日期
-                        zip: '',//邮编
-                        sort_order: 1,//受益顺序
-                        rate: '',//受益比例
-                        type: '',//受益类型：身故
-                        addr_type: 3,//地址类型 1同投保人 2同被保人 3否
-                        province: '',
-                        city: '',
-                        district: '',
-                        address: ''//详细地址
-                    }
-                }
-            },
-            created() {
-                const vm = this
-                vm.beneficiary.gender = MALE
-                vm.beneficiary.type = SY_TYPE
-                //
-                if (vm.data) {
-                    vm.beneficiary = Object.assign(vm.beneficiary, vm.data)
-                }
-
-                //
-                vm.$watch('longTerm', (val) => {
-                    if(val) {
-                        vm.beneficiary.ID_expire_end = '9999-12-31'
-                    }
-                });
-                vm.$watch('beneficiary.ID_no', () => {
-                    const type = vm.beneficiary.ID_type
-                    const id = vm.beneficiary.ID_no
-                    if (!type || !id) return
-                    var Validator = new IDValidator();
-                    if (IDValidate(type, id, '第' + (vm.index + 1) + '个受益人') && (type === IDcard || type === BOOKLET)) {
-                        const idInfo = Validator.getInfo(id)
-                        vm.beneficiary.birthday = idInfo.birth || ''
-                        vm.beneficiary.gender = [FEMALE, MALE][idInfo.sex]
-                    }
-                });
-                vm.$nextTick(() => {
-                    vm.$parent.initpicker(vm.index)
-                    //证件类型选择
-                    document.querySelector('#ID_type' + vm.index).addEventListener('tap', function () {
-                        idtype[vm.index].show(function (items) {
-                            vm.beneficiary.ID_type = items[0].value;
-                            vm.ID_type_name = items[0].text;
-                        })
-                    })
-                    //日期选择
-                    mui('.search-date').each(function (i, d) {
-                        d.addEventListener('tap', function () {
-                            var optionsJson = this.getAttribute('data-options') || '{}';
-                            var options = JSON.parse(optionsJson);
-                            var _this = this
-                            var picker = new mui.DtPicker(options);
-                            picker.show(function (rs) {
-                                if (i === 0) {
-                                    vm.beneficiary.ID_expire_end = rs.text;
-                                } else if (i === 1) {
-                                    vm.beneficiary.birthday = rs.text;
-                                }
-                                _this.querySelector('input').value = rs.text;
-                                picker.dispose();
-                            });
-                        }, false);
-                    });
-                    //选择省市区
-                    var _getParam = function (obj, param) {
-                        return obj[param] || '';
-                    };
-                    document.querySelector('#address-select' + vm.index).addEventListener('tap', function () {
-                        var _self = this;
-                        cityPicker[vm.index].show(function (items) {
-                            vm.beneficiary.province = _getParam(items[0], 'value')
-                            vm.beneficiary.city = _getParam(items[1], 'value')
-                            vm.beneficiary.district = _getParam(items[2], 'value')
-                            vm.beneficiary.zip = _getParam(items[2], 'zip') ? _getParam(items[2], 'zip') : _getParam(items[1], 'zip')
-                            _self.innerText = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
-                        });
-                    }, false);
-                })
-            },
-            methods: {
-                // 展开收起
-                unfold(index) {
-                    this.$parent.par_unfold(index, 1)
-                },
-                sameaddress(type) {
-                    if (type === 1) {
-                        this.beneficiary.province = this.$parent.applicant.holder_home_province
-                        this.beneficiary.city = this.$parent.applicant.holder_home_city
-                        this.beneficiary.district = this.$parent.applicant.holder_home_district
-                        this.beneficiary.address = this.$parent.applicant.holder_home_address
-                    } else (type === 2)
-                    {
-                        this.beneficiary.province = this.$parent.assured.insured_home_province
-                        this.beneficiary.city = this.$parent.assured.insured_home_city
-                        this.beneficiary.district = this.$parent.assured.insured_home_district
-                        this.beneficiary.address = this.$parent.assured.insured_home_address
-                    }
-                }
-            }
-        });
         var bene = new Vue({
             el: '#Js-content',
             data: {
@@ -382,15 +249,18 @@
             created() {
                 var beneficiary = plus.storage.getItem('hengda_beneficiary') ? JSON.parse(plus.storage.getItem('hengda_beneficiary')) : ''
                 if(beneficiary){
-                    this.beneficiariesIndex = []
-                    beneficiary.forEach((j, index) => {
-                        this.beneficiariesIndex.push(index + 1)
-                    })
-                    var length = this.beneficiariesIndex.length
-                    if (length < 1) {
-                        this.beneficiariesIndex = [1]
+                    if(beneficiary !== 1){
+                        this.beneficiariesIndex = []
+                        beneficiary.forEach((j, index) => {
+                            this.beneficiariesIndex.push(index + 1)
+                        });
+                        var length = this.beneficiariesIndex.length
+                        if (length < 1) {
+                            this.beneficiariesIndex = [1]
+                        }
+                    } else {
+                        this.is_legal_benefic = true //法定
                     }
-                    this.beneficiaries = beneficiary
                 }
             },
             methods: {
@@ -467,45 +337,45 @@
                         let age = getAge(item.beneficiary.birthday)
                         let province = item.beneficiary.addr_type === '0' ? item.beneficiary.province : '2092'
 
-                        if (!checkName(owner, item.beneficiary.fullname)) {
-                            return false
-                        } else if (!type) {
-                            toastText = '请选择' + owner + '证件类型'
-                        } else if (!IDValidate(type, item.beneficiary.ID_no, owner)) {
-                            return false
-                        } else if (!checkTerm(item.beneficiary.ID_expire_end, owner)) {
-                            return false
-                        } else if (!item.beneficiary.birthday) {
-                            toastText = owner + '出生日期不能为空'
-                        } else if (age < 0) {
-                            toastText = '请输入' + owner + '正确的出生日期'
-                        } else if (age >= 16 && type !== IDcard) {
-                            toastText = owner + '年满16周岁不允许选择证件类型为户口本和出生证'
-                        } else if (age >= 2 && type === BORNid) {
-                            toastText = owner + '年满2周岁不允许选择证件类型为出生证'
-                        } else if (!item.beneficiary.beneficiary_is_insured) {
-                            toastText = '请选择' + owner + '与被保人关系'
-                        } else if (!checkZipcode(item.beneficiary.zip, province, owner)) {
-                            return false
-                        } else if (!item.beneficiary.sort_order) {
-                            toastText = '请选择' + owner + '受益顺序'
-                        } else if (!item.beneficiary.rate) {
-                            toastText = owner + '受益份额不能为空'
-                        } else if (!item.beneficiary.addr_type) {
-                            toastText = '请选择' + owner + '与投被保人地址关系'
-                        } else if (item.beneficiary.addr_type === '0' && !checkAttr(item.beneficiary, owner)) {
-                            return false
-                        }
-                        if (toastText) {
-                            mui.toast(toastText, {duration: 'short', type: 'div'})
-                            return false
-                        }
-                        levels.push(item.beneficiary.sort_order)
+                    if (!checkName(owner, item.beneficiary.fullname)) {
+                        return false
+                    } else if (!type) {
+                        toastText = '请选择' + owner + '证件类型'
+                    } else if (!IDValidate(type, item.beneficiary.ID_no, owner)) {
+                        return false
+                    } else if (!checkTerm(item.beneficiary.ID_expire_end, owner)) {
+                        return false
+                    } else if (!item.beneficiary.birthday) {
+                        toastText = owner + '出生日期不能为空'
+                    } else if (age < 0) {
+                        toastText = '请输入' + owner + '正确的出生日期'
+                    } else if (age >= 16 && type !== IDcard) {
+                        toastText = owner + '年满16周岁不允许选择证件类型为户口本和出生证'
+                    } else if (age >= 2 && type === BORNid) {
+                        toastText = owner + '年满2周岁不允许选择证件类型为出生证'
+                    } else if (!item.beneficiary.beneficiary_is_insured) {
+                        toastText = '请选择' + owner + '与被保人关系'
+                    } else if (!checkZipcode(item.beneficiary.zip, province, owner)) {
+                        return false
+                    } else if (!item.beneficiary.sort_order) {
+                        toastText = '请选择' + owner + '受益顺序'
+                    } else if (!item.beneficiary.rate) {
+                        toastText = owner + '受益份额不能为空'
+                    } else if (!item.beneficiary.addr_type) {
+                        toastText = '请选择' + owner + '与投被保人地址关系'
+                    } else if (item.beneficiary.addr_type === '0' && !checkAttr(item.beneficiary, owner)) {
+                        return false
                     }
-                    let len = levels.length
-                    if (len > 0) {
-                        levels.sort((a, b) => {
-                            return a > b
+                    if (toastText) {
+                        mui.toast(toastText, {duration: 'short', type: 'div'})
+                        return false
+                    }
+                    levels.push(item.beneficiary.sort_order)
+                }
+                let len = levels.length
+                if (len > 0) {
+                    levels.sort((a, b) => {
+                        return a > b
                         });
                         for (let m = 0; m < len; m++) {
                             if (levels[m + 1] && (levels[m + 1] - levels[m] > 1)) {
@@ -568,6 +438,144 @@
                 }
             }
         });
+        Vue.component('bene', {
+            template: '#bene',
+            props: {
+                init: {
+                    type: Object,
+                    required: true
+                },
+                index: {
+                    type: Number,
+                    required: true
+                },
+                val: {
+                    type: Number,
+                    required: true
+                },
+                count: {
+                    type: Number,
+                    required: true
+                },
+                data: Object
+            },
+            data() {
+                return {
+                    show: true,
+                    longTerm: false,//长期有效
+                    ID_type_name: '请选择',//证件类型名称
+                    address_select: '请选择',
+                    beneficiary: {
+                        beneficiary_is_insured: '',//与被保人关系
+                        fullname: '',//姓名
+                        ID_type: '',//证件类型
+                        ID_no: '',//证件号码
+                        ID_expire_end: '',//证件有效期
+                        gender: '',//性别
+                        birthday: '',//出生日期
+                        zip: '',//邮编
+                        sort_order: 1,//受益顺序
+                        rate: '',//受益比例
+                        type: '',//受益类型：身故
+                        addr_type: 3,//地址类型 1同投保人 2同被保人 3否
+                        province: '',
+                        city: '',
+                        district: '',
+                        address: ''//详细地址
+                    }
+                }
+            },
+            created() {
+                const vm = this
+                vm.beneficiary.gender = MALE
+                vm.beneficiary.type = SY_TYPE
+                //
+                console.log('aaaaa')
+                console.log(vm.data)
+                if (vm.data) {
+                    vm.beneficiary = Object.assign(vm.beneficiary, vm.data)
+                }
+                //
+                vm.$watch('longTerm', (val) => {
+                    if(val) {
+                        vm.beneficiary.ID_expire_end = '9999-12-31'
+                    }
+                });
+                vm.$watch('beneficiary.ID_no', () => {
+                    const type = vm.beneficiary.ID_type
+                    const id = vm.beneficiary.ID_no
+                    if (!type || !id) return
+                var Validator = new IDValidator();
+                if (IDValidate(type, id, '第' + (vm.index + 1) + '个受益人') && (type === IDcard || type === BOOKLET)) {
+                    const idInfo = Validator.getInfo(id)
+                    vm.beneficiary.birthday = idInfo.birth || ''
+                    vm.beneficiary.gender = [FEMALE, MALE][idInfo.sex]
+                }
+            });
+                vm.$nextTick(() => {
+                    vm.$parent.initpicker(vm.index)
+                //证件类型选择
+                document.querySelector('#ID_type' + vm.index).addEventListener('tap', function () {
+                    idtype[vm.index].show(function (items) {
+                        vm.beneficiary.ID_type = items[0].value;
+                        vm.ID_type_name = items[0].text;
+                    })
+                })
+                //日期选择
+                mui('.search-date').each(function (i, d) {
+                    d.addEventListener('tap', function () {
+                        var optionsJson = this.getAttribute('data-options') || '{}';
+                        var options = JSON.parse(optionsJson);
+                        var _this = this
+                        var picker = new mui.DtPicker(options);
+                        picker.show(function (rs) {
+                            if (i === 0) {
+                                vm.beneficiary.ID_expire_end = rs.text;
+                            } else if (i === 1) {
+                                vm.beneficiary.birthday = rs.text;
+                            }
+                            _this.querySelector('input').value = rs.text;
+                            picker.dispose();
+                        });
+                    }, false);
+                });
+                //选择省市区
+                var _getParam = function (obj, param) {
+                    return obj[param] || '';
+                };
+                document.querySelector('#address-select' + vm.index).addEventListener('tap', function () {
+                    var _self = this;
+                    cityPicker[vm.index].show(function (items) {
+                        vm.beneficiary.province = _getParam(items[0], 'value')
+                        vm.beneficiary.city = _getParam(items[1], 'value')
+                        vm.beneficiary.district = _getParam(items[2], 'value')
+                        vm.beneficiary.zip = _getParam(items[2], 'zip') ? _getParam(items[2], 'zip') : _getParam(items[1], 'zip')
+                        _self.innerText = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
+                    });
+                }, false);
+            })
+            },
+            methods: {
+                // 展开收起
+                unfold(index) {
+                    this.$parent.par_unfold(index, 1)
+                },
+                sameaddress(type) {
+                    if (type === 1) {
+                        this.beneficiary.province = this.$parent.applicant.holder_home_province
+                        this.beneficiary.city = this.$parent.applicant.holder_home_city
+                        this.beneficiary.district = this.$parent.applicant.holder_home_district
+                        this.beneficiary.address = this.$parent.applicant.holder_home_address
+                    } else (type === 2)
+                    {
+                        this.beneficiary.province = this.$parent.assured.insured_home_province
+                        this.beneficiary.city = this.$parent.assured.insured_home_city
+                        this.beneficiary.district = this.$parent.assured.insured_home_district
+                        this.beneficiary.address = this.$parent.assured.insured_home_address
+                    }
+                }
+            }
+        });
         //
         var init = plus.webview.currentWebview().data;
         bene.init = init;
@@ -578,21 +586,22 @@
         bene.applicant = applicant
         bene.assured = assured
 
-        var popu = new ClosePopu(); // 实例化关闭窗口对象
         //保存
         document.querySelector('#saveBenef').addEventListener('tap', function () {
-            if (!bene.checkAllBens()) return false
-            var data = []
-            for (let j in bene.$refs.beneficiary) {
-                data.push(bene.$refs.beneficiary[j].beneficiary)
-            }
             if (bene.is_legal_benefic) {
-                plus.storage.setItem('hengda_beneficiary', '');
+                //法定
+                plus.storage.setItem('hengda_beneficiary', '1');
             } else {
+                if (!bene.checkAllBens()) return false
+                var data = []
+                for (let j in bene.$refs.beneficiary) {
+                    data.push(bene.$refs.beneficiary[j].beneficiary)
+                }
                 plus.storage.setItem('hengda_beneficiary', JSON.stringify(data));
             }
+            console.log(JSON.stringify(plus.storage.getItem('hengda_beneficiary')));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
-                item: 'beneficiary_save'
+                item: 'beneficiary'
             });
             popu.closepop();
             mui.back();

@@ -79,7 +79,7 @@
 				var card_no = plus.webview.currentWebview().noId;
 				luckyAjax({
 					data: {
-			            server: 'team.getUserInfo',
+			            server: 'team.getContactsInfo',
 			            data: JSON.stringify({card_no: card_no})
 			        },
 			        success:function(data){

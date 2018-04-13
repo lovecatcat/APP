@@ -90,21 +90,22 @@
 				<!--保险利益-->
 				<div class="plans-detail-box BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff" >
 					<div class="BL-title">保险利益</div>
-					<div class="plans-detail-behalf" v-for="(item,index) in plansText" v-if="item.content">
-                    	<div class="title BL-ftz-52">
-                    		<em></em>
-                    		<span>{{item.title}}</span>
-                    		<button class="BL-btn-white BL-ftz-42 BL-mar-l-1" v-if="item.isEntity == 1" @click="detail(item.title)">明细</button>
-                    	</div>
-                        <div class="content BL-pad-l-1">
-                            <div class="BL-ftz-46">
-                                (一) <span class="BL-col-ff8201">{{item.value}}</span>元/年
-                            </div>
-                            <p class="BL-col-999 BL-ftz-46" v-html="item.content">
-                            	 
-                            </p>
-                        </div>
-                    </div>
+					<template v-for="(item1,index1) in plansText">
+						<div class="plans-detail-behalf" v-for="(item,index) in item1" v-if="item.content">
+	                    	<div class="title BL-ftz-52">
+	                    		<em v-if="index1 == 0"></em>
+	                    		<i v-else></i>
+	                    		<span>{{item.title}}</span>
+	                    		<button class="BL-btn-white BL-ftz-42 BL-mar-l-1" v-if="item.isEntity == 1" @click="detail(item.title)">明细</button>
+	                    		<div class="BL-ftz-46 fr" v-if="item.value > 0">
+	                               <span class="BL-col-ff8201">{{item.value}}</span>元/年
+	                            </div>
+	                    	</div>
+	                        <div class="content BL-pad-l-1" v-html="item.content">
+	                        </div>
+	                    </div>
+					</template>
+					
 				</div>
 			 
 				<!--保险利益-->

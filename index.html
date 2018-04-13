@@ -73,7 +73,7 @@
             
             Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
 		        //console.log('Message:' + Tunnel._webSocket.readyState);
-		        //console.log(event.data);
+		        console.log(event.data);
 		        //如果获取到消息，心跳检测重置
 		        //拿到任何消息都说明当前连接是正常的
 		        var _info = '';
@@ -87,6 +87,8 @@
 				    case 3:
 				        _info = '您的帐号在其它设备上登录，已经注销当前帐号';
 				        break;
+				    case 20:
+				        _info = JSON.parse(event.data).message;
 				}
 				if(_info != ''){
 					nums++;

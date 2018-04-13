@@ -48,8 +48,8 @@ var Tunnel = {
         if(typeof(uid) != 'undefined' && typeof(flag) != 'undefined' && typeof(action) != 'undefined'){
             Tunnel._message.uid = uid;
             Tunnel._message.flag = flag;
-            Tunnel._message.platform = '';
-            Tunnel._message.userAgent = '';
+            Tunnel._message.platform = encodeURIComponent(navigator.platform);
+            Tunnel._message.userAgent = encodeURIComponent(navigator.userAgent);
             Tunnel._action = action;
         }
 
@@ -81,7 +81,6 @@ var Tunnel = {
 
             /* 发送登入请求 */
             Tunnel._webSocket.send(JSON.stringify(Tunnel._message));
-
             //心跳检测重置
             Tunnel.HeartCheck.reset().start();
         };

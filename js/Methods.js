@@ -1286,9 +1286,9 @@ var methods = {
 			case 'LJYSMZ': // 复星乐健一生门诊保险（主险）
 				if(toastText) break
 				if(this.fxljysFXLJYS.mztc === '0') {
-					toastText = '请选择乐健一生门急诊医疗保险套餐'
+					toastText = '请选择门急诊医疗保险套餐'
 				} else if(this.fxljysFXLJYS.mznmp === '0') {
-					toastText = '请选择乐健一生门急诊医疗保险免赔额'
+					toastText = '请选择门急诊医疗保险免赔额'
 				}
 				break
 
@@ -1296,7 +1296,7 @@ var methods = {
 
 		if(toastText) {
 			mui.toast('【' + name + '】' + toastText)
-			this.addonsSelected[safeid] = false
+//			this.addonsSelected[safeid] = false
 			this.$forceUpdate()
 			return false
 		}

@@ -166,7 +166,8 @@
 										<span>首年保费</span>
 									</li>
 									<li>
-										<span>{{(item.money).toFixed(2)}}</span>
+										<span v-if="item.money">{{(item.money).toFixed(2)}}</span>
+										<span v-else>—</span>
 										<span>{{item.safe_year , item.safeid | safeYearFilter}}</span>
 										<span>{{item.pay_year | payYearFilter}}</span>
 										<span class="hm-color__red year_fee">{{item.period_money}}</span>

@@ -48,8 +48,8 @@ var Tunnel = {
         if(typeof(uid) != 'undefined' && typeof(flag) != 'undefined' && typeof(action) != 'undefined'){
             Tunnel._message.uid = uid;
             Tunnel._message.flag = flag;
-            Tunnel._message.platform = encodeURIComponent(navigator.platform);
-            Tunnel._message.userAgent = encodeURIComponent(navigator.userAgent);
+            Tunnel._message.platform = navigator.platform;
+            Tunnel._message.userAgent = navigator.userAgent;
             Tunnel._action = action;
         }
 

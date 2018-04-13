@@ -195,7 +195,7 @@
 							break;
 						case '338': //复星联合附加康乐一生投保人豁免保费重大疾病保险
 							if(children[339]) {
-								children_base_money = year_fee + children[339].list[1]["年缴保费"];
+								children_base_money = year_fee + children[339].list[1][1];
 							} else {
 								children_base_money = year_fee;
 							}
@@ -333,7 +333,7 @@
 						case '357':
 						case '358':
 							if(children[355]) {
-								children_base_money = ((year_fee + Number(children[355].list[1]["年缴保费"])) * (content.pay_year - 1)).toFixed(0);
+								children_base_money = ((year_fee + Number(children[355].list[1][1])) * (content.pay_year - 1)).toFixed(0);
 							} else {
 								children_base_money = (year_fee * (content.pay_year - 1)).toFixed(0);
 							}
@@ -346,10 +346,10 @@
 							//泰康
 
 						case '112':
-							children_base_money = list["保险金额(元)"];
-							children_safe_year = list["保障期限(年)"];
-							children_pay_year = list["缴费年间(年)"];
-							children_year_fee = list["年缴保费(元)"];
+							children_base_money = list["保险金额"];
+							children_safe_year = list["保障期限"];
+							children_pay_year = list["缴费年间"];
+							children_year_fee = list["年缴保费"];
 							break;
 						case '122':
 							children_base_money = year_fee;

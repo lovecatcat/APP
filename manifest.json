@@ -216,12 +216,12 @@
 					"appstore": "unpackage/res/icons/1024x1024.png"
 				},
 				"android": {
-					"mdpi": "unpackage/res/icons/48x48.png",
-					"ldpi": "unpackage/res/icons/48x48.png",
-					"hdpi": "unpackage/res/icons/72x72.png",
-					"xhdpi": "unpackage/res/icons/96x96.png",
-					"xxhdpi": "unpackage/res/icons/144x144.png",
-					"xxxhdpi": "unpackage/res/icons/192x192.png"
+					"mdpi": "unpackage/res/icons/a48x48.png",
+					"ldpi": "unpackage/res/icons/a48x48.png",
+					"hdpi": "unpackage/res/icons/a72x72.png",
+					"xhdpi": "unpackage/res/icons/a96x96.png",
+					"xxhdpi": "unpackage/res/icons/a144x144.png",
+					"xxxhdpi": "unpackage/res/icons/a192x192.png"
 				}
 			},
 			"splashscreen": {
@@ -248,9 +248,9 @@
 				"android": {
 					"mdpi": "",
 					"ldpi": "",
-					"hdpi": "E:/mobileApp5/mobileapp2/unpackage/starting/480x762.png",
-					"xhdpi": "E:/mobileApp5/mobileapp2/unpackage/starting/720x1242.png",
-					"xxhdpi": "E:/mobileApp5/mobileapp2/unpackage/starting/1080x1882.png"
+					"hdpi": "unpackage/starting/480x762.png",
+					"xhdpi": "unpackage/starting/720x1242.png",
+					"xxhdpi": "unpackage/starting/1080x1882.png"
 				}
 			},
 			"debug": false

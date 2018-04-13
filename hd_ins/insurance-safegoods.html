@@ -438,6 +438,7 @@
             userinfo: {}, //用户信息
             pay_year: {}, //交费期间下拉数据
             safe_year: {},//保险期间下拉数据
+            main_insurance:{},//主险信息
             insurance: { // 主险投保信息
                 is_main: 1,
                 name: '请选择',//主险名称
@@ -498,8 +499,67 @@
                     autoApl: false //是否自动垫交
                 }
             },
-            setMain :function(){
+            insChanged:function(init) {
+                console.info('选择险种')
+                const vm = this
 
+                let safeid = vm.insurance.safe_id
+                //
+                //保险期间
+                var mainSyAttr = unique(vm.main_insurance.ratio, 'safe_year') // 去重
+                // 排序
+                mainSyAttr = mainSyAttr.sort(function (a, b) {
+                    return a.safe_year - b.safe_year
+                });
+                //长度为1直接赋值，不为1置为空
+                if (mainSyAttr.length === 1) {
+                    vm.insurance.safe_year = mainSyAttr[0].safe_year
+                } else {
+                    vm.insurance.safe_year = ''
+                }
+                vm.safe_year = mainSyAttr;
+
+                //交费期间
+                var mainPyAttr = unique(vm.main_insurance.ratio, 'pay_year'); // 去重
+                // 排序
+                mainPyAttr = mainPyAttr.sort(function (a, b) {
+                    return a.pay_year - b.pay_year;
+                });
+                if (mainPyAttr.length === 1) {
+                    vm.insurance.pay_year = mainPyAttr[0].pay_year;
+                } else {
+                    vm.insurance.pay_year = '';
+                }
+                vm.pay_year = mainPyAttr;
+                //对应的附加险
+                var child = vm.main_insurance.child
+                var obj = {}
+                for (var i in child) {
+                    obj[child[i]['id']] = child[i]
+                }
+                vm.Addons = obj
+                //
+                if (init && vm.insurances.length > 0) {
+                    console.log('初始化险种')
+                    let insurance = vm.insurances[0]
+                    if (safeid === insurance.safe_id) {
+                        let tml = {
+                            safe_year: insurance.safe_year,
+                            pay_year: insurance.pay_year
+                        }
+                        vm.insurance = Object.assign(vm.insurance, tml)
+                        vm.$nextTick(() => {
+                            if (vm.insurances.length === 1) {
+                                vm.calMoney()
+                            }
+                            vm.resetAddons(init)
+                        })
+                        return
+                    }
+                } else {
+                    // 清除附加险
+                    vm.resetMoney()
+                }
             },
             //主险change
             showType: function () {
@@ -622,12 +682,13 @@
                     }
                 }
                 vm.hasAddons = hasAddons
+                vm.$forceUpdate();
                 vm.$nextTick(function () {
                     mui('.mui-switch').switch();
                 });
             },
             setAddons: function (i, init) {
-                console.log('setAddons' + i)
+                console.log('setAddons' + i + 'init:' + init)
                 var vm = this
                 var tml = {
                     safe_id: i, //险种
@@ -1136,6 +1197,7 @@
                             for (var k in safe.insurances) {
                                 var kitem = safe.insurances[k]
                                 if (kitem.is_main && item.id === Number(kitem.safe_id)) {
+                                    safe.main_insurance = item
                                     safe.pay_year = unique(item.ratio, 'pay_year');
                                     safe.safe_year = unique(item.ratio, 'safe_year');
                                     var child = item.child
@@ -1150,7 +1212,7 @@
                         });
                         //
                     } else {
-                        mui.toast('加载失败')
+                        mui.toast('加载失败', {duration: 'short', type: 'div'})
                     }
                 }
             });

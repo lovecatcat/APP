@@ -1183,17 +1183,18 @@
                         var data = []
                         safe.safegoods = res.data;
                         mui.each(res.data, function (index, item) {
-                            data.push({
-                                value: item.id,
-                                text: item.name,
-                                ratio: item.ratio,
-                                child: item.child
-                            })
-
+                            if (onlineIns.indexOf(item.id) > -1) {
+                                data.push({
+                                    value: item.id,
+                                    text: item.name,
+                                    ratio: item.ratio,
+                                    child: item.child
+                                })
+                            }
                         });
                         safegoods.setData(data);
                         //
-                        mui.each(res.data, function (index, item) {
+                        mui.each(data, function (index, item) {
                             for (var k in safe.insurances) {
                                 var kitem = safe.insurances[k]
                                 if (kitem.is_main && item.id === Number(kitem.safe_id)) {

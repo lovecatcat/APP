@@ -101,8 +101,9 @@
                 <div class="input-wrap search-date" data-options='{"type":"date"}'>
                     <input type="text" v-model.lazy="beneficiary.ID_expire_end" placeholder="请选择" readonly
                            :disabled="longTerm">
+                    <button class="ins-date-icon" :disabled="longTerm"></button>
                 </div>
-                <div class="right-btn orange" :class="{'active':longTerm}" @click="longTerm=!longTerm">长期有效</div>
+                <button class="right-btn orange" :class="{'active':longTerm}" @click="longTerm=!longTerm" :disabled="[BOOKLET,BORNid].indexOf(beneficiary.ID_type)>-1">长期有效</button>
             </div>
             <div class="input-item">
                 <label class="">性别</label>
@@ -122,7 +123,7 @@
                            v-model.lazy="beneficiary.birthday"
                            :disabled="IDNO.indexOf(beneficiary.ID_type)>-1"
                            placeholder="请选择" readonly>
-                    <div class="ins-date-icon"></div>
+                    <button class="ins-date-icon" :disabled="IDNO.indexOf(beneficiary.ID_type)>-1"></button>
                 </div>
             </div>
             <div class="input-item" v-if="init&&init.relation_beneficiary">
@@ -248,8 +249,11 @@
             },
             created() {
                 var beneficiary = plus.storage.getItem('hengda_beneficiary') ? JSON.parse(plus.storage.getItem('hengda_beneficiary')) : ''
+                console.log(111)
+                console.log(beneficiary)
                 if(beneficiary){
                     if(beneficiary !== 1){
+                        console.log('a')
                         this.beneficiariesIndex = []
                         beneficiary.forEach((j, index) => {
                             this.beneficiariesIndex.push(index + 1)
@@ -259,8 +263,10 @@
                             this.beneficiariesIndex = [1]
                         }
                     } else {
+                        console.log('b')
                         this.is_legal_benefic = true //法定
                     }
+                    this.beneficiaries = beneficiary
                 }
             },
             methods: {
@@ -566,12 +572,13 @@
                         this.beneficiary.city = this.$parent.applicant.holder_home_city
                         this.beneficiary.district = this.$parent.applicant.holder_home_district
                         this.beneficiary.address = this.$parent.applicant.holder_home_address
-                    } else (type === 2)
-                    {
+                        this.beneficiary.zip = this.$parent.applicant.holder_home_zip
+                    } else if(type === 2) {
                         this.beneficiary.province = this.$parent.assured.insured_home_province
                         this.beneficiary.city = this.$parent.assured.insured_home_city
                         this.beneficiary.district = this.$parent.assured.insured_home_district
                         this.beneficiary.address = this.$parent.assured.insured_home_address
+                        this.beneficiary.zip = this.$parent.assured.insured_home_zip
                     }
                 }
             }
@@ -585,7 +592,8 @@
         var assured = JSON.parse(plus.storage.getItem('hengda_assured'))
         bene.applicant = applicant
         bene.assured = assured
-
+        console.log('============')
+        console.log(plus.storage.getItem('hengda_beneficiary'));
         //保存
         document.querySelector('#saveBenef').addEventListener('tap', function () {
             if (bene.is_legal_benefic) {

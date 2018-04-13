@@ -1,6 +1,6 @@
 var SCID = '19';
-var onlineIns = ['272', '276', '340', '348', '370', '16328']; // 上线的主险id
-//               恒久    护航    青  福享金生    红     青
+var onlineIns = ['272', '276', '340', '348', '370']; // 上线的主险id
+//               恒久    护航    青  福享金生    红
 //主险
 var qwhh = '276'; //千万护航
 var hjjk = '272'; //恒久健康
@@ -495,10 +495,10 @@ var checkAssured = function () {
 };
 //职业限制
 var checkOccupation = function(owner) {
-    let toast_text = null
-    let age = null
-    let occu = null
-    let sex = null
+    var toast_text = null
+    var age = null
+    var occu = null
+    var sex = null
     if (owner === '投保人') {
         age = getAge(appl.applicant.holder_birthday)
         occu = appl.applicant.temp_holder_job_code

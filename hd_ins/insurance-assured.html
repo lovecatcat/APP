@@ -77,9 +77,10 @@
                         <div class="input-wrap search-date" data-options='{"type":"date"}'>
                             <input type="text" v-model.lazy="assured.insured_ID_expire_end" placeholder="请选择"
                                    :disabled="longTerm" readonly>
+                            <button class="ins-date-icon" :disabled="longTerm"></button>
                         </div>
-                        <div class="right-btn orange" :class="{'active':longTerm}" @click="longTerm=!longTerm">长期有效
-                        </div>
+                        <button class="right-btn orange" :class="{'active':longTerm}" @click="longTerm=!longTerm" :disabled="[BOOKLET,BORNid].indexOf(assured.insured_ID_type)>-1">长期有效
+                        </button>
                     </div>
                 </div>
                 <div class="form-wrap margin-t_875">
@@ -115,7 +116,7 @@
                             <input type="text"
                                    v-model.lazy="assured.insured_birthday"
                                    :disabled="IDNO.indexOf(assured.insured_ID_type)>-1" placeholder="请选择" readonly>
-                            <div class="ins-date-icon"></div>
+                            <button class="ins-date-icon" :disabled="IDNO.indexOf(assured.insured_ID_type)>-1"></button>
                         </div>
                     </div>
                     <div class="input-item">
@@ -430,9 +431,6 @@
         //日期选择
         mui('.search-date').each(function (i, d) {
             d.addEventListener('tap', function () {
-                if ([BOOKLET, BORNid].indexOf(assu.assured.insured_ID_type) > -1) {
-                    return false
-                }
                 var optionsJson = this.getAttribute('data-options') || '{}';
                 var options = JSON.parse(optionsJson);
                 var picker = new mui.DtPicker(options);
@@ -501,6 +499,10 @@
         });
         //
         var popu = new ClosePopu(); // 实例化关闭窗口对象
+        //安卓监听返回事件
+        plus.key.addEventListener("backbutton",function(){
+            popu.closepop();
+        });
         //保存
         document.querySelector('#saveAssu').addEventListener('tap', function () {
             RSChanged(assu.applicant);
@@ -520,7 +522,7 @@
 	        var memberid = event.detail.id
 	        luckyAjax({
 				data: {
-		            server: 'team.getUserInfo',
+		            server: 'team.getContactsInfo',
 		            data: JSON.stringify({card_no:memberid})
 		        },
 		        success:function(data){

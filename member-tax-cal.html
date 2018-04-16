@@ -24,7 +24,8 @@
 			<div class="mui-scroll">
 	            <div class="member-tax-banner BL-txt-c">
                     <div class="member-tax-money">
-                        <input v-model="money" type="text" class="member-tax-input" placeholder="请输入金额(元)"/>
+                        <input v-model="money" type="number" class="member-tax-input" placeholder="请输入金额(元)"/>
+                        <span class="mui-icon-tax mui-icon-clear" v-show="money!=''" @click="money=''"></span>
                         <button class="tax-btn BL-btn-blue BL-ftz-46" @click="tax">计算</button>
                     </div>
 	            </div>

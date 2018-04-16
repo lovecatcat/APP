@@ -4,11 +4,17 @@
     <list default="true" id="498c8627-e6d5-474f-af44-54872208893d" name="默认的" comment="Merge branch 'master' of http://172.16.2.31:3001/baihao/BH-mobileapp2&#10;&#10;# Conflicts:&#10;#&#9;css/common.css&#10;#&#9;css/plans.css&#10;#&#9;plans-detail.html&#10;#&#9;plans-total.html&#10;#&#9;plans.html">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/auto2c-choose.html" afterPath="$PROJECT_DIR$/auto2c-choose.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/auto2c-choosebrand.html" afterPath="$PROJECT_DIR$/auto2c-choosebrand.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/auto2c-content.html" afterPath="$PROJECT_DIR$/auto2c-content.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/auto2c.html" afterPath="$PROJECT_DIR$/auto2c.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/form.css" afterPath="$PROJECT_DIR$/css/form.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/member.css" afterPath="$PROJECT_DIR$/css/member.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/config.js" afterPath="$PROJECT_DIR$/js/config.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manifest.json" afterPath="$PROJECT_DIR$/manifest.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-duty.html" afterPath="$PROJECT_DIR$/member-duty.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-tax-cal.html" afterPath="$PROJECT_DIR$/member-tax-cal.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-team-performance.html" afterPath="$PROJECT_DIR$/member-team-performance.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-team-prospectus.html" afterPath="$PROJECT_DIR$/member-team-prospectus.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member-warranty-manageLife.html" afterPath="$PROJECT_DIR$/member-warranty-manageLife.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/member.html" afterPath="$PROJECT_DIR$/member.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -182,6 +188,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -194,7 +201,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -273,6 +279,7 @@
       <workItem from="1523511083732" duration="1566000" />
       <workItem from="1523517050961" duration="32000" />
       <workItem from="1523521300577" duration="22000" />
+      <workItem from="1523849479230" duration="12000" />
     </task>
     <task id="LOCAL-00001" summary="计划书模块">
       <created>1520420574558</created>
@@ -327,7 +334,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="285889000" />
+    <option name="totallyTimeSpent" value="286524000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -340,9 +347,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20788912" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21002132" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11304348" sideWeight="0.510661" order="7" side_tool="true" content_ui="tabs" />
@@ -431,7 +439,8 @@
     <MESSAGE value="链接问题" />
     <MESSAGE value="添加sns活动" />
     <MESSAGE value="Merge branch 'master' of http://172.16.2.31:3001/baihao/BH-mobileapp2&#10;&#10;# Conflicts:&#10;#&#9;css/common.css&#10;#&#9;css/plans.css&#10;#&#9;plans-detail.html&#10;#&#9;plans-total.html&#10;#&#9;plans.html" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of http://172.16.2.31:3001/baihao/BH-mobileapp2&#10;&#10;# Conflicts:&#10;#&#9;css/common.css&#10;#&#9;css/plans.css&#10;#&#9;plans-detail.html&#10;#&#9;plans-total.html&#10;#&#9;plans.html" />
+    <MESSAGE value="。。。。" />
+    <option name="LAST_COMMIT_MESSAGE" value="。。。。" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

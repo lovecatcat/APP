@@ -751,7 +751,8 @@
 					"tax-cal.html",
 					"member-birthday.html",
 					"member-renewal.html",
-					"member-tax-cal.html"
+					"member-tax-cal.html",
+					"member-life-order.html"
 				],
 				"priority": 0
 			},
@@ -1360,7 +1361,8 @@
 					"js/mui.picker.min.js",
 					"js/mui.pullToRefresh.js",
 					"js/mui.pullToRefresh.material.js",
-					"js/mui.poppicker.js"
+					"js/mui.poppicker.js",
+					"js/city.data-3.js"
 				],
 				"refer": [
 					"auto2c-choose.html"
@@ -1464,7 +1466,8 @@
 					"js/config.js",
 					"css/mui.picker.min.css",
 					"js/mui.poppicker.js",
-					"js/mui.picker.min.js"
+					"js/mui.picker.min.js",
+					"auto2c-business.html"
 				],
 				"priority": 3,
 				"refer": []
@@ -1867,7 +1870,8 @@
 					"images/plans/prospectus/276.jpg",
 					"images/plans/prospectus/301.jpg",
 					"images/plans/prospectus/334.jpg",
-					"images/plans/prospectus/121.jpg"
+					"images/plans/prospectus/121.jpg",
+					"images/plans/prospectus/349.jpg"
 				],
 				"priority": 2,
 				"refer": [
@@ -2009,7 +2013,8 @@
 					"images/plans/plansManage/300.png",
 					"images/plans/plansManage/352.png",
 					"images/plans/plansManage/349.png",
-					"images/plans/plansManage/348.png"
+					"images/plans/plansManage/348.png",
+					"images/plans/plansManage/336.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -2537,7 +2542,9 @@
 					"css/mui.css",
 					"images/icon/ico-tax-question.png",
 					"css/form.css",
-					"css/member.css"
+					"css/member.css",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [
 					"member-tax-info.html"
@@ -2693,7 +2700,9 @@
 				"resources": [
 					"css/mui.picker.min.css",
 					"css/member.css",
-					"css/mui.css"
+					"css/mui.css",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -2711,6 +2720,29 @@
 					"css/mui.css"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"auto2c-business.html": {
+				"resources": [
+					"auto2c-choose.html",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-life-order.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/product.css",
+					"css/mui.css",
+					"css/member.css",
+					"css/module.css",
+					"css/common.css"
+				],
+				"refer": [
+					"member-warranty-manageLife-detail.html"
+				],
 				"priority": 0
 			}
 		},

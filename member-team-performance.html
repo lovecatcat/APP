@@ -14,7 +14,7 @@
 
 	<body class="BL-bg-f2f">
 		<div id="Js-content" class="mui-content BL-bg-f2f" v-cloak>
-			<div class="BL-bg-fff BL-pad-b-1">
+			<div class="BL-bg-fff BL-pad-b-1" id="Js-pertab">
 				<!--日期搜索 begin-->
 				<div id="Js-teamFilter" class="member-team-search BL-ub BL-ub-ac BL-ub-f1">
 					<div class="search-date BL-ub BL-ub-ac"  data-options='{"type":"date","beginYear":2000}'>
@@ -66,6 +66,40 @@
 			<div class="BL-rel BL-mar-t-1 BL-mar-b-2" id="Js-person">
 				<template v-if="person">
 					<ul v-if="person.length > 0" class="mui-table-view">
+					    <li v-for="(item,index) in person" :key="index" class="mui-table-view-cell member-team-list-item">
+					        <a :data-uid="item.id" class="mui-navigate-right BL-ub BL-ub-ac item">
+					        	<div class="img">
+					        		<img :src="item.avatar | isErrorImg"/>
+					        	</div>
+					        	<div class="context BL-ub-f1">
+					        		<div class="team-per-intro">
+					        			<span>{{ item.user_name }}</span>
+					        			<span>{{ item.rank_name }}</span>
+					        		</div>
+					        		<div class="team-per-ins">
+					        			<span>承保<i class="BL-col-3b9cf5">{{ item.count }}</i>件</span>
+					        			<span>标保<i class="BL-col-3b9cf5">{{ item.money }}</i>元</span>
+					        		</div>
+					        	</div>
+					        </a>
+					    </li>
+					    <li v-for="(item,index) in person" :key="index" class="mui-table-view-cell member-team-list-item">
+					        <a :data-uid="item.id" class="mui-navigate-right BL-ub BL-ub-ac item">
+					        	<div class="img">
+					        		<img :src="item.avatar | isErrorImg"/>
+					        	</div>
+					        	<div class="context BL-ub-f1">
+					        		<div class="team-per-intro">
+					        			<span>{{ item.user_name }}</span>
+					        			<span>{{ item.rank_name }}</span>
+					        		</div>
+					        		<div class="team-per-ins">
+					        			<span>承保<i class="BL-col-3b9cf5">{{ item.count }}</i>件</span>
+					        			<span>标保<i class="BL-col-3b9cf5">{{ item.money }}</i>元</span>
+					        		</div>
+					        	</div>
+					        </a>
+					    </li>
 					    <li v-for="(item,index) in person" :key="index" class="mui-table-view-cell member-team-list-item">
 					        <a :data-uid="item.id" class="mui-navigate-right BL-ub BL-ub-ac item">
 					        	<div class="img">
@@ -357,8 +391,8 @@
 		        //滚动事件触发
 		        window.onscroll = function() {
 					var scrollDistance = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-					console.log(scrollDistance)
-					if(scrollDistance > 1000) {
+					var h = document.querySelector('#Js-pertab').offsetHeight
+					if(scrollDistance > h) {
 						document.getElementById('Js-teamRole').classList.add("member-team-roleFixed");
 					} else {
 						document.getElementById('Js-teamRole').classList.remove("member-team-roleFixed");

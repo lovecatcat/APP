@@ -47,7 +47,7 @@
 						<div class="mui-col-sm-3 mui-col-xm-3 BL-ub BL-ub-pc">
 							<div class="content">
 								<div class="days">
-									<span id="">{{ count.lateCount }}</span>天
+									<span id="">{{ count.lateCount }}</span>次
 								</div>
 								<div class="decri">
 									<span class="done done-orange"></span>迟到
@@ -57,7 +57,7 @@
 						<div class="mui-col-sm-3 mui-col-xm-3 BL-ub BL-ub-pc">
 							<div class="content">
 								<div class="days">
-									<span id="">{{ count.leaveCount + count.missingCard }}</span>天
+									<span id="">{{ count.leaveCount + count.missingCard }}</span>次
 								</div>
 								<div class="decri">
 									<span class="done done-red"></span>异常	
@@ -109,7 +109,7 @@
 									<span v-if="data_day.sign_in_state==1" class="duty-status duty-normal BL-ub BL-ub-ac BL-ub-pc">
 										正常
 									</span>
-									<span v-if="data_day.sign_in_state==2" class="duty-status duty-abnormal BL-ub BL-ub-ac BL-ub-pc">
+									<span v-if="data_day.sign_in_state==2" class="duty-status duty-later BL-ub BL-ub-ac BL-ub-pc">
 										迟到
 									</span>
 									<span v-if="data_day.sign_in_state=='-1'" class="duty-status duty-abnormal BL-ub BL-ub-ac BL-ub-pc">

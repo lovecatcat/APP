@@ -673,8 +673,11 @@
 .duty-normal {
 	background: #3B9CF5;
 }
-.duty-abnormal {
+.duty-later {
 	background: #ff8201;
+}
+.duty-abnormal {
+	background: #e62303;
 }
 .member-duty-message {
 	color: #999999;
@@ -766,7 +769,7 @@
 	background-color: #e62303;
 }
 .member-duty-dater .current-month .dayMiss i{
-	background-color: #3b9cf5;
+	background-color: #e62303;
 }
 .member-duty-dater .today-flag {
 	background: #00C2B1;

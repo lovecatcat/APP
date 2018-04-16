@@ -83,40 +83,6 @@
 					        	</div>
 					        </a>
 					    </li>
-					    <li v-for="(item,index) in person" :key="index" class="mui-table-view-cell member-team-list-item">
-					        <a :data-uid="item.id" class="mui-navigate-right BL-ub BL-ub-ac item">
-					        	<div class="img">
-					        		<img :src="item.avatar | isErrorImg"/>
-					        	</div>
-					        	<div class="context BL-ub-f1">
-					        		<div class="team-per-intro">
-					        			<span>{{ item.user_name }}</span>
-					        			<span>{{ item.rank_name }}</span>
-					        		</div>
-					        		<div class="team-per-ins">
-					        			<span>承保<i class="BL-col-3b9cf5">{{ item.count }}</i>件</span>
-					        			<span>标保<i class="BL-col-3b9cf5">{{ item.money }}</i>元</span>
-					        		</div>
-					        	</div>
-					        </a>
-					    </li>
-					    <li v-for="(item,index) in person" :key="index" class="mui-table-view-cell member-team-list-item">
-					        <a :data-uid="item.id" class="mui-navigate-right BL-ub BL-ub-ac item">
-					        	<div class="img">
-					        		<img :src="item.avatar | isErrorImg"/>
-					        	</div>
-					        	<div class="context BL-ub-f1">
-					        		<div class="team-per-intro">
-					        			<span>{{ item.user_name }}</span>
-					        			<span>{{ item.rank_name }}</span>
-					        		</div>
-					        		<div class="team-per-ins">
-					        			<span>承保<i class="BL-col-3b9cf5">{{ item.count }}</i>件</span>
-					        			<span>标保<i class="BL-col-3b9cf5">{{ item.money }}</i>元</span>
-					        		</div>
-					        	</div>
-					        </a>
-					    </li>
 					</ul>
 					<div v-if="person.length == 0" class="BL-txt-c BL-ftz-42 BL-col-999">没有更多数据了</div>
 				</template>
@@ -400,12 +366,14 @@
 					
 		            if(getScrollTop() + getClientHeight() == getScrollHeight()) {
 		            	// 获取下一页数据
-		            	team.page++ 
-						if (team.page > team.totalPage) {
-							return false;
-						} else {
-			            	getTempList (start_time.innerHTML, start_time.innerHTML, team.rank_txt.value)
-						}
+		            	if (team.totalPage!='' && team.totalPage > 1) {
+		            		team.page++ 
+							if (team.page > team.totalPage) {
+								return false;
+							} else {
+				            	getTempList (start_time.innerHTML, start_time.innerHTML, team.rank_txt.value)
+							}	
+		            	}
 		            }
 		        }
 		        //-----------------结束--------------------

@@ -36,6 +36,9 @@
 .BL-border-b{
 	border-bottom: 1px solid #e7e7e7;
 }
+.fr{
+    float: right;
+}
 /*清除浮动代码*/ 
 .clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0} 
 .clearfloat{zoom:1} 
@@ -271,11 +274,21 @@
 	background-color: #3B9CF5;
 	border-radius: 50%;
 }
+.plans-detail-behalf .title i{
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
+	background-color: orange;
+	border-radius: 50%;
+}
 .plans-detail-behalf .title button{
 	margin-top: .35rem;
 }
 .plans-detail-behalf .content{
 	margin-bottom: 1rem;
+}
+.plans-detail-behalf .content p{
+	font-size: 1.4375rem;
 }
 .plans-detail-design img{
 	display: inline-block;
@@ -518,7 +531,4 @@ table tbody tr td{
 	float: right;
 	height: 2.6878rem;
 	margin-right: 1.5rem;
-}
-.form-button-group{
-	
 }

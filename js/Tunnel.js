@@ -81,7 +81,6 @@ var Tunnel = {
 
             /* 发送登入请求 */
             Tunnel._webSocket.send(JSON.stringify(Tunnel._message));
-
             //心跳检测重置
             Tunnel.HeartCheck.reset().start();
         };

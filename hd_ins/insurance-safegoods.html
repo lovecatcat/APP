@@ -29,7 +29,7 @@
                     <label class="">险种</label>
                     <div class="input-wrap box-f-1">
                         <div class="input" id="goods_type" @click="showType">
-                            {{main_insurance.product_name}}
+                            {{insurance.name}}
                         </div>
                         <div class="ins-down-icon"></div>
                     </div>
@@ -438,30 +438,20 @@
             userinfo: {}, //用户信息
             pay_year: {}, //交费期间下拉数据
             safe_year: {},//保险期间下拉数据
+            main_insurance:{},//主险信息
             insurance: { // 主险投保信息
                 is_main: 1,
+                name: '请选择',//主险名称
                 safe_id: '',
                 safe_year: '',
                 pay_year: '',
                 money: '', // 基本保险金额
                 period_money: '', // 年交保费
-                guarantee_term: '',//年金保障年限
-                draw_freq: '',//年金领取方式
-                draw_age: '',//年金领取年龄
-                shareDrawType: '',//分红领取方式
-                autoApl: false //是否自动垫交
-            },
-            main_insurance: {
-                product_id: '',//主险id
-                product_name: '请选择',//主险名称
-                period_payment: '',//交费期间
-                period_guanantee: '',//保障期间
-                fee: '',//保费
-                amount: '',//保额
-                guarantee_term: '',//年金保障年限 20 30
+                guarantee_term: '',//年金保障年限  20 30
                 draw_freq: '',//年金领取方式 年领 月领
                 draw_age: '',//年金领取年龄
-                shareDrawType: ''//分红领取方式 累计生息 转入万能账户 现金领取
+                shareDrawType: '',//分红领取方式 累计生息 转入万能账户 现金领取
+                autoApl: false //是否自动垫交
             }
         },
         //过滤器
@@ -509,17 +499,75 @@
                     autoApl: false //是否自动垫交
                 }
             },
-//            setMain(){
-//
-//            },
+            insChanged:function(init) {
+                console.info('选择险种')
+                const vm = this
+
+                let safeid = vm.insurance.safe_id
+                //
+                //保险期间
+                var mainSyAttr = unique(vm.main_insurance.ratio, 'safe_year') // 去重
+                // 排序
+                mainSyAttr = mainSyAttr.sort(function (a, b) {
+                    return a.safe_year - b.safe_year
+                });
+                //长度为1直接赋值，不为1置为空
+                if (mainSyAttr.length === 1) {
+                    vm.insurance.safe_year = mainSyAttr[0].safe_year
+                } else {
+                    vm.insurance.safe_year = ''
+                }
+                vm.safe_year = mainSyAttr;
+
+                //交费期间
+                var mainPyAttr = unique(vm.main_insurance.ratio, 'pay_year'); // 去重
+                // 排序
+                mainPyAttr = mainPyAttr.sort(function (a, b) {
+                    return a.pay_year - b.pay_year;
+                });
+                if (mainPyAttr.length === 1) {
+                    vm.insurance.pay_year = mainPyAttr[0].pay_year;
+                } else {
+                    vm.insurance.pay_year = '';
+                }
+                vm.pay_year = mainPyAttr;
+                //对应的附加险
+                var child = vm.main_insurance.child
+                var obj = {}
+                for (var i in child) {
+                    obj[child[i]['id']] = child[i]
+                }
+                vm.Addons = obj
+                //
+                if (init && vm.insurances.length > 0) {
+                    console.log('初始化险种')
+                    let insurance = vm.insurances[0]
+                    if (safeid === insurance.safe_id) {
+                        let tml = {
+                            safe_year: insurance.safe_year,
+                            pay_year: insurance.pay_year
+                        }
+                        vm.insurance = Object.assign(vm.insurance, tml)
+                        vm.$nextTick(() => {
+                            if (vm.insurances.length === 1) {
+                                vm.calMoney()
+                            }
+                            vm.resetAddons(init)
+                        })
+                        return
+                    }
+                } else {
+                    // 清除附加险
+                    vm.resetMoney()
+                }
+            },
             //主险change
             showType: function () {
                 var vm = this
                 safegoods.show(function (items) {
                     vm.resetMainIns(); //重置主险信息
-                    vm.main_insurance.product_id = items[0].value;
                     vm.insurance.safe_id = items[0].value;
-                    vm.main_insurance.product_name = items[0].text;
+                    vm.insurance.name = items[0].text;
                     //保险期间
                     var mainSyAttr = unique(items[0].ratio, 'safe_year') // 去重
                     // 排序
@@ -556,41 +604,12 @@
                     vm.resetMoney()
                 });
             },
-            //获取险种列表
-            getIns: function () {
-                var vm = this
-                luckyAjax({
-                    data: {
-                        data: JSON.stringify({'supplier_id': SCID}),
-                        server: 'PolicyIns.getProductList'
-                    }, //获取险种列表
-                    success: function (res) {
-//                        console.log(JSON.stringify(res));
-                        if (res.code == 1) {
-                            var data = []
-                            vm.safegoods = res.data;
-                            mui.each(res.data, function (index, item) {
-                                data.push({
-                                    value: item.id,
-                                    text: item.name,
-                                    ratio: item.ratio,
-                                    child: item.child
-                                })
-                            });
-                            safegoods.setData(data);
-                        } else {
-                            mui.toast('加载失败')
-                        }
-                    }
-                });
-            },
             resetAddons: function (init) {
 //                console.log('resetAddons')
                 var vm = this
                 var safe_id = vm.insurance.safe_id.toString()
                 var money = vm.insurance.money
                 var pay_year = vm.insurance.pay_year
-                var safe_year = vm.insurance.safe_year
                 var period_money = vm.insurance.period_money
 //                console.log('重置对应附加险' + safe_id + safe_year + pay_year + money + period_money);
                 for (var a in vm.addonsSelected) {
@@ -663,12 +682,13 @@
                     }
                 }
                 vm.hasAddons = hasAddons
+                vm.$forceUpdate();
                 vm.$nextTick(function () {
                     mui('.mui-switch').switch();
                 });
             },
             setAddons: function (i, init) {
-//                console.log('setAddons' + i)
+                console.log('setAddons' + i + 'init:' + init)
                 var vm = this
                 var tml = {
                     safe_id: i, //险种
@@ -753,7 +773,7 @@
                             toast_text = '主险期交保费1万元（含）以上方可附加' + name
                             vm.addonsSelected[index] = false
                         } else if (vm.insurance.safe_id === wnh && vm.insurance.pay_year === 1) {
-                            toast_text = '主险【' + vm.main_insurance.name + '】趸交不可' + name
+                            toast_text = '主险【' + vm.insurance.name + '】趸交不可' + name
                             vm.addonsSelected[index] = false
                         }
                         break
@@ -805,7 +825,7 @@
                 var age = 20
                 var applAge = 20
                 var id = index === 0 ? this.insurance.safe_id : index
-                var name = this.Addons[id] ? this.Addons[id].name : this.main_insurance.name
+                var name = this.Addons[id] ? this.Addons[id].name : this.insurance.name
 //              console.log(age + applAge + pay_year + id + name)
 
                 if (toast_text) {
@@ -1040,7 +1060,7 @@
                     toast_text = '请选择【' + name + '】的交费期间'
                 } else if (!addon.money && index !== tbrhm) {
                     toast_text = '请填写【' + name + '】的基本保险金额'
-                } else if (!this.noSamePerson && index !== tbrhm) {
+                } else if (!this.noSamePerson && index === tbrhm) {
                     toast_text = '投保人和被保人是同一人时，不能附加' + name
                 }
 
@@ -1088,7 +1108,7 @@
                 }
                 if (toast_text) {
                     mui.toast(name + toast_text, {duration: 'short', type: 'div'});
-                    mui('#addon' + index).switch().toggle();
+                    mui('#addon' + index).switch().toggleAct(false);
                     this.addonsSelected[index] = false
                     return false
                 }
@@ -1105,15 +1125,25 @@
         var init = plus.webview.currentWebview().data;
         safe.init = init;
 //
-        var applicant = JSON.parse(plus.storage.getItem('hengda_applicant'));
-        var assured = JSON.parse(plus.storage.getItem('hengda_assured'));
+        var applicant = plus.storage.getItem('hengda_applicant') ? JSON.parse(plus.storage.getItem('hengda_applicant')) : ''
+        var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')) : ''
+        var goods = plus.storage.getItem('hengda_safegoods') ? JSON.parse(plus.storage.getItem('hengda_safegoods')) : ''
+        if(goods){
+            safe.insurances = goods
+            mui.each(goods,function (index,item) {
+//                console.log(index)
+                if(item.is_main){
+                    safe.insurance = Object.assign(safe.insurance, item)
+                }
+            })
+        }
 
         safe.assu_age = getAge(assured.insured_birthday)
         safe.applicant = applicant
         safe.assured = assured
         safe.noSamePerson = assured.rel_insured_holder === ISASSURED ? false : true;
 //
-        safe.getIns(); //获取险种列表
+        getIns(); //获取险种列表
 
         //保存
         document.querySelector('#saveGoods').addEventListener('tap', function () {
@@ -1128,8 +1158,9 @@
                 }
             })
             plus.storage.setItem('hengda_safegoods', JSON.stringify(insurances));
+            console.log(JSON.stringify(plus.storage.getItem('hengda_safegoods')))
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
-                item: 'safegood_save'
+                item: 'safegoods'
             });
             popu.closepop();
             mui.back();
@@ -1139,6 +1170,53 @@
             // 关闭遮罩层，弹框
             popu.closepop();
         });
+        //获取险种列表
+        function getIns() {
+            luckyAjax({
+                data: {
+                    data: JSON.stringify({'supplier_id': SCID}),
+                    server: 'PolicyIns.getProductList'
+                }, //获取险种列表
+                success: function (res) {
+//                        console.log(JSON.stringify(res));
+                    if (res.code == 1) {
+                        var data = []
+                        safe.safegoods = res.data;
+                        mui.each(res.data, function (index, item) {
+                            data.push({
+                                value: item.id,
+                                text: item.name,
+                                ratio: item.ratio,
+                                child: item.child
+                            })
+
+                        });
+                        safegoods.setData(data);
+                        //
+                        mui.each(res.data, function (index, item) {
+                            for (var k in safe.insurances) {
+                                var kitem = safe.insurances[k]
+                                if (kitem.is_main && item.id === Number(kitem.safe_id)) {
+                                    safe.main_insurance = item
+                                    safe.pay_year = unique(item.ratio, 'pay_year');
+                                    safe.safe_year = unique(item.ratio, 'safe_year');
+                                    var child = item.child
+                                    var obj = {}
+                                    for (var i in child) {
+                                        obj[child[i]['id']] = child[i]
+                                    }
+                                    safe.Addons = obj
+                                    safe.calMoney()
+                                }
+                            }
+                        });
+                        //
+                    } else {
+                        mui.toast('加载失败', {duration: 'short', type: 'div'})
+                    }
+                }
+            });
+        }
     });
     //去重
     const unique = function (a, key) {

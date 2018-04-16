@@ -57,8 +57,8 @@
 
 		mui.plusReady(function() {
 			
-			var wobj = plus.webview.getWebviewById("prospect");
-			wobj.reload(true);
+//			var wobj = plus.webview.getWebviewById("prospect");
+//			wobj.reload(true);
 			
 			
 			statusbar();
@@ -237,11 +237,17 @@
 				}, 100)
 			})
 
-
+			old_back = mui.back; //保存back事件
 			mui.back = function() { 
 				// 返回按钮，未点击保存，吧数据传给父页面
 				var wobj1 = plus.webview.getWebviewById("member_plans_manage");
-				wobj1.reload(true);
+				
+				if(wobj1){
+					wobj1.reload(true);
+				}
+				old_back();
+				
+				
 			}
 		})
 	</script>

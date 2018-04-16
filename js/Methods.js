@@ -1010,7 +1010,7 @@ var methods = {
 					}
 					break
 				case 'LJYSMZ': //
-					if(assuAge > 54) {
+					if(this.assu.age > 54) {
 						toastText = '被保人年龄不能大于54周岁'
 					}
 					break
@@ -1286,9 +1286,9 @@ var methods = {
 			case 'LJYSMZ': // 复星乐健一生门诊保险（主险）
 				if(toastText) break
 				if(this.fxljysFXLJYS.mztc === '0') {
-					toastText = '请选择乐健一生门急诊医疗保险套餐'
+					toastText = '请选择门急诊医疗保险套餐'
 				} else if(this.fxljysFXLJYS.mznmp === '0') {
-					toastText = '请选择乐健一生门急诊医疗保险免赔额'
+					toastText = '请选择门急诊医疗保险免赔额'
 				}
 				break
 
@@ -1296,7 +1296,7 @@ var methods = {
 
 		if(toastText) {
 			mui.toast('【' + name + '】' + toastText)
-			this.addonsSelected[safeid] = false
+//			this.addonsSelected[safeid] = false
 			this.$forceUpdate()
 			return false
 		}
@@ -1314,6 +1314,11 @@ var methods = {
 			case 'RP8P':
 				if(!flag) {
 					toastText = '请先选择计划'
+				}
+				break
+			case 'RSC': // 乐行天下  附加乐行天下意外伤害保险
+				if(!flag) {
+					toastText = '请先选择保险金额'
 				}
 				break
 				//工银
@@ -1352,11 +1357,7 @@ var methods = {
 					toastText = '请先选择保险金额'
 				}
 				break
-			case 'RSC': // 乐行天下  附加乐行天下意外伤害保险
-				if(!flag) {
-					toastText = '请先选择保险金额'
-				}
-				break
+			
 			case 'HA006': // 恒顺
 				if(toastText) break
 				let extraMoney = flag > 50000 ? flag.toString().substr(1) : flag
@@ -1373,6 +1374,14 @@ var methods = {
 					toastText = '该附加险保额不能大于主险保额的20%'
 				}
 				break
+				  case 'HA007': // 恒祥
+            if (toastText) break
+            if (!this.cache.base_moneyHA007) {
+              toastText = '请先输入保险金额'
+            } else if (this.cache.base_moneyHA007 < 50 || this.cache.base_moneyHA007 > 200 || this.cache.base_moneyHA007 % 10 !== 0) {
+              toastText = '保险金额范围50-200元，且为10的整数'
+            }
+            break
 				//信泰
 			case '31A00050': // 附加百万健康两全保险
 				if(!flag) {
@@ -1877,8 +1886,8 @@ var methods = {
 		} else if(safeid === '1167') { // 国华附加少儿成长无忧年金保险
 			data.pay_year = 10
 			data.safe_year = 2500
-			data.base_money = this.cache.derate_money1167 * periodMoney * 10
-			data.year_fee = this.cache.derate_money1167
+			data.base_money = this.cache.base_money1167 * periodMoney * 10
+			data.year_fee = this.cache.base_money1167
 		} else if(safeid === 'ANIA') { //工银鑫丰盈
 			data.safe_year = 10500
 		} else if(safeid === 'HR' || safeid === 'AMRB') { //工银附加险

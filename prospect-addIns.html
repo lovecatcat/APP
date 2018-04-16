@@ -220,7 +220,7 @@
 								</div>
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs">
-										年缴保费(元)&nbsp;<span class="BL-col-ff8201">{{addonRes[item.code]['年缴保费(元)']}}</span>
+										年缴保费(元)&nbsp;<span class="BL-col-ff8201">{{addonRes[item.code]['年缴保费']}}</span>
 									</li>
 								</div>
 							</div>
@@ -561,7 +561,7 @@
 										<button slot="button" class="ins-btn xs-btn blue">10年</button>
 									</div>
 								</div>
-								<template v-if="addonRes[item.safe_id]">
+								<template v-if="addonRes[item.code]">
 									<div class="input-item">
 										<label class="">保险金额(元)</label>
 										<div class="input-wrap box-f-1">
@@ -1058,7 +1058,7 @@
 								<div class="input-item">
 									<label class="">缴费年限(年)</label>
 									<div class="input-wrap box-f-1">
-										<button slot="button" class="ins-btn xs-btn blue">1年</button>
+										<button slot="button" class="ins-btn xs-btn blue">{{mainPayYear}}</button>
 									</div>
 								</div>
 								<div class="input-item">

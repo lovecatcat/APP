@@ -4,14 +4,14 @@
 	var goIns_data = []; //在线投保数据
 	var clause_data = []; //条框数据
 	var totalMoney = 0; //总保费
-	var describes = null; //保险利益
+	var describes = {}; //保险利益
 	var hd = [272, 276, 340, 348, 370];
 	var groupList = function(data, pl_id) {
 
 		var content = data;
 		var main = content.main;
 		var children = content.children;
-		describes = main.describes
+		var describes1 = main.describes
 		var safe_year;
 		var parent_id = content.genre
 		var type = content.type
@@ -20,9 +20,10 @@
 		var children_fee = 0;
 
 		var listMain = {}
-		mui.each(describes, function(index, item) {
+		mui.each(describes1, function(index, item) {
 			listMain[item.title] = main.list[1][index]
 		})
+		describes[0] = describes1
 //		alert(JSON.stringify(listMain))
 		if(parent_id == 349) {
 			safe_year = '至100周岁'
@@ -146,7 +147,9 @@
 					mui.each(describes2, function(index, item) {
 						list[item.title] = tml.list[1][index]
 					})
-//					alert(JSON.stringify(list))
+					
+					describes[index] = describes2
+//					alert(JSON.stringify(describes))
 					var children_base_money,
 						children_safe_year = 1,
 						children_pay_year = 1,
@@ -195,7 +198,7 @@
 							break;
 						case '338': //复星联合附加康乐一生投保人豁免保费重大疾病保险
 							if(children[339]) {
-								children_base_money = year_fee + children[339].list[1]["年缴保费"];
+								children_base_money = year_fee + children[339].list[1][1];
 							} else {
 								children_base_money = year_fee;
 							}
@@ -333,7 +336,7 @@
 						case '357':
 						case '358':
 							if(children[355]) {
-								children_base_money = ((year_fee + Number(children[355].list[1]["年缴保费"])) * (content.pay_year - 1)).toFixed(0);
+								children_base_money = ((year_fee + Number(children[355].list[1][1])) * (content.pay_year - 1)).toFixed(0);
 							} else {
 								children_base_money = (year_fee * (content.pay_year - 1)).toFixed(0);
 							}
@@ -346,10 +349,10 @@
 							//泰康
 
 						case '112':
-							children_base_money = list["保险金额(元)"];
-							children_safe_year = list["保障期限(年)"];
-							children_pay_year = list["缴费年间(年)"];
-							children_year_fee = list["年缴保费(元)"];
+							children_base_money = list["保险金额"];
+							children_safe_year = list["保障期限"];
+							children_pay_year = list["缴费年间"];
+							children_year_fee = list["年缴保费"];
 							break;
 						case '122':
 							children_base_money = year_fee;
@@ -488,6 +491,7 @@
 			aloneDetail.goIns_data = goIns_data
 			aloneDetail.clause_data = clause_data
 			aloneDetail.plansText = describes
+			describes = {}
 		} else {
 			//汇总页面
 			plansTotal.plansData = plansData

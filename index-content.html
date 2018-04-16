@@ -355,7 +355,6 @@
                 safegoods_4: ''
             }
         })
-        plus.nativeUI.showWaiting();
 //        console.log(JSON.stringify(index.bannerList));
         luckyAjax({
             data: {
@@ -364,7 +363,6 @@
             },
             success: function (data) {
                 console.log(JSON.stringify(data));
-                plus.nativeUI.closeWaiting();
                 if (data.code === 1) {
                     init();
                     var bannerlist = data.data.banner;

@@ -95,11 +95,14 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'],i
 }
 .form-btn-newcar{
 	padding: .3rem 1.2rem;
-	font-size: 1.3175rem;
+	font-size: 1.4375rem;
     color: #999;
     border-radius: .3rem;
 }
-
+.form-btn-newcar.active {
+	color: #fff;
+	background: #3B9CF5;
+}
 /*修改mui单选框、复选框 */
 .mui-radio input[type='radio'] {
     position: absolute;

@@ -33,11 +33,10 @@
 .ins-dialog.md{height: 70%;}
 .ins-btn{border-radius: .3rem;font-size: 1.3125rem;height:3.125rem;line-height: 3.125rem;}
 .ins-btn.blue{background-color: #3b9cf5;color: #fff;}
-.right-btn.orange,.right-cal-btn{border: 1px solid #ff9212;color: #ff9212;}
-.right-btn.orange.active{border: 1px solid #3B9CF5;color: #fff;background-color: #3B9CF5;}
-.right-btn.blue{border: 1px solid #3B9CF5;color: #3B9CF5;}
-.right-btn{width: 16%;position:absolute;right:.5rem;height: 2.9375rem;line-height:2.9375rem;font-size:1.125rem;border-radius: .3125rem;margin: 0 .5rem 0 1rem;text-align: center;padding: 0 .5rem;}
-.right-cal-btn{height: 2.9375rem;line-height:2.9375rem;font-size:1.125rem;border-radius: .3125rem;text-align: center;padding: 0 .5rem;margin-left: 1rem;}
+.right-text-btn.orange{border: 1px solid #ff9212;color: #ff9212;}
+.right-text-btn.active{border: 1px solid #3B9CF5;color: #fff;background-color: #3B9CF5;}
+.right-text-btn{height: 2.9375rem;line-height:2.9375rem;font-size:1.125rem;border-radius: .3125rem;text-align: center;padding: 0 1.5rem;margin-left: 1rem;}
+.right-icon{width: 4rem;}
 .sm-btn{padding: 0 2.3rem;}
 .xs-btn{padding: 0 1.3rem;}
 .xxs-btn{padding: 0 .5rem;}
@@ -82,6 +81,7 @@
 .ins-date-icon{background:url(../images/icon/icon-datepicker.jpg) center no-repeat;background-size: 2rem; position: absolute;right: 1rem;top:0;width: 2rem;height: 100%;border: none;}
 .ins-date-icon:active{background-color: #fff!important; }
 .address-icon{background:url(../images/icon/icon-users.png) center no-repeat;background-size: 2rem; }
+.search-icon{background:url(../images/icon/ico-search-blue.png) center no-repeat;background-size: 2rem; }
 .bene-up-icon{height:3.125rem;line-height: 3.125rem;font-size: 2rem;margin-left: 3rem;}
 .bene-up-icon-rotate{
     transform:rotate(-180deg);

@@ -196,11 +196,10 @@
     })
     mui.plusReady(function () {
         isLogin();
-        var userinfo = JSON.parse(plus.storage.getItem('userinfo'));
+        var userinfo = plus.storage.getItem('userinfo') ? JSON.parse(plus.storage.getItem('userinfo')) : '';
         member.userinfo = userinfo;
         window.addEventListener('reload', function () {
-            //页面重载
-            plus.webview.currentWebview().reload(true);
+            member.userinfo = plus.storage.getItem('userinfo') ? JSON.parse(plus.storage.getItem('userinfo')) : '';
         });
         window.addEventListener('loadpageMember', function (e) {
             setTimeout(function () {
@@ -208,7 +207,6 @@
                 var winH = window.innerHeight;
                 var titHeight = document.querySelector('#Js-header').offsetHeight;
                 var hrHeight = document.querySelector('.member-hr').offsetHeight;
-                //console.log(hrHeight +'，'+titHeight +','+(hrHeight - titHeight)+','+winH+','+(winH - titHeight))
                 document.querySelector('#Js-content').style.height = (winH - titHeight) + 'px';
                 document.querySelector('.mheader').style.height = (hrHeight - titHeight) + 'px';
             }, 100);

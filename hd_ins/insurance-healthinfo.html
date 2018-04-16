@@ -8,6 +8,7 @@
     <link href="../css/module.css" rel="stylesheet"/>
     <link href="../css/insurance.css" rel="stylesheet"/>
     <script src="../js/config.js" type="text/javascript"></script>
+    <script src="../js/browser.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css"/>
 </head>
 
@@ -109,7 +110,7 @@
 <script src="../js/mui.min.js" type="text/javascript"></script>
 <script src="../js/vue.min.js" type="text/javascript"></script>
 <script src="method.js"></script>
-<script type="text/javascript">
+<script type="text/babel">
     mui.init();
     const assforms = {
         '144': [{
@@ -854,6 +855,10 @@
     });
     mui.plusReady(function () {
         var popu = new ClosePopu(); // 实例化关闭窗口对象
+        //安卓监听返回事件
+        plus.key.addEventListener("backbutton",function(){
+            popu.closepop();
+        });
         //
         var safegoods = JSON.parse(plus.storage.getItem('hengda_safegoods'));
         if (safegoods) {

@@ -187,7 +187,10 @@
                 })
             }
         }
-
+        //安卓监听返回事件
+        plus.key.addEventListener("backbutton",function(){
+            popu.closepop();
+        });
         //保存
         document.querySelector('#saveUpload').addEventListener('tap', function () {
             if (!img.sure()) {

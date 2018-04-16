@@ -8,7 +8,7 @@
     <link href="../css/module.css" rel="stylesheet"/>
     <link href="../css/insurance.css" rel="stylesheet"/>
     <script src="../js/config.js" type="text/javascript"></script>
-    <script src="//cdn.bootcss.com/babel-polyfill/6.23.0/polyfill.min.js"></script>
+    <script src="../js/browser.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css"/>
 </head>
 
@@ -58,10 +58,13 @@
                 </div>
                 <div class="input-item">
                     <label class="">证件有效期</label>
-                    <div class="input-wrap search-date" data-options='{"type":"date"}'>
-                        <input type="text" v-model.lazy="applicant.holder_ID_expire_end" placeholder="请选择">
+                    <div class="BL-ub BL-ub-pj BL-ub-f1">
+                        <div class="input-wrap BL-ub-f1 search-date" data-options='{"type":"date","endYear":2038}'>
+                            <input type="text" v-model.lazy="applicant.holder_ID_expire_end" placeholder="请选择">
+                            <button class="ins-date-icon" :disabled="longTerm"></button>
+                        </div>
+                        <button class="right-text-btn orange" :class="{'active':longTerm}" @click="longTerm=!longTerm">长期有效</button>
                     </div>
-                    <button class="right-btn orange" :class="{'active':longTerm}" @click="longTerm=!longTerm">长期有效</button>
                 </div>
             </div>
             <div class="form-wrap margin-t_875">
@@ -70,15 +73,18 @@
                 </div>
                 <div class="input-item">
                     <label class="">姓名</label>
-                    <div class="input-wrap">
-                        <input type="text" v-model.trim.lazy="applicant.holder_name"
-                               @change="checkName('投保人',applicant.holder_name)" placeholder="请输入">
-                        <div class="form-clear-icon" v-show="applicant.holder_name!=''"
-                             @click="applicant.holder_name=''">
-                            <span class="mui-icon mui-icon-clear"></span>
+                    <div class="BL-ub BL-ub-pj BL-ub-f1">
+                        <div class="input-wrap BL-ub-f1">
+                            <input type="text" v-model.trim.lazy="applicant.holder_name"
+                                   @change="checkName('投保人',applicant.holder_name)" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="applicant.holder_name!=''"
+                                 @click="applicant.holder_name=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
                         </div>
+                        <div class="right-text-btn right-icon search-icon"></div>
+                        <div class="right-text-btn right-icon address-icon orange"></div>
                     </div>
-                    <div class="right-btn orange address-icon"></div>
                 </div>
                 <div class="input-item">
                     <label class="">性别</label>
@@ -116,7 +122,7 @@
                 <div class="input-item">
                     <label class="">职业</label>
                     <div class="input-wrap box-f-1" id="occu-first">
-                        <input type="text" placeholder="请选择" readonly v-model="applicant.holder_job_name" readonly>
+                        <input type="text" placeholder="请选择" v-model="applicant.holder_job_name" readonly>
                         <div class="ins-down-icon"></div>
                     </div>
                 </div>
@@ -298,7 +304,7 @@
 <script src="../js/city.data-3.js"></script>
 <script src="../js/IDValidator.min.js"></script>
 <script src="method.js"></script>
-<script type="text/javascript">
+<script type="text/babel">
     mui.init();
     //通讯录
     mui('body').on('tap', '.address-icon', function () {
@@ -425,6 +431,7 @@
         var annual = new mui.PopPicker();
         annual.setData(init.annual_source);
         document.querySelector('#annual_source').addEventListener('tap', function () {
+            document.activeElement.blur();
             annual.show(function (items) {
                 appl.applicant.holder_salary_from = items[0].value;
                 appl.applicant.holder_salary_from_name = items[0].text;
@@ -433,6 +440,7 @@
         //深圳投保地区
         var district = new mui.PopPicker();
         document.querySelector('#appl-district').addEventListener('tap', function () {
+            document.activeElement.blur();
             district.show(function (items) {
                 appl.applicant.holder_home_district = items[0].value;
                 appl.applicant.holder_home_district_name = items[0].text;
@@ -460,8 +468,8 @@
         }, false);
         //日期选择
         mui('.search-date').each(function (i, d) {
-            document.activeElement.blur();
             d.addEventListener('tap', function () {
+                document.activeElement.blur();
                 var optionsJson = this.getAttribute('data-options') || '{}';
                 var options = JSON.parse(optionsJson);
                 var picker = new mui.DtPicker(options);
@@ -539,7 +547,10 @@
         });
 
         var popu = new ClosePopu(); // 实例化关闭窗口对象
-
+        //安卓监听返回事件
+        plus.key.addEventListener("backbutton",function(){
+            popu.closepop();
+        });
         //保存
         document.querySelector('#saveAppl').addEventListener('tap', function () {
             if (!checkAppl()) {
@@ -573,22 +584,22 @@
 	                if(data.code){
 	                	console.log(JSON.stringify(data.data));
 	                	var info = data.data;
-	                	appl.applicant.holder_name = info.name;
-	                	appl.applicant.holder_ID_no = info.card_no;
-	                	appl.applicant.holder_salary_avg = info.salary_avg;
-	                	appl.applicant.holder_mobile = info.tel;
-	                	appl.applicant.holder_home_province = info.home_province;
-	                	appl.applicant.holder_home_city = info.home_city;
-	                	appl.applicant.holder_home_district = info.home_district;
-	                	appl.applicant.holder_home_address = info.home_address;
-	                	appl.applicant.holder_home_zip = info.home_zip;
-	                	appl.applicant.holder_contact_province = info.contact_province;
-	                	appl.applicant.holder_contact_city = info.contact_city;
-	                	appl.applicant.holder_contact_district = info.contact_district;
-	                	appl.applicant.holder_contact_address = info.contact_address;
-	                	appl.applicant.holder_contact_zip = info.contact_zip;
-	                	appl.applicant.holder_weight = info.weight;
-	                	appl.applicant.holder_height = info.height;
+                        appl.applicant.holder_name = info.name;
+                        appl.applicant.holder_ID_no = info.card_no;
+                        appl.applicant.holder_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : '';
+                        appl.applicant.holder_mobile = info.tel;
+                        appl.applicant.holder_home_province = info.home_province;
+                        appl.applicant.holder_home_city = info.home_city;
+                        appl.applicant.holder_home_district = info.home_district;
+                        appl.applicant.holder_home_address = info.home_address;
+                        appl.applicant.holder_home_zip = info.home_zip;
+                        appl.applicant.holder_contact_province = info.contact_province;
+                        appl.applicant.holder_contact_city = info.contact_city;
+                        appl.applicant.holder_contact_district = info.contact_district;
+                        appl.applicant.holder_contact_address = info.contact_address;
+                        appl.applicant.holder_contact_zip = info.contact_zip;
+                        appl.applicant.holder_weight = parseInt(info.weight) ? Number(info.weight).toFixed(2) : '';
+                        appl.applicant.holder_height = parseInt(info.height) ? parseInt(info.height) : '';
 	                }	
 		        }
 			});

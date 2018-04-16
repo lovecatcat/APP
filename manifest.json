@@ -6,7 +6,7 @@
 	"id": "H517AA33E",
 	"name": "保险+",
 	"version": {
-		"name": "1.9.0408",
+		"name": "1.9.0416",
 		"code": "83"
 	},
 	"description": "保险plus mobile",
@@ -151,9 +151,35 @@
 				"keystore": "",
 				"password": "",
 				"aliasname": "",
-				"permissions": ["<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.LOCATION_HARDWARE\"/>","<uses-permission android:name=\"android.permission.READ_LOGS\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.INTERNET\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\"/>","<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>","<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"]
+				"permissions": [
+					"<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+					"<uses-permission android:name=\"android.permission.LOCATION_HARDWARE\"/>",
+					"<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>",
+					"<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>",
+					"<uses-permission android:name=\"android.permission.CAMERA\"/>",
+					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+					"<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>",
+					"<uses-permission android:name=\"android.permission.INTERNET\"/>",
+					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+					"<uses-feature android:name=\"android.hardware.camera\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+					"<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+				]
 			},
-			"orientation": ["portrait-primary","portrait-secondary"],
+			"orientation": [
+				"portrait-primary",
+				"portrait-secondary"
+			],
 			"icons": {
 				"ios": {
 					"prerendered": true,
@@ -190,20 +216,23 @@
 					"appstore": "unpackage/res/icons/1024x1024.png"
 				},
 				"android": {
-					"mdpi": "unpackage/res/icons/48x48.png",
-					"ldpi": "unpackage/res/icons/48x48.png",
-					"hdpi": "unpackage/res/icons/72x72.png",
-					"xhdpi": "unpackage/res/icons/96x96.png",
-					"xxhdpi": "unpackage/res/icons/144x144.png",
-					"xxxhdpi": "unpackage/res/icons/192x192.png"
+					"mdpi": "unpackage/res/icons/a48x48.png",
+					"ldpi": "unpackage/res/icons/a48x48.png",
+					"hdpi": "unpackage/res/icons/a72x72.png",
+					"xhdpi": "unpackage/res/icons/a96x96.png",
+					"xxhdpi": "unpackage/res/icons/a144x144.png",
+					"xxxhdpi": "unpackage/res/icons/a192x192.png"
 				}
 			},
 			"splashscreen": {
 				"ios": {
 					"iphone": {
 						"default": "",
-						"retina35": "E:/mobileApp5/mobileapp2/unpackage/starting/640x960.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-						"retina40": "E:/mobileApp5/mobileapp2/unpackage/starting/640x1136.png","retina47":"E:/mobileApp5/mobileapp2/unpackage/starting/750x1334.png","retina55":"E:/mobileApp5/mobileapp2/unpackage/starting/1242x2208.png"
+						"retina35": "unpackage/starting/640x960.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+						"retina40": "unpackage/starting/640x1136.png",
+						"retina47": "unpackage/starting/750x1334.png",
+						"retina55": "unpackage/starting/1242x2208.png",
+						"iphonex": "unpackage/starting/1125x2436.png"
 					},
 					"ipad": {
 						"portrait": "",
@@ -219,13 +248,19 @@
 				"android": {
 					"mdpi": "",
 					"ldpi": "",
-					"hdpi": "E:/mobileApp5/mobileapp2/unpackage/starting/480x762.png",
-					"xhdpi": "E:/mobileApp5/mobileapp2/unpackage/starting/720x1242.png",
-					"xxhdpi": "E:/mobileApp5/mobileapp2/unpackage/starting/1080x1882.png"
+					"hdpi": "unpackage/starting/480x762.png",
+					"xhdpi": "unpackage/starting/720x1242.png",
+					"xxhdpi": "unpackage/starting/1080x1882.png"
 				}
 			},
 			"debug": false
-		},"ads":{"rp":false,"splash":false,"push":false},"adid":""
+		},
+		"ads": {
+			"rp": false,
+			"splash": false,
+			"push": false
+		},
+		"adid": ""
 	},
 	"dependencies": {
 		"pages": {
@@ -751,8 +786,7 @@
 					"tax-cal.html",
 					"member-birthday.html",
 					"member-renewal.html",
-					"member-tax-cal.html",
-					"member-life-order.html"
+					"member-tax-cal.html"
 				],
 				"priority": 0
 			},
@@ -1361,8 +1395,7 @@
 					"js/mui.picker.min.js",
 					"js/mui.pullToRefresh.js",
 					"js/mui.pullToRefresh.material.js",
-					"js/mui.poppicker.js",
-					"js/city.data-3.js"
+					"js/mui.poppicker.js"
 				],
 				"refer": [
 					"auto2c-choose.html"
@@ -1804,8 +1837,7 @@
 					"images/icon/sign-active.png",
 					"js/config.js",
 					"images/icon/plan_link.jpg",
-					"images/icon/ico-duty-hswifi.png",
-					"images/icon/ico-duty-nowifi.png"
+					"images/icon/ico-duty-hswifi.png"
 				],
 				"priority": 6,
 				"refer": []
@@ -1872,14 +1904,11 @@
 					"images/plans/prospectus/301.jpg",
 					"images/plans/prospectus/334.jpg",
 					"images/plans/prospectus/121.jpg",
-					"images/plans/prospectus/349.jpg",
-					"images/plans/prospectus/256.jpg"
+					"images/plans/prospectus/349.jpg"
 				],
 				"priority": 2,
 				"refer": [
-					"member-plans-alone-table.html",
-					"popup-content.html",
-					"member-plans-alone-modal.html"
+					"member-plans-alone-table.html"
 				]
 			},
 			"member-plans-total.html": {
@@ -2054,9 +2083,7 @@
 				"priority": 0
 			},
 			"ins2c-beneficiary.html": {
-				"resources": [
-					"images/icon/icon-del.png"
-				],
+				"resources": [],
 				"refer": [
 					"ins2c-addbeneficiary.html"
 				],
@@ -2365,8 +2392,7 @@
 					"css/mui.picker.min.css",
 					"css/mui.css",
 					"js/mui.dtpicker.js",
-					"js/city.data-3.js",
-					"css/form.css"
+					"js/city.data-3.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2477,8 +2503,7 @@
 			"team-personal-performance.html": {
 				"resources": [
 					"css/mui.picker.min.css",
-					"css/mui.css",
-					"css/member.css"
+					"css/mui.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -2751,42 +2776,6 @@
 				"refer": [
 					"member-warranty-manageLife-detail.html"
 				],
-				"priority": 0
-			},
-			"member-plans-alone-modal.html": {
-				"resources": [
-					"css/mui.css"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"ins2c-addbeneficiary.html": {
-				"resources": [
-					"css/mui.css"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"ins2c-upload.html": {
-				"resources": [
-					"images/icon/icon-upload.png"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"ins2c-bank.html": {
-				"resources": [
-					"css/mui.css"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"ins2c-safegood.html": {
-				"resources": [
-					"css/mui.css",
-					"css/mui.picker.min.css"
-				],
-				"refer": [],
 				"priority": 0
 			}
 		},

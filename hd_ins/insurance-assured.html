@@ -347,7 +347,7 @@
             this.assured.insured_nation = NATION;
             this.assured.rel_insured_holder = ISASSURED;
             this.$watch('assured.insured_ID_no', function (val) {
-                IDValidate(IDcard, val, '被保人');
+                IDValidate(IDcard, val, '被保人',this.assured);
             });
             this.$watch('assured.insured_isTaxResidents', function (val) {
                 if (val && val !== TAXTYPE) {
@@ -510,14 +510,13 @@
         var popu = new ClosePopu(); // 实例化关闭窗口对象
         //安卓监听返回事件
         plus.key.addEventListener("backbutton",function(){
-            alert(2)
             popu.closepop();
         });
         //保存
         document.querySelector('#saveAssu').addEventListener('tap', function () {
-            RSChanged(assu.applicant);
+            RSChanged(assu.assured,assu.applicant);
             console.log(JSON.stringify(assu.assured))
-            if (!checkAssured()) {
+            if (!checkAssured(assu.assured)) {
                 return false
             }
             plus.storage.setItem('hengda_assured',JSON.stringify(assu.assured));
@@ -541,7 +540,7 @@
 	                	var info = data.data;
 	                	assu.assured.insured_name = info.name;
 	                	assu.assured.insured_ID_no = info.card_no;
-	                	assu.assured.insured_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : '';
+	                	assu.assured.insured_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : assu.assured.insured_salary_avg;
 	                	assu.assured.insured_mobile = info.tel;
 	                	assu.assured.insured_home_province = info.home_province;
 	                	assu.assured.insured_home_city = info.home_city;
@@ -549,8 +548,8 @@
 	                	assu.assured.insured_home_zip = info.home_zip;
 	                	district.pickers[0].setSelectedValue(info.home_district, 2000);
 	                	assu.assured.insured_home_address = info.home_address;
-	                	assu.assured.insured_weight = parseInt(info.weight) ? Number(info.weight).toFixed(2) : '';
-	                	assu.assured.insured_height = parseInt(info.height) ? parseInt(info.height) : '';
+	                	assu.assured.insured_weight = parseInt(info.weight) ? Number(info.weight).toFixed(2) : assu.assured.insured_weight;
+	                	assu.assured.insured_height = parseInt(info.height) ? parseInt(info.height) : assu.assured.insured_height;
 	                }	
 		        }
 			});

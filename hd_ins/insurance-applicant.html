@@ -382,8 +382,7 @@
                 }
             });
             this.$watch('applicant.holder_ID_no', function (val) {
-                console.log('1')
-                IDValidate(IDcard, val, '投保人');
+                IDValidate(IDcard, val, '投保人',this.applicant);
             });
             this.$watch('longTerm', function (val) {
                 this.applicant.holder_ID_expire_end = val ? '9999-12-31' : ''
@@ -497,8 +496,8 @@
 			item.cancel.addEventListener('tap', function(event) {
 				appl.applicant.holder_job_name = '';
                 appl.applicant.holder_job_code = {};
-                appl.applicant.temp_holder_job_code = '';		
-			}, false);	
+                appl.applicant.temp_holder_job_code = '';
+			}, false);
 		})
         arrOccu[0].setData(init.occupation);
         document.querySelector('#occu-first').addEventListener('tap', function () {
@@ -553,13 +552,14 @@
         });
         //保存
         document.querySelector('#saveAppl').addEventListener('tap', function () {
-            if (!checkAppl()) {
+            if (!checkAppl(appl.applicant)) {
                 return false
             }
             plus.storage.setItem('hengda_applicant',JSON.stringify(appl.applicant));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'applicant'
             });
+            console.log(JSON.stringify(plus.storage.getItem('hengda_applicant')));
             popu.closepop();
             mui.back();
         })
@@ -582,11 +582,10 @@
 		        },
 		        success:function(data){
 	                if(data.code){
-	                	console.log(JSON.stringify(data.data));
 	                	var info = data.data;
                         appl.applicant.holder_name = info.name;
                         appl.applicant.holder_ID_no = info.card_no;
-                        appl.applicant.holder_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : '';
+                        appl.applicant.holder_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : appl.applicant.holder_salary_avg;
                         appl.applicant.holder_mobile = info.tel;
                         appl.applicant.holder_home_province = info.home_province;
                         appl.applicant.holder_home_city = info.home_city;
@@ -598,9 +597,9 @@
                         appl.applicant.holder_contact_district = info.contact_district;
                         appl.applicant.holder_contact_address = info.contact_address;
                         appl.applicant.holder_contact_zip = info.contact_zip;
-                        appl.applicant.holder_weight = parseInt(info.weight) ? Number(info.weight).toFixed(2) : '';
-                        appl.applicant.holder_height = parseInt(info.height) ? parseInt(info.height) : '';
-	                }	
+                        appl.applicant.holder_weight = parseInt(info.weight) ? Number(info.weight).toFixed(2) : appl.applicant.holder_weight;
+                        appl.applicant.holder_height = parseInt(info.height) ? parseInt(info.height) : appl.applicant.holder_height;
+	                }
 		        }
 			});
 	    })

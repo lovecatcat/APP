@@ -84,6 +84,12 @@
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
+                            <a class="menu">
+                                <div class="icon">&nbsp;</div>
+                                <div class="name">需求分析</div>
+                            </a>
+                        </div>
+                        <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
                             <a href="shop.html" data-wid="shop" class="menu">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">积分商城</div>
@@ -319,12 +325,14 @@
         mui('body').on('tap', '.menu', function () {
             var href = this.getAttribute('href');
             var id = this.getAttribute("data-wid");
-            mui.openWindow({
-                    url: href,
-                    id: id,
-                    show: animateObj.aniPage,
-                    extras: extras
-            });
+            if(href || id){
+	            mui.openWindow({
+	                    url: href,
+	                    id: id,
+	                    show: animateObj.aniPage,
+	                    extras: extras
+	            });
+            };
         });
         
         mui('body').on('tap', '#Js-communic', function(){
@@ -347,7 +355,6 @@
                 safegoods_4: ''
             }
         })
-        plus.nativeUI.showWaiting();
 //        console.log(JSON.stringify(index.bannerList));
         luckyAjax({
             data: {
@@ -356,7 +363,6 @@
             },
             success: function (data) {
                 console.log(JSON.stringify(data));
-                plus.nativeUI.closeWaiting();
                 if (data.code === 1) {
                     init();
                     var bannerlist = data.data.banner;

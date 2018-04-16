@@ -786,7 +786,8 @@
 					"tax-cal.html",
 					"member-birthday.html",
 					"member-renewal.html",
-					"member-tax-cal.html"
+					"member-tax-cal.html",
+					"member-life-order.html"
 				],
 				"priority": 0
 			},
@@ -848,7 +849,8 @@
 					"images/icon/ico-search-blue.png",
 					"js/config.js",
 					"js/Date.js",
-					"js/vue.min.js"
+					"js/vue.min.js",
+					"js/browser.min.js"
 				],
 				"refer": [
 					"member-commission-incomelist.html"
@@ -1429,7 +1431,8 @@
 					"images/icon/ico-time.png",
 					"js/config.js",
 					"images/pic/p4.jpg",
-					"images/pic/p5.jpg"
+					"images/pic/p5.jpg",
+					"js/browser.min.js"
 				],
 				"priority": 1,
 				"refer": []
@@ -2302,7 +2305,8 @@
 					"css/common.css",
 					"js/mui.min.js",
 					"css/member.css",
-					"js/config.js"
+					"js/config.js",
+					"js/browser.min.js"
 				],
 				"refer": [],
 				"priority": 0

@@ -19,6 +19,7 @@
 	height: 5.875rem;
 	border-radius: 100%;
 	border: .3rem solid #ffffff;
+	background-color: #fff;
 	overflow: hidden;
 }
 .member-index .mheader .context{

@@ -751,8 +751,7 @@
 					"tax-cal.html",
 					"member-birthday.html",
 					"member-renewal.html",
-					"member-tax-cal.html",
-					"member-life-order.html"
+					"member-tax-cal.html"
 				],
 				"priority": 0
 			},
@@ -1361,8 +1360,7 @@
 					"js/mui.picker.min.js",
 					"js/mui.pullToRefresh.js",
 					"js/mui.pullToRefresh.material.js",
-					"js/mui.poppicker.js",
-					"js/city.data-3.js"
+					"js/mui.poppicker.js"
 				],
 				"refer": [
 					"auto2c-choose.html"

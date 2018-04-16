@@ -222,7 +222,7 @@
 					if(order.page == 1 && order.page == res.data.totalPage) {
 						order.listdata = res.data.list
 						self.endPullUpToRefresh(true)
-					} else if(order.page < data.totalPage) {
+					} else if(order.page < res.data.totalPage) {
 						order.listdata = order.listdata.concat(res.data.list)
 						self.endPullUpToRefresh(false)
 					} else {

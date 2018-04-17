@@ -932,6 +932,8 @@
 	right: 1.5rem;
 }
 .member-warranty-list-item a.mui-navigate-right:after{
+	top: 12rem;
+	right: 1rem;
 	font-size: 2rem;
 }
 

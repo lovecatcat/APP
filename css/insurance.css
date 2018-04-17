@@ -71,7 +71,7 @@
 .input-item .input{text-align: left;padding-left: 1rem;height: 2.9375rem;line-height: 2.9375rem;}
 .input-item label{display: block;width: 30%;font-size: 1.4375rem;line-height: 2.9375rem;}
 .input-wrap{position: relative;width: 50%;}
-.input-wrap .input, .input-wrap input{border: 1px solid #c8c8c8;border-radius: .3125rem;font-size: 1.4375rem;}
+.input-wrap .input, .input-wrap input{border: 1px solid #c8c8c8;border-radius: .3125rem;font-size: 1.4375rem;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .input-wrap .ins-btn{margin-right: .5rem;}
 .multi-btn{margin-top: -1rem;}
 .multi-btn .ins-btn{margin-top: 1rem;}

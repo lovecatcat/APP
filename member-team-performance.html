@@ -14,7 +14,7 @@
 
 	<body class="BL-bg-f2f">
 		<div id="Js-content" class="mui-content BL-bg-f2f" v-cloak>
-			<div class="BL-bg-fff BL-pad-b-1">
+			<div class="BL-bg-fff BL-pad-b-1" id="Js-pertab">
 				<!--日期搜索 begin-->
 				<div id="Js-teamFilter" class="member-team-search BL-ub BL-ub-ac BL-ub-f1">
 					<div class="search-date BL-ub BL-ub-ac"  data-options='{"type":"date","beginYear":2000}'>
@@ -357,8 +357,8 @@
 		        //滚动事件触发
 		        window.onscroll = function() {
 					var scrollDistance = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-					console.log(scrollDistance)
-					if(scrollDistance > 1000) {
+					var h = document.querySelector('#Js-pertab').offsetHeight
+					if(scrollDistance > h) {
 						document.getElementById('Js-teamRole').classList.add("member-team-roleFixed");
 					} else {
 						document.getElementById('Js-teamRole').classList.remove("member-team-roleFixed");
@@ -366,12 +366,14 @@
 					
 		            if(getScrollTop() + getClientHeight() == getScrollHeight()) {
 		            	// 获取下一页数据
-		            	team.page++ 
-						if (team.page > team.totalPage) {
-							return false;
-						} else {
-			            	getTempList (start_time.innerHTML, start_time.innerHTML, team.rank_txt.value)
-						}
+		            	if (team.totalPage!='' && team.totalPage > 1) {
+		            		team.page++ 
+							if (team.page > team.totalPage) {
+								return false;
+							} else {
+				            	getTempList (start_time.innerHTML, start_time.innerHTML, team.rank_txt.value)
+							}	
+		            	}
 		            }
 		        }
 		        //-----------------结束--------------------

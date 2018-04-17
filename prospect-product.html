@@ -66,7 +66,7 @@
 									<span class="mui-icon mui-icon-clear" @click="appl.name = '' "></span>
 								</div>
 							</div>
-							<div class="right-orange-btn address-icon"></div>
+							<div class="right-orange-btn address-icon" @click="communic('appl')"> </div>
 						</div>
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">年龄</label>
@@ -98,11 +98,6 @@
 						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @click="keepSame">
 						<span>同投保人</span>
 					</button>
-						<!--<div class="BL-abs">
-						<div class="mui-switch mui-switch-mini" @click="keepSame">
-							<div class="mui-switch-handle"></div>
-						</div>
-					</div>-->
 					</div>
 					<div class="BL-pad-lr-1_5 BL-pad-b-1 main">
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
@@ -113,7 +108,7 @@
 									<span class="mui-icon mui-icon-clear" @click="assu.name = '' "></span>
 								</div>
 							</div>
-							<div class="right-orange-btn address-icon"></div>
+							<div class="right-orange-btn address-icon"  @click="communic('assu')"></div>
 						</div>
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">年龄</label>
@@ -206,6 +201,8 @@
 	<script src="js/mui.picker.js"></script>
 	<script src="js/mui.dtpicker.js"></script>
 	<script type="text/javascript">
+		var getAge;
+		var count;
 		var prospect = new Vue({
 			el: '#prospect',
 			data: {
@@ -247,7 +244,9 @@
 				},
 				count: 0, //总保费
 				planTime: {}, //临时保存的数据
-				edit: false //是不是编辑状态
+				edit: false, //是不是编辑状态
+				Communic: null, //通讯录
+				clickNav: false //没有点击nav
 			},
 			watch: {
 				appl: {
@@ -258,6 +257,8 @@
 								prospect.plans[i].appl = val
 							}
 						}
+						
+						this.appl.birthday&&getAge(val.birthday, 0)
 					},
 					deep: true
 				},
@@ -266,8 +267,21 @@
 						for(var i = 0; i < prospect.plans.length; i++) {
 							if(prospect.plans[i].id == prospect.plan_id) {
 								prospect.plans[i].assu = val
+								if(this.clickNav){ // 切换为未点击nav的状态
+									this.clickNav = false
+								}else{ //未点击nav状态改变值
+									prospect.plans[i].ins = [{
+										main: {},
+										addon: {},
+										insurance: {}
+									}];
+									prospect.planList[prospect.plan_id] = [];
+									count()
+								}
+								
 							}
 						}
+						this.assu.birthday&&getAge(val.birthday)
 					},
 					deep: true
 				}
@@ -359,6 +373,10 @@
 				displace: function() { //投被保人替换
 					var appl = this.appl
 					var assu = this.assu
+					if(!appl.name && !appl.age){
+						appl = this.plans[0].appl
+						assu = this.plans[0].assu
+					}
 					this.appl = Object.assign({}, this.appl, this.parseVueObj(assu))
 					this.assu = Object.assign({}, this.assu, this.parseVueObj(appl))
 				},
@@ -403,17 +421,7 @@
 						this.$delete(this.planList[this.plan_id], index1)
 					}
 					//算总保费
-					let count = 0;
-					for(var i in prospect.planList) {
-						var item = prospect.planList[i]
-							for(var j = 0; j < item.length; j++) {
-								for(var k in item[j]) {
-									count += Number(item[j][k].period_money)
-								}
-							}
-						
-					}
-					prospect.count = count.toFixed(2)
+					count()
 				
 					this.$forceUpdate()
 				},
@@ -440,6 +448,18 @@
 						}
 					});
 					this.$forceUpdate()
+				},
+				communic: function(type){
+						//通讯录
+						this.Communic = type
+			        mui.openWindow({
+			            url: 'communic.html',
+			            id: 'communic',
+			            show: animateObj.aniDetal,
+			            extras:{
+							type: 'onlineIns'
+						}
+			        }) 
 				},
 				removePlan: function(index) { //删除方案
 					if(this.plans.length < 2) {
@@ -531,7 +551,7 @@
 				}, false);
 			});
 			//时间
-			var getAge = function(birthday, i) {
+			getAge = function(birthday, i) {
 				let now = new Date()
 				let year = now.getFullYear()
 				let month = now.getMonth() + 1
@@ -549,6 +569,45 @@
 					prospect.assu.age = age
 				}
 			};
+			count = function(){
+				//算总保费
+					let count = 0;
+					for(var i in prospect.planList) {
+						var item = prospect.planList[i]
+							for(var j = 0; j < item.length; j++) {
+								for(var k in item[j]) {
+									count += Number(item[j][k].period_money)
+								}
+							}
+						
+					}
+					prospect.count = count.toFixed(2)
+			};
+			
+			
+			//通讯录回传信息
+	        window.addEventListener('getMemberId', function (event) {
+		        var memberid = event.detail.id
+		        luckyAjax({
+					data: {
+			            server: 'team.getUserInfo',
+			            data: JSON.stringify({card_no:memberid})
+			        },
+			        success:function(data){
+		                if(data.code){
+		                	console.log(JSON.stringify(data.data));
+		                	var info = data.data;
+		                	if(prospect.Communic == 'appl'){
+		                		prospect.appl.name = info.name;
+		                	}else{
+		                		prospect.assu.name = info.name;
+		                	}
+
+		                }
+			        }
+				});
+		    });
+		    
 			//确定添加方案
 			window.addEventListener('addPlan', function(event) {
 				prospect.max_id++;
@@ -623,18 +682,7 @@
 					}
 				}
 				prospect.planList[id] = prospect.planList[id].concat(event.detail.planList)
-				let count = 0;
-				for(var i in prospect.planList) {
-					var item = prospect.planList[i]
-						for(var j = 0; j < item.length; j++) {
-							for(var k in item[j]) {
-								count += Number(item[j][k].period_money)
-							}
-							
-						}
-					
-				}
-				prospect.count = count.toFixed(2)
+				count();
 				prospect.planTime = {}
 				prospect.$forceUpdate()
 //				alert(JSON.stringify(prospect.plans))
@@ -724,10 +772,8 @@
 							if(res.code == 1){
 								var wobj = plus.webview.getWebviewById("member_plans_detail");
 								var wobjTotal = plus.webview.getWebviewById("member_plans_total");
-//								var wobj1 = plus.webview.getWebviewById("member_plans_manage");
 								wobj.reload(true);
 								wobjTotal.reload(true);
-//								wobj1.reload(true);
 								mui.back()
 							}
 				        }
@@ -752,6 +798,46 @@
 										pl_id: id //pl_id
 									}
 								});
+								
+								prospect.alias= '';
+								prospect.max_id= 1; //id叠加
+								prospect.plan_id= 1; //当前的数据
+								prospect.plans= [{
+									id: 1,
+									ins: [{
+										main: {},
+										addon: {},
+										insurance: {}
+									}],
+									appl: {
+										age: '',
+										name: '',
+										sex: true
+									},
+									assu: {
+										age: '',
+										name: '',
+										sex: true
+									}
+								}];
+								prospect.appl= {
+									name: '',
+									age: '',
+									sex: true,
+									birthday: ''
+								};
+								prospect.assu= {
+									name: '',
+									age: '',
+									sex: true,
+									birthday: ''
+								};
+								prospect.planList= { //保险计划的列表
+									1: []
+								};
+								prospect.count= 0; //总保费
+								prospect.planTime= {}; //临时保存的数据
+								prospect.edit= false //是不是编辑状态
 							}
 
 				        }

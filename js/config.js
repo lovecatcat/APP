@@ -172,4 +172,3 @@ ClosePopu.prototype.closepop = function(){
 		mask: 'none'
 	});
 }
-

@@ -674,8 +674,11 @@
 .duty-normal {
 	background: #3B9CF5;
 }
-.duty-abnormal {
+.duty-later {
 	background: #ff8201;
+}
+.duty-abnormal {
+	background: #e62303;
 }
 .member-duty-message {
 	color: #999999;
@@ -767,7 +770,7 @@
 	background-color: #e62303;
 }
 .member-duty-dater .current-month .dayMiss i{
-	background-color: #3b9cf5;
+	background-color: #e62303;
 }
 .member-duty-dater .today-flag {
 	background: #00C2B1;
@@ -925,10 +928,12 @@
 	margin: 0;
 	padding: 0 1.5rem;
 }
-.member-warranty-detail-item .mui-navigate-right:after, .mui-push-right:after,.member-team-list-item .mui-navigate-right:after{
+.member-warranty-detail-item .mui-navigate-right:after, .mui-push-right:after,.member-team-list-item .mui-navigate-right:after,.member-warranty-list-item .mui-navigate-right:after{
 	right: 1.5rem;
 }
-
+.member-warranty-list-item a.mui-navigate-right:after{
+	font-size: 2rem;
+}
 
 /* 生日跟踪 */
 .member-birth-sum {
@@ -1130,17 +1135,33 @@
 	right: 1.5rem;
 	padding:  .5rem 2rem;
 }
-input[type='text'].member-tax-input{
+input[type='number'].member-tax-input{
 	width: 50%;
-	height: 5rem;
-	line-height: 5rem;
-	background: transparent;
-	text-align: center;
-	font-size: 1.875rem;
-	color: #ffffff;
-	border-bottom: 1px solid #CCCCCC;
-	border-radius: 0rem;
+    height: 5rem;
+    line-height: 5rem;
+    background: transparent;
+    text-align: center;
+    font-size: 1.875rem;
+    color: #ffffff;
+    border-bottom: 1px solid #CCCCCC;
+    border-radius: 0rem;
+    padding: 0rem 2rem;
 }
+.mui-icon-tax {
+	position: absolute;
+    color: #666666;
+    font-size: 2.5rem;
+/*    line-height: 2.5rem;*/
+    font-family: Muiicons;
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    top: 1.2rem;
+    right: 9.2rem;
+}
+
 .member-taxtab-title {
 	height: 5rem;
 	line-height: 5rem;

@@ -20,7 +20,7 @@
 			</div>
 		</header>
 		
-		<div id="Js-duty" class="mui-content" v-cloak>
+		<div id="Js-duty" class="mui-content BL-rel BL-overFlow-autoY" v-cloak>
 			<!--个人信息区begin-->
 			<div  v-if="userInfo" class="member-duty-perinfo BL-ub BL-ub-ac BL-bg-fff">
 				<div class="img">
@@ -69,7 +69,7 @@
 						<span v-if="dutyInfo.sign_in_state==1" class="duty-status duty-normal BL-ub BL-ub-ac BL-ub-pc">
 							正常
 						</span>
-						<span v-if="dutyInfo.sign_in_state==2" class="duty-status duty-abnormal BL-ub BL-ub-ac BL-ub-pc">
+						<span v-if="dutyInfo.sign_in_state==2" class="duty-status duty-later BL-ub BL-ub-ac BL-ub-pc">
 							迟到
 						</span>
 						<span v-if="dutyInfo.sign_in_state=='-1'" class="duty-status duty-abnormal BL-ub BL-ub-ac BL-ub-pc">
@@ -206,11 +206,6 @@
 	    
 		mui.plusReady(function() {
 			user_id = JSON.parse(plus.storage.getItem("userinfo")).id
-			// 设置内容区域
-			statusbar();
-			var winH = window.innerHeight;
-			var titHeight = document.querySelector('#Js-header').offsetHeight;
-			document.querySelector('#Js-duty').style.height = winH - titHeight + 'px';
 			
 			mui('body').on('tap', '.statsbtn-duty', function(){
 		        var href = this.getAttribute('href');
@@ -278,6 +273,12 @@
 	            provider: 'baidu',
 	            enableHighAccuracy: true,
 	        });
+	        
+	        // 设置内容区域
+			statusbar();
+			var winH = window.innerHeight;
+			var titHeight = document.querySelector('#Js-header').offsetHeight;
+			document.querySelector('#Js-duty').style.height = winH - titHeight + 'px';
 		});
 		/**
 		 * 获取打卡记录

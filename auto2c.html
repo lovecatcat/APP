@@ -12,7 +12,6 @@
 	</head>
 	
 	<body class="BL-bg-f2f">
-		
 		<header id="Js-header" class="BL-bg-fff">
 			<div class="BL-mod-headbar BL-mod-headbar-pos">
 				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
@@ -33,12 +32,12 @@
 				<li class="fItem BL-ub BL-ub-f1">
 					<div class="form-list-label">
 						车牌号
-						<label class="BL-mar-l-3 form-float-right">粤 <span class="mui-icon mui-icon mui-icon-arrowdown BL-ftz-52"></span> </label>
+						<label class="BL-mar-l-3 form-float-right" @click="showCitys=true">粤<span class="mui-icon mui-icon mui-icon-arrowdown BL-ftz-52"></span></label>
 					</div>
 					<div class="BL-ub-f2">
-						<input type="text" class="BL-txt-l" placeholder="请输入" value="B"/>
+						<input type="text" class="BL-txt-l" placeholder="请输入" value="A"/>
 					</div>
-				    <button class="form-btn-newcar">新车</button>
+				    <button class="form-btn-newcar active">新车</button>
 				</li>
 			</ul>
 			<div class="form-notice BL-pad-t-1">车主信息</div>
@@ -72,33 +71,32 @@
 				</li>
 			</ul>
 			<div class="form-button-group">
-				<a type="button" class="form-btn" href="auto2c-choose.html" data-wid="auto2c_choose">下一步</a>
+				<a type="button" class="form-btn" href="auto2c-content.html" data-wid="auto2c_content">下一步</a>
 			</div>
 		</div>
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
-	<script src="js/mui.picker.min.js"></script>
+	<script src="js/mui.picker.js"></script>
+	<script src="js/mui.dtpicker.js"></script>
+	<script src="js/mui.poppicker.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/city.data-3.js"></script>
 	<script type="text/javascript">
 		mui.init();
-		/*document.querySelector('#document_term').addEventListener('tap', function() {
-			var _self = this;
-			if(_self.picker) {
-				_self.picker.show(function(rs) {
-					console.log('选择结果: ' + rs.text);
-					_self.picker.dispose();
-					_self.picker = null;
-				});
-			} else {
-				var optionsJson = this.getAttribute('data-options') || '{}';
-				var options = JSON.parse(optionsJson);
-				_self.picker = new mui.DtPicker(options);
-				_self.picker.show(function(rs) {
-					console.log('选择结果: ' + rs.text);
-					_self.picker.dispose();
-					_self.picker = null;
-				});
+		var auto = new Vue({
+			el: '#Js-content',
+			data: {
+				showCitys: false,    // 展示城市简称
+				cities: ['粤', '川', '鄂', '甘', '贵', '桂', '黑', '沪', '吉', '冀', '津', '晋', '京', '辽', '鲁', '蒙', '闽', '宁', '青', '琼', '陕', '苏', '皖', '湘', '新', '渝', '豫', '云', '藏', '赣', '浙']
 			}
-		});*/
+		})
+		mui.plusReady(function() {
+			statusbar();
+			
+			var winH = window.innerHeight;
+        	var titHeight = document.querySelector('#Js-header').offsetHeight;
+        	document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+		})
 		
 		mui('body').on('tap', 'a', function() {
 			var href = this.getAttribute('href');
@@ -112,19 +110,6 @@
 					show:animateObj.aniDetal
 				});
 			}
-
-
 		});
-		
-		mui.plusReady(function() {
-			statusbar();
-			
-			var winH = window.innerHeight;
-			var titHeight = document.querySelector('#Js-header').offsetHeight / sizeObj.dpl;
-			
-			var embed=plus.webview.create('auto2c-content.html', 'auto2c_content',{top: titHeight + 'px',bottom:'0px'});
-			plus.webview.currentWebview().append(embed);
-			//document.querySelector('#Js-content').style.height = (winH - titHeight) +'px';	
-		})
 	</script>
 </html>

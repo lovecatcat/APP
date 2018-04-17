@@ -100,7 +100,8 @@
 </div>
 <script src="js/mui.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/vue.min.js" ></script>
-<script type="text/javascript">
+<script src="js/browser.min.js"></script>
+<script type="text/babel">
     var popu;
 	mui.init();
 	var modal = new Vue({
@@ -129,6 +130,10 @@
             // 关闭遮罩层，弹框
             popu.closepop();
         });
+        
+        plus.key.addEventListener("backbutton",function(){
+			popu.closepop();
+		});
     });
 </script>
 </body>

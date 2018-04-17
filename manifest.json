@@ -6,7 +6,7 @@
 	"id": "H517AA33E",
 	"name": "保险+",
 	"version": {
-		"name": "1.9.0408",
+		"name": "1.9.0416",
 		"code": "83"
 	},
 	"description": "保险plus mobile",
@@ -151,9 +151,35 @@
 				"keystore": "",
 				"password": "",
 				"aliasname": "",
-				"permissions": ["<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.LOCATION_HARDWARE\"/>","<uses-permission android:name=\"android.permission.READ_LOGS\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.INTERNET\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\"/>","<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>","<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"]
+				"permissions": [
+					"<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+					"<uses-permission android:name=\"android.permission.LOCATION_HARDWARE\"/>",
+					"<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>",
+					"<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>",
+					"<uses-permission android:name=\"android.permission.CAMERA\"/>",
+					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+					"<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>",
+					"<uses-permission android:name=\"android.permission.INTERNET\"/>",
+					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+					"<uses-feature android:name=\"android.hardware.camera\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+					"<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+				]
 			},
-			"orientation": ["portrait-primary","portrait-secondary"],
+			"orientation": [
+				"portrait-primary",
+				"portrait-secondary"
+			],
 			"icons": {
 				"ios": {
 					"prerendered": true,
@@ -190,20 +216,23 @@
 					"appstore": "unpackage/res/icons/1024x1024.png"
 				},
 				"android": {
-					"mdpi": "unpackage/res/icons/48x48.png",
-					"ldpi": "unpackage/res/icons/48x48.png",
-					"hdpi": "unpackage/res/icons/72x72.png",
-					"xhdpi": "unpackage/res/icons/96x96.png",
-					"xxhdpi": "unpackage/res/icons/144x144.png",
-					"xxxhdpi": "unpackage/res/icons/192x192.png"
+					"mdpi": "unpackage/res/icons/a48x48.png",
+					"ldpi": "unpackage/res/icons/a48x48.png",
+					"hdpi": "unpackage/res/icons/a72x72.png",
+					"xhdpi": "unpackage/res/icons/a96x96.png",
+					"xxhdpi": "unpackage/res/icons/a144x144.png",
+					"xxxhdpi": "unpackage/res/icons/a192x192.png"
 				}
 			},
 			"splashscreen": {
 				"ios": {
 					"iphone": {
 						"default": "",
-						"retina35": "E:/mobileApp5/mobileapp2/unpackage/starting/640x960.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-						"retina40": "E:/mobileApp5/mobileapp2/unpackage/starting/640x1136.png","retina47":"E:/mobileApp5/mobileapp2/unpackage/starting/750x1334.png","retina55":"E:/mobileApp5/mobileapp2/unpackage/starting/1242x2208.png"
+						"retina35": "unpackage/starting/640x960.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+						"retina40": "unpackage/starting/640x1136.png",
+						"retina47": "unpackage/starting/750x1334.png",
+						"retina55": "unpackage/starting/1242x2208.png",
+						"iphonex": "unpackage/starting/1125x2436.png"
 					},
 					"ipad": {
 						"portrait": "",
@@ -219,13 +248,19 @@
 				"android": {
 					"mdpi": "",
 					"ldpi": "",
-					"hdpi": "E:/mobileApp5/mobileapp2/unpackage/starting/480x762.png",
-					"xhdpi": "E:/mobileApp5/mobileapp2/unpackage/starting/720x1242.png",
-					"xxhdpi": "E:/mobileApp5/mobileapp2/unpackage/starting/1080x1882.png"
+					"hdpi": "unpackage/starting/480x762.png",
+					"xhdpi": "unpackage/starting/720x1242.png",
+					"xxhdpi": "unpackage/starting/1080x1882.png"
 				}
 			},
 			"debug": false
-		},"ads":{"rp":false,"splash":false,"push":false},"adid":""
+		},
+		"ads": {
+			"rp": false,
+			"splash": false,
+			"push": false
+		},
+		"adid": ""
 	},
 	"dependencies": {
 		"pages": {
@@ -751,7 +786,8 @@
 					"tax-cal.html",
 					"member-birthday.html",
 					"member-renewal.html",
-					"member-tax-cal.html"
+					"member-tax-cal.html",
+					"member-life-order.html"
 				],
 				"priority": 0
 			},
@@ -813,7 +849,8 @@
 					"images/icon/ico-search-blue.png",
 					"js/config.js",
 					"js/Date.js",
-					"js/vue.min.js"
+					"js/vue.min.js",
+					"js/browser.min.js"
 				],
 				"refer": [
 					"member-commission-incomelist.html"
@@ -1357,9 +1394,14 @@
 					"images/icon/ico-search-blue.png",
 					"js/config.js",
 					"css/mui.picker.min.css",
-					"js/mui.picker.min.js"
+					"js/mui.picker.min.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/mui.poppicker.js"
 				],
-				"refer": [],
+				"refer": [
+					"auto2c-choose.html"
+				],
 				"priority": 0
 			},
 			"sns-detail.html": {
@@ -1389,7 +1431,8 @@
 					"images/icon/ico-time.png",
 					"js/config.js",
 					"images/pic/p4.jpg",
-					"images/pic/p5.jpg"
+					"images/pic/p5.jpg",
+					"js/browser.min.js"
 				],
 				"priority": 1,
 				"refer": []
@@ -1457,7 +1500,10 @@
 					"images/icon/icon-upload.png",
 					"images/icon/ico-search-blue.png",
 					"js/config.js",
-					"css/mui.picker.min.css"
+					"css/mui.picker.min.css",
+					"js/mui.poppicker.js",
+					"js/mui.picker.min.js",
+					"auto2c-business.html"
 				],
 				"priority": 3,
 				"refer": []
@@ -1521,7 +1567,9 @@
 					"images/icon/icon-upload.png",
 					"images/icon/ico-search-blue.png",
 					"js/config.js",
-					"css/mui.picker.min.css"
+					"css/mui.picker.min.css",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js"
 				],
 				"refer": [
 					"auto2c-choose.html",
@@ -1858,7 +1906,8 @@
 					"images/plans/prospectus/276.jpg",
 					"images/plans/prospectus/301.jpg",
 					"images/plans/prospectus/334.jpg",
-					"images/plans/prospectus/121.jpg"
+					"images/plans/prospectus/121.jpg",
+					"images/plans/prospectus/349.jpg"
 				],
 				"priority": 2,
 				"refer": [
@@ -1997,7 +2046,11 @@
 					"images/plans/plansManage/16203.png",
 					"images/plans/plansManage/334.png",
 					"images/plans/plansManage/272.png",
-					"images/plans/plansManage/300.png"
+					"images/plans/plansManage/300.png",
+					"images/plans/plansManage/352.png",
+					"images/plans/plansManage/349.png",
+					"images/plans/plansManage/348.png",
+					"images/plans/plansManage/336.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -2252,7 +2305,8 @@
 					"css/common.css",
 					"js/mui.min.js",
 					"css/member.css",
-					"js/config.js"
+					"js/config.js",
+					"js/browser.min.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2315,7 +2369,8 @@
 			},
 			"member-commission-salarydetail.html": {
 				"resources": [
-					"css/form.css"
+					"css/form.css",
+					"css/mui.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -2524,7 +2579,9 @@
 					"css/mui.css",
 					"images/icon/ico-tax-question.png",
 					"css/form.css",
-					"css/member.css"
+					"css/member.css",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [
 					"member-tax-info.html"
@@ -2588,7 +2645,9 @@
 				"resources": [
 					"css/insurance.css",
 					"css/mui.picker.min.css",
-					"css/mui.css"
+					"css/mui.css",
+					"js/IDValidator.min.js",
+					"js/mui.poppicker.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2678,7 +2737,9 @@
 				"resources": [
 					"css/mui.picker.min.css",
 					"css/member.css",
-					"css/mui.css"
+					"css/mui.css",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -2696,6 +2757,29 @@
 					"css/mui.css"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"auto2c-business.html": {
+				"resources": [
+					"auto2c-choose.html",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-life-order.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/product.css",
+					"css/mui.css",
+					"css/member.css",
+					"css/module.css",
+					"css/common.css"
+				],
+				"refer": [
+					"member-warranty-manageLife-detail.html"
+				],
 				"priority": 0
 			}
 		},

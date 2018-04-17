@@ -18,20 +18,19 @@
 				<h1 class="BL-title">选择车险</h1>
 			</div>
 		</header>
-		
 		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
 			<ul class="mui-table-view form-list-cell">
 				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label">商业险</label>
-					<div class="form-list-control">
-						<select>
-							<option>投保</option>
-							<option>不投保</option>
-						</select>
-					</div>
-					<div class="form-list-icon">
-						<div class="mui-icon mui-icon-arrowright"></div>
-					</div>
+					<a class="BL-ub BL-ub-f1" href="auto2c-business.html"  data-wid="auto2c_business">
+						<label class="form-list-label BL-ub-f1">
+							商业险
+							<span class="form-float-right BL-col-3b9cf5">投保</span>
+							<span class="form-float-right" style="display: none;">不投保</span>
+						</label>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</a>
 				</li>
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">车上人员责任保险（驾驶员驾驶员驾驶员驾驶员）</label>
@@ -248,25 +247,6 @@
 	<script src="js/mui.poppicker.js"></script>
 	<script type="text/javascript">
 		mui.init();
-		document.querySelector('#document_term').addEventListener('tap', function() {
-			var _self = this;
-			if(_self.picker) {
-				_self.picker.show(function(rs) {
-					console.log('选择结果: ' + rs.text);
-					_self.picker.dispose();
-					_self.picker = null;
-				});
-			} else {
-				var optionsJson = this.getAttribute('data-options') || '{}';
-				var options = JSON.parse(optionsJson);
-				_self.picker = new mui.DtPicker(options);
-				_self.picker.show(function(rs) {
-					console.log('选择结果: ' + rs.text);
-					_self.picker.dispose();
-					_self.picker = null;
-				});
-			}
-		})
 		mui.plusReady(function() {
 			statusbar();
 
@@ -275,5 +255,18 @@
 
 			document.querySelector('#Js-content').style.height = (winH - titHeight) +'px';	
 		})
+		mui('body').on('tap', 'a', function() {
+			var href = this.getAttribute('href');
+			var id = this.getAttribute("data-wid");
+			
+			if(href && ~href.indexOf('.html')) {
+				//打开新窗口
+				mui.openWindow({
+					url:href,
+					id:id,
+					show:animateObj.aniDetal
+				});
+			}
+		});
 	</script>
 </html>

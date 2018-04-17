@@ -26,19 +26,19 @@
 	            <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
 	                <div class="mui-scroll">
 	                    <div class="mui-control-item" :class="{'mui-active':status_type=='0'}"
-	                         @click="status_type='0',page=0,listdata=[]">
+	                         @click="status_type='0',page=0">
 	                        <span>全部</span>
 	                    </div>
 	                    <div class="mui-control-item" :class="{'mui-active':status_type=='1'}"
-	                         @click="status_type='1',page=0,listdata=[]">
+	                         @click="status_type='1',page=0">
 	                        <span>待投保</span>
 	                    </div>
 	                    <div class="mui-control-item" :class="{'mui-active':status_type=='2'}"
-	                         @click="status_type='2',page=0,listdata=[]">
+	                         @click="status_type='2',page=0">
 	                        <span>待支付</span>
 	                    </div>
 	                    <div class="mui-control-item" :class="{'mui-active':status_type=='3'}"
-	                         @click="status_type='3',page=0,listdata=[]">
+	                         @click="status_type='3',page=0">
 	                        <span>已取消</span>
 	                    </div>
 	                </div>
@@ -63,7 +63,7 @@
 									<span class="BL-col-3b9cf5 fr" v-if="item.ins_state_name=='取消'">取消</span>
 								</div>
 								<div class="BL-pad-lr-1_5 BL-pad-tb-1_5">
-									<a class=" mui-navigate-right context BL-col-666" @click="Detail(item.policy_id)">
+									<a class="mui-navigate-right context BL-col-666" @click="Detail(item.policy_id)">
 										<div class="team-per-ins BL-pad-b-1">
 											<span>险种：<i>{{ item.product_name }}</i></span>
 										</div>
@@ -204,7 +204,6 @@
     }(mui));
     //加载险种列表
     var loaddata = function (e) {
-    	alert(order.page)
         order.page++;
         luckyAjax({
 			data: {
@@ -219,16 +218,21 @@
 				})
 	        },
 	        success:function(res){
+	        	console.log("page:"+ order.page + "内容："+JSON.stringify(res.data.list))
                	if(res.code == 1) {
-					if(order.page == 1 && order.page == res.data.totalPage) {
-						order.listdata = res.data.list
-						self.endPullUpToRefresh(true)
-					} else if(order.page < res.data.totalPage) {
-						order.listdata = order.listdata.concat(res.data.list)
-						self.endPullUpToRefresh(false)
-					} else {
-						self.endPullUpToRefresh(true)
-					}
+					if (order.page >= res.data.totalPage) {
+                        self.endPullUpToRefresh(true);
+                    } else {
+                        self.endPullUpToRefresh();
+                    }
+                    if (e) {
+                        order.listdata = res.data.list;
+                    } else {
+                        var list = res.data.list;
+                        mui.each(list, function (index, item) {
+                            order.listdata.push(item);
+                        });
+                    }
 	        	} else {
 	        		order.listdata = []
                     self.endPullUpToRefresh(true)

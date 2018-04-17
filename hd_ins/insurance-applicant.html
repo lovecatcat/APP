@@ -59,10 +59,10 @@
                     <label class="">证件有效期</label>
                     <div class="BL-ub BL-ub-pj BL-ub-f1">
                         <div class="input-wrap BL-ub-f1 search-date" data-options='{"type":"date","endYear":2038}'>
-                            <input type="text" v-model.lazy="applicant.holder_ID_expire_end" placeholder="请选择">
+                            <input type="text" v-model.lazy="applicant.holder_ID_expire_end" placeholder="请选择" :disabled="longTerm">
                             <button class="ins-date-icon" :disabled="longTerm"></button>
                         </div>
-                        <button class="right-text-btn orange" :class="{'active':longTerm}" @click="longTerm=!longTerm">长期有效</button>
+                        <button class="right-text-btn orange" :class="{'active':longTerm}" @tap="longTerm=!longTerm,toblur()">长期有效</button>
                     </div>
                 </div>
             </div>
@@ -129,7 +129,7 @@
                     <label class="">婚姻状况</label>
                     <div class="input-wrap box-f-1 multi-btn">
                         <button class="ins-btn xs-btn" :class="{'blue':item.value===applicant.holder_marriage}" :disabled="item.value===applicant.holder_marriage"
-                                v-for="(item,index) in init.marriage" @click="applicant.holder_marriage=item.value">
+                                v-for="(item,index) in init.marriage" @tap="applicant.holder_marriage=item.value,toblur()">
                             {{item.text}}
                         </button>
                     </div>
@@ -199,7 +199,7 @@
                                 :class="{'blue':applicant.resident_type===item.value}"
                                 :disabled="applicant.resident_type===item.value"
                                 v-for="(item,index) in init.resident_type"
-                                @click="applicant.resident_type=item.value">{{item.text}}
+                                @tap="applicant.resident_type=item.value">{{item.text}}
                         </button>
                     </div>
                 </div>
@@ -240,10 +240,10 @@
                     <div class="box-f-1 ins-font-sm BL-col-999">通讯地址是否同现在住址？</div>
                     <div class="box-f-2">
                         <button class="ins-btn xs-btn BL-mar-r-1" :class="{'blue':applicant.mail_addr_type}" :disabled="applicant.mail_addr_type"
-                                @click="applicant.mail_addr_type=!applicant.mail_addr_type,sameaddress()">是
+                                @tap="applicant.mail_addr_type=!applicant.mail_addr_type,sameaddress(),toblur()">是
                         </button>
                         <button class="ins-btn xs-btn" :class="{'blue':!applicant.mail_addr_type}" :disabled="!applicant.mail_addr_type"
-                                @click="applicant.mail_addr_type=!applicant.mail_addr_type">否
+                                @tap="applicant.mail_addr_type=!applicant.mail_addr_type,toblur()">否
                         </button>
                     </div>
                 </div>
@@ -404,6 +404,9 @@
             })
         },
         methods:{
+            toblur:function(){
+                document.activeElement.blur();
+            },
             sameaddress: function () {
                 this.applicant.holder_contact_province = this.applicant.holder_home_province
                 this.applicant.holder_contact_city = this.applicant.holder_home_city
@@ -556,6 +559,7 @@
             if (!checkAppl(appl.applicant)) {
                 return false
             }
+            saveTemp(appl.applicant)
             plus.storage.setItem('hengda_applicant',JSON.stringify(appl.applicant));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'applicant'
@@ -576,33 +580,65 @@
         //
         window.addEventListener('getMemberId', function (event) {
 	        var memberid = event.detail.id
-	        luckyAjax({
-				data: {
-		            server: 'team.getContactsInfo',
-		            data: JSON.stringify({card_no:memberid})
-		        },
-		        success:function(data){
-	                if(data.code){
-	                	var info = data.data;
-                        appl.applicant.holder_name = info.name;
-                        appl.applicant.holder_ID_no = info.card_no;
-                        appl.applicant.holder_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : appl.applicant.holder_salary_avg;
-                        appl.applicant.holder_mobile = info.tel;
-                        appl.applicant.holder_home_province = info.home_province;
-                        appl.applicant.holder_home_city = info.home_city;
-                        appl.applicant.holder_home_district = info.home_district;
-                        appl.applicant.holder_home_address = info.home_address;
-                        appl.applicant.holder_home_zip = info.home_zip;
-                        appl.applicant.holder_contact_province = info.contact_province;
-                        appl.applicant.holder_contact_city = info.contact_city;
-                        appl.applicant.holder_contact_district = info.contact_district;
-                        appl.applicant.holder_contact_address = info.contact_address;
-                        appl.applicant.holder_contact_zip = info.contact_zip;
-                        appl.applicant.holder_weight = parseInt(info.weight) ? Number(info.weight).toFixed(2) : appl.applicant.holder_weight;
-                        appl.applicant.holder_height = parseInt(info.height) ? parseInt(info.height) : appl.applicant.holder_height;
-	                }
-		        }
-			});
+	        var type = event.detail.type
+            if (type === 1) {
+                luckyAjax({
+                    data: {
+                        server: 'team.getContactsInfo',
+                        data: JSON.stringify({card_no:memberid})
+                    },
+                    success:function(data){
+                        if(data.code){
+                            var info = data.data;
+                            appl.applicant.holder_name = info.name;
+                            appl.applicant.holder_ID_no = info.card_no;
+                            appl.applicant.holder_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : appl.applicant.holder_salary_avg;
+                            appl.applicant.holder_mobile = info.tel;
+                            appl.applicant.holder_home_province = info.home_province;
+                            appl.applicant.holder_home_city = info.home_city;
+                            appl.applicant.holder_home_district = info.home_district;
+                            appl.applicant.holder_home_address = info.home_address;
+                            appl.applicant.holder_home_zip = info.home_zip;
+                            appl.applicant.holder_contact_province = info.contact_province;
+                            appl.applicant.holder_contact_city = info.contact_city;
+                            appl.applicant.holder_contact_district = info.contact_district;
+                            appl.applicant.holder_contact_address = info.contact_address;
+                            appl.applicant.holder_contact_zip = info.contact_zip;
+                            appl.applicant.holder_weight = parseInt(info.weight) ? Number(info.weight).toFixed(2) : appl.applicant.holder_weight;
+                            appl.applicant.holder_height = parseInt(info.height) ? parseInt(info.height) : appl.applicant.holder_height;
+                        }
+                    }
+                });
+            } else if (type === 2) {
+                luckyAjax({
+                    data: {
+                        server: 'team.getHistoryUserInfo',
+                        data: JSON.stringify({card_no:memberid})
+                    },
+                    success:function(data){
+                        if(data.code){
+                            var info = data.data;
+                            appl.applicant.holder_name = info.name;
+                            appl.applicant.holder_ID_no = info.card_no;
+                            appl.applicant.holder_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : appl.applicant.holder_salary_avg;
+                            appl.applicant.holder_mobile = info.tel;
+                            appl.applicant.holder_home_province = info.home_province;
+                            appl.applicant.holder_home_city = info.home_city;
+                            appl.applicant.holder_home_district = info.home_district;
+                            appl.applicant.holder_home_address = info.home_address;
+                            appl.applicant.holder_home_zip = info.home_zip;
+                            appl.applicant.holder_contact_province = info.contact_province;
+                            appl.applicant.holder_contact_city = info.contact_city;
+                            appl.applicant.holder_contact_district = info.contact_district;
+                            appl.applicant.holder_contact_address = info.contact_address;
+                            appl.applicant.holder_contact_zip = info.contact_zip;
+                            appl.applicant.holder_weight = parseInt(info.weight) ? Number(info.weight).toFixed(2) : appl.applicant.holder_weight;
+                            appl.applicant.holder_height = parseInt(info.height) ? parseInt(info.height) : appl.applicant.holder_height;
+                        }
+                    }
+                });
+            }
+
 	    })
     });
 </script>

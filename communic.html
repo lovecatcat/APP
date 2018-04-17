@@ -58,10 +58,27 @@
 				</div>
 			</div>
 		</div>
+		<div id="middlePopover" class="mui-popover" style="display: block; top: 1px; left: 46.5px;height: 500px;">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell"><a href="#">Item1</a></li>
+						<li class="mui-table-view-cell"><a href="#">Item1</a></li>
+						<li class="mui-table-view-cell"><a href="#">Item1</a></li>
+						<li class="mui-table-view-cell"><a href="#">Item1</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 		<script src="js/mui.min.js"></script>
 		<script src="js/mui.indexedlist.js"></script>
 		<script type="text/javascript" charset="utf-8">
-			mui.init();
+			mui.init({
+                gestureConfig:{
+                    longtap: true,
+                }
+            });
 			mui.plusReady(function() {
 				statusbar();
 				var userinfo = JSON.parse(plus.storage.getItem('userinfo'));
@@ -69,50 +86,85 @@
 				var list = document.getElementById('list');
 				var group = document.getElementById("Js-group");
 				list.style.height = (window.innerHeight - header.offsetHeight) + 'px';
-				
-				luckyAjax({
-					data: {
-			            server: 'team.getCustomerList',
-			            data: JSON.stringify({user_id:userinfo.id, row:9999})
-			        },
-			        success:function(data){
-			        	console.log(JSON.stringify(data))
-		                if(data.code){
-		                	var dataArr = data.data.list; // 获取数据
-		                	var arrange = {}; // 重新整理所有数据排序 按A~Z排列
-							var htm = '';
-							mui('#Js-abc a').each(function(){
-								arrange[this.innerText] = [];
-							});
-							mui.each(dataArr, function(index, item){
-								var thisABC = item.holder_name_abc.charAt(0).toUpperCase();
-								mui.each(arrange, function(n, o){
-									if(thisABC == n){
-										arrange[n].push(item);
-									}
-								});
-							});
-							mui.each(arrange, function(index, item){
-								if(item.length>0){
-									htm += '<li data-group="'+ index +'" class="mui-table-view-divider mui-indexed-list-group">'+ index +'</li>';	
-									mui.each(item, function(n, o){
-										htm += '<li data-id="'+ o.holder_ID_no +'" data-value="'+ o.holder_name_abc +'" data-tags="'+ o.holder_name_pinyin +'" class="mui-table-view-cell mui-indexed-list-item">'+ o.holder_name +'</li>';
-									});
-								}
-							});
-							group.innerHTML = htm;
-							new mui.IndexedList(list); // 初始化
-		                }	
-			        }
-				});
-				
+                //在线投保选择通讯录
+                var type = plus.webview.currentWebview().type;
+                if (type === 'onlineIns') {
+                    getList(2)
+                } else {
+                    getList(1)
+                }
+
+                function getList(e) {
+                    if (e === 1) {
+                        luckyAjax({
+                            data: {
+                                server: 'team.getCustomerList',
+                                data: JSON.stringify({user_id: userinfo.id, row: 9999})
+                            },
+                            success: function (data) {
+                                console.log(JSON.stringify(data))
+                                if (data.code) {
+                                    var dataArr = data.data.list; // 获取数据
+                                    var arrange = {}; // 重新整理所有数据排序 按A~Z排列
+                                    var htm = '';
+                                    mui('#Js-abc a').each(function () {
+                                        arrange[this.innerText] = [];
+                                    });
+                                    mui.each(dataArr, function (index, item) {
+                                        var thisABC = item.holder_name_abc.charAt(0).toUpperCase();
+                                        mui.each(arrange, function (n, o) {
+                                            if (thisABC == n) {
+                                                arrange[n].push(item);
+                                            }
+                                        });
+                                    });
+                                    mui.each(arrange, function (index, item) {
+                                        if (item.length > 0) {
+                                            htm += '<li data-group="' + index + '" class="mui-table-view-divider mui-indexed-list-group">' + index + '</li>';
+                                            mui.each(item, function (n, o) {
+                                                htm += '<li data-id="' + o.holder_ID_no + '" data-type="1" data-value="' + o.holder_name_abc + '" data-tags="' + o.holder_name_pinyin + '" class="mui-table-view-cell mui-indexed-list-item">' + o.holder_name + '</li>';
+                                            });
+                                        }
+                                    });
+                                    group.innerHTML = htm;
+                                    new mui.IndexedList(list); // 初始化
+                                    //长按
+                                    mui('#Js-group').on('longtap', 'li.mui-indexed-list-item', function () {
+                                        mui('#middlePopover').popover('show');
+                                    });
+                                }
+                            }
+                        });
+                    } else if (e === 2) {
+                        luckyAjax({
+                            data: {
+                                server: 'team.getHistoryUserList',
+                                data: JSON.stringify({user_id: userinfo.id})
+                            },
+                            success: function (res) {
+                                var htm = '';
+                                var arrange = res.data.list
+                                console.log(JSON.stringify(res))
+                                mui.each(arrange, function (index, item) {
+                                    htm += '<li data-id="' + item.card_no + '" data-type="2" class="mui-table-view-cell mui-indexed-list-item">' + item.user_name + '</lidata-id>';
+                                });
+                                group.innerHTML = htm;
+                                new mui.IndexedList(list); // 初始化
+                            }
+                        });
+					}
+                }
+
+
 				mui('body').on('tap', '.mui-indexed-list-item', function(){
 					var id = this.getAttribute('data-id');
+					var type = this.getAttribute('data-type');
 					//在线投保选择通讯录
-					var type = plus.webview.currentWebview().type;
-					if(type === 'onlineIns') {
+					var flag = plus.webview.currentWebview().type;
+					if(flag === 'onlineIns') {
 						mui.fire(plus.webview.currentWebview().opener(), 'getMemberId', {
-		                    id: id
+		                    id: id,
+							type: type
 		                });
 		                mui.back();
 					}else{

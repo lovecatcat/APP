@@ -76,10 +76,10 @@
                         <label class="">证件有效期</label>
                         <div class="BL-ub BL-ub-pj BL-ub-f1">
                             <div class="input-wrap BL-ub-f1 search-date" data-options='{"type":"date","endYear":2038}'>
-                                <input type="text" v-model.lazy="assured.insured_ID_expire_end" placeholder="请选择">
+                                <input type="text" v-model.lazy="assured.insured_ID_expire_end" placeholder="请选择" :disabled="longTerm">
                                 <button class="ins-date-icon" :disabled="longTerm"></button>
                             </div>
-                            <button class="right-text-btn orange" :class="{'active':longTerm}" @click="longTerm=!longTerm" :disabled="[BOOKLET,BORNid].indexOf(assured.insured_ID_type)>-1">长期有效</button>
+                            <button class="right-text-btn orange" :class="{'active':longTerm}" @tap="longTerm=!longTerm,toblur()" :disabled="[BOOKLET,BORNid].indexOf(assured.insured_ID_type)>-1">长期有效</button>
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                             <button class="ins-btn sm-btn"
                                     v-for="(item,index) in init.gender"
                                     :class="{'blue':assured.insured_gender===item.value}"
-                                    @click="assured.insured_gender=item.value"
+                                    @tap="assured.insured_gender=item.value,toblur()"
                                     :disabled="IDNO.indexOf(assured.insured_ID_type)>-1">{{item.text}}
                             </button>
                         </div>
@@ -150,7 +150,7 @@
                         <label class="">婚姻状况</label>
                         <div class="input-wrap box-f-1 multi-btn">
                             <button class="ins-btn xs-btn" :class="{'blue':item.value===assured.insured_marriage}"
-                                    v-for="(item,index) in init.marriage" :disabled="item.value===assured.insured_marriage" @click="assured.insured_marriage=item.value">
+                                    v-for="(item,index) in init.marriage" :disabled="item.value===assured.insured_marriage" @tap="assured.insured_marriage=item.value,toblur()">
                                 {{item.text}}
                             </button>
                         </div>
@@ -217,10 +217,10 @@
                         <div class="box-f-1 ins-font-sm BL-col-999">是否与投保人同地址？</div>
                         <div class="box-f-2">
                             <button class="ins-btn xs-btn BL-mar-r-1" :class="{'blue':assured.addr_type}" :disabled="assured.addr_type"
-                                    @click="assured.addr_type=!assured.addr_type,sameappladdress()">是
+                                    @tap="assured.addr_type=!assured.addr_type,sameappladdress(),toblur()">是
                             </button>
                             <button class="ins-btn xs-btn" :class="{'blue':!assured.addr_type}" :disabled="!assured.addr_type"
-                                    @click="assured.addr_type=!assured.addr_type">否
+                                    @tap="assured.addr_type=!assured.addr_type,toblur()">否
                             </button>
                         </div>
                     </div>
@@ -378,6 +378,9 @@
             })
         },
         methods:{
+            toblur:function(){
+                document.activeElement.blur();
+            },
             sameappladdress:function () {
                 this.assured.insured_home_district = this.applicant.holder_home_district
                 this.assured.insured_home_district_name = this.applicant.holder_home_district_name

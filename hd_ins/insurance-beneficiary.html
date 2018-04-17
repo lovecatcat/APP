@@ -103,11 +103,11 @@
             <div class="input-item">
                 <label class="">证件有效期</label>
                 <div class="BL-ub BL-ub-pj BL-ub-f1">
-                    <div class="input-wrap BL-ub-f1 search-date" data-options='{"type":"date","endYear":2038}'>
-                        <input type="text" v-model.lazy="beneficiary.ID_expire_end" placeholder="请选择">
+                    <div class="input-wrap BL-ub-f1" :class="'searchDate'+index" data-options='{"type":"date","endYear":2038}'>
+                        <input type="text" v-model.lazy="beneficiary.ID_expire_end" placeholder="请选择" :disabled="longTerm">
                         <button class="ins-date-icon" :disabled="longTerm"></button>
                     </div>
-                    <button class="right-text-btn orange" :class="{'active':longTerm}" @click="longTerm=!longTerm" :disabled="[BOOKLET,BORNid].indexOf(beneficiary.ID_type)>-1">长期有效</button>
+                    <button class="right-text-btn orange" :class="{'active':longTerm}" @tap="longTerm=!longTerm,toblur()" :disabled="[BOOKLET,BORNid].indexOf(beneficiary.ID_type)>-1">长期有效</button>
                 </div>
             </div>
             <div class="input-item">
@@ -116,7 +116,7 @@
                     <button class="ins-btn sm-btn"
                         :class="{'blue':beneficiary.gender===item.value}"
                         v-for="(item,index) in init.gender"
-                        @click="beneficiary.gender=item.value"
+                        @tap="beneficiary.gender=item.value,toblur()"
                         :disabled="IDNO.indexOf(beneficiary.ID_type)>-1">{{item.text}}
                     </button>
                 </div>
@@ -138,7 +138,7 @@
                             :class="{'blue':item.value===beneficiary.beneficiary_is_insured}"
                             :disabled="item.value===beneficiary.beneficiary_is_insured"
                             v-for="(item,index) in init.relation_beneficiary"
-                            @click="beneficiary.beneficiary_is_insured=item.value">
+                            @tap="beneficiary.beneficiary_is_insured=item.value,toblur()">
                         {{item.text}}
                     </button>
                 </div>
@@ -150,7 +150,7 @@
                             v-for="(item,ind) in count"
                             :class="{'blue':ind+1===beneficiary.sort_order}"
                             :disabled="ind+1===beneficiary.sort_order"
-                            @click="beneficiary.sort_order=ind+1">
+                            @tap="beneficiary.sort_order=ind+1,toblur()">
                         {{ind+1}}
                     </button>
                 </div>
@@ -170,13 +170,13 @@
             <div class="input-item box-f-1 box-align-center">
                 <div class="box-f-1 ins-font-sm BL-col-3b9cf5">是否与投被保人同地址？</div>
                 <div class="box-f-2">
-                    <button class="ins-btn xxs-btn" @click="beneficiary.addr_type=1,sameaddress(1)" :disabled="beneficiary.addr_type===1"
+                    <button class="ins-btn xxs-btn" @tap="beneficiary.addr_type=1,sameaddress(1),toblur()" :disabled="beneficiary.addr_type===1"
                             :class="{'blue':beneficiary.addr_type===1}">同投保人
                     </button>
-                    <button class="ins-btn xxs-btn" @click="beneficiary.addr_type=2,sameaddress(2)" :disabled="beneficiary.addr_type===2"
+                    <button class="ins-btn xxs-btn" @tap="beneficiary.addr_type=2,sameaddress(2),toblur()" :disabled="beneficiary.addr_type===2"
                             :class="{'blue':beneficiary.addr_type===2}">同被保人
                     </button>
-                    <button class="ins-btn xs-btn" @click="beneficiary.addr_type=3" :disabled="beneficiary.addr_type===3"
+                    <button class="ins-btn xs-btn" @tap="beneficiary.addr_type=3,toblur()" :disabled="beneficiary.addr_type===3"
                             :class="{'blue':beneficiary.addr_type===3}">否
                     </button>
                 </div>
@@ -569,6 +569,9 @@
             })
             },
             methods: {
+                toblur:function(){
+                    document.activeElement.blur();
+                },
                 // 展开收起
                 unfold:function(index) {
                     this.$parent.par_unfold(index, 1)

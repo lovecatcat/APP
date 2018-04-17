@@ -41,7 +41,7 @@
                     <div class="input-wrap box-f-1 multi-btn">
                         <button class="ins-btn xs-btn" :class="{'blue':item.pay_year===insurance.pay_year}"
                                 :disabled="item.pay_year===insurance.pay_year"
-                                v-for="(item,index) in pay_year" @click="insurance.pay_year=item.pay_year,resetMoney()">
+                                v-for="(item,index) in pay_year" @tap="insurance.pay_year=item.pay_year,resetMoney(),toblur()">
                             {{item.pay_year | payYearFilter}}
                         </button>
                     </div>
@@ -52,7 +52,7 @@
                         <button class="ins-btn xs-btn" :class="{'blue':item.safe_year===insurance.safe_year}"
                                 :disabled="item.safe_year===insurance.safe_year"
                                 v-for="(item,index) in safe_year"
-                                @click="insurance.safe_year=item.safe_year,resetMoney()">
+                                @tap="insurance.safe_year=item.safe_year,resetMoney(),toblur()">
                             {{item.year | safeYearFilter}}
                         </button>
                     </div>
@@ -83,7 +83,7 @@
                         <div class="input-wrap box-f-1 multi-btn">
                             <button class="ins-btn xs-btn" :class="{'blue':index===insurance.money}"
                                     :disabled="index===insurance.money"
-                                    v-for="(item,index) in money_arr" @click="insurance.money=index,resetMoney()">
+                                    v-for="(item,index) in money_arr" @tap="insurance.money=index,resetMoney(),toblur()">
                                 {{item}}
                             </button>
                         </div>
@@ -107,7 +107,7 @@
                             <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.guarantee_term}"
                                     :disabled="item.value===insurance.guarantee_term"
                                     v-for="(item,index) in init.nj_safe_year"
-                                    @click="insurance.guarantee_term=item.value">
+                                    @tap="insurance.guarantee_term=item.value,toblur()">
                                 {{item.text}}
                             </button>
                         </div>
@@ -134,7 +134,7 @@
                             <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.shareDrawType}"
                                     v-for="(item,index) in init.nj_get_type"
                                     :disabled="item.value===insurance.shareDrawType"
-                                    @click="insurance.shareDrawType=item.value">
+                                    @tap="insurance.shareDrawType=item.value,toblur()">
                                 {{item.text}}
                             </button>
                         </div>
@@ -148,7 +148,7 @@
                             <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.draw_freq}"
                                     v-for="(item,index) in init.nj_get_way"
                                     :disabled="item.value===insurance.draw_freq"
-                                    @click="insurance.draw_freq=item.value">
+                                    @tap="insurance.draw_freq=item.value,toblur()">
                                 {{item.text}}
                             </button>
                         </div>
@@ -271,7 +271,7 @@
                         <div class="input-wrap box-f-1 multi-btn">
                             <button class="ins-btn xs-btn" :class="{'blue':addonIns[index].money===ind}"
                                     :disabled="addonIns[index].money===ind"
-                                    @click="changeAddon(index,ind)" v-for="(ite,ind) in zxmoney_arr">{{ite}}
+                                    @tap="changeAddon(index,ind),toblur()" v-for="(ite,ind) in zxmoney_arr">{{ite}}
                             </button>
                         </div>
                     </div>
@@ -337,7 +337,7 @@
                         <div class="input-wrap box-f-1">
                             <button class="ins-btn xs-btn" :class="{'blue':addonIns[index].money==ind}"
                                     :disabled="addonIns[index].money===ind"
-                                    @click="changeAddon(index,ind)" v-for="(ite,ind) in axmoney_arr">{{ite}}
+                                    @tap="changeAddon(index,ind),toblur()" v-for="(ite,ind) in axmoney_arr">{{ite}}
                             </button>
                         </div>
                     </div>
@@ -481,6 +481,9 @@
             }
         },
         methods: {
+            toblur:function(){
+                document.activeElement.blur();
+            },
             changeAddon: function (index, money) {
                 this.addonIns[index].money = money
                 this.addonIns[index].period_money = ''
@@ -1218,7 +1221,8 @@
                         });
                         //
                     } else {
-                        mui.toast('加载失败', {duration: 'short', type: 'div'})
+                        mui.toast('加载失败', {duration: 'short', type: 'div'});
+                        return false;
                     }
                 }
             });

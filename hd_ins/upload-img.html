@@ -79,7 +79,7 @@
                 canvas.height = width * (img.height / img.width)
                 drawer.drawImage(img, 0, 0, canvas.width, canvas.height)
                 base64Img = canvas.toDataURL('image/jpeg', quality)
-                mui.fire(plus.webview.getWebviewById('insurance_upload'), 'uploadimg', {
+                mui.fire(plus.webview.getWebviewById('insurance-upload'), 'uploadimg', {
                     img: base64Img,
                     id: id
                 });

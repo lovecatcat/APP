@@ -415,20 +415,16 @@ var checkAppl = function (appl) {
         toast_text = '投保人居民类型不能为空'
     } else if (!appl.holder_home_province) {
         toast_text = '投保人现在住址【省级】不能为空'
-    } else if (!appl.holder_home_city && appl.holder_home_province !== '3877') {
+    } else if (!appl.holder_home_city) {
         toast_text = '投保人现在住址【市级】不能为空'
-    } else if (!appl.holder_home_district && appl.holder_home_province !== '3877') {
-        toast_text = '投保人现在住址【县/区】不能为空'
     } else if (!checkAddress(appl.holder_home_address, '投保人')) {
         return false
     } else if (!checkZipcode(appl.holder_home_zip, appl.holder_home_province, '投保人')) {
         return false
     } else if (appl.mail_addr_type === 0 && !appl.holder_contact_province) {
         toast_text = '投保人通讯地区【省级】不能为空'
-    } else if (appl.mail_addr_type === 0 && !appl.holder_contact_city && appl.holder_contact_province !== '3877') {
+    } else if (appl.mail_addr_type === 0 && !appl.holder_contact_city) {
         toast_text = '投保人通讯地区【市级】不能为空'
-    } else if (appl.mail_addr_type === 0 && !appl.holder_contact_district && appl.holder_contact_province !== '3877') {
-        toast_text = '投保人通讯地区【县/区】不能为空'
     } else if (appl.mail_addr_type === 0 && !checkAddress(vm.applicant.holder_contact_address, '投保人通讯')) {
         return false
     } else if (appl.mail_addr_type === 0 && !checkZipcode(vm.applicant.holder_contact_zip, vm.applicant.holder_contact_province, '投保人通讯')) {
@@ -478,10 +474,8 @@ var checkAssured = function (assu) {
         return false
     } else if (!assu.insured_home_province) {
         toast_text = '被保人现在住址【省级】不能为空'
-    } else if (!assu.insured_home_city && assu.insured_home_province !== '3877') {
+    } else if (!assu.insured_home_city) {
         toast_text = '被保人现在住址【市级】不能为空'
-    } else if (!assu.insured_home_district && assu.insured_home_province !== '3877') {
-        toast_text = '被保人现在住址【县/区】不能为空'
     } else if (!checkAddress(assu.insured_home_address, '被保人')) {
         return false
     } else if (!checkZipcode(assu.insured_home_zip, assu.insured_home_province, '被保人')) {
@@ -620,6 +614,20 @@ var RSChanged = function(assu,applicant) {
             assu.insured_isTaxResidents= applicant.holder_isTaxResidents
     }
 }
+//临时信息保存
+var saveTemp = function (data) {
+    luckyAjax({
+        data: {data: JSON.stringify(data), server: 'PolicyIns.saveUserInfo'},
+        success: function (data) {
+            if (data.code) {
+                console.log('保存成功');
+            } else {
+                console.log('保存失败');
+                return false;
+            }
+        }
+    });
+};
 //深度拷贝
 var deepClone = function (obj) {
     var newObj = obj instanceof Array ? [] : {};

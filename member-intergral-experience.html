@@ -80,8 +80,7 @@
 	<script src="js/mui.pullToRefresh.material.js"></script>
 	<script src="js/vue.min.js"></script>
 	<script src="js/Date.js"></script>
-	<script src="js/browser.min.js"></script>
-	<script type="text/babel">
+	<script type="text/javascript">
 		mui.init();
 		var intergral = new Vue({
 			el: '#Js-content',
@@ -102,8 +101,8 @@
 	        if (!timestamp) {
 		        return ''
 		    }
-		    let time = new Date(timestamp*1000)   // 时间戳转成日期
-		    let timeFormat = time.Format('yyyy-MM-dd')
+		    var time = new Date(timestamp*1000)   // 时间戳转成日期
+		    var timeFormat = time.Format('yyyy-MM-dd')
 		    return timeFormat
 	    });
 	   

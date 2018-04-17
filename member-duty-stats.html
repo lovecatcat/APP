@@ -27,7 +27,7 @@
 						<div class="mui-col-sm-3 mui-col-xm-3 BL-ub BL-ub-pc">
 							<div class="content">
 								<div class="days">
-									<span id="">{{ count.workCount }}</span>天
+									<span>{{ count.workCount }}</span>天
 								</div>
 								<div class="decri">
 									出勤	
@@ -37,7 +37,7 @@
 						<div class="mui-col-sm-3 mui-col-xm-3 BL-ub BL-ub-pc">
 							<div class="content">
 								<div class="days">
-									<span id="">{{ count.sleepCount }}</span>天
+									<span>{{ count.sleepCount }}</span>天
 								</div>
 								<div class="decri">
 									休息	
@@ -47,7 +47,7 @@
 						<div class="mui-col-sm-3 mui-col-xm-3 BL-ub BL-ub-pc">
 							<div class="content">
 								<div class="days">
-									<span id="">{{ count.lateCount }}</span>次
+									<span>{{ count.lateCount }}</span>次
 								</div>
 								<div class="decri">
 									<span class="done done-orange"></span>迟到
@@ -150,8 +150,7 @@
 	<script src="js/Date.js"></script>
 	<script src="js/schedule.js"></script>
 	<script src="js/wifi.js"></script>
-	<script src="js/browser.min.js"></script>
-	<script type="text/babel">
+	<script type="text/javascript">
 		mui.init();
 		data = [];
 		var duty = new Vue({

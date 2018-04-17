@@ -8,6 +8,7 @@
     <link href="../css/module.css" rel="stylesheet"/>
     <link href="../css/insurance.css" rel="stylesheet"/>
     <script src="../js/config.js" type="text/javascript"></script>
+    <script src="../js/browser.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css"/>
 </head>
 
@@ -70,19 +71,23 @@
         <div class="form-wrap" v-show="show">
             <div class="input-item">
                 <label class="">姓名</label>
-                <div class="input-wrap box-f-1">
-                    <input type="text" v-model.trim.lazy="beneficiary.fullname" placeholder="请输入">
-                    <div class="form-clear-icon" v-show="beneficiary.fullname!=''"
-                         @click="beneficiary.fullname=''">
-                        <span class="mui-icon mui-icon-clear"></span>
+                <div class="BL-ub BL-ub-pj BL-ub-f1">
+                    <div class="input-wrap BL-ub-f1">
+                        <input type="text" v-model.trim.lazy="beneficiary.fullname" placeholder="请输入">
+                        <div class="form-clear-icon" v-show="beneficiary.fullname!=''"
+                             @click="beneficiary.fullname=''">
+                            <span class="mui-icon mui-icon-clear"></span>
+                        </div>
                     </div>
+                    <div class="right-text-btn right-icon search-icon"></div>
+                    <div class="right-text-btn right-icon address-icon orange"></div>
                 </div>
             </div>
             <div class="input-item">
                 <label class="">证件类型</label>
                 <div class="input-wrap box-f-1">
                     <div class="input" :id="'ID_type'+index">
-                        {{ID_type_name}}
+                        {{beneficiary.ID_type_name}}
                     </div>
                     <div class="ins-down-icon"></div>
                 </div>
@@ -98,11 +103,13 @@
             </div>
             <div class="input-item">
                 <label class="">证件有效期</label>
-                <div class="input-wrap search-date" data-options='{"type":"date"}'>
-                    <input type="text" v-model.lazy="beneficiary.ID_expire_end" placeholder="请选择" readonly
-                           :disabled="longTerm">
+                <div class="BL-ub BL-ub-pj BL-ub-f1">
+                    <div class="input-wrap BL-ub-f1 search-date" data-options='{"type":"date","endYear":2038}'>
+                        <input type="text" v-model.lazy="beneficiary.ID_expire_end" placeholder="请选择">
+                        <button class="ins-date-icon" :disabled="longTerm"></button>
+                    </div>
+                    <button class="right-text-btn orange" :class="{'active':longTerm}" @click="longTerm=!longTerm" :disabled="[BOOKLET,BORNid].indexOf(beneficiary.ID_type)>-1">长期有效</button>
                 </div>
-                <div class="right-btn orange" :class="{'active':longTerm}" @click="longTerm=!longTerm">长期有效</div>
             </div>
             <div class="input-item">
                 <label class="">性别</label>
@@ -117,12 +124,12 @@
             </div>
             <div class="input-item">
                 <label class="">出生日期</label>
-                <div class="input-wrap box-f-1 search-date" data-options='{"type":"date"}'>
+                <div class="input-wrap box-f-1" :class="'searchDate'+index" data-options='{"type":"date","beginYear":1910}'>
                     <input type="text"
                            v-model.lazy="beneficiary.birthday"
                            :disabled="IDNO.indexOf(beneficiary.ID_type)>-1"
                            placeholder="请选择" readonly>
-                    <div class="ins-date-icon"></div>
+                    <button class="ins-date-icon" :disabled="IDNO.indexOf(beneficiary.ID_type)>-1"></button>
                 </div>
             </div>
             <div class="input-item" v-if="init&&init.relation_beneficiary">
@@ -180,7 +187,7 @@
                     <label class="">通讯地区</label>
                     <div class="input-wrap box-f-1">
                         <div class="input" :id="'address-select'+index">
-                            {{address_select}}
+                            {{beneficiary.address_select}}
                         </div>
                         <div class="ins-down-icon"></div>
                     </div>
@@ -211,7 +218,7 @@
 <script src="../js/city.data-3.js"></script>
 <script src="../js/IDValidator.min.js"></script>
 <script src="method.js"></script>
-<script type="text/javascript">
+<script type="text/babel">
     mui.init();
 
     var idtype = [];
@@ -261,6 +268,7 @@
                     } else {
                         this.is_legal_benefic = true //法定
                     }
+                    this.beneficiaries = beneficiary
                 }
             },
             methods: {
@@ -280,9 +288,9 @@
                     this.$nextTick(() => {
                         idtype[max].setData(this.init.ID_type);
                         cityPicker[max].setData(cityData3);
-                        this.updateBeneficiaryRatio()
-                    this.par_unfold(this.beneficiariesIndex.length - 1, 0)
-                })
+                        this.updateBeneficiaryRatio();
+                        this.par_unfold(this.beneficiariesIndex.length - 1, 0);
+                    });
                 },
                 // 删除受益人
                 delBeneficiary(val) {
@@ -290,7 +298,6 @@
                     mui.confirm('确认删除受益人吗？', '提示', ['确定', '取消'], function (e) {
                         if (e.index == 0) {
                             let index = vm.beneficiariesIndex.indexOf(val)
-//                            console.log('index:' + index)
                             vm.beneficiariesIndex.splice(index, 1)
                             bene.$nextTick(() => {
                                 vm.updateBeneficiaryRatio()
@@ -305,9 +312,9 @@
                 },
                 // 校验受益人
                 checkAllBens() {
+                    console.log('checkAllBens')
                     let vm = this
-//                    console.log('校验受益人')
-                    if (vm.is_legal_benefic === 0) return true //法定受益人
+                    if (vm.is_legal_benefic) return true //法定受益人
                     let benefited = {}
                     for (let i = 1; i <= vm.nenesum; i++) {
                         benefited[i] = []
@@ -388,8 +395,10 @@
                     return true
                 },
                 checkRatio() {
-                    if (!this.is_legal_benefic) return true //法定受益人
+                    console.log('checkRatio');
+                    if (this.is_legal_benefic) return true //法定受益人
                     let benefited = this.benefited
+                    console.log(JSON.stringify(benefited));
                     for (let j = 1; j <= 4; j++) {
                         let sum = 0
                         for (let k = 0; k < benefited[j].length; k++) {
@@ -424,7 +433,6 @@
                 },
                 // index：第几个， flag: 0 非操作(添加or删除)， 1 操作(展开or收起)
                 par_unfold(index, flag) {
-//                    console.log("长度：" + this.$refs.beneficiary.length)
                     for (let i in this.$refs.beneficiary) {
                         let item = this.$refs.beneficiary[i]
                         if (i == index && flag == 1) {
@@ -463,8 +471,6 @@
                 return {
                     show: true,
                     longTerm: false,//长期有效
-                    ID_type_name: '请选择',//证件类型名称
-                    address_select: '请选择',
                     beneficiary: {
                         beneficiary_is_insured: '',//与被保人关系
                         fullname: '',//姓名
@@ -481,7 +487,9 @@
                         province: '',
                         city: '',
                         district: '',
-                        address: ''//详细地址
+                        address: '',//详细地址
+                        ID_type_name: '请选择',//证件类型名称
+                        address_select: '请选择'
                     }
                 }
             },
@@ -490,40 +498,40 @@
                 vm.beneficiary.gender = MALE
                 vm.beneficiary.type = SY_TYPE
                 //
-                console.log('aaaaa')
-                console.log(vm.data)
                 if (vm.data) {
+                    vm.longTerm = vm.data.ID_expire_end === '9999-12-31' ? true : false
                     vm.beneficiary = Object.assign(vm.beneficiary, vm.data)
                 }
                 //
                 vm.$watch('longTerm', (val) => {
-                    if(val) {
-                        vm.beneficiary.ID_expire_end = '9999-12-31'
-                    }
+                    vm.beneficiary.ID_expire_end = val ? '9999-12-31' : ''
                 });
                 vm.$watch('beneficiary.ID_no', () => {
                     const type = vm.beneficiary.ID_type
                     const id = vm.beneficiary.ID_no
                     if (!type || !id) return
-                var Validator = new IDValidator();
-                if (IDValidate(type, id, '第' + (vm.index + 1) + '个受益人') && (type === IDcard || type === BOOKLET)) {
-                    const idInfo = Validator.getInfo(id)
-                    vm.beneficiary.birthday = idInfo.birth || ''
-                    vm.beneficiary.gender = [FEMALE, MALE][idInfo.sex]
-                }
-            });
+                    var Validator = new IDValidator();
+                    if (IDValidate(type, id, '第' + (vm.index + 1) + '个受益人') && (type === IDcard || type === BOOKLET)) {
+                        const idInfo = Validator.getInfo(id)
+                        vm.beneficiary.birthday = idInfo.birth || ''
+                        vm.beneficiary.gender = [FEMALE, MALE][idInfo.sex]
+                    }
+                });
                 vm.$nextTick(() => {
                     vm.$parent.initpicker(vm.index)
+                    idtype[vm.index].pickers[0].setSelectedIndex(1);
                 //证件类型选择
                 document.querySelector('#ID_type' + vm.index).addEventListener('tap', function () {
+                    document.activeElement.blur();
                     idtype[vm.index].show(function (items) {
                         vm.beneficiary.ID_type = items[0].value;
-                        vm.ID_type_name = items[0].text;
+                        vm.beneficiary.ID_type_name = items[0].text;
                     })
                 })
                 //日期选择
-                mui('.search-date').each(function (i, d) {
+                mui('.searchDate' + vm.index).each(function (i, d) {
                     d.addEventListener('tap', function () {
+                        document.activeElement.blur();
                         var optionsJson = this.getAttribute('data-options') || '{}';
                         var options = JSON.parse(optionsJson);
                         var _this = this
@@ -544,6 +552,7 @@
                     return obj[param] || '';
                 };
                 document.querySelector('#address-select' + vm.index).addEventListener('tap', function () {
+                    document.activeElement.blur();
                     var _self = this;
                     cityPicker[vm.index].show(function (items) {
                         vm.beneficiary.province = _getParam(items[0], 'value')
@@ -566,12 +575,13 @@
                         this.beneficiary.city = this.$parent.applicant.holder_home_city
                         this.beneficiary.district = this.$parent.applicant.holder_home_district
                         this.beneficiary.address = this.$parent.applicant.holder_home_address
-                    } else (type === 2)
-                    {
+                        this.beneficiary.zip = this.$parent.applicant.holder_home_zip
+                    } else if(type === 2) {
                         this.beneficiary.province = this.$parent.assured.insured_home_province
                         this.beneficiary.city = this.$parent.assured.insured_home_city
                         this.beneficiary.district = this.$parent.assured.insured_home_district
                         this.beneficiary.address = this.$parent.assured.insured_home_address
+                        this.beneficiary.zip = this.$parent.assured.insured_home_zip
                     }
                 }
             }
@@ -585,7 +595,10 @@
         var assured = JSON.parse(plus.storage.getItem('hengda_assured'))
         bene.applicant = applicant
         bene.assured = assured
-
+        //安卓监听返回事件
+        plus.key.addEventListener("backbutton",function(){
+            popu.closepop();
+        });
         //保存
         document.querySelector('#saveBenef').addEventListener('tap', function () {
             if (bene.is_legal_benefic) {
@@ -593,13 +606,13 @@
                 plus.storage.setItem('hengda_beneficiary', '1');
             } else {
                 if (!bene.checkAllBens()) return false
+                if (!bene.checkRatio()) return false
                 var data = []
                 for (let j in bene.$refs.beneficiary) {
                     data.push(bene.$refs.beneficiary[j].beneficiary)
                 }
                 plus.storage.setItem('hengda_beneficiary', JSON.stringify(data));
             }
-            console.log(JSON.stringify(plus.storage.getItem('hengda_beneficiary')));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'beneficiary'
             });

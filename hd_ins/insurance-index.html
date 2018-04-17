@@ -9,6 +9,7 @@
     <link href="../css/module.css" rel="stylesheet"/>
     <link href="../css/insurance.css" rel="stylesheet"/>
     <script src="../js/config.js" type="text/javascript"></script>
+    <script src="../js/browser.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css"/>
 </head>
 
@@ -71,8 +72,9 @@
 </div>
 <script src="../js/mui.min.js" type="text/javascript"></script>
 <script src="../js/vue.min.js" type="text/javascript"></script>
+
 <script src="method.js"></script>
-<script type="text/javascript">
+<script type="text/babel">
     mui.init();
     mui.plusReady(function () {
         statusbar();
@@ -247,8 +249,8 @@
             pushdata.is_first = '1'
             pushdata.user_id = index.userinfo.id
             //投保人信息
-            let applfieldFilter = ['holder_contact_address_select', 'holder_has_SSID', 'resident_type', 'temp_holder_job_code', 'mail_addr_type', 'holder_ID_type_name', 'holder_nation_name', 'holder_salary_from_name', 'holder_home_district_name', 'holder_contact_province_name', 'holder_contact_city_name', 'holder_contact_district_name', 'holder_job_name', 'holder_isTaxResidents']
-            for (let i in index.applicant) {
+            var applfieldFilter = ['holder_contact_address_select', 'holder_has_SSID', 'resident_type', 'temp_holder_job_code', 'mail_addr_type', 'holder_ID_type_name', 'holder_nation_name', 'holder_salary_from_name', 'holder_home_district_name', 'holder_contact_province_name', 'holder_contact_city_name', 'holder_contact_district_name', 'holder_job_name', 'holder_isTaxResidents']
+            for (var i in index.applicant) {
                 if (applfieldFilter.indexOf(i) > -1) continue
                 pushdata[i] = index.applicant[i]
             }
@@ -256,8 +258,8 @@
             //被保人信息
             var insured = {}
             insured.id = index.ids ? Number(index.ids.insured_id) : ''
-            let assufieldFilter = ['insured_has_SSID', 'insured_temp_job_code', 'addr_type', 'insured_isTaxResidents', 'insured_job_name', 'insured_ID_type_name', 'insured_nation_name', 'insured_salary_from_name', 'insured_home_district_name']
-            for (let i in index.assured) {
+            var assufieldFilter = ['insured_has_SSID', 'insured_temp_job_code', 'addr_type', 'insured_isTaxResidents', 'insured_job_name', 'insured_ID_type_name', 'insured_nation_name', 'insured_salary_from_name', 'insured_home_district_name']
+            for (var i in index.assured) {
                 if (assufieldFilter.indexOf(i) > -1) continue
                 insured[i] = index.assured[i]
             }
@@ -297,12 +299,14 @@
                 pushdata.is_legal_benefic = '1'
             } else {
                 pushdata.is_legal_benefic = '0'
-                mui.each(index.beneficiary, function (index, item) {
-                    pushdata.beneficiary.push(item)
-                })
+                var benefieldFilter = ['ID_type_name', 'address_select'];
+                for (var i in index.beneficiary) {
+                    if (benefieldFilter.indexOf(i) > -1) continue
+                    pushdata.beneficiary.push(index.beneficiary[i])
+                }
             }
             //银行信息
-            for (let i in index.bank) {
+            for (var i in index.bank) {
                 pushdata[i] = index.bank[i]
             }
             //健康告知

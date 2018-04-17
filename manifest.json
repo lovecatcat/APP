@@ -1260,7 +1260,12 @@
 					"news-cloud.html",
 					"member-team-prospectus.html",
 					"css/module.css",
-					"css/common.css"
+					"css/common.css",
+					"images/icon/ico-search-blue.png",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/webviewGroup.js",
+					"js/config.js"
 				],
 				"refer": [
 					"news-business.html",
@@ -1280,7 +1285,12 @@
 					"js/Date.js",
 					"js/interval-dtpicker.js",
 					"js/mui.pullToRefresh.js",
-					"js/mui.pullToRefresh.material.js"
+					"js/mui.pullToRefresh.material.js",
+					"css/module.css",
+					"js/mui.min.js",
+					"css/common.css",
+					"js/vue.min.js",
+					"js/config.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -1296,7 +1306,14 @@
 					"js/mui.picker.js",
 					"js/mui.dtpicker.js",
 					"js/mui.poppicker.js",
-					"images/pic/logo.png"
+					"images/pic/logo.png",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"css/module.css",
+					"css/common.css",
+					"js/mui.min.js",
+					"js/Date.js",
+					"js/config.js"
 				],
 				"refer": [
 					"team-personal-performance.html"
@@ -2050,7 +2067,8 @@
 					"images/plans/plansManage/352.png",
 					"images/plans/plansManage/349.png",
 					"images/plans/plansManage/348.png",
-					"images/plans/plansManage/336.png"
+					"images/plans/plansManage/336.png",
+					"js/vue.min.js"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -2097,7 +2115,9 @@
 					"js/mui.picker.min.js",
 					"css/member.css",
 					"css/mui.css",
-					"css/form.css"
+					"css/form.css",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [
 					"member-changepwd.html",
@@ -2507,7 +2527,18 @@
 			"team-personal-performance.html": {
 				"resources": [
 					"css/mui.picker.min.css",
-					"css/mui.css"
+					"css/mui.css",
+					"js/mui.picker.js",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"js/mui.dtpicker.js",
+					"css/module.css",
+					"css/common.css",
+					"js/mui.min.js",
+					"images/icon/ico-down.png",
+					"css/member.css",
+					"js/Date.js",
+					"js/config.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2739,7 +2770,11 @@
 					"css/member.css",
 					"css/mui.css",
 					"css/module.css",
-					"css/common.css"
+					"css/common.css",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"js/config.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2775,7 +2810,12 @@
 					"css/mui.css",
 					"css/member.css",
 					"css/module.css",
-					"css/common.css"
+					"css/common.css",
+					"images/icon/ico-search-blue.png",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"js/config.js"
 				],
 				"refer": [
 					"member-warranty-manageLife-detail.html"

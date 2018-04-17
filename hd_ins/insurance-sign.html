@@ -9,7 +9,6 @@
     <link href="../css/form.css" rel="stylesheet"/>
     <link href="../css/insurance.css" rel="stylesheet"/>
     <script src="../js/config.js" type="text/javascript"></script>
-    <script src="../js/browser.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css"/>
     <link href="../css/signature.css" rel="stylesheet"/>
 </head>
@@ -129,7 +128,7 @@
 <script src="../js/signature/signature_pad.js" type="text/javascript"></script>
 <script src="../js/copy.js" type="text/javascript"></script>
 <script src="method.js" type="text/javascript"></script>
-<script type="text/babel">
+<script type="text/javascript">
     mui.init();
     var popu;
 
@@ -280,13 +279,13 @@
     Vue.component('sign', {
         template: '#sign',
         props: ['index'],
-        data() {
+        data:function() {
             return {
                 signature: null,
                 styles: null
             }
         },
-        mounted() {
+        mounted:function() {
             const lwRatio = 2 / 5
             var canvas = document.getElementById('canvas' + this.index)
             if (!canvas) return
@@ -309,15 +308,15 @@
                 maxWidth: 3.5
             })
         },
-        destroyed() {
+        destroyed:function() {
             this.signature.off()
             this.signature = null
         },
         methods: {
-            clear() {
+            clear:function() {
                 this.signature && this.signature.clear()
             },
-            save(index) {
+            save:function(index) {
                 if (this.signature.isEmpty()) {
                     mui.toast("签名不能为空", {duration: 'short', type: 'div'})
                     return
@@ -332,11 +331,11 @@
                 this.$parent.showSign[this.index] = false
                 this.clear()
             },
-            setApplSN(base64) {
+            setApplSN:function(base64) {
                 base64 && (this.$parent.appl_signature = base64, this.$parent.previewImg[1] = base64)
                 this.$forceUpdate()
             },
-            setAssuSN(base64) {
+            setAssuSN:function(base64) {
                 base64 && (this.$parent.assu_signature = base64, this.$parent.previewImg[2] = base64)
                 this.$forceUpdate()
             },
@@ -344,16 +343,18 @@
     });
     var img = new Vue({
         el: '#Js-content',
-        data: {
-            war_id: '',
-            assured: {},
-            appl_signature: '',
-            assu_signature: '',
-            showSign: {
-                1: false,
-                2: false
-            },
-            previewImg: [], //上传图片
+        data:function() {
+            return {
+                war_id: '',
+                assured: {},
+                appl_signature: '',
+                assu_signature: '',
+                showSign: {
+                    1: false,
+                    2: false
+                },
+                previewImg: [] //上传图片
+            }
         },
         methods: {
             //保存签名
@@ -401,7 +402,6 @@
                 var toast_text = null
                 var vm = this
                 if (!index) return
-                plus.nativeUI.showWaiting();
                 // 获取签名的ajax
                 luckyAjax({
                     data: {

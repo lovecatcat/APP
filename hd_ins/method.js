@@ -620,3 +620,12 @@ var RSChanged = function(assu,applicant) {
             assu.insured_isTaxResidents= applicant.holder_isTaxResidents
     }
 }
+//深度拷贝
+var deepClone = function (obj) {
+    var newObj = obj instanceof Array ? [] : {};
+    for (var i in obj) {
+        newObj[i] = typeof obj[i] == 'object' ?
+            deepClone(obj[i]) : obj[i];
+    }
+    return newObj;
+}

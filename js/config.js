@@ -166,9 +166,18 @@ var ClosePopu = function() {
 	document.body.appendChild(popuDiv);
 };
 
-ClosePopu.prototype.closepop = function(){
-	this.self.close();
+ClosePopu.prototype.savagery = function(){ // 关闭父窗口遮罩层
 	this.opener.setStyle({
 		mask: 'none'
 	});
-}
+};
+
+ClosePopu.prototype.closepop = function(){ //关闭窗口
+	this.self.close();
+	this.savagery();
+};
+
+ClosePopu.prototype.hidepop = function(){ // 隐藏窗口
+	this.self.hide();
+	this.savagery();
+};

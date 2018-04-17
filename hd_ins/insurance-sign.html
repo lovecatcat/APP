@@ -134,9 +134,10 @@
 
     mui.plusReady(function () {
         popu = new ClosePopu(); // 实例化关闭窗口对象
-        img.war_id = plus.webview.currentWebview().data
-        var assured = JSON.parse(plus.storage.getItem('hengda_assured'))
+        var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')): ''
         img.assured = assured
+        var ids = plus.storage.getItem('hengda_ids') ? JSON.parse(plus.storage.getItem('hengda_ids')): ''
+        img.war_id = ids ? Number(ids.policy_id) : ''
         //赋值
         img.getSignature(1,true);
         img.getSignature(2,true);

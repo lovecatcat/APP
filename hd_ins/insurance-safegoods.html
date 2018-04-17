@@ -410,6 +410,7 @@
         data: function() {
             return {
                 assu_age: '',
+                appl_age: '',
                 assured: {},
                 applicant: {},
                 init: {}, //初始化数据
@@ -724,7 +725,7 @@
 //                console.log('设置附加险,ID:' + i)
                 vm.addonIns[i] = tml
                 if (init) {
-//                    console.log('初始化附加险')
+                    console.log('初始化附加险')
                     var kitem = {}
                     for (var k in vm.insurances) {
                         kitem = vm.insurances[k]
@@ -822,10 +823,8 @@
             checkAge: function (index) {
                 var toast_text = null
                 var pay_year = this.insurance.pay_year
-//                var age = this.assu_age
-//                var applAge = this.appl_age
-                var age = 20
-                var applAge = 20
+                var age = this.assu_age
+                var applAge = this.appl_age
                 var id = index === 0 ? this.insurance.safe_id : index
                 var name = this.Addons[id] ? this.Addons[id].name : this.insurance.name
 //              console.log(age + applAge + pay_year + id + name)
@@ -1141,6 +1140,7 @@
         }
 
         safe.assu_age = getAge(assured.insured_birthday)
+        safe.appl_age = getAge(applicant.holder_birthday)
         safe.applicant = applicant
         safe.assured = assured
         safe.noSamePerson = assured.rel_insured_holder === ISASSURED ? false : true;
@@ -1177,6 +1177,7 @@
         });
         //获取险种列表
         function getIns() {
+            console.log('getInslist')
             luckyAjax({
                 data: {
                     data: JSON.stringify({'supplier_id': SCID}),
@@ -1201,7 +1202,7 @@
                         mui.each(data, function (index, item) {
                             for (var k in safe.insurances) {
                                 var kitem = safe.insurances[k]
-                                if (kitem.is_main && item.id === Number(kitem.safe_id)) {
+                                if (kitem.is_main && item.value === kitem.safe_id) {
                                     safe.main_insurance = item
                                     safe.pay_year = unique(item.ratio, 'pay_year');
                                     safe.safe_year = unique(item.ratio, 'safe_year');

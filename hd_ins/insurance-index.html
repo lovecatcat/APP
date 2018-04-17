@@ -23,43 +23,43 @@
 </header>
 <div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
     <form class="mui-input-group BL-mar-t-1">
-        <div class="mui-input-row mui-checkbox ins-checkbox-right" @tap="showpopu('applicant')">
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" @tap="showpopu(1)">
             <label class="ins-font-md" :class="{'BL-col-3b9cf5':applicant}">投保人信息</label>
             <div class="form-list-icon">
                 <div class="mui-icon mui-icon-arrowright"></div>
             </div>
         </div>
-        <div class="mui-input-row mui-checkbox ins-checkbox-right" @tap="showpopu('assured')">
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" @tap="showpopu(2)">
             <label class="ins-font-md" :class="{'BL-col-3b9cf5':assured}">被保人信息</label>
             <div class="form-list-icon">
                 <div class="mui-icon mui-icon-arrowright"></div>
             </div>
         </div>
-        <div class="mui-input-row mui-checkbox ins-checkbox-right" @tap="showpopu('beneficiary')">
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" @tap="showpopu(3)">
             <label class="ins-font-md" :class="{'BL-col-3b9cf5':beneficiary}">受益人信息</label>
             <div class="form-list-icon">
                 <div class="mui-icon mui-icon-arrowright"></div>
             </div>
         </div>
-        <div class="mui-input-row mui-checkbox ins-checkbox-right" @tap="showpopu('safegoods')">
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" @tap="showpopu(4)">
             <label class="ins-font-md" :class="{'BL-col-3b9cf5':safegoods}">险种信息</label>
             <div class="form-list-icon">
                 <div class="mui-icon mui-icon-arrowright"></div>
             </div>
         </div>
-        <div class="mui-input-row mui-checkbox ins-checkbox-right" @tap="showpopu('healthinfo')">
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" @tap="showpopu(5)">
             <label class="ins-font-md" :class="{'BL-col-3b9cf5':healthinfo}">健康告知信息</label>
             <div class="form-list-icon">
                 <div class="mui-icon mui-icon-arrowright"></div>
             </div>
         </div>
-        <div class="mui-input-row mui-checkbox ins-checkbox-right" @tap="showpopu('bank')">
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" @tap="showpopu(6)">
             <label class="ins-font-md" :class="{'BL-col-3b9cf5':bank}">付款信息</label>
             <div class="form-list-icon">
                 <div class="mui-icon mui-icon-arrowright"></div>
             </div>
         </div>
-        <div class="mui-input-row mui-checkbox ins-checkbox-right" @tap="showpopu('upload')">
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" @tap="showpopu(7)">
             <label class="ins-font-md" :class="{'BL-col-3b9cf5':upload}">上传证件</label>
             <div class="form-list-icon">
                 <div class="mui-icon mui-icon-arrowright"></div>
@@ -82,6 +82,19 @@
         var winH = window.innerHeight;
         var titHeight = document.querySelector('#Js-header').offsetHeight;
         document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+        // 预创建子页面
+//        var subWvs = [];//存储窗口对象数组
+        var subpages = ["insurance-applicant", "insurance-assured", "insurance-beneficiary", "insurance-safegoods", "insurance-healthinfo", "insurance-bank", "insurance-upload"];
+//        for(var i = 0; i < subpages.length; i++) {
+//            var subWv = plus.webview.create(subpages[i] + '.html', subpages[i], { //创建窗口：弹框
+//                width: "100%",
+//                height: '100%',
+//                background: 'transparent',
+//                popGesture: "none"
+//            });
+//            subWvs.push(subWv);
+//        };
+        //
         var index = new Vue({
             el: '#Js-content',
             data: function() {
@@ -102,42 +115,44 @@
             created:function(){
                 console.log('index-created')
                 this.userinfo = plus.storage.getItem('userinfo') ? JSON.parse(plus.storage.getItem('userinfo')) : ''
-                this.getItem('ids')
-                this.getItem('applicant')
-                this.getItem('assured')
-                this.getItem('beneficiary')
-                this.getItem('safegoods')
-                this.getItem('bank')
-                this.getItem('upload')
-                this.getItem('healthinfo')
+                var itemName = ['userinfo','hengda_ids','hengda_applicant','hengda_assured','hengda_beneficiary','hengda_safegoods','hengda_bank','hengda_upload','hengda_healthinfo'];
+                var dataName = ['userinfo','ids','applicant','assured','beneficiary','safegoods','bank','upload','healthinfo'];
+                for(var i = 0; i < itemName.length; i++) {
+                    this.getItem(itemName[i],dataName[i])
+                }
             },
             methods:{
                 //获取存储数据
-                getItem:function(index){
-                    this[index] = plus.storage.getItem('hengda_'+index) ? JSON.parse(plus.storage.getItem('hengda_'+index)) : ''
+                getItem:function(item,data){
+                    this[data] = plus.storage.getItem(item) ? JSON.parse(plus.storage.getItem(item)) : ''
                 },
                 //弹窗
                 showpopu:function(e) {
-                    if (e === 'assured' && !this.applicant) {
+                    if (e === 2 && !this.applicant) {
                         mui.toast('请填写投保人信息', {duration: 'short', type: 'div'});
                         return false
-                    } else if (e === 'beneficiary' && !this.assured) {
+                    } else if (e === 3 && !this.assured) {
                         mui.toast('请填写被保人信息', {duration: 'short', type: 'div'})
                         return false
-                    } else if (e === 'safegoods' && !this.beneficiary) {
+                    } else if (e === 4 && !this.beneficiary) {
                         mui.toast('请填写受益人信息', {duration: 'short', type: 'div'})
                         return false
-                    } else if (e === 'healthinfo' && !this.safegoods) {
+                    } else if (e === 5 && !this.safegoods) {
                         mui.toast('请填写险种信息', {duration: 'short', type: 'div'})
                         return false
-                    } else if (e === 'bank' && !this.healthinfo) {
+                    } else if (e === 6 && !this.healthinfo) {
                         mui.toast('请填写健康告知信息', {duration: 'short', type: 'div'})
                         return false
-                    } else if (e === 'upload' && !this.bank) {
+                    } else if (e === 7 && !this.bank) {
                         mui.toast('请填写付款信息', {duration: 'short', type: 'div'})
                         return false
                     }
-                    showPopu('insurance-' + e + '.html', 'insurance_' + e, "bottom", index.init);
+                    showPopu(subpages[e-1] + '.html', subpages[e-1], "bottom", index.init);
+//                    var _self = plus.webview.currentWebview();
+//                    _self.setStyle({
+//                        mask: 'rgba(0,0,0,0.5)'
+//                    }); // 显示遮罩层
+//                    subWvs[e].show(animateObj.aniForm.aniShow, animateObj.aniForm.duration);
                 }
             }
         });

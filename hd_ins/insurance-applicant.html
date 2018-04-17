@@ -8,7 +8,6 @@
     <link href="../css/module.css" rel="stylesheet"/>
     <link href="../css/insurance.css" rel="stylesheet"/>
     <script src="../js/config.js" type="text/javascript"></script>
-    <script src="../js/browser.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css"/>
 </head>
 
@@ -304,7 +303,7 @@
 <script src="../js/city.data-3.js"></script>
 <script src="../js/IDValidator.min.js"></script>
 <script src="method.js"></script>
-<script type="text/babel">
+<script type="text/javascript">
     mui.init();
     //通讯录
     mui('body').on('tap', '.address-icon', function () {
@@ -320,53 +319,55 @@
 
     var appl = new Vue({
         el: '#Js-content',
-        data: {
-            init: {},
-            districts: {},//深圳区
-            longTerm: false,
-            appl_age: '',//投保人年龄
-            applicant: {
-                holder_name: '', //姓名
-                holder_ID_type: '', //证件类型
-                holder_ID_type_name: '身份证', //证件类型名
-                holder_ID_no: '', //证件号码
-                holder_birthday: '', //出生日期
-                holder_ID_expire_end: '', //证件有效期
-                holder_gender: '',//性别  1男  2女
-                holder_mobile: '',//手机号
-                holder_email: '',//邮箱
-                holder_height: '',//身高
-                holder_weight: '',//体重
-                holder_nation: '',//国籍
-                holder_nation_name: '中国',//国籍
-                holder_salary_from: '',//收入来源
-                holder_salary_from_name: '请选择',//收入来源名
-                holder_salary_avg: '',//年收入
+        data: function() {
+            return{
+                init: {},
+                districts: {},//深圳区
+                longTerm: false,
+                appl_age: '',//投保人年龄
+                applicant: {
+                    holder_name: '', //姓名
+                    holder_ID_type: '', //证件类型
+                    holder_ID_type_name: '身份证', //证件类型名
+                    holder_ID_no: '', //证件号码
+                    holder_birthday: '', //出生日期
+                    holder_ID_expire_end: '', //证件有效期
+                    holder_gender: '',//性别  1男  2女
+                    holder_mobile: '',//手机号
+                    holder_email: '',//邮箱
+                    holder_height: '',//身高
+                    holder_weight: '',//体重
+                    holder_nation: '',//国籍
+                    holder_nation_name: '中国',//国籍
+                    holder_salary_from: '',//收入来源
+                    holder_salary_from_name: '请选择',//收入来源名
+                    holder_salary_avg: '',//年收入
 
-                holder_home_province: '20',//现在住址【省】
-                holder_home_city: '323',//现在住址【市】
-                holder_home_district: '',//现在住址【区】
-                holder_home_district_name: '请选择',//现在住址【区】名称
-                holder_home_address: '', //现在住址【地址详情】
-                holder_home_zip: '',//现在住址【邮编】
-                mail_addr_type: false,//（通讯地址）同现在住址
-                holder_contact_province: '',//通讯地址【省】
-                holder_contact_city: '',//通讯地址【市】
-                holder_contact_district: '',//通讯地址【区】
-                holder_contact_province_name: '请选择',//通讯地址【省】名称
-                holder_contact_city_name: '请选择',//通讯地址【市】名称
-                holder_contact_district_name: '请选择',//通讯地址【区】名称
-                holder_contact_address: '', //通讯地址【地址详情】
-                holder_contact_address_select: '请选择', //通讯地址【地址详情】
-                holder_contact_zip: '',//通讯地址【邮编】
+                    holder_home_province: '20',//现在住址【省】
+                    holder_home_city: '323',//现在住址【市】
+                    holder_home_district: '',//现在住址【区】
+                    holder_home_district_name: '请选择',//现在住址【区】名称
+                    holder_home_address: '', //现在住址【地址详情】
+                    holder_home_zip: '',//现在住址【邮编】
+                    mail_addr_type: false,//（通讯地址）同现在住址
+                    holder_contact_province: '',//通讯地址【省】
+                    holder_contact_city: '',//通讯地址【市】
+                    holder_contact_district: '',//通讯地址【区】
+                    holder_contact_province_name: '请选择',//通讯地址【省】名称
+                    holder_contact_city_name: '请选择',//通讯地址【市】名称
+                    holder_contact_district_name: '请选择',//通讯地址【区】名称
+                    holder_contact_address: '', //通讯地址【地址详情】
+                    holder_contact_address_select: '请选择', //通讯地址【地址详情】
+                    holder_contact_zip: '',//通讯地址【邮编】
 
-                holder_has_SSID: false,//是否有社保
-                holder_marriage: '',//婚姻状况
-                holder_job_code: {},//职业
-                temp_holder_job_code: '',//职业代码
-                holder_job_name: '',//职业名称
-                holder_isTaxResidents: '', //税收标识
-                resident_type: '' //居民类型
+                    holder_has_SSID: false,//是否有社保
+                    holder_marriage: '',//婚姻状况
+                    holder_job_code: {},//职业
+                    temp_holder_job_code: '',//职业代码
+                    holder_job_name: '',//职业名称
+                    holder_isTaxResidents: '', //税收标识
+                    resident_type: '' //居民类型
+                }
             }
         },
         created: function () {
@@ -422,7 +423,7 @@
         //已填信息赋值
         var applicant = plus.storage.getItem('hengda_applicant') ? JSON.parse(plus.storage.getItem('hengda_applicant')) : ''
         if(applicant) {
-            appl.applicant = Object.assign(appl.applicant, applicant)
+            appl.applicant = deepClone(applicant)
             appl.appl_age = getAge(appl.applicant.holder_birthday)
         }
         //

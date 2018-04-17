@@ -59,10 +59,11 @@
 									<span>{{ item.policy_sn }}</span>
 									<span class="BL-col-3b9cf5 fr" v-if="item.ins_state_name=='待投保'">录入中</span>
 									<span class="BL-col-3b9cf5 fr" v-if="item.ins_state_name=='已取消'">已取消</span>
+									<span class="BL-col-3b9cf5 fr" v-if="item.ins_state_name=='状态错误'">状态错误</span>
 									<span class="BL-col-3b9cf5 fr" v-if="item.ins_state_name=='取消'">取消</span>
 								</div>
 								<div class="BL-pad-lr-1_5 BL-pad-tb-1_5">
-									<a class=" mui-navigate-right context BL-col-666" @click="Detail(item.policy_id)">
+									<a class="mui-navigate-right context BL-col-666" @click="Detail(item.policy_id)">
 										<div class="team-per-ins BL-pad-b-1">
 											<span>险种：<i>{{ item.product_name }}</i></span>
 										</div>
@@ -80,7 +81,7 @@
 										<button class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 cancel" 
 											:data-id="item.policy_id"
 											:data-index="index"
-											v-if="item.ins_state_name!='已取消'">取消订单
+											v-if="item.ins_state_name=='待投保' || item.ins_state_name=='待支付'">取消订单
 										</button>
 										<button class="BL-btn-white BL-pad-lr-1" v-if="item.ins_state_name=='待投保'">继续录入</button>
 									</div>
@@ -111,7 +112,7 @@
         watch: {
             status_type: {
                 handler: function () {
-                    this.page = 0;
+                    order.page = 0;
                     mui('#Js-orderList .mui-scroll-wrapper').each(function(){
 			    		this.setAttribute('data-scroll', '');
 				    });
@@ -217,17 +218,21 @@
 				})
 	        },
 	        success:function(res){
-	        	console.log(JSON.stringify(res))
+	        	console.log("page:"+ order.page + "内容："+JSON.stringify(res.data.list))
                	if(res.code == 1) {
-					if(order.page == 1 && order.page == res.data.totalPage) {
-						order.listdata = res.data.list
-						self.endPullUpToRefresh(true)
-					} else if(order.page < res.data.totalPage) {
-						order.listdata = order.listdata.concat(res.data.list)
-						self.endPullUpToRefresh(false)
-					} else {
-						self.endPullUpToRefresh(true)
-					}
+					if (order.page >= res.data.totalPage) {
+                        self.endPullUpToRefresh(true);
+                    } else {
+                        self.endPullUpToRefresh();
+                    }
+                    if (e) {
+                        order.listdata = res.data.list;
+                    } else {
+                        var list = res.data.list;
+                        mui.each(list, function (index, item) {
+                            order.listdata.push(item);
+                        });
+                    }
 	        	} else {
 	        		order.listdata = []
                     self.endPullUpToRefresh(true)

@@ -296,6 +296,10 @@ i {
 	color: #ffba00 !important;
 }
 
+.BL-col-red {
+	color: red;
+}
+
 /* 圆弧角  = BL-radiu-[a(全部), l-(左), lr-(左右), r-(右), t-(上), tb-(上下), b-(下)] */
 
 .BL-radiu-a1 {
@@ -543,6 +547,9 @@ input[type='color']{
 	font-size: 1.4375rem;
 	color: #666666;
 	line-height: 2.2rem;
+}
+.BL-text-indent {
+	text-indent: 2.5rem;
 }
 
 /* 元素中的文本的水平对齐方式  = BL-txt-[c(居中), l-(左), r-(右)*/

@@ -69,8 +69,7 @@
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script src="js/vue.min.js"></script>
 	<script src="js/Date.js"></script>
-	<script src="js/browser.min.js"></script>
-	<script type="text/babel">
+	<script type="text/javascript">
 		mui.init();
 		var cmis = new Vue({
 			el: '#Js-cmis',
@@ -81,13 +80,13 @@
 			methods: {
 				// 判断当前时间，每月26号后不可提取
 			    setExtBtnByTime : function(timestamp) {
-			        let time = new Date(timestamp*1000)   // 时间戳转成日期
-			        let timeFormat = time.Format('yyyy-MM-dd')
+			        var time = new Date(timestamp*1000)   // 时间戳转成日期
+			        var timeFormat = time.Format('yyyy-MM-dd')
 			        // 获取由于时间戳转日期的年月
-			        let year = timeFormat.substring(0, 4);
-			        let month = timeFormat.substring(5, 7);
+			        var year = timeFormat.substring(0, 4);
+			        var month = timeFormat.substring(5, 7);
 			        // 设置当前月当前年的26号
-			        let contrastDate = year + "-" + month + "-" + '26'
+			        var contrastDate = year + "-" + month + "-" + '26'
 			        // 判断当前日期是否大于26日
 			        if (timeFormat >= contrastDate) {
 			          this.isExtract = true

@@ -76,10 +76,10 @@
                         <label class="">证件有效期</label>
                         <div class="BL-ub BL-ub-pj BL-ub-f1">
                             <div class="input-wrap BL-ub-f1 search-date" data-options='{"type":"date","endYear":2038}'>
-                                <input type="text" v-model.lazy="assured.insured_ID_expire_end" placeholder="请选择" :disabled="longTerm">
+                                <input type="text" v-model.lazy="assured.insured_ID_expire_end" placeholder="请选择" :disabled="longTerm" readonly>
                                 <button class="ins-date-icon" :disabled="longTerm"></button>
                             </div>
-                            <button class="right-text-btn orange" :class="{'active':longTerm}" @tap="longTerm=!longTerm,toblur()" :disabled="[BOOKLET,BORNid].indexOf(assured.insured_ID_type)>-1">长期有效</button>
+                            <button class="right-btn orange" :class="{'active':longTerm}" @tap="longTerm=!longTerm,toblur()" :disabled="[BOOKLET,BORNid].indexOf(assured.insured_ID_type)>-1">长期有效</button>
                         </div>
                     </div>
                 </div>
@@ -98,8 +98,8 @@
                                     <span class="mui-icon mui-icon-clear"></span>
                                 </div>
                             </div>
-                            <div class="right-text-btn right-icon search-icon"></div>
-                            <div class="right-text-btn right-icon address-icon orange"></div>
+                            <div class="right-btn right-icon search-icon"></div>
+                            <div class="right-btn right-icon address-icon orange"></div>
                         </div>
                     </div>
                     <div class="input-item">
@@ -293,10 +293,25 @@
             id: 'communic',
             show: animateObj.aniDetal,
             extras:{
-				type: 'onlineIns'
+                pageid: 'hd-insurance-assured',
+                tid: 1,
+				flag: 'onlineIns'
 			}
         })
     })
+    //通讯录2
+//    mui('body').on('tap', '.search-icon', function () {
+//        mui.openWindow({
+//            url: '../communic.html',
+//            id: 'communic',
+//            show: animateObj.aniDetal,
+//            extras:{
+//                pageid: 'hd-insurance-assured',
+//                tid: 2,
+//                flag: 'onlineIns'
+//            }
+//        })
+//    })
 
     var assu = new Vue({
         el: '#Js-content',
@@ -394,11 +409,13 @@
         var init = plus.webview.currentWebview().data;
         assu.init = init;
         var applicant = JSON.parse(plus.storage.getItem('hengda_applicant'))
+        console.log(JSON.stringify(applicant))
         assu.applicant = applicant
         //已填信息赋值
         var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')) : ''
         if(assured) {
             assu.assured = deepClone(assured)
+            assu.longTerm = assured.insured_ID_expire_end === '9999-12-31' ? true : false
             assu.assu_age = getAge(assu.assured.insured_birthday)
         }
         //
@@ -523,14 +540,16 @@
             if (!checkAssured(assu.assured)) {
                 return false
             }
+            saveTemp(assu.assured)
             plus.storage.setItem('hengda_assured',JSON.stringify(assu.assured));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
-                item: 'assured'
+                item: 'hengda_assured',
+                data: 'assured'
             });
             popu.closepop();
             mui.back();
         })
-        //
+        //通讯录返回
         window.addEventListener('getMemberId', function (event) {
 	        var memberid = event.detail.id
 	        luckyAjax({

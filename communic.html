@@ -58,27 +58,10 @@
 				</div>
 			</div>
 		</div>
-		<div id="middlePopover" class="mui-popover" style="display: block; top: 1px; left: 46.5px;height: 500px;">
-			<div class="mui-popover-arrow"></div>
-			<div class="mui-scroll-wrapper">
-				<div class="mui-scroll">
-					<ul class="mui-table-view">
-						<li class="mui-table-view-cell"><a href="#">Item1</a></li>
-						<li class="mui-table-view-cell"><a href="#">Item1</a></li>
-						<li class="mui-table-view-cell"><a href="#">Item1</a></li>
-						<li class="mui-table-view-cell"><a href="#">Item1</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
 		<script src="js/mui.min.js"></script>
 		<script src="js/mui.indexedlist.js"></script>
 		<script type="text/javascript" charset="utf-8">
-			mui.init({
-                gestureConfig:{
-                    longtap: true,
-                }
-            });
+			mui.init();
 			mui.plusReady(function() {
 				statusbar();
 				var userinfo = JSON.parse(plus.storage.getItem('userinfo'));
@@ -87,13 +70,16 @@
 				var group = document.getElementById("Js-group");
 				list.style.height = (window.innerHeight - header.offsetHeight) + 'px';
                 //在线投保选择通讯录
-                var type = plus.webview.currentWebview().type;
-                if (type === 'onlineIns') {
-                    getList(2)
+                var flag = plus.webview.currentWebview().flag;
+                var typeid = plus.webview.currentWebview().tid;
+                var pageid = plus.webview.currentWebview().pageid;
+                var type = '' //通讯录类型
+                if (flag === 'onlineIns' && typeid === 2) {
+                    type = 2
                 } else {
-                    getList(1)
-                }
-
+                    type = 1
+				}
+                getList(type)
                 function getList(e) {
                     if (e === 1) {
                         luckyAjax({
@@ -128,10 +114,6 @@
                                     });
                                     group.innerHTML = htm;
                                     new mui.IndexedList(list); // 初始化
-                                    //长按
-                                    mui('#Js-group').on('longtap', 'li.mui-indexed-list-item', function () {
-                                        mui('#middlePopover').popover('show');
-                                    });
                                 }
                             }
                         });
@@ -158,25 +140,17 @@
 
 				mui('body').on('tap', '.mui-indexed-list-item', function(){
 					var id = this.getAttribute('data-id');
-					var type = this.getAttribute('data-type');
-					//在线投保选择通讯录
-					var flag = plus.webview.currentWebview().type;
-					if(flag === 'onlineIns') {
-						mui.fire(plus.webview.currentWebview().opener(), 'getMemberId', {
-		                    id: id,
-							type: type
-		                });
-		                mui.back();
-					}else{
-						mui.openWindow({
-							url:'communic-detail.html',
-							id:'communic_detail',
-							show:animateObj.aniDetal,
-							extras:{
-								noId:id
-							}
-						})
-					}
+                    mui.openWindow({
+                        url:'communic-detail.html',
+                        id:'communic_detail',
+                        show:animateObj.aniDetal,
+                        extras:{
+                            noId:id,
+                            flag: flag,
+							type: type,
+                            pageid: pageid
+                        }
+                    })
 					//
 					
 				})

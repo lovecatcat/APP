@@ -78,8 +78,6 @@
                             <span class="mui-icon mui-icon-clear"></span>
                         </div>
                     </div>
-                    <div class="right-text-btn right-icon search-icon"></div>
-                    <div class="right-text-btn right-icon address-icon orange"></div>
                 </div>
             </div>
             <div class="input-item">
@@ -94,7 +92,7 @@
             <div class="input-item">
                 <label class="">证件号码</label>
                 <div class="input-wrap box-f-1">
-                    <input type="number" v-model.trim.lazy="beneficiary.ID_no" placeholder="请输入">
+                    <input type="text" v-model.trim.lazy="beneficiary.ID_no" placeholder="请输入">
                     <div class="form-clear-icon" v-show="beneficiary.ID_no!=''" @click="beneficiary.ID_no=''">
                         <span class="mui-icon mui-icon-clear"></span>
                     </div>
@@ -104,10 +102,10 @@
                 <label class="">证件有效期</label>
                 <div class="BL-ub BL-ub-pj BL-ub-f1">
                     <div class="input-wrap BL-ub-f1" :class="'searchDate'+index" data-options='{"type":"date","endYear":2038}'>
-                        <input type="text" v-model.lazy="beneficiary.ID_expire_end" placeholder="请选择" :disabled="longTerm">
+                        <input type="text" v-model.lazy="beneficiary.ID_expire_end" placeholder="请选择" :disabled="longTerm" readonly>
                         <button class="ins-date-icon" :disabled="longTerm"></button>
                     </div>
-                    <button class="right-text-btn orange" :class="{'active':longTerm}" @tap="longTerm=!longTerm,toblur()" :disabled="[BOOKLET,BORNid].indexOf(beneficiary.ID_type)>-1">长期有效</button>
+                    <button class="right-btn orange" :class="{'active':longTerm}" @tap="longTerm=!longTerm,toblur()" :disabled="[BOOKLET,BORNid].indexOf(beneficiary.ID_type)>-1">长期有效</button>
                 </div>
             </div>
             <div class="input-item">
@@ -621,7 +619,8 @@
                 plus.storage.setItem('hengda_beneficiary', JSON.stringify(data));
             }
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
-                item: 'beneficiary'
+                item: 'hengda_beneficiary',
+                data: 'beneficiary'
             });
             popu.closepop();
             mui.back();

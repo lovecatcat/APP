@@ -16,6 +16,9 @@
 		<header id="Js-header">
 			<div class="BL-mod-headbar BL-mod-headbar-pos BL-noBorder-b">
 				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left" style="color: #FFFFFF;"></a>
+				<div class="control" id="choose" style="display: none">
+					<a type="button" class="BL-col-fff">选择</a>
+				</div>
 			</div>
 		</header>
 		<div id="Js-content" class="mui-content communic" style="background: none;overflow-y: auto;">
@@ -64,7 +67,6 @@
 			</template>
 		</div>
 		<script src="js/mui.min.js"></script>
-		<script src="js/vue.min.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 			mui.plusReady(function() {
@@ -73,32 +75,71 @@
 				var content = document.getElementById('Js-content');
 				var topic   = document.getElementById('Js-topic');
 				var infomat = document.getElementById('Js-infos');
-				var id = plus.webview.currentWebview().noId;
 				content.style.height = (window.innerHeight - header.offsetHeight) + 'px';
-				infomat.style.minHeight = (content.offsetHeight - topic.offsetHeight) + 'px';
-				var card_no = plus.webview.currentWebview().noId;
-				luckyAjax({
-					data: {
-			            server: 'team.getContactsInfo',
-			            data: JSON.stringify({card_no: card_no})
-			        },
-			        success:function(data){
-		                if(data.code == 1){
-		                	var data = data.data
-		                	document.getElementById('Js-surname').innerHTML = data.name.substring(0,1) 
-		                	document.getElementById('Js-name').innerHTML = data.name
-		                	document.getElementById('Js-integ').innerHTML = data.pay_points
-		                	document.getElementById('Js-phone').innerHTML = data.tel
-		                	document.getElementById('Js-ID').innerHTML = data.card_no
-		                	document.getElementById('Js-address').innerHTML = data.home_address
-		                	document.getElementById('Js-birthday').innerHTML = data.birthday
-		                } else {
-							mui.alert(data.msg, '提示', function() {
-								plus.webview.currentWebview().close()
-			                });
-		                }
-			        }
-				});
+                infomat.style.minHeight = (content.offsetHeight - topic.offsetHeight) + 'px';
+                var card_no = plus.webview.currentWebview().noId;
+                var flag = plus.webview.currentWebview().flag;
+                var type = plus.webview.currentWebview().type;
+                var pageid = plus.webview.currentWebview().pageid;
+                if (flag) {
+                    document.getElementById('choose').style.display = 'block';
+                }
+                document.getElementById('choose').addEventListener('tap',function () {
+                    mui.fire(plus.webview.getWebviewById(pageid), 'getMemberId', {
+                        id: card_no,
+                        type: type
+                    });
+                    plus.webview.close('communic');
+                    mui.back();
+                })
+                if (type === 2) {
+                    luckyAjax({
+                        data: {
+                            server: 'team.getHistoryUserInfo',
+                            data: JSON.stringify({card_no: card_no})
+                        },
+                        success:function(data){
+                            if(data.code == 1){
+                                var data = data.data
+                                document.getElementById('Js-surname').innerHTML = data.name.substring(0,1)
+                                document.getElementById('Js-name').innerHTML = data.name
+                                document.getElementById('Js-integ').innerHTML = data.pay_points
+                                document.getElementById('Js-phone').innerHTML = data.tel
+                                document.getElementById('Js-ID').innerHTML = data.card_no
+                                document.getElementById('Js-address').innerHTML = data.home_address
+                                document.getElementById('Js-birthday').innerHTML = data.birthday
+                            } else {
+                                mui.alert(data.msg, '提示', function() {
+//                                    plus.webview.currentWebview().close()
+                                });
+                            }
+                        }
+                    });
+				}else{
+                    luckyAjax({
+                        data: {
+                            server: 'team.getContactsInfo',
+                            data: JSON.stringify({card_no: card_no})
+                        },
+                        success:function(data){
+                            if(data.code == 1){
+                                var data = data.data
+                                document.getElementById('Js-surname').innerHTML = data.name.substring(0,1)
+                                document.getElementById('Js-name').innerHTML = data.name
+                                document.getElementById('Js-integ').innerHTML = data.pay_points
+                                document.getElementById('Js-phone').innerHTML = data.tel
+                                document.getElementById('Js-ID').innerHTML = data.card_no
+                                document.getElementById('Js-address').innerHTML = data.home_address
+                                document.getElementById('Js-birthday').innerHTML = data.birthday
+                            } else {
+                                mui.alert(data.msg, '提示', function() {
+                                    plus.webview.currentWebview().close()
+                                });
+                            }
+                        }
+                    });
+				}
+
 			});
 		</script>
 	</body>

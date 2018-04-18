@@ -36,100 +36,6 @@ var no_social_security = 'LAG0002';//无社保
 var marry_no = 'LAD0001'
 var marry_yes = 'LAD0002'
 
-//数据初始化
-var applicant = {
-    holder_name: '张三', //姓名
-    holder_ID_type: IDcard, //证件类型
-    holder_ID_type_name: '身份证', //证件类型名
-    holder_ID_no: '542221198105086418', //证件号码
-    holder_birthday: '1981-05-08', //出生日期
-    holder_ID_expire_end: '2020-01-01', //证件有效期
-    holder_gender: MALE,//性别  1男  2女
-    holder_mobile: '15923526890',//手机号
-    holder_email: '454522525@126.com',//邮箱
-    holder_height: '160',//身高
-    holder_weight: '50',//体重
-    holder_nation: NATION,//国籍
-    holder_salary_from: 'LAF0001',//收入来源
-    holder_salary_from_name: '工薪',//收入来源名
-    holder_salary_avg: '20',//年收入
-
-    holder_home_province: '20',//现在住址【省】
-    holder_home_city: '323',//现在住址【市】
-    holder_home_district: '2235',//现在住址【区】
-    holder_home_district_name: '罗湖',//现在住址【区】名称
-    holder_home_address: '测试测试测是', //现在住址【地址详情】
-    holder_home_zip: '518021',//现在住址【邮编】
-    mail_addr_type: false,//（通讯地址）同现在住址
-    holder_contact_province: '4',//通讯地址【省】
-    holder_contact_city: '87',//通讯地址【市】
-    holder_contact_district: '',//通讯地址【区】
-    holder_contact_province_name: '重庆',//通讯地址【省】名称
-    holder_contact_city_name: '万州',//通讯地址【市】名称
-    holder_contact_district_name: '',//通讯地址【区】名称
-    holder_contact_address: '哈哈哈哈哈哈或分隔符付付付付付', //通讯地址【地址详情】
-    holder_contact_zip: '404000',//通讯地址【邮编】
-
-    holder_has_SSID: no_social_security,//是否有社保
-    holder_marriage: marry_yes,//婚姻状况
-    holder_job_code: 'LAE0681',//职业
-    holder_job_name: '一般内勤人员',//职业名称
-    holder_isTaxResidents: TAXTYPE, //税收标识
-    resident_type: 'LAL0001' //居民类型
-};
-var assured = {
-    rel_insured_holder: 'LAC0002',//是投保人的  配偶
-    insured_name: '李四', //姓名
-    insured_ID_type: IDcard, //证件类型
-    insured_ID_type_name: '身份证', //证件类型名
-    insured_ID_no: '54222119810508456x', //证件号码
-    insured_birthday: '1980-05-08', //出生日期
-    insured_ID_expire_end: '2020-10-10', //证件有效期
-    insured_gender: FEMALE, //性别  1男  2女
-    insured_mobile: '15963254578',//手机号
-    insured_email: '54656565@126.com',//邮箱
-    insured_height: '170',//身高
-    insured_weight: '60',//体重
-    insured_nation: NATION,//国籍
-    insured_nation_name: '中国',//国籍
-    insured_salary_from: 'LAF0001',//收入来源
-    insured_salary_from_name: '工薪',//收入来源名
-    insured_salary_avg: '50',//年收入
-
-    addr_type: false,//是否所有地址同投保人,
-    insured_home_province: '20',//现在住址【省】
-    insured_home_city: '323',//现在住址【市】
-    insured_home_district: '2237',//现在住址【区】
-    insured_home_district_name: '南山',//现在住址【区】名称
-    insured_home_address: '分隔符付付付付付分隔符付付付付付', //现在住址【地址详情】
-    insured_home_zip: '518051',//现在住址【邮编】
-
-    insured_has_SSID: false,//是否有社保
-    insured_marriage: marry_yes,//婚姻状况
-    insured_job_code: 'LAE0540',//职业
-    insured_job_name: '内勤人员',//职业名称
-    insured_isTaxResidents: TAXTYPE //税收标识
-}
-var beneficiary = {
-    beneficiary_is_insured: 'LAN0004',//与被保人关系
-    fullname: '洒洒水',//姓名
-    ID_type: BOOKLET,//证件类型
-    ID_no: '542221201705081201',//证件号码
-    ID_expire_end: '9999-12-31',//证件有效期
-    gender: FEMALE,//性别
-    birthday: '2017-05-08',//出生日期
-    sort_order: 1,//受益顺序
-    rate: '100',//受益比例
-    type: SY_TYPE,//受益类型：身故
-    addr_type: 3,//地址类型 1同投保人 2同被保人 3否
-    province: '20',
-    city: '323',
-    district: '2237',
-    address: '手动发发的发手动发发的发手动',//详细地址,
-    zip: '518051'//邮编
-}
-//
-
 //证件号校验
 var IDValidate = function (type, id, owner,data) {
     var Validator = new IDValidator();
@@ -211,7 +117,7 @@ var checkPhone = function (owner, phone) {
     }
     return true
 };
-
+//校验邮箱
 var checkEmail = function (owner, email) {
     // console.log(owner + email);
     const reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
@@ -227,6 +133,7 @@ var checkEmail = function (owner, email) {
     }
     return true;
 };
+//校验姓名
 var checkName = function (owner, name) {
     var toast_text = null
     var strLength = 0
@@ -266,29 +173,36 @@ var checkName = function (owner, name) {
     }
     return true
 };
-var checkTerm = function (term, owner) {
+//加减几天的时间戳
+var asDays = function (days) {
+    var myDate = new Date();
+    return myDate.setDate(myDate.getDate() + parseInt(days));
+};
+//证件有效期校验
+var checkTerm = function (term, owner, e) {
     var toast_text = null
     if (!term || term === '0000-00-00') {
         toast_text = '证件有效期不能为空'
     } else if (/\d{4}(-|\/)\d{2}(-|\/)\d{2}(-|\/)/.test(term)) {
         toast_text = '有效日期格式不正确'
-    } else if (new Date(term) - (new Date().getDate() - 1) < 0) {
+    } else if ((new Date(term).getTime() - asDays(-1)) < 0) {
         toast_text = '证件已过有效期'
     }
     const yearTime = 365 * 24 * 60 * 60 * 1000
     var age = ''
     if (owner === '投保人') {
-        age = this.appl_age
+        age = getAge(e.holder_birthday)
     } else if (owner === '投保人') {
-        age = this.assu_age
+        age = getAge(e.insured_birthday)
     }
     if (age) {
+        console.log(owner +'age:'+age+'term:'+term)
         if (age >= 15 && age <= 25) {
-            if (new Date(term) - (new Date().getDate() - 1) > 10 * yearTime) {
+            if ((new Date(term).getTime() - asDays(-1)) > 10 * yearTime) {
                 toast_text = '证件有效期错误'
             }
         } else if (age > 25 && age <= 45) {
-            if (new Date(term) - (new Date().getDate() - 1) > 20 * yearTime) {
+            if ((new Date(term).getTime() - asDays(-1)) > 20 * yearTime) {
                 toast_text = '证件有效期错误'
             }
         }
@@ -299,6 +213,7 @@ var checkTerm = function (term, owner) {
     }
     return true
 };
+//详细地址校验
 var checkAddress = function (val, owner) {
     var toast_text = null
     var m = val.match(/[\u4e00-\u9fa5]{1}/g)
@@ -381,7 +296,7 @@ var checkAppl = function (appl) {
         toast_text = '请选择投保人居民税收类型'
     } else if (!IDValidate(IDcard, appl.holder_ID_no, '投保人',appl)) {
         return false
-    } else if (!checkTerm(appl.holder_ID_expire_end, '投保人')) {
+    } else if (!checkTerm(appl.holder_ID_expire_end, '投保人',appl)) {
         return false
     } else if (!checkName('投保人', appl.holder_name)) {
         return false
@@ -450,7 +365,7 @@ var checkAssured = function (assu) {
         toast_text = '被保人证件类型不能为空'
     } else if (!IDValidate(assu.insured_ID_type, assu.insured_ID_no, '被保人',assu)) {
         return false
-    } else if (!checkTerm(assu.insured_ID_expire_end, '被保人')) {
+    } else if (!checkTerm(assu.insured_ID_expire_end, '被保人',assu)) {
         return false
     } else if (!vm.checkName('被保人', assu.insured_name)) { //被保人
         return false
@@ -637,3 +552,4 @@ var deepClone = function (obj) {
     }
     return newObj;
 }
+

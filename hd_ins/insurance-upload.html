@@ -210,7 +210,8 @@
             img_json['08'] = img.bank_front_img
             plus.storage.setItem('hengda_upload', JSON.stringify(img_json));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
-                item: 'upload'
+                item:'hengda_upload',
+                data: 'upload'
             });
             popu.closepop();
             mui.back();

@@ -61,8 +61,7 @@
 	<script src="js/mui.pullToRefresh.js"></script>
 	<script src="js/mui.pullToRefresh.material.js"></script>
 	<script src="js/vue.min.js"></script>
-	<script src="js/browser.min.js"></script>
-	<script type="text/babel">
+	<script type="text/javascript">
 		mui.init();
 		var extract = new Vue({
 			el: "#Js-content",
@@ -75,7 +74,7 @@
 			},
 			methods: {
 				getOtherMoney: function (amount, canPay, payTotal) {
-					let vm = this
+					var vm = this
 			        if(!vm.checkAmount(amount, canPay)) {
 			          return false
 			        }
@@ -85,8 +84,8 @@
 //			        vm.reserve = (parseFloat(amount)*0.3).toFixed(2)
 			    },
 			    checkAmount: function (amount,canPay) {
-			    	let toast_text = null
-			        let reg = /^([1-9][0-9]*)(\.[\d]{1,2})?$/
+			    	var toast_text = null
+			        var reg = /^([1-9][0-9]*)(\.[\d]{1,2})?$/
 			        if (!amount) {
 			          toast_text = "请输入金额"
 			        } else if (!reg.test(amount)) {
@@ -101,7 +100,7 @@
 			        return true
 			    },
 			    apply: function () {
-			    	let vm = this
+			    	var vm = this
 			        // 避免重复提交
 			        if (vm.uploading) {
 			          mui.toast('请勿重复提交', {duration: 'short', type: 'div'})
@@ -109,7 +108,7 @@
 			        }
 			        
 			        vm.uploading = true
-			        setTimeout(() => {
+			        setTimeout(function(){
 			          vm.uploading = false
 			        }, 1000)
 			        

@@ -1858,7 +1858,8 @@
 					"images/icon/sign-active.png",
 					"js/config.js",
 					"images/icon/plan_link.jpg",
-					"images/icon/ico-duty-hswifi.png"
+					"images/icon/ico-duty-hswifi.png",
+					"images/icon/ico-duty-nowifi.png"
 				],
 				"priority": 6,
 				"refer": []
@@ -2091,7 +2092,9 @@
 			"ins2c.html": {
 				"resources": [
 					"css/form.css",
-					"css/mui.css"
+					"css/mui.css",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [
 					"ins2c-applicant.html",
@@ -2355,7 +2358,9 @@
 					"js/mui.pullToRefresh.material.js",
 					"js/interval-dtpicker.js",
 					"images/icon/ico-filter-active.png",
-					"css/member.css"
+					"css/member.css",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [
 					"member-commission-salarylist.html"
@@ -2403,7 +2408,8 @@
 					"images/icon/ico-down.png",
 					"css/mui.picker.min.css",
 					"css/mui.css",
-					"js/mui.dtpicker.js"
+					"js/mui.dtpicker.js",
+					"css/member.css"
 				],
 				"refer": [
 					"member-commission-salarydetail.html"

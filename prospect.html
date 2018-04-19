@@ -690,9 +690,6 @@
 				count();
 				prospect.planTime = {}
 				prospect.$forceUpdate()
-//				alert(JSON.stringify(prospect.plans))
-//				alert(JSON.stringify(prospect.planList))
-
 			});
 			//接收没有完成的险种数据
 			window.addEventListener('SET_TIME', function(event) {
@@ -703,12 +700,13 @@
 			});
 			//不添加，即生成
 			window.addEventListener('pushPlan', function(event) {
+				alert(JSON.stringify(prospect.plans))
 				let data = []
 				let fristChild = []
 				let otherChild = []
 				for(let i = 0; i < prospect.plans.length; i++) {
 					let id = prospect.plans[i].id
-					prospect.plans[i].ins.splice(0, 1)
+//					prospect.plans[i].ins.splice(0, 1)
 					let planIns = prospect.plans[i].ins
 
 					for(let j = 0; j < planIns.length; j++) {

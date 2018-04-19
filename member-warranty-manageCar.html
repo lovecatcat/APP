@@ -13,9 +13,8 @@
 </head>
 
 <body class="BL-bg-f2f">
-<div id="Js-content" class="mui-content">
-    <div class="BL-bg-fff">
-        <!--日期搜索 begin-->
+	<div id="Js-content" class="mui-content">
+    <!--<div class="BL-bg-fff">
         <div id="Js-teamFilter" class="member-team-search BL-ub BL-ub-ac BL-ub-f1">
             <div class="search-date BL-ub BL-ub-ac">
                 <input class="BL-ub BL-ub-f1 date" type="text" value="2018/01/01" data-options='{"type":"date"}'/>
@@ -36,9 +35,8 @@
                 </div>
             </div>
         </div>
-        <!--日期搜索 end -->
-    </div>
-    <div class="BL-bg-fff BL-mar-t-1">
+    </div>-->
+    <div class="BL-bg-fff">
     	
     	<!--此处代码可删除-->
     	<div style="font-size: 3rem;padding: 5rem 0;text-align: center;">
@@ -121,25 +119,25 @@
 <script src="js/mui.picker.js"></script>
 <script type="text/javascript">
     mui.init();
-    document.querySelector('.date').addEventListener('tap', function() {
-        var _self = this;
-        if(_self.picker) {
-            _self.picker.show(function(rs) {
-                console.log('选择结果: ' + rs.text);
-                _self.picker.dispose();
-                _self.picker = null;
-            });
-        } else {
-            var optionsJson = this.getAttribute('data-options') || '{}';
-            var options = JSON.parse(optionsJson);
-            _self.picker = new mui.DtPicker(options);
-            _self.picker.show(function(rs) {
-                console.log('选择结果: ' + rs.text);
-                _self.picker.dispose();
-                _self.picker = null;
-            });
-        }
-    });
+//  document.querySelector('.date').addEventListener('tap', function() {
+//      var _self = this;
+//      if(_self.picker) {
+//          _self.picker.show(function(rs) {
+//              console.log('选择结果: ' + rs.text);
+//              _self.picker.dispose();
+//              _self.picker = null;
+//          });
+//      } else {
+//          var optionsJson = this.getAttribute('data-options') || '{}';
+//          var options = JSON.parse(optionsJson);
+//          _self.picker = new mui.DtPicker(options);
+//          _self.picker.show(function(rs) {
+//              console.log('选择结果: ' + rs.text);
+//              _self.picker.dispose();
+//              _self.picker = null;
+//          });
+//      }
+//  });
 
     (function($){
         //阻尼系数
@@ -156,7 +154,6 @@
             var divHeight = document.querySelector('#Js-cmisFilter').offsetHeight;
             document.querySelector('#Js-cmistab').style.height = winH - divHeight + 'px';
             //document.querySelector('#Js-list').style.height = (winH - topHeight - mainHeight) + 'px';
-
         });
     }(mui));
 </script>

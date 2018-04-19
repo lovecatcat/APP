@@ -1926,11 +1926,17 @@
 					"images/plans/prospectus/301.jpg",
 					"images/plans/prospectus/334.jpg",
 					"images/plans/prospectus/121.jpg",
-					"images/plans/prospectus/349.jpg"
+					"images/plans/prospectus/349.jpg",
+					"images/plans/prospectus/354.jpg",
+					"images/plans/prospectus/267.jpg",
+					"images/plans/prospectus/256.jpg"
 				],
 				"priority": 2,
 				"refer": [
-					"member-plans-alone-table.html"
+					"member-plans-alone-table.html",
+					"popup-content.html",
+					"member-plans-alone-design.html",
+					"product-company.html"
 				]
 			},
 			"member-plans-total.html": {
@@ -1964,7 +1970,9 @@
 					"js/plansData.js"
 				],
 				"priority": 4,
-				"refer": []
+				"refer": [
+					"prospect-product.html"
+				]
 			},
 			"member-plans-detail.html": {
 				"href": "member-plans-detail.html",
@@ -2176,7 +2184,9 @@
 			"member-warranty-manage.html": {
 				"resources": [
 					"member-warranty-manageLife.html",
-					"css/mui.css"
+					"css/mui.css",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [
 					"member-warranty-manageCar.html"
@@ -2774,7 +2784,8 @@
 			"prospect-product.html": {
 				"resources": [
 					"css/mui.css",
-					"css/plans.css"
+					"css/plans.css",
+					"css/mui.picker.min.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -2835,6 +2846,23 @@
 				"refer": [
 					"member-warranty-manageLife-detail.html"
 				],
+				"priority": 0
+			},
+			"member-warranty-manageCar.html": {
+				"resources": [
+					"css/mui.picker.min.css",
+					"css/mui.css",
+					"css/member.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"product-company.html": {
+				"resources": [
+					"css/product.css",
+					"css/mui.css"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

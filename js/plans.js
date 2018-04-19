@@ -223,7 +223,7 @@ var aloneDetail = new Vue({
 		});
 		window.addEventListener('design', function(event) {
 			var data = event.detail.data
-//			aloneDetail.manual_content[aloneDetail.levelNum] = []
+			aloneDetail.manual_content[aloneDetail.levelNum] = aloneDetail.manual_content[aloneDetail.levelNum] ? aloneDetail.manual_content[aloneDetail.levelNum] : []
 			aloneDetail.manual_content[aloneDetail.levelNum].push(data)
 			aloneDetail.$forceUpdate()
 		});
@@ -231,7 +231,7 @@ var aloneDetail = new Vue({
 		//在线投保按钮
 		document.querySelector('#goIns').addEventListener('tap', function() {
 			//打开弹框
-			//						alert(JSON.stringify(goIns_data))
+			//alert(JSON.stringify(goIns_data))
 			mui.fire(parent_self, 'show', {
 				formID: 'member_plans_alone',
 				goIns_data: aloneDetail.goIns_data

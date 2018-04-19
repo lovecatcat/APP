@@ -58,7 +58,7 @@
                 </li>
                 <li class="BL-ub BL-ub-ac member-login-item">
                     <div class="login-ico-phone BL-bimg-contain"></div>
-                    <input class="BL-ub BL-ub-f1" v-model="tel" placeholder="请输入手机号/用户名"/>
+                    <input class="BL-ub BL-ub-f1" v-model="tel" placeholder="请输入手机号"/>
                 </li>
                 <li class="BL-ub BL-ub-ac member-login-item">
                     <div class="login-ico-pwd BL-bimg-contain"></div>
@@ -141,7 +141,11 @@
                     return false;
                 }
                 luckyAjax({
-                    data: {data: JSON.stringify({tel: this.tel,channel_id:this.channel_id}), device: 'pad', server: 'user.sendSms'},
+                    data: {
+                        data: JSON.stringify({tel: this.tel, channel_id: this.channel_id}),
+                        view: true,
+                        server: 'user.sendSms'
+                    },
                     success: function (data) {
                         if (data.code === 1) {
                             this.disabled = true

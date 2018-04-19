@@ -69,62 +69,88 @@
 				var list = document.getElementById('list');
 				var group = document.getElementById("Js-group");
 				list.style.height = (window.innerHeight - header.offsetHeight) + 'px';
-				
-				luckyAjax({
-					data: {
-			            server: 'team.getCustomerList',
-			            data: JSON.stringify({user_id:userinfo.id, row:9999})
-			        },
-			        success:function(data){
-			        	console.log(JSON.stringify(data))
-		                if(data.code){
-		                	var dataArr = data.data.list; // 获取数据
-		                	var arrange = {}; // 重新整理所有数据排序 按A~Z排列
-							var htm = '';
-							mui('#Js-abc a').each(function(){
-								arrange[this.innerText] = [];
-							});
-							mui.each(dataArr, function(index, item){
-								var thisABC = item.holder_name_abc.charAt(0).toUpperCase();
-								mui.each(arrange, function(n, o){
-									if(thisABC == n){
-										arrange[n].push(item);
-									}
-								});
-							});
-							mui.each(arrange, function(index, item){
-								if(item.length>0){
-									htm += '<li data-group="'+ index +'" class="mui-table-view-divider mui-indexed-list-group">'+ index +'</li>';	
-									mui.each(item, function(n, o){
-										htm += '<li data-id="'+ o.holder_ID_no +'" data-value="'+ o.holder_name_abc +'" data-tags="'+ o.holder_name_pinyin +'" class="mui-table-view-cell mui-indexed-list-item">'+ o.holder_name +'</li>';
-									});
-								}
-							});
-							group.innerHTML = htm;
-							new mui.IndexedList(list); // 初始化
-		                }	
-			        }
-				});
-				
+                //在线投保选择通讯录
+                var flag = plus.webview.currentWebview().flag;
+                var typeid = plus.webview.currentWebview().tid;
+                var pageid = plus.webview.currentWebview().pageid;
+                var type = '' //通讯录类型
+                if (flag === 'onlineIns' && typeid === 2) {
+                    type = 2
+                } else {
+                    type = 1
+				}
+                getList(type)
+                function getList(e) {
+                    if (e === 1) {
+                        luckyAjax({
+                            data: {
+                                server: 'team.getCustomerList',
+                                data: JSON.stringify({user_id: userinfo.id, row: 9999})
+                            },
+                            success: function (data) {
+                                console.log(JSON.stringify(data))
+                                if (data.code) {
+                                    var dataArr = data.data.list; // 获取数据
+                                    var arrange = {}; // 重新整理所有数据排序 按A~Z排列
+                                    var htm = '';
+                                    mui('#Js-abc a').each(function () {
+                                        arrange[this.innerText] = [];
+                                    });
+                                    mui.each(dataArr, function (index, item) {
+                                        var thisABC = item.holder_name_abc.charAt(0).toUpperCase();
+                                        mui.each(arrange, function (n, o) {
+                                            if (thisABC == n) {
+                                                arrange[n].push(item);
+                                            }
+                                        });
+                                    });
+                                    mui.each(arrange, function (index, item) {
+                                        if (item.length > 0) {
+                                            htm += '<li data-group="' + index + '" class="mui-table-view-divider mui-indexed-list-group">' + index + '</li>';
+                                            mui.each(item, function (n, o) {
+                                                htm += '<li data-id="' + o.holder_ID_no + '" data-type="1" data-value="' + o.holder_name_abc + '" data-tags="' + o.holder_name_pinyin + '" class="mui-table-view-cell mui-indexed-list-item">' + o.holder_name + '</li>';
+                                            });
+                                        }
+                                    });
+                                    group.innerHTML = htm;
+                                    new mui.IndexedList(list); // 初始化
+                                }
+                            }
+                        });
+                    } else if (e === 2) {
+                        luckyAjax({
+                            data: {
+                                server: 'team.getHistoryUserList',
+                                data: JSON.stringify({user_id: userinfo.id})
+                            },
+                            success: function (res) {
+                                var htm = '';
+                                var arrange = res.data.list
+                                console.log(JSON.stringify(res))
+                                mui.each(arrange, function (index, item) {
+                                    htm += '<li data-id="' + item.id + '" data-type="2" class="mui-table-view-cell mui-indexed-list-item">' + item.user_name + '</lidata-id>';
+                                });
+                                group.innerHTML = htm;
+                                new mui.IndexedList(list); // 初始化
+                            }
+                        });
+					}
+                }
+
+
 				mui('body').on('tap', '.mui-indexed-list-item', function(){
 					var id = this.getAttribute('data-id');
-					//在线投保选择通讯录
-					var type = plus.webview.currentWebview().type;
-					if(type === 'onlineIns') {
-						mui.fire(plus.webview.currentWebview().opener(), 'getMemberId', {
-		                    id: id
-		                });
-		                mui.back();
-					}else{
-						mui.openWindow({
-							url:'communic-detail.html',
-							id:'communic_detail',
-							show:animateObj.aniDetal,
-							extras:{
-								noId:id
-							}
-						})
-					}
+                    mui.openWindow({
+                        url:'communic-detail.html',
+                        id:'communic_detail',
+                        show:animateObj.aniDetal,
+                        extras:{
+                            noId:id,
+                            flag: flag,
+							type: type,
+                            pageid: pageid
+                        }
+                    })
 					//
 					
 				})

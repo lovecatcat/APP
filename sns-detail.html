@@ -162,8 +162,7 @@
 	<script src="js/mui.pullToRefresh.material.js"></script>
 	<script src="js/vue.min.js"></script>
 	<script src="js/Date.js"></script>
-	<script src="js/browser.min.js"></script>
-	<script type="text/babel">
+	<script type="text/javascript">
 		mui.init();
 		var sns = new Vue({
 			el: '#Js-sns',
@@ -182,7 +181,7 @@
             	timeHH:''
 			},
 			computed: {
-		      text() {
+		      text: function() {
 		        return this.time > 0 ? this.time + 's' : '获取验证码'
 		      }
 		    },
@@ -222,7 +221,7 @@
 	                
 				},
 				cancel: function() {
-					let vm = this
+					var vm = this
 					vm.show_sign = false
 				},
 				checkMobile: function() {
@@ -259,7 +258,7 @@
 				},
 				//发送验证码
 	            sendCode: function () {
-	            	let vm = this
+	            	var vm = this
 	            	
 	            	if(!vm.checkMobile()) {
 	            		return false
@@ -296,10 +295,11 @@
 			    },
 	            timer: function () {
 			        if (this.time > 0) {
-			          this.time--
-			          this.timeHH = setTimeout(() => {
-			            this.timer()
-			          }, 1000)
+			            this.time--
+			          	this.timeHH = setTimeout(function(){
+			            	sns.timer()
+			          	}, 1000)
+// 						this.timeHH = setTimeout(sns.timer(), 1000)
 			        } else {
 			          this.disabled = false
 			        }

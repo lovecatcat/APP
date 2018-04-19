@@ -53,7 +53,7 @@
 	                <div class="mui-scroll">
 	                    <!-- 数据列表-->
 	                    <ul class="mui-table-view product-list-cell">
-	                        <li v-for="(item,index) in listdata" :key="index" class="member-warranty-list-item BL-rel">
+	                        <li v-for="(item,index) in listdata" :key="index" class="member-warranty-list-item BL-rel" v-if="listdata">
 								<div class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-46 BL-txt-l">
 									<span>保单号：</span>
 									<span>{{ item.policy_sn }}</span>
@@ -217,13 +217,12 @@
 					page: order.page
 				})
 	        },
-	        success:function(res){
-	        	console.log("page:"+ order.page + "内容："+JSON.stringify(res.data.list))
+	        success: function(res){
                	if(res.code == 1) {
 					if (order.page >= res.data.totalPage) {
                         self.endPullUpToRefresh(true);
                     } else {
-                        self.endPullUpToRefresh();
+                        self.endPullUpToRefresh(false);
                     }
                     if (e) {
                         order.listdata = res.data.list;

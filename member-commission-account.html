@@ -81,12 +81,12 @@
 				// 判断当前时间，每月26号后不可提取
 			    setExtBtnByTime : function(timestamp) {
 			        var time = new Date(timestamp*1000)   // 时间戳转成日期
-			        var timeFormat = time.Format('yyyy-MM-dd')
+			        var timeFormat = time.Format('yyyy-MM-dd hh:mm:ss')
 			        // 获取由于时间戳转日期的年月
 			        var year = timeFormat.substring(0, 4);
 			        var month = timeFormat.substring(5, 7);
-			        // 设置当前月当前年的26号
-			        var contrastDate = year + "-" + month + "-" + '26'
+			        // 设置当前月当前年的25号
+			        var contrastDate = year + "-" + month + "-" + '25'
 			        // 判断当前日期是否大于26日
 			        if (timeFormat >= contrastDate) {
 			          this.isExtract = true

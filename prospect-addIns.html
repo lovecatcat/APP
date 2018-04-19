@@ -38,7 +38,7 @@
 						<div class="ins-down-icon"></div>
 					</div>
 				</div>
-
+ 
 				<template v-if="insurance.safe_id">
 					<app-select label="保险期间">
 						<button slot="button" class="ins-btn xs-btn" 
@@ -74,7 +74,6 @@
 						            {{item.name}}
 						        </button>
 							</app-select>
-
 						</template>
 						<div class="input-item">
 							<label>年缴保费(元)</label>
@@ -1771,8 +1770,9 @@
 				ins.insurance = ins.planTime.insurance
 				mainType.setData(ins.planTime.mainTypedata)
 				// 部分险种输入 保额， 算保费
-				let safeid = ins.planTime.insurance.safe_id
+				var safeid = ins.planTime.insurance.safe_id
 				ins.isBaseMoney = calMoneyIns.indexOf(safeid) === -1
+				ins.fuBaseMoney = fuMoneyIns.indexOf(safeid) !== -1
 				if(ins.isBaseMoney){
 					ins.insurance.period_money = ''
 				}else{

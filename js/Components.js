@@ -5,16 +5,7 @@ const AppInput = {
     right: Boolean,
     color: Boolean
   },
-  template: `
-  <div class="input-item">
-    <label class="">{{label}}</label>
-    <div class="input-wrap box-f-1">
-        <slot name="input"></slot>
-        <slot name="icon"></slot>
-    		<slot name="button"></slot>
-    </div>
-	</div>
-  `
+  template: '<div class="input-item"><label>{{label}}</label><div class="input-wrap box-f-1"> <slot name="input"></slot> <slot name="icon"></slot> <slot name="button"></slot></div></div>'
 }
 
 const AppSelect = {
@@ -22,14 +13,7 @@ const AppSelect = {
     label: String,
     readonly: Boolean
   },
-  template: `
-	<div class="input-item ins-pd-r-0">
-	   	<label class="">{{label}}</label>
-	    <div class="input-wrap box-f-1 multi-btn">
-	        <slot name="button"></slot>
-	    </div>
-	</div>
-  `
+  template: '<div class="input-item ins-pd-r-0"><label class="">{{label}}</label><div class="input-wrap box-f-1 multi-btn"><slot name="button"></slot></div></div>'
 }
 
 const AppDropdown = {
@@ -45,32 +29,32 @@ const AppDropdown = {
     },
     func: Function
   },
-  template: `
-  <div class="am-list" :class="{'am-list-6lb': isform, 'form': isform}">
-    <div class="am-list-item dropdown" :class="{up:isup}">
-      <div class="form-header fn-clear form-header__dropdown" @click="toggle" v-if="label">
-        <span class="fn-left">{{label}}</span>
-        <span class="arrow-icon" :class="{active:isup}"></span>
-      </div>
-      <div class="am-list-dropdown-main" v-else>
-        <slot name="header"></slot>
-      </div>
-      <div class="am-list-dropdown-list">
-        <slot></slot>
-      </div>
-    </div>
-  </div>
-  `,
-  data () {
+  template: 
+  '<div class="am-list" :class="{"am-list-6lb": isform, "form": isform}">'+
+    '<div class="am-list-item dropdown" :class="{up:isup}">'+
+      '<div class="form-header fn-clear form-header__dropdown" @click="toggle" v-if="label">'+
+        '<span class="fn-left">{{label}}</span>'+
+       ' <span class="arrow-icon" :class="{active:isup}"></span>'+
+      '</div>'+
+      '<div class="am-list-dropdown-main" v-else>'+
+        '<slot name="header"></slot>'+
+      '</div>'+
+      '<div class="am-list-dropdown-list">'+
+        '<slot></slot>'+
+      '</div>'+
+    '</div>'+
+  '</div>'
+  ,
+  data: function() {
     return {
       isup: ''
     }
   },
-  created () {
+  created: function() {
     this.isup = this.up
   },
   methods: {
-    toggle () {
+    toggle: function() {
       this.isup = !this.isup
       this.func && this.func()
     }

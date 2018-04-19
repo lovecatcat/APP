@@ -93,7 +93,9 @@
                 }
             })
         });
-        document.querySelector('#Js-version').innerText = plus.runtime.version;
+        plus.runtime.getProperty(plus.runtime.appid, function (inf) {
+            document.querySelector('#Js-version').innerText = inf.version
+        });
     })
 </script>
 </html>

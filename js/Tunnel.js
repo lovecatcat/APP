@@ -33,11 +33,6 @@ var Tunnel = {
     _isStop: false,
 
     /**
-     * 重新连接次数
-     */
-    _rNumber: 0,
-
-    /**
      * 创建WS实例
      * @param uid 用户ID
      * @param flag  用户终端唯一标识
@@ -81,6 +76,7 @@ var Tunnel = {
 
             /* 发送登入请求 */
             Tunnel._webSocket.send(JSON.stringify(Tunnel._message));
+
             //心跳检测重置
             Tunnel.HeartCheck.reset().start();
         };
@@ -108,24 +104,17 @@ var Tunnel = {
 
         Tunnel._lockReconnect = true;
 
-        //没连接上会一直重连，设置延迟避免请求过多.超过五次停止
-        if(Tunnel._rNumber >= 5){
-            Tunnel._isStop = true;
-            return;
-        }
-
         setTimeout(function () {
-            Tunnel._rNumber++;
             Tunnel.Create();
             Tunnel._lockReconnect = false;
-        }, 5000);
+        }, 2000);
     },
 
     /**
      * 心跳计时
      */
     HeartCheck: {
-        timeout: 8000,//60秒
+        timeout: 60000,//60秒
         timeoutObj: null,
         serverTimeoutObj: null,
         reset: function(){

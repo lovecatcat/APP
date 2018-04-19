@@ -109,6 +109,12 @@
 					mui.alert(_tips, '温馨提示', '确定');
 				}
 		    });		
+		    plus.geolocation.watchPosition(function(p){
+		    	console.log(p.coords.longitude +','+ p.coords.latitude);
+		    	
+		    	//Tunnel._webSocket.send({"uid":1,"type":2,"flag":"","platform":"","userAgent":""});
+		    });
+		    
             
             // 运行环境切换到后台，开始倒数20分钟，重启应用
             var apptype;

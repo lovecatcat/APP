@@ -208,7 +208,7 @@
                             return false
                         }
                     } else {
-                        mui.toast(res.msg)
+                        mui.toast(res.data.resultMsg)
                         return false
                     }
                 }
@@ -238,7 +238,8 @@
                             return false
                         }
                     } else {
-                        mui.toast('上传失败')
+                        mui.toast(res.data.resultMsg)
+                        return false
                     }
                 }
             });
@@ -260,6 +261,12 @@
                     if (res.code) {
                         if (res.data.resultCode === '00') {
                             mui.toast('承保成功');
+                            //清除本地缓存
+                            var itemName = ['hengda_applicant','hengda_assured','hengda_beneficiary','hengda_safegoods','hengda_bank','hengda_upload','hengda_healthinfo','hengda_ids'];
+                            for (var i = 0; i < itemName.length; i++) {
+                                plus.storage.removeItem(itemName[i])
+                            }
+                            //
                             plus.webview.close('hd_insurance-index');
                             popu.closepop();
                             mui.back();
@@ -390,7 +397,7 @@
                 var toast_text = null;
                 if (!this.appl_signature) {
                     toast_text = '投保人签名不能为空';
-                } else if (!this.assu_signature) {
+                } else if (this.assured.rel_insured_holder!==ISASSURED && !this.assu_signature) {
                     toast_text = '被保人签名不能为空';
                 }
                 if (toast_text) {

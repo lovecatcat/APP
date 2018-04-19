@@ -8,7 +8,6 @@
     <link href="../css/module.css" rel="stylesheet"/>
     <link href="../css/insurance.css" rel="stylesheet"/>
     <script src="../js/config.js" type="text/javascript"></script>
-    <!--<script src="../js/browser.min.js" type="text/javascript"></script>-->
     <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css"/>
 </head>
 
@@ -79,8 +78,6 @@
                             <span class="mui-icon mui-icon-clear"></span>
                         </div>
                     </div>
-                    <div class="right-text-btn right-icon search-icon"></div>
-                    <div class="right-text-btn right-icon address-icon orange"></div>
                 </div>
             </div>
             <div class="input-item">
@@ -95,7 +92,7 @@
             <div class="input-item">
                 <label class="">证件号码</label>
                 <div class="input-wrap box-f-1">
-                    <input type="number" v-model.trim.lazy="beneficiary.ID_no" placeholder="请输入">
+                    <input type="text" v-model.trim.lazy="beneficiary.ID_no" placeholder="请输入">
                     <div class="form-clear-icon" v-show="beneficiary.ID_no!=''" @click="beneficiary.ID_no=''">
                         <span class="mui-icon mui-icon-clear"></span>
                     </div>
@@ -104,24 +101,24 @@
             <div class="input-item">
                 <label class="">证件有效期</label>
                 <div class="BL-ub BL-ub-pj BL-ub-f1">
-                    <div class="input-wrap BL-ub-f1 search-date" data-options='{"type":"date","endYear":2038}'>
-                        <input type="text" v-model.lazy="beneficiary.ID_expire_end" placeholder="请选择">
+                    <div class="input-wrap BL-ub-f1" :class="'searchDate'+index" data-options='{"type":"date","endYear":2038}'>
+                        <input type="text" v-model.lazy="beneficiary.ID_expire_end" placeholder="请选择" :disabled="longTerm" readonly>
                         <button class="ins-date-icon" :disabled="longTerm"></button>
                     </div>
-                    <button class="right-text-btn orange" :class="{'active':longTerm}" @click="longTerm=!longTerm" :disabled="[BOOKLET,BORNid].indexOf(beneficiary.ID_type)>-1">长期有效</button>
+                    <button class="right-btn orange" :class="{'active':longTerm}" @tap="longTerm=!longTerm,toblur()" :disabled="[BOOKLET,BORNid].indexOf(beneficiary.ID_type)>-1">长期有效</button>
                 </div>
             </div>
-            <!--<div class="input-item">-->
-            <!--<label class="">性别</label>-->
-            <!--<div class="input-wrap box-f-1">-->
-            <!--<button class="ins-btn sm-btn"-->
-            <!--:class="{'blue':beneficiary.gender===item.value}"-->
-            <!--v-for="(item,index) in init.gender"-->
-            <!--@click="beneficiary.gender=item.value"-->
-            <!--:disabled="IDNO.indexOf(beneficiary.ID_type)>-1">{{item.text}}-->
-            <!--</button>-->
-            <!--</div>-->
-            <!--</div>-->
+            <div class="input-item">
+                <label class="">性别</label>
+                <div class="input-wrap box-f-1">
+                    <button class="ins-btn sm-btn"
+                        :class="{'blue':beneficiary.gender===item.value}"
+                        v-for="(item,index) in init.gender"
+                        @tap="beneficiary.gender=item.value,toblur()"
+                        :disabled="IDNO.indexOf(beneficiary.ID_type)>-1">{{item.text}}
+                    </button>
+                </div>
+            </div>
             <div class="input-item">
                 <label class="">出生日期</label>
                 <div class="input-wrap box-f-1" :class="'searchDate'+index" data-options='{"type":"date","beginYear":1910}'>
@@ -139,7 +136,7 @@
                             :class="{'blue':item.value===beneficiary.beneficiary_is_insured}"
                             :disabled="item.value===beneficiary.beneficiary_is_insured"
                             v-for="(item,index) in init.relation_beneficiary"
-                            @click="beneficiary.beneficiary_is_insured=item.value">
+                            @tap="beneficiary.beneficiary_is_insured=item.value,toblur()">
                         {{item.text}}
                     </button>
                 </div>
@@ -151,7 +148,7 @@
                             v-for="(item,ind) in count"
                             :class="{'blue':ind+1===beneficiary.sort_order}"
                             :disabled="ind+1===beneficiary.sort_order"
-                            @click="beneficiary.sort_order=ind+1">
+                            @tap="beneficiary.sort_order=ind+1,toblur()">
                         {{ind+1}}
                     </button>
                 </div>
@@ -171,13 +168,13 @@
             <div class="input-item box-f-1 box-align-center">
                 <div class="box-f-1 ins-font-sm BL-col-3b9cf5">是否与投被保人同地址？</div>
                 <div class="box-f-2">
-                    <button class="ins-btn xxs-btn" @click="beneficiary.addr_type=1,sameaddress(1)" :disabled="beneficiary.addr_type===1"
+                    <button class="ins-btn xxs-btn" @tap="beneficiary.addr_type=1,sameaddress(1),toblur()" :disabled="beneficiary.addr_type===1"
                             :class="{'blue':beneficiary.addr_type===1}">同投保人
                     </button>
-                    <button class="ins-btn xxs-btn" @click="beneficiary.addr_type=2,sameaddress(2)" :disabled="beneficiary.addr_type===2"
+                    <button class="ins-btn xxs-btn" @tap="beneficiary.addr_type=2,sameaddress(2),toblur()" :disabled="beneficiary.addr_type===2"
                             :class="{'blue':beneficiary.addr_type===2}">同被保人
                     </button>
-                    <button class="ins-btn xs-btn" @click="beneficiary.addr_type=3" :disabled="beneficiary.addr_type===3"
+                    <button class="ins-btn xs-btn" @tap="beneficiary.addr_type=3,toblur()" :disabled="beneficiary.addr_type===3"
                             :class="{'blue':beneficiary.addr_type===3}">否
                     </button>
                 </div>
@@ -225,6 +222,7 @@
     var cityPicker = [];
 
     mui.plusReady(function () {
+        console.log('ready')
         var popu = new ClosePopu(); // 实例化关闭窗口对象
 
         for (var i = 0; i < 4; i++) {
@@ -243,17 +241,20 @@
         //
         var bene = new Vue({
             el: '#Js-content',
-            data: {
-                init: {},
-                applicant: {},
-                assured: {},
-                is_legal_benefic: false,
-                benefited: null, //所有受益人份额
-                beneficiariesIndex: [1], //受益人索引
-                nenesum: 4, // 受益人数量
-                beneficiaries: ''
+            data: function() {
+                return {
+                    init: {},
+                    applicant: {},
+                    assured: {},
+                    is_legal_benefic: false,
+                    benefited: null, //所有受益人份额
+                    beneficiariesIndex: [1], //受益人索引
+                    nenesum: 4, // 受益人数量
+                    beneficiaries: ''
+                }
             },
-            created: function() {
+            created:function() {
+                console.log('parent-created')
                 var beneficiary = plus.storage.getItem('hengda_beneficiary') ? JSON.parse(plus.storage.getItem('hengda_beneficiary')) : ''
                 if(beneficiary){
                     if(beneficiary !== 1){
@@ -467,8 +468,8 @@
                 },
                 data: Object
             },
-            data: function (){
-                return {
+            data: function() {
+                return{
                     show: true,
                     longTerm: false,//长期有效
                     beneficiary: {
@@ -493,26 +494,27 @@
                     }
                 }
             },
-            created: function() {
-                const vm = this
+            created:function() {
+                console.log('child-created')
+                var vm = this
                 vm.beneficiary.gender = MALE
                 vm.beneficiary.type = SY_TYPE
                 //
                 if (vm.data) {
                     vm.longTerm = vm.data.ID_expire_end === '9999-12-31' ? true : false
-                    vm.beneficiary = deepClone(vm.beneficiary, vm.data)
+                    vm.beneficiary = deepClone(vm.data)
                 }
                 //
                 vm.$watch('longTerm', function(val) {
                     vm.beneficiary.ID_expire_end = val ? '9999-12-31' : ''
                 });
                 vm.$watch('beneficiary.ID_no', function() {
-                    const type = vm.beneficiary.ID_type
-                    const id = vm.beneficiary.ID_no
+                    var type = vm.beneficiary.ID_type
+                    var id = vm.beneficiary.ID_no
                     if (!type || !id) return
                     var Validator = new IDValidator();
                     if (IDValidate(type, id, '第' + (vm.index + 1) + '个受益人') && (type === IDcard || type === BOOKLET)) {
-                        const idInfo = Validator.getInfo(id)
+                        var idInfo = Validator.getInfo(id)
                         vm.beneficiary.birthday = idInfo.birth || ''
                         vm.beneficiary.gender = [FEMALE, MALE][idInfo.sex]
                     }
@@ -520,51 +522,54 @@
                 vm.$nextTick(function() {
                     vm.$parent.initpicker(vm.index)
                     idtype[vm.index].pickers[0].setSelectedIndex(1);
-                    //证件类型选择
-                    document.querySelector('#ID_type' + vm.index).addEventListener('tap', function () {
-                        document.activeElement.blur();
-                        idtype[vm.index].show(function (items) {
-                            vm.beneficiary.ID_type = items[0].value;
-                            vm.beneficiary.ID_type_name = items[0].text;
-                        })
+                //证件类型选择
+                document.querySelector('#ID_type' + vm.index).addEventListener('tap', function () {
+                    document.activeElement.blur();
+                    idtype[vm.index].show(function (items) {
+                        vm.beneficiary.ID_type = items[0].value;
+                        vm.beneficiary.ID_type_name = items[0].text;
                     })
-                    //日期选择
-                    mui('.searchDate' + vm.index).each(function (i, d) {
-                        d.addEventListener('tap', function () {
-                            document.activeElement.blur();
-                            var optionsJson = this.getAttribute('data-options') || '{}';
-                            var options = JSON.parse(optionsJson);
-                            var _this = this
-                            var picker = new mui.DtPicker(options);
-                            picker.show(function (rs) {
-                                if (i === 0) {
-                                    vm.beneficiary.ID_expire_end = rs.text;
-                                } else if (i === 1) {
-                                    vm.beneficiary.birthday = rs.text;
-                                }
-                                _this.querySelector('input').value = rs.text;
-                                picker.dispose();
-                            });
-                        }, false);
-                    });
-                    //选择省市区
-                    var _getParam = function (obj, param) {
-                        return obj[param] || '';
-                    };
-                    document.querySelector('#address-select' + vm.index).addEventListener('tap', function () {
+                })
+                //日期选择
+                mui('.searchDate' + vm.index).each(function (i, d) {
+                    d.addEventListener('tap', function () {
                         document.activeElement.blur();
-                        var _self = this;
-                        cityPicker[vm.index].show(function (items) {
-                            vm.beneficiary.province = _getParam(items[0], 'value')
-                            vm.beneficiary.city = _getParam(items[1], 'value')
-                            vm.beneficiary.district = _getParam(items[2], 'value')
-                            vm.beneficiary.zip = _getParam(items[2], 'zip') ? _getParam(items[2], 'zip') : _getParam(items[1], 'zip')
-                            _self.innerText = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
+                        var optionsJson = this.getAttribute('data-options') || '{}';
+                        var options = JSON.parse(optionsJson);
+                        var _this = this
+                        var picker = new mui.DtPicker(options);
+                        picker.show(function (rs) {
+                            if (i === 0) {
+                                vm.beneficiary.ID_expire_end = rs.text;
+                            } else if (i === 1) {
+                                vm.beneficiary.birthday = rs.text;
+                            }
+                            _this.querySelector('input').value = rs.text;
+                            picker.dispose();
                         });
                     }, false);
-                })
+                });
+                //选择省市区
+                var _getParam = function (obj, param) {
+                    return obj[param] || '';
+                };
+                document.querySelector('#address-select' + vm.index).addEventListener('tap', function () {
+                    document.activeElement.blur();
+                    var _self = this;
+                    cityPicker[vm.index].show(function (items) {
+                        vm.beneficiary.province = _getParam(items[0], 'value')
+                        vm.beneficiary.city = _getParam(items[1], 'value')
+                        vm.beneficiary.district = _getParam(items[2], 'value')
+                        vm.beneficiary.zip = _getParam(items[2], 'zip') ? _getParam(items[2], 'zip') : _getParam(items[1], 'zip')
+                        _self.innerText = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
+                    });
+                }, false);
+            })
             },
             methods: {
+                toblur:function(){
+                    document.activeElement.blur();
+                },
                 // 展开收起
                 unfold:function(index) {
                     this.$parent.par_unfold(index, 1)
@@ -614,7 +619,8 @@
                 plus.storage.setItem('hengda_beneficiary', JSON.stringify(data));
             }
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
-                item: 'beneficiary'
+                item: 'hengda_beneficiary',
+                data: 'beneficiary'
             });
             popu.closepop();
             mui.back();

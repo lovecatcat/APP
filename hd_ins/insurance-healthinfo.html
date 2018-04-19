@@ -931,7 +931,8 @@
             })
             plus.storage.setItem('hengda_healthinfo', JSON.stringify(appitems));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
-                item: 'healthinfo'
+                item: 'hengda_healthinfo',
+                data: 'healthinfo'
             });
             popu.closepop();
             mui.back();

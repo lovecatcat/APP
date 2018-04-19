@@ -11,11 +11,54 @@
     <script src="js/config.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
 </head>
+<body class="BL-bg-fff">
+	<div id="Js-content" class="mui-content">
+		<!--此处代码可删除-->
+		<div class="BL-bg-fff">
+	    	<div style="font-size: 3rem;padding: 5rem 0;text-align: center;">
+	    		板块功能建设中
+	    	</div>
+    	</div>
+    	<!--此处代码可删除-->
+   	</div>
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/mui.picker.js"></script>
+<script src="js/mui.dtpicker.js"></script>
+<script src="js/mui.poppicker.js"></script>
+<script src="js/mui.pullToRefresh.js"></script>
+<script src="js/mui.pullToRefresh.material.js"></script>
+<script src="js/vue.min.js"></script>
+<script type="text/javascript">
+    mui.init();
+    (function($){
+        $.plusReady(function() {
+			
+			// 设置内容区域
+            var winH = window.innerHeight;
+			document.querySelector('#Js-content').style.height = winH + 'px';
+        });
+    }(mui));
+</script>
+</html>
+<!--<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>寿险续期</title>
+    <link href="css/mui.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/module.css" rel="stylesheet" />
+    <link href="css/member.css" rel="stylesheet" />
+    <script src="js/config.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+</head>
 
 <body class="BL-bg-f2f">
-	<div id="Js-content" class="mui-content" v-cloak>
+	<div id="Js-content" class="mui-content" v-cloak>-->
 	    <!--日期搜索 begin-->
-	    <div id="Js-renewalFilter" class="member-team-search member-warranty-search BL-ub BL-ub-ac BL-bg-fff">
+	    <!--<div id="Js-renewalFilter" class="member-team-search member-warranty-search BL-ub BL-ub-ac BL-bg-fff">
 			<div class="search-date BL-rel">
 				<div class="BL-pad-lr-1" id="month_sel">{{ month_txt.text }}</div>
 				<div class="down BL-abs">
@@ -25,9 +68,9 @@
 	        <div class="member-birth-sum BL-abs">
 	        	应续期共：<i class="BL-col-3b9cf5">{{ count }} </i>件
 	        </div>
-	    </div>
+	    </div>-->
 	    <!--日期搜索 end -->
-	    <div id="Js-renewalList" class="BL-rel">
+	    <!--<div id="Js-renewalList" class="BL-rel">
 	    	<div class="mui-content mui-scroll-wrapper BL-bg-f2f">
 				<div class="mui-scroll">
 			        <ul v-if="list" class="mui-table-view BL-mar-t-1">
@@ -193,4 +236,4 @@
         });
     }(mui));
 </script>
-</html>
+</html>-->

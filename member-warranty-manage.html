@@ -27,8 +27,8 @@
 
 <div id="Js-content" class="mui-content">
     <div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
-        <a class="mui-control-item mui-active">寿险</a>
-        <a class="mui-control-item">车险</a>
+        <a class="mui-control-item mui-active" data-wid="member_warranty_manageLife">寿险</a>
+        <a class="mui-control-item" data-wid="member_warranty_manageCar">车险</a>
     </div>
 </div>
 
@@ -51,11 +51,11 @@
             topHeight: _divH,
             viewHeight:_viewH,
             items: [{
-                id: "member_warranty_manageLife.html",
+                id: "member_warranty_manageLife",
                 url: "member-warranty-manageLife.html",
                 extras: {}
             }, {
-                id: "member_warranty_manageCar.html",
+                id: "member_warranty_manageCar",
                 url: "member-warranty-manageCar.html",
                 extras: {}
             }],

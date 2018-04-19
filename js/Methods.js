@@ -1,13 +1,13 @@
 var methods = {
 	// 去重
 	unique: function(a, key) {
-		let res = []
-		let len = (a && a.length) || 0
+		var res = []
+		var len = (a && a.length) || 0
 		if(!len) return res
-		let jLen
-		for(let i = 0; i < len; i++) {
+		var jLen
+		for(var i = 0; i < len; i++) {
 			jLen = res.length
-			let j
+			var j
 			for(j = 0; j < jLen; j++) {
 				if(res[j][key] === a[i][key]) {
 					break
@@ -23,7 +23,7 @@ var methods = {
 		return JSON.parse(JSON.stringify(Obj))
 	},
 	payYearFilter: function(value) {
-		let mainSafeYear = this.insurance.safe_year
+		var mainSafeYear = this.insurance.safe_year
 		if(this.insurance.safe_id === 'NAF') {
 			if(mainSafeYear === 10 && ['10', '15', '20'].indexOf(value) > -1) {
 				return false
@@ -133,8 +133,11 @@ var methods = {
 			});
 
 			// 保险期间
-			let mainSyAttr = vm.unique(items[0].ratio, 'safe_year') // 去重
-			mainSyAttr = mainSyAttr.sort((a, b) => a.safe_year - b.safe_year) // 排序
+			var mainSyAttr = vm.unique(items[0].ratio, 'safe_year') // 去重
+			// mainSyAttr = mainSyAttr.sort((a, b) => a.safe_year - b.safe_year) // 排序
+            mainSyAttr = mainSyAttr.sort(function(a, b){// 排序
+                return a.pay_year - b.pay_year
+            })
 			vm.mainSyAttr = mainSyAttr
 			//长度为1直接赋值，不为1置为空
 			if(mainSyAttr.length === 1) {
@@ -143,8 +146,11 @@ var methods = {
 				vm.insurance.safe_year = ''
 			}
 			// 缴费年限
-			let mainPyAttr = vm.unique(items[0].ratio, 'pay_year') // 去重
-			mainPyAttr = mainPyAttr.sort((a, b) => a.pay_year - b.pay_year) // 排序
+			var mainPyAttr = vm.unique(items[0].ratio, 'pay_year') // 去重
+			// mainPyAttr = mainPyAttr.sort((a, b) => a.pay_year - b.pay_year)
+            mainPyAttr = mainPyAttr.sort(function(a, b){// 排序
+               return a.pay_year - b.pay_year
+			})
 			vm.mainPyAttr = mainPyAttr
 			if(mainPyAttr.length === 1) {
 				vm.insurance.pay_year = mainPyAttr[0].pay_year
@@ -212,7 +218,7 @@ var methods = {
 
 	},
 	// 重置主险费用及附加险
-	resetFee(fx) {
+	resetFee: function(fx) {
 		if(fx !== 'fxmz') { // 如果是复星门诊不清空
 			this.isBaseMoney ? this.insurance.period_money = '' : this.insurance.money = ''
 		} else {
@@ -231,10 +237,10 @@ var methods = {
 		}
 	},
 	// 校验主险
-	checkMainForm() {
+	checkMainForm: function() {
 		const safeid = this.insurance.safe_id
-		let toastText = null
-		let exp = /^(([1-9]\d{0,12})|0)(\.\d{1,2})?$/
+		var toastText = null
+		var exp = /^(([1-9]\d{0,12})|0)(\.\d{1,2})?$/
 
 		if(this.sc_id === '0') {
 			toastText = '请选择公司'
@@ -272,16 +278,16 @@ var methods = {
 		return true
 	},
 	// 校验主险投保年龄
-	checkMainAge(safeid) {
-		let applAge = this.appl.age
-		let assuAge = Number(this.assu.age)
-		let assuSex = this.assu.sex
-		let mainSafeYear = this.mainSafeYear
-		let mainPayYear = this.mainPayYear
-		let payOverage = mainPayYear + assuAge // 缴费期满年龄
+	checkMainAge: function(safeid) {
+		var applAge = this.appl.age
+		var assuAge = Number(this.assu.age)
+		var assuSex = this.assu.sex
+		var mainSafeYear = this.mainSafeYear
+		var mainPayYear = this.mainPayYear
+		var payOverage = mainPayYear + assuAge // 缴费期满年龄
 		var safeid = String(safeid)
-		let name = this.main.text
-		let toastText = null
+		var name = this.main.text
+		var toastText = null
 
 		switch(safeid) {
 			//泰康
@@ -570,12 +576,12 @@ var methods = {
 		return true
 	},
 	// 主险保额校验
-	checkMainMoney(safeid) {
-		let money = this.insurance.money
-		let periodMoney = this.insurance.period_money
-		let assuAge = Number(this.assu.age)
-		let name = this.main.text
-		let toastText = null
+	checkMainMoney: function(safeid) {
+		var money = this.insurance.money
+		var periodMoney = this.insurance.period_money
+		var assuAge = Number(this.assu.age)
+		var name = this.main.text
+		var toastText = null
 		var safeid = String(safeid)
 		switch(safeid) {
 			//泰康1
@@ -597,7 +603,7 @@ var methods = {
 				//国华
 			case '8109': // 盛世年年C款年金保险
 				if(money < 150000 || money % 10000 !== 0) {
-					toastText = '【' + name + '】最低保额为15万元，且为1万元整数倍'
+					toastText = '最低保额为15万元，且为1万元整数倍'
 				}
 				break
 			case '8110': // 国华华宝安行
@@ -756,10 +762,10 @@ var methods = {
 		return true
 	},
 	// 主险保费校验
-	checkMainFee(safeid) {
-		let toastText = null
-		let periodMoney = this.insurance.period_money
-		let money = this.insurance.money
+	checkMainFee: function(safeid) {
+		var toastText = null
+		var periodMoney = this.insurance.period_money
+		var money = this.insurance.money
 		if(this.isBaseMoney && !this.insurance.period_money && !this.fuBaseMoney) {
 			toastText = this.insurance.period_money === 0 ? '超出费率表计算范围，无法投保' : '请计算主险年缴保费'
 		} else if(!this.isBaseMoney && !this.insurance.money && !this.fuBaseMoney) {
@@ -786,11 +792,12 @@ var methods = {
 		}
 		if(toastText) {
 			mui.toast(toastText)
-			setTimeout(() => {
+			var vm = this
+			setTimeout(function(){
 				if(safeid === 'ANIA') {
-					this.insurance.money = ''
+                    vm.insurance.money = ''
 				} else {
-					this.insurance.period_money = ''
+                    vm.insurance.period_money = ''
 				}
 			}, 2000)
 			return false
@@ -804,7 +811,7 @@ var methods = {
 	 * @returns {boolean}
 	 */
 	// 校验关系
-	checkRS() {
+	checkRS: function() {
 		console.info('checkRS')
 		if(this.appl.name === this.assu.name &&
 			this.appl.sex === this.assu.sex &&
@@ -817,7 +824,7 @@ var methods = {
 		}
 	},
 	// 更改附加险状态
-	chAddonState(index) {
+	chAddonState: function(index) {
 		if(this.uploading) {
 			this.addonsSelected[index] = !this.addonsSelected[index]
 			this.$forceUpdate()
@@ -826,7 +833,7 @@ var methods = {
 		this.addonsSelected[index] = !this.addonsSelected[index]
 		this.$forceUpdate()
 		this.checkRS()
-		let toastText = null
+		var toastText = null
 		if(this.addonsSelected[index]) {
 			// 主险保费校验不合格
 			if(!this.checkMainFee(this.insurance.safe_id)) {
@@ -835,8 +842,8 @@ var methods = {
 				this.$forceUpdate()
 				return false
 			}
-			// let flag = this.flag[index]
-			let periodMoney = this.insurance.period_money
+			// var flag = this.flag[index]
+			var periodMoney = this.insurance.period_money
 
 			switch(this.insurance.safe_id) {
 				case 'HB023': // 恒久健康
@@ -1030,7 +1037,8 @@ var methods = {
 				toastText = '该附加险必须附加，不能取消'
 				mui.toast(toastText)
 				this.addonsSelected[index] = true
-				this.calMoney(false, index) // 试算附加险
+				mui('#addon' + index).switch().toggleAct();
+				return false;
 			} else if(index === '1168') {
 				this.flag[index] = ''
 				this.addonInsData = {}
@@ -1051,7 +1059,16 @@ var methods = {
 				this.$delete(this.addonInsData, '116503')
 				this.$delete(this.addonRes, '116503')
 				this.addonsSelected['116503'] = false
-			} else if(index === 'PFR' || index === 'CKRA') {
+			} else if(index === 'PFR') {
+				this.flag[index] = ''
+				this.flag['PFR1'] = ''
+				this.cache.base_moneyPFR = ''
+				this.$delete(this.addonInsData, index)
+				this.$delete(this.addonRes, index)
+				this.$delete(this.addonInsData, 'JER')
+				this.$delete(this.addonRes, 'JER')
+				this.addonsSelected['JER'] = false
+			}  else if(index === 'CKRA') {
 				this.$delete(this.addonInsData, index)
 				this.$delete(this.addonRes, index)
 				this.$delete(this.addonInsData, 'JER')
@@ -1060,7 +1077,6 @@ var methods = {
 			} else {
 				//            取消时 清除缓存的提交数据
 				this.flag[index] = ''
-				this.flag['PFR1'] = ''
 				this.$delete(this.addonInsData, index)
 				this.$delete(this.addonRes, index)
 				this.$delete(this.planList, index)
@@ -1068,15 +1084,22 @@ var methods = {
 			this.$forceUpdate()
 		}
 	},
-	flagChanged(id, num) {
+	flagChanged: function(id, num) {
 		this.addonRes[id] = null
 		this.flag[id] = num ? num : this.flag[id]
 		this.$forceUpdate()
 	},
 	// 重置附加险默认信息
-	resetAddon() {
-		let safeid = this.insurance.safe_id
-		if(safeid === 'NCUA' || safeid === 'NCWA') {
+	resetAddon: function() {
+		var safeid = this.insurance.safe_id
+		if(safeid === 'ANIA') {
+			this.flag['DAR'] = ''
+			this.flag['AMRB'] = ''
+			this.flag['HR'] = ''
+			this.cache.quotaHR = 2
+			this.flag['NADD'] = ''
+			this.cache.base_moneyNADD = 0
+		}else if(safeid == 'NAF' || safeid == 'NCR' || safeid == 'NCUA' || safeid == 'NCWA') {
 			this.flag['CBR'] = ''
 			this.cache.base_moneyCBR = ''
 			this.flag['PGR'] = ''
@@ -1085,14 +1108,6 @@ var methods = {
 			this.cache.base_moneyAMR = ''
 			this.flag['TLR'] = ''
 			this.cache.base_moneyTLR = ''
-		} else if(safeid === 'ANIA') {
-			this.flag['DAR'] = ''
-			this.flag['AMRB'] = ''
-			this.flag['HR'] = ''
-			this.cache.quotaHR = 2
-			this.flag['NADD'] = ''
-			this.cache.base_moneyNADD = 0
-		} else if(safeid === 'NAF' || safeid === 'NCR' || safeid === 'NCUA' || safeid === 'NCWA') {
 			this.flag['CKRA'] = ''
 			this.cache.base_moneyCKRA = ''
 			this.flag['PFR'] = ''
@@ -1127,7 +1142,7 @@ var methods = {
 		this.cache.derate_money12E20010 = ''
 		this.cache.derate_money1167 = ''
 		//		if (this.Addons) {
-		//        for (let i in this.Addons[safeid]) {
+		//        for (var i in this.Addons[safeid]) {
 		//          const j = this.Addons[safeid][i].safe_id
 		//          this.addonsSelected[j] = false
 		//        }
@@ -1140,14 +1155,14 @@ var methods = {
 		
 	},
 	// 校验附加险投保年龄
-	checkExtraAge(safeid) {
-		let assuAge = Number(this.assu.age)
-		let applAge = Number(this.appl.age)
-		let mainSafeYear = this.mainSafeYear
-		let mainPayYear = this.mainPayYear
-		let payOverage = Number(this.insurance.pay_year) - 1 + applAge // 期满年龄\
-		let name = this.Addons[safeid].name
-		let toastText = null
+	checkExtraAge: function(safeid) {
+		var assuAge = Number(this.assu.age)
+		var applAge = Number(this.appl.age)
+		var mainSafeYear = this.mainSafeYear
+		var mainPayYear = this.mainPayYear
+		var payOverage = Number(this.insurance.pay_year) - 1 + applAge // 期满年龄\
+		var name = this.Addons[safeid].name
+		var toastText = null
 		
 		switch(safeid) {
 			//泰康
@@ -1303,12 +1318,12 @@ var methods = {
 		return true
 	},
 	// 校验附加险保额
-	checkExtraForm(safeid) {
-		let toastText = null
-		let flag = Number(this.flag[safeid])
-		let periodMoney = this.insurance.period_money
-		let name = this.Addons[safeid].name
-		let assuAge = Number(this.assu.age)
+	checkExtraForm: function(safeid) {
+		var toastText = null
+		var flag = Number(this.flag[safeid])
+		var periodMoney = this.insurance.period_money
+		var name = this.Addons[safeid].name
+		var assuAge = Number(this.assu.age)
 		switch(safeid) {
 			//泰康
 			case 'RP8P':
@@ -1317,6 +1332,7 @@ var methods = {
 				}
 				break
 			case 'RSC': // 乐行天下  附加乐行天下意外伤害保险
+			case 'A47P': // 健康优享住院费用医疗保险
 				if(!flag) {
 					toastText = '请先选择保险金额'
 				}
@@ -1353,6 +1369,7 @@ var methods = {
 
 				//恒大
 			case 'HA005': // 恒大尊享安康
+           	case 'HA014': // 恒大恒久安心
 				if(!flag) {
 					toastText = '请先选择保险金额'
 				}
@@ -1360,7 +1377,7 @@ var methods = {
 			
 			case 'HA006': // 恒顺
 				if(toastText) break
-				let extraMoney = flag > 50000 ? flag.toString().substr(1) : flag
+				var extraMoney = flag > 50000 ? flag.toString().substr(1) : flag
 				if(!flag) {
 					toastText = '请先选择保险金额'
 				} else if(extraMoney > this.insurance.period_money * this.mainPayYear * 0.2 && ['290', '378', '401'].indexOf(this.insurance.safe_id) > -1) {
@@ -1382,6 +1399,7 @@ var methods = {
               toastText = '保险金额范围50-200元，且为10的整数'
             }
             break
+
 				//信泰
 			case '31A00050': // 附加百万健康两全保险
 				if(!flag) {
@@ -1628,8 +1646,8 @@ var methods = {
 		return true
 	},
 	// 校验附加险保费
-	checkExtraFee(safeid) {
-		let name = this.Addons[safeid].name
+	checkExtraFee: function(safeid) {
+		var name = this.Addons[safeid].name
 		if(!this.addonRes[safeid]){
 			mui.toast('请先计算【' + name + '】')
 			return false;
@@ -1642,22 +1660,22 @@ var methods = {
 	 * @param addonSafeid
 	 * @returns {boolean}
 	 */
-	calMoney(isMain, addonSafeid = 0) {
+	calMoney: function(isMain, addonSafeid) {
 		var vm = this
 		if(this.uploading) {
 			mui.toast('请勿连续点击！')
 			return false
 		}
 		this.uploading = true
-		setTimeout(() => {
-			this.uploading = false
+		setTimeout(function(){
+			vm.uploading = false
 		}, 1000)
 		const safeid = isMain ? this.insurance.safe_id : addonSafeid
 		if(!safeid) {
 			mui.toast('险种ID不正确')
 			return false
 		}
-		let genre = '';
+		var genre = '';
 		luckyAjax({
 			data: {
 				server: 'Proposal.getProductInfo',
@@ -1678,7 +1696,7 @@ var methods = {
 		});
 
 	},
-	calMoney1(isMain, safeid, genre) {
+	calMoney1: function(isMain, safeid, genre) {
 
 		this.mainPayYear = Number(this.insurance.pay_year)
 		this.mainSafeYear = Number(this.insurance.safe_year)
@@ -1700,7 +1718,7 @@ var methods = {
 				return false
 			}
 		}
-		let data = {
+		var data = {
 			user_id: user_id,
 			applicant: this.appl.name,
 			appl_sex: this.appl.sex === true ? 1 : 2,
@@ -1721,7 +1739,7 @@ var methods = {
 			alias: null
 		}
 		// 添加特殊参数
-		let filterSafeid = ['31A00050', '12D00080', "HB030", 'DAR', 'LA073']
+		var filterSafeid = ['31A00050', '12D00080', "HB030", 'DAR', 'LA073']
 		if(filterSafeid.indexOf(safeid) > -1) {
 			data = Object.assign(data, {
 				assume_rate: '0',
@@ -1768,9 +1786,9 @@ var methods = {
 			data.year_fee = this.insurance.period_money
 		}
 
-		let py = this.mainPayYear === 1 ? 1 : this.mainPayYear - 1 // 主险缴费期间减一年
-		let periodMoney = Number(this.insurance.period_money)
-		let money = Number(this.insurance.money)
+		var py = this.mainPayYear === 1 ? 1 : this.mainPayYear - 1 // 主险缴费期间减一年
+		var periodMoney = Number(this.insurance.period_money)
+		var money = Number(this.insurance.money)
 
 		// 险种参数
 		if(safeid === 'LA063') { // 恒大
@@ -1821,6 +1839,7 @@ var methods = {
 			data.pay_year = py
 			data.safe_year = py
 			data.year_fee = periodMoney
+			data.base_money = periodMoney
 		} else if(safeid === 'RH7B') { // 泰康 附加如意尊享住院费用B款医疗保险
 			data.pay_year = 1
 			data.safe_year = 1
@@ -1927,6 +1946,7 @@ var methods = {
 		} else if(safeid === 'DAR') { // 工银安盛-鑫丰盈年金保险-养老年金
 			data.pay_year = 1
 			data.safe_year = 10500
+			data.year_fee = 100
 			data.level = 0
 			data.flag = this.flag[safeid]
 			data.ylnj = 0
@@ -1954,9 +1974,7 @@ var methods = {
 			data.safe_year = 1
 			data.derate_money = this.cache.derate_money12E20010
 			data.flag = this.cache.derate_money12E20010
-			this.addonRes[safeid] = {
-				'年缴保费': this.cache.derate_money12E20010
-			}
+			data.year_fee = this.cache.derate_money12E20010
 		} else if(safeid === 'NCUA') { // 中英爱守护zhu
 			data.pay_year = this.mainPayYear
 			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
@@ -2100,7 +2118,7 @@ var methods = {
 							j = index
 						}
 					})
-					let data = ret.list[1]
+					var data = ret.list[1]
 					if(vm.isBaseMoney && !vm.fuBaseMoney) {
 						vm.insurance.period_money = data[i]
 					} else if(vm.isBaseMoney && vm.fuBaseMoney) {
@@ -2114,7 +2132,7 @@ var methods = {
 						vm.resetAddon()
 					}
 					vm.checkMainFee(safeid)
-					let list = {  //主险要把公司信息也带回去，方便编辑功能
+					var list = {  //主险要把公司信息也带回去，方便编辑功能
 						name: ret.name,
 						safe_id: safeid,
 						safe_year: vm.insurance.safe_year,
@@ -2153,13 +2171,13 @@ var methods = {
 					}
 					vm.$forceUpdate()
 					
-					let list = {
+					var list = {
 						name: res.name,
 						safe_id: safeid,
 						safe_year: ret.data.data[-1][genre].safe_year,
 						pay_year: ret.data.data[-1][genre].pay_year,
 						money: ret.data.data[-1][genre].base_money, // 基本保险金额
-						period_money: ret.data.data[-1][genre].year_fee || vm.addonRes[safeid]['年缴保费'] || vm.addonRes[safeid]['年缴保费(元)']|| vm.addonRes[safeid]['累计保费'] || vm.addonRes[safeid]['门诊总保费'], // 年交保费
+						period_money: vm.addonRes[safeid]['年缴保费'] || vm.addonRes[safeid]['年缴保费(元)']|| vm.addonRes[safeid]['累计保费'] || vm.addonRes[safeid]['门诊总保费'] || ret.data.data[-1][genre].year_fee, // 年交保费
 						flag: ret.data.data[-1][genre].flag,
 						fj: true
 					}
@@ -2171,7 +2189,7 @@ var methods = {
 		});
 
 	},
-	checkIns() {
+	checkIns: function() {
 		if(!this.checkMainForm()) {
 			return false
 		} else if(!this.checkMainFee(this.insurance.safe_id)) {
@@ -2182,8 +2200,8 @@ var methods = {
 			mui.toast('请乐行天下先计算主险保费')
 			return false
 		}
-		let bool = true
-		for(let i in this.addonsSelected) {
+		var bool = true
+		for(var i in this.addonsSelected) {
 			if(this.addonsSelected[i] && !this.checkExtraForm(i)) {
 				bool = false
 			}
@@ -2191,9 +2209,10 @@ var methods = {
 				bool = false 
 			}
 		}
-		mustSelected.forEach(item => {
-			if(this.Addons[item] && !this.addonsSelected[item]) {
-				let name = this.Addons[item].name
+		var vm  = this
+		mustSelected.forEach(function(index, item){
+			if(vm.Addons[item] && !vm.addonsSelected[item]) {
+				var name = vm.Addons[item].name
 				mui.toast('【' + name + '】为必选')
 				bool = false
 			}

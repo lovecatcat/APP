@@ -112,6 +112,7 @@
 							})
 				        },
 				        success: function (ret) {
+//				        	alert(JSON.stringify(ret))
 							if (ret.code == 1) {
 								var data = ret.data 
 								if(i == 1 && i == data.totalPage) {
@@ -145,7 +146,7 @@
 				
 				// 日期选择
 				var dates = $('.search-date');
-				dates.each(function(i, d) {
+				dates.each(function(j, d) {
 					d.addEventListener('tap', function() {
 						var optionsJson = this.getAttribute('data-options') || '{}';
 						var options = JSON.parse(optionsJson);
@@ -153,10 +154,11 @@
 						var picker = new $.DtPicker(options);
 						picker.show(function(rs) {
 							_this.querySelector('.date').innerHTML = rs.text;
-							salary.start_time = rs.text;
-							salary.end_time = rs.text;
+							salary.start_time = rs.text.replace(/-/g, "");//取消字符串中出现的所有-号 ;
+							salary.end_time = rs.text.replace(/-/g, "");//取消字符串中出现的所有-号 ;
 							picker.dispose();
 							
+							i = 0
 							salary.list = []
 							self.refresh(true)
 							// 回到顶部

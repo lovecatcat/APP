@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="utf-8">
 		<title></title>
@@ -12,10 +11,8 @@
 		<script src="js/config.js" type="text/javascript"></script>
 
 	</head>
-
 	<body class="BL-bg-f2f">
 		<div id="prospect">
-
 			<header id="Js-header" class="BL-bg-fff">
 				<div class="BL-mod-headbar BL-mod-headbar-pos">
 					<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
@@ -44,11 +41,9 @@
 					</div>
 				</div>
 				<!--方案名称 end -->
-
 			</header>
 
 			<div id="Js-content" class="mui-content BL-overFlow-autoY">
-
 				<!--投保人信息 begin -->
 				<div class="BL-bg-fff prospect-info BL-mar-t-1">
 					<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
@@ -145,7 +140,7 @@
 							<div class="BL-pad-lr-1_5 BL-pad-t-2 BL-bg-fff">
 								<div class="BL-ub plans-total-content BL-pad-b-1">
 									<div class="BL-ub-f4">
-										<span class="BL-col-ff8201 plans-total-font BL-ftz-46" v-if="item.fj">[附加]</span>
+										<span class="BL-col-ff8201 plans-total-font BL-ftz-46" v-if="item.fj && item.safe_id !== 'LJYSMZ' && item.safe_id !== 'A47P'">[附加]</span>
 										<span class="plans-total-font BL-ftz-46">{{item.name}}</span>
 										<div class="plans-total-font BL-ftz-42">首年保费:{{item.period_money}}</div>
 									</div>
@@ -162,8 +157,9 @@
 										<span>首年保费</span>
 									</li>
 									<li>
-										<span>{{(item.money).toFixed(2)}}</span>
-										<span>{{item.safe_year , item.safeid | safeYearFilter}}</span>
+										<span v-if="item.money && item.safe_id !== 'DAR' && item.safe_id !== 'HI' && item.safe_id !== 'RP8P'">{{Number(item.money).toFixed(2)}}</span>
+										<span v-else>—</span>
+										<span>{{item.safe_year , item.safe_id | safeYearFilter}}</span>
 										<span>{{item.pay_year | payYearFilter}}</span>
 										<span class="hm-color__red year_fee">{{item.period_money}}</span>
 									</li>
@@ -171,13 +167,10 @@
 
 							</div>
 							<!--主险信息 end -->
-
 						</div>
-						
 						<div class="clearfloat BL-pad-b-1">
 							<button class="BL-btn-white BL-ftz-42 BL-mar-t-1 BL-pad-lr-2 prospect-info-button BL-hide">+添加附加险</button>
 						</div>
-
 					</template>
 				</div>
 				<!--险种信息 end -->
@@ -211,11 +204,7 @@
 				plan_id: 1, //当前的数据
 				plans: [{
 					id: 1,
-					ins: [{
-						main: {},
-						addon: {},
-						insurance: {}
-					}],
+					ins: [],
 					appl: {
 						age: '',
 						name: '',
@@ -250,49 +239,44 @@
 			},
 			watch: {
 				appl: {
-					handler(val) {
+					handler: function(val) {
 						//更改了数据
 						for(var i = 0; i < prospect.plans.length; i++) {
 							if(prospect.plans[i].id == prospect.plan_id) {
 								prospect.plans[i].appl = val
 							}
 						}
-						
 						this.appl.birthday&&getAge(val.birthday, 0)
 					},
 					deep: true
 				},
 				assu: {
-					handler(val) {
+					handler: function(val) {
 						for(var i = 0; i < prospect.plans.length; i++) {
 							if(prospect.plans[i].id == prospect.plan_id) {
 								prospect.plans[i].assu = val
 								if(this.clickNav){ // 切换为未点击nav的状态
 									this.clickNav = false
 								}else{ //未点击nav状态改变值
-									prospect.plans[i].ins = [{
-										main: {},
-										addon: {},
-										insurance: {}
-									}];
+									prospect.plans[i].ins = [];
 									prospect.planList[prospect.plan_id] = [];
 									count()
 								}
-								
 							}
 						}
 						this.assu.birthday&&getAge(val.birthday)
 					},
 					deep: true
 				}
-
 			},
 			filters: {
 				safeYearFilter: function(value, safeid) {
-					if(value == 25 && safeid == '1166'){
+					if(value == 2500 && safeid == '1167'){
 						return '至25岁';
 					}else if(value == 10000 && safeid == '3188'){
 						return '至100岁';
+					} else if(value == 10500 && safeid == 'DAR'){
+						return '至105岁';
 					} else if(value > 50 && value !== '999' && value !== 999) {
 						return '至' + value + '岁';
 					} else if(value < 50 && value > 0) {
@@ -457,7 +441,9 @@
 			            id: 'communic',
 			            show: animateObj.aniDetal,
 			            extras:{
-							type: 'onlineIns'
+			            	pageid: 'prospect_product',
+			            	tip: 1,
+							flag: 'onlineIns'
 						}
 			        }) 
 				},
@@ -471,7 +457,6 @@
 						formID: 'prospect_product',
 						goIns_data: index
 					}
-
 					showPopu("popup-content.html", "popup_content", 'center', data);
 					event.stopPropagation()
 				},
@@ -490,7 +475,6 @@
 
 		mui.plusReady(function() {
 			statusbar();
-
 			var winH = window.innerHeight;
 			var topHeight = document.querySelector('#Js-header').offsetHeight;
 			var fotHeight = document.querySelector('#Js-footer').offsetHeight;
@@ -552,12 +536,12 @@
 			});
 			//时间
 			getAge = function(birthday, i) {
-				let now = new Date()
-				let year = now.getFullYear()
-				let month = now.getMonth() + 1
-				let day = now.getDate()
-				let r = birthday.split('-').map(item => parseInt(item))
-				let age = year - r[0]
+				var now = new Date()
+				var year = now.getFullYear()
+				var month = now.getMonth() + 1
+				var day = now.getDate()
+				var r = birthday.split('-').map(item => parseInt(item))
+				var age = year - r[0]
 				if(r[1] > month || (r[1] === month && r[2] > day)) { // 当月
 					age -= 1
 				}
@@ -571,7 +555,7 @@
 			};
 			count = function(){
 				//算总保费
-					let count = 0;
+					var count = 0;
 					for(var i in prospect.planList) {
 						var item = prospect.planList[i]
 							for(var j = 0; j < item.length; j++) {
@@ -579,7 +563,6 @@
 									count += Number(item[j][k].period_money)
 								}
 							}
-						
 					}
 					prospect.count = count.toFixed(2)
 			};
@@ -602,7 +585,6 @@
 		                	}else{
 		                		prospect.assu.name = info.name;
 		                	}
-
 		                }
 			        }
 				});
@@ -613,11 +595,7 @@
 				prospect.max_id++;
 				var data = {
 					id: prospect.max_id,
-					ins: [{
-						main: {},
-						addon: {},
-						insurance: {}
-					}],
+					ins: [],
 					appl: {
 						name: '',
 						name: '',
@@ -661,7 +639,6 @@
 					});
 					mui.trigger(btn, 'tap');
 				}, 100)
-
 			});
 
 			//确认删除
@@ -687,28 +664,25 @@
 				prospect.$forceUpdate()
 //				alert(JSON.stringify(prospect.plans))
 //				alert(JSON.stringify(prospect.planList))
-
 			});
 			//接收没有完成的险种数据
 			window.addEventListener('SET_TIME', function(event) {
 				var data = event.detail.ins
 				prospect.planTime = data
 //				alert(JSON.stringify(prospect.planTime))
-
 			});
 			//不添加，即生成
 			window.addEventListener('pushPlan', function(event) {
-				let data = []
-				let fristChild = []
-				let otherChild = []
-				for(let i = 0; i < prospect.plans.length; i++) {
-					let id = prospect.plans[i].id
-					prospect.plans[i].ins.splice(0, 1)
-					let planIns = prospect.plans[i].ins
+				var data = []
+				var fristChild = []
+				var otherChild = []
+				for(var i = 0; i < prospect.plans.length; i++) {
+					var id = prospect.plans[i].id
+					var planIns = prospect.plans[i].ins
 
-					for(let j = 0; j < planIns.length; j++) {
+					for(var j = 0; j < planIns.length; j++) {
 						if(!planIns[j]) continue
-						let item = prospect.parseVueObj(planIns[j])
+						var item = prospect.parseVueObj(planIns[j])
 						item.main.alias = prospect.alias
 						item.main.is_save = 1
 						item.main.warranty_year = 105
@@ -721,7 +695,7 @@
 						} else {
 							otherChild.push(item.main)
 						}
-						for(let k in item.addon) {
+						for(var k in item.addon) {
 							if(!item.addon[k]) continue
 							item.addon[k].is_save = 1
 							item.addon[k].warranty_year = 105
@@ -787,7 +761,6 @@
 				            })
 				        },
 				        success:function(res){
-
 							if(res.code == 1){
 								var id = res.data.data[0].pl_id
 								mui.openWindow({
@@ -798,17 +771,12 @@
 										pl_id: id //pl_id
 									}
 								});
-								
 								prospect.alias= '';
 								prospect.max_id= 1; //id叠加
 								prospect.plan_id= 1; //当前的数据
 								prospect.plans= [{
 									id: 1,
-									ins: [{
-										main: {},
-										addon: {},
-										insurance: {}
-									}],
+									ins: [],
 									appl: {
 										age: '',
 										name: '',
@@ -839,13 +807,10 @@
 								prospect.planTime= {}; //临时保存的数据
 								prospect.edit= false //是不是编辑状态
 							}
-
 				        }
 					});
 		        }
-
 			});
-
 		});
 	</script>
 

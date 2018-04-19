@@ -71,22 +71,22 @@
 									</div>
 									<div class="BL-txt-r button">
 										<template v-if="item.company_name == '恒大人寿'">
-											<a class="BL-btn-white BL-pad-lr-2 BL-mar-r-1">纸质回执</a>
-											<button class="BL-btn-white BL-pad-lr-2" v-if="item.email_state == ''||item.receipt_state == '' ">邮件待发送</button>
-											<button class="BL-btn-white BL-pad-lr-2" v-else-if="item.email_state == '0'">邮件待发送</button>
-											<button class="BL-btn-white BL-pad-lr-2" v-else-if="item.email_state == '2'">邮件发送中</button>
-											<button class="BL-btn-white BL-pad-lr-2" v-else-if="item.email_state == '10'">邮件无法发送</button>
-											<button class="BL-btn-white BL-pad-lr-2" v-else-if="item.email_state == '12'">邮件退回</button>
-											<button class="BL-btn-white BL-pad-lr-2" v-else-if="item.email_state == '22'">邮件错误</button>
-											<button class="BL-btn-white BL-pad-lr-2" v-else-if="item.email_state == '23'">保存错误</button>
-											<button class="BL-btn-white BL-pad-lr-2" v-else-if="item.email_state == '-1'">发送异常</button>
-											<button class="BL-btn-white BL-pad-lr-2" v-else-if="item.receipt_state == '0'">回执通过</button>
-											<button class="BL-btn-white BL-pad-lr-2" v-else-if="item.receipt_state == '1' && ['11','21'].indexof(item.email_state) > -1">回执未通过</button>
-											<button class="BL-btn-white BL-pad-lr-2" v-else-if="item.receipt_state == '2'">回执未处理</button>
-											<button class="BL-btn-white BL-pad-lr-2" v-else-if="item.receipt_state == '3' && ['11','21'].indexof(item.email_state) > -1">未回执</button>
-											<button class="BL-btn-white BL-pad-lr-2" v-else-if="item.receipt_state == '4'">影像上传中</button>
-											<button class="BL-btn-white BL-pad-lr-2" v-else-if="item.receipt_state == '5' && ['11','21'].indexof(item.email_state) > -1">影像上传失败</button>
-											<button class="BL-btn-white BL-pad-lr-2" v-else-if="item.receipt_state == '6'">已线下处理</button>
+											<a class="BL-btn-white BL-pad-lr-1 BL-mar-r-1">纸质回执</a>
+											<button class="BL-btn-white BL-pad-lr-1" v-if="item.email_state == ''||item.receipt_state == '' ">邮件待发送</button>
+											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.email_state == '0'">邮件待发送</button>
+											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.email_state == '2'">邮件发送中</button>
+											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.email_state == '10'">邮件无法发送</button>
+											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.email_state == '12'">邮件退回</button>
+											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.email_state == '22'">邮件错误</button>
+											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.email_state == '23'">保存错误</button>
+											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.email_state == '-1'">发送异常</button>
+											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.receipt_state == '0'">回执通过</button>
+											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.receipt_state == '1' && ['11','21'].indexof(item.email_state) > -1">回执未通过</button>
+											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.receipt_state == '2'">回执未处理</button>
+											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.receipt_state == '3' && ['11','21'].indexof(item.email_state) > -1">未回执</button>
+											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.receipt_state == '4'">影像上传中</button>
+											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.receipt_state == '5' && ['11','21'].indexof(item.email_state) > -1">影像上传失败</button>
+											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.receipt_state == '6'">已线下处理</button>
 										</template>
 										<a :data-wid="item.policy_id" href="member-warranty-manageLife-detail.html" class="BL-btn-blue BL-pad-lr-2 BL-mar-l-1">详情</a>
 									</div>

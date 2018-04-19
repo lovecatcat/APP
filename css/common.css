@@ -503,7 +503,10 @@ i {
 	line-height: 1.25rem;
 }
 
-/* 去掉边框线 */
+/* 边框线 */
+.BL-Border-b{
+	border-bottom: 1px solid #e7e7e7;
+}
 .BL-noBorder-b{
 	border-bottom: 0 none !important;
 }

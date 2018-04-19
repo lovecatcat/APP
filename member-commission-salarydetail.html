@@ -16,7 +16,7 @@
 		<header id="Js-header" class="BL-bg-fff">
 			<div class="BL-mod-headbar BL-mod-headbar-pos">
 				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
-				<h1 class="BL-title" id="title"></h1>
+				<h1 class="BL-title" id="title">&nbsp;</h1>
 			</div>
 		</header>
 		
@@ -92,14 +92,13 @@
 			var winH = window.innerHeight;
 			var titHeight = document.querySelector('#Js-header').offsetHeight;
 			document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
-			
 			window.addEventListener('salaryId',function(e){
 				var date_salary = e.detail.date_salary;
 				document.getElementById('title').innerText = (date_salary.substring(0,4) + '年' + date_salary.substring(4,6) + '月')
 				getSalaryDetail(date_salary)
 			});
 		});
-	
+		
 		function getSalaryDetail (date_salary) {
 			luckyAjax({
 				data: {

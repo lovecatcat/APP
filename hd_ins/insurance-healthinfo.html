@@ -669,15 +669,16 @@
                             <label class="">{{item.title}}</label>
                             <div class="input-wrap box-f-1">
                                 <input type="date" v-model="item.value" placeholder="请选择" @change="$parent.change(item)">
-                                <div class="ins-date-icon"></div>
                             </div>
                         </div>
                         <div class="input-item" v-else-if="item.type=='select'">
                         	<label class="">{{item.title}}</label>
-	                        <select v-model="item.value" @change="$parent.change(item)">
-				              <option disabled value="">请选择</option>
-				              <option :value="ind" v-for="(ite,ind) in item.options" :key="ind">{{ite}}</option>
-				            </select>
+                        	<div class="input-wrap box-f-1">
+                                <select class="input" v-model="item.value" @change="$parent.change(item)">
+                                  <option disabled value="">请选择</option>
+                                  <option :value="ind" v-for="(ite,ind) in item.options" :key="ind">{{ite}}</option>
+                                </select>
+                            </div>
                         </div>
                     	<textarea name="" placeholder="请说明" v-else-if="item.type=='textarea'" v-model="item.value" @change="$parent.change(item)"></textarea>
                     </div>

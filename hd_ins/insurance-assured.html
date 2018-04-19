@@ -262,11 +262,9 @@
                 </div>
                 <div class="input-item box-f-1">
                     <div class="box-f-3 ins-font-sm BL-col-3b9cf5">是否已参加当地社会基本医疗保险（或公费医疗）？</div>
-                    <div class="box-f-1 ins-switch">
-                        <div class="mui-switch mui-switch-mini"
-                             @click="assured.insured_has_SSID=!assured.insured_has_SSID">
-                            <div class="mui-switch-handle"></div>
-                        </div>
+                    <div class="input-switch">
+                        <input type="checkbox" class="switch" v-model="assured.insured_has_SSID"/>
+                        <label></label>
                     </div>
                 </div>
             </div>
@@ -276,7 +274,7 @@
 
 </div>
 </body>
-<script src="../js/mui.min.js" type="text/javascript"></script>
+<script src="../js/mui.js" type="text/javascript"></script>
 <script src="../js/vue.min.js" type="text/javascript"></script>
 <script src="../js/mui.picker.js"></script>
 <script src="../js/mui.poppicker.js"></script>
@@ -358,6 +356,7 @@
             }
         },
         created: function () {
+            console.log('assured-created')
             //字段初始化
             this.assured.insured_gender = MALE;
             this.assured.insured_nation = NATION;
@@ -406,6 +405,7 @@
     });
 
     mui.plusReady(function () {
+        console.log('plus-ready')
         var init = plus.webview.currentWebview().data;
         assu.init = init;
         var applicant = JSON.parse(plus.storage.getItem('hengda_applicant'))

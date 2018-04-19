@@ -128,7 +128,7 @@
                                 var arrange = res.data.list
                                 console.log(JSON.stringify(res))
                                 mui.each(arrange, function (index, item) {
-                                    htm += '<li data-id="' + item.card_no + '" data-type="2" class="mui-table-view-cell mui-indexed-list-item">' + item.user_name + '</lidata-id>';
+                                    htm += '<li data-id="' + item.id + '" data-type="2" class="mui-table-view-cell mui-indexed-list-item">' + item.user_name + '</lidata-id>';
                                 });
                                 group.innerHTML = htm;
                                 new mui.IndexedList(list); // 初始化

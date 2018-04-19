@@ -302,7 +302,7 @@
                 safeitem.fee = item.period_money
                 safeitem.amount = item.money
                 totalfee += Number(item.period_money)
-                if (item.safe_id === qwhh) {
+                if (item.safe_id.toString() === qwhh) {
                     safeitem.quantity = (item.money / 50000).toString()
                 }
                 safeitem.extend_items = {
@@ -348,7 +348,8 @@
             pushdata.extend_items = extend_items
 
             console.log('==================')
-            console.log(JSON.stringify(pushdata))
+            console.log(JSON.stringify(pushdata.content))
+//            console.log(JSON.stringify(pushdata))
 
             save_ins(pushdata);
         });

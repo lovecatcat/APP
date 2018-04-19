@@ -319,18 +319,18 @@
         })
     })
     //通讯录2
-//    mui('body').on('tap', '.search-icon', function () {
-//        mui.openWindow({
-//            url: '../communic.html',
-//            id: 'communic',
-//            show: animateObj.aniDetal,
-//            extras:{
-//                pageid: 'hd-insurance-applicant',
-//                tid: 2,
-//                flag: 'onlineIns'
-//			}
-//        })
-//    })
+    mui('body').on('tap', '.search-icon', function () {
+        mui.openWindow({
+            url: '../communic.html',
+            id: 'communic',
+            show: animateObj.aniDetal,
+            extras:{
+                pageid: 'hd-insurance-applicant',
+                tid: 2,
+                flag: 'onlineIns'
+			}
+        })
+    })
 
     var appl = new Vue({
         el: '#Js-content',
@@ -600,6 +600,7 @@
         window.addEventListener('getMemberId', function (event) {
 	        var memberid = event.detail.id
 	        var type = event.detail.type
+            console.log('appl-getMemberId' + '===type:' + type + typeof type)
             if (type === 1) {
                 luckyAjax({
                     data: {
@@ -633,7 +634,7 @@
                 luckyAjax({
                     data: {
                         server: 'team.getHistoryUserInfo',
-                        data: JSON.stringify({card_no:memberid})
+                        data: JSON.stringify({user_id:memberid})
                     },
                     success:function(data){
                         if(data.code){

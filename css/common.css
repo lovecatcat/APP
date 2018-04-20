@@ -736,4 +736,10 @@ input[type='color']{
 .mui-indexed-list .mui-table-view-cell:after{
 	left: 1rem;
 }
+/* 单行溢出省略号 */
+.BL-ellipsis {
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
 

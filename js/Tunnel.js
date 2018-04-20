@@ -31,7 +31,7 @@ var Tunnel = {
      * 是否停止全局请求
      */
     _isStop: false,
-
+    
     /**
      * 创建WS实例
      * @param uid 用户ID
@@ -39,12 +39,13 @@ var Tunnel = {
      * @param action 事件处理
      * @constructor
      */
-    Create: function (uid, flag, action) {
+    Create: function (uid, flag, _location, action) {
         if(typeof(uid) != 'undefined' && typeof(flag) != 'undefined' && typeof(action) != 'undefined'){
             Tunnel._message.uid = uid;
             Tunnel._message.flag = flag;
             Tunnel._message.platform = navigator.platform;
             Tunnel._message.userAgent = navigator.userAgent;
+	        Tunnel._message.location = _location;
             Tunnel._action = action;
         }
 
@@ -72,11 +73,12 @@ var Tunnel = {
             }
         };
         Tunnel._webSocket.onopen = function () {
-            Tunnel._message.type = 1;
-
+			Tunnel._message.type = 1;
+           
             /* 发送登入请求 */
-            Tunnel._webSocket.send(JSON.stringify(Tunnel._message));
-
+			Tunnel._webSocket.send(JSON.stringify(Tunnel._message));
+            
+			
             //心跳检测重置
             Tunnel.HeartCheck.reset().start();
         };

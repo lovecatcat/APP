@@ -180,30 +180,33 @@ var asDays = function (days) {
 };
 //证件有效期校验
 var checkTerm = function (term, owner, e) {
+    console.log('checkTerm:'+term+';'+owner)
     var toast_text = null
     if (!term || term === '0000-00-00') {
-        toast_text = '证件有效期不能为空'
+        toast_text = owner + '证件有效期不能为空'
     } else if (/\d{4}(-|\/)\d{2}(-|\/)\d{2}(-|\/)/.test(term)) {
-        toast_text = '有效日期格式不正确'
+        toast_text = owner + '有效日期格式不正确'
     } else if ((new Date(term).getTime() - asDays(-1)) < 0) {
-        toast_text = '证件已过有效期'
+        toast_text = owner + '证件已过有效期'
     }
     const yearTime = 365 * 24 * 60 * 60 * 1000
     var age = ''
     if (owner === '投保人') {
         age = getAge(e.holder_birthday)
-    } else if (owner === '投保人') {
+    } else if (owner === '被保人') {
         age = getAge(e.insured_birthday)
+    } else {
+        age = getAge(e.beneficiary.birthday)
     }
     if (age) {
         console.log(owner +'age:'+age+'term:'+term)
         if (age >= 15 && age <= 25) {
             if ((new Date(term).getTime() - asDays(-1)) > 10 * yearTime) {
-                toast_text = '证件有效期错误'
+                toast_text = owner + '证件有效期错误'
             }
         } else if (age > 25 && age <= 45) {
             if ((new Date(term).getTime() - asDays(-1)) > 20 * yearTime) {
-                toast_text = '证件有效期错误'
+                toast_text = owner + '证件有效期错误'
             }
         }
     }

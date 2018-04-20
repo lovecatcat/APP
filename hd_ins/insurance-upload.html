@@ -170,12 +170,12 @@
             '01': 'appl_negative_img',
             '08': 'bank_front_img'
         }
-        if (assured && assured.insured_ID_type === IDcard) {
+        if (assured.rel_insured_holder!==ISASSURED && assured.insured_ID_type === IDcard) {
             tempName['02'] = 'assu_front_img'
             tempName['03'] = 'assu_negative_img'
-        } else if (assured && assured.insured_ID_type === BOOKLET) {
+        } else if (assured.rel_insured_holder!==ISASSURED && assured.insured_ID_type === BOOKLET) {
             tempName['04'] = 'assu_booklet_img'
-        } else if (assured && assured.insured_ID_type === BORNid) {
+        } else if (assured.rel_insured_holder!==ISASSURED && assured.insured_ID_type === BORNid) {
             tempName['05'] = 'assu_born_img'
         }
         for (var i in tempName) {

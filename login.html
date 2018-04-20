@@ -8,6 +8,7 @@
     <link href="css/common.css" rel="stylesheet"/>
     <link href="css/module.css" rel="stylesheet"/>
     <link href="css/form.css" rel="stylesheet"/>
+    <link href="css/sns.css" rel="stylesheet" />
     <link href="css/member.css" rel="stylesheet"/>
     <script src="js/config.js" type="text/javascript"></script>
 </head>
@@ -58,11 +59,11 @@
                 </li>
                 <li class="BL-ub BL-ub-ac member-login-item">
                     <div class="login-ico-phone BL-bimg-contain"></div>
-                    <input class="BL-ub BL-ub-f1" v-model="tel" placeholder="请输入手机号"/>
+                    <input class="BL-ub BL-ub-f1" type="number" v-model="tel" placeholder="请输入手机号"/>
                 </li>
                 <li class="BL-ub BL-ub-ac member-login-item">
                     <div class="login-ico-pwd BL-bimg-contain"></div>
-                    <input class="BL-ub BL-ub-f1" v-model="codesms" placeholder="请输入验证码"/>
+                    <input class="BL-ub BL-ub-f1" type="number" v-model="codesms" placeholder="请输入验证码"/>
                     <span class="login-sms-btn BL-col-999" @click="sendCode">{{text}}</span>
                 </li>
             </ul>
@@ -79,10 +80,10 @@
                 </div>
             </div>
         </div>
-        <div class="other-login" style="position: absolute;left: 0;bottom: 4.5625rem;width: 100%;margin: 0;">
+        <!--<div class="other-login" style="position: absolute;left: 0;bottom: 4.5625rem;width: 100%;margin: 0;">
             <div class="line-m">
         <span>
-        <!--<span>其他登录方式</span>
+        <span>其他登录方式</span>
         </span>
             </div>
             <div class="BL-ub BL-ub-ac BL-ub-pc BL-mar-t-2">
@@ -90,6 +91,32 @@
                 <div class="other-login-ico login-ico-QQ BL-bimg-contain"></div>
             </div>
         </div>-->
+
+        <!--首次登录-->
+        <div class="mui-backdrop" v-if="flag"></div>
+        <div class="BL-modal-sns BL-pad-tb-1_5" v-if="flag">
+            <div class="input-item BL-ub BL-ub-ac BL-ub-pc">
+                <label>密码</label>
+                <div class="input-wrap box-f-1">
+                    <input type="password" placeholder="请输入" v-model="pwd1">
+                </div>
+            </div>
+            <div class="input-item BL-ub BL-ub-ac BL-ub-pc">
+                <label>确认密码</label>
+                <div class="input-wrap box-f-1">
+                    <input type="password" placeholder="请输入" v-model="pwd2">
+                </div>
+            </div>
+
+            <div class="input-item BL-ub BL-ub-ac BL-ub-pc">
+                <label></label>
+                <div class="input-wrap box-f-1">
+                    <button class="sns-btn blue" @click="setpwd">确定</button>
+                    <button class="sns-btn grey BL-mar-l-1" @click="flag=false">取消</button>
+                </div>
+            </div>
+        </div>
+        <!--首次登录-->
     </div>
 </div>
 <script src="js/mui.min.js" type="text/javascript"></script>
@@ -99,22 +126,26 @@
     mui('body').on('tap', '.a-link', function () {
         var href = this.getAttribute('href');
         var id = this.getAttribute("data-wid");
-
-        //打开新窗口
-        mui.openWindow({
-            url: href,
-            id: id,
-            show: animateObj.aniDetal
-        })
-    })
+        if (href) {
+            //打开新窗口
+            mui.openWindow({
+                url: href,
+                id: id,
+                show: animateObj.aniDetal
+            })
+        }
+    });
     var login = new Vue({
         el: '#login-wrap',
         data: {
-            login_type: 1, //1用户名登录  2手机验证码登录
+            pwd1: '',
+            pwd2: '',
+            flag: false, //登录成功标志且为第一次登录
+            login_type: 2, //1用户名登录  2手机验证码登录
             pwd_type: 2, //1明文  2密文
             user_name: '', //用户名
             password: '', //密码
-            channel_id: '2', //渠道号
+            channel_id: '', //渠道号
             tel: '', //手机号
             codesms: '', //验证码
             disabled: false,
@@ -127,6 +158,42 @@
             }
         },
         methods: {
+            setpwd: function() {
+                var toast_text = null
+                if (!this.pwd1) {
+                    toast_text = '请输入新的登录密码'
+                } else if (!/^[0-9a-zA-Z]{8}$/.test(this.pwd1)) {
+                    toast_text = '密码格式应为8位的字母数字组合'
+                } else if (!this.pwd2) {
+                    toast_text = '请再次输入密码'
+                } else if (!/^[0-9a-zA-Z]{8}$/.test(this.pwd2)) {
+                    toast_text = '密码格式应为8位的字母数字组合'
+                } else if (this.pwd1 !== this.pwd2) {
+                    toast_text = '两次密码输入不一致'
+                }
+                if (toast_text) {
+                    mui.toast(toast_text, {duration: 'short', type: 'div'});
+                    return false;
+                }
+                luckyAjax({
+                    data: {
+                        data: JSON.stringify({tel: this.tel, code: this.codesms, password: this.pwd1}),
+                        server: 'user.resetPassword'
+                    },
+                    success: function (data) {
+                        if (data.code === 1) {
+                            mui.toast('操作成功', {duration: 'short', type: 'div'})
+                            plus.storage.setItem('notfirstlogin', '1');
+                            console.log('aaaaaaaaa'+plus.storage.getItem('notfirstlogin'));
+                            console.log('bbbb'+plus.storage.getItem('userinfo'));
+                            plus.runtime.restart();
+                        } else {
+                            mui.toast(data.msg, {duration: 'short', type: 'div'})
+                            return false;
+                        }
+                    }
+                });
+            },
             //发送验证码
             sendCode: function () {
                 var tel = this.tel
@@ -155,26 +222,24 @@
                             mui.toast(data.msg, {duration: 'short', type: 'div'})
                             return false;
                         }
-                    },
-                    error: function (xhr, type, errorThrown) {
-                        mui.toast(errorThrown, {duration: 'short', type: 'div'})
-                        return false
                     }
                 });
             },
             run: function () {
                 this.time = this.second
-                login.timer()
+                this.timer()
             },
             sended: function () {
-                mui.toast('发送验证码', {duration: 'short', type: 'div'})
-                this.run()
+                mui.toast('发送成功', {duration: 'short', type: 'div'})
+                login.run()
                 this.disabled = true
             },
             timer: function () {
                 if (this.time > 0) {
                     this.time--
-                    setTimeout(login.timer(), 1000)
+                    setTimeout(function () {
+                        login.timer()
+                    }, 1000)
                 } else {
                     this.disabled = false
                 }
@@ -183,8 +248,11 @@
     })
     mui.plusReady(function () {
         document.querySelector('#login-wrap').style.height = window.innerHeight + 'px';
+        plus.storage.clear();
+
+        login.$forceUpdate();
         document.querySelector('#login-sub').addEventListener("tap", function () {
-            var basedata
+            var basedata = {}
             var type = login.login_type;
             var user_name = login.user_name;
             var password = login.password;
@@ -228,16 +296,23 @@
                     if (data.code === 1) {
                         mui.toast(data.msg, {duration: 'short', type: 'div'});
                         plus.storage.setItem('userinfo', JSON.stringify(data.data));
-                        plus.storage.setItem('timestamp', new Date().setDate(new Date().getDate() + 7).toString().substr(0, 10));
-                        plus.runtime.restart();
+                        if (data.data.password_flag) {
+                            if(!data.data.password_strong){
+                                mui.toast('您的密码过于简单，请及时更改', {duration: 'short', type: 'div'});
+                                setTimeout(function () {
+                                    plus.runtime.restart();
+                                },800)
+                            } else {
+                                plus.runtime.restart();
+                            }
+                        } else { //未设置登录密码
+                            login.flag = true
+                            login.$forceUpdate()
+                        }
                     } else {
                         mui.toast(data.msg, {duration: 'short', type: 'div'});
                         return false;
                     }
-                },
-                error: function (xhr, type, errorThrown) {
-                    mui.toast(errorThrown, {duration: 'short', type: 'div'});
-                    return false;
                 }
             });
         })

@@ -348,7 +348,7 @@
                             toastText = '请选择' + owner + '证件类型'
                         } else if (!IDValidate(type, item.beneficiary.ID_no, owner)) {
                             return false
-                        } else if (!checkTerm(item.beneficiary.ID_expire_end, owner)) {
+                        } else if (!checkTerm(item.beneficiary.ID_expire_end, owner,item)) {
                             return false
                         } else if (!item.beneficiary.birthday) {
                             toastText = owner + '出生日期不能为空'
@@ -558,7 +558,7 @@
                         vm.beneficiary.city = _getParam(items[1], 'value')
                         vm.beneficiary.district = _getParam(items[2], 'value')
                         vm.beneficiary.zip = _getParam(items[2], 'zip') ? _getParam(items[2], 'zip') : _getParam(items[1], 'zip')
-                        _self.innerText = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
+                        vm.beneficiary.address_select = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
                     });
                 }, false);
             })

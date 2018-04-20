@@ -84,14 +84,14 @@
 	                extras = {list: data, flag: 2};
 	            }	
             };
-
-            mui.openWindow({
-                url: href,
-                id: id,
-                show: animateObj.aniDetal,
-                extras: extras
-            });
-            
+            if (href) {
+                mui.openWindow({
+                    url: href,
+                    id: id,
+                    show: animateObj.aniDetal,
+                    extras: extras
+                });
+            }
         });
 
         var detail = new Vue({

@@ -252,6 +252,7 @@
             created:function() {
                 console.log('parent-created')
                 var beneficiary = plus.storage.getItem('hengda_beneficiary') ? JSON.parse(plus.storage.getItem('hengda_beneficiary')) : ''
+                console.log(JSON.stringify(beneficiary))
                 if(beneficiary){
                     if(beneficiary !== 1){
                         this.beneficiariesIndex = []
@@ -602,6 +603,7 @@
         });
         //保存
         document.querySelector('#saveBenef').addEventListener('tap', function () {
+            document.activeElement.blur();
             if (bene.is_legal_benefic) {
                 //法定
                 plus.storage.setItem('hengda_beneficiary', '1');
@@ -612,6 +614,8 @@
                 for (var j in bene.$refs.beneficiary) {
                     data.push(bene.$refs.beneficiary[j].beneficiary)
                 }
+                console.log('11111')
+                console.log(JSON.stringify(data))
                 plus.storage.setItem('hengda_beneficiary', JSON.stringify(data));
             }
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {

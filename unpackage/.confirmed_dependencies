@@ -1,0 +1,131 @@
+{
+	"index.html": {
+		"resources": [
+			"index-content.html"
+		],
+		"refer": [
+			"news.html",
+			"member.html",
+			"prospect.html",
+			"index-content.html",
+			"login.html"
+		]
+	},
+	"news.html": {
+		"refer": [
+			"news-tv-detail.html",
+			"news-detail.html",
+			"news-all.html"
+		],
+		"resources": [
+			"news-all.html"
+		]
+	},
+	"index-content.html": {
+		"refer": [
+			"quickly.html",
+			"recruit.html",
+			"shop.html",
+			"sns.html",
+			"member-duty.html",
+			"auto2c.html",
+			"ins2c.html",
+			"product.html",
+			"communic.html",
+			"product-detail.html"
+		]
+	},
+	"member.html": {
+		"refer": [
+			"member-personalinfo.html",
+			"member-life-order.html",
+			"member-setup.html",
+			"member-tax-cal.html"
+		]
+	},
+	"sns.html": {
+		"resources": [
+			"sns-signing.html"
+		],
+		"refer": [
+			"sns-signing.html",
+			"sns-ongoing.html",
+			"sns-end.html"
+		]
+	},
+	"quickly.html": {
+		"refer": [
+			"hd_ins/insurance-index.html",
+			"quickly-filter.html",
+			"product-detail.html"
+		]
+	},
+	"hd_ins/insurance-index.html": {
+		"refer": [
+			"hd_ins/insurance-applicant.html",
+			"hd_ins/insurance-assured.html",
+			"hd_ins/insurance-beneficiary.html",
+			"hd_ins/insurance-safegoods.html",
+			"hd_ins/insurance-healthinfo.html",
+			"hd_ins/insurance-bank.html",
+			"hd_ins/insurance-upload.html",
+			"hd_ins/insurance-sign.html"
+		]
+	},
+	"hd_ins/insurance-applicant.html": {
+		"refer": [
+			"communic.html"
+		]
+	},
+	"hd_ins/insurance-assured.html": {
+		"refer": [
+			"communic.html"
+		]
+	},
+	"hd_ins/insurance-upload.html": {
+		"refer": [
+			"hd_ins/upload-img.html"
+		]
+	},
+	"communic.html": {
+		"refer": [
+			"communic-detail.html"
+		]
+	},
+	"prospect.html": {
+		"refer": [
+			"prospect-addIns.html"
+		]
+	},
+	"member-setup.html": {
+		"refer": [
+			"communic-detail.html"
+		]
+	},
+	"communic-detail.html": {
+		"refer": [
+			"member-setup.html"
+		]
+	},
+	"product.html": {
+		"refer": [
+			"product-detail.html"
+		]
+	},
+	"product-detail.html": {
+		"refer": [
+			"product-contrast.html",
+			"product-company.html"
+		]
+	},
+	"member-personalinfo.html": {
+		"refer": [
+			"member-avatarmenu.html"
+		]
+	},
+	"member-tax-cal.html": {
+		"refer": [
+			"member-tax-info.html"
+		]
+	}
+}

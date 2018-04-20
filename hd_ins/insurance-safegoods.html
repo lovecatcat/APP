@@ -202,9 +202,7 @@
                     <div class="box-f-3 ins-font-sm">是否自动垫交保费</div>
                     <div class="input-switch">
                         <input type="checkbox" class="switch" v-model="insurance.autoApl"/>
-                        <label>
-                            <div class="switch-inner"></div>
-                        </label>
+                        <label></label>
                     </div>
                 </div>
             </div>
@@ -1127,6 +1125,7 @@
         });
         //保存
         document.querySelector('#saveGoods').addEventListener('tap', function () {
+            document.activeElement.blur();
             if (!safe.checkForm()) {
                 return false
             }

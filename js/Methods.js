@@ -58,9 +58,9 @@ var methods = {
 		this.flag = {}
 		this.addonRes = {}
 		this.addonsSelected = {}
-		mui('.mui-switch').each(function(index , item){
-			mui(this).switch().toggleCur(false);
-		})
+//		mui('.mui-switch').each(function(index , item){
+//			mui(this).switch().toggleCur(false);
+//		})
 	},
 	companyChanged: function() { //公司下拉
 		var vm = this;
@@ -128,9 +128,9 @@ var methods = {
 				}
 			}
 
-			vm.$nextTick(function() {
-				mui('.mui-switch').switch();
-			});
+//			vm.$nextTick(function() {
+//				mui('.mui-switch').switch();
+//			});
 
 			// 保险期间
 			var mainSyAttr = vm.unique(items[0].ratio, 'safe_year') // 去重
@@ -830,15 +830,13 @@ var methods = {
 			this.$forceUpdate()
 			return false
 		}
-		this.addonsSelected[index] = !this.addonsSelected[index]
-		this.$forceUpdate()
 		this.checkRS()
 		var toastText = null
 		if(this.addonsSelected[index]) {
 			// 主险保费校验不合格
 			if(!this.checkMainFee(this.insurance.safe_id)) {
 				this.addonsSelected[index] = false
-				mui('#addon' + index).switch().toggleAct(false);
+//				mui('#addon' + index).switch().toggleAct(false);
 				this.$forceUpdate()
 				return false
 			}
@@ -1027,7 +1025,7 @@ var methods = {
 			if(toastText) {
 				mui.toast(toastText)
 				this.addonsSelected[index] = false
-				mui('#addon' + index).switch().toggleAct(false);
+//				mui('#addon' + index).switch().toggleAct(false);
 				this.$forceUpdate()
 			} else if(directNeedCal.indexOf(index) > -1) { // 直接计算
 				this.calMoney(false, index) // 试算附加险
@@ -1037,7 +1035,7 @@ var methods = {
 				toastText = '该附加险必须附加，不能取消'
 				mui.toast(toastText)
 				this.addonsSelected[index] = true
-				mui('#addon' + index).switch().toggleAct();
+//				mui('#addon' + index).switch().toggleAct();
 				return false;
 			} else if(index === '1168') {
 				this.flag[index] = ''
@@ -1129,8 +1127,9 @@ var methods = {
 			this.cache.base_moneyNADD = 0
 		} else if(safeid === '8109') {
 			this.flag[273] = ''
-		} else if(safeid === 'A40' || safeid === '363') {
+		} else if(safeid === 'A40' || safeid === 'IA40') {
 			this.flag['RP8P'] = ''
+			this.flag['A47P'] = ''
 		} else if(safeid === 'PFR' || safeid === 'NCV') {
 			this.flag[235] = ''
 			this.flag[236] = ''
@@ -1149,9 +1148,9 @@ var methods = {
 		//      }
 		this.addonRes = {}
 		this.addonsSelected = {}
-		mui('.mui-switch').each(function(index , item){
-			mui(this).switch().toggleCur(false);
-		})
+//		mui('.mui-switch').each(function(index , item){
+//			mui(this).switch().toggleCur(false);
+//		})
 		
 	},
 	// 校验附加险投保年龄
@@ -1212,6 +1211,11 @@ var methods = {
 			case 'HI':
 				if(applAge > 68) {
 					toastText = '被豁免合同投保人年龄不能大于68周岁'
+				}
+				break
+			case 'NWPD':
+				if(applAge > 27) {
+					toastText = '投保人年龄不能大于27周岁'
 				}
 				break
 			case 'NADD':

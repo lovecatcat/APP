@@ -119,7 +119,7 @@ var aloneDetail = new Vue({
 			luckyAjax({
 				data: {
 					server: 'Proposal.writeManualContent',
-					device: 'mobile',
+					view: false,
 					data: JSON.stringify({
 						pl_id: aloneDetail.pl_id,
 						manual_content: this.manual_content
@@ -170,7 +170,7 @@ var aloneDetail = new Vue({
 				luckyAjax({
 					data: {
 						server: 'Proposal.getSingleProposal',
-						device: 'mobile',
+						view: false,
 						data: JSON.stringify({
 							pl_id: aloneDetail.pl_id,
 							user_id: user_id
@@ -189,7 +189,7 @@ var aloneDetail = new Vue({
 			luckyAjax({
 				data: {
 					server: 'Proposal.getProductInfo',
-					device: 'mobile',
+					view: false,
 					data: JSON.stringify({
 						code: '',
 						id: aloneDetail.list.genre
@@ -207,7 +207,7 @@ var aloneDetail = new Vue({
 			luckyAjax({
 				data: {
 					server: 'lifeProduct.getProductDescribe',
-					device: 'mobile',
+					view: false,
 					data: JSON.stringify({
 						product_id: aloneDetail.list.genre
 					})

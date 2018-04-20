@@ -1684,9 +1684,11 @@ var methods = {
 			data: {
 				server: 'Proposal.getProductInfo',
 				device: 'mobile',
+				view: false,
 				data: JSON.stringify({
 					code: safeid,
 					id: ''
+					
 				})
 			},
 			success: function(res) {

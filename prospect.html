@@ -174,6 +174,7 @@
 					</template>
 				</div>
 				<!--险种信息 end -->
+				<div style="width: 100%;height: 5.625rem;"></div>
 			</div>
 			<footer id="Js-footer" class="BL-footer BL-bg-fff">
 				<div class="BL-ub BL-ub-ac BL-ub-f1">
@@ -395,7 +396,6 @@
 				},
 				del: function(index1, index, fj) { //删除险种
 					//找到plans对应的ins中的一个
-					alert()
 					var ins;
 					for(var i = 0; i < prospect.plans.length; i++) {
 						if(this.plans[i].id == this.plan_id) {
@@ -404,10 +404,10 @@
 						}
 					}
 					if(fj){ //附加
-						this.$delete(ins[index1+1].addon, index)
+						this.$delete(ins[index1].addon, index)
 						this.$delete(this.planList[this.plan_id][index1], index)
 					}else{ //主险
-						ins.splice(index1+1, 1)
+						ins.splice(index1, 1)
 						this.$delete(this.planList[this.plan_id], index1)
 					}
 					count()
@@ -435,7 +435,8 @@
 							ins = this.plans[i].ins
 						}
 					}
-					ins.splice(index1+1, 1)
+					ins.splice(index1, 1)
+					alert(JSON.stringify(this.plans))
 					this.$delete(this.planList[this.plan_id], index1)
 					//打开ins把数据传过去
 					mui.openWindow({
@@ -576,7 +577,7 @@
 			        },
 			        success:function(data){
 		                if(data.code){
-		                	var info = data.data;
+		                 	var info = data.data;
 		                	if(prospect.Communic == 'appl'){
 		                		prospect.appl.name = info.name;
 		                		prospect.appl.sex = info.sex == '男' ? true : false;

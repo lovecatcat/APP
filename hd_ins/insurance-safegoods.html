@@ -200,10 +200,11 @@
                 </template>
                 <div class="input-item box-f-1">
                     <div class="box-f-3 ins-font-sm">是否自动垫交保费</div>
-                    <div class="box-f-1">
-                        <div class="mui-switch mui-switch-mini" @click="insurance.autoApl=!insurance.autoApl">
-                            <div class="mui-switch-handle"></div>
-                        </div>
+                    <div class="input-switch">
+                        <input type="checkbox" class="switch" v-model="insurance.autoApl"/>
+                        <label>
+                            <div class="switch-inner"></div>
+                        </label>
                     </div>
                 </div>
             </div>
@@ -213,8 +214,9 @@
                 <div class="input-item box-f-1">
                     <div class="box-f-3 ins-font-sm">{{item.name}}</div>
                     <div class="form-switch-note">投保</div>
-                    <div class="mui-switch mui-switch-mini" :id="'addon'+index" @toggle="chAddonState(index)">
-                        <div class="mui-switch-handle"></div>
+                    <div class="input-switch">
+                        <input type="checkbox" class="switch" v-model="addonsSelected[index]" @change="chAddonState(index)"/>
+                        <label></label>
                     </div>
                 </div>
                 <!--附加投保人豁免2017-->
@@ -276,8 +278,8 @@
                     <div class="input-item ins-pd-r-0">
                         <label class="">保险金额</label>
                         <div class="input-wrap box-f-1 multi-btn">
-                            <button class="ins-btn xs-btn" :class="{'blue':addonIns[index].money===ind}"
-                                    :disabled="addonIns[index].money===ind"
+                            <button class="ins-btn xs-btn" :class="{'blue':addonIns[index].money==ind}"
+                                    :disabled="addonIns[index].money==ind"
                                     @tap="changeAddon(index,ind),toblur()" v-for="(ite,ind) in zxmoney_arr">{{ite}}
                             </button>
                         </div>
@@ -340,10 +342,10 @@
                         </div>
                     </div>
                     <div class="input-item ins-pd-r-0">
-                        <label class="">保险金额(元){{addonIns[index].money}}</label>
+                        <label class="">保险金额(元)</label>
                         <div class="input-wrap box-f-1">
                             <button class="ins-btn xs-btn" :class="{'blue':addonIns[index].money==ind}"
-                                    :disabled="addonIns[index].money===ind"
+                                    :disabled="addonIns[index].money==ind"
                                     @tap="changeAddon(index,ind),toblur()" v-for="(ite,ind) in axmoney_arr">{{ite}}
                             </button>
                         </div>
@@ -513,7 +515,7 @@
                 }
             },
             insChanged:function(init) {
-                console.info('选择险种')
+                console.info('insChanged')
                 const vm = this
 
                 var safeid = vm.insurance.safe_id
@@ -581,44 +583,12 @@
                     vm.resetMainIns(); //重置主险信息
                     vm.insurance.safe_id = items[0].value;
                     vm.insurance.name = items[0].text;
-                    //保险期间
-                    var mainSyAttr = unique(items[0].ratio, 'safe_year') // 去重
-                    // 排序
-                    mainSyAttr = mainSyAttr.sort(function (a, b) {
-                        return a.safe_year - b.safe_year
-                    });
-                    //长度为1直接赋值，不为1置为空
-                    if (mainSyAttr.length === 1) {
-                        vm.insurance.safe_year = mainSyAttr[0].safe_year
-                    } else {
-                        vm.insurance.safe_year = ''
-                    }
-                    vm.safe_year = mainSyAttr;
-
-                    //交费期间
-                    var mainPyAttr = unique(items[0].ratio, 'pay_year'); // 去重
-                    // 排序
-                    mainPyAttr = mainPyAttr.sort(function (a, b) {
-                        return a.pay_year - b.pay_year;
-                    });
-                    if (mainPyAttr.length === 1) {
-                        vm.insurance.pay_year = mainPyAttr[0].pay_year;
-                    } else {
-                        vm.insurance.pay_year = '';
-                    }
-                    vm.pay_year = mainPyAttr;
-                    //对应的附加险
-                    var child = items[0].child
-                    var obj = {}
-                    for (var i in child) {
-                        obj[child[i]['id']] = child[i]
-                    }
-                    vm.Addons = obj
-                    vm.resetMoney()
+                    vm.main_insurance = items[0];
+                    vm.insChanged();
                 });
             },
             resetAddons: function (init) {
-//                console.log('resetAddons')
+                console.log('resetAddons' + init)
                 var vm = this
                 var safe_id = vm.insurance.safe_id.toString()
                 var money = vm.insurance.money
@@ -680,10 +650,9 @@
                 });
             },
             setAddonsShow: function (init) {
-//                console.log('setAddonsShow')
+                console.log('setAddonsShow')
                 var vm = this
                 var hasAddons = false
-//                console.log(JSON.stringify(vm.showAddonIns))
                 for (var i in vm.showAddonIns) {
 //                    console.log(i)
                     if (vm.showAddonIns[i] === true) {
@@ -694,11 +663,9 @@
                         }
                     }
                 }
+
                 vm.hasAddons = hasAddons
                 vm.$forceUpdate();
-                vm.$nextTick(function () {
-                    mui('.mui-switch').switch();
-                });
             },
             setAddons: function (i, init) {
                 console.log('setAddons' + i + 'init:' + init)
@@ -741,23 +708,25 @@
                         kitem = vm.insurances[k]
                         if (k > 0 && kitem.safe_id === i) {
                             vm.addonsSelected[kitem.safe_id] = true
+                            console.log('act')
+
                             vm.addonIns[kitem.safe_id] = {
                                 safe_id: kitem.safe_id,
                                 safe_year: kitem.safe_year,
                                 pay_year: kitem.pay_year,
-                                money: Number(kitem.money),
-                                period_money: Number(kitem.period_money)
+                                money: kitem.money,
+                                period_money: kitem.period_money
                             }
                             vm.calMoney(i)
                         }
                     }
                 }
 
+
             },
             chAddonState: function (index) {
                 console.log('chAddonState')
                 var vm = this
-                vm.addonsSelected[index] = !vm.addonsSelected[index];
                 if (!vm.addonIns[index]) return
                 if (index === cjb) {
                     if (vm.addonsSelected[index]) {
@@ -796,7 +765,8 @@
                 }
                 if (toast_text) {
                     mui.toast(toast_text, {duration: 'short', type: 'div'});
-                    mui('#addon' + index).switch().toggleAct(false);
+                    vm.addonsSelected[index] = false
+                    return false
                 } else {
                     if (vm.addonsSelected[index] && !vm.addonIns[index].period_money) {
                         vm.calMoney(index)
@@ -947,7 +917,7 @@
             },
             //试算
             calMoney: function (index) {
-//                console.log('试算中');
+                console.log('试算中');
                 var vm = this
                 var id = vm.insurance.safe_id.toString();
                 if (!vm.checkForm()) {
@@ -1017,9 +987,6 @@
                     success: function (res) {
                         if (res.code && res.data) {
                             var data = res.data
-                            vm.$nextTick(function () {
-                                mui('.mui-switch').switch();
-                            });
                             if (data.result === 'success') {
 //                                console.log('cal-success')
                                 if (index) {
@@ -1078,7 +1045,6 @@
 
                 if (toast_text) {
                     mui.toast(toast_text, {duration: 'short', type: 'div'});
-                    mui('#addon' + index).switch().toggleAct(false);
                     this.addonsSelected[index] = false
                     return false
                 }
@@ -1120,7 +1086,6 @@
                 }
                 if (toast_text) {
                     mui.toast(name + toast_text, {duration: 'short', type: 'div'});
-                    mui('#addon' + index).switch().toggleAct(false);
                     this.addonsSelected[index] = false
                     return false
                 }
@@ -1143,7 +1108,6 @@
         if(goods){
             safe.insurances = goods
             mui.each(goods,function (index,item) {
-//                console.log(index)
                 if(item.is_main){
                     safe.insurance = Object.assign(safe.insurance, item)
                 }
@@ -1174,7 +1138,7 @@
                 }
             })
             plus.storage.setItem('hengda_safegoods', JSON.stringify(insurances));
-            console.log(JSON.stringify(plus.storage.getItem('hengda_safegoods')))
+//            console.log(JSON.stringify(plus.storage.getItem('hengda_safegoods')))
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'hengda_safegoods',
                 data: 'safegoods'
@@ -1199,6 +1163,7 @@
                     if (res.code == 1) {
                         var data = []
                         safe.safegoods = res.data;
+                        console.log(JSON.stringify(safe.safegoods))
                         mui.each(res.data, function (index, item) {
                             if (onlineIns.indexOf(item.id.toString()) > -1) {
                                 data.push({
@@ -1216,15 +1181,7 @@
                                 var kitem = safe.insurances[k]
                                 if (kitem.is_main && item.value === kitem.safe_id) {
                                     safe.main_insurance = item
-                                    safe.pay_year = unique(item.ratio, 'pay_year');
-                                    safe.safe_year = unique(item.ratio, 'safe_year');
-                                    var child = item.child
-                                    var obj = {}
-                                    for (var i in child) {
-                                        obj[child[i]['id']] = child[i]
-                                    }
-                                    safe.Addons = obj
-                                    safe.calMoney()
+                                    safe.insChanged(true)
                                 }
                             }
                         });

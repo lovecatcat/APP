@@ -269,7 +269,7 @@
                         </div>
                     </div>
                     <div class="input-item">
-                        <label class="">邮编</label>
+                        <label class="">邮编{{applicant.holder_has_SSID}}</label>
                         <div class="input-wrap box-f-1">
                             <input type="number" v-model.lazy="applicant.holder_contact_zip"
                                    @change="checkZipcode('投保人',applicant.holder_contact_zip)" placeholder="请输入">
@@ -283,11 +283,9 @@
             </div>
             <div class="input-item box-f-1">
                 <div class="box-f-3 ins-font-sm BL-col-3b9cf5">是否已参加当地社会基本医疗保险（或公费医疗）？</div>
-                <div class="box-f-1 ins-switch">
-                    <div class="mui-switch mui-switch-mini"
-                         @click="applicant.holder_has_SSID=!applicant.holder_has_SSID">
-                        <div class="mui-switch-handle"></div>
-                    </div>
+                <div class="input-switch">
+                    <input type="checkbox" class="switch" v-model="applicant.holder_has_SSID"/>
+                    <label></label>
                 </div>
             </div>
         </div>
@@ -295,7 +293,7 @@
     <!--弹窗 end-->
 </div>
 </body>
-<script src="../js/mui.min.js" type="text/javascript"></script>
+<script src="../js/mui.js" type="text/javascript"></script>
 <script src="../js/vue.min.js" type="text/javascript"></script>
 <script src="../js/mui.picker.js"></script>
 <script src="../js/mui.poppicker.js"></script>
@@ -578,6 +576,7 @@
                 return false;
             }
             saveTemp(appl.applicant)
+            console.log('========='+appl.applicant.holder_has_SSID)
             plus.storage.setItem('hengda_applicant',JSON.stringify(appl.applicant));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'hengda_applicant',

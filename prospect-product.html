@@ -174,6 +174,7 @@
 					</template>
 				</div>
 				<!--险种信息 end -->
+				<div style="width: 100%;height: 5.625rem;"></div>
 			</div>
 			<footer id="Js-footer" class="BL-footer BL-bg-fff">
 				<div class="BL-ub BL-ub-ac BL-ub-f1">
@@ -398,15 +399,13 @@
 						}
 					}
 					if(fj){ //附加
-						this.$delete(ins[index1+1].addon, index)
+						this.$delete(ins[index1].addon, index)
 						this.$delete(this.planList[this.plan_id][index1], index)
 					}else{ //主险
-						ins.splice(index1+1, 1)
+						ins.splice(index1, 1)
 						this.$delete(this.planList[this.plan_id], index1)
 					}
-					//算总保费
 					count()
-				
 					this.$forceUpdate()
 				},
 				editIns:function(index1, item) { //编辑险种
@@ -417,7 +416,8 @@
 							ins = this.plans[i].ins
 						}
 					}
-					ins.splice(index1+1, 1)
+					ins.splice(index1, 1)
+					alert(JSON.stringify(this.plans))
 					this.$delete(this.planList[this.plan_id], index1)
 					//打开ins把数据传过去
 					mui.openWindow({
@@ -443,7 +443,7 @@
 			            extras:{
 			            	pageid: 'prospect_product',
 			            	tip: 1,
-							type: 'onlineIns'
+							flag: 'onlineIns'
 						}
 			        }) 
 				},

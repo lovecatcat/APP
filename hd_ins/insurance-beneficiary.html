@@ -25,15 +25,11 @@
         </div>
         <div class="form-content margin-t-6_125 BL-pad-b-2">
             <div class="form-wrap">
-                <div class="input-item box-f-1 box-align-center">
-                    <div class="box-f-1 ins-font-sm">是否法定？</div>
-                    <div class="box-f-2">
-                        <button class="ins-btn xs-btn BL-mar-r-1" @click="is_legal_benefic=!is_legal_benefic" :disabled="is_legal_benefic"
-                                :class="{'blue':is_legal_benefic}">是
-                        </button>
-                        <button class="ins-btn xs-btn" @click="is_legal_benefic=!is_legal_benefic" :disabled="!is_legal_benefic"
-                                :class="{'blue':!is_legal_benefic}">否
-                        </button>
+                <div class="input-item box-f-1">
+                    <div class="box-f-3 ins-font-sm">是否法定？</div>
+                    <div class="input-switch">
+                        <input type="checkbox" class="switch" v-model="is_legal_benefic"/>
+                        <label></label>
                     </div>
                 </div>
             </div>

@@ -38,11 +38,11 @@
                         3. 待客户（投被保人）完成签名后，并在签名处点击获取签名<br>
                     </div>
                     <div class="BL-ub BL-ub-ac BL-ub-pc BL-pad-t-1">
-                        <button class="form-btn ins-btn sm-btn btn-copy" :data-url="'//ts-www.luckyins.com/ins_sign/signature3.0?owner=appl_signature&war_id='+war_id">复制投保人签名链接
+                        <button class="form-btn ins-btn sm-btn btn-copy" :data-url="config.domain + '/ins_sign/signature3.0.html?owner=appl_signature&war_id='+war_id">复制投保人签名链接
                         </button>
                     </div>
                     <div class="BL-ub BL-ub-ac BL-ub-pc BL-pad-t-1" v-if="assured.rel_insured_holder!==ISASSURED">
-                        <button class="form-btn ins-btn sm-btn btn-copy" :data-url="'//ts-www.luckyins.com/ins_sign/signature3.0?owner=assu_signature&war_id='+war_id">复制被保人签名链接
+                        <button class="form-btn ins-btn sm-btn btn-copy" :data-url="config.domain + '/ins_sign/signature3.0.html?owner=assu_signature&war_id='+war_id">复制被保人签名链接
                         </button>
                     </div>
                 </div>

@@ -534,6 +534,7 @@ var saveTemp = function (data) {
     luckyAjax({
         data: {data: JSON.stringify(data), server: 'PolicyIns.saveUserInfo'},
         success: function (data) {
+            plus.nativeUI.closeWaiting();
             if (data.code) {
                 console.log('保存成功');
             } else {

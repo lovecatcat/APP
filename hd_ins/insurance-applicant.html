@@ -569,6 +569,7 @@
         });
         //保存
         document.querySelector('#saveAppl').addEventListener('tap', function () {
+            document.activeElement.blur();
             if(appl.applicant.mail_addr_type){
                 appl.sameaddress();
             }
@@ -599,7 +600,6 @@
         window.addEventListener('getMemberId', function (event) {
 	        var memberid = event.detail.id
 	        var type = event.detail.type
-            console.log('appl-getMemberId' + '===type:' + type + typeof type)
             if (type === 1) {
                 luckyAjax({
                     data: {
@@ -632,10 +632,11 @@
             } else if (type === 2) {
                 luckyAjax({
                     data: {
-                        server: 'team.getHistoryUserInfo',
+                        server: 'team.getContactsInfo',
                         data: JSON.stringify({user_id:memberid})
                     },
                     success:function(data){
+                        console.log(JSON.stringify(data))
                         if(data.code){
                             var info = data.data;
                             appl.applicant.holder_name = info.name;

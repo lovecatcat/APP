@@ -83,14 +83,6 @@
                         </div>
                     </div>
                 </div>
-                <!--<div class="BL-ub BL-ub-ac state-menus">
-                    <div class="menu">
-                        新品
-                    </div>
-                    <div class="menu">
-                        热卖
-                    </div>
-                </div>-->
             </div>
             <!--状态筛选 end -->
 
@@ -105,7 +97,7 @@
                     <ul class="mui-table-view product-list-cell">
                         <li class="cItem" v-for="(item,index) in listdata" :key="index" v-if="listdata">
                             <div :data-id="item.id" data-wid="product_detail" href="product-detail.html"
-                                 class="BL-ub BL-ub-f1 pro-content pro-icon-new a-link">
+                                 class="BL-ub BL-ub-f1 pro-content a-link" :class="{'pro-icon-new':item.product_sign==='LBF0002','pro-icon-hot':item.product_sign==='LBF0003'}">
                                 <div class="img">
                                     <img :src="item.image_url" @error="item.image_url='images/pic/p6.jpg'"/>
                                 </div>

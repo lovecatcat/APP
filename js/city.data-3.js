@@ -8,8 +8,8 @@ var cityData3 = [
             "zip": "100010"
         }, 
         {"text": "西城", "value": 37, "zip": "100032"}, 
-        {"text": "崇文", "value": 38, "zip": ""}, 
-        {"text": "宣武", "value": 39, "zip": ""}, 
+        {"text": "崇文", "value": 38, "zip": "100061"},
+        {"text": "宣武", "value": 39, "zip": "100054"},
         {"text": "朝阳", "value": 40, "zip": "100020"}, 
         {"text": "丰台", "value": 41, "zip": "100071"}, 
         {"text": "石景山","value": 42, "zip": "100043"}, 

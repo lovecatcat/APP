@@ -123,7 +123,7 @@
                                  :data-pid="item.id">
                                 <div class="img">
                                     <img :src="item.image_url" @error="item.image_url='images/pic/p11.jpg'"/>
-                                    <span class="new">{{item.product_sign}}</span>
+                                    <span class="new">{{item.product_sign_text}}</span>
                                 </div>
                                 <div class="context">
                                     <div class="tit">{{item.short_name}}</div>
@@ -157,7 +157,7 @@
                                  :data-pid="item.id">
                                 <div class="img">
                                     <img :src="item.image_url" @error="item.image_url='images/pic/p11.jpg'"/>
-                                    <span class="new">{{item.product_sign}}</span>
+                                    <span class="new">{{item.product_sign_text}}</span>
                                 </div>
                                 <div class="context">
                                     <div class="tit">{{item.short_name}}</div>
@@ -191,7 +191,7 @@
                                  :data-pid="item.id">
                                 <div class="img">
                                     <img :src="item.image_url" @error="item.image_url='images/pic/p11.jpg'"/>
-                                    <span class="new">{{item.product_sign}}</span>
+                                    <span class="new">{{item.product_sign_text}}</span>
                                 </div>
                                 <div class="context">
                                     <div class="tit">{{item.short_name}}</div>
@@ -225,7 +225,7 @@
                                  :data-pid="item.id">
                                 <div class="img">
                                     <img :src="item.image_url" @error="item.image_url='images/pic/p11.jpg'"/>
-                                    <span class="new">{{item.product_sign}}</span>
+                                    <span class="new">{{item.product_sign_text}}</span>
                                 </div>
                                 <div class="context">
                                     <div class="tit">{{item.short_name}}</div>
@@ -368,18 +368,22 @@
                     var bannerlist = data.data.banner;
                     var bhtml = '';
                     var temp = '';
-                    document.getElementById('default-banner').src = bannerlist[0].image;
-                    mui.each(bannerlist, function (index, item) {
-                        if (index === 0) {
-                            temp += '<div class="mui-indicator mui-active"></div>';
-                        } else {
-                            temp += '<div class="mui-indicator"></div>'
-                        }
-                        bhtml += '<div class="mui-slider-item"><a href="#"><img src="' + item.image + '" id="img' + index + '"></a></div>'
-                    });
-                    bhtml += '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="' + bannerlist[0] + '" id="img' + bannerlist.length + 1 + '"></a></div>'
+                    if (bannerlist.length) {
+                        document.getElementById('default-banner').src = bannerlist[0].image;
+                        mui.each(bannerlist, function (index, item) {
+                            if (index === 0) {
+                                temp += '<div class="mui-indicator mui-active"></div>';
+                            } else {
+                                temp += '<div class="mui-indicator"></div>'
+                            }
+                            bhtml += '<div class="mui-slider-item"><a href="#"><img src="' + item.image + '" id="img' + index + '"></a></div>'
+                        });
+                        bhtml += '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="' + bannerlist[0] + '" id="img' + bannerlist.length + 1 + '"></a></div>'
+                        append(document.getElementById("slider-html"), bhtml);
+                    } else {
+                        document.getElementById('default-banner').src = 'images/pic/p0.jpg';
+                    }
                     temp = '<div class="mui-slider-indicator">' + temp + '</div>';
-                    append(document.getElementById("slider-html"), bhtml);
                     append(document.getElementById("slider"), temp);
                     mui('.mui-slider')[0].setAttribute('data-slider', '');
                     mui('.mui-slider').slider();

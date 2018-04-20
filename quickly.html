@@ -83,14 +83,6 @@
 					</div>
 				</div>
 			</div>
-			<!--<div class="BL-ub BL-ub-ac state-menus">
-                <div class="menu">
-                    新品
-                </div>
-                <div class="menu">
-                    热卖
-                </div>
-            </div>-->
 		</div>
 		<!--状态筛选 end -->
 
@@ -104,7 +96,7 @@
 				<!--活动中，数据列表-->
 				<ul class="mui-table-view product-list-cell">
 					<li class="cItem" v-for="(item,index) in listdata" :key="index" v-if="listdata">
-						<div class="BL-ub BL-ub-f1 pro-content pro-icon-new">
+						<div class="BL-ub BL-ub-f1 pro-content" :class="{'pro-icon-new':item.product_sign==='LBF0002','pro-icon-hot':item.product_sign==='LBF0003'}">
 							<div class="img a-link" :data-id="item.id" data-wid="product_detail" href="product-detail.html">
 								<img :src="item.image_url" @error="item.image_url='images/pic/p6.jpg'"/>
 							</div>

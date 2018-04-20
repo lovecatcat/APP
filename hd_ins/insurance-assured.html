@@ -535,6 +535,7 @@
         });
         //保存
         document.querySelector('#saveAssu').addEventListener('tap', function () {
+            document.activeElement.blur();
             RSChanged(assu.assured,assu.applicant);
             console.log(JSON.stringify(assu.assured))
             if (!checkAssured(assu.assured)) {
@@ -561,7 +562,7 @@
                     },
                     success: function (data) {
                         if (data.code) {
-                            //	                	console.log(JSON.stringify(data.data));
+                            //console.log(JSON.stringify(data.data));
                             var info = data.data;
                             assu.assured.insured_name = info.name;
                             assu.assured.insured_ID_no = info.card_no;
@@ -581,7 +582,7 @@
             } else if (type === 2) {
                 luckyAjax({
                     data: {
-                        server: 'team.getHistoryUserInfo',
+                        server: 'team.team.getContactsInfo',
                         data: JSON.stringify({user_id:memberid})
                     },
                     success:function(data){

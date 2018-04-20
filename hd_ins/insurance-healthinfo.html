@@ -692,6 +692,7 @@
     	},
         data: function() {
             return {
+                info: '',
                 appfolder: false,
                 assfolder: false,
                 isAssuWm: false, //被保人是否为女性
@@ -709,6 +710,9 @@
                     app_fields: {} //投保人填写字段
                 }
             }
+        },
+        creadted(){
+          console.log('created')
         },
         methods:{
         	change:function(item) {
@@ -861,6 +865,14 @@
         plus.key.addEventListener("backbutton",function(){
             popu.closepop();
         });
+        //赋值
+        var info = plus.storage.getItem('hengda_healthinfo') ? JSON.parse(plus.storage.getItem('hengda_healthinfo')) : '';
+//        if (info) {
+//            console.log('plus.ready')
+//            health.$nextTick(function () {
+//                health.clientvalue = info
+//            })
+//        }
         //
         var safegoods = JSON.parse(plus.storage.getItem('hengda_safegoods'));
         if (safegoods) {
@@ -878,6 +890,7 @@
         health.isAssuWm = assured.insured_gender === FEMALE ? true : false
         //保存
         document.querySelector('#saveHealthinfo').addEventListener('tap', function () {
+            document.activeElement.blur();
         	if (!health.checkForm()) {
 		      return false
 		    }

@@ -787,7 +787,8 @@
 					"member-birthday.html",
 					"member-renewal.html",
 					"member-tax-cal.html",
-					"member-life-order.html"
+					"member-life-order.html",
+					"member-promote.html"
 				],
 				"priority": 0
 			},
@@ -1926,17 +1927,11 @@
 					"images/plans/prospectus/301.jpg",
 					"images/plans/prospectus/334.jpg",
 					"images/plans/prospectus/121.jpg",
-					"images/plans/prospectus/349.jpg",
-					"images/plans/prospectus/354.jpg",
-					"images/plans/prospectus/267.jpg",
-					"images/plans/prospectus/256.jpg"
+					"images/plans/prospectus/349.jpg"
 				],
 				"priority": 2,
 				"refer": [
-					"member-plans-alone-table.html",
-					"popup-content.html",
-					"member-plans-alone-design.html",
-					"product-company.html"
+					"member-plans-alone-table.html"
 				]
 			},
 			"member-plans-total.html": {
@@ -1970,9 +1965,7 @@
 					"js/plansData.js"
 				],
 				"priority": 4,
-				"refer": [
-					"prospect-product.html"
-				]
+				"refer": []
 			},
 			"member-plans-detail.html": {
 				"href": "member-plans-detail.html",
@@ -2184,9 +2177,7 @@
 			"member-warranty-manage.html": {
 				"resources": [
 					"member-warranty-manageLife.html",
-					"css/mui.css",
-					"css/module.css",
-					"css/common.css"
+					"css/mui.css"
 				],
 				"refer": [
 					"member-warranty-manageCar.html"
@@ -2784,8 +2775,7 @@
 			"prospect-product.html": {
 				"resources": [
 					"css/mui.css",
-					"css/plans.css",
-					"css/mui.picker.min.css"
+					"css/plans.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -2848,21 +2838,23 @@
 				],
 				"priority": 0
 			},
-			"member-warranty-manageCar.html": {
+			"member-promote.html": {
 				"resources": [
-					"css/mui.picker.min.css",
+					"images/icon/ico-filter.png",
+					"js/Date.js",
+					"js/interval-dtpicker.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/member.css",
 					"css/mui.css",
-					"css/member.css"
+					"css/module.css",
+					"css/common.css",
+					"css/form.css",
+					"images/icon/ico-filter-active.png"
 				],
-				"refer": [],
-				"priority": 0
-			},
-			"product-company.html": {
-				"resources": [
-					"css/product.css",
-					"css/mui.css"
+				"refer": [
+					"quickly-filter.html"
 				],
-				"refer": [],
 				"priority": 0
 			}
 		},

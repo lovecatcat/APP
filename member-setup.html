@@ -58,13 +58,15 @@
     mui('body').on('tap', 'a', function () {
         var href = this.getAttribute('href');
         var id = this.getAttribute("data-wid");
-
-        //打开新窗口
-        mui.openWindow({
-            url: href,
-            id: id,
-            show: animateObj.aniDetal
-        });
+		
+		if(href){
+	        //打开新窗口
+	        mui.openWindow({
+	            url: href,
+	            id: id,
+	            show: animateObj.aniDetal
+	        });
+       	}
     });
 
     mui.plusReady(function () {

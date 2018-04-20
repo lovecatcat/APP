@@ -39,22 +39,32 @@ var Tunnel = {
      * @param action 事件处理
      * @constructor
      */
-    Create: function (uid, flag, _location, action) {
+    Create: function (uid, flag, action) {
         if(typeof(uid) != 'undefined' && typeof(flag) != 'undefined' && typeof(action) != 'undefined'){
             Tunnel._message.uid = uid;
             Tunnel._message.flag = flag;
             Tunnel._message.platform = navigator.platform;
             Tunnel._message.userAgent = navigator.userAgent;
-	        Tunnel._message.location = _location;
             Tunnel._action = action;
         }
-
+		
+		if(mui.os.android){
+			document.addEventListener("resume", function(){
+				try {
+		            Tunnel._webSocket = new WebSocket(Tunnel._url);
+		            Tunnel.InitEventHandle();
+		        } catch (e) {
+		            Tunnel.Reconnect(Tunnel._url);
+		        }
+			}, false );
+		};
+		
         try {
             Tunnel._webSocket = new WebSocket(Tunnel._url);
             Tunnel.InitEventHandle();
         } catch (e) {
             Tunnel.Reconnect(Tunnel._url);
-        }
+        }	
     },
 
     /**

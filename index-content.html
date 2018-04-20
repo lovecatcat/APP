@@ -380,11 +380,12 @@
                         });
                         bhtml += '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="' + bannerlist[0] + '" id="img' + bannerlist.length + 1 + '"></a></div>'
                         append(document.getElementById("slider-html"), bhtml);
+                        temp = '<div class="mui-slider-indicator">' + temp + '</div>';
+                    	append(document.getElementById("slider"), temp);
                     } else {
                         document.getElementById('default-banner').src = 'images/pic/p0.jpg';
                     }
-                    temp = '<div class="mui-slider-indicator">' + temp + '</div>';
-                    append(document.getElementById("slider"), temp);
+                    
                     mui('.mui-slider')[0].setAttribute('data-slider', '');
                     mui('.mui-slider').slider();
 

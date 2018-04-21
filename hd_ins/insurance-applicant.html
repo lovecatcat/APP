@@ -566,12 +566,23 @@
             if (!checkAppl(appl.applicant)) {
                 return false;
             }
+            var flag = false
+            var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')) : ''
+            if (assured && assured.rel_insured_holder === ISASSURED) {
+                if(!RSChanged(assured, appl.applicant)){return false}
+                if (!checkAssured(assured)) {
+                    return false
+                }
+                saveTemp(assured)
+                plus.storage.setItem('hengda_assured', JSON.stringify(assured));
+                flag = true
+            }
             saveTemp(appl.applicant)
-            console.log('========='+appl.applicant.holder_has_SSID)
             plus.storage.setItem('hengda_applicant',JSON.stringify(appl.applicant));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'hengda_applicant',
-                data:'applicant'
+                data:'applicant',
+                clear: flag
             });
             console.log(JSON.stringify(plus.storage.getItem('hengda_applicant')));
             popu.closepop();

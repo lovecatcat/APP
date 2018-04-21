@@ -161,7 +161,12 @@
         //保存数据更新
 		window.addEventListener('saveFlag', function (e) {
 		    console.log('saveFlag')
-		    console.log(JSON.stringify(e.detail))
+            if (e.detail.clear) {
+                plus.storage.removeItem('hengda_safegoods')
+                plus.storage.removeItem('hengda_healthinfo')
+                index.getItem('hengda_safegoods', 'safegoods')
+                index.getItem('hengda_healthinfo', 'healthinfo')
+            }
 			index.getItem(e.detail.item,e.detail.data)
 
         });
@@ -253,7 +258,7 @@
                 mui.toast('请填写被保人信息', {duration: 'short', type: 'div'});
                 return false;
             }
-            RSChanged(index.assured,index.applicant);
+            if(!RSChanged(index.assured,index.applicant)){return false}
             if (!checkAssured(index.assured)) {
                 return false
             }

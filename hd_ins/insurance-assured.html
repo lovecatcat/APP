@@ -530,7 +530,7 @@
         //保存
         document.querySelector('#saveAssu').addEventListener('tap', function () {
             document.activeElement.blur();
-            RSChanged(assu.assured,assu.applicant);
+            if(!RSChanged(assu.assured,assu.applicant)){return false;}
 //            console.log(JSON.stringify(assu.assured))
             if (!checkAssured(assu.assured)) {
                 return false
@@ -539,7 +539,8 @@
             plus.storage.setItem('hengda_assured',JSON.stringify(assu.assured));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'hengda_assured',
-                data: 'assured'
+                data: 'assured',
+                clear: true
             });
             popu.closepop();
             mui.back();

@@ -540,10 +540,16 @@ var RSChanged = function(assu,applicant) {
         assu.temp_insured_job_code= applicant.temp_holder_job_code//职业代码
         assu.insured_job_name= applicant.holder_job_name//职业名称
         assu.insured_isTaxResidents= applicant.holder_isTaxResidents
+    } else {
+        if(applicant.holder_ID_no === assu.insured_ID_no && assu.insured_ID_type === applicant.holder_ID_type){
+            mui.toast('被保人非本人时证件号不能与投保人相同', {duration: 'short', type: 'div'});
+            return false
+        }
     }
     if (assu.addr_type) {
         AssuSameApplAddress(assu, applicant)
     }
+    return true
 }
 //临时信息保存
 var saveTemp = function (data) {

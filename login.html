@@ -23,7 +23,7 @@
             <ul class="mui-table-view form-list-cell">
                 <li class="BL-ub BL-ub-ac member-login-item">
                     <div class="login-ico-channel BL-bimg-contain"></div>
-                    <input class="BL-ub BL-ub-f1" type="number" v-model="channel_id" placeholder="请输入渠道号" disabled="disabled"/>
+                    <input class="BL-ub BL-ub-f1" type="number" v-model="channel_id" placeholder="请输入渠道号"/>
                 </li>
                 <li class="BL-ub BL-ub-ac member-login-item">
                     <div class="login-ico-phone BL-bimg-contain"></div>
@@ -166,8 +166,6 @@
                     toast_text = '密码格式应为8位的字母数字组合'
                 } else if (!this.pwd2) {
                     toast_text = '请再次输入密码'
-                } else if (!/^[0-9a-zA-Z]{8}$/.test(this.pwd2)) {
-                    toast_text = '密码格式应为8位的字母数字组合'
                 } else if (this.pwd1 !== this.pwd2) {
                     toast_text = '两次密码输入不一致'
                 }
@@ -178,15 +176,15 @@
                 luckyAjax({
                     data: {
                         data: JSON.stringify({tel: this.tel, code: this.codesms, password: this.pwd1}),
-                        server: 'user.resetPassword'
+                        server: 'user.resetPassword',
+                        view: true
                     },
                     success: function (data) {
                         if (data.code === 1) {
                             mui.toast('操作成功', {duration: 'short', type: 'div'})
-                            plus.storage.setItem('notfirstlogin', '1');
-                            console.log('aaaaaaaaa'+plus.storage.getItem('notfirstlogin'));
-                            console.log('bbbb'+plus.storage.getItem('userinfo'));
-                            plus.runtime.restart();
+                            setTimeout(function () {
+                                plus.runtime.restart();
+                            }, 800)
                         } else {
                             mui.toast(data.msg, {duration: 'short', type: 'div'})
                             return false;
@@ -301,9 +299,11 @@
                                 mui.toast('您的密码过于简单，请及时更改', {duration: 'short', type: 'div'});
                                 setTimeout(function () {
                                     plus.runtime.restart();
-                                },800)
+                                },1000)
                             } else {
-                                plus.runtime.restart();
+                                setTimeout(function () {
+                                    plus.runtime.restart();
+                                },800)
                             }
                         } else { //未设置登录密码
                             login.flag = true

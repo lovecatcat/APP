@@ -291,6 +291,17 @@ var checkWeight = function (owner, val) {
     }
     return true;
 };
+//投保人通讯地址同居住地址
+var ApplSameHomeAddress = function (appl) {
+    appl.holder_contact_province = appl.holder_home_province
+    appl.holder_contact_city = appl.holder_home_city
+    appl.holder_contact_district = appl.holder_home_district
+    appl.holder_contact_province_name = '广东'
+    appl.holder_contact_city_name = '深圳'
+    appl.holder_contact_district_name = appl.holder_home_district_name
+    appl.holder_contact_address = appl.holder_home_address
+    appl.holder_contact_zip = appl.holder_home_zip
+};
 //校验投保人信息
 var checkAppl = function (appl) {
     var toast_text = null
@@ -339,13 +350,15 @@ var checkAppl = function (appl) {
         return false
     } else if (!checkZipcode(appl.holder_home_zip, appl.holder_home_province, '投保人')) {
         return false
-    } else if (appl.mail_addr_type === 0 && !appl.holder_contact_province) {
+    } else if (appl.mail_addr_type ) {
+        ApplSameHomeAddress(appl)
+    } else if (!appl.mail_addr_type && !appl.holder_contact_province) {
         toast_text = '投保人通讯地区【省级】不能为空'
-    } else if (appl.mail_addr_type === 0 && !appl.holder_contact_city) {
+    } else if (!appl.mail_addr_type && !appl.holder_contact_city) {
         toast_text = '投保人通讯地区【市级】不能为空'
-    } else if (appl.mail_addr_type === 0 && !checkAddress(vm.applicant.holder_contact_address, '投保人通讯')) {
+    } else if (!appl.mail_addr_type && !checkAddress(appl.holder_contact_address, '投保人通讯')) {
         return false
-    } else if (appl.mail_addr_type === 0 && !checkZipcode(vm.applicant.holder_contact_zip, vm.applicant.holder_contact_province, '投保人通讯')) {
+    } else if (!appl.mail_addr_type && !checkZipcode(appl.holder_contact_zip, appl.holder_contact_province, '投保人通讯')) {
         return false
     }
 
@@ -494,42 +507,42 @@ var getOccu = function (id, cb) {
             }
         }
     });
-}
-
+};
+var AssuSameApplAddress = function (assu,applicant) {
+    assu.insured_home_district = applicant.holder_home_district
+    assu.insured_home_district_name = applicant.holder_home_district_name
+    assu.insured_home_address = applicant.holder_home_address
+    assu.insured_home_zip = applicant.holder_home_zip
+};
 //被保人为本人
 var RSChanged = function(assu,applicant) {
     if(assu.rel_insured_holder ===ISASSURED){
-            assu.insured_name= applicant.holder_name //姓名
-            assu.insured_ID_type= IDcard //证件类型
-            assu.insured_ID_type_name= '身份证' //证件类型名
-            assu.insured_ID_no= applicant.holder_ID_no //证件号码
-            assu.insured_birthday= applicant.holder_birthday //出生日期
-            assu.insured_ID_expire_end= applicant.holder_ID_expire_end //证件有效期
-            assu.insured_gender= applicant.holder_gender //性别  1男  2女
-            assu.insured_mobile= applicant.holder_mobile//手机号
-            assu.insured_email= applicant.holder_email//邮箱
-            assu.insured_height= applicant.holder_height//身高
-            assu.insured_weight= applicant.holder_weight//体重
-            assu.insured_nation= NATION//国籍
-            assu.insured_nation_name= '中国'//国籍
-            assu.insured_salary_from= applicant.holder_salary_from//收入来源
-            assu.insured_salary_from_name= applicant.holder_salary_from_name//收入来源名
-            assu.insured_salary_avg= applicant.holder_salary_avg//年收入
-
-            assu.addr_type= true//是否所有地址同投保人
-            assu.insured_home_province= applicant.holder_contact_province//现在住址【省】
-            assu.insured_home_city= applicant.holder_contact_city//现在住址【市】
-            assu.insured_home_district= applicant.holder_contact_district//现在住址【区】
-            assu.insured_home_district_name= applicant.holder_contact_district_name//现在住址【区】名称
-            assu.insured_home_address= applicant.holder_contact_address //现在住址【地址详情】
-            assu.insured_home_zip= applicant.holder_contact_zip//现在住址【邮编】
-
-            assu.insured_has_SSID= applicant.holder_has_SSID//是否有社保
-            assu.insured_marriage= applicant.holder_marriage//婚姻状况
-            assu.insured_job_code= applicant.holder_job_code//职业
-            assu.temp_insured_job_code= applicant.temp_holder_job_code//职业代码
-            assu.insured_job_name= applicant.holder_job_name//职业名称
-            assu.insured_isTaxResidents= applicant.holder_isTaxResidents
+        assu.insured_name= applicant.holder_name //姓名
+        assu.insured_ID_type= IDcard //证件类型
+        assu.insured_ID_type_name= '身份证' //证件类型名
+        assu.insured_ID_no= applicant.holder_ID_no //证件号码
+        assu.insured_birthday= applicant.holder_birthday //出生日期
+        assu.insured_ID_expire_end= applicant.holder_ID_expire_end //证件有效期
+        assu.insured_gender= applicant.holder_gender //性别  1男  2女
+        assu.insured_mobile= applicant.holder_mobile//手机号
+        assu.insured_email= applicant.holder_email//邮箱
+        assu.insured_height= applicant.holder_height//身高
+        assu.insured_weight= applicant.holder_weight//体重
+        assu.insured_nation= NATION//国籍
+        assu.insured_nation_name= '中国'//国籍
+        assu.insured_salary_from= applicant.holder_salary_from//收入来源
+        assu.insured_salary_from_name= applicant.holder_salary_from_name//收入来源名
+        assu.insured_salary_avg= applicant.holder_salary_avg//年收入
+        assu.addr_type= true//是否所有地址同投保人
+        assu.insured_has_SSID= applicant.holder_has_SSID//是否有社保
+        assu.insured_marriage= applicant.holder_marriage//婚姻状况
+        assu.insured_job_code= applicant.holder_job_code//职业
+        assu.temp_insured_job_code= applicant.temp_holder_job_code//职业代码
+        assu.insured_job_name= applicant.holder_job_name//职业名称
+        assu.insured_isTaxResidents= applicant.holder_isTaxResidents
+    }
+    if (assu.addr_type) {
+        AssuSameApplAddress(assu, applicant)
     }
 }
 //临时信息保存
@@ -537,7 +550,6 @@ var saveTemp = function (data) {
     luckyAjax({
         data: {data: JSON.stringify(data), server: 'PolicyIns.saveUserInfo'},
         success: function (data) {
-            plus.nativeUI.closeWaiting();
             if (data.code) {
                 console.log('保存成功');
             } else {

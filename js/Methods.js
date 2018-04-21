@@ -920,8 +920,8 @@ var methods = {
 					}
 					break
 				case '1167':
-					this.addonsSelected['116501'] = false
-					this.addonRes['116501'] = ''
+					this.addonsSelected['1165'] = false
+					this.addonRes['1165'] = ''
 					this.addonsSelected['116502'] = false
 					this.addonRes['116502'] = ''
 					this.addonsSelected['116503'] = false
@@ -930,11 +930,11 @@ var methods = {
 					break
 				case '116502': // 国华康运金生附加豁免轻症疾病豁免保险费
 				case '116503': // 国华康运金生附加豁免身故豁免保险费
-					if(!this.addonsSelected['116501']) {
+					if(!this.addonsSelected['1165']) {
 						toastText = '请先完成豁免保险费重大疾病保险（2017）'
 					}
 					break
-				case '116501': // 国华康运金生附加豁免保险费重大疾病保险（2017）
+				case '1165': // 国华康运金生附加豁免保险费重大疾病保险（2017）
 					if(this.samePerson) {
 						toastText = '投被保人为同人时不可附加该险种'
 					} else if(this.mainPayYear === 1) {
@@ -1047,7 +1047,7 @@ var methods = {
 				this.addonInsData = {}
 				this.addonRes = {}
 				this.addonsSelected = {}
-			} else if(index === '116501') {
+			} else if(index === '1165') {
 				this.flag[index] = ''
 				this.$delete(this.addonInsData, index)
 				this.$delete(this.addonRes, index)
@@ -1315,7 +1315,7 @@ var methods = {
 
 		if(toastText) {
 			mui.toast('【' + name + '】' + toastText)
-//			this.addonsSelected[safeid] = false
+			this.addonsSelected[safeid] = false
 			this.$forceUpdate()
 			return false
 		}
@@ -1897,7 +1897,7 @@ var methods = {
 			data.safe_year = '8500'
 			data.base_money = periodMoney * this.mainPayYear
 			data.flag = 0
-		} else if(safeid === '116501' || safeid === '116502' || safeid === '116503') { // 国华康运金生附加豁免保险费重大疾病保险（2017）
+		} else if(safeid === '1165' || safeid === '116502' || safeid === '116503') { // 国华康运金生附加豁免保险费重大疾病保险（2017）
 			data.pay_year = 1
 			data.safe_year = 1
 			if(this.addonRes['1168']) {

@@ -381,7 +381,9 @@
 			// 判断是不是需要附加险，是分别赋值，不是只赋值主险
 			if(modal.behalfTable.indexOf(Number(modal.formID)) > -1){
 				modal.main = data.list.main.list
+//				alert(JSON.stringify(modal.main)) 
 				modal.mainDescribes = data.list.main.describes
+//				alert(JSON.stringify(data.list.children))
 				mui.each(data.list.children, function(index, item){
 					if(modal.behalfChildren.indexOf(Number(index)) > -1){
 						modal.status = true
@@ -390,7 +392,7 @@
 						modal.childrenDescribes = data.list.children[index].describes
 					}
 				})
-//				alert(JSON.stringify(modal.main)) 
+				
 //				alert(JSON.stringify(modal.mainDescribes))
 //						alert(JSON.stringify(modal.childrenDescribes))
 //				

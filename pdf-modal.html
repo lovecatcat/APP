@@ -44,27 +44,27 @@
 			    scale: 1
 			},
 			methods: {
-				big () {
+				big: function () {
 					this.scale = this.scale + .3
 					this.renderPage(this.pageNum)
 				},
-				small () {
+				small: function () {
 					this.scale = this.scale - .3
 					this.renderPage(this.pageNum)
 				},
-			    showPDF (url) {
-			      let _this = this
+			    showPDF: function(url) {
+			      var _this = this
 			      PDFJS.getDocument(url).then(function (pdf) {
 			        _this.pdfDoc = pdf
 			        _this.renderPage(1)
 			      })
 			    },
-			    renderPage (num) {
+			    renderPage: function (num) {
 			      this.pageRendering = true
-			      let _this = this
+			      var _this = this
 			      this.pdfDoc.getPage(num).then(function (page) {
 			        var viewport = page.getViewport(_this.scale)
-			        let canvas = document.getElementById('the-canvas')
+			        var canvas = document.getElementById('the-canvas')
 			        canvas.height = viewport.height
 			        canvas.width = viewport.width
 			 
@@ -86,21 +86,21 @@
 			        })
 			      })
 			    },
-			    queueRenderPage (num) {
+			    queueRenderPage: function (num) {
 			      if (this.pageRendering) {
 			        this.pageNumPending = num
 			      } else {
 			        this.renderPage(num)
 			      }
 			    },
-			    onPrevPage () {
+			    onPrevPage: function () {
 			      if (this.pageNum <= 1) {
 			        return
 			      }
 			      this.pageNum--
 			      this.queueRenderPage(this.pageNum)
 			    },
-			    onNextPage () {
+			    onNextPage: function () {
 			      if (this.pageNum >= this.pdfDoc.numPages) {
 			        return
 			      }

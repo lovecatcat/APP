@@ -195,7 +195,7 @@
         }
     })
     mui.plusReady(function () {
-        isLogin();
+//        isLogin();
         var userinfo = plus.storage.getItem('userinfo') ? JSON.parse(plus.storage.getItem('userinfo')) : '';
         member.userinfo = userinfo;
         window.addEventListener('reload', function () {

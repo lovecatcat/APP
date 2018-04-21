@@ -164,6 +164,9 @@ var aloneDetail = new Vue({
 			aloneDetail.list = data
 			aloneDetail.adviser = event.detail.adviser
 			aloneDetail.pl_id = event.detail.pl_id
+			aloneDetail.haveLevel = false
+			aloneDetail.haveDesign16197 = false
+			
 			groupList(data)
 			//规划
 			if(aloneDetail.haveDesign.indexOf(Number(aloneDetail.list.genre)) > -1) {
@@ -215,6 +218,7 @@ var aloneDetail = new Vue({
 				success: function(res) {
 					if(res.code == 1) {
 						aloneDetail.imageDescribe = res.data['LBG0009'].describe || res.data['LBG0002'].describe
+						
 					} else {
 						mui.toast('加载失败')
 					}

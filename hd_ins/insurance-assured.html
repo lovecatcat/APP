@@ -217,7 +217,7 @@
                         <div class="box-f-1 ins-font-sm BL-col-999">是否与投保人同地址？</div>
                         <div class="box-f-2">
                             <button class="ins-btn xs-btn BL-mar-r-1" :class="{'blue':assured.addr_type}" :disabled="assured.addr_type"
-                                    @tap="assured.addr_type=!assured.addr_type,sameappladdress(),toblur()">是
+                                    @tap="assured.addr_type=!assured.addr_type,toblur()">是
                             </button>
                             <button class="ins-btn xs-btn" :class="{'blue':!assured.addr_type}" :disabled="!assured.addr_type"
                                     @tap="assured.addr_type=!assured.addr_type,toblur()">否
@@ -394,12 +394,6 @@
         methods:{
             toblur:function(){
                 document.activeElement.blur();
-            },
-            sameappladdress:function () {
-                this.assured.insured_home_district = this.applicant.holder_home_district
-                this.assured.insured_home_district_name = this.applicant.holder_home_district_name
-                this.assured.insured_home_address = this.applicant.holder_home_address
-                this.assured.insured_home_zip = this.applicant.holder_home_zip
             }
         }
     });
@@ -536,8 +530,8 @@
         //保存
         document.querySelector('#saveAssu').addEventListener('tap', function () {
             document.activeElement.blur();
-            RSChanged(assu.assured,assu.applicant);
-            console.log(JSON.stringify(assu.assured))
+            if(!RSChanged(assu.assured,assu.applicant)){return false;}
+//            console.log(JSON.stringify(assu.assured))
             if (!checkAssured(assu.assured)) {
                 return false
             }
@@ -545,7 +539,8 @@
             plus.storage.setItem('hengda_assured',JSON.stringify(assu.assured));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'hengda_assured',
-                data: 'assured'
+                data: 'assured',
+                clear: true
             });
             popu.closepop();
             mui.back();
@@ -567,7 +562,7 @@
                 },
                 success: function (data) {
                     if (data.code) {
-                        //console.log(JSON.stringify(data.data));
+                        console.log(JSON.stringify(data.data));
                         var info = data.data;
                         assu.assured.insured_name = info.name;
                         assu.assured.insured_ID_no = info.card_no;

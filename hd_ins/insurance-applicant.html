@@ -240,7 +240,7 @@
                     <div class="box-f-1 ins-font-sm BL-col-999">通讯地址是否同现在住址？</div>
                     <div class="box-f-2">
                         <button class="ins-btn xs-btn BL-mar-r-1" :class="{'blue':applicant.mail_addr_type}" :disabled="applicant.mail_addr_type"
-                                @tap="applicant.mail_addr_type=!applicant.mail_addr_type,sameaddress(),toblur()">是
+                                @tap="applicant.mail_addr_type=!applicant.mail_addr_type,toblur()">是
                         </button>
                         <button class="ins-btn xs-btn" :class="{'blue':!applicant.mail_addr_type}" :disabled="!applicant.mail_addr_type"
                                 @tap="applicant.mail_addr_type=!applicant.mail_addr_type,toblur()">否
@@ -419,16 +419,6 @@
         methods:{
             toblur:function(){
                 document.activeElement.blur();
-            },
-            sameaddress: function () {
-                this.applicant.holder_contact_province = this.applicant.holder_home_province
-                this.applicant.holder_contact_city = this.applicant.holder_home_city
-                this.applicant.holder_contact_district = this.applicant.holder_home_district
-                this.applicant.holder_contact_province_name = '广东'
-                this.applicant.holder_contact_city_name = '深圳'
-                this.applicant.holder_contact_district_name = this.applicant.holder_home_district_name
-                this.applicant.holder_contact_address = this.applicant.holder_home_address
-                this.applicant.holder_contact_zip = this.applicant.holder_home_zip
             }
         }
     });
@@ -571,17 +561,28 @@
         document.querySelector('#saveAppl').addEventListener('tap', function () {
             document.activeElement.blur();
             if(appl.applicant.mail_addr_type){
-                appl.sameaddress();
+                ApplSameHomeAddress(appl.applicant);
             }
             if (!checkAppl(appl.applicant)) {
                 return false;
             }
+            var flag = false
+            var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')) : ''
+            if (assured && assured.rel_insured_holder === ISASSURED) {
+                if(!RSChanged(assured, appl.applicant)){return false}
+                if (!checkAssured(assured)) {
+                    return false
+                }
+                saveTemp(assured)
+                plus.storage.setItem('hengda_assured', JSON.stringify(assured));
+                flag = true
+            }
             saveTemp(appl.applicant)
-            console.log('========='+appl.applicant.holder_has_SSID)
             plus.storage.setItem('hengda_applicant',JSON.stringify(appl.applicant));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'hengda_applicant',
-                data:'applicant'
+                data:'applicant',
+                clear: flag
             });
             console.log(JSON.stringify(plus.storage.getItem('hengda_applicant')));
             popu.closepop();

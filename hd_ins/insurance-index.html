@@ -71,7 +71,7 @@
 </div>
 <script src="../js/mui.min.js" type="text/javascript"></script>
 <script src="../js/vue.min.js" type="text/javascript"></script>
-
+<script src="../js/IDValidator.min.js"></script>
 <script src="method.js"></script>
 <!--<script type="text/babel">-->
 <script type="text/javascript">
@@ -161,7 +161,12 @@
         //保存数据更新
 		window.addEventListener('saveFlag', function (e) {
 		    console.log('saveFlag')
-		    console.log(JSON.stringify(e.detail))
+            if (e.detail.clear) {
+                plus.storage.removeItem('hengda_safegoods')
+                plus.storage.removeItem('hengda_healthinfo')
+                index.getItem('hengda_safegoods', 'safegoods')
+                index.getItem('hengda_healthinfo', 'healthinfo')
+            }
 			index.getItem(e.detail.item,e.detail.data)
 
         });
@@ -241,14 +246,28 @@
             war_id && deleteItem(war_id, '', 'content')
             war_id && deleteItem(war_id, '', 'beneficiary')
             war_id && deleteItem(war_id, '', 'matter_value')
-            //
+            //保存前再次校验
             if (!index.applicant) {
-                toast_text = '请填写投保人信息';
-            } else if (!index.assured) {
-                toast_text = '请填写被保人信息';
-            } else if (!index.beneficiary) {
-                toast_text = '请填写受益人信息';
-            } else if (!index.safegoods) {
+                mui.toast('请填写投保人信息', {duration: 'short', type: 'div'});
+                return false;
+            }
+            if (!checkAppl(index.applicant)) {
+                return false;
+            }
+            if (!index.assured) {
+                mui.toast('请填写被保人信息', {duration: 'short', type: 'div'});
+                return false;
+            }
+            if(!RSChanged(index.assured,index.applicant)){return false}
+            if (!checkAssured(index.assured)) {
+                return false
+            }
+            if (!index.beneficiary) {
+                mui.toast('请填写受益人信息', {duration: 'short', type: 'div'});
+                return false;
+            }
+            //
+            if (!index.safegoods) {
                 toast_text = '请填写险种信息';
             } else if (!index.healthinfo) {
                 toast_text = '请填写健康告知信息';

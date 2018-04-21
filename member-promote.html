@@ -52,7 +52,7 @@
 					            </div>
 					        </li>
 					        <li class="fItem BL-ub BL-ub-f1" v-for="(item,index) in list" :key="index" v-if="list">
-					            <a class="mui-navigate-right form-list-label BL-ub-f1 BL-ub-f1">
+					            <a class="mui-navigate-right form-list-label BL-ub-f1 BL-ub-f1" :data-url="item.insured_rule">
 					        		<div class="BL-ftz-52 BL-ellipsis BL-pad-r-2">
 					        			{{ item.product_name}}
 					        		</div>
@@ -62,7 +62,6 @@
 					</div>
 				</div>
 			</div>
-			<!------------计划书明细 end  ------------->
 		</div>
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
@@ -70,7 +69,7 @@
 	<script src="js/mui.pullToRefresh.js"></script>
 	<script src="js/mui.pullToRefresh.material.js"></script>
 	<script src="js/vue.min.js"></script>
-	<script src="js/Date.js"></script>
+	<script src="js/pdf.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		mui.init();
 		var self;
@@ -157,6 +156,7 @@
 	                data: JSON.stringify(basedata)
 	            },
 	            success: function (data) {
+	            	console.log(JSON.stringify(data))
 	                if (data.code) {
 	                    if (promote.page >= data.data.totalPage) {
 	                        self.endPullUpToRefresh(true);
@@ -179,15 +179,20 @@
 	        });
 	    };
 	    
-	    //主列表点击事件
-	    mui('body').on('tap', '.mui-navigate-right', function () {
-	        //打开新窗口
-	        mui.openWindow({
-	            url: 'http://www.51purse.com/pdf/web/demo2.html',
-	            id: 'demo2',
-	            show: animateObj.aniDetal,
-	            extras: null
-	        });
+	    //列表点击事件查看pdf
+	    mui('body').on('tap', '.mui-navigate-right', function (e) {
+	    	var pdf_url = this.getAttribute('data-url')
+	    	var data = {};
+	    	if (pdf_url) {
+	    		data = {
+					pdf: pdf_url
+				}
+				showPopu("pdf-modal.html", "pdf_modal", 'center',data);
+	    	} else {
+	    		mui.toast('暂无投保规则pdf可查看', {duration: 'short', type: 'div'})
+	    		return false
+	    	}
+	    	
 	    });
 		
 		//主列表点击事件

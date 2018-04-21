@@ -57,7 +57,6 @@
                 		<li>期/趸交保费</li>
                 		<li>本期保费</li>
                 		<li>保险生效</li>
-                		
                 	</ul>
                     <div class="BL-ub" style="width: 70%;float: left;overflow-y: hidden;overflow-x: scroll;">
                     	<ul style="width:50%;border-left: none;" v-for="item in productInfo">
@@ -65,7 +64,7 @@
                     		<li>{{item.amount}}</li>
                     		<li>{{item.period_payment}}</li>
                     		<li>{{item.period_payment}}</li>
-                    		<li>{{item.period_guanantee}}</li>
+                    		<li>{{item.period_guanantee == '999' ? '终身' : item.period_guanantee }}</li>
                     		<li>{{item.fee}}</li>
                     		<li>{{item.fee}}</li>
                     		<li>{{item.underwrite_date}}</li>

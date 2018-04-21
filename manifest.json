@@ -6,7 +6,7 @@
 	"id": "H517AA33E",
 	"name": "保险+",
 	"version": {
-		"name": "1.9.0420",
+		"name": "1.9.0421",
 		"code": "83"
 	},
 	"description": "保险plus mobile",
@@ -2850,11 +2850,47 @@
 					"css/module.css",
 					"css/common.css",
 					"css/form.css",
-					"images/icon/ico-filter-active.png"
+					"images/icon/ico-filter-active.png",
+					"js/pdf.js",
+					"js/pdf.worker.js",
+					"images/a.pdf"
 				],
 				"refer": [
-					"quickly-filter.html"
+					"quickly-filter.html",
+					"member-promote-detail.html",
+					"pdf-modal.html"
 				],
+				"priority": 0
+			},
+			"member-promote-detail.html": {
+				"resources": [
+					"css/mui.css",
+					"js/pdfobject.js",
+					"css/member.css",
+					"css/form.css",
+					"js/pdf.js",
+					"js/pdf.worker.js",
+					"images/a.pdf",
+					"css/module.css",
+					"css/common.css",
+					"images/icon/ico-narrow.png",
+					"images/icon/ico-member-close.png",
+					"images/icon/ico-enlarge.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pdf-modal.html": {
+				"resources": [
+					"images/icon/ico-narrow.png",
+					"images/icon/ico-member-close.png",
+					"images/icon/ico-enlarge.png",
+					"css/member.css",
+					"css/mui.css",
+					"images/a.pdf",
+					"js/pdf.worker.js"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

@@ -8,6 +8,7 @@
     <link href="css/common.css" rel="stylesheet"/>
     <link href="css/module.css" rel="stylesheet"/>
     <link href="css/member.css" rel="stylesheet"/>
+    <link href="css/product.css" rel="stylesheet"/>
     <script src="js/config.js" type="text/javascript"></script>
 </head>
 <body class="BL-bg-f2f">
@@ -25,22 +26,22 @@
 	            <!--分类栏目 begin-->
 	            <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
 	                <div class="mui-scroll">
-	                    <div class="mui-control-item" :class="{'mui-active':status_type=='0'}"
+	                    <a class="pro-control-item" :class="{'mui-active':status_type=='0'}"
 	                         @click="status_type='0',page=0">
 	                        <span>全部</span>
-	                    </div>
-	                    <div class="mui-control-item" :class="{'mui-active':status_type=='1'}"
+	                    </a>
+	                    <a class="pro-control-item" :class="{'mui-active':status_type=='1'}"
 	                         @click="status_type='1',page=0">
 	                        <span>待投保</span>
-	                    </div>
-	                    <div class="mui-control-item" :class="{'mui-active':status_type=='2'}"
+	                    </a>
+	                    <a class="pro-control-item" :class="{'mui-active':status_type=='2'}"
 	                         @click="status_type='2',page=0">
 	                        <span>待支付</span>
-	                    </div>
-	                    <div class="mui-control-item" :class="{'mui-active':status_type=='3'}"
+	                    </a>
+	                    <a class="pro-control-item" :class="{'mui-active':status_type=='3'}"
 	                         @click="status_type='3',page=0">
 	                        <span>已取消</span>
-	                    </div>
+	                    </a>
 	                </div>
 	            </div>
 	            <!--分类栏目 end -->
@@ -112,7 +113,7 @@
         watch: {
             status_type: {
                 handler: function () {
-                    order.page = 0;
+                    this.page = 0;
                     mui('#Js-orderList .mui-scroll-wrapper').each(function(){
 			    		this.setAttribute('data-scroll', '');
 				    });
@@ -139,12 +140,12 @@
 	
     (function ($) {
         //阻尼系数
-        var deceleration = mui.os.ios ? 0.003 : 0.0009;
-        $('#Js-orderList .mui-scroll-wrapper').scroll({
-            bounce: true,
-            indicators: false, //是否显示滚动条
-            deceleration: deceleration
-        });
+		var deceleration = mui.os.ios?0.003:0.0009;
+		$('.mui-scroll-wrapper').scroll({
+			bounce: true,
+			indicators: false, //是否显示滚动条
+			deceleration: deceleration
+		});
         $.plusReady(function () {
         	user_id = JSON.parse(plus.storage.getItem("userinfo")).id
         	
@@ -154,17 +155,19 @@
             var titHeight = document.querySelector('#Js-header').offsetHeight;
             var divHeight = document.querySelector('#Js-orderFilter').offsetHeight;
             document.querySelector('#Js-orderList').style.height = winH - titHeight - divHeight + 'px';
-
+            
             //循环初始化所有下拉刷新，上拉加载。
-            $('#Js-orderList .mui-scroll').pullToRefresh({
-                up: { // 上拉加载更多
-                    auto: true, // 自动上拉一次
-                    callback: function () {
-                        self = this
-                        loaddata();
-                    }
-                }
-            });
+			$('#Js-orderList .mui-scroll').pullToRefresh({
+				up: { // 上拉加载更多
+					auto: true, // 自动上拉一次
+					contentrefresh: '正在加载...',
+    				contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+					callback: function() {
+						self = this
+						loaddata()
+					}
+				}
+			});
             
             // 取消订单
             mui('body').on('tap', '.cancel', function () {
@@ -205,17 +208,19 @@
     //加载险种列表
     var loaddata = function (e) {
         order.page++;
+        var basedata = {
+        	user_id: user_id,
+			state: '',
+			type: '2',
+			ins_state: order.status_type,
+			isRenewal: '2', //传1显示代理人接收的保单，传2或者不传表示显示代理人自己保单
+			page: order.page,
+        }
+        
         luckyAjax({
 			data: {
 	            server: 'PolicyIns.PolicyManage',
-	            data: JSON.stringify({
-					user_id: user_id,
-					state: '',
-					type: '2',
-					ins_state: order.status_type,
-					isRenewal: '2', //传1显示代理人接收的保单，传2或者不传表示显示代理人自己保单
-					page: order.page
-				})
+	            data: JSON.stringify(basedata)
 	        },
 	        success: function(res){
                	if(res.code == 1) {

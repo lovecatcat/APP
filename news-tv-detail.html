@@ -33,29 +33,32 @@
 									{{newsTvDetail_data.create_time}} 
 								</span>
 								<span id="">
-									{{newsTvDetail_data.type}}
+									{{newsTvDetail_data.type_name}}
 								</span>
 							</div>
 						</div>
-						<div class="bd">
-							<img src="images/pic/p10.jpg" />
+						<div class="bd news-tv-detail BL-rel" id="video" >
+							<img src="images/pic/p7.jpg" />
+							<div class="BL-abs news-tv-detail-abs">
+								<i></i>
+							</div>
 						</div>
 					</div>
 
 					<!------------ 视频列表 begin ----------->
 					<div id="Js-newsList" class="news-list news-tv-list">
 						<ul class="news-list-cell">
-							<li class="nItem" v-for="(item, index) in newsList_data" v-if="item.mark === 2 && index < 3" :key="index">
+							<li class="nItem" v-for="(item, index) in newsList_data" v-if="item.mark === 2 " :key="index">
 							<a :data-id="item.id" :data-wid="item.mark === 2 ? 'news_tv_detail' : 'news_detail'" href="news-detail.html" class="BL-ub BL-ub-f1">
 								<div class="img">
-									<img src="images/pic/p7.jpg" />
+									<img :src="item.image" />
 								</div>
 								<div class="context BL-ub BL-ub-ver BL-ub-f1">
 									<h1 class="tit">
 										<span class="tit-badg tit-badg-tv">视频</span>
 										{{item.title}}
 									</h1>
-									<div class="name">{{item.type}}</div>
+									<div class="name">{{item.type_name}}</div>
 								</div>
 							</a>
 						</li>
@@ -105,19 +108,22 @@
 				bounce: true //是否启用回弹
 			});
 
-			mui.plusReady(function() {
+			mui.ready(function() {
 				statusbar();
 		
 				var winH = window.innerHeight;
 				var titHeight = document.querySelector('#Js-header').offsetHeight;
 				var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 				document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
+				
+				
 				//点赞
 				document.querySelector('.goods').addEventListener('tap', function() {
 			    	luckyAjax({
 						data: {
 				            server: 'Information.praise',
 				            device: 'mobile',
+				            view: true,
 				            data: JSON.stringify({id: newsDetail.newsTvDetail_data.id})
 				        },
 				        success:function(res){
@@ -127,23 +133,56 @@
 				        }
 					});
 				});
-		
-		
+				document.querySelector('#video').addEventListener('tap', function() {
+					//打开新窗口
+					mui.openWindow({
+						id: 'news_tv_video',
+						url: 'news-tv-video.html',
+						show: animateObj.aniDetal,
+						extras:{
+							video_url:  'http://v.qq.com/iframe/player.html?vid=v0509ge2h88&tiny=0&auto=0'
+						}
+					});
+				}, false);
 			//添加productId自定义事件监听
 			window.addEventListener('newsId', function(event) {
 				//获得事件参数
 				var id = event.detail.id;
+				var type = event.detail.type;
 				console.log(id)
 				//根据id向服务器请求新闻详情
 				luckyAjax({
 					data: {
 			            server: 'Information.content',
 			            device: 'mobile',
+			            view: true,
 			            data: JSON.stringify({id: id})
 			        },
 			        success:function(res){
 			        	if(res.code == 1) {
 							newsDetail.newsTvDetail_data = res.data
+							
+							luckyAjax({
+								data: {
+						            server: 'Information.queue',
+						            device: 'mobile',
+						            data: JSON.stringify({
+						              		amount: 2, //每页显示的条数
+						              		view: true,
+											page: 1, //请求的页码
+											type: type //行业资讯
+						            })
+						        },
+						        success:function(res){
+						        	if(res.code == 1) {
+						        		newsDetail.newsList_data = []
+										newsDetail.newsList_data = newsDetail.newsList_data.concat(res.data.queue)
+										
+									}else{
+										console.log(res.msg)
+									}
+						        }
+							});
 						}else{
 							console.log(res.msg)
 						}
@@ -151,6 +190,33 @@
 				});
 
 			});
+			
+			
+			
+			mui('body').on('tap', 'a', function() {
+				var href = this.getAttribute('href');
+				var id = this.getAttribute("data-wid");
+				var pid = this.getAttribute('data-id');
+	
+				//非plus环境，直接走href跳转
+				if(!mui.os.plus) {
+					location.href = href;
+					return;
+				};
+	
+				if(href && ~href.indexOf('.html')) {
+	
+					//打开新窗口
+					mui.openWindow({
+						id: 'news_tv_video',
+						url: 'news-tv-video.html',
+						show: animateObj.aniDetal,
+						extras:{
+							video_url:  'http://v.qq.com/iframe/player.html?vid=v0509ge2h88&tiny=0&auto=0'
+						}
+					});
+				}
+			});	
 		})
 	</script>
 

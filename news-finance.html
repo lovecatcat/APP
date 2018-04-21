@@ -20,10 +20,10 @@
 					<!--活动中，数据列表-->
 					<ul class="mui-table-view news-list-cell" v-if="newsList_data != ''">
 						<li class="nItem" v-for="item in newsList_data">
-							<a :data-id="item.id" :data-wid="item.mark === 2 ? 'news_tv_detail' : 'news_detail'" 
+							<a :data-id="item.id" :data-type="item.type"  :data-wid="item.mark === 2 ? 'news_tv_detail' : 'news_detail'" 
 								:href="item.mark === 2 ? 'news-tv-detail.html' : 'news-detail.html'" class="BL-ub BL-ub-f1">
 								<div class="img">
-									<img src="images/pic/p7.jpg" />
+									<img :src="item.image" />
 								</div>
 								<div class="context BL-ub BL-ub-ver BL-ub-f1">
 									<h1 class="tit">
@@ -31,7 +31,7 @@
 										<span class="tit-badg tit-badg-tv" v-else-if="item.mark === 2">视频</span>
 										{{item.title}}
 									</h1>
-									<div class="name">{{item.type}}</div>
+									<div class="name">{{item.type_name}}</div>
 								</div>
 							</a>
 						</li>
@@ -86,7 +86,7 @@
 								            data: JSON.stringify({
 								              		amount: 15, //每页显示的条数
 													page: i, //请求的页码
-													type: 'MBJ003' //行业资讯v
+													type: 'BAA000O' //财经报道
 								            })
 								        },
 								        success:function(res){
@@ -115,6 +115,7 @@
 			var href = this.getAttribute('href');
 			var id = this.getAttribute("data-wid");
 			var pid = this.getAttribute('data-id');
+			var type = this.getAttribute('data-type');
 
 			//非plus环境，直接走href跳转
 			if(!mui.os.plus) {
@@ -122,8 +123,7 @@
 				return;
 			};
 
-			if(href && ~href.indexOf('.html')) {
-
+			if(id == 'news_detail'){
 				if(pid) {
 					//获得详情页面
 					if(!detailPage) {
@@ -131,18 +131,39 @@
 					}
 					//触发详情页面的newsId事件
 					mui.fire(detailPage, 'newsId', {
-						id: pid
+						id: pid,
+						type: type
+					});
+					//打开新窗口
+					mui.openWindow({
+						id:id,
+						show:animateObj.aniDetal
 					});
 				};
-
-				//打开新窗口
-				mui.openWindow({
-					id:id,
-					show:animateObj.aniDetal,
-					extras:{
-						product_id: pid  //单个资讯id
-					}
+			}else{
+				luckyAjax({
+					data: {
+			            server: 'Information.content',
+			            device: 'mobile',
+			            view: true,
+			            data: JSON.stringify({id: pid})
+			        },
+			        success:function(res){
+			        	if(res.code == 1) {
+							mui.openWindow({
+								id: 'news_tv_video',
+								url: 'news-tv-video.html',
+								show: animateObj.aniDetal,
+								extras:{
+									video_url:  res.data.link
+								}
+							});
+						}else{
+							console.log(res.msg)
+						}
+			        }
 				});
+//				
 			}
 
 		});

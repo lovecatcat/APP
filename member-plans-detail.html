@@ -191,7 +191,7 @@
 				if(fj){
 					mui.each(plansDetail.detail_list[i].children, function(index, item){
 					 	if(index == genre){
-					 		plansDetail.detail_list[i].children[genre] = null
+					 		delete plansDetail.detail_list[i].children[genre]
 					 	}
 					})
 				}else{

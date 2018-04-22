@@ -89,6 +89,7 @@ var aloneDetail = new Vue({
 				assu_age: this.list.assu_age,
 				pay_year: this.list.pay_year,
 				year_fee: this.list.year_fee,
+				safe_year: this.list.safe_year,
 			}
 			var design = this.manual_content[this.levelNum]
 			// 判断是不是需要附加险，是传全部，不是只传主险
@@ -105,7 +106,9 @@ var aloneDetail = new Vue({
 				safe_year: aloneDetail.list.safe_year,
 				levelNum: this.levelNum,
 				manData: manData,
-				design: design
+				design: design,
+				flag: this.list.flag
+
 			}
 			//打开弹框
 			showPopu("member-plans-alone-table.html", "member_plans_alone_table", 'bottom', data);

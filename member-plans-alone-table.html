@@ -325,6 +325,8 @@
 				pay_year: '',
 				safe_year: '',
 				levelNum : '',
+				indeLv: '',
+				behalfLevelNum: [348, 370], //有中高低
 				behalfTable: [256, 354, 16201, 16197, 370, 347], //主险利益演示表和附加险有关系的
 				//国华康运一生a,国华康运金生,国华少儿,鑫丰盈年金保险，万年红,信泰千万人生
 				behalfChildren: [87, 355, 16202, 16198, 373, 404, 367], //主险利益演示表和附加险有关系的
@@ -366,8 +368,20 @@
 			var manData;
 			modal.isHide = data.modalID
 			modal.formID = data.formID
-			modal.pay_year = data.pay_year
+			modal.pay_year = data.pay_year;
+			modal.safe_year = data.safe_year
 			modal.levelNum = data.levelNum
+			modal.flag = data.flag
+			
+			if (data.levelNum == 'min'){
+				modal.indeLv = 1
+			} else if (data.levelNum == 'mid'){
+				modal.indeLv = 2
+			} else if (data.levelNum == 'max'){
+				modal.indeLv = 3
+			} else{
+				modal.indeLv = 0
+			}
 			manData = data.manData
 			var design = data.design
 			if(data.safe_year == 0){
@@ -438,15 +452,16 @@
                 ret.assu_sex =  manData.assu_sex;
                 ret.assu_age = manData.assu_age;
                 ret.pay_year = manData.pay_year;
-                ret.safe_year = 0;
+                ret.safe_year = manData.safe_year;
                 ret.year_fee = manData.year_fee;
+                ret.genre = modal.formID;
                 ret.derate_money = 0;
                 ret.base_money = 0;
                 ret.warranty_year = 105;
                 ret.fj = false; // 包含附加险
                 ret.type = "";
                 ret.is_save = 0;
-                ret.flag = 0;
+                ret.flag = modal.flag;
                 ret.check= 0;
 				ret.alias= null
                 ret.sa_one = 0;
@@ -479,6 +494,7 @@
                 ret.sa_ten = 0;
                 ret.fa_ten = 0;
                 ret.money_ten = 0;
+                ret.level = modal.indeLv;
                 if(modal.formID == '370'){
                 	ret.njy = njy;
                     ret.nje = nje;
@@ -504,7 +520,6 @@
 							})
 						},
 						success: function(ret) {
-							
 							if(ret.data.data[0]) {
 								modal.main = ret.data.data[0][modal.formID].main.list
 							} else if(ret.data.data[-1]) {
@@ -520,8 +535,10 @@
 				nje = modal.main[104-manData.assu_age][nje];
 				tbnj = modal.main[5][tbnj]
 				addXuanr()
-			}else if(modal.formID == '377'){
+			}else if(modal.formID == '377' || modal.formID == '16197'){
 				addXuanr()
+			}else if (modal.formID == '348'){
+				calMoney()
 			}
 			 function addXuanr() {
                 //添加内容的长度，循环渲染列表数据

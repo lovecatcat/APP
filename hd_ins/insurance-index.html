@@ -323,12 +323,13 @@
                 if (item.safe_id.toString() === qwhh) {
                     safeitem.quantity = (item.money / 50000).toString()
                 }
+
                 safeitem.extend_items = {
                     autoApl: item.autoApl ? '1' : '0',
                     guarantee_term: item.guarantee_term,
                     draw_freq: item.draw_freq,
                     draw_age: item.draw_age,
-                    shareDrawType: item.shareDrawType
+                    shareDrawType: item.safe_id.toString() === cjb ? zrwnzh : item.shareDrawType
                 }
                 content.push(safeitem)
             })

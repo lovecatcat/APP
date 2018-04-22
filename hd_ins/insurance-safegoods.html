@@ -49,10 +49,10 @@
                 <div class="input-item ins-pd-r-0" v-if="safe_year" v-cloak>
                     <label class="">保险期间</label>
                     <div class="input-wrap box-f-1 multi-btn">
-                        <button class="ins-btn xs-btn" :class="{'blue':item.safe_year===insurance.safe_year}"
-                                :disabled="item.safe_year===insurance.safe_year"
+                        <button class="ins-btn xs-btn" :class="{'blue':item.year===insurance.safe_year}"
+                                :disabled="item.year===insurance.safe_year"
                                 v-for="(item,index) in safe_year"
-                                @tap="insurance.safe_year=item.safe_year,resetMoney(),toblur()">
+                                @tap="insurance.safe_year=item.year,resetMoney(),toblur()">
                             {{item.year | safeYearFilter}}
                         </button>
                     </div>
@@ -241,7 +241,7 @@
                     </div>
                 </div>
                 <!--传家宝-->
-                <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==cjb">
+                <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==cjb" v-show="addonsSelected[index]">
                     <div class="mui-col-sm-6">
                         <li class="ins-font-xs">
                             交费期间(年)&nbsp;<span class="BL-col-ff8201">趸交</span>
@@ -524,9 +524,10 @@
                 mainSyAttr = mainSyAttr.sort(function (a, b) {
                     return a.safe_year - b.safe_year
                 });
+
                 //长度为1直接赋值，不为1置为空
                 if (mainSyAttr.length === 1) {
-                    vm.insurance.safe_year = mainSyAttr[0].safe_year
+                    vm.insurance.safe_year = mainSyAttr[0].year
                 } else {
                     vm.insurance.safe_year = ''
                 }
@@ -599,47 +600,47 @@
                 switch (safe_id) {
                     case hjjk: //恒久健康
                         vm.showAddonIns = {
-                            '273': vm.noSamePerson, //投保人豁免
-                            '277': money >= 200000, //尊享安康
-                            '278': money >= 200000, //恒顺意外
-                            '279': money >= 200000, //恒祥住院
-                            '16205': money >= 50000 && period_money >= 3000 //恒久安心
+                            '146': vm.noSamePerson, //投保人豁免
+                            '150': money >= 200000, //尊享安康
+                            '151': money >= 200000, //恒顺意外
+                            '152': money >= 200000, //恒祥住院
+                            '208': money >= 50000 && period_money >= 3000 //恒久安心
                         }
                         break
                     case qwhh: // 千万护航
                         vm.showAddonIns = {
-                            '273': false, //投保人豁免
-                            '277': money >= 200000, //尊享安康
-                            '278': money >= 200000, //恒顺意外
-                            '279': money >= 200000, //恒祥住院
-                            '16205': money >= 200000 //恒久安心
+                            '146': false, //投保人豁免
+                            '150': money >= 200000, //尊享安康
+                            '151': money >= 200000, //恒顺意外
+                            '152': money >= 200000, //恒祥住院
+                            '208': money >= 200000 //恒久安心
                         }
                         break
                     case wnq: //万年青终身重大疾病保险
                         vm.showAddonIns = {
-                            '273': pay_year !== 30 && vm.noSamePerson, //投保人豁免 30年缴不可附加
-                            '277': money >= 50000 && period_money >= 3000, //尊享安康
-                            '278': money >= 10000, //恒顺意外
-                            '279': true, //恒祥住院
-                            '16205': money >= 50000 && period_money >= 3000 //恒久安心
+                            '146': pay_year !== 30 && vm.noSamePerson, //投保人豁免 30年缴不可附加
+                            '150': money >= 50000 && period_money >= 3000, //尊享安康
+                            '151': money >= 10000, //恒顺意外
+                            '152': true, //恒祥住院
+                            '208': money >= 50000 && period_money >= 3000 //恒久安心
                         }
                         break
                     case fxjs: //福享金生终身年金保险
                         vm.showAddonIns = {
-                            '273': pay_year > 5 && vm.noSamePerson, //投保人豁免
-                            '277': period_money >= 10000, //尊享安康
-                            '278': period_money * vm.insurance.pay_year >= 10000, //恒顺意外
-                            '279': true, //恒祥住院
-                            '16205': period_money >= 5000 //恒久安心
+                            '146': pay_year > 5 && vm.noSamePerson, //投保人豁免
+                            '150': period_money >= 10000, //尊享安康
+                            '151': period_money * vm.insurance.pay_year >= 10000, //恒顺意外
+                            '152': true, //恒祥住院
+                            '208': period_money >= 5000 //恒久安心
                         }
                         break
                     case wnh: //万年红终身年金保险
                         vm.showAddonIns = {
-                            '373': true, //传家宝
-                            '277': true, //尊享安康
-                            '278': true, //恒顺意外
-                            '279': true, //恒祥住院
-                            '16205': period_money >= 5000 //恒久安心
+                            '205': true, //传家宝
+                            '150': true, //尊享安康
+                            '151': true, //恒顺意外
+                            '152': true, //恒祥住院
+                            '208': period_money >= 5000 //恒久安心
                         }
                         break
                 }
@@ -687,12 +688,12 @@
                     }
                     vm.Addons[i].attr2 = unique(vm.Addons[i].ratio, 'safe_year')
                     if (vm.Addons[i].attr2.length === 1) {
-                        tml.safe_year = item.safe_year
+                        tml.safe_year = item.year
                     }
                     tml.money = vm.insurance.period_money
                 } else {
                     if (vm.Addons[i].ratio.length === 1) {
-                        tml.safe_year = vm.Addons[i].ratio[0].safe_year
+                        tml.safe_year = vm.Addons[i].ratio[0].year
                         tml.pay_year = vm.Addons[i].ratio[0].pay_year
                     }
                     tml.money = ''
@@ -940,6 +941,7 @@
                 main.productId = vm.insurance.safe_id;
                 main.pay = vm.insurance.pay_year;
                 main.insure = vm.insurance.safe_year;
+                console.log(typeof id + id)
                 if ([hjjk, wnq].indexOf(id) > -1) { //恒久 万年青
                     main.amount = vm.insurance.money.toString()
                 } else if (id === qwhh) { //千万
@@ -1174,6 +1176,7 @@
                                 })
                             }
                         });
+                        console.log(JSON.stringify(data))
                         safegoods.setData(data);
                         //
                         mui.each(data, function (index, item) {

@@ -240,10 +240,10 @@
 								if(res.code == 1) {
 //									aloneDetail.sub_treasury_id = res.data.child_id
 //									popu.closepop();
-									var url = config.domain + res.data.statement
+									var url = res.data.statement
 									if (url) {
 									    showPopu("pdf-modal.html", "pdf_modal", 'center', {
-									        pdf: url
+									        pdf: config.domain +  url
 									    });
 									} else {
 									    mui.toast('暂无条款详情', {duration: 'short', type: 'div'})

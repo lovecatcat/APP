@@ -578,11 +578,11 @@
 		                if(data.code){
 		                 	var info = data.data;
 		                	if(prospect.Communic == 'appl'){
-		                		prospect.appl.name = info.name;
+		                		prospect.appl.name = info.user_name;
 		                		prospect.appl.sex = info.sex == '男' ? true : false;
 		                		prospect.appl.birthday = info.birthday
 		                	}else{
-		                		prospect.assu.name = info.name;
+		                		prospect.assu.name = info.user_name;
 		                		prospect.assu.sex = info.sex == '男' ? true : false;
 		                		prospect.assu.birthday = info.birthday
 		                	}

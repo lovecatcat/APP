@@ -329,7 +329,7 @@
         luckyAjax({
             data: {
                 server: 'lifeProduct.getIndexProductList',
-                data: JSON.stringify({ins_type: 'LBI0016,LBI0001,LBI0008'})
+                data: JSON.stringify({ins_type: 'LBI0016,LBI0001,LBI0008',state: 1})
             },
             success: function (data) {
                 console.log(JSON.stringify(data));

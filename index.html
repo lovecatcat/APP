@@ -130,7 +130,12 @@
 
 		    plus.geolocation.getCurrentPosition(function(p){
 		    	locationd = p;	
-		    })
+		    }, function(e){
+				//console.log('无法获取当前位置');
+			}, {
+				provider:'baidu',
+				enableHighAccuracy: true,
+			})
 		    
 		    Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
 			        //console.log('Message:' + Tunnel._webSocket.readyState);

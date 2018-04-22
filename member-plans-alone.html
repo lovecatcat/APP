@@ -33,7 +33,7 @@
 					<div v-else-if="al.indexOf(Number(list.genre)) > -1" @click="company(list.genre)">安联财险</div>
 					<div v-else-if="fx.indexOf(Number(list.genre)) > -1" @click="company(list.genre)">复星联合</div>
 					<div @click="clause">条款详情</div>
-					<div>绿通服务</div>
+					<div @click="company_green(list.genre)" v-if="green_server">绿通服务</div>
 				</div>
 				<!--保险计划-->
                 <div class="plans-detail-box plans-detail-box-first BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff">
@@ -71,14 +71,16 @@
                         	<span class="BL-ub-f1">年交保费</span>
                         </li>
                         <li class="BL-ftz-46 BL-ub BL-ub-ac">
-                        	<span class="BL-ub-f1">{{main.name}}</span>
+                        	<span class="BL-ub-f1" v-if="main.short_name">{{main.short_name}}</span>
+                        	<span class="BL-ub-f1" v-else>{{main.name}}</span>
                         	<span class="BL-ub-f1">{{main.base_money}}</span>
                         	<span class="BL-ub-f1">{{main.safe_year}}</span>
                         	<span class="BL-ub-f1">{{main.pay_year}}</span>
                         	<span class="BL-ub-f1">{{main.year_fee}}</span>
                         </li>
                         <li class="BL-ftz-46 BL-ub BL-ub-ac" v-for="item in children">
-                        	<span class="BL-ub-f1">{{item.name}}</span>
+                        	<span class="BL-ub-f1" v-if="item.short_name">{{item.short_name}}</span>
+                        	<span class="BL-ub-f1" v-else>{{item.name}}</span>
                         	<span class="BL-ub-f1">{{item.base_money}}</span>
                         	<span class="BL-ub-f1">{{item.safe_year}}</span>
                         	<span class="BL-ub-f1">{{item.pay_year}}</span>
@@ -87,6 +89,11 @@
                     </ul>
 				</div>
 				<!--险种信息-->
+				<!--产品图片-->
+				<div class="plans-detail-box plans-detail-box-img BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff" v-if="imageDescribe" v-html="imageDescribe">
+					<!--<img :src="'images/plans/prospectus/'+ Number(list.genre) + '_2.jpg'" alt="产品图片" >-->
+				</div>
+				<!--产品图片-->
 				<!--保险利益-->
 				<div class="plans-detail-box BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff" >
 					<div class="BL-title">保险利益</div>
@@ -108,11 +115,7 @@
 				</div>
 			 
 				<!--保险利益-->
-				<!--产品图片-->
-				<div class="plans-detail-box plans-detail-box-img BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff" v-html="imageDescribe">
-					<!--<img :src="'images/plans/prospectus/'+ Number(list.genre) + '_2.jpg'" alt="产品图片" >-->
-				</div>
-				<!--产品图片-->
+			
 				<!--资金规划-->
 				<div class="plans-detail-box BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff" v-if="haveDesign.indexOf(Number(list.genre)) > -1 || haveDesign16197">
 					<!--v-if="list.genre == '19385' || list.genre == '377' || list.genre == '404'"-->
@@ -128,7 +131,7 @@
 							<div class="BL-ub-f3 BL-pad-l-1">
 								<div class="BL-ftz-52 BL-pad-b-1">{{item.title}}</div>
 								<div class="BL-col-999 BL-ftz-46">年龄<span class="BL-col-3b9cf5">{{item.sAge}}-{{item.fAge}}</span>岁</div>
-								<div class="BL-col-999 BL-ftz-46">领取<span class="BL-col-3b9cf5">{{item.getMoney}}</span>元/年</div>
+								<div class="BL-col-999 BL-ftz-46">领取<span class="BL-col-3b9cf5">{{item.getMoney}}</span>元</div>
 							</div>
 							<i class="BL-icon" @click="designDel(index)"></i>
 						</div>
@@ -152,6 +155,14 @@
 				</div>
 			
 				<!--利益演示表-->
+				<!--风险提示-->
+				
+				<div class="plans-detail-box plans-detail-box-img BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff">
+					<div class="BL-title">风险提示</div>
+					<p class="BL-ftz-46 BL-pad-b-1">*投保人在保单犹豫期后解除合同会遭受一定损失，具体保单利益请以保单合同为准。</p>
+					<p class="BL-ftz-46 BL-pad-b-1">*温馨提示：以上演示说明为本平台对上述产品的理解，便于保险从业员学习、交流、演示数据仅供参考，请以实际为准。</p>
+				</div>
+					<!--风险提示-->
 				<div id="Js-plansDetail"></div>
 				<footer id="Js-footer" class="BL-footer BL-bg-fff">
 					<div class="BL-ub BL-ub-ac BL-ub-f1">

@@ -79,7 +79,7 @@
 			$.plusReady(function() {
 				var winH = window.innerHeight;
 				document.querySelector('#Js-newsList').style.height = winH + 'px';
-
+				var user_id = JSON.parse(plus.storage.getItem("userinfo")).id
 				var i = 0;
 
 				//循环初始化所有下拉刷新，上拉加载。
@@ -95,7 +95,10 @@
 										data: {
 								            server: 'Information.queue',
 								            device: 'mobile',
+								            view:false,
 								            data: JSON.stringify({
+								            	
+								            		user_id: user_id,
 								              		amount: 15, //每页显示的条数
 													page: i //请求的页码
 								            })

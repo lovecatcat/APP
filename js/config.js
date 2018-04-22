@@ -33,7 +33,7 @@ var luckyAjax = function(options){
 		},
 		dataType: 'json',//服务器返回json格式数据
 		type: 'post',//HTTP请求类型
-		timeout: 10000,//超时时间设置为10秒；
+		timeout: 5000,//超时时间设置为5秒；
 		headers: {'Content-Type': 'application/json'}
 	};
 	var opt = mui.extend(true, defaults, options);

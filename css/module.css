@@ -657,7 +657,7 @@ BL-modal-icon-0/**
 
 .modal-form-img div{
 	width: 50%;
-	height: 8.125rem;
+	height: 9.125rem;
 	float: left;
 	padding: .5rem;
 }
@@ -666,6 +666,6 @@ BL-modal-icon-0/**
 	height: 100%;
 }
 .modal-form-img div img.active{
-	border: solid 1px #3B9CF5;
+	border: solid 5px #3B9CF5;
 }
 

@@ -42,7 +42,7 @@
                                 <div class="mui-icon mui-icon-checkmarkempty">{{item.checked}}</div>
                             </div>
                             <div class="context">
-                                <div class="title">{{item.product_name}}{{item.compare}}</div>
+                                <div class="title">{{item.product_name}}</div>
                                 <div class="business">{{item.company_name}}</div>
                             </div>
                         </div>
@@ -122,9 +122,9 @@
 
             var flag = plus.webview.currentWebview().flag;
             contrast.flag = flag;
-            if (flag === 1) {
+            if (flag === 1) { //从产品分类进来
                 contrast.type = plus.webview.currentWebview().ins_type;
-            } else if (flag === 2) {
+            } else if (flag === 2) { //从产品详情进来
                 var info = plus.webview.currentWebview().list;
                 contrast.info = info;
                 contrast.type = info.ins_type;

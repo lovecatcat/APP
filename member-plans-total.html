@@ -157,6 +157,7 @@
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
 
 			$.plusReady(function() {
+				plus.nativeUI.showWaiting();
 				var winH = window.innerHeight;
 				var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 				document.querySelector('#Js-plansTotal').style.height = (winH - fotHeight) + 'px';
@@ -200,6 +201,7 @@
 									})
 								})
 							}
+							plus.nativeUI.closeWaiting();
 						} else {
 							mui.toast(res.msg)
 						}

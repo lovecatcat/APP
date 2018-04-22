@@ -12,8 +12,21 @@
 
 	<body>
 		<div id="modal" v-cloak>
+			<!--在线投保(白豪)-->
+			<div id="modal-list" class="BL-modal BL-modal-w90 BL-pad-lr-2 BL-pad-tb-1_5 BL-ub BL-ub-ac" 
+				:class="{'BL-hide': isHide !== 'modal-list'}" v-if="goIns">
+				<div class="BL-modal-content">
+					<div class="BL-modal-list" v-for="item in goIns_data" @click="goIns_sure(item.genre)">
+						<i class="BL-modal-icon-2" v-if="item.istrue == true"></i>
+						<i class="BL-modal-icon-3" v-else-if ="item.istrue == false"></i>
+						<i class="BL-modal-icon-0" v-else></i>
+						<span>{{item.name}}</span>
+					</div>
+				</div>
+			</div>
 			<!--列表(白豪)-->
-			<div id="modal-list" class="BL-modal BL-modal-w90 BL-pad-lr-2 BL-pad-tb-1_5 BL-ub BL-ub-ac" :class="{'BL-hide': isHide !== 'modal-list'}">
+			<div id="modal-list" class="BL-modal BL-modal-w90 BL-pad-lr-2 BL-pad-tb-1_5 BL-ub BL-ub-ac" 
+				:class="{'BL-hide': isHide !== 'modal-list'}" v-if="!goIns">
 				<div class="BL-modal-content">
 					<div class="BL-modal-list" v-for="item in goIns_data" @click="showStatement(item.genre)">
 						<i class="BL-modal-icon-2" v-if="item.istrue == true"></i>
@@ -157,6 +170,8 @@
 			data: {
 				isHide: '' , //要弹哪个框
 				formID: '', //来自哪个页面
+				goIns: false, //是不是在线投保
+				gonIns_genre: [272, 276, 340, 348, 370], //目前只有恒大才能去在线投保
 				goIns_data: ''
 			},
 			methods: {
@@ -197,41 +212,87 @@
 					}
 
 				},
+				goIns_sure: function(genre){
+					if(modal.gonIns_genre.indexOf(genre) > -1){
+						mui.openWindow({
+							id: 'hd_insurance-index',
+							url: 'hd_ins/insurance-index.html',
+							show: animateObj.aniDetal
+						})
+					}else{
+						mui.toast('该公司在线投保暂未开通！')
+					}
+				},
 				showStatement: function(genre){
 					var statement = ''
-					luckyAjax({
-						data: {
-							server: 'Proposal.getProductInfo',
-							device: 'mobile',
-							data: JSON.stringify({
-								code: '',
-								id: genre
-							})
-						},
-						success: function(res) {
-							if(res.code == 1) {
-								statement = res.code.statement
-								plus.runtime.openURL(statement);
-							} else {
-								mui.toast('加载失败')
+						luckyAjax({
+							data: {
+								server: 'Proposal.getProductInfo',
+								device: 'mobile',
+								view: false,
+								data: JSON.stringify({
+									code: '',
+									id: genre
+									
+								})
+							},
+							success: function(res) {
+								if(res.code == 1) {
+//									aloneDetail.sub_treasury_id = res.data.child_id
+//									popu.closepop();
+									var url = config.domain + res.data.statement
+									if (url) {
+									    showPopu("pdf-modal.html", "pdf_modal", 'center', {
+									        pdf: url
+									    });
+									} else {
+									    mui.toast('暂无条款详情', {duration: 'short', type: 'div'})
+									    return false;
+									}
+								} else {
+									mui.toast('加载失败')
+								}
 							}
-						}
-					});
+						});
+//					luckyAjax({
+//						data: {
+//							server: 'Proposal.getProductInfo',
+//							device: 'mobile',
+//							view: 'false',
+//							data: JSON.stringify({
+//								code: '',
+//								id: genre
+//							})
+//						},
+//						success: function(res) {
+//							if(res.code == 1) {
+//								var url = res.code.statement
+//								if (url) {
+//								    showPopu("pdf-modal.html", "pdf_modal", 'center', {
+//								        pdf: url
+//								    });
+//								} else {
+//								    mui.toast('暂无条款详情', {duration: 'short', type: 'div'})
+//								    return false;
+//								}
+////								alert(statement)
+//							} else {
+//								mui.toast('加载失败')
+//							}
+//						}
+//					});
 				}
 			}
 		})
 		
 		mui.plusReady(function() {
 			popu = new ClosePopu();
-			 // 实例化关闭窗口对象
+			// 实例化关闭窗口对象
 			var data = plus.webview.currentWebview().data;
 			modal.isHide = data.modalID
 			modal.formID = data.formID
+			modal.goIns = data.goIns
 			modal.goIns_data = data.goIns_data
-//			mui('body').on('tap', '#btnClose', function() {
-//				// 关闭遮罩层，弹框
-//				popu.closepop();
-//			});	
 			
 			// 点击关闭遮罩层，弹框
 			mui('body').on('tap', '#maskInit', function(){

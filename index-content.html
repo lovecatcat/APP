@@ -17,7 +17,7 @@
     <div class="BL-mod-headbar">
         <div class="BL-ub BL-ub-ac headbar-search">
             <div id="Js-ring" class="rings BL-bimg-contain" alt="消息通知">
-                <span id="" alt="消息红点提示"></span>
+                <!--<span id="" alt="消息红点提示"></span>-->
             </div>
 
             <div class="seek BL-ub BL-ub-ac BL-ub-pc BL-ub-f1">
@@ -54,7 +54,7 @@
                 <div class="BL-pad-a1_25 BL-mar-b-1 BL-bg-fff" style="padding-bottom: 0;">
                     <div class="mui-row squared">
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="sns.html" data-wid="sns" class="a-link">
+                            <a @tap="toastMsg">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">SNS</div>
                             </a>
@@ -92,7 +92,7 @@
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="shop.html" data-wid="shop" class="a-link">
+                            <a @tap="toastMsg">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">积分商城</div>
                             </a>

@@ -47,7 +47,7 @@
 		            </div>
 		            <div class="BL-ub BL-ub-ac BL-ub-f1">
 		                <a class="BL-ub BL-ub-ac BL-ub-pc BL-ub-f1 myList-item">
-		                    <div class="item item-car">
+		                    <div class="item item-car" @tap="toastMsg">
 		                        <div class="icon"></div>
 		                        <div class="name">
 		                            	车险订单
@@ -86,8 +86,8 @@
 		                       	 计划书管理
 		                    </div>
 		                </a>
-		                <a href="member-commission-account.html" data-wid="member_commission_account"
-		                   class="mui-col-sm-3 mui-col-xs-3 manage-item">
+		                <!--<a href="member-commission-account.html" data-wid="member_commission_account"-->
+		                <a @tap="toastMsg" class="mui-col-sm-3 mui-col-xs-3 manage-item">
 		                    <div class="icon icon-commission"></div>
 		                    <div class="name">
 		                    	钱包
@@ -123,7 +123,7 @@
 				</div>
 				<div class="section section-manage BL-pad-lr-1_25">
 					<div class="mui-row manage-group">
-						<a class="mui-col-sm-3 mui-col-xs-3">
+						<a class="mui-col-sm-3 mui-col-xs-3" @tap="toastMsg">
 							<div class="icon icon-receive"></div>
 							<div class="name">
 								收藏
@@ -141,7 +141,7 @@
 								展业夹
 							</div>
 						</a>
-						<a href="javascript:;" class="mui-col-sm-3 mui-col-xs-3">
+						<a class="mui-col-sm-3 mui-col-xs-3" @tap="toastMsg">
 							<div class="icon icon-post"></div>
 							<div class="name">
 								海报
@@ -192,6 +192,12 @@
         el: '#Js-content',
         data: {
             userinfo: '',
+        },
+        methods:{
+        	toastMsg: function () {
+                mui.toast('功能开发中，敬请期待', {duration: 'short', type: 'div'})
+                return false;
+            }
         }
     })
     mui.plusReady(function () {

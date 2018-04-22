@@ -17,7 +17,7 @@
 			</div>
 		</header>
 		<div id="Js-sns">
-			<div id="Js-content" class="mui-content BL-rel">
+			<div id="Js-content" class="mui-content BL-rel" style="margin-bottom: 5rem;">
 				<div class="mui-scroll-wrapper">
 					<div class="mui-scroll sns-detail">
 						<div v-if="info" class="sns-detail-section sns-detail-wrapper">
@@ -119,7 +119,7 @@
 				</div>
 			</footer>
 			<!-- 报名区域 -->
-			<div class="mui-backdrop" v-show="show_sign" @click.stop="cancel"></div>
+			<div class="mui-backdrop" v-if="show_sign" @click.stop="cancel"></div>
 			<div class="BL-modal-sns BL-pad-tb-1_5" v-show="show_sign">
 					<div class="input-item BL-ub BL-ub-ac BL-ub-pc">
 	                    <label>手机号码</label>
@@ -345,6 +345,7 @@
 					})
 		        },
 		        success: function (ret) {
+//				    alert(JSON.stringify(ret))
 					if (ret.code == 1) {
 						sns.info = ret.data
 					} else {

@@ -383,12 +383,10 @@
 	background: #CCCCCC;
 }
 /* 工资ICON*/
-.BL-icon-salary {
-	width: 2.5rem;
-	height: 2.5rem;
-	background: url(../images/icon/ico-cmis-salary.png) no-repeat center;
-	background-size: 100%;
-	right: 1.25rem;
+.member-cmis-salary {
+	width: 3rem;
+    height: 2.2312rem;
+	background-image: url("../images/icon/ico-cmis-salary.png");
 }
 /* 团队管理 */
 .member-team-tab-title {
@@ -1286,7 +1284,6 @@ input[type='number'].member-tax-input{
     z-index: 11;
     display: none; 
     background-color: rgba(0, 0, 0, 0.3);
-    text-align: center;
 }
 .BL-modal-pdf {
 	width: 95%; 
@@ -1295,6 +1292,7 @@ input[type='number'].member-tax-input{
     top: 50%;
     transform: translate(-50%, -45%);
     left: 50%;
+	z-index: 2;
 }
 .pdf-body {
 	width:100%; 
@@ -1304,6 +1302,7 @@ input[type='number'].member-tax-input{
 .pdf-foot {
 	position: relative;
 	font-size: 1.4375rem;
+	text-align: center;
 }
 .pdf-foot button{
 	background: #FFFFFF;
@@ -1313,14 +1312,13 @@ input[type='number'].member-tax-input{
 }
 .member-pdt-close {
 	position: absolute;
-	z-index: 10;
+	z-index: 100;
 	right: .5rem;
 	top: 1rem;
 	display: block;
 	width: 2.5rem;
     height: 2.5rem;
 	background-image: url("../images/icon/ico-member-close.png");
-	z-index: 100;
 }
 .member-pdt-tool {
 	position: absolute;

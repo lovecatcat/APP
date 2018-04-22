@@ -116,10 +116,8 @@
 				popu = new ClosePopu();
 				 // 实例化关闭窗口对象
 				var data = plus.webview.currentWebview().data;
-				
 				var container = document.getElementById("pdf");
 				container.style.display = "block";
-//				data.pdf_url = 'images/a.pdf';
 				PDFJS.workerSrc = 'js/pdf.worker.js';
 				promote.showPDF(data.pdf)
 				

@@ -29,7 +29,7 @@
                 <input type="number" class="BL-ub BL-ub-f1" v-model="tel" placeholder="请输入手机号"/>
             </li>
             <li class="BL-ub BL-ub-ac member-login-item">
-                <input class="BL-ub BL-ub-f1" v-model="codesms" placeholder="请输入验证码"/>
+                <input class="BL-ub BL-ub-f1" type="number" v-model="codesms" placeholder="请输入验证码"/>
                 <span class="login-sms-btn BL-col-999" @click="sendCode">{{text}}</span>
             </li>
             <li class="BL-ub BL-ub-ac member-login-item">
@@ -90,8 +90,8 @@
                     return false;
                 } else if (!this.password) {
                     toast_text = '请输入新的登录密码'
-                } else if (!/^[0-9a-zA-Z]{8}$/.test(this.password)) {
-                    toast_text = '密码格式应为8位的字母数字组合'
+                } else if (!/(?=.*\d)(?=.*[A-z])^[0-9A-z]{8,}$/.test(this.password)) {
+                    toast_text = '密码格式应为8-16位的字母数字组合'
                 } else if (!this.password1) {
                     toast_text = '请再次输入密码'
                 } else if (this.password !== this.password1) {
@@ -122,6 +122,7 @@
             },
             //发送验证码
             sendCode: function () {
+                if (this.disabled) return false
                 var tel = this.tel
                 if (!this.channel_id) {
                     mui.toast('请输入渠道号', {duration: 'short', type: 'div'});

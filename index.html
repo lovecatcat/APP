@@ -72,69 +72,14 @@
                 	Tunnel._webSocket.close();
                 };		
             }, false)
-            
-            /*plus.geolocation.getCurrentPosition(function(p){
-            	if(locationd != null && type != 21){
-            		return false;	   	
-            	}
-				locationd = p;  
-				type = 0;	
-	            Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, locationd, function (event) {
-			        //console.log('Message:' + Tunnel._webSocket.readyState);
-//			        console.log(event.data);
-			        //如果获取到消息，心跳检测重置
-			        //拿到任何消息都说明当前连接是正常的
-			        var _info = '';
-			        var _tips = '';
-			        var data = JSON.parse(event.data);
-			        
-					switch (data.code){
-					    case 1:
-					        _info = '非法连接';
-					        break;
-					    case 2:
-					        _info = '非法用户';
-					        break;
-					    case 3:
-					        _info = '您的帐号在其它设备上登录，已经注销当前帐号';
-					        break;
-					    case 20:
-					        _tips = data.message;
-					        break;
-					    case 21:
-					        if(data.command == 'location'){
-					        	type = 21;	
-							    Tunnel._webSocket.send(JSON.stringify({"uid":JSON.parse(userinfo).id,"type":5,"flag":plus.device.uuid,"platform":navigator.platform,"userAgent":navigator.userAgent,"location":locationd}));
-					        };
-					        break;
-					}
-					if(_info != ''){
-						nums++;
-					};
-					
-					if(_info != '' && nums ==1){
-						Tunnel._isStop = false;
-						Tunnel._webSocket.close();
-						plus.storage.clear();
-						mui.alert(_info, '操作提示', '确定', function(){
-							plus.runtime.restart();		
-						});
-					};
-					
-					if(_tips != ''){
-						mui.alert(_tips, '温馨提示', '确定');
-					}
-			    });	
-			    
-		    });*/
-		   
-		    var wid = plus.geolocation.getCurrentPosition(function(p){
+
+		    plus.geolocation.getCurrentPosition(function(p){
 		    	locationd = p;	
 		    })
 		    
 		    Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
 			        //console.log('Message:' + Tunnel._webSocket.readyState);
-			        //console.log(event.data);
+			        console.log(event.data);
 			        //如果获取到消息，心跳检测重置
 			        //拿到任何消息都说明当前连接是正常的
 			        var _info = '';

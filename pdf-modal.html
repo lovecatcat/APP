@@ -12,8 +12,8 @@
 	</head>
 
 	<body>
-		<div id="modal" class="mui-content">
-			<div id="pdf" class="member-pdf-bg">
+		<div id="modal" v-cloak>
+			<div id="pdf">
 				<div class="BL-modal-pdf">
 					<i v-if="pdfDoc" class="BL-bimg-contain member-pdt-close" id="close-ins-pop"></i>
 					<div class="pdf-body" id="pdf-body">
@@ -84,6 +84,8 @@
 			            _this.pageNumPending = null
 			          }
 			        })
+			        
+			        plus.nativeUI.closeWaiting();
 			      })
 			    },
 			    queueRenderPage: function (num) {
@@ -119,6 +121,7 @@
 				
 				var container = document.getElementById("pdf");
 				container.style.display = "block";
+				plus.nativeUI.showWaiting();
 //				data.pdf_url = 'images/a.pdf';
 				PDFJS.workerSrc = 'js/pdf.worker.js';
 				promote.showPDF(data.pdf)
@@ -128,6 +131,12 @@
 		            // 关闭遮罩层，弹框
 		            popu.closepop();
 		        });
+		        
+		        // 点击关闭遮罩层，弹框
+				mui('body').on('tap', '#maskInit', function(){
+					// 关闭遮罩层，弹框
+					popu.closepop();
+				},false);
 		        
 		        plus.key.addEventListener("backbutton",function(){
 					popu.closepop();

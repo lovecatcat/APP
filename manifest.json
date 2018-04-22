@@ -577,7 +577,8 @@
 					"images/icon/sign.png",
 					"images/icon/sign-active.png",
 					"js/config.js",
-					"js/vue.min.js"
+					"js/vue.min.js",
+					"images/icon/video-start.png"
 				],
 				"refer": [
 					"news-detail.html",
@@ -851,10 +852,12 @@
 					"js/config.js",
 					"js/Date.js",
 					"js/vue.min.js",
-					"js/browser.min.js"
+					"js/browser.min.js",
+					"images/icon/ico-cmis-salary.png"
 				],
 				"refer": [
-					"member-commission-incomelist.html"
+					"member-commission-incomelist.html",
+					"member-commission-salarylist.html"
 				],
 				"priority": 0
 			},
@@ -1750,7 +1753,9 @@
 				],
 				"refer": [
 					"product-contrast.html",
-					"product-company.html"
+					"product-company.html",
+					"hd_ins/insurance-index.html",
+					"prospect-product.html"
 				],
 				"priority": 4
 			},
@@ -1928,11 +1933,16 @@
 					"images/plans/prospectus/334.jpg",
 					"images/plans/prospectus/121.jpg",
 					"images/plans/prospectus/349.jpg",
-					"images/plans/prospectus/354.jpg"
+					"images/plans/prospectus/354.jpg",
+					"images/plans/prospectus/335.jpg",
+					"images/plans/prospectus/336.jpg"
 				],
 				"priority": 2,
 				"refer": [
-					"member-plans-alone-table.html"
+					"member-plans-alone-table.html",
+					"popup-content.html",
+					"member-plans-alone-modal.html",
+					"product-company.html"
 				]
 			},
 			"member-plans-total.html": {
@@ -2217,7 +2227,12 @@
 					"js/vue.min.js",
 					"css/member.css",
 					"images/icon/ico-pwdeye2.png",
-					"css/mui.css"
+					"css/mui.css",
+					"css/sns.css",
+					"css/module.css",
+					"css/common.css",
+					"js/mui.min.js",
+					"js/config.js"
 				],
 				"refer": [
 					"member-forgetpwd.html"
@@ -2413,7 +2428,9 @@
 					"css/mui.picker.min.css",
 					"css/mui.css",
 					"js/mui.dtpicker.js",
-					"css/member.css"
+					"css/member.css",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js"
 				],
 				"refer": [
 					"member-commission-salarydetail.html"
@@ -2467,7 +2484,8 @@
 					"css/module.css",
 					"css/common.css",
 					"hd_ins/method.js",
-					"js/browser.min.js"
+					"js/browser.min.js",
+					"js/IDValidator.min.js"
 				],
 				"refer": [
 					"hd_ins/insurance-bank.html",
@@ -2518,7 +2536,8 @@
 					"images/icon/ico-down.png",
 					"js/city.data-3.js",
 					"css/module.css",
-					"css/common.css"
+					"css/common.css",
+					"js/mui.js"
 				],
 				"refer": [
 					"communic.html"
@@ -2778,7 +2797,8 @@
 			"prospect-product.html": {
 				"resources": [
 					"css/mui.css",
-					"css/plans.css"
+					"css/plans.css",
+					"css/mui.picker.min.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -2801,7 +2821,9 @@
 			"member-forgetpwd.html": {
 				"resources": [
 					"css/mui.css",
-					"css/form.css"
+					"css/form.css",
+					"fonts/mui.ttf",
+					"css/member.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -2837,7 +2859,8 @@
 					"js/config.js"
 				],
 				"refer": [
-					"member-warranty-manageLife-detail.html"
+					"member-warranty-manageLife-detail.html",
+					"hd_ins/insurance-index.html"
 				],
 				"priority": 0
 			},
@@ -2905,6 +2928,15 @@
 				"priority": 0
 			},
 			"member-warranty-manageCar.html": {
+				"resources": [
+					"css/mui.css",
+					"css/mui.picker.min.css",
+					"css/member.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-plans-alone-modal.html": {
 				"resources": [
 					"css/mui.css"
 				],

@@ -79,12 +79,12 @@
 										</div>
 									</a>
 									<div class="BL-txt-r button">
-										<button class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 cancel" 
+										<a class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 cancel" 
 											:data-id="item.policy_id"
 											:data-index="index"
 											v-if="item.ins_state_name=='待投保' || item.ins_state_name=='待支付'">取消订单
-										</button>
-										<button class="BL-btn-white BL-pad-lr-1" v-if="item.ins_state_name=='待投保'">继续录入</button>
+										</a>
+										<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.ins_state_name=='待投保'" :data-supplier="item.supplier_id">继续录入</a>
 									</div>
 								</div>
 							</li>
@@ -202,6 +202,25 @@
         				});
 	                }
 	            })
+	        })
+            
+            // 继续录入
+            mui('body').on('tap', '.continue', function () {
+            	var _this = this
+            	var supplier_id = _this.getAttribute('data-supplier')
+            	var url = ""
+            	if (supplier_id == 19) {
+            		url = "hd_ins/insurance-index.html"
+            	} else {
+            		return false
+            	}
+            	//打开新窗口
+                mui.openWindow({
+                    url: url,
+                    id: "hd_insurance-index",
+                    show: animateObj.aniDetal,
+                    extras: null
+                });
 	        })
         });
     }(mui));

@@ -185,7 +185,7 @@
 	    	var data = {};
 	    	if (pdf_url) {
 	    		data = {
-					pdf: pdf_url
+					pdf: config.domain + pdf_url
 				}
 				showPopu("pdf-modal.html", "pdf_modal", 'center',data);
 	    	} else {

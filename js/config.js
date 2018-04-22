@@ -1,8 +1,8 @@
 var config = {
-    baseUrl: 'http://ts-uni.ehuimeng.com/api/api/invoke',  //团队管理服务器路径
-    moduleURL: 'http://ts-uni.ehuimeng.com/api/api/',
-    link: 'http://ts-uni.ehuimeng.com/index/', // 外部链接路径[闪电增员、]
-    domain: 'http://ts-uni.ehuimeng.com'
+    baseUrl: 'http://112.74.159.162/api/api/invoke',  //团队管理服务器路径
+    moduleURL: 'http://112.74.159.162/api/api/',
+    link: 'http://112.74.159.162/index/', // 外部链接路径[闪电增员、]
+    domain: 'http://112.74.159.162'
 };
 
 /**

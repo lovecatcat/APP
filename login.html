@@ -162,7 +162,7 @@
                 var toast_text = null
                 if (!this.pwd1) {
                     toast_text = '请输入新的登录密码'
-                } else if (!/(?=.*\d)(?=.*[A-z])^[0-9A-z]{8,}$/.test(this.pwd1)) {
+                } else if (!/^[0-9a-zA-Z]{8,16}$/.test(this.pwd1)) {
                     toast_text = '密码格式应为8-16位的字母数字组合'
                 } else if (!this.pwd2) {
                     toast_text = '请再次输入密码'

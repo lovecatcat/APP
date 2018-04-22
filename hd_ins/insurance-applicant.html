@@ -240,7 +240,7 @@
                     <div class="box-f-1 ins-font-sm BL-col-999">通讯地址是否同现在住址？</div>
                     <div class="box-f-2">
                         <button class="ins-btn xs-btn BL-mar-r-1" :class="{'blue':applicant.mail_addr_type}" :disabled="applicant.mail_addr_type"
-                                @tap="applicant.mail_addr_type=!applicant.mail_addr_type,sameaddress(),toblur()">是
+                                @tap="applicant.mail_addr_type=!applicant.mail_addr_type,toblur()">是
                         </button>
                         <button class="ins-btn xs-btn" :class="{'blue':!applicant.mail_addr_type}" :disabled="!applicant.mail_addr_type"
                                 @tap="applicant.mail_addr_type=!applicant.mail_addr_type,toblur()">否
@@ -269,7 +269,7 @@
                         </div>
                     </div>
                     <div class="input-item">
-                        <label class="">邮编{{applicant.holder_has_SSID}}</label>
+                        <label class="">邮编</label>
                         <div class="input-wrap box-f-1">
                             <input type="number" v-model.lazy="applicant.holder_contact_zip"
                                    @change="checkZipcode('投保人',applicant.holder_contact_zip)" placeholder="请输入">
@@ -419,16 +419,6 @@
         methods:{
             toblur:function(){
                 document.activeElement.blur();
-            },
-            sameaddress: function () {
-                this.applicant.holder_contact_province = this.applicant.holder_home_province
-                this.applicant.holder_contact_city = this.applicant.holder_home_city
-                this.applicant.holder_contact_district = this.applicant.holder_home_district
-                this.applicant.holder_contact_province_name = '广东'
-                this.applicant.holder_contact_city_name = '深圳'
-                this.applicant.holder_contact_district_name = this.applicant.holder_home_district_name
-                this.applicant.holder_contact_address = this.applicant.holder_home_address
-                this.applicant.holder_contact_zip = this.applicant.holder_home_zip
             }
         }
     });
@@ -571,17 +561,28 @@
         document.querySelector('#saveAppl').addEventListener('tap', function () {
             document.activeElement.blur();
             if(appl.applicant.mail_addr_type){
-                appl.sameaddress();
+                ApplSameHomeAddress(appl.applicant);
             }
             if (!checkAppl(appl.applicant)) {
                 return false;
             }
+            var flag = false
+            var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')) : ''
+            if (assured && assured.rel_insured_holder === ISASSURED) {
+                if(!RSChanged(assured, appl.applicant)){return false}
+                if (!checkAssured(assured)) {
+                    return false
+                }
+                saveTemp(assured)
+                plus.storage.setItem('hengda_assured', JSON.stringify(assured));
+                flag = true
+            }
             saveTemp(appl.applicant)
-            console.log('========='+appl.applicant.holder_has_SSID)
             plus.storage.setItem('hengda_applicant',JSON.stringify(appl.applicant));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'hengda_applicant',
-                data:'applicant'
+                data:'applicant',
+                clear: flag
             });
             console.log(JSON.stringify(plus.storage.getItem('hengda_applicant')));
             popu.closepop();
@@ -600,65 +601,47 @@
         window.addEventListener('getMemberId', function (event) {
 	        var memberid = event.detail.id
 	        var type = event.detail.type
+            var basedata = {}
             if (type === 1) {
-                luckyAjax({
-                    data: {
-                        server: 'team.getContactsInfo',
-                        data: JSON.stringify({card_no:memberid})
-                    },
-                    success:function(data){
-                        console.log(JSON.stringify(data))
-                        if(data.code){
-                            var info = data.data;
-                            appl.applicant.holder_name = info.name;
-                            appl.applicant.holder_ID_no = info.card_no;
-                            appl.applicant.holder_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : appl.applicant.holder_salary_avg;
-                            appl.applicant.holder_mobile = info.tel;
-                            appl.applicant.holder_home_province = info.home_province;
-                            appl.applicant.holder_home_city = info.home_city;
-                            appl.applicant.holder_home_district = info.home_district;
-                            appl.applicant.holder_home_address = info.home_address;
-                            appl.applicant.holder_home_zip = info.home_zip;
-                            appl.applicant.holder_contact_province = info.contact_province;
-                            appl.applicant.holder_contact_city = info.contact_city;
-                            appl.applicant.holder_contact_district = info.contact_district;
-                            appl.applicant.holder_contact_address = info.contact_address;
-                            appl.applicant.holder_contact_zip = info.contact_zip;
-                            appl.applicant.holder_weight = parseInt(info.weight) ? Number(info.weight).toFixed(2) : appl.applicant.holder_weight;
-                            appl.applicant.holder_height = parseInt(info.height) ? parseInt(info.height) : appl.applicant.holder_height;
-                        }
-                    }
-                });
+                basedata.card_no = memberid
             } else if (type === 2) {
-                luckyAjax({
-                    data: {
-                        server: 'team.getContactsInfo',
-                        data: JSON.stringify({user_id:memberid})
-                    },
-                    success:function(data){
-                        console.log(JSON.stringify(data))
-                        if(data.code){
-                            var info = data.data;
-                            appl.applicant.holder_name = info.name;
-                            appl.applicant.holder_ID_no = info.card_no;
-                            appl.applicant.holder_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : appl.applicant.holder_salary_avg;
-                            appl.applicant.holder_mobile = info.tel;
+                basedata.user_id = memberid
+            }
+            luckyAjax({
+                data: {
+                    server: 'team.getContactsInfo',
+                    data: JSON.stringify(basedata)
+                },
+                success:function(data){
+                    console.log(JSON.stringify(data))
+                    if(data.code){
+                        var info = data.data;
+                        appl.applicant.holder_name = info.name;
+                        appl.applicant.holder_ID_no = info.card_no;
+                        appl.applicant.holder_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : appl.applicant.holder_salary_avg;
+                        appl.applicant.holder_mobile = info.tel;
+                        if (info.home_city === '323') { //深圳
                             appl.applicant.holder_home_province = info.home_province;
                             appl.applicant.holder_home_city = info.home_city;
                             appl.applicant.holder_home_district = info.home_district;
+                            appl.applicant.holder_home_district_name = info.home_district_text;
                             appl.applicant.holder_home_address = info.home_address;
                             appl.applicant.holder_home_zip = info.home_zip;
+                        }
+                        if (!appl.applicant.mail_addr_type) { //通讯地址否同居住地址
                             appl.applicant.holder_contact_province = info.contact_province;
                             appl.applicant.holder_contact_city = info.contact_city;
                             appl.applicant.holder_contact_district = info.contact_district;
                             appl.applicant.holder_contact_address = info.contact_address;
+                            appl.applicant.holder_contact_district_name = info.contact_district_text;
                             appl.applicant.holder_contact_zip = info.contact_zip;
-                            appl.applicant.holder_weight = parseInt(info.weight) ? Number(info.weight).toFixed(2) : appl.applicant.holder_weight;
-                            appl.applicant.holder_height = parseInt(info.height) ? parseInt(info.height) : appl.applicant.holder_height;
+                            appl.applicant.holder_contact_address_select = info.contact_province_text + ' ' + info.contact_city_text + ' ' + info.contact_district_text;
                         }
+                        appl.applicant.holder_weight = parseInt(info.weight) ? Number(info.weight).toFixed(2) : appl.applicant.holder_weight;
+                        appl.applicant.holder_height = parseInt(info.height) ? parseInt(info.height) : appl.applicant.holder_height;
                     }
-                });
-            }
+                }
+            });
 
 	    })
     });

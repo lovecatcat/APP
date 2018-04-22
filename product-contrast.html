@@ -215,14 +215,14 @@
             if (gid) {
                 extras = {goods_id: gid};
             }
+            //打开新窗口
+            mui.openWindow({
+                url: href,
+                id: id,
+                show: animateObj.aniDetal,
+                extras: extras
+            });
         }
-        //打开新窗口
-        mui.openWindow({
-            url: href,
-            id: id,
-            show: animateObj.aniDetal,
-            extras: extras
-        });
     });
 
 </script>

@@ -37,7 +37,6 @@ var luckyAjax = function(options){
 		headers: {'Content-Type': 'application/json'}
 	};
 	var opt = mui.extend(true, defaults, options);
-	console.log(opt);
 
 	mui.ajax(opt.url, {
 		data:opt.data,
@@ -45,14 +44,14 @@ var luckyAjax = function(options){
 		type:opt.type,
 		timeout:opt.timeout,
 		success:function(data){
-			if(!options.closeWaiting){
+			if(!opt.closeWaiting){
 				plus.nativeUI.closeWaiting();
 			}
 			opt.success(data);
 		},
 		error:function(xhr, type, errorThrown){
 			//opt.error(xhr, type, errorThrown);
-			if(!options.closeWaiting){
+			if(!opt.closeWaiting){
 				plus.nativeUI.closeWaiting();
 			}
 		    mui.toast(errorThrown, {duration: 'short', type: 'div'});

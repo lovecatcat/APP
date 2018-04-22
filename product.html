@@ -277,12 +277,14 @@
         }
        
         //打开新窗口
-        mui.openWindow({
-            url: href,
-            id: id,
-            show: animateObj.aniDetal,
-            extras: extras
-        });
+        if (href) {
+            mui.openWindow({
+                url: href,
+                id: id,
+                show: animateObj.aniDetal,
+                extras: extras
+            });
+        }
     });
     //接收筛选的公司id
     window.addEventListener('companyId', function (e) {

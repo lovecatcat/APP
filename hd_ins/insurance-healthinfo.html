@@ -8,6 +8,7 @@
     <link href="../css/module.css" rel="stylesheet"/>
     <link href="../css/insurance.css" rel="stylesheet"/>
     <script src="../js/config.js" type="text/javascript"></script>
+    <script src="../js/browser.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css"/>
 </head>
 
@@ -25,12 +26,12 @@
         </div>
         <div class="form-content margin-t-6_125 BL-pad-b-2">
             <div class="form-wrap">
-            	<!--投保人-->
+                <!--投保人-->
                 <div class="table-wrap" v-if="showAppl&&matters" v-cloak>
                     <div class="item">
                         <ul class="flex table-title">
-                            <li class="flex-1">投保人健康告知</li>
-                            <li class="item-operate" @tap="appfolder=!appfolder">操作</li>
+                            <li class="flex-1" style="line-height:3.125rem;">投保人健康告知</li>
+                            <li class="item-operate" @tap="appfolder=!appfolder"><span class="bene-up-icon mui-icon mui-icon-arrowup" :class="{'bene-up-icon-rotate':appfolder}"></span></li>
                         </ul>
                     </div>
                     <div v-for="(item,index) in matters" v-if="isShow(index,1)" v-show="!appfolder">
@@ -57,15 +58,15 @@
                                     <app-form :forms="appforms[childitem.id]"></app-form>
                                 </template>
                         </template>
-        			</div>
+                    </div>
                 </div>
                 <!--投保人-->
-            	<!--被保人-->
+                <!--被保人-->
                 <div class="table-wrap" v-if="matters" v-cloak>
                     <div class="item">
                         <ul class="flex table-title">
-                            <li class="flex-1">被保人健康告知</li>
-                            <li class="item-operate" @tap="assfolder=!assfolder">操作</li>
+                            <li class="flex-1" style="line-height:3.125rem;">被保人健康告知</li>
+                            <li class="item-operate" @tap="assfolder=!assfolder"><span class="bene-up-icon mui-icon mui-icon-arrowup" :class="{'bene-up-icon-rotate':assfolder}"></span></li>
                         </ul>
                     </div>
                     <div v-for="(item,index) in matters" v-if="isShow(index,2)" v-show="!assfolder">
@@ -92,10 +93,10 @@
                                     <app-form :forms="assforms[childitem.id]"></app-form>
                                 </template>
                         </template>
-        			</div>
+                    </div>
                 </div>
                 <!--被保人-->
-            	<div class="mui-input-row mui-checkbox mui-left">
+                <div class="mui-input-row mui-checkbox mui-left">
                     <label>1. 本人承诺上述内容与客户告知事实一致，并无虚假和重大遗漏。<br>2. 本人愿意承担因不实告知带来的所有责任</label>
                     <input name="checkbox" value="Item 1" type="checkbox" v-model="promise">
                 </div>
@@ -109,7 +110,7 @@
 <script src="../js/mui.min.js" type="text/javascript"></script>
 <script src="../js/vue.min.js" type="text/javascript"></script>
 <script src="method.js"></script>
-<script type="text/javascript">
+<script type="text/babel">
     mui.init();
     const assforms = {
         '144': [{
@@ -375,274 +376,274 @@
         }]
     };
     const appforms = {
-      '144': [{
-        type: 'textarea',
-        value: ''
-      }],
-      '145': [{
-        type: 'textarea',
-        value: ''
-      }],
-      '146': [{
-        type: 'textarea',
-        value: ''
-      }],
-      '147': [{
-        type: 'textarea',
-        value: ''
-      }],
-      '149': [{
-        chief: '148',
-        type: 'textarea',
-        value: ''
-      }],
-      '150': [{
-        chief: '148',
-        type: 'textarea',
-        value: ''
-      }],
-      '151': [{
-        chief: '148',
-        type: 'textarea',
-        value: ''
-      }],
-      '152': [{
-        chief: '148',
-        type: 'textarea',
-        value: ''
-      }],
-      '153': [{
-        chief: '148',
-        type: 'textarea',
-        value: ''
-      }],
-      '154': [{
-        chief: '148',
-        type: 'textarea',
-        value: ''
-      }],
-      '155': [{
-        chief: '148',
-        type: 'textarea',
-        value: ''
-      }],
-      '156': [{
-        chief: '148',
-        type: 'textarea',
-        value: ''
-      }],
-      '157': [{
-        chief: '148',
-        type: 'textarea',
-        value: ''
-      }],
-      '158': [{
-        chief: '148',
-        type: 'textarea',
-        value: ''
-      }],
-      '159': [{
-        chief: '148',
-        type: 'textarea',
-        value: ''
-      }],
-      '160': [{
-        type: 'textarea',
-        value: ''
-      }],
-      '161': [{
-        title: '吸烟数量',
-        type: 'number',
-        msg: '请输入吸烟数量, 保留整数',
-        reg: /^\d+$/,
-        value: ''
-      }, {
-        title: '烟龄',
-        type: 'number',
-        msg: '请输入烟龄, 保留整数',
-        reg: /^\d+$/,
-        value: ''
-      }, {
-        type: 'textarea',
-        value: '',
-        must: false
-      }],
-      '162': [{
-        title: '饮酒种类',
-        type: 'text',
-        value: ''
-      }, {
-        title: '每天饮酒量(两)',
-        type: 'number',
-        msg: '请输入每天饮酒量, 保留整数',
-        reg: /^\d+$/,
-        value: ''
-      }, {
-        title: '酒龄',
-        type: 'number',
-        msg: '请输入酒龄, 保留整数',
-        reg: /^\d+$/,
-        value: ''
-      }, {
-        title: '停止原因及时间',
-        type: 'textarea',
-        value: '',
-        must: false
-      }],
-      '163': [{
-        type: 'textarea',
-        value: ''
-      }],
-      '165': [{
-        chief: '164',
-        type: 'textarea',
-        value: ''
-      }],
-      '166': [{
-        chief: '164',
-        type: 'textarea',
-        value: ''
-      }],
-      '167': [{
-        title: '怀孕周数',
-        type: 'number',
-        msg: '请输入怀孕周数, 保留整数',
-        reg: /^\d+$/,
-        chief: '164',
-        value: ''
-      }, {
-        type: 'textarea',
-        chief: '164',
-        value: ''
-      }],
-      '168': [{
-        title: '出生身高(cm)',
-        type: 'number',
-        msg: '请输入出生身高, 保留整数',
-        reg: /^\d+$/,
-        value: ''
-      }, {
-        title: '出生体重(Kg)',
-        msg: '请输入正确的出生体重，保留2位小数',
-        reg: /^\d+(.\d{0,2})?$/,
-        type: 'number',
-        value: ''
-      }],
-      '169': [{
-        chief: '168',
-        type: 'textarea',
-        value: ''
-      }],
-      '170': [{
-        chief: '168',
-        type: 'textarea',
-        value: ''
-      }],
-      '172': [{
-        type: 'textarea',
-        value: ''
-      }],
-      '173': [{
-        type: 'textarea',
-        value: ''
-      }],
-      '174': [{
-        type: 'textarea',
-        value: ''
-      }],
-      '175': [{
-        type: 'textarea',
-        value: ''
-      }],
-      '176': [{
-        title: '公司名称',
-        type: 'text',
-        value: ''
-      }, {
-        title: '索赔日期',
-        type: 'date',
-        value: ''
-      }, {
-        title: '索赔金额',
-        type: 'text',
-        value: ''
-      }, {
-        title: '索赔事由',
-        type: 'textarea',
-        value: ''
-      }],
-      '177': [{
-        title: '驾照类型',
-        type: 'select',
-        options: {
-          'A1': 'A1',
-          'A2': 'A2',
-          'A3': 'A3',
-          'B1': 'B1',
-          'B2': 'B2',
-          'C1': 'C1',
-          'C2': 'C2',
-          'C3': 'C3',
-          'C4': 'C4',
-          'D': 'D',
-          'E': 'E',
-          'F': 'F',
-          'M': 'M',
-          'N': 'N',
-          'P': 'P'
-        },
-        value: ''
-      }, {
-        title: '签发日期',
-        type: 'date',
-        value: ''
-      }, {
-        title: '驾龄(年)',
-        msg: '请输入整数',
-        type: 'number',
-        reg: /^\d+$/,
-        value: '',
-        must: false
-      }, {
-        title: '车辆类型',
-        type: 'text',
-        /*     options: {
-              '00': '自用',
-              '01': '货用',
-              '99': '其他'
-            }, */
-        value: '',
-        must: false
-      }, {
-        title: '用途',
-        type: 'text',
-        value: '',
-        must: false
-      }],
-      '178': [{
-        type: 'textarea',
-        value: ''
-      }],
-      '179': [{
-        title: '国家/地区',
-        type: 'text',
-        value: ''
-      }, {
-        title: '缘由',
-        type: 'text',
-        value: ''
-      }, {
-        title: '滞留时间',
-        type: 'text',
-        value: ''
-      }]
+        '144': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '145': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '146': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '147': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '149': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '150': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '151': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '152': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '153': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '154': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '155': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '156': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '157': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '158': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '159': [{
+            chief: '148',
+            type: 'textarea',
+            value: ''
+        }],
+        '160': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '161': [{
+            title: '吸烟数量',
+            type: 'number',
+            msg: '请输入吸烟数量, 保留整数',
+            reg: /^\d+$/,
+            value: ''
+        }, {
+            title: '烟龄',
+            type: 'number',
+            msg: '请输入烟龄, 保留整数',
+            reg: /^\d+$/,
+            value: ''
+        }, {
+            type: 'textarea',
+            value: '',
+            must: false
+        }],
+        '162': [{
+            title: '饮酒种类',
+            type: 'text',
+            value: ''
+        }, {
+            title: '每天饮酒量(两)',
+            type: 'number',
+            msg: '请输入每天饮酒量, 保留整数',
+            reg: /^\d+$/,
+            value: ''
+        }, {
+            title: '酒龄',
+            type: 'number',
+            msg: '请输入酒龄, 保留整数',
+            reg: /^\d+$/,
+            value: ''
+        }, {
+            title: '停止原因及时间',
+            type: 'textarea',
+            value: '',
+            must: false
+        }],
+        '163': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '165': [{
+            chief: '164',
+            type: 'textarea',
+            value: ''
+        }],
+        '166': [{
+            chief: '164',
+            type: 'textarea',
+            value: ''
+        }],
+        '167': [{
+            title: '怀孕周数',
+            type: 'number',
+            msg: '请输入怀孕周数, 保留整数',
+            reg: /^\d+$/,
+            chief: '164',
+            value: ''
+        }, {
+            type: 'textarea',
+            chief: '164',
+            value: ''
+        }],
+        '168': [{
+            title: '出生身高(cm)',
+            type: 'number',
+            msg: '请输入出生身高, 保留整数',
+            reg: /^\d+$/,
+            value: ''
+        }, {
+            title: '出生体重(Kg)',
+            msg: '请输入正确的出生体重，保留2位小数',
+            reg: /^\d+(.\d{0,2})?$/,
+            type: 'number',
+            value: ''
+        }],
+        '169': [{
+            chief: '168',
+            type: 'textarea',
+            value: ''
+        }],
+        '170': [{
+            chief: '168',
+            type: 'textarea',
+            value: ''
+        }],
+        '172': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '173': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '174': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '175': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '176': [{
+            title: '公司名称',
+            type: 'text',
+            value: ''
+        }, {
+            title: '索赔日期',
+            type: 'date',
+            value: ''
+        }, {
+            title: '索赔金额',
+            type: 'text',
+            value: ''
+        }, {
+            title: '索赔事由',
+            type: 'textarea',
+            value: ''
+        }],
+        '177': [{
+            title: '驾照类型',
+            type: 'select',
+            options: {
+                'A1': 'A1',
+                'A2': 'A2',
+                'A3': 'A3',
+                'B1': 'B1',
+                'B2': 'B2',
+                'C1': 'C1',
+                'C2': 'C2',
+                'C3': 'C3',
+                'C4': 'C4',
+                'D': 'D',
+                'E': 'E',
+                'F': 'F',
+                'M': 'M',
+                'N': 'N',
+                'P': 'P'
+            },
+            value: ''
+        }, {
+            title: '签发日期',
+            type: 'date',
+            value: ''
+        }, {
+            title: '驾龄(年)',
+            msg: '请输入整数',
+            type: 'number',
+            reg: /^\d+$/,
+            value: '',
+            must: false
+        }, {
+            title: '车辆类型',
+            type: 'text',
+            /*     options: {
+                  '00': '自用',
+                  '01': '货用',
+                  '99': '其他'
+                }, */
+            value: '',
+            must: false
+        }, {
+            title: '用途',
+            type: 'text',
+            value: '',
+            must: false
+        }],
+        '178': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '179': [{
+            title: '国家/地区',
+            type: 'text',
+            value: ''
+        }, {
+            title: '缘由',
+            type: 'text',
+            value: ''
+        }, {
+            title: '滞留时间',
+            type: 'text',
+            value: ''
+        }]
     };
 
     var health = new Vue({
         el: '#Js-content',
         components: {
-		    'app-form': {
-		      	template: `
+            'app-form': {
+                template: `
 		      	<li class="border-l-r">
 		      		<div v-for="(item,index) in forms">
 	                    <div class="input-item" v-if="item.type=='number'">
@@ -684,15 +685,14 @@
                     </div>
                 </li>
 		      `,
-		      	props: {
-			        forms: Array,
-			        index: String
-			    }
-		    }
-    	},
+                props: {
+                    forms: Array,
+                    index: String
+                }
+            }
+        },
         data: function() {
             return {
-                info: '',
                 appfolder: false,
                 assfolder: false,
                 isAssuWm: false, //被保人是否为女性
@@ -711,42 +711,39 @@
                 }
             }
         },
-        creadted(){
-          console.log('created')
-        },
         methods:{
-        	change:function(item) {
-		      var ret = {
-		        status: true,
-		        msg: ''
-		      }
-		      var msg = ''
-		      if (item.reg && item.msg && !item.reg.test(item.value)) { // 正则
-		        mui.toast(item.msg, {duration: 'short', type: 'div'});
-		        ret = { status: false, msg: item.msg }
-		      } else if ((item.type === 'number') && !/^\d+\.?\d*$/.test(item.value)) {
-		        msg = item.msg || '请输入正确的数字'
-		        mui.toast(msg, {duration: 'short', type: 'div'});
-		        ret = { status: false, msg }
-		      } else if (item.type === 'text' && !item.value) {
-		        msg = item.msg || '请输入' + item.title
-		        mui.toast(msg, {duration: 'short', type: 'div'});
-		        ret = { status: false, msg }
-		      } else if (item.type === 'date' && !/^[1-2][0-9][0-9][0-9]-[0-1]{0,1}[0-9]-[0-3]{0,1}[0-9]$/.test(item.value)) {
-		        msg = '请输入日期，形如 1999-12-31'
-		        mui.toast(msg, {duration: 'short', type: 'div'});
-		        ret = { status: false, msg }
-		      } else if (item.type === 'textarea' && !item.value) {
-		        msg = '请完成说明'
-		        mui.toast(msg, {duration: 'short', type: 'div'});
-		        ret = { status: false, msg }
-		      } else if (item.type === 'select' && !item.value) {
-		        msg = '请完成选择'
-		        mui.toast(msg, {duration: 'short', type: 'div'});
-		        ret = { status: false, msg }
-		      }
-		      return ret
-		    },
+            change:function(item) {
+                var ret = {
+                    status: true,
+                    msg: ''
+                }
+                var msg = ''
+                if (item.reg && item.msg && !item.reg.test(item.value)) { // 正则
+                    mui.toast(item.msg, {duration: 'short', type: 'div'});
+                    ret = { status: false, msg: item.msg }
+                } else if ((item.type === 'number') && !/^\d+\.?\d*$/.test(item.value)) {
+                    msg = item.msg || '请输入正确的数字'
+                    mui.toast(msg, {duration: 'short', type: 'div'});
+                    ret = { status: false, msg }
+                } else if (item.type === 'text' && !item.value) {
+                    msg = item.msg || '请输入' + item.title
+                    mui.toast(msg, {duration: 'short', type: 'div'});
+                    ret = { status: false, msg }
+                } else if (item.type === 'date' && !/^[1-2][0-9][0-9][0-9]-[0-1]{0,1}[0-9]-[0-3]{0,1}[0-9]$/.test(item.value)) {
+                    msg = '请输入日期，形如 1999-12-31'
+                    mui.toast(msg, {duration: 'short', type: 'div'});
+                    ret = { status: false, msg }
+                } else if (item.type === 'textarea' && !item.value) {
+                    msg = '请完成说明'
+                    mui.toast(msg, {duration: 'short', type: 'div'});
+                    ret = { status: false, msg }
+                } else if (item.type === 'select' && !item.value) {
+                    msg = '请完成选择'
+                    mui.toast(msg, {duration: 'short', type: 'div'});
+                    ret = { status: false, msg }
+                }
+                return ret
+            },
             isShow:function(i, type) {
                 if (i === 0 || i === 12) {
                     return false
@@ -762,101 +759,101 @@
                 }
                 return true
             },
-			assChange:function(id,state){
-				this.clientvalue.ass_amswer[id] = state;
-				this.$forceUpdate();
-			},
-			appChange:function(id,state){
-				this.clientvalue.app_amswer[id] = state;
-				this.$forceUpdate();
-			},
-			getIndex:function(id, chief) {
-		      for (var i in this.matters) {
-		        var item = this.matters[i]
-		        if (item.id === id && !chief) {
-		          return i
-		        }
-		        if (item.id === chief) {
-		          for (var j = 0; j < item.child.length; j++) {
-		            if (item.child[j].id === id) {
-		              return i + item.child[j].entry
-		            }
-		          }
-		        }
-		      }
-		      return -1
-		    },
-			checkForm:function() {
-		      var toast_text = null
-		      var input = null
-		      var title = ''
-		      var msg = ''
-		      for (var i in this.clientvalue.ass_amswer) {
-		        if (this.clientvalue.ass_amswer[i] === true) {
-		          var item = this.assforms[i]
-		          if (item && item.length) {
-		            var val = []
-		            for (var k = item.length - 1; k >= 0; k--) {
-		              input = item[k]
-		              title = input.title ? input.title : ''
-		              var who = this.showAppl ? '被保人' : ''
-		              msg = '问题'+ this.getIndex(Number(i), Number(input.chief)) + who + title + ','
-		
-		              if (input.must !== false || input.value) {
-		                var ret = this.change(input)
-		                if (!ret.status) {
-		                  toast_text = msg + ret.msg
-		                  break
-		                }
-		              }
-		
-		              val.push(input.type !== 'textarea' ? input.value : '(' + input.value + ')')
-		            }
-		            this.clientvalue.fields[i] = val.reverse().join('|')
-		          }
-		        } else {
-		          this.clientvalue.fields[i] = ''
-		        }
-		      }
-		      if (this.showAppl) {
-		        for (var j in this.clientvalue.app_amswer) {
-		          if (this.clientvalue.app_amswer[j] === true) {
-		            var jitem = this.appforms[j]
-		            if (jitem && jitem.length) {
-		              var jval = []
-		              for (var l = jitem.length - 1; l >= 0; l--) {
-		                input = jitem[l]
-		                title = input.title ? input.title : ''
-		                msg = '投保人问题【' + this.getIndex(Number(j), Number(input.chief)) + '】' + title + '，'
-		
-		                if (input.must !== false || input.value) {
-		                  var jret = this.change(input)
-		                  if (!jret.status) {
-		                    toast_text = msg + jret.msg
-		                    break
-		                  }
-		                }
-		
-		                jval.push(input.type !== 'textarea' ? input.value : '(' + input.value + ')')
-		              }
-		              this.clientvalue.app_fields[j] = jval.reverse().join('|')
-		            }
-		          } else {
-		            this.clientvalue.app_fields[j] = ''
-		          }
-		        }
-		      }
-		      if (toast_text) {
-		      	mui.toast(toast_text, {duration: 'short', type: 'div'});
-		        return false
-		      }
-		      this.$forceUpdate()
-		      if (!this.promise) {
-		        mui.toast('请阅读用户承诺并确认', {duration: 'short', type: 'div'});
-		        return false
-		      }
-		      return true
-		    }
+            assChange:function(id,state){
+                this.clientvalue.ass_amswer[id] = state;
+                this.$forceUpdate();
+            },
+            appChange:function(id,state){
+                this.clientvalue.app_amswer[id] = state;
+                this.$forceUpdate();
+            },
+            getIndex:function(id, chief) {
+                for (var i in this.matters) {
+                    var item = this.matters[i]
+                    if (item.id === id && !chief) {
+                        return i
+                    }
+                    if (item.id === chief) {
+                        for (var j = 0; j < item.child.length; j++) {
+                            if (item.child[j].id === id) {
+                                return i + item.child[j].entry
+                            }
+                        }
+                    }
+                }
+                return -1
+            },
+            checkForm:function() {
+                var toast_text = null
+                var input = null
+                var title = ''
+                var msg = ''
+                for (var i in this.clientvalue.ass_amswer) {
+                    if (this.clientvalue.ass_amswer[i] === true) {
+                        var item = this.assforms[i]
+                        if (item && item.length) {
+                            var val = []
+                            for (var k = item.length - 1; k >= 0; k--) {
+                                input = item[k]
+                                title = input.title ? input.title : ''
+                                var who = this.showAppl ? '被保人' : ''
+                                msg = '问题'+ this.getIndex(Number(i), Number(input.chief)) + who + title + ','
+
+                                if (input.must !== false || input.value) {
+                                    var ret = this.change(input)
+                                    if (!ret.status) {
+                                        toast_text = msg + ret.msg
+                                        break
+                                    }
+                                }
+
+                                val.push(input.type !== 'textarea' ? input.value : '(' + input.value + ')')
+                            }
+                            this.clientvalue.fields[i] = val.reverse().join('|')
+                        }
+                    } else {
+                        this.clientvalue.fields[i] = ''
+                    }
+                }
+                if (this.showAppl) {
+                    for (var j in this.clientvalue.app_amswer) {
+                        if (this.clientvalue.app_amswer[j] === true) {
+                            var jitem = this.appforms[j]
+                            if (jitem && jitem.length) {
+                                var jval = []
+                                for (var l = jitem.length - 1; l >= 0; l--) {
+                                    input = jitem[l]
+                                    title = input.title ? input.title : ''
+                                    msg = '投保人问题【' + this.getIndex(Number(j), Number(input.chief)) + '】' + title + '，'
+
+                                    if (input.must !== false || input.value) {
+                                        var jret = this.change(input)
+                                        if (!jret.status) {
+                                            toast_text = msg + jret.msg
+                                            break
+                                        }
+                                    }
+
+                                    jval.push(input.type !== 'textarea' ? input.value : '(' + input.value + ')')
+                                }
+                                this.clientvalue.app_fields[j] = jval.reverse().join('|')
+                            }
+                        } else {
+                            this.clientvalue.app_fields[j] = ''
+                        }
+                    }
+                }
+                if (toast_text) {
+                    mui.toast(toast_text, {duration: 'short', type: 'div'});
+                    return false
+                }
+                this.$forceUpdate()
+                if (!this.promise) {
+                    mui.toast('请阅读用户承诺并确认', {duration: 'short', type: 'div'});
+                    return false
+                }
+                return true
+            }
         }
     });
     mui.plusReady(function () {
@@ -865,14 +862,6 @@
         plus.key.addEventListener("backbutton",function(){
             popu.closepop();
         });
-        //赋值
-        var info = plus.storage.getItem('hengda_healthinfo') ? JSON.parse(plus.storage.getItem('hengda_healthinfo')) : '';
-//        if (info) {
-//            console.log('plus.ready')
-//            health.$nextTick(function () {
-//                health.clientvalue = info
-//            })
-//        }
         //
         var safegoods = JSON.parse(plus.storage.getItem('hengda_safegoods'));
         if (safegoods) {
@@ -890,11 +879,10 @@
         health.isAssuWm = assured.insured_gender === FEMALE ? true : false
         //保存
         document.querySelector('#saveHealthinfo').addEventListener('tap', function () {
-            document.activeElement.blur();
-        	if (!health.checkForm()) {
-		      return false
-		    }
-        	//
+            if (!health.checkForm()) {
+                return false
+            }
+            //
             var appitems = []
             mui.each(health.matters, function (index, item) {
                 var insured_answer = health.clientvalue.ass_amswer[item.id] ? '1' : '0'

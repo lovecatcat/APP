@@ -33,7 +33,7 @@
 									{{newsDetail_data.create_time}} 
 								</span>	
 								<span id="">
-									{{newsDetail_data.type}}
+									{{newsDetail_data.type_name}}
 								</span>
 							</div>
 						</div>
@@ -131,7 +131,7 @@
 			document.querySelector('.goods').addEventListener('tap', function() {
 				var data = {
 					server: 'Information.praise',
-					device: 'pad',
+					view: true,
 					data: JSON.stringify({id: newsDetail.newsTvDetail_data.id})
 					}
 				mui.post("http://www.luckyins.com/api/api/invoke", data, function(res) {
@@ -152,6 +152,7 @@
 					data: {
 			            server: 'Information.content',
 			            device: 'mobile',
+			            view: true,
 			            data: JSON.stringify({id: id})
 			        },
 			        success:function(res){

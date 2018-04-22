@@ -20,7 +20,7 @@
     <div class="ins-dialog lg">
         <div class="dialog-header">
             <div class="mui-icon mui-icon-closeempty" id="close-ins-pop"></div>
-            <p class="ins-font-md box-f-1">信息确认</p>
+            <p class="ins-font-md box-f-1">信息确认{{war_id}}</p>
             <div class="header-btn-save">
                 <button class="ins-btn sm-btn blue" id="saveSign">核保</button>
             </div>
@@ -162,7 +162,7 @@
                 },
                 success: function (res) {
                     if (res.code) {
-                        mui.toast('核保中...')
+                        mui.toast('核保中...', {duration: 'short', type: 'div'})
                         online_ins()
                     } else {
                         mui.toast("该被保人有正在处理的保单，请稍后再次尝试。", {duration: 'short', type: 'div'})
@@ -198,17 +198,17 @@
                 success: function (res) {
                     if (res.code) {
                         if (res.data.resultCode === '00') {
-                            mui.toast('自核通过，影像上传中')
+                            mui.toast('自核通过，影像上传中', {duration: 'short', type: 'div'})
                             upload_img(img.war_id)
                         } else if (res.data.resultCode === '02') {
-                            mui.toast('进入人工核保，影像上传中')
+                            mui.toast('进入人工核保，影像上传中', {duration: 'short', type: 'div'})
                             upload_img(img.war_id)
                         } else {
-                            mui.toast(res.data.resultMsg)
+                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
                             return false
                         }
                     } else {
-                        mui.toast(res.data.resultMsg)
+                        mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
                         return false
                     }
                 }
@@ -230,15 +230,15 @@
                 success: function (res) {
                     if (res.code) {
                         if (res.data.resultCode === '00') {
-                            mui.toast('上传成功，承保中')
+                            mui.toast('上传成功，承保中', {duration: 'short', type: 'div'})
                             ins_pay(id)
                             return false
                         } else {
-                            mui.toast(res.data.resultMsg)
+                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
                             return false
                         }
                     } else {
-                        mui.toast(res.data.resultMsg)
+                        mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
                         return false
                     }
                 }
@@ -260,7 +260,7 @@
                 success: function (res) {
                     if (res.code) {
                         if (res.data.resultCode === '00') {
-                            mui.toast('承保成功');
+                            mui.toast('承保成功', {duration: 'short', type: 'div'});
                             //清除本地缓存
                             var itemName = ['hengda_applicant','hengda_assured','hengda_beneficiary','hengda_safegoods','hengda_bank','hengda_upload','hengda_healthinfo','hengda_ids'];
                             for (var i = 0; i < itemName.length; i++) {
@@ -271,11 +271,11 @@
                             popu.closepop();
                             mui.back();
                         } else {
-                            mui.toast(res.data.resultMsg)
+                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
                             return false
                         }
                     } else {
-                        mui.toast('承保失败')
+                        mui.toast('承保失败', {duration: 'short', type: 'div'})
                         return false
                     }
                 }
@@ -383,9 +383,9 @@
                     data: {data: JSON.stringify(data), server: 'PolicyIns.save'},
                     success: function (res) {
                         if (res.code) {
-                            mui.toast(res.msg)
+                            mui.toast(res.msg, {duration: 'short', type: 'div'})
                         } else {
-                            mui.toast(res.msg)
+                            mui.toast(res.msg, {duration: 'short', type: 'div'})
                         }
                     }
                 });

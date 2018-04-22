@@ -23,12 +23,12 @@
     </div>
 </div>
 </body>
-<script src="../js/mui.min.js" type="text/javascript"></script>
+<script src="../js/mui.js" type="text/javascript"></script>
 <script type="text/javascript">
     mui.init();
 
     mui.plusReady(function () {
-        isLogin();
+//        isLogin();
         var popu = new ClosePopu(); // 实例化关闭窗口对象
         
         // 点击关闭遮罩层，弹框
@@ -57,7 +57,7 @@
                     imgtobase64(plus.io.convertLocalFileSystemURL(path));
                 },
                 function (error) {
-//                    console.log("Capture image failed: " + error.message);
+                    console.log("Capture image failed: " + error.message);
                 },
                 {resolution: res, format: fmt}
            );

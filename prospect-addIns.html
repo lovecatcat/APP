@@ -134,9 +134,13 @@
 					<template v-else-if="isBaseMoney && !fuBaseMoney && insurance.safe_id === 'FXLJYS'">
 						<div class="input-item box-f-1">
 							<div class="box-f-3 ins-font-sm">有无社保</div>
-							<div class="mui-switch mui-switch-mini" @click="fxljysFXLJYS.shebao == 'B' ? fxljysFXLJYS.shebao = 'A' : fxljysFXLJYS.shebao = 'B', resetFee('fxsb')">
+							<!--<div class="mui-switch mui-switch-mini" @click="fxljysFXLJYS.shebao == 'B' ? fxljysFXLJYS.shebao = 'A' : fxljysFXLJYS.shebao = 'B', resetFee('fxsb')">
 								<div class="mui-switch-handle"></div>
-							</div>
+							</div>-->
+							<div class="input-switch">
+									<input type="checkbox" class="switch" @click="fxljysFXLJYS.shebao == 'B' ? fxljysFXLJYS.shebao = 'A' : fxljysFXLJYS.shebao = 'B', resetFee('fxsb')" />
+									<label></label>
+								</div>
 						</div>
 						<div class="input-item">
 							<label class="">险种</label>
@@ -478,7 +482,7 @@
 						</template>
 						<!-- 国华康运金生附加养老年金 -->
 						<!-- 国华康运金生身故豁免保险费 -->
-						<template v-if="['116503', '116502', '116501'].indexOf(item.code) > -1 && addonRes[item.code]">
+						<template v-if="['116503', '116502', '1165'].indexOf(item.code) > -1 && addonRes[item.code]">
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs" v-if="addonRes['1168']">
@@ -1574,7 +1578,7 @@
 		const mustSelected = ['291', '177', '11', 'RSD', 'RSC', '349', '8111'] // 必须附加的附加险
 		//		const noNeedCal = ['291', '11', '349', '12E20010', 'LA073', 'DAR'] // 不需要计算的险种
 		const noNeedCal = ['291', '11', '349'] // 不需要计算的险种
-		const directNeedCal = ['RH7B', 'WPJP', 'HB024', 'RSD', '1161', '1168', '116501', '116502', '116503', '404', 'JCR', 'HI', 'ACIWP', 'NWPD', '33F00030', 'JER', 'FXKLYSFJ', 'FJKLYSQZ', 'LA073', 'WRGP'] // 直接 计算的险种
+		const directNeedCal = ['RH7B', 'WPJP', 'HB024', 'RSD', '1161', '1168', '1165', '116502', '116503', '404', 'JCR', 'HI', 'ACIWP', 'NWPD', '33F00030', 'JER', 'FXKLYSFJ', 'FJKLYSQZ', 'LA073', 'WRGP'] // 直接 计算的险种
 		var user_id;
 		var pushData;
 		var parent_self;

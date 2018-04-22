@@ -41,7 +41,7 @@
 
 				<template v-if="insurance.safe_id">
 					<app-select label="保险期间">
-						<button slot="button" class="ins-btn xs-btn" :class="{'blue':item.year===insurance.safe_year}" :disabled="item.year===insurance.safe_year" v-for="(item,index) in mainSyAttr" @click="insurance.safe_year=item.safe_year, resetFee()">
+						<button slot="button" class="ins-btn xs-btn" :class="{'blue':item.year===insurance.safe_year}" :disabled="item.year===insurance.safe_year" v-for="(item,index) in mainSyAttr" @click="insurance.safe_year=item.year, resetFee()">
 				            {{item.year, insurance.safe_id | safeYearFilter}}
 				        </button>
 					</app-select>
@@ -132,15 +132,23 @@
 					<!-- 泰康乐行天下 -->
 					<!-- 复星乐健一生FXLJYS-->
 					<template v-else-if="isBaseMoney && !fuBaseMoney && insurance.safe_id === 'FXLJYS'">
-						<div class="input-item box-f-1">
-							<div class="box-f-3 ins-font-sm">有无社保</div>
-							<!--<div class="mui-switch mui-switch-mini" @click="fxljysFXLJYS.shebao == 'B' ? fxljysFXLJYS.shebao = 'A' : fxljysFXLJYS.shebao = 'B', resetFee('fxsb')">
-								<div class="mui-switch-handle"></div>
-							</div>-->
-							<div class="input-switch">
-									<input type="checkbox" class="switch" @click="fxljysFXLJYS.shebao == 'B' ? fxljysFXLJYS.shebao = 'A' : fxljysFXLJYS.shebao = 'B', resetFee('fxsb')" />
+						<div class="input-item">
+							<label>有无社保</label>
+							<button slot="button" class="ins-btn xs-btn" :class="{'blue': fxljysFXLJYS.shebao == 'B'}"
+								 :disabled="fxljysFXLJYS.shebao == 'B'"
+								 @click="fxljysFXLJYS.shebao = 'B', resetFee('fxsb')">
+					             	有社保
+					        </button>
+							<button slot="button" class="ins-btn xs-btn" :class="{'blue': fxljysFXLJYS.shebao == 'A'}"
+								 :disabled="fxljysFXLJYS.shebao == 'A'"
+								 @click="fxljysFXLJYS.shebao = 'A', resetFee('fxsb')">
+					             	无社保
+					        </button>
+							<!--<div class="input-switch">
+									<input type="checkbox" class="switch"
+										 @click="fxljysFXLJYS.shebao == 'B' ? fxljysFXLJYS.shebao = 'A' : fxljysFXLJYS.shebao = 'B', resetFee('fxsb')" />
 									<label></label>
-								</div>
+								</div>-->
 						</div>
 						<div class="input-item">
 							<label class="">险种</label>
@@ -1651,7 +1659,7 @@
 				addonRes: {}, // 附加险返回信息
 
 				fxljysFXLJYS: { // 复星乐健一生
-					shebao: 'B',
+					shebao: 'B', //B为有社保
 					zytc: '0', // 住院套餐
 					zynmp: '0', // 住院年免赔
 					zyzfbl: 1, // 住院自负比例

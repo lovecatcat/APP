@@ -1320,6 +1320,7 @@ input[type='number'].member-tax-input{
 	width: 2.5rem;
     height: 2.5rem;
 	background-image: url("../images/icon/ico-member-close.png");
+	z-index: 100;
 }
 .member-pdt-tool {
 	position: absolute;

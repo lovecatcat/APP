@@ -101,8 +101,8 @@
                         success:function(data){
                             if(data.code == 1){
                                 var data = data.data
-                                document.getElementById('Js-surname').innerHTML = data.name.substring(0,1)
-                                document.getElementById('Js-name').innerHTML = data.name
+                                document.getElementById('Js-surname').innerHTML = data.user_name.substring(0,1)
+                                document.getElementById('Js-name').innerHTML = data.user_name
                                 document.getElementById('Js-integ').innerHTML = data.pay_points
                                 document.getElementById('Js-phone').innerHTML = data.tel
                                 document.getElementById('Js-ID').innerHTML = data.card_no
@@ -124,8 +124,8 @@
                         success:function(data){
                             if(data.code == 1){
                                 var data = data.data
-                                document.getElementById('Js-surname').innerHTML = data.name.substring(0,1)
-                                document.getElementById('Js-name').innerHTML = data.name
+                                document.getElementById('Js-surname').innerHTML = data.user_name.substring(0,1)
+                                document.getElementById('Js-name').innerHTML = data.user_name
                                 document.getElementById('Js-integ').innerHTML = data.pay_points
                                 document.getElementById('Js-phone').innerHTML = data.tel
                                 document.getElementById('Js-ID').innerHTML = data.card_no

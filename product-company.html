@@ -12,16 +12,21 @@
 </head>
 
 <body class="BL-bg-f2f">
-<header id="Js-header" class="BL-bg-fff">
-    <div class="BL-mod-headbar BL-mod-headbar-pos">
-        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
-        <h1 class="BL-title">公司介绍</h1>
-        <a class="BL-icon BL-icon-share"></a>
-    </div>
-</header>
-<div id="Js-content" class="mui-content product" v-html="list.company_describe" v-if="list" v-cloak></div>
+	<div id="company">
+		<header id="Js-header" class="BL-bg-fff">
+		    <div class="BL-mod-headbar BL-mod-headbar-pos">
+		        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+		        <h1 class="BL-title">{{name}}</h1>
+		        <a class="BL-icon BL-icon-share"></a>
+		    </div>
+		</header>
+		<div id="Js-content"  class="mui-content BL-rel BL-overFlow-autoY product">
+			<div v-html="list" v-if="list"  v-cloak>
+				
+			</div>
+		</div>
+	</div>
 
-<!------------悬浮控制按钮 end --------------->
 </body>
 <script src="js/mui.min.js" type="text/javascript"></script>
 <script src="js/vue.min.js" type="text/javascript"></script>
@@ -29,14 +34,64 @@
     mui.init();
 
     var company = new Vue({
-        el: '#Js-content',
+        el: '#company',
         data: {
-            list: ''
+            list: '',
+            name: ''
         }
     });
     mui.plusReady(function () {
         statusbar();
-        company.list = plus.webview.currentWebview().list;
+        var winH = window.innerHeight;
+		var topHeight = document.querySelector('#Js-header').offsetHeight;
+		document.querySelector('#Js-content').style.height = winH - topHeight + 'px'; 
+		
+        var product_id = plus.webview.currentWebview().product_id;
+        var form_id = plus.webview.currentWebview().form_id; //是总库还是分库
+        var name = plus.webview.currentWebview().name; //是公司介绍还是绿通服务
+        company.name = name;
+        plus.nativeUI.showWaiting();
+        if(form_id == 'all'){ //总库
+        	luckyAjax({
+				data: {
+					server: 'lifeProduct.getProductDescribe',
+					view: false,
+					data: JSON.stringify({
+						product_id: product_id
+					})
+				},
+				success: function(res) {
+					plus.nativeUI.closeWaiting();
+					if(res.code == 1) {
+						if(name == '绿通服务'){
+						 	company.list = res.data.green_server.describe
+						}else{
+						 	company.list = res.data.company_describe.describe;
+						}
+					} else {
+						mui.toast('加载失败')
+					}
+				}
+			});
+        }else{
+        	luckyAjax({
+	            data: {
+	                data: JSON.stringify({product_id: product_id}),
+	                server: 'lifeProduct.getProductInfo'
+	            },
+	            success: function (res) {
+	                plus.nativeUI.closeWaiting();
+	                if (data.code === 1) {
+	                   company.list = res.data.company_describe;
+	                   alert(JSON.stringify(company.list))
+	                } else {
+	                    mui.toast(data.msg, {duration: 'short', type: 'div'})
+	                    return false;
+	                }
+	            }
+	        });
+        }
+         
     })
 </script>
 

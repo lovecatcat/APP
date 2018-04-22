@@ -134,22 +134,25 @@
 				success: function(res) {
 					if(res.code == 1) {
 						plansDetail.adviser = res.data.adviser
-						if(res.data.content) {
-							// 第一个plid下面的数据，主plid
-							mui.each(res.data.content, function(index, item) {
-								plansDetail.detail_list = plansDetail.detail_list.concat(item)
-								plansDetail.pl_id.push(res.data.id)
-							})
-						}
-
-						if(res.data.child) {
-							mui.each(res.data.child, function(index, item) {
-								plansDetail.pl_id.push(res.data.child[index].id)
-								mui.each(res.data.child[index].content, function(i, m) {
-									plansDetail.detail_list = plansDetail.detail_list.concat(m)
+						setTimeout(function() {
+							if(res.data.content) {
+								// 第一个plid下面的数据，主plid
+								mui.each(res.data.content, function(index, item) {
+									plansDetail.detail_list = plansDetail.detail_list.concat(item)
+									plansDetail.pl_id.push(res.data.id)
 								})
-							})
-						}
+							}
+	
+							if(res.data.child) {
+								mui.each(res.data.child, function(index, item) {
+									plansDetail.pl_id.push(res.data.child[index].id)
+									mui.each(res.data.child[index].content, function(i, m) {
+										plansDetail.detail_list = plansDetail.detail_list.concat(m)
+									})
+								})
+							}
+						}, 300)
+						
 					} else {
 						mui.toast(res.msg)
 						mui.back()
@@ -168,6 +171,7 @@
 					data = {
 						modalID: 'modal-list',
 						formID: formID,
+						goIns: true, //是不是在线投保
 						goIns_data: goIns_data
 					}
 				} else {

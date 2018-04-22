@@ -313,11 +313,11 @@
 				parseVueObj: function(Obj) {
 					return JSON.parse(JSON.stringify(Obj))
 				},
-				applSex: function() {
-					this.appl.sex = !this.appl.sex
+				applSex: function(i) {
+					this.appl.sex = i
 				},
-				assuSex: function() {
-					this.assu.sex = !this.assu.sex
+				assuSex: function(i) {
+					this.assu.sex = i
 				},
 				checkName: function(name, owner) { //校验姓名
 					var toastText = false
@@ -426,7 +426,6 @@
 						}
 					}
 					ins.splice(index1, 1)
-					alert(JSON.stringify(this.plans))
 					this.$delete(this.planList[this.plan_id], index1)
 					//打开ins把数据传过去
 					mui.openWindow({

@@ -162,8 +162,8 @@
                 var toast_text = null
                 if (!this.pwd1) {
                     toast_text = '请输入新的登录密码'
-                } else if (!/^[0-9a-zA-Z]{8}$/.test(this.pwd1)) {
-                    toast_text = '密码格式应为8位的字母数字组合'
+                } else if (!/(?=.*\d)(?=.*[A-z])^[0-9A-z]{8,}$/.test(this.pwd1)) {
+                    toast_text = '密码格式应为8-16位的字母数字组合'
                 } else if (!this.pwd2) {
                     toast_text = '请再次输入密码'
                 } else if (this.pwd1 !== this.pwd2) {
@@ -194,6 +194,7 @@
             },
             //发送验证码
             sendCode: function () {
+                if (this.disabled) return false
                 var tel = this.tel
                 if (!this.channel_id) {
                     mui.toast('请输入渠道号', {duration: 'short', type: 'div'});
@@ -250,6 +251,7 @@
 
         login.$forceUpdate();
         document.querySelector('#login-sub').addEventListener("tap", function () {
+            document.activeElement.blur();
             var basedata = {}
             var type = login.login_type;
             var user_name = login.user_name;
@@ -303,7 +305,7 @@
                             } else {
                                 setTimeout(function () {
                                     plus.runtime.restart();
-                                },800)
+                                },200)
                             }
                         } else { //未设置登录密码
                             login.flag = true

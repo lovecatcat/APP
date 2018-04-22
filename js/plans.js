@@ -8,8 +8,7 @@ var aloneDetail = new Vue({
 		main: {}, //主险信息
 		children: {}, //附加险信息,
 		adviser: '', //业务员信息
-		imageDescribe: '',
-		image_url: '', //险种信息
+		imageDescribe: '', //产品特色图片
 		tk: [121, 301, 334],
 		gh: [256, 300, 349, 354, 16201],
 		gy: [267, 16197],
@@ -20,14 +19,16 @@ var aloneDetail = new Vue({
 		al: [309],
 		fx: [335, 336, 337],
 		behalfTable: [256, 347, 354, 370, 16197, 16201], //主险利益演示表和附加险有关系的
-		haveDesign: [354, 348, 370, 347],
+		haveDesign: [354, 348, 370, 347, 16197],
 		haveDesign16197: false,
 		haveLevel: false, //有中高低的
 		levelNum: 'mid',
 		manual_content: {},
 		plansText: {}, //文案
 		goIns_data: [], // 在线投保数据
-		clause_data: [] //条款数据
+		clause_data: [], //条款数据
+		sub_treasury_id: '',
+		green_server: false //是不是有绿通服务
 	},
 	methods: {
 		detail: function(id) {
@@ -41,17 +42,35 @@ var aloneDetail = new Vue({
 
 		},
 		company: function(genre) {
-			 mui.openWindow({
+//			公司简介
+			mui.openWindow({
 				id: 'product_company',
 				url: 'product-company.html',
 				show: animateObj.aniDetal,
 				extras: {
-					list: this.image_url
+					product_id: genre,
+					form_id: 'all',
+					name: '公司介绍'
+				}
+			});
+
+		},
+		company_green: function(genre) {
+//			绿通
+			mui.openWindow({
+				id: 'product_company',
+				url: 'product-company.html',
+				show: animateObj.aniDetal,
+				extras: {
+					product_id: genre,
+					form_id: 'all',
+					name: '绿通服务'
 				}
 			});
 
 		},
 		clause: function(id) {
+//			条款
 			var data = {
 				modalID: 'modal-list',
 				formID: "member_plans_alone",
@@ -143,6 +162,7 @@ var aloneDetail = new Vue({
 				}
 			}
 			this.manual_content[this.levelNum] = arr
+			this.$forceUpdate()
 		}
 	}
 });
@@ -158,6 +178,7 @@ var aloneDetail = new Vue({
 		user_id = JSON.parse(plus.storage.getItem("userinfo")).id
 		var parent_self = plus.webview.getWebviewById('member_plans_detail') //父级id
 		//接收单个计划书数据alone
+		plus.nativeUI.showWaiting();
 		window.addEventListener('alone', function(event) {
 			var data = event.detail.data
 //			alert(JSON.stringify(data))
@@ -166,6 +187,7 @@ var aloneDetail = new Vue({
 			aloneDetail.pl_id = event.detail.pl_id
 			aloneDetail.haveLevel = false
 			aloneDetail.haveDesign16197 = false
+			aloneDetail.green_server = false
 			
 			groupList(data)
 			//规划
@@ -188,24 +210,46 @@ var aloneDetail = new Vue({
 					}
 				});
 			}
-			//公司图片
+			//通过总库id获取分库id
 			luckyAjax({
 				data: {
 					server: 'Proposal.getProductInfo',
+					device: 'mobile',
 					view: false,
 					data: JSON.stringify({
 						code: '',
 						id: aloneDetail.list.genre
+						
 					})
 				},
 				success: function(res) {
 					if(res.code == 1) {
-						aloneDetail.image_url = res.data.image_url
+						aloneDetail.sub_treasury_id = res.data.child_id
+//						alert(res.data.child_id)
 					} else {
 						mui.toast('加载失败')
 					}
 				}
 			});
+//			luckyAjax({
+//				data: {
+//					server: 'Proposal.getProductInfo',
+//					view: false,
+//					data: JSON.stringify({
+//						code: '',
+//						id: aloneDetail.list.genre
+//					})
+//				},
+//				success: function(res) {
+//					if(res.code == 1) {
+//						alert(JSON.stringify(res.data))
+//						console.log(JSON.stringify(res.data.image_url))
+//						aloneDetail.image_url = res.data.image_url
+//					} else {
+//						mui.toast('加载失败')
+//					}
+//				}
+//			});
 			//产品特色图片
 			luckyAjax({
 				data: {
@@ -216,14 +260,18 @@ var aloneDetail = new Vue({
 					})
 				},
 				success: function(res) {
+					plus.nativeUI.closeWaiting();
 					if(res.code == 1) {
+//						alert(JSON.stringify(res.data))
 						aloneDetail.imageDescribe = res.data['LBG0009'].describe || res.data['LBG0002'].describe
+						aloneDetail.green_server =  res.data.green_server.describe
 						
 					} else {
 						mui.toast('加载失败')
 					}
 				}
 			});
+			
 		});
 		window.addEventListener('design', function(event) {
 			var data = event.detail.data
@@ -235,7 +283,6 @@ var aloneDetail = new Vue({
 		//在线投保按钮
 		document.querySelector('#goIns').addEventListener('tap', function() {
 			//打开弹框
-			//alert(JSON.stringify(goIns_data))
 			mui.fire(parent_self, 'show', {
 				formID: 'member_plans_alone',
 				goIns_data: aloneDetail.goIns_data

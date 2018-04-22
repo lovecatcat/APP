@@ -65,7 +65,7 @@
 				deceleration: deceleration
 			});
 			
-			$.ready(function() {
+			$.plusReady(function() {
 				var winH = window.innerHeight;
 				document.querySelector('#Js-newsList').style.height = winH + 'px';
 				var user_id = JSON.parse(plus.storage.getItem("userinfo")).id

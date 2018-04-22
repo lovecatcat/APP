@@ -128,13 +128,13 @@
 			    
 		    });*/
 		   
-		    plus.geolocation.getCurrentPosition(function(p){
+		    var wid = plus.geolocation.getCurrentPosition(function(p){
 		    	locationd = p;	
 		    })
 		    
 		    Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
 			        //console.log('Message:' + Tunnel._webSocket.readyState);
-			        console.log(event.data);
+			        //console.log(event.data);
 			        //如果获取到消息，心跳检测重置
 			        //拿到任何消息都说明当前连接是正常的
 			        var _info = '';

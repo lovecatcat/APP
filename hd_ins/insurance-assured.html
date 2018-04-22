@@ -564,7 +564,7 @@
                     if (data.code) {
                         console.log(JSON.stringify(data.data));
                         var info = data.data;
-                        assu.assured.insured_name = info.name;
+                        assu.assured.insured_name = info.user_name;
                         assu.assured.insured_ID_no = info.card_no;
                         assu.assured.insured_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : assu.assured.insured_salary_avg;
                         assu.assured.insured_mobile = info.tel;

@@ -616,7 +616,7 @@
                     console.log(JSON.stringify(data))
                     if(data.code){
                         var info = data.data;
-                        appl.applicant.holder_name = info.name;
+                        appl.applicant.holder_name = info.user_name;
                         appl.applicant.holder_ID_no = info.card_no;
                         appl.applicant.holder_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : appl.applicant.holder_salary_avg;
                         appl.applicant.holder_mobile = info.tel;

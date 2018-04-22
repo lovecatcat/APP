@@ -1,20 +1,38 @@
 var SCID = '19';
-var onlineIns = ['272', '276', '340', '348', '370']; // 上线的主险id
+
+
+// var onlineIns = ['272', '276', '340', '348', '370']; // 上线的主险id
+// //               恒久    护航    青  福享金生    红
+// //主险
+// var qwhh = '276'; //千万护航
+// var hjjk = '272'; //恒久健康
+// var fxjs = '348'; //福享金生
+// var wnh = '370'; //万年红
+// var wnq = '340'; //万年青
+// //附加险
+// var tbrhm = '273'; //投保人豁免重疾2017版
+// var hx = '279'; //恒祥
+// var hs = '278'; //恒顺
+// var zxak = '277'; //尊享安康
+// var hjax = '16205'; //恒久安心住院
+// var cjb = '373'; //传家宝
+
+var onlineIns = ['145', '149', '193', '199', '204']; // 上线的主险id
 //               恒久    护航    青  福享金生    红
 //主险
-var qwhh = '276'; //千万护航
-var hjjk = '272'; //恒久健康
-var fxjs = '348'; //福享金生
-var wnh = '370'; //万年红
-var wnq = '340'; //万年青
+var qwhh = '149'; //千万护航
+var hjjk = '145'; //恒久健康
+var fxjs = '199'; //福享金生
+var wnh = '204'; //万年红
+var wnq = '193'; //万年青
 
 //附加险
-var tbrhm = '273'; //投保人豁免重疾2017版
-var hx = '279'; //恒祥
-var hs = '278'; //恒顺
-var zxak = '277'; //尊享安康
-var hjax = '16205'; //恒久安心住院
-var cjb = '373'; //传家宝
+var tbrhm = '146'; //投保人豁免重疾2017版
+var hx = '152'; //恒祥
+var hs = '151'; //恒顺
+var zxak = '150'; //尊享安康
+var hjax = '208'; //恒久安心住院
+var cjb = '205'; //传家宝
 
 var zrwnzh = 'LBD0001' //转入万能账户
 
@@ -69,7 +87,7 @@ var IDValidate = function (type, id, owner,data) {
                     }
                 }
                 break;
-            case 15382: //出生证
+            case BORNid: //出生证
                 if (id.length < 3) {
                     toast_text = owner + '出生证号码不能少于3位';
                 }
@@ -251,6 +269,7 @@ var checkZipcode = function (val, province, owner) {
 var checkEarnings = function (owner, value) {
     var toast_text = null;
     var who = owner === 1 ? '投保人' : '被保人';
+    console.log('check' + who + '年收入' + value)
     if (owner === 2) {
         return true;
     } else if (!value && value !== 0) {

@@ -1313,6 +1313,7 @@ input[type='number'].member-tax-input{
 }
 .member-pdt-close {
 	position: absolute;
+	z-index: 10;
 	right: .5rem;
 	top: 1rem;
 	display: block;

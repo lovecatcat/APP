@@ -87,6 +87,7 @@
 				applicant: content.applicant,
 				assured: content.assured,
 				name: main.name,
+				short_name: main.short_name,
 				genre: content.genre,
 				safe_year: safe_year,
 				pay_year: content.pay_year,
@@ -115,6 +116,7 @@
 				assu_sex: content.assu_sex,
 				assu_age: content.assu_age,
 				name: main.name,
+				short_name: main.short_name,
 				genre: content.genre,
 				safe_year: safe_year,
 				pay_year: content.pay_year,
@@ -464,6 +466,7 @@
 
 					plansDataList.childrenList.push({
 						name: tml.name,
+						short_name: tml.short_name,
 						genre: index,
 						safe_year: children_safe_year,
 						pay_year: children_pay_year,

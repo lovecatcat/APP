@@ -133,7 +133,7 @@ var methods = {
 //			});
 
 			// 保险期间
-			var mainSyAttr = vm.unique(items[0].ratio, 'safe_year') // 去重
+			var mainSyAttr = vm.unique(items[0].ratio, 'year') // 去重
 			// mainSyAttr = mainSyAttr.sort((a, b) => a.safe_year - b.safe_year) // 排序
             mainSyAttr = mainSyAttr.sort(function(a, b){// 排序
                 return a.pay_year - b.pay_year
@@ -141,7 +141,7 @@ var methods = {
 			vm.mainSyAttr = mainSyAttr
 			//长度为1直接赋值，不为1置为空
 			if(mainSyAttr.length === 1) {
-				vm.insurance.safe_year = mainSyAttr[0].safe_year
+				vm.insurance.safe_year = mainSyAttr[0].year
 			} else {
 				vm.insurance.safe_year = ''
 			}
@@ -601,7 +601,7 @@ var methods = {
 				//				}
 				//				break
 				//国华
-			case '8109': // 盛世年年C款年金保险
+			case '8109': // 康运一生重大疾病保险A款
 				if(money < 150000 || money % 10000 !== 0) {
 					toastText = '最低保额为15万元，且为1万元整数倍'
 				}

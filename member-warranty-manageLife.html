@@ -250,8 +250,24 @@
 								warrantyType.setData(manageLife.ins_type);
 								warrantyState.setData(manageLife.state);
 						
-				        	} else {
-	                            self.endPullUpToRefresh(true)
+				        	} else if (res.code == 0){
+                                $.each(res.data.ins_type, function(index, item) {
+                                    manageLife.ins_type.push({
+                                        value: item.id,
+                                        text: item.enum_name
+                                    })
+                                });
+                                $.each(res.data.state, function(index, item) {
+                                    manageLife.state.push({
+                                        value: index,
+                                        text: item
+                                    })
+                                });
+                                warrantyType.setData(manageLife.ins_type);
+                                warrantyState.setData(manageLife.state);
+                                self.endPullUpToRefresh(true)
+							} else {
+                                self.endPullUpToRefresh(true)
 							}
 				        }
 					});

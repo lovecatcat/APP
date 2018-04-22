@@ -54,49 +54,51 @@
                 <div class="BL-pad-a1_25 BL-mar-b-1 BL-bg-fff" style="padding-bottom: 0;">
                     <div class="mui-row squared">
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="sns.html" data-wid="sns" class="menu">
+                            <a href="sns.html" data-wid="sns" class="a-link">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">SNS</div>
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="ins2c.html" data-wid="ins2c" class="menu">
+                            <!--<a href="ins2c.html" data-wid="ins2c" class="a-link">-->
+                            <a @tap="toastMsg">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">交单</div>
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="auto2c.html" data-wid="ins2c" class="menu">
+                            <!--<a href="auto2c.html" data-wid="ins2c" class="a-link">-->
+                            <a @tap="toastMsg">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">车险</div>
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="product.html" data-wid="product" class="menu">
+                            <a href="product.html" data-wid="product" class="a-link">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">分类</div>
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="quickly.html" data-wid="quickly" class="menu">
+                            <a href="quickly.html" data-wid="quickly" class="a-link">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">快速投保</div>
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a class="menu">
+                            <a @tap="toastMsg">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">需求分析</div>
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="shop.html" data-wid="shop" class="menu">
+                            <a href="shop.html" data-wid="shop" class="a-link">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">积分商城</div>
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="recruit.html" data-wid="recruit" class="menu">
+                            <a href="recruit.html" data-wid="recruit" class="a-link">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">闪电增员</div>
                             </a>
@@ -105,14 +107,14 @@
                 </div>
                 <!----------- 九宫格菜单  end -------------->
 
-                <!----------- 短期险  begin -------------->
+                <!----------- 意外和医疗  begin -------------->
                 <div class="insure BL-mar-b-1" v-if="safegoods_1" v-cloak>
                     <div class="BL-ub BL-ub-pj BL-ub-ac insure-hd">
                         <div class="BL-ub BL-ub-ac title">
                             <div class="icon icon-1"></div>
-                            <span>短期险</span>
+                            <span>意外和医疗</span>
                         </div>
-                        <a class="BL-ub BL-ub-ac more a-link" href="product.html" data-wid="product" data-tid="LBI0002">
+                        <a class="BL-ub BL-ub-ac more a-link" href="product.html" data-wid="product" data-tid="LBI0016">
                             <span>更多</span>
                             <div class="mui-icon mui-icon-arrowright"></div>
                         </a>
@@ -123,28 +125,27 @@
                                  :data-pid="item.id">
                                 <div class="img">
                                     <img :src="item.image_url" @error="item.image_url='images/pic/p11.jpg'"/>
-                                    <span class="new">{{item.product_sign_text}}</span>
+                                    <span class="new" v-show="item.product_sign_text&&item.product_sign_text!=='普通'">{{item.product_sign_text}}</span>
                                 </div>
                                 <div class="context">
-                                    <div class="tit">{{item.short_name}}</div>
-                                    <div class="text mui-ellipsis BL-pad-b_5">{{item.shining_point}}</div>
+                                    <div class="tit mui-ellipsis">{{item.short_name}}</div>
+                                    <!--<div class="text mui-ellipsis BL-pad-b_5">{{item.shining_point}}</div>-->
                                     <div class="price BL-ub BL-ub-ac">
-                                        <span>￥</span>
-                                        <span class="money">{{item.price}}</span>
+                                        <span class="money">{{item.price|priceFilter}}元起</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!----------- 短期险  end   -------------->
+                <!----------- 意外和医疗  end   -------------->
 
-                <!----------- 重疾险  begin -------------->
+                <!----------- 疾病保障  begin -------------->
                 <div class="insure BL-mar-b-1" v-if="safegoods_2" v-cloak>
                     <div class="BL-ub BL-ub-pj BL-ub-ac insure-hd">
                         <div class="BL-ub BL-ub-ac title">
                             <div class="icon icon-2"></div>
-                            <span>重疾险</span>
+                            <span>疾病保障</span>
                         </div>
                         <a class="BL-ub BL-ub-ac more a-link" href="product.html" data-wid="product" data-tid="LBI0001">
                             <span>更多</span>
@@ -157,30 +158,29 @@
                                  :data-pid="item.id">
                                 <div class="img">
                                     <img :src="item.image_url" @error="item.image_url='images/pic/p11.jpg'"/>
-                                    <span class="new">{{item.product_sign_text}}</span>
+                                    <span class="new" v-show="item.product_sign_text&&item.product_sign_text!=='普通'">{{item.product_sign_text}}</span>
                                 </div>
                                 <div class="context">
-                                    <div class="tit">{{item.short_name}}</div>
-                                    <div class="text mui-ellipsis BL-pad-b_5">{{item.shining_point}}</div>
+                                    <div class="tit mui-ellipsis">{{item.short_name}}</div>
+                                    <!--<div class="text mui-ellipsis BL-pad-b_5">{{item.shining_point}}</div>-->
                                     <div class="price BL-ub BL-ub-ac">
-                                        <span>￥</span>
-                                        <span class="money">{{item.price}}</span>
+                                        <span class="money">{{item.price|priceFilter}}元起</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!----------- 重疾险  end   -------------->
+                <!----------- 疾病保障  end   -------------->
 
-                <!----------- 意外险  begin -------------->
+                <!----------- 年金  begin -------------->
                 <div class="insure BL-mar-b-1" v-if="safegoods_3" v-cloak>
                     <div class="BL-ub BL-ub-pj BL-ub-ac insure-hd">
                         <div class="BL-ub BL-ub-ac title">
-                            <div class="icon icon-3"></div>
-                            <span>意外险</span>
+                            <div class="icon icon-4"></div>
+                            <span>年金理财</span>
                         </div>
-                        <a class="BL-ub BL-ub-ac more a-link" href="product.html" data-wid="product" data-tid="LBI0004">
+                        <a class="BL-ub BL-ub-ac more a-link" href="product.html" data-wid="product" data-tid="LBI0008">
                             <span>更多</span>
                             <div class="mui-icon mui-icon-arrowright"></div>
                         </a>
@@ -191,55 +191,25 @@
                                  :data-pid="item.id">
                                 <div class="img">
                                     <img :src="item.image_url" @error="item.image_url='images/pic/p11.jpg'"/>
-                                    <span class="new">{{item.product_sign_text}}</span>
+                                    <span class="new" v-show="item.product_sign_text&&item.product_sign_text!=='普通'">{{item.product_sign_text}}</span>
                                 </div>
                                 <div class="context">
-                                    <div class="tit">{{item.short_name}}</div>
-                                    <div class="text mui-ellipsis BL-pad-b_5">{{item.shining_point}}</div>
+                                    <div class="tit mui-ellipsis">{{item.short_name}}</div>
+                                    <!--<div class="text mui-ellipsis BL-pad-b_5">{{item.shining_point}}</div>-->
                                     <div class="price BL-ub BL-ub-ac">
-                                        <span>￥</span>
-                                        <span class="money">{{item.price}}</span>
+                                        <span class="money">{{item.price|priceFilter}}元起</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!----------- 意外险  end   -------------->
-
-                <!----------- 理财险  begin -------------->
-                <div class="insure BL-mar-b-1" v-if="safegoods_4" v-cloak>
-                    <div class="BL-ub BL-ub-pj BL-ub-ac insure-hd">
-                        <div class="BL-ub BL-ub-ac title">
-                            <div class="icon icon-4"></div>
-                            <span>理财险</span>
-                        </div>
-                        <a class="BL-ub BL-ub-ac more a-link" href="product.html" data-wid="product" data-tid="LBI0005">
-                            <span>更多</span>
-                            <div class="mui-icon mui-icon-arrowright"></div>
-                        </a>
-                    </div>
-                    <div class="insure-group BL-ub BL-ub-ac">
-                        <div class="item" v-for="(item,index) in safegoods_4">
-                            <div class="item-content a-link" href="product-detail.html" data-wid="product_detail"
-                                 :data-pid="item.id">
-                                <div class="img">
-                                    <img :src="item.image_url" @error="item.image_url='images/pic/p11.jpg'"/>
-                                    <span class="new">{{item.product_sign_text}}</span>
-                                </div>
-                                <div class="context">
-                                    <div class="tit">{{item.short_name}}</div>
-                                    <div class="text mui-ellipsis BL-pad-b_5">{{item.shining_point}}</div>
-                                    <div class="price BL-ub BL-ub-ac">
-                                        <span>￥</span>
-                                        <span class="money">{{item.price}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <!----------- 年金  end   -------------->
+                <div class="BL-ub BL-ub-f1 BL-ub-ac BL-ub-pc" style="padding: 2rem 0;">
+                    <div style="font-size: 1.25rem; color: #999999;">
+                        我是有底线的
                     </div>
                 </div>
-                <!----------- 理财险  end   -------------->
             </div>
         </div>
 
@@ -300,14 +270,13 @@
         }
 
         //主列表点击事件
-        var extras = null;
         mui('body').on('tap', '.a-link', function () {
+            var extras = null;
             var href = this.getAttribute('href');
             var id = this.getAttribute("data-wid");
             var tid = this.getAttribute("data-tid");
             var pid = this.getAttribute("data-pid");
 
-            
             if (tid) {
                 extras = {instype_id: tid};
             }
@@ -323,20 +292,7 @@
                 });
             }
         });
-        
-        mui('body').on('tap', '.menu', function () {
-            var href = this.getAttribute('href');
-            var id = this.getAttribute("data-wid");
-            if(href || id){
-	            mui.openWindow({
-	                    url: href,
-	                    id: id,
-	                    show: animateObj.aniPage,
-	                    extras: extras
-	            });
-            };
-        });
-        
+
         mui('body').on('tap', '#Js-communic', function(){
         	mui.openWindow({
                 url: 'communic.html',
@@ -354,14 +310,26 @@
                 safegoods_1: '',
                 safegoods_2: '',
                 safegoods_3: '',
-                safegoods_4: ''
+            },
+            //过滤器
+            filters: {
+                //保障期间
+                priceFilter: function (value) {
+                    return parseInt(value)
+                }
+            },
+            methods: {
+                toastMsg: function () {
+                    mui.toast('功能开发中，敬请期待', {duration: 'short', type: 'div'})
+                    return false;
+                }
             }
         })
 //        console.log(JSON.stringify(index.bannerList));
         luckyAjax({
             data: {
                 server: 'lifeProduct.getIndexProductList',
-                data: JSON.stringify({ins_type: 'LBI0001,LBI0002,LBI0004,LBI0005'})
+                data: JSON.stringify({ins_type: 'LBI0016,LBI0001,LBI0008'})
             },
             success: function (data) {
                 console.log(JSON.stringify(data));
@@ -372,15 +340,15 @@
                     var temp = '';
                     if (bannerlist.length) {
                         document.getElementById('default-banner').src = bannerlist[0].image;
+                        bhtml = '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="' + bannerlist[bannerlist.length-1].image + '"></a></div>'
                         mui.each(bannerlist, function (index, item) {
                             if (index === 0) {
                                 temp += '<div class="mui-indicator mui-active"></div>';
                             } else {
                                 temp += '<div class="mui-indicator"></div>'
                             }
-                            bhtml += '<div class="mui-slider-item"><a href="#"><img src="' + item.image + '" id="img' + index + '"></a></div>'
+                            bhtml += '<div class="mui-slider-item"><a href="#"><img src="' + item.image + '"></a></div>'
                         });
-                        bhtml += '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="' + bannerlist[0] + '" id="img' + bannerlist.length + 1 + '"></a></div>'
                         append(document.getElementById("slider-html"), bhtml);
                         temp = '<div class="mui-slider-indicator">' + temp + '</div>';
                     	append(document.getElementById("slider"), temp);
@@ -392,10 +360,9 @@
                     mui('.mui-slider').slider();
 
                     //
-                    index.safegoods_1 = data.data.list['重疾保障'];
-                    index.safegoods_2 = data.data.list['养老规划'];
-                    index.safegoods_3 = data.data.list['少儿教育'];
-                    index.safegoods_4 = data.data.list['财富管理'];
+                    index.safegoods_1 = data.data.list['意外险'];
+                    index.safegoods_2 = data.data.list['重疾保障'];
+                    index.safegoods_3 = data.data.list['年金保险'];
 //                    mui.toast(data.msg, {duration: 'short', type: 'div'})
                 } else {
                     plus.nativeUI.closeWaiting();

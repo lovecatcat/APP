@@ -80,6 +80,8 @@
                         toast_text = '请输入原密码'
                     } else if (!this.new_pwd) {
                         toast_text = '请输入新密码'
+                    } else if (!/(?=.*\d)(?=.*[A-z])^[0-9A-z]{8,}$/.test(this.new_pwd)) {
+                        toast_text = '密码格式应为8-16位的字母数字组合'
                     } else if (!this.repeat_pwd) {
                         toast_text = '请再次输入新密码'
                     } else if (this.new_pwd !== this.repeat_pwd) {
@@ -89,29 +91,24 @@
                         mui.toast(toast_text, {duration: 'short', type: 'div'});
                         return false;
                     }
-                    mui.ajax('http://ts-www.luckyins.com/api/api/invoke', {
+                    luckyAjax({
                         data: {
                             data: JSON.stringify({user_id: userinfo.id, old: this.old_pwd, new: this.new_pwd}),
-                            device: 'pad',
                             server: 'user.changePassword'
                         },
-                        dataType: 'json',//服务器返回json格式数据
-                        type: 'post',//HTTP请求类型
-                        timeout: 10000,//超时时间设置为10秒；
-                        headers: {'Content-Type': 'application/json'},
                         success: function (data) {
                             if (data.code === 1) {
                                 mui.toast(data.msg, {duration: 'short', type: 'div'})
                                 plus.storage.clear();
-//                                isLogin();
+                                mui.openWindow({
+                                    url: 'login.html',
+                                    id: 'login',
+                                    show: animateObj.aniDetal
+                                })
                             } else {
                                 mui.toast(data.msg, {duration: 'short', type: 'div'})
                                 return false;
                             }
-                        },
-                        error: function (xhr, type, errorThrown) {
-                            mui.toast(errorThrown, {duration: 'short', type: 'div'})
-                            return false
                         }
                     });
                 }

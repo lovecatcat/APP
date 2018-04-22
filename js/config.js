@@ -44,6 +44,11 @@ var luckyAjax = function(options){
 		type:opt.type,
 		timeout:opt.timeout,
 		success:function(data){
+			if(data.code == '-1'){
+				plus.storage.clear();
+				plus.nativeUI.closeWaiting();
+				plus.runtime.restart();
+			};
 			if(!opt.closeWaiting){
 				plus.nativeUI.closeWaiting();
 			}

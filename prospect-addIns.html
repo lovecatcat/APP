@@ -41,7 +41,7 @@
 
 				<template v-if="insurance.safe_id">
 					<app-select label="保险期间">
-						<button slot="button" class="ins-btn xs-btn" :class="{'blue':item.safe_year===insurance.safe_year}" :disabled="item.safe_year===insurance.safe_year" v-for="(item,index) in mainSyAttr" @click="insurance.safe_year=item.safe_year, resetFee()">
+						<button slot="button" class="ins-btn xs-btn" :class="{'blue':item.year===insurance.safe_year}" :disabled="item.year===insurance.safe_year" v-for="(item,index) in mainSyAttr" @click="insurance.safe_year=item.safe_year, resetFee()">
 				            {{item.year, insurance.safe_id | safeYearFilter}}
 				        </button>
 					</app-select>
@@ -1394,11 +1394,11 @@
 										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money + addonRes['PFR']['年缴保费']+ addonRes['CKRA']['年缴保费']}}</span>
 										<div class="am-ft-orange"></div>
 									</li>
-									<li class="ins-font-xs" v-if="addonRes['PFR']">
+									<li class="ins-font-xs" v-else-if="addonRes['PFR']">
 										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money + addonRes['PFR']['年缴保费']}}</span>
 										<div class="am-ft-orange"></div>
 									</li>
-									<li class="ins-font-xs" v-if="addonRes['CKRA']">
+									<li class="ins-font-xs" v-else-if="addonRes['CKRA']">
 										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money + addonRes['CKRA']['年缴保费']}}</span>
 										<div class="am-ft-orange"></div>
 									</li>
@@ -1473,7 +1473,7 @@
 										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{Number(insurance.period_money) + Number(addonRes['FJKLYSQZ']['年缴保费'])}}</span>
 										<div class="am-ft-orange"></div>
 									</li>
-									<li class="ins-font-xs">
+									<li class="ins-font-xs" v-else>
 										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money}}</span>
 										<div class="am-ft-orange"></div>
 									</li>

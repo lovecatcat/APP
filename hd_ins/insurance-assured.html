@@ -362,7 +362,7 @@
             this.assured.insured_nation = NATION;
             this.assured.rel_insured_holder = ISASSURED;
             this.$watch('assured.insured_ID_no', function (val) {
-                IDValidate(IDcard, val, '被保人',this.assured);
+                IDValidate(this.assured.insured_ID_type, val, '被保人',this.assured);
             });
             this.$watch('assured.insured_isTaxResidents', function (val) {
                 if (val && val !== TAXTYPE) {

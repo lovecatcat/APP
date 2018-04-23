@@ -31,7 +31,7 @@
 		                <img :src="userinfo.avatar" @error="nofind">
 		            </div>
 		            <div class="context">
-		                <div class="name">{{userinfo.user_account}}</div>
+		                <div class="name">{{userinfo.user_name}}</div>
 		                <div class="text"><span>{{userinfo.dept_name}}</span> &nbsp;&nbsp;|&nbsp;&nbsp;
 		                    <span>{{userinfo.tel}}</span>
 		                </div>
@@ -95,7 +95,8 @@
 		                </a>
 		            </div>
 					<div class="mui-row manage-group">
-						<a href="member-intergral.html" data-wid="member_intergral" class="mui-col-sm-3 mui-col-xs-3">
+						<!--<a href="member-intergral.html" data-wid="member_intergral" class="mui-col-sm-3 mui-col-xs-3">-->
+						<a @tap="toastMsg" class="mui-col-sm-3 mui-col-xs-3">
 							<div class="icon icon-integ"></div>
 							<div class="name">
 								积分管理
@@ -107,7 +108,8 @@
 								生日跟踪
 							</div>
 						</a>
-						<a href="member-renewal.html" data-wid="member_renewal" class="mui-col-sm-3 mui-col-xs-3">
+						<!--<a href="member-renewal.html" data-wid="member_renewal" class="mui-col-sm-3 mui-col-xs-3">-->
+						<a @tap="toastMsg" class="mui-col-sm-3 mui-col-xs-3">
 							<div class="icon icon-renewal"></div>
 							<div class="name">
 								续期管理

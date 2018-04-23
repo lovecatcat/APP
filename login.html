@@ -122,7 +122,11 @@
 <script src="js/mui.min.js" type="text/javascript"></script>
 <script src="js/vue.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-    mui.init();
+    mui.init({
+        keyEventBind: {
+            backbutton: false //关闭back按键监听
+        }
+    });
     mui('body').on('tap', '.a-link', function () {
         var href = this.getAttribute('href');
         var id = this.getAttribute("data-wid");

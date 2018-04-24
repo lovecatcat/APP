@@ -554,6 +554,10 @@ input[type='color']{
 	color: #666666;
 	line-height: 2.2rem;
 }
+.BL-pasual img{
+	max-width: 100% !important;
+	height: auto !important;
+}
 .BL-text-indent {
 	text-indent: 2.5rem;
 }

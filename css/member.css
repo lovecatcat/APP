@@ -676,7 +676,7 @@
 	background: #ff8201;
 }
 .duty-abnormal {
-	background: #e62303;
+	background: #EA3E03;
 }
 .member-duty-message {
 	color: #999999;
@@ -765,10 +765,10 @@
 	background-color: #ff9212;
 }
 .member-duty-dater .current-month .dayLeave i{
-	background-color: #e62303;
+	background-color: #EA3E03;
 }
 .member-duty-dater .current-month .dayMiss i{
-	background-color: #e62303;
+	background-color: #EA3E03;
 }
 .member-duty-dater .today-flag {
 	background: #00C2B1;
@@ -821,7 +821,7 @@
 	background-color: #ff9212;
 }
 .member-duty-context .section .decri .done-red{
-	background-color: #e62303;
+	background-color: #EA3E03;
 }
 .member-duty-dater .current-month .dayoff-red{
 	color: #ea6151;

@@ -318,12 +318,13 @@
                         benefited[i] = []
                     }
                     const checkAttr = function (beneficiary, owner) {
+                        console.log('checkattr')
                         var toast_text = null
-                        if (!vm.beneficiary.province) {
+                        if (!beneficiary.province) {
                             toast_text = '现住址【省份】不能为空'
-                        } else if (!vm.beneficiary.city) {
+                        } else if (!beneficiary.city) {
                             toast_text = '现住址【市级】不能为空'
-                        } else if (!checkAddress(vm.beneficiary.address, owner)) {
+                        } else if (!checkAddress(beneficiary.address, owner)) {
                             return false
                         }
                         if (toast_text) {
@@ -368,7 +369,7 @@
                             toastText = owner + '受益份额不能为空'
                         } else if (!item.beneficiary.addr_type) {
                             toastText = '请选择' + owner + '与投被保人地址关系'
-                        } else if (item.beneficiary.addr_type === '0' && !checkAttr(item.beneficiary, owner)) {
+                        } else if (item.beneficiary.addr_type === 3 && !checkAttr(item.beneficiary, owner)) {
                             return false
                         }
                         if (toastText) {
@@ -396,7 +397,7 @@
                     console.log('checkRatio');
                     if (this.is_legal_benefic) return true //法定受益人
                     var benefited = this.benefited
-                    console.log(JSON.stringify(benefited));
+//                    console.log(JSON.stringify(benefited));
                     for (var j = 1; j <= 4; j++) {
                         var sum = 0
                         for (var k = 0; k < benefited[j].length; k++) {
@@ -525,6 +526,10 @@
                     idtype[vm.index].show(function (items) {
                         vm.beneficiary.ID_type = items[0].value;
                         vm.beneficiary.ID_type_name = items[0].text;
+                        if (vm.beneficiary.ID_type === BOOKLET || vm.beneficiary.ID_type === BORNid) {
+                            vm.beneficiary.ID_expire_end = '9999-12-31'
+                            vm.longTerm = true
+                        }
                     })
                 })
                 //日期选择
@@ -614,7 +619,6 @@
                 for (var j in bene.$refs.beneficiary) {
                     data.push(bene.$refs.beneficiary[j].beneficiary)
                 }
-                console.log('11111')
                 console.log(JSON.stringify(data))
                 plus.storage.setItem('hengda_beneficiary', JSON.stringify(data));
             }

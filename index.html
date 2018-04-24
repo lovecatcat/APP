@@ -40,8 +40,8 @@
 	<script src="js/upgrade.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		var navHeight = document.querySelector('#Js-nav').offsetHeight / sizeObj.dpl;
-		//localStorage.setItem("navHeight", document.querySelector('#Js-nav').offsetHeight); // 储存底部导航高度 
-		
+		localStorage.setItem("navHeight", document.querySelector('#Js-nav').offsetHeight); // 储存底部导航高度 
+		console.log(navHeight);
 		mui.plusReady(function() {
 			var nums = 0;
             var userinfo = plus.storage.getItem('userinfo');
@@ -65,12 +65,12 @@
                 return false;
             };
             
-            window.addEventListener('isStopTunnel', function(data){
-            	if(Tunnel._webSocket && data.flag){
-                	Tunnel._isStop = false;
-                	Tunnel._webSocket.close();
-                };		
-            }, false)
+//          window.addEventListener('isStopTunnel', function(data){
+//          	if(Tunnel._webSocket && data.flag){
+//              	Tunnel._isStop = false;
+//              	Tunnel._webSocket.close();
+//              };		
+//          }, false)
 
             /*plus.geolocation.getCurrentPosition(function(p){
             	if(locationd != null && type != 21){
@@ -136,7 +136,7 @@
 				enableHighAccuracy: true,
 			})
 		    
-		    Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
+		    /*Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
 			        //console.log('Message:' + Tunnel._webSocket.readyState);
 			        //console.log(event.data);
 			        //如果获取到消息，心跳检测重置
@@ -181,7 +181,7 @@
 					if(_tips != ''){
 						mui.alert(_tips, '温馨提示', '确定');
 					}
-		    });
+		    });*/
 		    
             
             // 运行环境切换到后台，开始倒数20分钟，重启应用

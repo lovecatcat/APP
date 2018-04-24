@@ -31,11 +31,11 @@ var aloneDetail = new Vue({
 		green_server: false //是不是有绿通服务
 	},
 	methods: {
-		detail: function(id) {
+		detail: function(id, name) {
 			var data = {
 				modalID: 'modal-bottom',
-				formID: this.list.genre,
-				id: id
+				formID: id == 0 ? this.list.genre : id,
+				id: name
 			}
 			//打开弹框
 			showPopu("member-plans-alone-modal.html", "member_plans_alone_modal", 'bottom', data);

@@ -445,10 +445,10 @@ var checkOccupation = function(owner,e) {
         sex = e.holder_gender
     } else if (owner === '被保人') {
         age = getAge(e.insured_birthday)
-        occu = e.insured_temp_job_code
+        occu = e.temp_insured_job_code
         sex = e.insured_gender
     }
-    // console.log('职业：' + owner + 'age:' + age + ';occu:' + occu + ';sex:' + sex)
+    console.log('职业：' + owner + 'age:' + age + ';occu:' + occu + ';sex:' + sex)
     if (sex === MALE && occu === 'LAE0968') {
         //家庭主妇
         toast_text = owner + '职业类别与性别不符'

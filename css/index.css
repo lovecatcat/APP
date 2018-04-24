@@ -139,7 +139,7 @@
 }
 .insure-group .item-content{
 	width: 12.875rem;
-	height: 15rem;
+	height: 16.3rem;
 	box-shadow: 0rem 0rem .5rem rgba(0,0,0,0.1);	
 }
 .insure-group .item-content .img{
@@ -172,6 +172,6 @@
 	color: #ff7500;
 }
 .insure-group .item-content .context .price .money{
-	margin-left: -.5rem;
+	/*margin-left: -.5rem;*/
 	display: inline-block;
 }

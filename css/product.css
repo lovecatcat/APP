@@ -324,8 +324,7 @@
 	overflow: hidden;
 }
 .product-contrast .contr-item .img img{
-	/*width: 11.5125rem;*/
-	/*height: 9.3125rem;*/
+	max-width: 100%;
 }
 .product-contrast .contr-item .content{
 	padding: .5rem;	

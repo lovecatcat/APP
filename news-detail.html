@@ -19,7 +19,7 @@
 			<div class="BL-mod-headbar BL-mod-headbar-pos">
 				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
 				<h1 class="BL-title">发现</h1>
-				<a id="Js-openShare" class="BL-icon BL-icon-share"></a>
+				<!--<a id="Js-openShare" class="BL-icon BL-icon-share"></a>-->
 			</div>
 		</header>
 		
@@ -131,6 +131,7 @@
 			
 			//添加productId自定义事件监听
 			window.addEventListener('newsId',function(event){
+				mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
 			  //获得事件参数
 			  var id = event.detail.id;
 			  console.log(id) 

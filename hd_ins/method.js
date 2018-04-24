@@ -45,14 +45,10 @@ var MALE = 'LAB0001'; //男
 var FEMALE = 'LAB0002'; //女
 var TAXTYPE = 'LAH0001'; //仅为中国税收居民
 var NATION = 'LAI0001'; //中国
-var BEN_ISASSURED = 'LAN0001'; //受益人是被保人
-var BEN_DEFAULT = 'LAO0001';//受益人法定
-var BEN_SPEC = 'LAO0002';//受益人指定
+
 var SY_TYPE = 'LAP0001'; //受益类型：身故
 var has_social_security = 'LAG0001'; //有社保
 var no_social_security = 'LAG0002';//无社保
-var marry_no = 'LAD0001'
-var marry_yes = 'LAD0002'
 
 //证件号校验
 var IDValidate = function (type, id, owner,data) {

@@ -57,13 +57,14 @@
 }
 .news-list-cell .nItem a .context .tit .tit-badg{
 	display: inline-block;
-	padding: 0 .5rem;
+	padding: .4rem .5rem;
 	color: #ffffff;
-	font-size: 1.125rem;
+	font-size: 1rem;
+	line-height: 1rem;
 	border-radius: .3rem;
 	-webkit-border-radius: .3rem;
 	margin-right: .5rem;
-	margin-top: -.5rem;
+	margin-top: -.8rem;
 }
 .tit-badg-hot{
 	background-color: #ff8201;

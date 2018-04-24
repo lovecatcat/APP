@@ -51,7 +51,7 @@
                 <!----------- 图片轮播  end   -------------->
 
                 <!----------- 九宫格菜单  begin -------------->
-                <div class="BL-pad-a1_25 BL-mar-b-1 BL-bg-fff" style="padding-bottom: 0;">
+                <div class="BL-mar-b-1 BL-bg-fff" style="padding-top: 1.25rem;">
                     <div class="mui-row squared">
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
                             <a @tap="toastMsg">
@@ -98,7 +98,8 @@
                             </a>
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
-                            <a href="recruit.html" data-wid="recruit" class="a-link">
+                            <!--<a href="recruit.html" data-wid="recruit" class="a-link">-->
+                            <a @tap="toastMsg">
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">闪电增员</div>
                             </a>

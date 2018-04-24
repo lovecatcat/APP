@@ -157,8 +157,8 @@
                     if (val && val !== 4) {
                         this.page = 0;
                         mui('#Js-productList .mui-scroll-wrapper').each(function(){
-			    			this.setAttribute('data-scroll', '');
-				    	});
+                            this.setAttribute('data-scroll', '');
+                        });
                         loaddata(true);
                     }
                 }
@@ -167,8 +167,8 @@
                 handler: function () {
                     this.page = 0;
                     mui('#Js-productList .mui-scroll-wrapper').each(function(){
-			    		this.setAttribute('data-scroll', '');
-				    });
+                        this.setAttribute('data-scroll', '');
+                    });
                     loaddata(true);
                 }
             }
@@ -274,9 +274,9 @@
         var pid = this.getAttribute('data-id');
         var cid = this.getAttribute('data-cid');
         var tid = this.getAttribute('data-tid');
-    	var extras = null;
+        var extras = null;
 
-       
+
         //额外参数
         if (pid) {
             extras = {product_id: pid};
@@ -287,7 +287,7 @@
         if (tid) {
             extras = {ins_type: tid, flag: 1};
         }
-       
+
         //打开新窗口
         if (href) {
             mui.openWindow({

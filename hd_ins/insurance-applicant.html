@@ -620,7 +620,7 @@
                         appl.applicant.holder_ID_no = info.card_no;
                         appl.applicant.holder_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : appl.applicant.holder_salary_avg;
                         appl.applicant.holder_mobile = info.tel;
-                        if (info.home_city === '323') { //深圳
+                        if (info.home_city == '323') { //深圳
                             appl.applicant.holder_home_province = info.home_province;
                             appl.applicant.holder_home_city = info.home_city;
                             appl.applicant.holder_home_district = info.home_district;

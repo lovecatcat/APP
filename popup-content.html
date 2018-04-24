@@ -241,6 +241,8 @@
 //									aloneDetail.sub_treasury_id = res.data.child_id
 //									popu.closepop();
 									var url = res.data.statement
+//									alert(url)
+									console.log(url)
 									if (url) {
 									    showPopu("pdf-modal.html", "pdf_modal", 'center', {
 									        pdf: config.domain +  url

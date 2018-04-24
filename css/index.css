@@ -91,8 +91,9 @@
 	margin-bottom: 1.25rem;
 }
 .insure-hd .title .icon{
-	width: 3.125rem;
-	height: 3.125rem;
+	width: 2rem;
+	height: 2rem;
+	margin-right: .3rem;
 }
 .insure-hd .title .icon-1{
 	background: url(../images/index/ico-1.png) no-repeat center;
@@ -120,6 +121,7 @@
 .insure-hd .more, .insure-hd .more div{
 	color: #999999;
 	font-size: 1.4375rem;
+	margin-right: -.5rem;
 }
 
 

@@ -568,7 +568,7 @@
                         assu.assured.insured_ID_no = info.card_no;
                         assu.assured.insured_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : assu.assured.insured_salary_avg;
                         assu.assured.insured_mobile = info.tel;
-                        if (!assu.assuredaddr_type && info.home_city === '323') { //深圳
+                        if (!assu.assuredaddr_type && info.home_city == '323') { //深圳
                             assu.assured.insured_home_province = info.home_province;
                             assu.assured.insured_home_city = info.home_city;
                             assu.assured.insured_home_district = info.home_district;

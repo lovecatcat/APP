@@ -131,9 +131,13 @@
 			
 			//添加productId自定义事件监听
 			window.addEventListener('newsId',function(event){
+				mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
 			  //获得事件参数
 			  var id = event.detail.id;
-			  console.log(id) 
+			  
+			  //100毫秒滚动到顶
+			  mui('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);
+			  
 			  //根据id向服务器请求新闻详情
 				luckyAjax({
 					data: {

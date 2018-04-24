@@ -117,8 +117,11 @@ var Tunnel = {
         Tunnel._lockReconnect = true;
 
         setTimeout(function () {
-            Tunnel.Create();
-            Tunnel._lockReconnect = false;
+        	var userinfo = plus.storage.getItem('userinfo');
+        	if(userinfo){
+	            Tunnel.Create();
+	            Tunnel._lockReconnect = false;
+            };
         }, 2000);
     },
 

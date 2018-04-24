@@ -58,7 +58,7 @@
 									<tr v-for="(item,index) in list" :key="index">
 										<td>{{ index+1 }}</td>
 										<td>{{ item.name}}</td>
-										<td class="BL-col-3b9cf5">{{ item.money }}</td>
+										<td class="BL-col-3b9cf5">{{ item.fee }}</td>
 										<td>{{ item.time }}</td>
 									</tr>
 								</template>
@@ -173,7 +173,7 @@
 		        success: function (ret) {
 	                if (ret.code == 1) {
 	                	team.count = ret.data.count
-	                	team.money = ret.data.money
+	                	team.money = ret.data.fee
 	                	team.activity_score = ret.data.activity_score
 	                    team.list = (ret.data.list.length == 0 ? [] : ret.data.list)
 	                    document.querySelector('.BL-title').innerHTML = ret.data.name

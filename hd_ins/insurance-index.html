@@ -82,19 +82,9 @@
         var titHeight = document.querySelector('#Js-header').offsetHeight;
         document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
         var itemName = ['hengda_applicant','hengda_assured','hengda_beneficiary','hengda_safegoods','hengda_healthinfo','hengda_bank','hengda_upload','hengda_ids','userinfo'];
-        // 预创建子页面
-//        var subWvs = [];//存储窗口对象数组
+
         var subpages = ["insurance-applicant", "insurance-assured", "insurance-beneficiary", "insurance-safegoods", "insurance-healthinfo", "insurance-bank", "insurance-upload"];
-//        for(var i = 0; i < subpages.length; i++) {
-//            var subWv = plus.webview.create(subpages[i] + '.html', subpages[i], { //创建窗口：弹框
-//                width: "100%",
-//                height: '100%',
-//                background: 'transparent',
-//                popGesture: "none"
-//            });
-//            subWvs.push(subWv);
-//        };
-        //
+
         var index = new Vue({
             el: '#Js-content',
             data: function() {
@@ -150,11 +140,6 @@
                         return false
                     }
                     showPopu(subpages[e-1] + '.html', 'hd-'+subpages[e-1], "bottom", index.init);
-//                    var _self = plus.webview.currentWebview();
-//                    _self.setStyle({
-//                        mask: 'rgba(0,0,0,0.5)'
-//                    }); // 显示遮罩层
-//                    subWvs[e].show(animateObj.aniForm.aniShow, animateObj.aniForm.duration);
                 }
             }
         });
@@ -403,16 +388,8 @@
                 }
             });
         };
-        //
-        var old_back = mui.back;
-        mui.back = function () {
-            for (var i = 0; i < 8; i++) {
-                console.log(itemName[i])
-                plus.storage.removeItem(itemName[i])
-            }
-            old_back();
-        }
-        //
+//        //
+
     })
 
 </script>

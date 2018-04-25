@@ -95,6 +95,11 @@
         <!--首次登录-->
         <div class="mui-backdrop" v-if="flag"></div>
         <div class="BL-modal-sns BL-pad-tb-1_5" v-if="flag">
+            <div class="input-item ins-font-md BL-col-999">
+                <span class="BL-col-3b9cf5 BL-pad-l-2" v-if="flagtype===1">您还没有设置密码，请设置</span>
+                <span class="BL-col-3b9cf5 BL-pad-l-2" v-else-if="flagtype===2">您的密码过于简单，请修改</span>
+            </div>
+            <br>
             <div class="input-item BL-ub BL-ub-ac BL-ub-pc">
                 <label>密码</label>
                 <div class="input-wrap box-f-1">
@@ -144,7 +149,8 @@
         data: {
             pwd1: '',
             pwd2: '',
-            flag: false, //登录成功标志且为第一次登录
+            flag: false, //登录成功标志且为第一次登录/密码弱
+            flagtype: '',//1设置密码 2修改密码
             login_type: 2, //1用户名登录  2手机验证码登录
             pwd_type: 2, //1明文  2密文
             user_name: '', //用户名
@@ -155,6 +161,22 @@
             disabled: false,
             second: 60,
             time: 0
+        },
+        created: function () {
+            //登录方式切换时，手机号同步
+            this.$watch('login_type', function (val) {
+                if (val === 1) {//用户名/手机号
+                    if (!this.user_name) {
+                        this.user_name = this.tel ? this.tel : ''
+                    }
+                } else if (val === 2) {//验证码
+                    if (/^1[3|4|5|6|7|8][0-9]{9}$/.test(this.user_name)) {
+                        if (!this.tel) {
+                            this.tel = this.user_name ? this.user_name : ''
+                        }
+                    }
+                }
+            });
         },
         computed: {
             text: function () {
@@ -179,7 +201,12 @@
                 }
                 luckyAjax({
                     data: {
-                        data: JSON.stringify({tel: this.tel, code: this.codesms, password: this.pwd1}),
+                        data: JSON.stringify({
+                            tel: this.tel,
+                            code: this.codesms,
+                            password: this.pwd1,
+                            channel_id: this.channel_id
+                        }),
                         server: 'user.resetPassword',
                         view: true
                     },
@@ -302,10 +329,9 @@
                         plus.storage.setItem('userinfo', JSON.stringify(data.data));
                         if (data.data.password_flag) {
                             if(!data.data.password_strong){
-                                mui.toast('您的密码过于简单，请及时更改', {duration: 'short', type: 'div'});
-                                setTimeout(function () {
-                                    plus.runtime.restart();
-                                },1000)
+                                login.flag = true
+                                login.flagtype = 2
+                                login.$forceUpdate()
                             } else {
                                 setTimeout(function () {
                                     plus.runtime.restart();
@@ -313,6 +339,7 @@
                             }
                         } else { //未设置登录密码
                             login.flag = true
+                            login.flagtype = 1
                             login.$forceUpdate()
                         }
                     } else {

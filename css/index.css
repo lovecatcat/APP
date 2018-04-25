@@ -91,8 +91,9 @@
 	margin-bottom: 1.25rem;
 }
 .insure-hd .title .icon{
-	width: 3.125rem;
-	height: 3.125rem;
+	width: 2rem;
+	height: 2rem;
+	margin-right: .3rem;
 }
 .insure-hd .title .icon-1{
 	background: url(../images/index/ico-1.png) no-repeat center;
@@ -120,6 +121,7 @@
 .insure-hd .more, .insure-hd .more div{
 	color: #999999;
 	font-size: 1.4375rem;
+	margin-right: -.5rem;
 }
 
 
@@ -139,7 +141,7 @@
 }
 .insure-group .item-content{
 	width: 12.875rem;
-	height: 15rem;
+	height: 16.3rem;
 	box-shadow: 0rem 0rem .5rem rgba(0,0,0,0.1);	
 }
 .insure-group .item-content .img{
@@ -172,6 +174,6 @@
 	color: #ff7500;
 }
 .insure-group .item-content .context .price .money{
-	margin-left: -.5rem;
+	/*margin-left: -.5rem;*/
 	display: inline-block;
 }

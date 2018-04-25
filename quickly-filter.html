@@ -36,7 +36,7 @@
             <div class="mui-row bd group" v-if="list" v-cloak>
                 <div class="item mui-col-sm-4 mui-col-xs-4" v-for="(item,key) in list" :key="key"
                      :class="{'item-active':companyId&&companyId===item.id}">
-                    <div class="name" @click="chooseCompany(item.id)">{{item.company_name}}</div>
+                    <div class="name" @click="chooseCompany(item.id)">{{item.short_name}}</div>
                 </div>
             </div>
         </div>

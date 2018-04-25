@@ -139,7 +139,7 @@ function delFile(url) {
  * 安装wgt包
  * @param {String} path 文件资源地址
  */
-function installWgt(path) {
+function installWgt(path) { 
     plus.runtime.install(path, {}, function () {
         console.log("安装wgt文件成功！");
         delFile(path)

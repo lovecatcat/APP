@@ -49,6 +49,7 @@ var NATION = 'LAI0001'; //中国
 var SY_TYPE = 'LAP0001'; //受益类型：身故
 var has_social_security = 'LAG0001'; //有社保
 var no_social_security = 'LAG0002';//无社保
+var invalid_districts = ['7036','7037','7042','7044'] //不支持的投保地区
 
 //证件号校验
 var IDValidate = function (type, id, owner,data) {
@@ -196,6 +197,16 @@ var asDays = function (days) {
 var checkTerm = function (term, owner, e) {
     console.log('checkTerm:'+term+';'+owner)
     var toast_text = null
+    var age = ''
+    if (owner === '投保人') {
+        age = getAge(e.holder_birthday)
+    } else if (owner === '被保人') {
+        age = getAge(e.insured_birthday)
+    } else {
+        age = getAge(e.beneficiary.birthday)
+
+
+    }
     if (!term || term === '0000-00-00') {
         toast_text = owner + '证件有效期不能为空'
     } else if (/\d{4}(-|\/)\d{2}(-|\/)\d{2}(-|\/)/.test(term)) {
@@ -204,14 +215,8 @@ var checkTerm = function (term, owner, e) {
         toast_text = owner + '证件已过有效期'
     }
     const yearTime = 365 * 24 * 60 * 60 * 1000
-    var age = ''
-    if (owner === '投保人') {
-        age = getAge(e.holder_birthday)
-    } else if (owner === '被保人') {
-        age = getAge(e.insured_birthday)
-    } else {
-        age = getAge(e.beneficiary.birthday)
-    }
+
+
     if (age) {
         console.log(owner +'age:'+age+'term:'+term)
         if (age >= 15 && age <= 25) {
@@ -241,6 +246,15 @@ var checkAddress = function (val, owner) {
     }
     if (toast_text) {
         mui.toast(toast_text, {duration: 'short', type: 'div'});
+        return false
+    }
+    return true
+};
+//投保地区校验
+var checkHomeDistrict = function (val,owner) {
+    console.log(owner + 'checkHomeDistrict:' + val)
+    if (invalid_districts.indexOf(val.toString()) > -1) {
+        mui.toast(owner + '所选投保地区暂不支持投保', {duration: 'short', type: 'div'});
         return false
     }
     return true
@@ -361,6 +375,8 @@ var checkAppl = function (appl) {
         toast_text = '投保人现在住址【省级】不能为空'
     } else if (!appl.holder_home_city) {
         toast_text = '投保人现在住址【市级】不能为空'
+    } else if (!checkHomeDistrict(appl.holder_home_district, '投保人')) {
+        return false
     } else if (!checkAddress(appl.holder_home_address, '投保人')) {
         return false
     } else if (!checkZipcode(appl.holder_home_zip, appl.holder_home_province, '投保人')) {
@@ -422,6 +438,8 @@ var checkAssured = function (assu) {
         toast_text = '被保人现在住址【省级】不能为空'
     } else if (!assu.insured_home_city) {
         toast_text = '被保人现在住址【市级】不能为空'
+    } else if (!checkHomeDistrict(assu.insured_home_district, '被保人')) {
+        return false
     } else if (!checkAddress(assu.insured_home_address, '被保人')) {
         return false
     } else if (!checkZipcode(assu.insured_home_zip, assu.insured_home_province, '被保人')) {
@@ -445,10 +463,10 @@ var checkOccupation = function(owner,e) {
         sex = e.holder_gender
     } else if (owner === '被保人') {
         age = getAge(e.insured_birthday)
-        occu = e.insured_temp_job_code
+        occu = e.temp_insured_job_code
         sex = e.insured_gender
     }
-    // console.log('职业：' + owner + 'age:' + age + ';occu:' + occu + ';sex:' + sex)
+    console.log('职业：' + owner + 'age:' + age + ';occu:' + occu + ';sex:' + sex)
     if (sex === MALE && occu === 'LAE0968') {
         //家庭主妇
         toast_text = owner + '职业类别与性别不符'

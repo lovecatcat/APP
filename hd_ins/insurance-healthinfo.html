@@ -788,6 +788,13 @@
                 var input = null
                 var title = ''
                 var msg = ''
+                //2周岁及以下
+                if (this.assuAge <= 2) {
+                    if (!this.assforms['168'][0].value || !this.assforms['168'][1].value) {
+                        mui.toast('请填写被保人【11】题', {duration: 'short', type: 'div'});
+                        return false
+                    }
+                }
                 for (var i in this.clientvalue.ass_amswer) {
                     if (this.clientvalue.ass_amswer[i] === true) {
                         var item = this.assforms[i]

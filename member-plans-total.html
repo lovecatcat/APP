@@ -27,7 +27,7 @@
 					<div class="BL-ub plans-total-content BL-pad-b-1">
 						<div class="BL-ub-f4">
 							<span class="plans-total-font BL-ftz-46">{{content.mainList.name}}</span>
-							<span class="BL-col-3b9cf5 plans-total-font BL-ftz-46 BL-pad-l-1" @click="detailLink(index)">详情</span>
+							<!--<span class="BL-col-3b9cf5 plans-total-font BL-ftz-46 BL-pad-l-1" @click="detailLink(index)">详情</span>-->
 						</div>
 						<div class="BL-ub-f1 BL-txt-r">
 							<button class="BL-btn-white BL-ftz-42" v-if="index !== 0" 
@@ -215,9 +215,9 @@
 							server: 'Proposal.delete',
 							device: 'mobile',
 							data: JSON.stringify({
-								pl_id: plansTotal.delPl_id,
-								genre: plansTotal.delGenre
-							})
+                                pl_id: plansTotal.delPl_id,
+                                genre: plansTotal.delGenre
+                            })
 						},
 						success: function(res) {
 							if(res.code == 1) {

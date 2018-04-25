@@ -832,6 +832,7 @@ var methods = {
 		}
 		this.checkRS()
 		var toastText = null
+		console.log(this.addonsSelected[index])
 		if(this.addonsSelected[index]) {
 			// 主险保费校验不合格
 			if(!this.checkMainFee(this.insurance.safe_id)) {

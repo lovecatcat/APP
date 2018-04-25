@@ -553,7 +553,7 @@ BL-modal-icon-0/**
 .BL-modal-content>.BL-modal-list {
 	position: relative;
 	padding-left: 4rem;
-	line-height: 3.8125rem;
+	margin-bottom: 1rem;
 }
 .BL-modal i {
 	display: inline-block;

@@ -1727,10 +1727,11 @@
 			mui.post(config.baseUrl, data, function(res) {
 				if(res.code == 1) {
 					var data = []
+
 					mui.each(res.data, function(index, item) {
 						data.push({
 							value: item.id,
-							text: item.company_name
+							text: item.short_name ? item.short_name : item.company_name
 						})
 					});
 					companyType.setData(data);

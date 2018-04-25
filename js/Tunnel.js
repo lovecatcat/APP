@@ -5,7 +5,7 @@ var Tunnel = {
     /**
      * WebSocket实例
      */
-    _webSocket: null,
+    _webSocket: null, 
 
     /**
      * 是否需要重新连接

@@ -507,11 +507,13 @@
 					"images/icon/sign-active.png",
 					"images/icon/ico-eye1.png",
 					"images/icon/ico-good.png",
-					"js/config.js"
+					"js/config.js",
+					"js/vue.min.js"
 				],
 				"refer": [
 					"news-detail.html",
-					"news-tv-detail.html"
+					"news-tv-detail.html",
+					"news-tv-video.html"
 				],
 				"priority": 0
 			},
@@ -541,7 +543,8 @@
 					"images/icon/sign-active.png",
 					"images/icon/ico-eye1.png",
 					"images/icon/ico-good.png",
-					"js/config.js"
+					"js/config.js",
+					"js/vue.min.js"
 				],
 				"refer": [
 					"news-detail.html",
@@ -645,7 +648,8 @@
 					"images/icon/sign-active.png",
 					"images/icon/ico-eye1.png",
 					"images/icon/ico-good.png",
-					"js/config.js"
+					"js/config.js",
+					"js/vue.min.js"
 				],
 				"refer": [
 					"news-detail.html",
@@ -679,7 +683,8 @@
 					"images/icon/sign-active.png",
 					"images/icon/ico-eye1.png",
 					"images/icon/ico-good.png",
-					"js/config.js"
+					"js/config.js",
+					"js/vue.min.js"
 				],
 				"refer": [
 					"news-detail.html",
@@ -713,11 +718,13 @@
 					"images/icon/sign-active.png",
 					"images/icon/ico-eye1.png",
 					"images/icon/ico-good.png",
-					"js/config.js"
+					"js/config.js",
+					"js/vue.min.js"
 				],
 				"refer": [
 					"news-detail.html",
-					"news-tv-detail.html"
+					"news-tv-detail.html",
+					"news-tv-video.html"
 				],
 				"priority": 0
 			},
@@ -2939,6 +2946,14 @@
 			"member-plans-alone-modal.html": {
 				"resources": [
 					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"news-tv-video.html": {
+				"resources": [
+					"css/mui.css",
+					"css/news.css"
 				],
 				"refer": [],
 				"priority": 0

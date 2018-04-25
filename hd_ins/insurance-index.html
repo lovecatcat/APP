@@ -388,16 +388,8 @@
                 }
             });
         };
-        //
-        var old_back = mui.back;
-        mui.back = function () {
-            for (var i = 0; i < 8; i++) {
-                console.log(itemName[i])
-                plus.storage.removeItem(itemName[i])
-            }
-            old_back();
-        }
-        //
+//        //
+
     })
 
 </script>

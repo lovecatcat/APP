@@ -129,7 +129,7 @@ var Tunnel = {
      * 心跳计时
      */
     HeartCheck: {
-        timeout: 60000,//60秒
+        timeout: 1000,//30秒
         timeoutObj: null,
         serverTimeoutObj: null,
         reset: function(){
@@ -139,9 +139,23 @@ var Tunnel = {
         },
         start: function(){
             var self = this;
+            var newLocation = '';
+            
+            plus.geolocation.watchPosition(function(p){
+		    	newLocation = p;	
+		    }, function(e){
+				//console.log('无法获取当前位置');
+			}, {
+				provider:'baidu',
+				enableHighAccuracy: true,
+				maximumAge:20000
+			})
+            
             this.timeoutObj = setTimeout(function(){
                 //这里发送一个心跳，后端收到后，返回一个心跳消息，onmessage拿到返回的心跳就说明连接正常
                 Tunnel._message.type = 2;
+                Tunnel._message.location = newLocation;
+                Tunnel._message.networkinfo = nowNetwork();
                 Tunnel._webSocket.send(JSON.stringify(Tunnel._message));
 
                 self.serverTimeoutObj = setTimeout(function(){

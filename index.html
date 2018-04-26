@@ -50,7 +50,7 @@
             if (plus.runtime.appid !== 'HBuilder') { // 开发模式不检测更新
                 //获取版本号监测是否需要更新
                 plus.runtime.getProperty(plus.runtime.appid, function (inf) {
-                    checkUpdate(inf.version)
+                    checkUpdate(inf.version, 'auto')
                 });
            };
             if(!userinfo){
@@ -143,6 +143,7 @@
 			        var _info = '';
 			        var _tips = '';
 			        var data = JSON.parse(event.data);
+			        // console.log(plus.networkinfo.getCurrentType())
 			        
 					switch (data.code){
 					    case 1:
@@ -160,7 +161,7 @@
 					    case 21:
 					        if(data.command == 'location'){
 					        	type = 21;	
-							    Tunnel._webSocket.send(JSON.stringify({"uid":JSON.parse(userinfo).id,"type":5,"flag":plus.device.uuid,"platform":navigator.platform,"userAgent":navigator.userAgent,"location":locationd}));
+							    Tunnel._webSocket.send(JSON.stringify({"uid":JSON.parse(userinfo).id,"type":5,"flag":plus.device.uuid,"platform":navigator.platform,"userAgent":navigator.userAgent,"location":locationd, "screen":plus.screen, "networkinfo":nowNetwork()}));
 					        };
 					        break;
 					}

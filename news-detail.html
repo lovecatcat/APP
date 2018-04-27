@@ -9,9 +9,6 @@
 		<link href="css/module.css" rel="stylesheet" />
 		<link href="css/news.css" rel="stylesheet" />
 		<script src="js/config.js" type="text/javascript"></script>
-		<style>
-			 
-		</style>
 	</head>
 
 	<body class="BL-bg-f2f" >
@@ -19,7 +16,7 @@
 			<div class="BL-mod-headbar BL-mod-headbar-pos">
 				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
 				<h1 class="BL-title">发现</h1>
-				<!--<a id="Js-openShare" class="BL-icon BL-icon-share"></a>-->
+				<a id="Js-openShare" class="BL-icon BL-icon-share"></a>
 			</div>
 		</header>
 		
@@ -156,7 +153,7 @@
 				});
 			});
 			
-			//点赞
+			// 点赞
 			document.querySelector('.goods').addEventListener('tap', function() {
 				luckyAjax({
 					data: {
@@ -166,7 +163,7 @@
 			        },
 			        success:function(res){
 			        	if(res.code == 1) {
-						newsDetail.newsDetail_data.praise_num = res.data.praise_num
+							newsDetail.newsDetail_data.praise_num = res.data.praise_num
 						} else{
 							console.log(res.msg)
 						}
@@ -174,25 +171,24 @@
 				});
 			});
 			
-//			document.getElementById("Js-openShare").addEventListener("tap", function() {
-//			    //分享内容，开发者可自定义
-//			    var message = {
-//			        title: "惠州龙门大观园温泉，鲁冰花童话园2日游	", //名字
-//			        content: "冬季，正是吃柚子、橘子、橙子的时候，这些个头上看上去差不多，味道也都是酸酸甜甜的，可是，它们的营养价值却相差了十万八千里。",
-//			        href: "https://www.ehuimeng.com", //分享出去后，点击跳转地址
-//			        thumbs: ["_www/images/pic/logo.png"] //分享缩略图
-//			    }
-//			    //调起分享
-//			    plusShare(message, function(res) {
-//			        //分享回调函数
-//			        if(res) {
-//			            plus.nativeUI.toast("分享成功");
-//			        } else {
-//			            plus.nativeUI.toast("分享失败");
-//			        }
-//			    })
-//			});
-			
+			document.getElementById("Js-openShare").addEventListener("tap", function() {
+			    //分享内容，开发者可自定义
+			    var message = {
+			        title: newsDetail.newsDetail_data.title, //名字
+			        content: "",
+			        href: config.domain + "/share/AppShare.html#/Newsdetail?newId="+newsDetail.newsDetail_data.id, //分享出去后，点击跳转地址
+			        thumbs: ["_www/images/pic/logo.png"] //分享缩略图
+			    }
+			    //调起分享
+			    plusShare(message, function(res) {
+			        //分享回调函数
+			        if(res) {
+			            plus.nativeUI.toast("分享成功");
+			        } else {
+			            plus.nativeUI.toast("分享失败");
+			        }
+			    })
+			});
 		})
 	</script>
 

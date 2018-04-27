@@ -37,6 +37,14 @@
                 关于
             </div>
         </li>
+        <li id="Js-updateSystem" class="fItem BL-ub BL-ub-f1">
+        	<div class="mui-navigate-right BL-ub BL-ub-ac BL-ub-pj BL-ub-f1">
+	            <div class="form-list-label">
+	                检测更新
+	            </div>
+	            <div class="mui-spinner BL-mar-r-2"></div>
+            </div>
+        </li>
         <li class="fItem BL-ub BL-ub-ac BL-ub-f1">
             <div class="mui-navigate-right BL-ub BL-ub-ac BL-ub-f1">
                 <div class="form-list-label">版本</div>
@@ -53,6 +61,7 @@
 </body>
 <script src="js/mui.min.js" type="text/javascript"></script>
 <script src="js/mui.picker.min.js"></script>
+<script src="js/upgrade.js"></script>
 <script type="text/javascript">
     mui.init();
     mui('body').on('tap', 'a', function () {
@@ -71,10 +80,25 @@
 
     mui.plusReady(function () {
         statusbar();
-
+		
+		var version = '';
         var winH = window.innerHeight;
         var titHeight = document.querySelector('#Js-header').offsetHeight;
         document.querySelector('#Js-content').style.height = (winH - titHeight) + 'px';
+        
+        plus.runtime.getProperty(plus.runtime.appid, function (inf) {
+        	version = inf.version;
+            document.querySelector('#Js-version').innerText = version
+        });
+        
+        //检测更新
+        document.querySelector('#Js-updateSystem').addEventListener('tap', function(){
+        	if (plus.runtime.appid == 'HBuilder') { // 开发模式不检测更新
+        		this.classList.add('mui-active');
+                checkUpdate(version, 'hand');
+            };
+        });
+        
         //退出登录
         document.querySelector('#quit').addEventListener("tap", function () {
             luckyAjax({
@@ -94,9 +118,6 @@
                     }
                 }
             })
-        });
-        plus.runtime.getProperty(plus.runtime.appid, function (inf) {
-            document.querySelector('#Js-version').innerText = inf.version
         });
     })
 </script>

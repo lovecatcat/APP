@@ -242,7 +242,7 @@
                     init: {},
                     applicant: {},
                     assured: {},
-                    is_legal_benefic: false,
+                    is_legal_benefic: true,
                     benefited: null, //所有受益人份额
                     beneficiariesIndex: [1], //受益人索引
                     nenesum: 4, // 受益人数量
@@ -263,6 +263,7 @@
                         if (length < 1) {
                             this.beneficiariesIndex = [1]
                         }
+                        this.is_legal_benefic = false
                     } else {
                         this.is_legal_benefic = true //法定
                     }

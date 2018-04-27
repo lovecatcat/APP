@@ -103,7 +103,12 @@
                 }
                 luckyAjax({
                     data: {
-                        data: JSON.stringify({tel: this.tel, code: this.codesms, password: this.password}),
+                        data: JSON.stringify({
+                            tel: this.tel,
+                            code: this.codesms,
+                            password: this.password,
+                            channel_id: this.channel_id
+                        }),
                         server: 'user.resetPassword',
                         view: true
                     },

@@ -788,13 +788,7 @@
                 var input = null
                 var title = ''
                 var msg = ''
-                //2周岁及以下
-                if (this.assuAge <= 2) {
-                    if (!this.assforms['168'][0].value || !this.assforms['168'][1].value) {
-                        mui.toast('请填写被保人 11 题', {duration: 'short', type: 'div'});
-                        return false
-                    }
-                }
+
                 for (var i in this.clientvalue.ass_amswer) {
                     if (this.clientvalue.ass_amswer[i] === true) {
                         var item = this.assforms[i]
@@ -813,13 +807,21 @@
                                         break
                                     }
                                 }
-
                                 val.push(input.type !== 'textarea' ? input.value : '(' + input.value + ')')
                             }
                             this.clientvalue.fields[i] = val.reverse().join('|')
                         }
                     } else {
                         this.clientvalue.fields[i] = ''
+                    }
+                }
+                //2周岁及以下
+                if (this.assuAge <= 2) {
+                    if (!this.assforms['168'][0].value || !this.assforms['168'][1].value) {
+                        mui.toast('请填写被保人 11 题', {duration: 'short', type: 'div'});
+                        return false
+                    } else {
+                        this.clientvalue.fields[168] = parseInt(this.assforms['168'][0].value) + '|' + Number(this.assforms['168'][1].value).toFixed(2)
                     }
                 }
                 if (this.showAppl) {
@@ -938,6 +940,7 @@
                 }
                 //
             })
+            console.log(JSON.stringify(appitems))
             plus.storage.setItem('hengda_healthinfo', JSON.stringify(appitems));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'hengda_healthinfo',

@@ -1,8 +1,8 @@
 var config = {
-    baseUrl: 'http://112.74.159.162/api/api/invoke',  //团队管理服务器路径
-    moduleURL: 'http://112.74.159.162/api/api/',
-    link: 'http://112.74.159.162/index/', // 外部链接路径[闪电增员、]
-    domain: 'http://112.74.159.162'
+    baseUrl: 'https://www.luckyins.com/api/api/invoke',  //团队管理服务器路径
+    moduleURL: 'https://www.luckyins.com/api/api/',
+    link: 'https://www.luckyins.com/index/', // 外部链接路径[闪电增员、]
+    domain: 'https://www.luckyins.com'
 };
 
 /**
@@ -17,6 +17,42 @@ var sizeObj = (function(win) {
 		dpl: win.devicePixelRatio
 	}
 })(window);
+
+
+/**
+ * 获取当前手机的网络
+ */
+var nowNetwork = function() {
+	var curNetwork = plus.networkinfo.getCurrentType();
+	var networkObj = plus.networkinfo;
+	switch(curNetwork){
+		case networkObj.CONNECTION_TYPE:
+			curNetwork = '网络连接状态未知';
+		break;
+		case networkObj.CONNECTION_UNKNOW:
+			curNetwork = '网络连接状态未知';
+		break;
+		case networkObj.CONNECTION_NONE:
+			curNetwork = '未连接网络';
+		break;
+		case networkObj.CONNECTION_ETHERNET:
+			curNetwork = '有线网络';
+		break;
+		case networkObj.CONNECTION_WIFI:
+			curNetwork = '无线WIFI网络';
+		break;
+		case networkObj['CONNECTION_CELL2G']:
+			curNetwork = '蜂窝移动2G网络';
+		break;
+		case networkObj['CONNECTION_CELL3G']:
+			curNetwork = '蜂窝移动3G网络';
+		break;
+		case networkObj['CONNECTION_CELL4G']:
+			curNetwork = '蜂窝移动4G网络';
+		break;
+	}
+	return curNetwork;
+};
 
 
 /**

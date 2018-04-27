@@ -1132,6 +1132,13 @@
             if (!safe.checkForm()) {
                 return false
             }
+            if ((safe.insurance.safe_id.toString() === fxjs || safe.insurance.safe_id.toString() === wnh) && !safe.insurance.money) {
+                mui.toast('请先点击计算主险的基本保额', {duration: 'short', type: 'div'});
+                return false
+            } else if ((safe.insurance.safe_id.toString() !== fxjs && safe.insurance.safe_id.toString() !== wnh) && !safe.insurance.period_money) {
+                mui.toast('请先点击计算主险的年交保费', {duration: 'short', type: 'div'});
+                return false
+            }
             var insurances = []
             insurances.push(safe.insurance);
             safe.addonIns && mui.each(safe.addonIns, function (index, item) {

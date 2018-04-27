@@ -59,20 +59,18 @@
 									<span>保单号：</span>
 									<span>{{ item.policy_sn }}</span>
 									<span class="BL-col-3b9cf5 fr" v-if="item.ins_state_name=='待投保'">录入中</span>
-									<span class="BL-col-3b9cf5 fr" v-if="item.ins_state_name=='已取消'">已取消</span>
-									<span class="BL-col-3b9cf5 fr" v-if="item.ins_state_name=='状态错误'">状态错误</span>
-									<span class="BL-col-3b9cf5 fr" v-if="item.ins_state_name=='取消'">取消</span>
+									<span class="BL-col-3b9cf5 fr" v-else>{{item.ins_state_name}}</span>
 								</div>
 								<div class="BL-pad-lr-1_5 BL-pad-tb-1_5">
 									<a class="mui-navigate-right context BL-col-666" @click="Detail(item.policy_id)">
 										<div class="team-per-ins BL-pad-b-1">
-											<span>险种：<i>{{ item.product_name }}</i></span>
+											<span>主险：<i>{{ item.product_name }}</i></span>
 										</div>
 										<div class="team-per-ins BL-pad-b-1 clearfloat">
 											<span>投保人：<i>{{ item.holder_name }}</i></span>
 										</div>
 										<div class="team-per-ins BL-pad-b-1 clearfloat">
-											<span>保费：<i>{{ item.total }}</i></span>
+											<span>保费(元)：<i>{{ item.total }}</i></span>
 										</div>
 										<div class="team-per-ins BL-pad-b-1 clearfloat">
 											<span>提交时间：<i>{{ item.create_time}}</i></span>
@@ -84,7 +82,7 @@
 											:data-index="index"
 											v-if="item.ins_state_name=='待投保' || item.ins_state_name=='待支付'">取消订单
 										</a>
-										<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.ins_state_name=='待投保'" :data-supplier="item.supplier_id">继续录入</a>
+										<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.ins_state_name=='待投保'" :data-supplier="item.supplier_id" :data-policyid="item.policy_id">继续录入</a>
 									</div>
 								</div>
 							</li>
@@ -208,6 +206,7 @@
             mui('body').on('tap', '.continue', function () {
             	var _this = this
             	var supplier_id = _this.getAttribute('data-supplier')
+            	var policyid = _this.getAttribute('data-policyid')
             	var url = ""
             	if (supplier_id == 19) {
             		url = "hd_ins/insurance-index.html"
@@ -219,7 +218,9 @@
                     url: url,
                     id: "hd_insurance-index",
                     show: animateObj.aniDetal,
-                    extras: null
+                    extras: {
+                        policy_id: policyid
+					}
                 });
 	        })
         });

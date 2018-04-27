@@ -134,6 +134,8 @@
 
     mui.plusReady(function () {
         popu = new ClosePopu(); // 实例化关闭窗口对象
+
+        var itemName = ['hengda_applicant','hengda_assured','hengda_beneficiary','hengda_safegoods','hengda_healthinfo','hengda_bank','hengda_upload','hengda_ids'];
         var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')): ''
         img.assured = assured
         var ids = plus.storage.getItem('hengda_ids') ? JSON.parse(plus.storage.getItem('hengda_ids')): ''
@@ -195,6 +197,7 @@
                     server: 'PolicyIns.onlineInsured',
                     device: 'mobile'
                 },
+                timeout: 10000,
                 success: function (res) {
                     if (res.code) {
                         if (res.data.resultCode === '00') {
@@ -227,7 +230,12 @@
                     server: 'PolicyIns.onlineInsured',
                     device: 'mobile'
                 },
+                timeout: 10000,
                 success: function (res) {
+                    for (var i = 0; i < 8; i++) {
+                        console.log(itemName[i])
+                        plus.storage.removeItem(itemName[i])
+                    }
                     if (res.code) {
                         if (res.data.resultCode === '00') {
                             mui.toast('上传成功，承保中', {duration: 'short', type: 'div'})
@@ -257,6 +265,7 @@
                     server: 'PolicyIns.onlineInsured',
                     device: 'mobile'
                 },
+                timeout: 10000,
                 success: function (res) {
                     if (res.code) {
                         if (res.data.resultCode === '00') {

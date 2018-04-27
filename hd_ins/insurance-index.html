@@ -225,9 +225,46 @@
         });
         //申请核保
         document.querySelector('#ins-save').addEventListener('tap', function () {
-            console.log(typeof index.beneficiary)
-            var toast_text = null
             var war_id = index.ids ? Number(index.ids.policy_id) : ''
+            console.log(war_id)
+            if (war_id) {
+                luckyAjax({
+                    data: {
+                        data: JSON.stringify({policy_id: war_id}),
+                        server: 'PolicyIns.policyDetails',
+                        device: 'mobile'
+                    },
+                    success: function (res) {
+                        if (res.code) {
+                            if (res.data.policyInfo.progress < 2) {
+                                setPushData(war_id)
+                            } else {
+                                mui.toast('此单已承保，不能再次编辑', {duration: 'short', type: 'div'})
+                                //清除localstorage
+                                clearItem()
+                                return false
+                            }
+                        } else {
+                            mui.toast('保单不存在', {duration: 'short', type: 'div'})
+                            clearItem()
+                            return false
+                        }
+                    }
+                })
+            } else {
+            	setPushData();
+            }
+
+        });
+
+        function clearItem() {
+            for (var i = 0; i < 8; i++) {
+                console.log(itemName[i])
+                plus.storage.removeItem(itemName[i])
+            }
+        }
+        function setPushData(war_id) {
+            var toast_text = null
             war_id && deleteItem(war_id, '', 'content')
             war_id && deleteItem(war_id, '', 'beneficiary')
             war_id && deleteItem(war_id, '', 'matter_value')
@@ -356,7 +393,7 @@
 //            console.log(JSON.stringify(pushdata))
 
             save_ins(pushdata);
-        });
+        };
         //删除保存的某条数据
         function deleteItem(war_id, itemId, type) {
             luckyAjax({

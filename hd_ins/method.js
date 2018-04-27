@@ -198,14 +198,19 @@ var checkTerm = function (term, owner, e) {
     console.log('checkTerm:'+term+';'+owner)
     var toast_text = null
     var age = ''
+    var idtype = ''
     if (owner === '投保人') {
         age = getAge(e.holder_birthday)
+        idtype = e.holder_ID_type
     } else if (owner === '被保人') {
         age = getAge(e.insured_birthday)
+        idtype = e.insured_ID_type
     } else {
         age = getAge(e.beneficiary.birthday)
-
-
+        idtype = e.beneficiary.ID_type
+    }
+    if (idtype !== IDcard) {
+        return true
     }
     if (!term || term === '0000-00-00') {
         toast_text = owner + '证件有效期不能为空'
@@ -260,9 +265,9 @@ var checkHomeDistrict = function (val,owner) {
     return true
 };
 //校验邮编
-var checkZipcode = function (val, province, owner) {
+var checkZipcode = function (val, owner) {
     var toast_text = null;
-    // console.log(val + province + owner);
+    console.log(val + owner);
     if (!val) {
         toast_text = owner + '地址邮编不能为空';
     } else if (!/^\d{6}$/.test(val)) {
@@ -379,7 +384,7 @@ var checkAppl = function (appl) {
         return false
     } else if (!checkAddress(appl.holder_home_address, '投保人')) {
         return false
-    } else if (!checkZipcode(appl.holder_home_zip, appl.holder_home_province, '投保人')) {
+    } else if (!checkZipcode(appl.holder_home_zip, '投保人')) {
         return false
     } else if (appl.mail_addr_type ) {
         ApplSameHomeAddress(appl)
@@ -389,7 +394,7 @@ var checkAppl = function (appl) {
         toast_text = '投保人通讯地区【市级】不能为空'
     } else if (!appl.mail_addr_type && !checkAddress(appl.holder_contact_address, '投保人通讯')) {
         return false
-    } else if (!appl.mail_addr_type && !checkZipcode(appl.holder_contact_zip, appl.holder_contact_province, '投保人通讯')) {
+    } else if (!appl.mail_addr_type && !checkZipcode(appl.holder_contact_zip, '投保人通讯')) {
         return false
     }
 
@@ -398,6 +403,31 @@ var checkAppl = function (appl) {
         return false;
     }
     return true;
+};
+//计算天数
+var getDays = function(str) {
+    if (!str) return
+    var today = new Date()
+    var birthDay = new Date(str)
+    return parseInt((today - birthDay) / 1000 / 60 / 60 / 24)
+};
+
+//证件类型校验
+var checkIDtype = function (birthday, idtype, owner) {
+    var toast_text = null
+    var age = getAge(birthday)
+    if (age > 2 && idtype === BORNid) {
+        toast_text = owner + '小于等于2周岁才能选择出生证';
+    } else if ((age <= 2 || age >= 16) && idtype === BOOKLET) {
+        toast_text = owner + '大于2周岁小于16周岁才能选择户口本';
+    } else if (getDays(birthday) < 30) {
+        toast_text = '被保人0周岁需出生满30天'
+    }
+    if (toast_text) {
+        mui.toast(toast_text, {duration: 'short', type: 'div'});
+        return false;
+    }
+    return true
 };
 //校验被保人信息
 var checkAssured = function (assu) {
@@ -418,6 +448,8 @@ var checkAssured = function (assu) {
         return false
     } else if (!assu.insured_birthday) {
         toast_text = '被保人出生日期不能为空'
+    }else if(!checkIDtype(assu.insured_birthday,assu.insured_ID_type,'被保人')){
+        return false
     } else if (!checkPhone('被保人', assu.insured_mobile)) {
         return false
     } else if (!assu.temp_insured_job_code) {
@@ -442,7 +474,7 @@ var checkAssured = function (assu) {
         return false
     } else if (!checkAddress(assu.insured_home_address, '被保人')) {
         return false
-    } else if (!checkZipcode(assu.insured_home_zip, assu.insured_home_province, '被保人')) {
+    } else if (!checkZipcode(assu.insured_home_zip, '被保人')) {
         return false
     }
     if (toast_text) {
@@ -588,6 +620,7 @@ var RSChanged = function(assu,applicant) {
 var saveTemp = function (data) {
     luckyAjax({
         data: {data: JSON.stringify(data), server: 'PolicyIns.saveUserInfo'},
+        closeWaiting: true,
         success: function (data) {
             if (data.code) {
                 console.log('保存成功');

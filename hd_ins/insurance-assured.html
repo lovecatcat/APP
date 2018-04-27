@@ -23,8 +23,8 @@
                 <button class="ins-btn sm-btn blue" id="saveAssu">保存</button>
             </div>
         </div>
-        <div class="form-content margin-t-6_125 BL-pad-b-2">
-            <div class="form-wrap" v-if="init&&init.is_assured" v-cloak>
+        <div class="form-content margin-t-6_125 BL-pad-b-2" v-cloak>
+            <div class="form-wrap" v-if="init&&init.is_assured">
                 <div class="input-item ins-pd-r-0">
                     <label class="">是投保人的</label>
                     <div class="input-wrap box-f-1 multi-btn">
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div v-show="!(assured.rel_insured_holder===ISASSURED)">
-                <div class="form-wrap margin-t_875" v-if="init&&init.tax_type" v-cloak>
+                <div class="form-wrap margin-t_875" v-if="init&&init.tax_type">
                     <div class="border-b-e7e7e7">
                         <div class="item-title">被保人声明</div>
                     </div>
@@ -251,7 +251,7 @@
                             <label class="">邮编</label>
                             <div class="input-wrap box-f-1">
                                 <input type="number" v-model.lazy="assured.insured_home_zip"
-                                       @change="checkZipcode('被保人',assured.insured_home_zip)" placeholder="请输入">
+                                       @change="checkZipcode(assured.insured_home_zip,'被保人')" placeholder="请输入">
                                 <div class="form-clear-icon" v-show="assured.insured_home_zip!=''"
                                      @click="assured.insured_home_zip=''">
                                     <span class="mui-icon mui-icon-clear"></span>
@@ -392,7 +392,7 @@
             })
         },
         methods:{
-            toblur:function(){
+            toblur: function () {
                 document.activeElement.blur();
             }
         }

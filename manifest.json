@@ -327,7 +327,8 @@
 					"images/icon/ico-time.png",
 					"js/config.js",
 					"sns-ongoing.html",
-					"sns-signing.html"
+					"sns-signing.html",
+					"js/webviewGroup.js"
 				],
 				"refer": [
 					"sns-list-review.html",
@@ -2753,7 +2754,8 @@
 					"images/member/req-tap.png",
 					"images/member/req-banner.jpg",
 					"images/member/req-title.png",
-					"images/member/req-hm.png"
+					"images/member/req-hm.png",
+					"images/icon/avatar-default.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -2766,7 +2768,12 @@
 					"js/Date.js",
 					"js/interval-dtpicker.js",
 					"css/mui.css",
-					"css/sns.css"
+					"css/sns.css",
+					"css/module.css",
+					"js/mui.min.js",
+					"css/common.css",
+					"js/vue.min.js",
+					"js/config.js"
 				],
 				"refer": [
 					"sns-detail.html"
@@ -2780,7 +2787,12 @@
 					"css/mui.css",
 					"css/sns.css",
 					"js/Date.js",
-					"js/interval-dtpicker.js"
+					"js/interval-dtpicker.js",
+					"css/module.css",
+					"js/mui.min.js",
+					"css/common.css",
+					"js/vue.min.js",
+					"js/config.js"
 				],
 				"refer": [
 					"sns-detail.html"
@@ -2794,7 +2806,12 @@
 					"js/Date.js",
 					"js/interval-dtpicker.js",
 					"css/sns.css",
-					"css/mui.css"
+					"css/mui.css",
+					"css/module.css",
+					"js/mui.min.js",
+					"css/common.css",
+					"js/vue.min.js",
+					"js/config.js"
 				],
 				"refer": [
 					"sns-detail.html"

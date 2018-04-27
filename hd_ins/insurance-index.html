@@ -144,15 +144,15 @@
             }
         });
         //保存数据更新
-		window.addEventListener('saveFlag', function (e) {
-		    console.log('saveFlag')
+        window.addEventListener('saveFlag', function (e) {
+            console.log('saveFlag')
             if (e.detail.clear) {
                 plus.storage.removeItem('hengda_safegoods')
                 plus.storage.removeItem('hengda_healthinfo')
                 index.getItem('hengda_safegoods', 'safegoods')
                 index.getItem('hengda_healthinfo', 'healthinfo')
             }
-			index.getItem(e.detail.item,e.detail.data)
+            index.getItem(e.detail.item,e.detail.data)
 
         });
         //整理下拉框需要的数据
@@ -225,12 +225,58 @@
         });
         //申请核保
         document.querySelector('#ins-save').addEventListener('tap', function () {
-            console.log(typeof index.beneficiary)
-            var toast_text = null
             var war_id = index.ids ? Number(index.ids.policy_id) : ''
-            war_id && deleteItem(war_id, '', 'content')
-            war_id && deleteItem(war_id, '', 'beneficiary')
-            war_id && deleteItem(war_id, '', 'matter_value')
+            console.log(war_id)
+            if (war_id) {
+                luckyAjax({
+                    data: {
+                        data: JSON.stringify({policy_id: war_id}),
+                        server: 'PolicyIns.policyDetails',
+                        device: 'mobile'
+                    },
+                    success: function (res) {
+                        if (res.code) {
+                            if (res.data.policyInfo.progress < 1) {
+                                setPushData(war_id)
+                            } else if (res.data.policyInfo.progress === 2){
+                                mui.toast('此单已承保，不能再次编辑', {duration: 'short', type: 'div'})
+                                //清除localstorage
+                                clearItem()
+                                return false
+                            } else if (res.data.policyInfo.progress === 1){
+                                mui.toast('此单已进入人工核保，不能再次编辑', {duration: 'short', type: 'div'})
+                                //清除localstorage
+                                clearItem()
+                                return false
+                            }
+                        } else {
+                            mui.toast('保单不存在', {duration: 'short', type: 'div'})
+                            clearItem()
+                            return false
+                        }
+                    }
+                })
+            } else {
+            	setPushData();
+            }
+
+        });
+
+        function clearItem() {
+            for (var i = 0; i < 8; i++) {
+                console.log(itemName[i])
+                plus.storage.removeItem(itemName[i])
+            }
+        }
+        function setPushData(war_id) {
+            var toast_text = null
+            if (war_id) {
+                war_id && deleteItem(war_id, '', 'content')
+                war_id && deleteItem(war_id, '', 'beneficiary')
+                war_id && deleteItem(war_id, '', 'matter_value')
+            } else {
+                war_id = ''
+            }
             //保存前再次校验
             if (!index.applicant) {
                 mui.toast('请填写投保人信息', {duration: 'short', type: 'div'});
@@ -247,6 +293,7 @@
             if (!checkAssured(index.assured)) {
                 return false
             }
+
             if (!index.beneficiary) {
                 mui.toast('请填写受益人信息', {duration: 'short', type: 'div'});
                 return false;
@@ -356,7 +403,7 @@
 //            console.log(JSON.stringify(pushdata))
 
             save_ins(pushdata);
-        });
+        };
         //删除保存的某条数据
         function deleteItem(war_id, itemId, type) {
             luckyAjax({

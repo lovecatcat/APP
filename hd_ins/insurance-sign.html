@@ -134,6 +134,8 @@
 
     mui.plusReady(function () {
         popu = new ClosePopu(); // 实例化关闭窗口对象
+
+        var itemName = ['hengda_applicant','hengda_assured','hengda_beneficiary','hengda_safegoods','hengda_healthinfo','hengda_bank','hengda_upload','hengda_ids'];
         var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')): ''
         img.assured = assured
         var ids = plus.storage.getItem('hengda_ids') ? JSON.parse(plus.storage.getItem('hengda_ids')): ''
@@ -160,12 +162,13 @@
                     server: 'PolicyIns.onlineInsured',
                     device: 'mobile'
                 },
+                timeout: 10000,
                 success: function (res) {
                     if (res.code) {
                         mui.toast('核保中...', {duration: 'short', type: 'div'})
                         online_ins()
                     } else {
-                        mui.toast("该被保人有正在处理的保单，请稍后再次尝试。", {duration: 'short', type: 'div'})
+                        mui.toast("该被保人有正在处理的保单，请稍后再次尝试。", {duration: 'long', type: 'div'})
                     }
                 }
             });
@@ -195,6 +198,7 @@
                     server: 'PolicyIns.onlineInsured',
                     device: 'mobile'
                 },
+                timeout: 10000,
                 success: function (res) {
                     if (res.code) {
                         if (res.data.resultCode === '00') {
@@ -227,7 +231,12 @@
                     server: 'PolicyIns.onlineInsured',
                     device: 'mobile'
                 },
+                timeout: 10000,
                 success: function (res) {
+                    for (var i = 0; i < 8; i++) {
+                        console.log(itemName[i])
+                        plus.storage.removeItem(itemName[i])
+                    }
                     if (res.code) {
                         if (res.data.resultCode === '00') {
                             mui.toast('上传成功，承保中', {duration: 'short', type: 'div'})
@@ -257,12 +266,22 @@
                     server: 'PolicyIns.onlineInsured',
                     device: 'mobile'
                 },
+                timeout: 10000,
                 success: function (res) {
                     if (res.code) {
                         if (res.data.resultCode === '00') {
                             mui.toast('承保成功', {duration: 'short', type: 'div'});
                             //清除本地缓存
-                            var itemName = ['hengda_applicant','hengda_assured','hengda_beneficiary','hengda_safegoods','hengda_bank','hengda_upload','hengda_healthinfo','hengda_ids'];
+                            for (var i = 0; i < itemName.length; i++) {
+                                plus.storage.removeItem(itemName[i])
+                            }
+                            //
+                            plus.webview.close('hd_insurance-index');
+                            popu.closepop();
+                            mui.back();
+                        } else if (res.data.resultCode === '02') {
+                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'});
+                            //清除本地缓存
                             for (var i = 0; i < itemName.length; i++) {
                                 plus.storage.removeItem(itemName[i])
                             }

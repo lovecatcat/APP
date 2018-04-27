@@ -37,7 +37,7 @@
                         <tr>
                             <td>{{policyInfo.state}}</td>
                             <td>{{policyInfo.present_date}}</td>
-                            <td>{{policyInfo.underwrite_date}}</td>
+                            <td>{{policyInfo.underwrite_date | dateFilter}}</td>
                         </tr>
                     	</thead>
                     </table>
@@ -67,7 +67,7 @@
                     		<li>{{item.period_guanantee == '999' ? '终身' : item.period_guanantee }}</li>
                     		<li>{{item.fee}}</li>
                     		<li>{{item.fee}}</li>
-                    		<li>{{item.underwrite_date}}</li>
+                    		<li>{{item.underwrite_date | dateFilter}}</li>
                     	</ul>
                     </div>
                 </div>
@@ -94,9 +94,9 @@
                 		<li>{{holderInfo.holder_gender_text}}</li>
                 		<li>{{holderInfo.holder_birthday}}</li>
                 		<li>{{holderInfo.holder_marriage_text}}</li>
+                		<li>{{holderInfo.holder_id_type_text}}</li>
                 		<li>{{holderInfo.holder_ID_no}}</li>
-                		<li>{{holderInfo.holder_ID_no}}</li>
-                		<li>{{holderInfo.holder_id_expire_end_text}}</li>
+                		<li>{{holderInfo.holder_id_expire_end_text == '9999-12-31' ? '长期有效' : holderInfo.holder_id_expire_end_text}}</li>
                 		<li>{{holderInfo.holder_mobile}}</li>
                 		<li>{{holderInfo.holder_job_code}}</li>
                 		<li>{{holderInfo.holder_home_address}}</li>
@@ -132,9 +132,9 @@
                 		<li>{{insuredInfo.insured_gender_text}}</li>
                 		<li>{{insuredInfo.insured_birthday}}</li>
                 		<li>{{insuredInfo.insured_marriage_text}}</li>
+                		<li>{{insuredInfo.insured_id_type_text}}</li>
                 		<li>{{insuredInfo.insured_ID_no}}</li>
-                		<li>{{insuredInfo.insured_ID_no}}</li>
-                		<li>{{insuredInfo.insured_id_expire_end_text}}</li>
+                		<li>{{insuredInfo.insured_id_expire_end_text == '9999-12-31' ? '长期有效' : insuredInfo.insured_id_expire_end_text}}</li>
                 		<li>{{insuredInfo.insured_mobile}}</li>
                 		<li>{{insuredInfo.insured_job_code}}</li>
                 		<li>{{insuredInfo.insured_home_address}}</li>
@@ -164,7 +164,7 @@
                     		<li>{{item.fullname}}</li>
                     		<li>{{item.gender_text}}</li>
                     		<li>{{item.birthday}}</li>
-                    		<li>{{item.id_type}}</li>
+                    		<li>{{item.id_type_text}}</li>
                     		<li>{{item.ID_no}}</li>
                     	</ul>
                     </div>
@@ -186,8 +186,16 @@
 				insuredInfo: '',//被保人信息
 				beneficiaryInfo: ''//受益人信息
 			},
-			methods: {
-
+			//过滤器
+			filters: {
+				//保障期间
+                dateFilter: function (value) {
+                    if (value === '1970-01-01') {
+                        return '';
+                    } else {
+                        return value;
+                    }
+                }
 			}
 		});
 	

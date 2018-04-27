@@ -144,15 +144,15 @@
             }
         });
         //保存数据更新
-		window.addEventListener('saveFlag', function (e) {
-		    console.log('saveFlag')
+        window.addEventListener('saveFlag', function (e) {
+            console.log('saveFlag')
             if (e.detail.clear) {
                 plus.storage.removeItem('hengda_safegoods')
                 plus.storage.removeItem('hengda_healthinfo')
                 index.getItem('hengda_safegoods', 'safegoods')
                 index.getItem('hengda_healthinfo', 'healthinfo')
             }
-			index.getItem(e.detail.item,e.detail.data)
+            index.getItem(e.detail.item,e.detail.data)
 
         });
         //整理下拉框需要的数据
@@ -293,10 +293,7 @@
             if (!checkAssured(index.assured)) {
                 return false
             }
-            if (index.assured.rel_insured_holder === COUPLE && index.assured.insured_gender === index.applicant.holder_gender) {
-                mui.toast('投被保人性别与关系不符', {duration: 'short', type: 'div'});
-                return false;
-            }
+
             if (!index.beneficiary) {
                 mui.toast('请填写受益人信息', {duration: 'short', type: 'div'});
                 return false;

@@ -201,6 +201,10 @@
                 timeout: 10000,
                 success: function (res) {
                     if (res.code) {
+                        //清空localstorage
+                        for (var i = 0; i < 8; i++) {
+                            plus.storage.removeItem(itemName[i])
+                        }
                         if (res.data.resultCode === '00') {
                             mui.toast('自核通过，影像上传中', {duration: 'short', type: 'div'})
                             upload_img(img.war_id)
@@ -208,11 +212,11 @@
                             mui.toast('进入人工核保，影像上传中', {duration: 'short', type: 'div'})
                             upload_img(img.war_id)
                         } else {
-                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
+                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
                             return false
                         }
                     } else {
-                        mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
+                        mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
                         return false
                     }
                 }
@@ -233,21 +237,17 @@
                 },
                 timeout: 10000,
                 success: function (res) {
-                    for (var i = 0; i < 8; i++) {
-                        console.log(itemName[i])
-                        plus.storage.removeItem(itemName[i])
-                    }
                     if (res.code) {
                         if (res.data.resultCode === '00') {
                             mui.toast('上传成功，承保中', {duration: 'short', type: 'div'})
                             ins_pay(id)
                             return false
                         } else {
-                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
+                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
                             return false
                         }
                     } else {
-                        mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
+                        mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
                         return false
                     }
                 }
@@ -268,19 +268,18 @@
                 },
                 timeout: 10000,
                 success: function (res) {
+                    //清空localstorage
+                    for (var i = 0; i < 8; i++) {
+                        plus.storage.removeItem(itemName[i])
+                    }
                     if (res.code) {
                         if (res.data.resultCode === '00') {
                             mui.toast('承保成功', {duration: 'short', type: 'div'});
-                            //清除本地缓存
-                            for (var i = 0; i < itemName.length; i++) {
-                                plus.storage.removeItem(itemName[i])
-                            }
-                            //
                             plus.webview.close('hd_insurance-index');
                             popu.closepop();
                             mui.back();
                         } else if (res.data.resultCode === '02') {
-                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'});
+                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
                             //清除本地缓存
                             for (var i = 0; i < itemName.length; i++) {
                                 plus.storage.removeItem(itemName[i])
@@ -290,7 +289,7 @@
                             popu.closepop();
                             mui.back();
                         } else {
-                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
+                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
                             return false
                         }
                     } else {

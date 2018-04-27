@@ -48,7 +48,7 @@
 				<div class="BL-bg-fff prospect-info BL-mar-t-1">
 					<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
 						<div class="BL-pad-lr-1_5">投保人信息</div>
-						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @click="!edit && displace">
+						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @click="!edit && displace()">
 						<span>投</span><i class="displace-icon"></i><span>被</span>
 					</button>
 					</div>
@@ -76,7 +76,7 @@
 									<span class="mui-icon mui-icon-clear" @click="appl.age = '' "></span>
 								</div>
 							</div>
-							<div class="input-wrap box-f-1 BL-mar-l-1 search-date" data-options='{"type":"date"}'>
+							<div class="input-wrap box-f-1 BL-mar-l-1 search-date" data-options='{"type":"date","beginYear":1950}'>
 								<input v-model.lazy="appl.birthday" :readonly="edit" type="text" placeholder="选择生日">
 								<div class="ins-date-icon"></div>
 							</div>
@@ -97,7 +97,7 @@
 				<div class="BL-bg-fff BL-mar-t-1 prospect-info">
 					<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
 						<div class="BL-pad-lr-1_5">被保人信息</div>
-						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @click="!edit && keepSame">
+						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @click="!edit && keepSame()">
 						<span>同投保人</span>
 					</button>
 					</div>
@@ -120,7 +120,7 @@
 									<span class="mui-icon mui-icon-clear" @click="assu.age = '' "></span>
 								</div>
 							</div>
-							<div class="input-wrap box-f-1 BL-mar-l-1 search-date" data-options='{"type":"date"}'>
+							<div class="input-wrap box-f-1 BL-mar-l-1 search-date" data-options='{"type":"date","beginYear":1950}'>
 								<input v-model.lazy="assu.birthday" :readonly="edit" type="text" placeholder="选择生日">
 								<div class="ins-date-icon"></div>
 							</div>
@@ -362,6 +362,7 @@
 					}
 				},
 				keepSame: function() { //同投保人
+					alert(this.edit)
 					this.assu = Object.assign({}, this.assu, this.parseVueObj(this.appl))
 				},
 				displace: function() { //投被保人替换

@@ -342,7 +342,7 @@
                         var owner = '第' + (1 + Number(j)) + '个受益人'
                         const type = item.beneficiary.ID_type
                         var age = getAge(item.beneficiary.birthday)
-
+                        console.log(item.beneficiary.beneficiary_is_insured + ';' + item.beneficiary.gender + ';' + this.assured.insured_gender)
                         if (!checkName(owner, item.beneficiary.fullname)) {
                             return false
                         } else if (!type) {
@@ -361,6 +361,8 @@
                             toastText = owner + '大于2周岁不允许选择证件类型为出生证'
                         } else if (!item.beneficiary.beneficiary_is_insured) {
                             toastText = '请选择' + owner + '与被保人关系'
+                        } else if (item.beneficiary.beneficiary_is_insured === BCOUPLE && this.assured.insured_gender === item.beneficiary.gender) {
+                            toastText = owner + '与被保人性别与关系不符'
                         } else if (!checkZipcode(item.beneficiary.zip, owner)) {
                             return false
                         } else if (!item.beneficiary.sort_order) {

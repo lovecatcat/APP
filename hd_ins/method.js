@@ -37,6 +37,8 @@ var cjb = '205'; //传家宝
 var zrwnzh = 'LBD0001' //转入万能账户
 
 var ISASSURED = 'LAC0001'; //被保人是本人
+var COUPLE = 'LAC0002';//投被保人为配偶
+var BCOUPLE = 'LAN0002';//受益人与被保人为配偶
 var IDNO = ['LAA0001', 'LAA0002']; //身份证、户口本
 var BOOKLET = 'LAA0002'; //户口本
 var IDcard = 'LAA0001'; //身份证
@@ -483,6 +485,15 @@ var checkAssured = function (assu) {
     }
     return true
 };
+//被保人体质指数
+// var checkHeightWeight = function (h, w) {
+//     var flag = (w / (h * h) * 10000.00).toFixed(2)
+//     if (flag < 18 || flag > 28) {
+//         mui.toast('被保人体质指数' + flag + '不在18~28之间', {duration: 'short', type: 'div'});
+//         return false
+//     }
+//     return true
+// };
 //职业限制
 var checkOccupation = function(owner,e) {
     var toast_text = null

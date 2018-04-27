@@ -162,6 +162,7 @@
                     server: 'PolicyIns.onlineInsured',
                     device: 'mobile'
                 },
+                timeout: 10000,
                 success: function (res) {
                     if (res.code) {
                         mui.toast('核保中...', {duration: 'short', type: 'div'})
@@ -271,7 +272,16 @@
                         if (res.data.resultCode === '00') {
                             mui.toast('承保成功', {duration: 'short', type: 'div'});
                             //清除本地缓存
-                            var itemName = ['hengda_applicant','hengda_assured','hengda_beneficiary','hengda_safegoods','hengda_bank','hengda_upload','hengda_healthinfo','hengda_ids'];
+                            for (var i = 0; i < itemName.length; i++) {
+                                plus.storage.removeItem(itemName[i])
+                            }
+                            //
+                            plus.webview.close('hd_insurance-index');
+                            popu.closepop();
+                            mui.back();
+                        } else if (res.data.resultCode === '02') {
+                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'});
+                            //清除本地缓存
                             for (var i = 0; i < itemName.length; i++) {
                                 plus.storage.removeItem(itemName[i])
                             }

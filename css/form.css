@@ -41,6 +41,14 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'],i
 	font-size: 1.4375rem;
 	font-style: normal;
 }
+.form-list-cell .fItem .mui-spinner {
+	display: none;
+	width: 2rem;
+	height: 2rem;
+}
+.form-list-cell .fItem.mui-active .mui-spinner {
+	display: inline-block;
+}
 
 .fItem .form-list-control {
     -webkit-box-flex: 1;

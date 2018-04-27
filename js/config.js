@@ -20,6 +20,42 @@ var sizeObj = (function(win) {
 
 
 /**
+ * 获取当前手机的网络
+ */
+var nowNetwork = function() {
+	var curNetwork = plus.networkinfo.getCurrentType();
+	var networkObj = plus.networkinfo;
+	switch(curNetwork){
+		case networkObj.CONNECTION_TYPE:
+			curNetwork = '网络连接状态未知';
+		break;
+		case networkObj.CONNECTION_UNKNOW:
+			curNetwork = '网络连接状态未知';
+		break;
+		case networkObj.CONNECTION_NONE:
+			curNetwork = '未连接网络';
+		break;
+		case networkObj.CONNECTION_ETHERNET:
+			curNetwork = '有线网络';
+		break;
+		case networkObj.CONNECTION_WIFI:
+			curNetwork = '无线WIFI网络';
+		break;
+		case networkObj['CONNECTION_CELL2G']:
+			curNetwork = '蜂窝移动2G网络';
+		break;
+		case networkObj['CONNECTION_CELL3G']:
+			curNetwork = '蜂窝移动3G网络';
+		break;
+		case networkObj['CONNECTION_CELL4G']:
+			curNetwork = '蜂窝移动4G网络';
+		break;
+	}
+	return curNetwork;
+};
+
+
+/**
  * 重新封装mui-Ajax
  */
 var luckyAjax = function(options){

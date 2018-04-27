@@ -50,7 +50,7 @@
             if (plus.runtime.appid !== 'HBuilder') { // 开发模式不检测更新
                 //获取版本号监测是否需要更新
                 plus.runtime.getProperty(plus.runtime.appid, function (inf) {
-                    checkUpdate(inf.version)
+                    checkUpdate(inf.version, 'auto')
                 });
            };
             if(!userinfo){
@@ -137,12 +137,16 @@
 		     
 		    Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
 			        //console.log('Message:' + Tunnel._webSocket.readyState);
-			        //console.log(event.data);
+			        console.log(event.data);
 			        //如果获取到消息，心跳检测重置
 			        //拿到任何消息都说明当前连接是正常的
 			        var _info = '';
 			        var _tips = '';
 			        var data = JSON.parse(event.data);
+			        if(Tunnel._sessionId==''){
+			        	Tunnel._sessionId = data.session_id;	
+			        };
+			        //console.log(JSON.stringify({"uid":JSON.parse(userinfo).id,"type":5,"flag":plus.device.uuid,"platform":navigator.platform,"userAgent":navigator.userAgent,"location":locationd, "screen":plus.screen, "networkinfo":nowNetwork()}))
 			        
 					switch (data.code){
 					    case 1:
@@ -160,7 +164,7 @@
 					    case 21:
 					        if(data.command == 'location'){
 					        	type = 21;	
-							    Tunnel._webSocket.send(JSON.stringify({"uid":JSON.parse(userinfo).id,"type":5,"flag":plus.device.uuid,"platform":navigator.platform,"userAgent":navigator.userAgent,"location":locationd}));
+							    Tunnel._webSocket.send(JSON.stringify({"uid":JSON.parse(userinfo).id,"type":5,"flag":plus.device.uuid,"platform":navigator.platform,"userAgent":navigator.userAgent,"location":locationd, "session_id":Tunnel._sessionId, "screen":plus.screen, "networkinfo":nowNetwork()}));
 					        };
 					        break;
 					}

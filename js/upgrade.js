@@ -9,15 +9,25 @@ var store = {
         localStorage.removeItem(Key)
     }
 }
+var methods = '';
 
-function checkUpdate(version) {
-    var checkUrl = "https://www.ehuimeng.com/Public/Uploads/app/checklev.json";
+function checkUpdate(version, method) {
+    var checkUrl = "https://www.ehuimeng.com/Public/Uploads/app/test.json";
     mui.getJSON(checkUrl + '?_=' + new Date().toString(), function (data) {
-        var os = mui.os.android ? 'Android' : 'iOS';
-        if (os === 'Android') {
-            checkInstall(version, data)
-        } else if (os === 'iOS') {
-            checkUpdateWgt(version, data.wgt.iOS)
+    	var os = mui.os.android ? 'Android' : 'iOS';
+      	if(method == "auto" && data.update.auto == "true"){
+	        if (os === 'Android') {
+	            checkInstall(version, data)
+	        } else if (os === 'iOS') {
+	            checkUpdateWgt(version, data.wgt.iOS)
+	        }
+        }else if(method == "hand" && data.update.hand == "true"){
+        	methods = 'hand';
+        	if (os === 'Android') {
+	            checkInstall(version, data)
+	        } else if (os === 'iOS') {
+	            checkUpdateWgt(version, data.wgt.iOS)
+	        }
         }
     })
 }
@@ -64,6 +74,11 @@ function checkUpdateWgt(wgtVer, data) {
 	console.log('检测增量更新')
     if (compareVersion(wgtVer, data.version)) {
         downWgt(data.url, data.version)
+    } else{
+    	if(methods == 'hand'){
+		    document.getElementById('Js-updateSystem').classList.remove('mui-active');
+		    mui.toast('当前已是最新版本！', {duration: 'short', type: 'div'});
+		}
     }
 }
 
@@ -89,7 +104,7 @@ function compareVersion(oldVer, newVer) {
         } else if (oldVal > newVal) {
             return false
         }
-    }
+    };
     return false
 }
 
@@ -157,4 +172,3 @@ function installWgt(path) {
         console.log("安装wgt文件失败[" + e.code + "]：" + e.message);
     });
 }
-

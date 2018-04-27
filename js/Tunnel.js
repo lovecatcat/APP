@@ -15,12 +15,12 @@ var Tunnel = {
     /**
      * 传输报文(格式固定,否则服务器会拒绝登录)
      */
-    _message: {uid: 0, type: 0, flag: '', platform: '', userAgent: ''},
+    _message: {uid: 0, type: 0, flag: '', platform: '', userAgent: '', session_id:''},
 
     /**
      * WS服务器地址
      */
-    _url: 'ws://112.74.159.162:13346',
+    _url: 'ws://www.luckyins.com:13346',
 
     /**
      * 自定义事件处理方法
@@ -31,6 +31,11 @@ var Tunnel = {
      * 是否停止全局请求
      */
     _isStop: false,
+
+    /**
+     * 请求保存session_id
+     */
+    _sessionId: '',
     
     /**
      * 创建WS实例
@@ -45,6 +50,8 @@ var Tunnel = {
             Tunnel._message.flag = flag;
             Tunnel._message.platform = navigator.platform;
             Tunnel._message.userAgent = navigator.userAgent;
+            Tunnel._message.screen = plus.screen;
+            Tunnel._message.networkinfo = nowNetwork();
             Tunnel._action = action;
         }
 		
@@ -129,7 +136,7 @@ var Tunnel = {
      * 心跳计时
      */
     HeartCheck: {
-        timeout: 60000,//60秒
+        timeout: 30000,//30秒
         timeoutObj: null,
         serverTimeoutObj: null,
         reset: function(){
@@ -139,9 +146,25 @@ var Tunnel = {
         },
         start: function(){
             var self = this;
+            var newLocation = '';
+            
+            plus.geolocation.watchPosition(function(p){
+		    	newLocation = p;	
+		    }, function(e){
+				//console.log('无法获取当前位置');
+			}, {
+				provider:'baidu',
+				enableHighAccuracy: true,
+				maximumAge:20000
+			})
+            
             this.timeoutObj = setTimeout(function(){
                 //这里发送一个心跳，后端收到后，返回一个心跳消息，onmessage拿到返回的心跳就说明连接正常
                 Tunnel._message.type = 2;
+                Tunnel._message.session_id = Tunnel._sessionId;
+                Tunnel._message.location = newLocation;
+                Tunnel._message.networkinfo = nowNetwork();
+                //console.log(JSON.stringify(Tunnel._message));
                 Tunnel._webSocket.send(JSON.stringify(Tunnel._message));
 
                 self.serverTimeoutObj = setTimeout(function(){

@@ -2753,7 +2753,8 @@
 					"images/member/req-tap.png",
 					"images/member/req-banner.jpg",
 					"images/member/req-title.png",
-					"images/member/req-hm.png"
+					"images/member/req-hm.png",
+					"images/icon/avatar-default.png"
 				],
 				"refer": [],
 				"priority": 0

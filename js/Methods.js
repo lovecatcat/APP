@@ -570,18 +570,23 @@ var methods = {
             case '1001': // 招商仁和爱倍护重大疾病保险
                 if (assuAge > 60) {
                     toastText = '被保人年龄不能大于60周岁'
-                } else if (mainPayYear + assuAge > 60 && mainPayYear != 60) {
+                } else if (mainPayYear + assuAge > 61 && mainPayYear != 60) {
                     toastText = '投保年龄加交费年期不能大于60周岁'
-                } else if (assuAge > 59 && mainPayYear == 60) {
+                } else if (assuAge > 59 && mainPayYear === 60) {
                     toastText = '交至60周岁被保人年龄应在0到59周岁'
                 }
                 break
             case '1020': // 招商仁和招盈金生
-                if (assuAge > 60) {
+                if (assuAge > 65) {
                     toastText = '被保人年龄不能大于65周岁'
+                } else if (assuAge > 62 && mainPayYear == 3) {
+                    toastText = '3年缴被保人年龄应在不能大于62周岁'
+                } else if (assuAge > 60 && mainPayYear == 5) {
+                    toastText = '5年缴被保人年龄应在不能大于60周岁'
+                } else if (assuAge > 55 && mainPayYear == 10) {
+                    toastText = '10年缴被保人年龄应在不能大于55周岁'
                 }
                 break
-
         }
 
         if (toastText) {
@@ -1364,6 +1369,16 @@ var methods = {
                     toastText = '请选择门急诊医疗保险套餐'
                 } else if (this.fxljysFXLJYS.mznmp === '0') {
                     toastText = '请选择门急诊医疗保险免赔额'
+                }
+                break
+            //招商仁和
+            case '1002': // 附加豁免保险费重大疾病保险
+                if (applAge > 60) {
+                    toastText = '投保人年龄不能大于60周岁'
+                } else if (mainPayYear + applAge > 61 && mainPayYear != 60) {
+                    toastText = '投保年龄加交费年期不能大于60周岁'
+                } else if (applAge > 59 && mainPayYear === 60) {
+                    toastText = '交至60周岁投保人年龄应在18到59周岁'
                 }
                 break
 

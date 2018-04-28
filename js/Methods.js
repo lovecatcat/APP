@@ -568,10 +568,13 @@ var methods = {
                 break
             //招商仁和
             case '1001': // 招商仁和爱倍护重大疾病保险
+
                 if (assuAge > 60) {
                     toastText = '被保人年龄不能大于60周岁'
-                } else if (mainPayYear + assuAge > 60) {
+                } else if (mainPayYear + assuAge > 60 && mainPayYear != 60) {
                     toastText = '投保年龄加交费年期不能大于60周岁'
+                } else if (assuAge > 59 && mainPayYear == 60) {
+                    toastText = '交至60周岁被保人年龄应在0到59周岁'
                 }
                 break
 
@@ -967,7 +970,7 @@ var methods = {
                     }
                     break
                 case 'ACIWP': // 附加豁免保险费重大疾病保险
-                case 'NWPD': // 附加豁免保险费定期寿险
+                case 'NWPD': // 附加豁免保险费定期寿险(2016)
                     if (this.samePerson) {
                         toastText = '投被保人为同人时不可附加该险种'
                     }
@@ -1034,6 +1037,14 @@ var methods = {
                 case 'LJYSMZ': //
                     if (this.assu.age > 54) {
                         toastText = '被保人年龄不能大于54周岁'
+                    }
+                    break
+                //招商仁和
+                case '1002': // 附加豁免保险费重大疾病保险
+                    if (this.samePerson) {
+                        toastText = '投被保人为同人时不可附加该险种'
+                    } else if (this.mainPayYear === 1) {
+                        toastText = '主险趸交不可附加该险种'
                     }
                     break
 
@@ -1230,9 +1241,9 @@ var methods = {
                     toastText = '被豁免合同投保人年龄不能大于68周岁'
                 }
                 break
-            case 'NWPD':
-                if (applAge > 27) {
-                    toastText = '投保人年龄不能大于27周岁'
+            case 'NWPD': //工银安盛人寿附加豁免保险费定期寿险
+                if (applAge > 60) {
+                    toastText = '投保人年龄不能大于60周岁'
                 }
                 break
             case 'NADD':
@@ -2097,6 +2108,14 @@ var methods = {
                 mzptcmp: this.fxljysFXLJYS.mzptcmp, // 门诊普通次免赔
                 mztxcimp: this.fxljysFXLJYS.mztxcimp // 门诊特需次免赔
             })
+        } else if (safeid === '1001') { //  招商仁和
+            	//招商仁和爱倍护重大疾病保险
+            data.pay_year = this.mainPayYear === 60 ? 6000 : this.mainPayYear
+        } else if (safeid === '1002') {
+            //  附加豁免保险费重大疾病保险
+            data.pay_year = this.mainPayYear === 60 ? 5900 : py
+            data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
+            data.base_money = periodMoney
         }
 
         if (isMain) {

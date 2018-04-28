@@ -13,6 +13,7 @@
 		var children = content.children;
 		var describes1 = main.describes
 		var safe_year;
+		var pay_year;
 		var parent_id = content.genre
 		var type = content.type
 		var year_fee = 0;
@@ -35,6 +36,11 @@
 			safe_year = content.safe_year == 0 ? '终身' : '至70周岁';
 		} else {
 			safe_year = content.safe_year == 0 ? '终身' : content.safe_year;
+		}
+		if(parent_id == 16113) { //招商仁和爱倍护重大疾病保险
+			pay_year = content.pay_year == 6000 ? '至60周岁' : content.pay_year
+		}else{
+			pay_year = content.pay_year
 		}
 
 		if(parent_id == 290 || parent_id == 360 || parent_id == 370 || parent_id == 16197) {
@@ -90,7 +96,7 @@
 				short_name: main.short_name,
 				genre: content.genre,
 				safe_year: safe_year,
-				pay_year: content.pay_year,
+				pay_year: pay_year,
 				base_money: base_money,
 				year_fee: year_fee
 
@@ -119,7 +125,7 @@
 				short_name: main.short_name,
 				genre: content.genre,
 				safe_year: safe_year,
-				pay_year: content.pay_year,
+				pay_year: pay_year,
 				base_money: base_money,
 				year_fee: year_fee
 			};
@@ -167,12 +173,12 @@
 						case '341': //信泰附加投保人豁免保险费重大疾病保险
 							children_base_money = year_fee;
 							children_safe_year = "终身";
-							children_pay_year = content.pay_year - 1;
+							children_pay_year = pay_year - 1;
 							break;
 						case '333': //信泰百万健康重疾
 							children_base_money = base_money;
 							children_safe_year = tml.flag + '岁';
-							children_pay_year = content.pay_year;
+							children_pay_year = pay_year;
 							break;
 						case '367': //金掌柜年金保险（万能型）
 							children_base_money = '—';
@@ -196,7 +202,7 @@
 						case '339': //复星联合附加康乐一生轻症保险
 							children_base_money = base_money;
 							children_safe_year = content.safe_year == 0 ? '终身' : '至70周岁';
-							children_pay_year = content.pay_year;
+							children_pay_year = pay_year;
 							break;
 						case '338': //复星联合附加康乐一生投保人豁免保费重大疾病保险
 							if(children[339]) {
@@ -205,7 +211,7 @@
 								children_base_money = year_fee;
 							}
 							children_safe_year = content.safe_year == 0 ? '终身' : '至70周岁';
-							children_pay_year = content.pay_year - 1;
+							children_pay_year = pay_year - 1;
 							break;
 
 							//中国人保
@@ -223,8 +229,8 @@
 							break;
 						case '175':
 							children_base_money = year_fee;
-							children_safe_year = content.pay_year;
-							children_pay_year = content.pay_year;
+							children_safe_year = pay_year;
+							children_pay_year = pay_year;
 							break;
 						case '222':
 							children_base_money = tml.flag + '份';
@@ -252,8 +258,8 @@
 							break;
 						case '265':
 							children_base_money = year_fee;
-							children_safe_year = content.pay_year;
-							children_pay_year = content.pay_year;
+							children_safe_year = pay_year;
+							children_pay_year = pay_year;
 							break;
 						case '353':
 							children_base_money = list["基本保额"];
@@ -299,13 +305,13 @@
 							break;
 						case '268':
 							children_base_money = year_fee;
-							children_safe_year = content.pay_year - 1;
-							children_pay_year = content.pay_year - 1;
+							children_safe_year = pay_year - 1;
+							children_pay_year = pay_year - 1;
 							break;
 						case '269':
 							children_base_money = year_fee;
-							children_safe_year = content.pay_year - 1;
-							children_pay_year = content.pay_year - 1;
+							children_safe_year = pay_year - 1;
+							children_pay_year = pay_year - 1;
 							break;
 						case '182':
 							children_base_money = list["住院津贴保险金（日）"];
@@ -325,22 +331,22 @@
 							children_year_fee = 0;
 							break;
 						case '87':
-							children_base_money = parseInt(listMain["年缴保费"]) * parseInt(content.pay_year);
+							children_base_money = parseInt(listMain["年缴保费"]) * parseInt(pay_year);
 							children_safe_year = "至85岁";
-							children_pay_year = content.pay_year;
+							children_pay_year = pay_year;
 							break;
 						case '355':
-							children_base_money = (year_fee * content.pay_year).toFixed(0);
+							children_base_money = (year_fee * pay_year).toFixed(0);
 							children_safe_year = '至85周岁';
-							children_pay_year = content.pay_year;
+							children_pay_year = pay_year;
 							break;
 						case '356':
 						case '357':
 						case '358':
 							if(children[355]) {
-								children_base_money = ((year_fee + Number(children[355].list[1][1])) * (content.pay_year - 1)).toFixed(0);
+								children_base_money = ((year_fee + Number(children[355].list[1][1])) * (pay_year - 1)).toFixed(0);
 							} else {
-								children_base_money = (year_fee * (content.pay_year - 1)).toFixed(0);
+								children_base_money = (year_fee * (pay_year - 1)).toFixed(0);
 							}
 							break;
 						case '16202':
@@ -358,8 +364,8 @@
 							break;
 						case '122':
 							children_base_money = year_fee;
-							children_safe_year = content.pay_year - 1;
-							children_pay_year = content.pay_year - 1;
+							children_safe_year = pay_year - 1;
+							children_pay_year = pay_year - 1;
 							children_year_fee = list["年缴保费(元)"]
 							break;
 						case '165':
@@ -371,12 +377,12 @@
 						case '304':
 							children_base_money = list["一般意外身故/伤残保险金"];
 							children_safe_year = safe_year;
-							children_pay_year = content.pay_year;
+							children_pay_year = pay_year;
 							break;
 						case '305':
 							children_base_money = list["意外住院津贴日额"];
 							children_safe_year = safe_year;
-							children_pay_year = content.pay_year;
+							children_pay_year = pay_year;
 							break;
 						case '10455': // 泰康健康优享住院费用医疗保险
 							if(tml.flag == 1) {
@@ -387,15 +393,15 @@
 							break;
 						case '350':
 							children_base_money = year_fee;
-							children_safe_year = content.pay_year - 1;
-							children_pay_year = content.pay_year - 1;
+							children_safe_year = pay_year - 1;
+							children_pay_year = pay_year - 1;
 							break;
 							//恒大
 						case '273':
 							//豁免保费重大疾病保险
 							children_base_money = year_fee;
-							children_safe_year = content.pay_year - 1;
-							children_pay_year = content.pay_year - 1;
+							children_safe_year = pay_year - 1;
+							children_pay_year = pay_year - 1;
 							break;
 						case '291': //xia
 							//金管家
@@ -459,6 +465,14 @@
 							}
 							children_base_money = hdFufee2 + hdFufee;
 							children_year_fee = list["年缴保费"]
+							break;
+						//招商仁和
+						case '16120':
+							//附加豁免保险费重大 疾病保险
+							children_base_money = year_fee;
+							children_safe_year = "终身";
+							children_pay_year = content.pay_year == 6000 ? '至59周岁' : content.pay_year -1; 
+							children_year_fee = list["年缴保费"];
 							break;
 					}
 

@@ -290,11 +290,11 @@
                             popu.closepop();
                             mui.back();
                         } else {
-                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
+                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
                             return false
                         }
                     } else {
-                        mui.toast('承保失败', {duration: 'short', type: 'div'})
+                        mui.toast('承保失败', {duration: 'long', type: 'div'})
                         return false
                     }
                 }

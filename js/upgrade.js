@@ -12,7 +12,7 @@ var store = {
 var methods = '';
 
 function checkUpdate(version, method) {
-    var checkUrl = "https://www.ehuimeng.com/Public/Uploads/app/test.json";
+    var checkUrl = "https://www.ehuimeng.com/Public/Uploads/app/checklev.json";
     mui.getJSON(checkUrl + '?_=' + new Date().toString(), function (data) {
     	var os = mui.os.android ? 'Android' : 'iOS';
       	if(method == "auto" && data.update.auto == "true"){

@@ -93,7 +93,7 @@
         
         //检测更新
         document.querySelector('#Js-updateSystem').addEventListener('tap', function(){
-        	if (plus.runtime.appid == 'HBuilder') { // 开发模式不检测更新
+        	if (plus.runtime.appid !== 'HBuilder') { // 开发模式不检测更新
         		this.classList.add('mui-active');
                 checkUpdate(version, 'hand');
             };

@@ -568,13 +568,17 @@ var methods = {
                 break
             //招商仁和
             case '1001': // 招商仁和爱倍护重大疾病保险
-
                 if (assuAge > 60) {
                     toastText = '被保人年龄不能大于60周岁'
                 } else if (mainPayYear + assuAge > 60 && mainPayYear != 60) {
                     toastText = '投保年龄加交费年期不能大于60周岁'
                 } else if (assuAge > 59 && mainPayYear == 60) {
                     toastText = '交至60周岁被保人年龄应在0到59周岁'
+                }
+                break
+            case '1020': // 招商仁和招盈金生
+                if (assuAge > 60) {
+                    toastText = '被保人年龄不能大于65周岁'
                 }
                 break
 
@@ -772,6 +776,13 @@ var methods = {
                     toastText = '保费需为1千元整数倍'
                 }
                 break
+            case '1020': // 招商仁和招盈金生
+                if (money < 5000) {
+                    toastText = '最低基本保额为5千元'
+                } else if (money % 1000 !== 0) {
+                    toastText = '保费需为1千元整数倍'
+                }
+                break
 
         }
         if (toastText) {
@@ -808,6 +819,17 @@ var methods = {
                     toastText = '该主险最低年缴保费为1000元'
                 }
                 break
+             case '1020': // 招商仁和招盈金生
+                if (periodMoney < 100000 && this.mainPayYear === 1) {
+                    toastText = '趸交年缴保费必须大于10万元'
+                } else if(periodMoney < 10000 && this.mainPayYear === 3){
+                	 toastText = '3交年缴保费必须大于1万元'
+                } else if(periodMoney < 10000 && this.mainPayYear === 5){
+                	 toastText = '5交年缴保费必须大于1万元'
+                } else if(periodMoney < 5000 && this.mainPayYear === 10){
+                	 toastText = '10交年缴保费必须大于5千元'
+                }
+                break    
         }
         if (toastText) {
             mui.toast(toastText)
@@ -1244,6 +1266,12 @@ var methods = {
             case 'NWPD': //工银安盛人寿附加豁免保险费定期寿险
                 if (applAge > 60) {
                     toastText = '投保人年龄不能大于60周岁'
+                } else if (mainPayYear === 15 && applAge > 50) {
+                    toastText = '15年交投保人年龄不能大于50周岁'
+                } else if (mainPayYear === 20 && applAge > 40) {
+                    toastText = '20年交投保人年龄不能大于40周岁'
+                } else if (mainPayYear === 30 && applAge > 27) {
+                    toastText = '30年交投保人年龄不能大于27周岁'
                 }
                 break
             case 'NADD':

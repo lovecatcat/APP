@@ -25,7 +25,7 @@
 							class="plans-nav mui-active" v-for="plan,index in plans" :key="plan.id" :data-id="plans[index].id" :data-index="index" :id="'plan'+ plans[index].id">
 							<span v-if="!plans[index].assu.name">保障计划</span>
 							<span v-else>{{plans[index].assu.name}}</span>
-							<i class="mui-icon mui-icon-clear" @tap="removePlan(index)" ></i>
+							<i class="mui-icon mui-icon-clear" @tap="removePlan(index)"></i>
 						</div>
 					</div>
 				</div>
@@ -362,7 +362,6 @@
 					}
 				},
 				keepSame: function() { //同投保人
-					alert(this.edit)
 					this.assu = Object.assign({}, this.assu, this.parseVueObj(this.appl))
 				},
 				displace: function() { //投被保人替换

@@ -597,15 +597,15 @@
                 for (var a in vm.addonsSelected) {
                     vm.addonsSelected[a] = false
                 }
+                var tempdata = {}
                 switch (safe_id) {
                     case hjjk: //恒久健康
-                        vm.showAddonIns = {
-                            '146': vm.noSamePerson, //投保人豁免
-                            '150': money >= 200000, //尊享安康
-                            '151': money >= 200000, //恒顺意外
-                            '152': money >= 200000, //恒祥住院
-                            '208': money >= 50000 && period_money >= 3000 //恒久安心
-                        }
+                        tempdata[tbrhm] = vm.noSamePerson //投保人豁免
+                        tempdata[zxak] = money >= 200000 //尊享安康
+                        tempdata[hs] = money >= 200000 //恒顺意外
+                        tempdata[hx] = money >= 200000 //恒祥住院
+                        tempdata[hjax] = money >= 50000 && period_money >= 3000 //恒久安心
+                        vm.showAddonIns = tempdata
                         break
                     case qwhh: // 千万护航
                         vm.showAddonIns = {
@@ -1183,7 +1183,6 @@
                                 })
                             }
                         });
-                        console.log(JSON.stringify(data))
                         safegoods.setData(data);
                         //
                         mui.each(data, function (index, item) {

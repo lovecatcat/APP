@@ -28,9 +28,11 @@
     mui.init();
 
     mui.plusReady(function () {
-//        isLogin();
         var popu = new ClosePopu(); // 实例化关闭窗口对象
-        
+        //安卓监听返回事件
+        plus.key.addEventListener("backbutton", function () {
+            popu.closepop();
+        });
         // 点击关闭遮罩层，弹框
         mui('body').on('tap', '#maskInit', function () {
             // 关闭遮罩层，弹框

@@ -523,7 +523,7 @@
                 }
             },
             insChanged:function(init) {
-                console.info('insChanged')
+                console.log('insChanged')
                 const vm = this
 
                 var safecode = vm.insurance.code
@@ -566,19 +566,13 @@
                 if (init && vm.insurances.length > 0) {
                     console.log('初始化险种')
                     var insurance = vm.insurances[0]
-                    if (safeid === insurance.safe_id) {
-//                        var tml = {
-//                            safe_year: insurance.safe_year,
-//                            pay_year: insurance.pay_year,
-//                            money: insurance.money
-//                        }
-//                        vm.insurance = deepClone(tml)
                     if (safecode === insurance.code) {
                         var tml = {
                             safe_year: insurance.safe_year,
-                            pay_year: insurance.pay_year
+                            pay_year: insurance.pay_year,
+                            money: insurance.money
                         }
-                        vm.insurance = Object.assign(vm.insurance, tml)
+                        vm.insurance = deepClone(tml)
                         vm.$nextTick(function(){
                             if (vm.insurances.length === 1) {
                                 vm.calMoney()
@@ -1134,6 +1128,8 @@
         var applicant = plus.storage.getItem('hengda_applicant') ? JSON.parse(plus.storage.getItem('hengda_applicant')) : ''
         var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')) : ''
         var goods = plus.storage.getItem('hengda_safegoods') ? JSON.parse(plus.storage.getItem('hengda_safegoods')) : ''
+        console.log('+++++++++++++')
+        console.log(plus.storage.getItem('hengda_safegoods'))
         if(goods){
             safe.insurances = goods
             mui.each(goods,function (index,item) {
@@ -1212,7 +1208,7 @@
                                 })
                             }
                         });
-                        console.log(JSON.stringify(data))
+                        console.log(JSON.stringify(safe.insurances))
                         safegoods.setData(data);
                         //
                         mui.each(data, function (index, item) {
@@ -1220,6 +1216,7 @@
                                 var kitem = safe.insurances[k]
                                 if (kitem.is_main && item.code === kitem.code) {
                                     safe.main_insurance = item
+                                    console.log('11111')
                                     safe.insChanged(true)
                                 }
                             }

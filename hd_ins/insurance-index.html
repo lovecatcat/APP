@@ -110,6 +110,7 @@
                 console.log('index-created')
                 //编辑保单
                 var pid = plus.webview.currentWebview().policy_id;
+                console.log(pid)
                 if (pid) {
                     this.pid = pid
                     plus.storage.setItem('hengda_ids', JSON.stringify({policy_id: pid}));
@@ -271,6 +272,7 @@
                                         is_main: sitem.is_main,
                                         name: '请选择',//主险名称
                                         safe_id: sitem.product_id,
+                                        code: sitem.code,
                                         safe_year: sitem.period_guanantee,
                                         pay_year: sitem.period_payment,
                                         money: sitem.amount, // 基本保险金额
@@ -287,7 +289,7 @@
                                 bank_data.agree = false
                                 bank_data.bank_holder = da.insData.holder_name //户名
                                 bank_data.bank_name = da.insData.bank_name //开户行
-                                bank_data.temp_bank_name = '请选择' //开户行名称
+                                bank_data.temp_bank_name = da.insData.bank_name_text //开户行名称
                                 bank_data.bank_no = da.insData.bank_no//卡号
                                 //证件照
                                 upload_data.appl_front_img = da.insData.img_json['00']  // 投保人身份证正面
@@ -428,20 +430,17 @@
                     device: 'mobile'
                 },
                 success: function (res) {
+                    console.log(JSON.stringify(res))
                     if (res.code) {
-                        if (res.data.policyInfo.progress < 1) {
+                        if (res.data.policyInfo.progress <= 1) {
                             index.getWarranty(war_id);
                         } else if (res.data.policyInfo.progress === 2) {
-//                            mui.toast('此单已承保，不能再次编辑', {duration: 'long', type: 'div'})
-                            clearItem();
-                            return false
-                        } else if (res.data.policyInfo.progress === 1) {
-//                            mui.toast('此单已进入人工核保，不能再次编辑', {duration: 'long', type: 'div'})
-                            clearItem();
+                            mui.toast('此单已承保，不能再次编辑', {duration: 'long', type: 'div'})
+                            clearItem(true);
                             return false
                         }
                     } else {
-//                        mui.toast('保单不存在', {duration: 'short', type: 'div'})
+                        mui.toast('保单不存在', {duration: 'short', type: 'div'})
                         clearItem()
                         return false
                     }

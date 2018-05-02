@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="../css/mui.css" rel="stylesheet"/>
+    <link href="../css/common.css" rel="stylesheet"/>
+    <link href="../css/module.css" rel="stylesheet"/>
+    <link href="../css/form.css" rel="stylesheet"/>
+    <script src="../js/config.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css"/>
+</head>
+
+<body class="BL-bg-f2f">
+<header id="Js-header" class="BL-bg-fff">
+    <div class="BL-mod-headbar BL-mod-headbar-pos">
+        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+        <h1 class="BL-title">自动转账授权说明</h1>
+    </div>
+</header>
+<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
+    <div class="BL-pad-a1_25">
+        <div class="form-clause"><p>
+            1.&nbsp;本人授权恒大人寿保险有限公司（以下简称“贵公司”）与开户银行（以下简称“银行”），按保险合同约定的保险费支付时间和保险费金额，从上述账户内自动扣划保险合同项下之首期及以后各期应交保险费，如本人在贵公司购买两份或两份以上保险合同并授权均从该账户自动划扣应交保险费的，本人同意按银行的各项规定和贵公司的流程和顺序执行。如果该账户终止或余额不足以支付保险费，由此所致的保险契约自此不产生效力或保险合同中止或终止的任何责任将由本人承担。本人清楚，如本人终止保险费自动转账授权或变更保险费支付账户，应提前30天向贵公司递交书面申请。</p>
+            <p>2.&nbsp;本人同意：本人如对同一保险合同有多次自动转账授权，以贵公司收到并同意之最后一次有效授权为准，且以前之转账授权自动作废。</p>
+            <p>
+                3.&nbsp;本人清楚：本人所提供的授权转账账户，必须是本人的个人结算账户（如：借记卡，个人活期结算存折）。本人同意于每期保险费转账成功后，需在授权账户中保留至少人民币10元，否则可能导致扣款失败并影响该保险合同的效力。</p>
+            <p>4.&nbsp;如所授权之银行要求与本人签订书面的转账授权协议的，本人应与银行另行签订转账协议。</p>
+            <p>
+                5.&nbsp;本人授权贵公司与银行将按保险合同约定或法律规定应支付给本人的款项均以转账方式划入上述账户，如该账户取消或转账不成功，贵公司有权通过其他方式支付相应款项。本人清楚，如本人终止自动转账领款授权或变更自动转账领款账户，应提前15天向贵公司递交书面申请。请贵公司以本人最后一次提供的领款授权账号为准，本人与贵公司签订的所有保险合同中应支付给本人的款项将统一划入该账户，但贵公司将相关款项划到该账户后，即视作本人已领取相应款项，由此产生的任何后果和责任均由本人承担。</p>
+            <p>6． 如自动转账领款账户的账户持有人为投保人，领款项目包括红利、保单退费及领取个人账户价值。</p></div>
+    </div>
+</div>
+
+</body>
+<script src="../js/mui.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    mui.init();
+    mui.plusReady(function () {
+        statusbar();
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+        //安卓监听返回事件
+        plus.key.addEventListener("backbutton", function () {
+            popu.closepop();
+        });
+    })
+</script>
+
+</html>

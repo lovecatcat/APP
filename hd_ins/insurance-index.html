@@ -109,6 +109,7 @@
                     this.getItem(itemName[i],dataName[i])
 
                 }
+                console.log(JSON.stringify(this.userinfo))
                 this.$forceUpdate()
             },
             methods:{
@@ -317,7 +318,7 @@
             pushdata.id = war_id
             pushdata.supplier_id = SCID
             pushdata.ins_area = '323' //深圳
-            pushdata.sales_channel = '2'
+            pushdata.sales_channel = index.userinfo.channel_id.toString()
             pushdata.is_first = '1'
             pushdata.user_id = index.userinfo.id
             //投保人信息

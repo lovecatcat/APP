@@ -52,14 +52,10 @@
                     <div class="item-title">信息确认</div>
                 </div>
                 <div class="BL-pad-a1">
-                    <!--<div class="BL-ftz-46">-->
-                    <!--1. 本人已阅读<a class="BL-col-3b9cf5"><strong>《恒大万年红终身年金保险条款》</strong></a>、和<a class="BL-col-3b9cf5"><strong>《投保提示书》</strong></a>，了解本产品的特点。<br>-->
-                    <!--2. 本人已阅读<a class="BL-col-3b9cf5"><strong>《投保须知》</strong></a>、<a class="BL-col-3b9cf5"><strong>《声明授权与签名》</strong></a>。-->
-                    <!--</div>-->
                     <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1">
-                        <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读<a class="BL-col-3b9cf5"><strong>《恒大万年红终身年金保险条款》</strong></a>、和<a
-                                class="BL-col-3b9cf5"><strong>《投保提示书》</strong></a>、<a class="BL-col-3b9cf5"><strong>《投保须知》</strong></a>、<a
-                                class="BL-col-3b9cf5"><strong>《声明授权与签名》</strong></a>，并确认无误
+                        <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读<a class="BL-col-3b9cf5" type="button" @tap="showStatement"><strong>《{{main_insurance.name}}保险条款》</strong></a>、和<a type="button" id="safenotice"
+                                class="BL-col-3b9cf5"><strong>《投保提示书》</strong></a>、<a type="button" id="statement"
+                                class="BL-col-3b9cf5"><strong>《自动转账授权说明》</strong></a>，并确认无误
                             <input name="checkbox" value="Item1" type="checkbox" style="top: 20px; left: 0px;">
                         </label>
                     </div>
@@ -131,15 +127,49 @@
 <script type="text/javascript">
     mui.init();
     var popu;
-
+    mui('body').on('tap', '#statement', function () {
+        mui.openWindow({
+            url: 'pay-statement.html',
+            id: 'pay_statement',
+            show: animateObj.aniDetal
+        })
+        return false
+    })
+    mui('body').on('tap', '#safenotice', function () {
+        mui.openWindow({
+            url: 'safe-notice.html',
+            id: 'safe_notice',
+            show: animateObj.aniDetal
+        })
+        return false
+    })
     mui.plusReady(function () {
         popu = new ClosePopu(); // 实例化关闭窗口对象
 
         var itemName = ['hengda_applicant','hengda_assured','hengda_beneficiary','hengda_safegoods','hengda_healthinfo','hengda_bank','hengda_upload','hengda_ids'];
         var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')): ''
+        var safegoods = plus.storage.getItem('hengda_safegoods') ? JSON.parse(plus.storage.getItem('hengda_safegoods')): ''
+        mui.each(safegoods, function (index, item) {
+            if(item.is_main == 1){
+                img.main_insurance = item
+                luckyAjax({
+                    data: {
+                        data: JSON.stringify({product_id: item.safe_id}),
+                        server: 'lifeProduct.getProductInfo'
+                    },
+                    success: function (data) {
+                        plus.nativeUI.closeWaiting();
+                        if (data.code === 1) {
+                            img.pdfurl = data.data.statement;
+                        }
+                    }
+                })
+            }
+        })
         img.assured = assured
         var ids = plus.storage.getItem('hengda_ids') ? JSON.parse(plus.storage.getItem('hengda_ids')): ''
         img.war_id = ids ? Number(ids.policy_id) : ''
+        console.log(plus.storage.getItem('hengda_safegoods'))
         //赋值
         img.getSignature(1,true);
         img.getSignature(2,true);
@@ -372,6 +402,8 @@
         el: '#Js-content',
         data:function() {
             return {
+                pdfurl: '',
+                main_insurance: '',
                 war_id: '',
                 assured: {},
                 appl_signature: '',
@@ -384,6 +416,18 @@
             }
         },
         methods: {
+            //主险条款
+            showStatement: function () {
+                var url = this.pdfurl;
+                if (url) {
+                    showPopu("pdf-modal.html", "pdf_modal", 'center', {
+                        pdf: url
+                    });
+                } else {
+                    mui.toast('暂无条款详情', {duration: 'short', type: 'div'});
+                    return false;
+                }
+            },
             //保存签名
             save_ins: function(type) {
                 const vm = this

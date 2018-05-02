@@ -419,11 +419,11 @@ var checkIDtype = function (birthday, idtype, owner) {
     var toast_text = null
     var age = getAge(birthday)
     if (age > 2 && idtype === BORNid) {
-        toast_text = owner + '小于等于2周岁才能选择出生证';
-    } else if ((age <= 2 || age >= 16) && idtype === BOOKLET) {
-        toast_text = owner + '大于2周岁小于16周岁才能选择户口本';
+        toast_text = owner + '大于2周岁不能选择出生证';
+    } else if ((age < 2 || age > 16) && idtype === BOOKLET) {
+        toast_text = owner + '2周岁至16周岁才能选择户口本';
     } else if (getDays(birthday) < 30) {
-        toast_text = '被保人0周岁需出生满30天'
+        toast_text = '被保人0周岁需出生满30天';
     }
     if (toast_text) {
         mui.toast(toast_text, {duration: 'short', type: 'div'});

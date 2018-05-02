@@ -321,11 +321,15 @@
                             mui.back();
                         } else {
                             mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
-                            return false
+                            plus.webview.close('hd_insurance-index');
+                            popu.closepop();
+                            mui.back();
                         }
                     } else {
                         mui.toast('承保失败', {duration: 'short', type: 'div'})
-                        return false
+                        plus.webview.close('hd_insurance-index');
+                        popu.closepop();
+                        mui.back();
                     }
                 }
             });

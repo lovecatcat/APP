@@ -20,6 +20,7 @@ var cjb = 'LA073'; //传家宝
 
 var zrwnzh = 'LBD0001' //转入万能账户
 
+var typename = {'LAA0001': '身份证', 'LAA0002': '户口本', 'LAA0005': '出生证'}
 var ISASSURED = 'LAC0001'; //被保人是本人
 var COUPLE = 'LAC0002';//投被保人为配偶
 var BCOUPLE = 'LAN0002';//受益人与被保人为配偶
@@ -569,6 +570,8 @@ var getOccu = function (id, cb) {
     });
 };
 var AssuSameApplAddress = function (assu,applicant) {
+    assu.insured_home_province = '20'//现在住址【省】
+    assu.insured_home_city = '323'//现在住址【市】
     assu.insured_home_district = applicant.holder_home_district
     assu.insured_home_district_name = applicant.holder_home_district_name
     assu.insured_home_address = applicant.holder_home_address

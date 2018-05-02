@@ -23,7 +23,14 @@
                 <button class="ins-btn sm-btn blue" id="saveGoods">保存</button>
             </div>
         </div>
-        <div class="form-content margin-t-6_125 BL-pad-b-2" v-cloak>
+        <div class="form-content margin-t-5_125 BL-pad-b-2" v-cloak>
+            <div class="input-item BL-bg-fff">
+                <div class="ins-lh-alone">总保费(元)</div>
+                <div class="BL-ub BL-ub-pj BL-ub-f1">
+                    <div class="input-wrap BL-ub-f1"></div>
+                    <div class="ins-lh-alone BL-col-ff8201">{{totalFee}}</div>
+                </div>
+            </div>
             <div class="form-wrap">
                 <div class="input-item">
                     <label class="">险种</label>
@@ -437,6 +444,7 @@
                     '5000': '5000',
                     '10000': '10000'
                 },
+                totalFee: '',
                 insurances: [], //保存的险种
                 Addons: {}, //所有附加险
                 hasAddons: false, //是否有附加险
@@ -531,7 +539,7 @@
                 if (mainSyAttr.length === 1) {
                     vm.insurance.safe_year = mainSyAttr[0].year
                 } else {
-                    vm.insurance.safe_year = ''
+                    vm.insurance.safe_year = init ? vm.insurance.safe_year : ''
                 }
                 vm.safe_year = mainSyAttr;
 
@@ -544,7 +552,7 @@
                 if (mainPyAttr.length === 1) {
                     vm.insurance.pay_year = mainPyAttr[0].pay_year;
                 } else {
-                    vm.insurance.pay_year = '';
+                    vm.insurance.pay_year = init ? vm.insurance.pay_year : '';
                 }
                 vm.pay_year = mainPyAttr;
                 //对应的附加险
@@ -558,6 +566,13 @@
                 if (init && vm.insurances.length > 0) {
                     console.log('初始化险种')
                     var insurance = vm.insurances[0]
+                    if (safeid === insurance.safe_id) {
+//                        var tml = {
+//                            safe_year: insurance.safe_year,
+//                            pay_year: insurance.pay_year,
+//                            money: insurance.money
+//                        }
+//                        vm.insurance = deepClone(tml)
                     if (safecode === insurance.code) {
                         var tml = {
                             safe_year: insurance.safe_year,
@@ -698,10 +713,10 @@
                     }
                     tml.money = ''
                 }
-                console.log('设置附加险,ID:' + i)
+//                console.log('设置附加险,ID:' + i)
                 vm.addonIns[i] = tml
                 if (init) {
-                    console.log('初始化附加险')
+                    console.log('设置附加险,ID:' + i +'init:'+init)
                     var kitem = {}
                     for (var k in vm.insurances) {
                         kitem = vm.insurances[k]
@@ -714,7 +729,7 @@
                                 code: kitem.code,
                                 safe_year: kitem.safe_year,
                                 pay_year: kitem.pay_year,
-                                money: kitem.money,
+                                money: parseInt(kitem.money),
                                 period_money: kitem.period_money
                             }
                             vm.calMoney(i)
@@ -953,6 +968,7 @@
                     main.guarantee_term = vm.insurance.guarantee_term
                 }
                 basedata.productInfo.push(main)
+                console.log(JSON.stringify(basedata))
                 //是附加险
                 if (index) {
                     if (!vm.checkAddonsForm(index)) {
@@ -1091,6 +1107,18 @@
                     return false
                 }
                 return true
+            },
+            countFee: function() {
+                var sum = 0
+                if (this.insurance.period_money) {
+                    sum += Number(this.insurance.period_money)
+                }
+                for (var i in this.addonsSelected) {
+                    if (this.addonsSelected[i]) {
+                        sum += Number(this.addonIns[i].period_money)
+                    }
+                }
+                this.totalFee = sum
             }
         }
     });
@@ -1106,13 +1134,11 @@
         var applicant = plus.storage.getItem('hengda_applicant') ? JSON.parse(plus.storage.getItem('hengda_applicant')) : ''
         var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')) : ''
         var goods = plus.storage.getItem('hengda_safegoods') ? JSON.parse(plus.storage.getItem('hengda_safegoods')) : ''
-        console.log('++++++++++++')
-        console.log(plus.storage.getItem('hengda_safegoods'));
         if(goods){
             safe.insurances = goods
             mui.each(goods,function (index,item) {
                 if(item.is_main){
-                    safe.insurance = Object.assign(safe.insurance, item)
+                    safe.insurance = deepClone(item)
                 }
             })
         }
@@ -1186,6 +1212,7 @@
                                 })
                             }
                         });
+                        console.log(JSON.stringify(data))
                         safegoods.setData(data);
                         //
                         mui.each(data, function (index, item) {

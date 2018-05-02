@@ -40,6 +40,10 @@
             // 关闭遮罩层，弹框
             popu.closepop();
         });
+        plus.key.addEventListener('backbutton', function(){
+        	// 关闭遮罩层，弹框
+            popu.closepop();
+        });
         //从相册中选择
         mui('body').on('tap', '#choose-photo', function () {
             plus.gallery.pick(function (path) {

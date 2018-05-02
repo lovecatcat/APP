@@ -56,7 +56,7 @@
                         <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读<a class="BL-col-3b9cf5" type="button" @tap="showStatement"><strong>《{{main_insurance.name}}保险条款》</strong></a>、和<a type="button" id="safenotice"
                                 class="BL-col-3b9cf5"><strong>《投保提示书》</strong></a>、<a type="button" id="statement"
                                 class="BL-col-3b9cf5"><strong>《自动转账授权说明》</strong></a>，并确认无误
-                            <input name="checkbox" value="Item1" type="checkbox" style="top: 20px; left: 0px;">
+                            <input name="checkbox" v-model="agree" type="checkbox" style="top: 20px; left: 0px;">
                         </label>
                     </div>
                 </div>
@@ -178,6 +178,10 @@
         });
         //保存
         document.querySelector('#saveSign').addEventListener('tap', function () {
+            if (!img.agree) {
+                mui.toast("请确认阅读相关条款声明并同意转账授权与声明", {duration: 'long', type: 'div'})
+                return false;
+            }
             if (!img.checkForm()) {
                 return false
             }
@@ -194,10 +198,11 @@
                 timeout: 10000,
                 success: function (res) {
                     if (res.code) {
-                        mui.toast('核保中...', {duration: 'short', type: 'div'})
+                        mui.toast('核保中...', {duration: 'long', type: 'div'})
                         online_ins()
                     } else {
                         mui.toast("该被保人有正在处理的保单，请稍后再次尝试。", {duration: 'long', type: 'div'})
+                        return false;
                     }
                 }
             });
@@ -211,7 +216,7 @@
         mui('body').on('tap', '.btn-copy', function (e) {
             var copy_url = this.getAttribute('data-url')
             if (Clipbord(copy_url)) {
-                mui.toast("复制成功", {duration: 'short', type: 'div'})
+                mui.toast("复制成功", {duration: 'long', type: 'div'})
             }
         });
 
@@ -231,17 +236,17 @@
                 success: function (res) {
                     if (res.code) {
                         if (res.data.resultCode === '00') {
-                            mui.toast('自核通过，影像上传中', {duration: 'short', type: 'div'})
+                            mui.toast('自核通过，影像上传中', {duration: 'long', type: 'div'})
                             upload_img(img.war_id)
                         } else if (res.data.resultCode === '02') {
-                            mui.toast('进入人工核保，影像上传中', {duration: 'short', type: 'div'})
+                            mui.toast('进入人工核保，影像上传中', {duration: 'long', type: 'div'})
                             upload_img(img.war_id)
                         } else {
-                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
+                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
                             return false
                         }
                     } else {
-                        mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
+                        mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
                         return false
                     }
                 }
@@ -268,15 +273,15 @@
                     }
                     if (res.code) {
                         if (res.data.resultCode === '00') {
-                            mui.toast('上传成功，承保中', {duration: 'short', type: 'div'})
+                            mui.toast('上传成功，承保中', {duration: 'long', type: 'div'})
                             ins_pay(id)
                             return false
                         } else {
-                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
+                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
                             return false
                         }
                     } else {
-                        mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
+                        mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
                         return false
                     }
                 }
@@ -299,7 +304,7 @@
                 success: function (res) {
                     if (res.code) {
                         if (res.data.resultCode === '00') {
-                            mui.toast('承保成功', {duration: 'short', type: 'div'});
+                            mui.toast('承保成功', {duration: 'long', type: 'div'});
                             //清除本地缓存
                             for (var i = 0; i < itemName.length; i++) {
                                 plus.storage.removeItem(itemName[i])
@@ -309,7 +314,7 @@
                             popu.closepop();
                             mui.back();
                         } else if (res.data.resultCode === '02') {
-                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'});
+                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
                             //清除本地缓存
                             for (var i = 0; i < itemName.length; i++) {
                                 plus.storage.removeItem(itemName[i])
@@ -319,13 +324,13 @@
                             popu.closepop();
                             mui.back();
                         } else {
-                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
+                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
                             plus.webview.close('hd_insurance-index');
                             popu.closepop();
                             mui.back();
                         }
                     } else {
-                        mui.toast('承保失败', {duration: 'short', type: 'div'})
+                        mui.toast('承保失败', {duration: 'long', type: 'div'})
                         plus.webview.close('hd_insurance-index');
                         popu.closepop();
                         mui.back();
@@ -405,6 +410,7 @@
         el: '#Js-content',
         data:function() {
             return {
+                agree: false,
                 pdfurl: '',
                 main_insurance: '',
                 war_id: '',

@@ -112,6 +112,7 @@
                 var pid = plus.webview.currentWebview().policy_id;
                 console.log(pid)
                 if (pid) {
+                    document.getElementById('resetData').style.display = 'none'
                     this.pid = pid
                     plus.storage.setItem('hengda_ids', JSON.stringify({policy_id: pid}));
                     checkStatus(pid)
@@ -141,6 +142,7 @@
                     var assu_data = {}
                     var bene_data = null
                     var safe_data = []
+                    var health_data = []
                     var bank_data = {}
                     var upload_data = {}
                     luckyAjax({
@@ -237,60 +239,85 @@
                                 if (da.insData.is_legal_benefic) {
                                     bene_data = 1
                                 } else {
-                                    var bitem = {}
-                                    bene_data = []
-                                    for(var b in da.beneficList){
-                                        console.log(b)
-                                        bitem = da.beneficList[b]
-                                        bene_data.push({
-                                            beneficiary_is_insured: bitem.beneficiary_is_insured,//与被保人关系
-                                            fullname: bitem.fullname,//姓名
-                                            ID_type: bitem.ID_type,//证件类型
-                                            ID_no: bitem.ID_no,//证件号码
-                                            ID_expire_end: bitem.ID_expire_end,//证件有效期
-                                            gender: bitem.gender,//性别
-                                            birthday: bitem.birthday,//出生日期
-                                            zip: bitem.zip,//邮编
-                                            sort_order: bitem.sort_order,//受益顺序
-                                            rate: bitem.rate,//受益比例
-                                            type: SY_TYPE,//受益类型：身故
-                                            addr_type: bitem.addr_type,//地址类型 1同投保人 2同被保人 3否
-                                            province: bitem.province,
-                                            city: bitem.city,
-                                            district: bitem.district,
-                                            address: bitem.address,//详细地址
-                                            ID_type_name: typename[bitem.ID_type],//证件类型名称
-                                            address_select: bitem.province_text + ' ' + bitem.city_text + ' ' + bitem.district_text
-                                        })
+                                    if (!da.beneficList.length) {
+                                        bene_data = ''
+                                        plus.storage.removeItem('hengda_beneficiary')
+                                    } else {
+                                        var bitem = {}
+                                        bene_data = []
+                                        for(var b in da.beneficList){
+                                            console.log(b)
+                                            bitem = da.beneficList[b]
+                                            bene_data.push({
+                                                beneficiary_is_insured: bitem.beneficiary_is_insured,//与被保人关系
+                                                fullname: bitem.fullname,//姓名
+                                                ID_type: bitem.ID_type,//证件类型
+                                                ID_no: bitem.ID_no,//证件号码
+                                                ID_expire_end: bitem.ID_expire_end,//证件有效期
+                                                gender: bitem.gender,//性别
+                                                birthday: bitem.birthday,//出生日期
+                                                zip: bitem.zip,//邮编
+                                                sort_order: bitem.sort_order,//受益顺序
+                                                rate: bitem.rate,//受益比例
+                                                type: SY_TYPE,//受益类型：身故
+                                                addr_type: bitem.addr_type,//地址类型 1同投保人 2同被保人 3否
+                                                province: bitem.province,
+                                                city: bitem.city,
+                                                district: bitem.district,
+                                                address: bitem.address,//详细地址
+                                                ID_type_name: typename[bitem.ID_type],//证件类型名称
+                                                address_select: bitem.province_text + ' ' + bitem.city_text + ' ' + bitem.district_text
+                                            })
+                                        }
                                     }
                                 }
                                 //险种信息
-                                var sitem = {}
-                                for(var s in da.contentList) {
-                                    sitem = da.contentList[s]
-                                    console.log(JSON.stringify(sitem))
-                                    var pdata = {}
-                                    pdata = {
-                                        is_main: sitem.is_main,
-                                        safe_id: sitem.product_id,
-                                        code: sitem.code,
-                                        safe_year: sitem.period_guanantee,
-                                        pay_year: sitem.period_payment,
-                                        money: sitem.amount, // 基本保险金额
-                                        period_money: sitem.fee, // 年交保费
-                                        guarantee_term: sitem.extend_items.guarantee_term,//年金保障年限  20 30
-                                        draw_freq: sitem.extend_items.draw_freq,//生存金领取方式 年领 月领
-                                        draw_age: sitem.extend_items.draw_age,//年金领取年龄
-                                        shareDrawType: sitem.extend_items.shareDrawType,//分红领取方式 累计生息 转入万能账户 现金领取
-                                        autoApl: sitem.extend_items.autoApl === '1' ? true : false //是否自动垫交
+                                if (!da.contentList.length) {
+                                    safe_data = ''
+                                    plus.storage.removeItem('hengda_safegoods');
+                                } else {
+                                    var sitem = {}
+                                    for (var s in da.contentList) {
+                                        sitem = da.contentList[s]
+                                        console.log(JSON.stringify(sitem))
+                                        var pdata = {}
+                                        pdata = {
+                                            is_main: sitem.is_main,
+                                            safe_id: sitem.product_id,
+                                            code: sitem.code,
+                                            safe_year: sitem.period_guanantee,
+                                            pay_year: sitem.period_payment,
+                                            money: sitem.amount, // 基本保险金额
+                                            period_money: sitem.fee // 年交保费
+                                        }
+                                        if (sitem.is_main) {
+                                            pdata.name = da.insData.product_name
+                                            pdata.guarantee_term = sitem.extend_items.guarantee_term//年金保障年限  20 30
+                                            pdata.draw_freq = sitem.extend_items.draw_freq//生存金领取方式 年领 月领
+                                            pdata.draw_age = sitem.extend_items.draw_age//年金领取年龄
+                                            pdata.shareDrawType = sitem.extend_items.shareDrawType//分红领取方式 累计生息 转入万能账户 现金领取
+                                            pdata.autoApl = sitem.extend_items.autoApl === '1' ? true : false //是否自动垫交
+                                        }
+                                        safe_data.push(pdata)
                                     }
-                                    if (sitem.is_main) {
-                                        pdata.name = da.insData.product_name
-                                    }
-                                    safe_data.push(pdata)
                                 }
-                                console.log('===========')
-                                console.log(JSON.stringify(bene_data))
+                                //健康告知
+                                if (!da.matterList.length) {
+                                    health_data = ''
+                                    plus.storage.removeItem('hengda_healthinfo');
+                                } else {
+                                    var hitem = {}
+                                    for(var h in da.matterList) {
+                                        hitem = da.matterList[h]
+                                        health_data.push({
+                                            mv_id: hitem.mv_id,
+                                            insured_answer: hitem.insured_answer.toString(),
+                                            holder_answer: hitem.holder_answer.toString(),
+                                            insured_fields: hitem.insured_fields,
+                                            holder_fields: hitem.holder_fields
+                                        })
+                                    }
+                                }
                                 //银行信息
                                 bank_data.agree = false
                                 bank_data.bank_holder = da.insData.holder_name //户名
@@ -307,9 +334,10 @@
                                 if (bene_data === 1) {
                                     plus.storage.setItem('hengda_beneficiary', '1');
                                 } else {
-                                    plus.storage.setItem('hengda_beneficiary', JSON.stringify(bene_data));
+                                    bene_data && plus.storage.setItem('hengda_beneficiary', JSON.stringify(bene_data));
                                 }
-                                plus.storage.setItem('hengda_safegoods', JSON.stringify(safe_data));
+                                safe_data && plus.storage.setItem('hengda_safegoods', JSON.stringify(safe_data));
+                                health_data && plus.storage.setItem('hengda_healthinfo', JSON.stringify(health_data));
                                 plus.storage.setItem('hengda_bank', JSON.stringify(bank_data));
                                 plus.storage.setItem('hengda_upload', JSON.stringify(upload_data));
                                 console.log('edit-over')
@@ -488,12 +516,7 @@
         function setPushData(war_id) {
             console.log(war_id)
             var toast_text = null
-            if (war_id) {
-                console.log('deleteItem')
-                war_id && deleteItem(war_id, '', 'content')
-                war_id && deleteItem(war_id, '', 'beneficiary')
-                war_id && deleteItem(war_id, '', 'matter_value')
-            } else {
+            if (!war_id) {
                 war_id = ''
             }
             //保存前再次校验
@@ -536,7 +559,7 @@
             pushdata.id = war_id
             pushdata.supplier_id = SCID
             pushdata.ins_area = '323' //深圳
-            pushdata.sales_channel = index.userinfo.channel_id.toString()
+            pushdata.sales_channel = '2'
             pushdata.is_first = '1'
             pushdata.user_id = index.userinfo.id
             //投保人信息
@@ -620,8 +643,15 @@
             console.log('==================')
             console.log(JSON.stringify(pushdata.content))
 //            console.log(JSON.stringify(pushdata))
-
-            save_ins(pushdata);
+            if (war_id) {
+                console.log('deleteItem')
+                war_id && deleteItem(war_id, '', 'content')
+                war_id && deleteItem(war_id, '', 'beneficiary')
+                war_id && deleteItem(war_id, '', 'matter_value')
+            }
+            setTimeout(function () {
+                save_ins(pushdata);
+            },3000)
         };
         //删除保存的某条数据
         function deleteItem(war_id, itemId, type) {
@@ -630,6 +660,7 @@
                     data: JSON.stringify({"table": type, "id": itemId, "policy_id": war_id}),
                     server: 'PolicyIns.deleteInsInfo'
                 },
+                closeWaiting: false,
                 success: function (res) {
                     if (res.code) {
                         //

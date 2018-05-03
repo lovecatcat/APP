@@ -539,7 +539,6 @@
                 mui.toast('投被保人性别与关系不符', {duration: 'short', type: 'div'});
                 return false;
             }
-            saveTemp(assu.assured)
             plus.storage.setItem('hengda_assured',JSON.stringify(assu.assured));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'hengda_assured',

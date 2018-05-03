@@ -106,7 +106,7 @@
                                 document.getElementById('Js-integ').innerHTML = data.pay_points
                                 document.getElementById('Js-phone').innerHTML = data.tel
                                 document.getElementById('Js-ID').innerHTML = data.card_no
-                                document.getElementById('Js-address').innerHTML = data.contact_province_text + data.contact_city_text + data.contact_district_text + data.home_address
+                                document.getElementById('Js-address').innerHTML = data.contact_province_text ? (data.contact_province_text + data.contact_city_text + data.contact_district_text + data.contact_address) : (data.home_province_text + data.home_city_text + data.home_district_text + data.home_address)
                                 document.getElementById('Js-birthday').innerHTML = data.birthday
                             } else {
                                 mui.alert(data.msg, '提示', function() {
@@ -129,7 +129,7 @@
                                 document.getElementById('Js-integ').innerHTML = data.pay_points
                                 document.getElementById('Js-phone').innerHTML = data.tel
                                 document.getElementById('Js-ID').innerHTML = data.card_no
-                                document.getElementById('Js-address').innerHTML = data.home_address
+                                document.getElementById('Js-address').innerHTML = data.contact_province_text ? (data.contact_province_text + data.contact_city_text + data.contact_district_text + data.contact_address) : (data.home_province_text + data.home_city_text + data.home_district_text + data.home_address)
                                 document.getElementById('Js-birthday').innerHTML = data.birthday
                             } else {
                                 mui.alert(data.msg, '提示', function() {

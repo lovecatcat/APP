@@ -194,7 +194,7 @@
                 timeout: 10000,
                 success: function (res) {
                     if (res.code) {
-                        mui.toast('核保中...', {duration: 'short', type: 'div'})
+                        mui.toast('核保中...', {duration: 'long', type: 'div'})
                         online_ins()
                     } else {
                         mui.toast("该被保人有正在处理的保单，请稍后再次尝试。", {duration: 'long', type: 'div'})
@@ -231,17 +231,17 @@
                 success: function (res) {
                     if (res.code) {
                         if (res.data.resultCode === '00') {
-                            mui.toast('自核通过，影像上传中', {duration: 'short', type: 'div'})
+                            mui.toast('自核通过，影像上传中', {duration: 'long', type: 'div'})
                             upload_img(img.war_id)
                         } else if (res.data.resultCode === '02') {
-                            mui.toast('进入人工核保，影像上传中', {duration: 'short', type: 'div'})
+                            mui.toast('进入人工核保，影像上传中', {duration: 'long', type: 'div'})
                             upload_img(img.war_id)
                         } else {
-                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
+                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
                             return false
                         }
                     } else {
-                        mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
+                        mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
                         return false
                     }
                 }
@@ -268,15 +268,15 @@
                     }
                     if (res.code) {
                         if (res.data.resultCode === '00') {
-                            mui.toast('上传成功，承保中', {duration: 'short', type: 'div'})
+                            mui.toast('上传成功，承保中', {duration: 'long', type: 'div'})
                             ins_pay(id)
                             return false
                         } else {
-                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
+                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
                             return false
                         }
                     } else {
-                        mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
+                        mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
                         return false
                     }
                 }
@@ -299,36 +299,44 @@
                 success: function (res) {
                     if (res.code) {
                         if (res.data.resultCode === '00') {
-                            mui.toast('承保成功', {duration: 'short', type: 'div'});
+                            mui.toast('承保成功', {duration: 'long', type: 'div'});
                             //清除本地缓存
                             for (var i = 0; i < itemName.length; i++) {
                                 plus.storage.removeItem(itemName[i])
                             }
                             //
-                            plus.webview.close('hd_insurance-index');
-                            popu.closepop();
-                            mui.back();
+                            setTimeout(function () {
+                                plus.webview.close('hd_insurance-index');
+                                popu.closepop();
+                                mui.back();
+                            }, 3500)
                         } else if (res.data.resultCode === '02') {
-                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'});
+                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
                             //清除本地缓存
                             for (var i = 0; i < itemName.length; i++) {
                                 plus.storage.removeItem(itemName[i])
                             }
                             //
-                            plus.webview.close('hd_insurance-index');
-                            popu.closepop();
-                            mui.back();
+                            setTimeout(function () {
+                                plus.webview.close('hd_insurance-index');
+                                popu.closepop();
+                                mui.back();
+                            }, 3500)
                         } else {
-                            mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'})
-                            plus.webview.close('hd_insurance-index');
-                            popu.closepop();
-                            mui.back();
+                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
+                            setTimeout(function () {
+                                plus.webview.close('hd_insurance-index');
+                                popu.closepop();
+                                mui.back();
+                            }, 3500)
                         }
                     } else {
-                        mui.toast('承保失败', {duration: 'short', type: 'div'})
-                        plus.webview.close('hd_insurance-index');
-                        popu.closepop();
-                        mui.back();
+                        mui.toast('承保失败', {duration: 'long', type: 'div'})
+                        setTimeout(function () {
+                            plus.webview.close('hd_insurance-index');
+                            popu.closepop();
+                            mui.back();
+                        }, 3500)
                     }
                 }
             });

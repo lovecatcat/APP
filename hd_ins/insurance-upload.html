@@ -118,6 +118,9 @@
             assu_born_img: '', // 被保人出生证
             bank_front_img: '' //银行卡
         },
+        created:function () {
+            console.log(2)
+        },
         methods: {
             sure: function () {
                 var toastText = null
@@ -160,8 +163,8 @@
     ]
     mui.plusReady(function () {
         popu = new ClosePopu(); // 实例化关闭窗口对象
-
         var upload = plus.storage.getItem('hengda_upload') ? JSON.parse(plus.storage.getItem('hengda_upload')) : ''
+        console.log(JSON.stringify(upload))
         var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')) : ''
         img.assured = assured
         //赋值
@@ -182,11 +185,13 @@
             var j = i === '08' ? 6 : Number(i)
             if (upload && upload[i]) {
                 img[tempName[i]] = upload[i]
+                console.log(img[tempName[i]])
                 img.$set(img.previewImg, j, {
                     'backgroundImage': 'url(' + upload[i] + ')'
                 })
             }
         }
+
         //安卓监听返回事件
         plus.key.addEventListener("backbutton",function(){
             popu.closepop();

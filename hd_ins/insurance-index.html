@@ -228,8 +228,8 @@
                                     assu_data.insured_has_SSID = da.insured.insured_has_SSID === has_social_security ? true : false//是否有社保
                                     assu_data.insured_marriage = da.insured.insured_marriage//婚姻状况
                                     assu_data.insured_job_code = da.insured.insured_job_code//职业
-                                    assu_data.temp_insured_job_code = da.insured.insured_job_code[da.insured.insured_job_code.length-1]//职业代码
-                                    assu_data.insured_job_name = ''//职业名称
+                                    assu_data.temp_insured_job_code = da.insured.insured_job_code_code//职业代码
+                                    assu_data.insured_job_name = da.insured.insured_job_code_text//职业名称
                                     assu_data.insured_isTaxResidents = TAXTYPE//税收标识
                                 }
                                 console.log(JSON.stringify(assu_data))
@@ -268,9 +268,9 @@
                                 for(var s in da.contentList) {
                                     sitem = da.contentList[s]
                                     console.log(JSON.stringify(sitem))
-                                    safe_data.push({
+                                    var pdata = {}
+                                    pdata = {
                                         is_main: sitem.is_main,
-                                        name: '请选择',//主险名称
                                         safe_id: sitem.product_id,
                                         code: sitem.code,
                                         safe_year: sitem.period_guanantee,
@@ -282,7 +282,11 @@
                                         draw_age: sitem.extend_items.draw_age,//年金领取年龄
                                         shareDrawType: sitem.extend_items.shareDrawType,//分红领取方式 累计生息 转入万能账户 现金领取
                                         autoApl: sitem.extend_items.autoApl === '1' ? true : false //是否自动垫交
-                                    })
+                                    }
+                                    if (sitem.is_main) {
+                                        pdata.name = da.insData.product_name
+                                    }
+                                    safe_data.push(pdata)
                                 }
                                 console.log(JSON.stringify(safe_data))
                                 //银行信息
@@ -292,13 +296,9 @@
                                 bank_data.temp_bank_name = da.insData.bank_name_text //开户行名称
                                 bank_data.bank_no = da.insData.bank_no//卡号
                                 //证件照
-                                upload_data.appl_front_img = da.insData.img_json['00']  // 投保人身份证正面
-                                upload_data.assu_front_img = da.insData.img_json['02']  // 被保人身份证正面
-                                upload_data.appl_negative_img = da.insData.img_json['01'] // 投保人身份证反面
-                                upload_data.assu_negative_img = da.insData.img_json['03'] // 被保人身份证反面
-                                upload_data.assu_booklet_img = da.insData.img_json['04'] // 被保人户口本
-                                upload_data.assu_born_img = da.insData.img_json['05'] // 被保人出生证
-                                upload_data.bank_front_img = da.insData.img_json['08'] //银行卡
+                                for (var i in da.insData.img_json) {
+                                    upload_data[i] = config.domain + da.insData.img_json[i]
+                                }
                                 //存
                                 plus.storage.setItem('hengda_applicant',JSON.stringify(appl_data));
                                 plus.storage.setItem('hengda_assured',JSON.stringify(assu_data));

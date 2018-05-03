@@ -566,13 +566,14 @@
                 if (init && vm.insurances.length > 0) {
                     console.log('初始化险种')
                     var insurance = vm.insurances[0]
+                    console.log(JSON.stringify(vm.insurance))
                     if (safecode === insurance.code) {
-                        var tml = {
-                            safe_year: insurance.safe_year,
-                            pay_year: insurance.pay_year,
-                            money: insurance.money
-                        }
-                        vm.insurance = deepClone(tml)
+//                        var tml = {
+//                            safe_year: insurance.safe_year,
+//                            pay_year: insurance.pay_year,
+//                            money: insurance.money
+//                        }
+//                        vm.insurance = deepClone(tml)
                         vm.$nextTick(function(){
                             if (vm.insurances.length === 1) {
                                 vm.calMoney()
@@ -929,7 +930,7 @@
                 document.activeElement.blur();
                 console.log('试算中');
                 var vm = this
-                var id = vm.insurance.code.toString();
+                var id = vm.insurance.code;
                 if (!vm.checkForm()) {
                     return false
                 }
@@ -999,14 +1000,14 @@
                         if (res.code && res.data) {
                             var data = res.data
                             if (data.result === 'success') {
-//                                console.log('cal-success')
+                                  console.log('cal-success')
                                 if (index) {
-//                                    console.log('试算附加险' + index + '成功')
+                                      console.log('试算附加险' + index + '成功')
                                     //试算附加险成功
                                     vm.addonIns[index].period_money = data.data.product[1].premium;
                                     vm.$forceUpdate()
                                 } else {
-//                                    console.log('试算主险' + index + '成功')
+                                      console.log('试算主险' + index + '成功')
                                     if (id === fxjs || id === wnh) {
                                         vm.insurance.money = data.data.product[0].amount.substr(0, data.data.product[0].amount.length - 1);
                                     } else {
@@ -1018,7 +1019,7 @@
                                 vm.countFee()
                                 vm.$forceUpdate()
                             } else {
-//                                console.log('cal-failure')
+                                  console.log('cal-failure')
                                 if (index) {
                                     vm.addonIns[index].period_money = ''
                                 } else {

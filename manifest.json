@@ -2739,7 +2739,8 @@
 				"resources": [
 					"images/icon/ico-cmis-success.png",
 					"css/mui.css",
-					"css/form.css"
+					"css/form.css",
+					"images/icon/ico-cmis-fail.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -2990,6 +2991,15 @@
 				],
 				"refer": [],
 				"priority": 0
+			},
+			"guide.html": {
+				"resources": [
+					"css/mui.min.css",
+					"images/index/guide_2.jpg",
+					"images/index/guide_1.jpg"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {
@@ -2999,7 +3009,6 @@
 				"receipt-1.html",
 				"receipt-2.html",
 				"images/pic/p8.jpg",
-				"css/mui.min.css",
 				"receipt-3.html",
 				"images/icon/icon-upload-big.png",
 				"css/mui.poppicker.css",

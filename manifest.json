@@ -379,7 +379,10 @@
 					"images/icon/ico-contact.png",
 					"js/mui.js",
 					"js/cacheImg.js",
-					"images/pic/default-banner.png"
+					"images/pic/default-banner.png",
+					"images/index/ico-5.png",
+					"images/index/ico-6.png",
+					"images/index/ico-7.png"
 				],
 				"refer": [
 					"sns.html",
@@ -862,11 +865,13 @@
 					"js/Date.js",
 					"js/vue.min.js",
 					"js/browser.min.js",
-					"images/icon/ico-cmis-salary.png"
+					"images/icon/ico-cmis-salary.png",
+					"images/icon/ico-cmis-rule.png"
 				],
 				"refer": [
 					"member-commission-incomelist.html",
-					"member-commission-salarylist.html"
+					"member-commission-salarylist.html",
+					"member-commisson-rule.html"
 				],
 				"priority": 0
 			},
@@ -2972,6 +2977,16 @@
 				"resources": [
 					"css/mui.css",
 					"css/news.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-commisson-rule.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"css/mui.css",
+					"css/member.css"
 				],
 				"refer": [],
 				"priority": 0

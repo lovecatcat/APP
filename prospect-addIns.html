@@ -1566,7 +1566,7 @@
 						<!--复星-->
 						<!--招商仁和-->
 						<!--附加豁免保险费重大 疾病保险-->
-						<template v-if="item.code === '1002' && addonRes[item.code]">
+						<template v-if="(item.code === '1002' || item.code === '1011') && addonRes[item.code]">
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs">
@@ -1591,6 +1591,208 @@
 							</div>
 						</template>
 						<!--附加豁免保险费重大 疾病保险-->
+						<!--附加爱倍护养老年金保险-->
+						<template v-if="item.code === '1003' && addonsSelected[item.code]">
+							<div class="form-wrap form-bgc-eee">
+								<app-input label="保险金额">
+									<input slot="input" v-model.number="cache.base_money1003" type="number" placeholder="请填写保险金额（元）" @change="flagChanged(item.code)">
+									<div slot="icon" @click="cache.base_money1003 = '' , flagChanged(item.code)" v-show="cache.base_money1003 != ''" class="form-clear-icon">
+										<span class="mui-icon mui-icon-clear"></span>
+									</div>
+								</app-input>
+								<app-select label="缴费年限(年)">
+									<button slot="button" v-for="num in ['1', '3', '5', '10', '15', '20' ]" class="ins-btn xs-btn" :class="{'blue': num == flag[item.code]}" :disabled="num == flag[item.code]" @click="flagChanged(item.code, num)">
+						             	{{num}}年
+						        	</button>
+								</app-select>
+								<app-select label="保险期间(年)">
+									<button slot="button" class="ins-btn xs-btn blue">
+						             	至85周岁
+						        	</button>
+								</app-select>
+								 
+								<div class="input-item">
+									<label class="">年缴保费(元)</label>
+									<div class="BL-ub BL-ub-pj BL-ub-f1">
+										<div class="input-wrap BL-ub-f1">
+											<div class="input BL-bg-fff">
+												<span v-if="addonRes[item.code]">
+							{{addonRes[item.code]['年缴保费']}}
+						</span>&nbsp;
+											</div>
+										</div>
+										<div class="right-btn orange" @click="calMoney(false, item.code)">点击计算</div>
+									</div>
+								</div>
+							</div>
+						</template>
+						<!--附加爱倍护养老年金保险-->
+						<!--招商仁和仁安无忧意外伤害保险-->
+						<template v-if="item.code === '1013' && addonsSelected[item.code]">
+							<div class="form-wrap form-bgc-eee">
+								<app-input label="保险金额">
+									<input slot="input" v-model.number="cache.base_money1013" type="number" placeholder="请填写保险金额（元）" @change="flagChanged(item.code)">
+									<div slot="icon" @click="cache.base_money1013 = '' , flagChanged(item.code)" v-show="cache.base_money1013 != ''" class="form-clear-icon">
+										<span class="mui-icon mui-icon-clear"></span>
+									</div>
+								</app-input>
+								<app-select label="缴费年限(年)">
+									<button slot="button" class="ins-btn xs-btn blue">
+						             	1年
+						        	</button>
+								</app-select>
+								<app-select label="保险期间(年)">
+									<button slot="button" class="ins-btn xs-btn blue">
+						             	1年
+						        	</button>
+								</app-select>
+								<div class="input-item">
+									<label class="">年缴保费(元)</label>
+									<div class="BL-ub BL-ub-pj BL-ub-f1">
+										<div class="input-wrap BL-ub-f1">
+											<div class="input BL-bg-fff">
+												<span v-if="addonRes[item.code]">
+							{{addonRes[item.code]['年缴保费']}}
+						</span>&nbsp;
+											</div>
+										</div>
+										<div class="right-btn orange" @click="calMoney(false, item.code)">点击计算</div>
+									</div>
+								</div>
+							</div>
+						</template>
+						<!--招商仁和仁安无忧意外伤害保险-->
+						<!--招商仁和附加意外门急诊医疗-->
+						<template v-if="item.code === '1015' && addonsSelected[item.code]">
+							<div class="form-wrap form-bgc-eee">
+								<app-input label="保险金额">
+									<input slot="input" v-model.number="cache.base_money1015" type="number" placeholder="请填写保险金额（元）" @change="flagChanged(item.code)">
+									<div slot="icon" @click="cache.base_money1015 = '' , flagChanged(item.code)" v-show="cache.base_money1015 != ''" class="form-clear-icon">
+										<span class="mui-icon mui-icon-clear"></span>
+									</div>
+								</app-input>
+								<app-select label="职业分类">
+									<button slot="button" v-for="num in 6" class="ins-btn xs-btn" :class="{'blue': num == flag[item.code]}" :disabled="num == flag[item.code]" @click="flagChanged(item.code, num)">
+						             	{{num}}类
+						        </button>
+								</app-select>
+								<app-select label="有无社保">
+									<button slot="button" class="ins-btn xs-btn" :class="{'blue': '1' == flag['10151']}" :disabled="'1' == flag['10151']" @click="flagChanged('10151', '1')">
+						             	有社保
+						        	</button>
+									<button slot="button" class="ins-btn xs-btn" :class="{'blue': '2' == flag['10151']}" :disabled="'2' == flag['10151']" @click="flagChanged('10151', '2')">
+						             	无社保
+						        </button> 
+								</app-select>
+								<app-select label="缴费年限(年)">
+									<button slot="button" class="ins-btn xs-btn blue">
+						             	1年
+						        	</button>
+								</app-select>
+								<app-select label="保险期间(年)">
+									<button slot="button" class="ins-btn xs-btn blue">
+						             	1年
+						        	</button>
+								</app-select>
+								<div class="input-item">
+									<label class="">年缴保费(元)</label>
+									<div class="BL-ub BL-ub-pj BL-ub-f1">
+										<div class="input-wrap BL-ub-f1">
+											<div class="input BL-bg-fff">
+												<span v-if="addonRes[item.code]">
+							{{addonRes[item.code]['年缴保费']}}
+						</span>&nbsp;
+											</div>
+										</div>
+										<div class="right-btn orange" @click="calMoney(false, item.code)">点击计算</div>
+									</div>
+								</div>
+							</div>
+						</template>
+						<!--招商仁和附加意外门急诊医疗-->
+						<!--招商仁和附加住院每日补贴医疗保险-->
+						<template v-if="item.code === '1017' && addonsSelected[item.code]">
+							<div class="form-wrap form-bgc-eee">
+								<app-input label="保险金额">
+									<input slot="input" v-model.number="cache.base_money1017" type="number" placeholder="请填写保险金额（元）" @change="flagChanged(item.code)">
+									<div slot="icon" @click="cache.base_money1017 = '' , flagChanged(item.code)" v-show="cache.base_money1017 != ''" class="form-clear-icon">
+										<span class="mui-icon mui-icon-clear"></span>
+									</div>
+								</app-input>
+								<div class="input-item  BL-col-ff8201">
+									最低30元,10的整数倍。累计不超过500元/天
+								</div>
+								<app-select label="职业分类">
+									<button slot="button" v-for="num in 6" class="ins-btn xs-btn" :class="{'blue': num == flag[item.code]}" :disabled="num == flag[item.code]" @click="flagChanged(item.code, num)">
+						             	{{num}}类
+						        </button>
+								</app-select>
+								<app-select label="缴费年限(年)">
+									<button slot="button" class="ins-btn xs-btn blue">
+						             	1年
+						        	</button>
+								</app-select>
+								<app-select label="保险期间(年)">
+									<button slot="button" class="ins-btn xs-btn blue">
+						             	1年
+						        	</button>
+								</app-select>
+								<div class="input-item">
+									<label class="">年缴保费(元)</label>
+									<div class="BL-ub BL-ub-pj BL-ub-f1">
+										<div class="input-wrap BL-ub-f1">
+											<div class="input BL-bg-fff">
+												<span v-if="addonRes[item.code]">
+							{{addonRes[item.code]['年缴保费']}}
+						</span>&nbsp;
+											</div>
+										</div>
+										<div class="right-btn orange" @click="calMoney(false, item.code)">点击计算</div>
+									</div>
+								</div>
+							</div>
+						</template>
+						<!--招商仁和附加住院每日补贴医疗保险-->
+						<!--招商仁和仁医保费用补偿医疗保险-->
+						<template v-if="item.code === '1018' && addonsSelected[item.code]">
+							<div class="form-wrap form-bgc-eee">
+								<app-input label="保险金额">
+									<input slot="input" v-model.number="cache.base_money1018" type="number" placeholder="请填写保险金额（元）" @change="flagChanged(item.code)">
+									<div slot="icon" @click="cache.base_money1018 = '' , flagChanged(item.code)" v-show="cache.base_money1018 != ''" class="form-clear-icon">
+										<span class="mui-icon mui-icon-clear"></span>
+									</div>
+								</app-input>
+								<app-select label="职业分类">
+									<button slot="button" v-for="num in 6" class="ins-btn xs-btn" :class="{'blue': num == flag[item.code]}" :disabled="num == flag[item.code]" @click="flagChanged(item.code, num)">
+						             	{{num}}类
+						        </button>
+								</app-select>
+								<app-select label="缴费年限(年)">
+									<button slot="button" class="ins-btn xs-btn blue">
+						             	1年
+						        	</button>
+								</app-select>
+								<app-select label="保险期间(年)">
+									<button slot="button" class="ins-btn xs-btn blue">
+						             	1年
+						        	</button>
+								</app-select>
+								<div class="input-item">
+									<label class="">年缴保费(元)</label>
+									<div class="BL-ub BL-ub-pj BL-ub-f1">
+										<div class="input-wrap BL-ub-f1">
+											<div class="input BL-bg-fff">
+												<span v-if="addonRes[item.code]">
+							{{addonRes[item.code]['年缴保费']}}
+						</span>&nbsp;
+											</div>
+										</div>
+										<div class="right-btn orange" @click="calMoney(false, item.code)">点击计算</div>
+									</div>
+								</div>
+							</div>
+						</template>
+						<!--招商仁和仁医保费用补偿医疗保险-->
 						<!--招商仁和-->
 					</div>
 				</template>
@@ -1614,7 +1816,7 @@
 		const mustSelected = ['291', '177', '11', 'RSD', 'RSC', '349', '8111'] // 必须附加的附加险
 		//		const noNeedCal = ['291', '11', '349', '12E20010', 'LA073', 'DAR'] // 不需要计算的险种
 		const noNeedCal = ['291', '11', '349'] // 不需要计算的险种
-		const directNeedCal = ['RH7B', 'WPJP', 'HB024', 'RSD', '1161', '1168', '1165', '116502', '116503', '404', 'JCR', 'HI', 'ACIWP', 'NWPD', '33F00030', 'JER', 'FXKLYSFJ', 'FJKLYSQZ', 'LA073', 'WRGP', '1002'] // 直接 计算的险种
+		const directNeedCal = ['RH7B', 'WPJP', 'HB024', 'RSD', '1161', '1168', '1165', '116502', '116503', '404', 'JCR', 'HI', 'ACIWP', 'NWPD', '33F00030', 'JER', 'FXKLYSFJ', 'FJKLYSQZ', 'LA073', 'WRGP', '1002', '1011'] // 直接 计算的险种
 		var user_id;
 		var pushData;
 		var parent_self;
@@ -1671,7 +1873,11 @@
 					base_moneyCBR: '',
 					base_moneyPGR: '',
 					base_moneyAMR: '',
-					base_moneyTLR: ''
+					base_moneyTLR: '',
+					base_money1003:'',
+					base_money1013:'',
+					base_money1015:'',
+					base_money1017:'',
 				},
 				mainPayYear: '',
 				mainSafeYear: '',

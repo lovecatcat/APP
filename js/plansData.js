@@ -448,7 +448,6 @@
 							children_safe_year = "终身";
 							children_year_fee = 100;
 							break;
-
 						case '16205':
 							//安心医疗
 							var hdFufee;
@@ -468,10 +467,47 @@
 							break;
 						//招商仁和
 						case '16120':
+						case '16137':
 							//附加豁免保险费重大 疾病保险
+							//附加投保人豁免定期寿险
 							children_base_money = year_fee;
 							children_safe_year = "终身";
-							children_pay_year = content.pay_year == 6000 ? '至59周岁' : content.pay_year -1; 
+							children_pay_year = pay_year == 6000 ? '至59周岁' : pay_year -1; 
+							children_year_fee = list["年缴保费"];
+							break;
+						case '16119':
+							//附加爱倍护养老年金保险 
+							children_base_money = list["保险金额"];
+							children_safe_year = "至85周岁";
+							children_pay_year = list["缴费年限"]; 
+							children_year_fee = list["年缴保费"];
+							break;
+						case '16139':
+							//招商仁和仁安无忧意外伤害保险
+							children_base_money = list["保险金额"];
+							children_safe_year = "1年";
+							children_pay_year = "趸交"; 
+							children_year_fee = list["年缴保费"];
+							break;
+						case '16212':
+							//附加意外门急诊医疗
+							children_base_money = list["保险金额"];
+							children_safe_year = "1年";
+							children_pay_year = "趸交"; 
+							children_year_fee = list["年缴保费"];
+							break;
+						case '16214':
+							//附加住院每日补贴医疗保险"
+							children_base_money = list["保险金额"];
+							children_safe_year = "1年";
+							children_pay_year = "趸交"; 
+							children_year_fee = list["年缴保费"];
+							break;
+						case '16215':
+							//附加住院费用补偿医疗保险
+							children_base_money = list["保险金额"];
+							children_safe_year = "1年";
+							children_pay_year = "趸交"; 
 							children_year_fee = list["年缴保费"];
 							break;
 					}

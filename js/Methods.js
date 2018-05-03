@@ -570,7 +570,7 @@ var methods = {
             case '1001': // 招商仁和爱倍护重大疾病保险
                 if (assuAge > 60) {
                     toastText = '被保人年龄不能大于60周岁'
-                } else if (mainPayYear + assuAge > 61 && mainPayYear != 60) {
+                } else if (mainPayYear + assuAge > 60 && mainPayYear != 60) {
                     toastText = '投保年龄加交费年期不能大于60周岁'
                 } else if (assuAge > 59 && mainPayYear === 60) {
                     toastText = '交至60周岁被保人年龄应在0到59周岁'
@@ -1376,7 +1376,7 @@ var methods = {
             case '1002': // 附加豁免保险费重大疾病保险
                 if (applAge > 60) {
                     toastText = '投保人年龄不能大于60周岁'
-                } else if (mainPayYear + applAge > 61 && mainPayYear != 60) {
+                } else if (mainPayYear + applAge > 60 && mainPayYear != 60) {
                     toastText = '投保年龄加交费年期不能大于60周岁'
                 } else if (applAge > 59 && mainPayYear === 60) {
                     toastText = '交至60周岁投保人年龄应在18到59周岁'
@@ -1385,14 +1385,14 @@ var methods = {
             case '1011': // 招商仁和附加投保人豁免保险费定期寿险
                 if (applAge > 65) {
                     toastText = '投保人年龄不能大于65周岁'
-                } else if (mainPayYear + applAge > 71 && mainPayYear != 60) {
+                } else if (mainPayYear + applAge > 70 && mainPayYear != 60) {
                     toastText = '投保年龄加交费年期不能大于70周岁'
                 }
                 break
              case '1003': // 附加爱倍护养老年金保险
                 if (assuAge > 60) {
                     toastText = '被保人年龄不能大于60周岁'
-                } else if (mainPayYear + assuAge > 61 && mainPayYear != 60) {
+                } else if (mainPayYear + assuAge > 60 && mainPayYear != 60) {
                     toastText = '投保年龄加交费年期不能大于60周岁'
                 } else if (assuAge > 59 && mainPayYear === 60) {
                     toastText = '交至60周岁被保人年龄应在0到59周岁'
@@ -2259,6 +2259,7 @@ var methods = {
             data.base_money = this.cache.base_money1013
         } else if (safeid === '1015') {
             //  附加意外门急诊医疗保险
+            data.assu_sex = 0
             data.pay_year = 1
             data.safe_year = 1
             data.flag = this.flag['10151'] + this.flag[safeid]

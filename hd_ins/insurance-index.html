@@ -139,7 +139,7 @@
                     const vm = this
                     var appl_data = {}
                     var assu_data = {}
-                    var bene_data = []
+                    var bene_data = null
                     var safe_data = []
                     var bank_data = {}
                     var upload_data = {}
@@ -238,6 +238,7 @@
                                     bene_data = 1
                                 } else {
                                     var bitem = {}
+                                    bene_data = []
                                     for(var b in da.beneficList){
                                         console.log(b)
                                         bitem = da.beneficList[b]
@@ -288,7 +289,8 @@
                                     }
                                     safe_data.push(pdata)
                                 }
-                                console.log(JSON.stringify(safe_data))
+                                console.log('===========')
+                                console.log(JSON.stringify(bene_data))
                                 //银行信息
                                 bank_data.agree = false
                                 bank_data.bank_holder = da.insData.holder_name //户名
@@ -305,7 +307,7 @@
                                 if (bene_data === 1) {
                                     plus.storage.setItem('hengda_beneficiary', '1');
                                 } else {
-                                    plus.storage.setItem('hengda_beneficiary', JSON.stringify(assu_data));
+                                    plus.storage.setItem('hengda_beneficiary', JSON.stringify(bene_data));
                                 }
                                 plus.storage.setItem('hengda_safegoods', JSON.stringify(safe_data));
                                 plus.storage.setItem('hengda_bank', JSON.stringify(bank_data));
@@ -619,7 +621,7 @@
             console.log(JSON.stringify(pushdata.content))
 //            console.log(JSON.stringify(pushdata))
 
-            save_ins(pushdata);
+//            save_ins(pushdata);
         };
         //删除保存的某条数据
         function deleteItem(war_id, itemId, type) {

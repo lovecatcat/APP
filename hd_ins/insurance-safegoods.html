@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <!--恒久健康-->
-                <template v-if="insurance.safe_id==hjjk">
+                <template v-if="insurance.code==hjjk">
                     <div class="input-item">
                         <label class="">基本保额(元)</label>
                         <div class="input-wrap box-f-1">
@@ -84,7 +84,7 @@
                     </div>
                 </template>
                 <!--千万护航-->
-                <template v-else-if="insurance.safe_id==qwhh">
+                <template v-else-if="insurance.code==qwhh">
                     <div class="input-item ins-pd-r-0">
                         <label class="">基本保额(元)</label>
                         <div class="input-wrap box-f-1 multi-btn">
@@ -107,7 +107,7 @@
                     </div>
                 </template>
                 <!--福享金生-->
-                <template v-else-if="insurance.safe_id==fxjs">
+                <template v-else-if="insurance.code==fxjs">
                     <div class="input-item ins-pd-r-0" v-if="init&&init.nj_safe_year">
                         <label class="">年金保障年限</label>
                         <div class="input-wrap box-f-1">
@@ -149,7 +149,7 @@
                     </div>
                 </template>
                 <!--万年红-->
-                <template v-else-if="insurance.safe_id==wnh">
+                <template v-else-if="insurance.code==wnh">
                     <div class="input-item ins-pd-r-0" v-if="init&&init.nj_get_way">
                         <label class="">生存金领取方式</label>
                         <div class="input-wrap box-f-1 multi-btn">

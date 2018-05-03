@@ -294,7 +294,8 @@
 					"prospect.html",
 					"discover.html",
 					"news.html",
-					"login.html"
+					"login.html",
+					"guide.html"
 				],
 				"priority": 0
 			},

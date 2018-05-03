@@ -14,7 +14,7 @@
 	<body class="BL-bg-f2f">
 
 		<!----------- 主导航  begin -------------->
-		<nav id="Js-nav" class="mui-bar mui-bar-tab BL-bg-fff BL-mod-footNav BL-Border-t">
+		<nav id="Js-nav" style="opacity: 0;" class="mui-bar mui-bar-tab BL-bg-fff BL-mod-footNav BL-Border-t">
 			<a data-index="0" class="mui-tab-item footNav-item mui-active">
 				<span class="footNav-icon footNav-icon-hm"></span>
 				<span class="footNav-label">汇盟</span>
@@ -47,13 +47,67 @@
             var userinfo = plus.storage.getItem('userinfo');
             var locationd = null, type=0;
             
-            if (plus.runtime.appid !== 'HBuilder') { // 开发模式不检测更新
+            //读取本地存储，检查是否为首次启动
+			var showGuide = localStorage.getItem("lauchFlag");
+			//仅支持竖屏显示
+			plus.screen.lockOrientation("portrait-primary");
+            if(showGuide) {
+				//有值，说明已经显示过了，无需显示；
+				//关闭splash页面；
+				plus.navigator.closeSplashscreen();
+				plus.navigator.setFullscreen(false);
+			} else {
+				//显示启动导航
+				mui.openWindow({
+					id: 'guide',
+					url: 'guide.html',
+					styles: {
+						popGesture: "none"
+					},
+					show: {
+						aniShow: 'none'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+					
+			}
+            
+            window.addEventListener('closeGuide', function () {
+            	if (plus.runtime.appid !== 'HBuilder') { // 开发模式不检测更新
+	                //获取版本号监测是否需要更新
+	                plus.runtime.getProperty(plus.runtime.appid, function (inf) {
+	                    checkUpdate(inf.version, 'auto')
+	                });
+	            };
+	            
+	            if(!userinfo){
+	                mui.openWindow({
+	                    url:'login.html',
+	                    id:'login',
+						styles: {
+							popGesture: "none"
+						},
+	                    show:{
+	                        aniShow:'none'
+	                    },
+						waiting: {
+							autoShow: false
+						}
+	                });
+	                return false;
+	            };
+            })
+            
+            if (showGuide && plus.runtime.appid !== 'HBuilder') { // 开发模式不检测更新
                 //获取版本号监测是否需要更新
                 plus.runtime.getProperty(plus.runtime.appid, function (inf) {
                     checkUpdate(inf.version, 'auto')
                 });
-           };
-            if(!userinfo){
+            };
+            
+            if(showGuide && !userinfo){
                 mui.openWindow({
                     url:'login.html',
                     id:'login',
@@ -63,6 +117,12 @@
                 });
                 return false;
             };
+            
+            if(!userinfo){
+                return false;
+            };
+            
+            document.getElementById('Js-nav').style.opacity = 1;
             
             window.addEventListener('isStopTunnel', function(data){
             	if(Tunnel._webSocket && data.flag){

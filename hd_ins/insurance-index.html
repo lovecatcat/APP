@@ -575,7 +575,7 @@
             pushdata.holder_has_SSID = index.applicant.holder_has_SSID ? has_social_security : no_social_security
             //被保人信息
             var insured = {}
-            insured.id = index.ids ? Number(index.ids.insured_id) : ''
+            insured.id = ''
             var assufieldFilter = ['insured_has_SSID', 'insured_temp_job_code', 'addr_type', 'insured_isTaxResidents', 'insured_job_name', 'insured_ID_type_name', 'insured_nation_name', 'insured_salary_from_name', 'insured_home_district_name']
             for (var i in index.assured) {
                 if (assufieldFilter.indexOf(i) === -1) {

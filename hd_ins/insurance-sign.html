@@ -56,7 +56,7 @@
                         <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读<a class="BL-col-3b9cf5" type="button" @tap="showStatement"><strong>《{{main_insurance.name}}保险条款》</strong></a>、和<a type="button" id="safenotice"
                                 class="BL-col-3b9cf5"><strong>《投保提示书》</strong></a>、<a type="button" id="statement"
                                 class="BL-col-3b9cf5"><strong>《自动转账授权说明》</strong></a>，并确认无误
-                            <input name="checkbox" value="Item1" type="checkbox" style="top: 20px; left: 0px;">
+                            <input name="checkbox" v-model="agree" type="checkbox" style="top: 20px; left: 0px;">
                         </label>
                     </div>
                 </div>
@@ -178,6 +178,10 @@
         });
         //保存
         document.querySelector('#saveSign').addEventListener('tap', function () {
+            if (!img.agree) {
+                mui.toast("请确认阅读相关条款声明并同意转账授权与声明", {duration: 'short', type: 'div'})
+                return false;
+            }
             if (!img.checkForm()) {
                 return false
             }
@@ -198,6 +202,7 @@
                         online_ins()
                     } else {
                         mui.toast("该被保人有正在处理的保单，请稍后再次尝试。", {duration: 'long', type: 'div'})
+                        return false;
                     }
                 }
             });
@@ -421,6 +426,7 @@
         el: '#Js-content',
         data:function() {
             return {
+                agree: false,
                 pdfurl: '',
                 main_insurance: '',
                 war_id: '',
@@ -462,7 +468,12 @@
                 }
                 data.id = vm.war_id
                 luckyAjax({
-                    data: {data: JSON.stringify(data), server: 'PolicyIns.save'},
+                    data: {
+                        data: JSON.stringify(data),
+                        server: 'PolicyIns.saveImg',
+                        view: true,
+                        device: 'mobile'
+                    },
                     success: function (res) {
                         if (res.code) {
                             mui.toast(res.msg, {duration: 'short', type: 'div'})

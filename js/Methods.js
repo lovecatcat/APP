@@ -1067,7 +1067,7 @@ var methods = {
                     }
                     break
                 //招商仁和
-                case '1002': // 附加豁免保险费重大疾病保险
+//              case '1002': // 附加豁免保险费重大疾病保险
                 case '1011': // 招商仁和附加投保人豁免保险费定期寿险
                     if (this.samePerson) {
                         toastText = '投被保人为同人时不可附加该险种'
@@ -2422,8 +2422,8 @@ var methods = {
         }
         var vm = this
         mustSelected.forEach(function (index, item) {
-            if (vm.Addons[item] && !vm.addonsSelected[item]) {
-                var name = vm.Addons[item].name
+            if (vm.Addons[index] && !vm.addonsSelected[index]) {
+                var name = vm.Addons[index].name
                 mui.toast('【' + name + '】为必选')
                 bool = false
             }

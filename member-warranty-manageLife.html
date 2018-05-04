@@ -72,8 +72,8 @@
 									<div class="BL-txt-r button">
 										<template v-if="item.company_name == '恒大人寿保险公司'">
 											<!-- 纸质回执 -->
-											<!--<button class="BL-btn-white BL-pad-lr-1 BL-mar-r-1" :disabled ="['0', '2', '4', '6'].indexOf(item.receipt_state) != -1">纸质回执</button>-->
-											<button class="BL-btn-white BL-pad-lr-1 BL-mar-r-1" @click="InsReceipt('2', item.policy_id)">纸质回执</button>
+											<button class="BL-btn-white BL-pad-lr-1 BL-mar-r-1" :disabled ="['0', '2', '4', '6'].indexOf(item.receipt_state) != -1" @click="InsReceipt('2', item.policy_id)">纸质回执</button>
+											<!--<button class="BL-btn-white BL-pad-lr-1 BL-mar-r-1" >纸质回执</button>-->
 											<!-- 电子回执 -->
 											<button class="BL-btn-white BL-pad-lr-1" v-if="item.email_state == ''||item.receipt_state == ''" disabled="true">邮件待发送</button>
 											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.email_state == '0'" disabled>邮件待发送</button>
@@ -233,7 +233,6 @@
 				        success:function(res){
 							plus.nativeUI.closeWaiting();
 			               	if(res.code == 1) {
-			               		alert(JSON.stringify(res.data.list))
 								if(res.data.totalRows > manageLife.warranty_list.length && !manageLife.selectData){
 									manageLife.warranty_list = manageLife.warranty_list.concat(res.data.list)
 									self.endPullUpToRefresh(false)

@@ -146,6 +146,14 @@
     mui.plusReady(function () {
         popu = new ClosePopu(); // 实例化关闭窗口对象
 
+        var war_id = plus.webview.currentWebview().data;
+        if (war_id) {
+            img.war_id = war_id
+        } else {
+            mui.toast("保单不存在", {duration: 'long', type: 'div'})
+            return false;
+        }
+
         var itemName = ['hengda_applicant','hengda_assured','hengda_beneficiary','hengda_safegoods','hengda_healthinfo','hengda_bank','hengda_upload','hengda_ids'];
         var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')): ''
         var safegoods = plus.storage.getItem('hengda_safegoods') ? JSON.parse(plus.storage.getItem('hengda_safegoods')): ''
@@ -167,8 +175,6 @@
             }
         })
         img.assured = assured
-        var ids = plus.storage.getItem('hengda_ids') ? JSON.parse(plus.storage.getItem('hengda_ids')): ''
-        img.war_id = ids ? Number(ids.policy_id) : ''
         //赋值
         img.getSignature(1,true);
         img.getSignature(2,true);

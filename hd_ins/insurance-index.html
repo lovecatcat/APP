@@ -688,7 +688,7 @@
                     if (res.code) {
                         plus.nativeUI.closeWaiting();
                         plus.storage.setItem('hengda_ids',JSON.stringify(res.data));
-                        showPopu('insurance-sign.html', 'hd-insurance-sign', "bottom");
+                        showPopu('insurance-sign.html', 'hd-insurance-sign', "bottom",res.data.policy_id);
                     } else {
                         plus.nativeUI.closeWaiting();
                         mui.toast(res.msg, {duration: 'short', type: 'div'})

@@ -306,10 +306,16 @@
                             }
                             //
                             setTimeout(function () {
+                                mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
                                 plus.webview.close('hd_insurance-index');
                                 popu.closepop();
-                                mui.back();
-                            }, 3500)
+                                plus.webview.close('member_life_order');
+                                mui.openWindow({
+                                    url: '../member-warranty-manage.html',
+                                    id: 'member_warranty_manage',
+                                    show: animateObj.aniDetal
+                                })
+                            }, 4500)
                         } else if (res.data.resultCode === '02') {
                             mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
                             //清除本地缓存
@@ -318,17 +324,19 @@
                             }
                             //
                             setTimeout(function () {
+                                mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
                                 plus.webview.close('hd_insurance-index');
                                 popu.closepop();
                                 mui.back();
-                            }, 3500)
+                            }, 4500)
                         } else {
                             mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
                             setTimeout(function () {
+                                mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
                                 plus.webview.close('hd_insurance-index');
                                 popu.closepop();
                                 mui.back();
-                            }, 3500)
+                            }, 4500)
                         }
                     } else {
                         mui.toast('承保失败', {duration: 'long', type: 'div'})

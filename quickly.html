@@ -234,6 +234,7 @@
                 data: JSON.stringify(basedata)
             },
             success: function (data) {
+                console.log()
                 plus.nativeUI.closeWaiting();
                 if (data.code) {
                     if (product.page >= data.data.totalPage) {

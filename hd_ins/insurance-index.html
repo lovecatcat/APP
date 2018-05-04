@@ -597,7 +597,7 @@
                 safeitem.fee = item.period_money
                 safeitem.amount = item.money
                 totalfee += Number(item.period_money)
-                if (item.safe_id.toString() === qwhh) {
+                if (item.code === qwhh) {
                     safeitem.quantity = (item.money / 50000).toString()
                 }
 
@@ -606,7 +606,7 @@
                     guarantee_term: item.guarantee_term,
                     draw_freq: item.draw_freq,
                     draw_age: item.draw_age,
-                    shareDrawType: item.safe_id.toString() === cjb ? zrwnzh : item.shareDrawType
+                    shareDrawType: item.code === cjb ? zrwnzh : item.shareDrawType
                 }
                 content.push(safeitem)
             })
@@ -668,6 +668,7 @@
                     if (res.code) {
                         console.log('删除成功')
                         i++;
+                        alert(i)
                         if (i === 3) {
                             save_ins(pushdata);
                         }

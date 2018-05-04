@@ -1399,8 +1399,8 @@ var methods = {
                 }
                 break    
              case '1013': // 招商仁和仁安无忧意外伤害保险
-                if (assuAge > 65) {
-                    toastText = '被保人年龄不能大于65周岁'
+                if (assuAge > 65 || assuAge < 18) {
+                    toastText = '被保人年龄在18周岁到65周岁之间'
                 }
                 break    
              case '1015': // 附加意外门急诊医疗保险
@@ -1758,7 +1758,9 @@ var methods = {
                     toastText = '最低基本保额为10万元'
                 } else if (this.cache.base_money1013 % 1000 !== 0) {
                     toastText = '保费需为1千元整数倍'
-                }
+                } else if (!flag) {
+                    toastText = '请先选择职业分类'
+                } 
                 break
                  case '1015': // 附加意外门急诊医疗保险
                  
@@ -2240,10 +2242,15 @@ var methods = {
         } else if (safeid === '1001') { //  招商仁和
             	//招商仁和爱倍护重大疾病保险
             data.pay_year = this.mainPayYear === 60 ? 6000 : this.mainPayYear
-        } else if (safeid === '1002' || safeid === '1011') {
+        } else if (safeid === '1002') {
             //  附加豁免保险费重大疾病保险
             data.pay_year = this.mainPayYear === 60 ? 5900 : py
             data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
+            data.base_money = periodMoney
+        } else if (safeid === '1011') {
+            //  投保人豁免保险费定期寿险
+            data.pay_year = this.mainPayYear === 60 ? 5900 : py
+            data.safe_year = this.mainPayYear
             data.base_money = periodMoney
         } else if (safeid === '1003') {
             //  附加爱倍护养老年金保险
@@ -2255,7 +2262,7 @@ var methods = {
             data.assu_sex = 0
             data.pay_year = 1
             data.safe_year = 1
-            data.flag = 1
+            data.flag = this.flag[safeid]
             data.base_money = this.cache.base_money1013
         } else if (safeid === '1015') {
             //  附加意外门急诊医疗保险

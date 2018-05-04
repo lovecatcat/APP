@@ -467,11 +467,16 @@
 							break;
 						//招商仁和
 						case '16120':
-						case '16137':
 							//附加豁免保险费重大 疾病保险
-							//附加投保人豁免定期寿险
 							children_base_money = year_fee;
 							children_safe_year = "终身";
+							children_pay_year = pay_year == 6000 ? '至59周岁' : pay_year -1; 
+							children_year_fee = list["年缴保费"];
+							break;
+						case '16137':
+							//附加投保人豁免定期寿险
+							children_base_money = year_fee;
+							children_safe_year = pay_year + '年';
 							children_pay_year = pay_year == 6000 ? '至59周岁' : pay_year -1; 
 							children_year_fee = list["年缴保费"];
 							break;

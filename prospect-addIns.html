@@ -1566,7 +1566,7 @@
 						<!--复星-->
 						<!--招商仁和-->
 						<!--附加豁免保险费重大 疾病保险-->
-						<template v-if="(item.code === '1002' || item.code === '1011') && addonRes[item.code]">
+						<template v-if="item.code === '1002' && addonRes[item.code]">
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs">
@@ -1591,6 +1591,32 @@
 							</div>
 						</template>
 						<!--附加豁免保险费重大 疾病保险-->
+						<!--附加投保人豁免保险费定期寿险-->
+						<template v-if="item.code === '1011' && addonRes[item.code]">
+							<div class="mui-row form-bgc-eee BL-pad-a1">
+								<div class="mui-col-sm-6">
+									<li class="ins-font-xs">
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money}}</span>
+									</li>
+								</div>
+								<div class="mui-col-sm-6">
+									<li class="ins-font-xs">
+										保险期间(年)&nbsp;<span class="BL-col-ff8201">{{mainPayYear}}</span>
+									</li>
+								</div>
+								<div class="mui-col-sm-6">
+									<li class="ins-font-xs">
+										缴费年限(年)&nbsp;<span class="BL-col-ff8201">{{mainPayYear == 60 ? '至59周岁' : mainPayYear - 1}}</span>
+									</li>
+								</div>
+								<div class="mui-col-sm-6">
+									<li class="ins-font-xs">
+										年缴保费(元)&nbsp;<span class="BL-col-ff8201">{{addonRes[item.code]['年缴保费']}}</span>
+									</li>
+								</div>
+							</div>
+						</template>
+						<!--附加投保人豁免保险费定期寿险-->
 						<!--附加爱倍护养老年金保险-->
 						<template v-if="item.code === '1003' && addonsSelected[item.code]">
 							<div class="form-wrap form-bgc-eee">
@@ -1636,6 +1662,12 @@
 										<span class="mui-icon mui-icon-clear"></span>
 									</div>
 								</app-input>
+								
+								<app-select label="职业分类">
+									<button slot="button" v-for="num in 6" class="ins-btn xs-btn" :class="{'blue': num == flag[item.code]}" :disabled="num == flag[item.code]" @click="flagChanged(item.code, num)">
+						             	{{num}}类
+						        </button>
+								</app-select>
 								<app-select label="缴费年限(年)">
 									<button slot="button" class="ins-btn xs-btn blue">
 						             	1年
@@ -1666,11 +1698,14 @@
 						<template v-if="item.code === '1015' && addonsSelected[item.code]">
 							<div class="form-wrap form-bgc-eee">
 								<app-input label="保险金额">
-									<input slot="input" v-model.number="cache.base_money1015" type="number" placeholder="请填写保险金额（元）" @change="flagChanged(item.code)">
+									<input slot="input" v-model.number="cache.base_money1015" type="number" placeholder="5000~30000" @change="flagChanged(item.code)">
 									<div slot="icon" @click="cache.base_money1015 = '' , flagChanged(item.code)" v-show="cache.base_money1015 != ''" class="form-clear-icon">
 										<span class="mui-icon mui-icon-clear"></span>
 									</div>
 								</app-input>
+								<div class="input-item  BL-col-ff8201">
+									基本保额最低5千元最高3万元
+								</div>
 								<app-select label="职业分类">
 									<button slot="button" v-for="num in 6" class="ins-btn xs-btn" :class="{'blue': num == flag[item.code]}" :disabled="num == flag[item.code]" @click="flagChanged(item.code, num)">
 						             	{{num}}类
@@ -1714,7 +1749,7 @@
 						<template v-if="item.code === '1017' && addonsSelected[item.code]">
 							<div class="form-wrap form-bgc-eee">
 								<app-input label="保险金额">
-									<input slot="input" v-model.number="cache.base_money1017" type="number" placeholder="请填写保险金额（元）" @change="flagChanged(item.code)">
+									<input slot="input" v-model.number="cache.base_money1017" type="number" placeholder="30~500" @change="flagChanged(item.code)">
 									<div slot="icon" @click="cache.base_money1017 = '' , flagChanged(item.code)" v-show="cache.base_money1017 != ''" class="form-clear-icon">
 										<span class="mui-icon mui-icon-clear"></span>
 									</div>
@@ -1757,11 +1792,14 @@
 						<template v-if="item.code === '1018' && addonsSelected[item.code]">
 							<div class="form-wrap form-bgc-eee">
 								<app-input label="保险金额">
-									<input slot="input" v-model.number="cache.base_money1018" type="number" placeholder="请填写保险金额（元）" @change="flagChanged(item.code)">
+									<input slot="input" v-model.number="cache.base_money1018" type="number" placeholder="5000~50000" @change="flagChanged(item.code)">
 									<div slot="icon" @click="cache.base_money1018 = '' , flagChanged(item.code)" v-show="cache.base_money1018 != ''" class="form-clear-icon">
 										<span class="mui-icon mui-icon-clear"></span>
 									</div>
 								</app-input>
+								<div class="input-item  BL-col-ff8201">
+									基本保额最低5千元最高5万元
+								</div>
 								<app-select label="职业分类">
 									<button slot="button" v-for="num in 6" class="ins-btn xs-btn" :class="{'blue': num == flag[item.code]}" :disabled="num == flag[item.code]" @click="flagChanged(item.code, num)">
 						             	{{num}}类

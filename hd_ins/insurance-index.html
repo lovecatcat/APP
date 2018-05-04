@@ -652,6 +652,8 @@
                 war_id && deleteItem(war_id, '', 'content')
                 war_id && deleteItem(war_id, '', 'beneficiary')
                 war_id && deleteItem(war_id, '', 'matter_value')
+            } else {
+                save_ins(pushdata);
             }
         };
         //删除保存的某条数据
@@ -688,6 +690,7 @@
                         plus.storage.setItem('hengda_ids',JSON.stringify(res.data));
                         showPopu('insurance-sign.html', 'hd-insurance-sign', "bottom");
                     } else {
+                        plus.nativeUI.closeWaiting();
                         mui.toast(res.msg, {duration: 'short', type: 'div'})
                     }
                 }

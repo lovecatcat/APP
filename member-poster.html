@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的海报</title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/module.css" rel="stylesheet" />
+		<script src="js/config.js" type="text/javascript"></script>
+		<style>
+			.poster-item{
+				padding: .75rem;
+			}
+			.poster-item img{
+				border-radius: .3rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="Js-header" class="BL-bg-fff">
+			<div class="BL-mod-headbar BL-mod-headbar-pos">
+				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+				<h1 class="BL-title">海报</h1>
+				<!--<a id="Js-openShare" class="BL-icon BL-icon-share"></a>-->
+			</div>
+		</header>
+		
+		<div id="Js-content" class="mui-content BL-overFlow-autoY">
+			<div class="mui-row squared" style="padding: .75rem;">
+                <div class="mui-col-sm-4 mui-col-xs-4 poster-item" data-id="1">
+                    <img src="images/member/pos1.jpg"/>
+                </div>
+                <div class="mui-col-sm-4 mui-col-xs-4 poster-item" data-id="2">
+                    <img src="images/member/pos1.jpg"/>
+                </div>
+                <div class="mui-col-sm-4 mui-col-xs-4 poster-item" data-id="3">
+                    <img src="images/member/pos1.jpg"/>
+                </div>
+			</div>
+		</div>
+	</body>
+	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		mui.init();
+
+		mui.plusReady(function() {
+			statusbar();
+			var winH = window.innerHeight;
+			var topHeight = document.querySelector('#Js-header').offsetHeight;
+			document.getElementById('Js-content').style.height = (winH - topHeight) +'px';
+			
+			mui('#Js-content').on('tap', '.poster-item', function(){
+				var id = this.getAttribute('data-id');
+				mui.openWindow({
+					url:'member-poster-detail.html',
+					id:'member_poster_detail',
+					styles: {
+						popGesture: "none"
+					},
+					show: {
+						aniShow: 'none'
+					},
+					waiting: {
+						autoShow: false
+					},
+					extras: {
+						pid : id
+					}
+				})
+			})
+		});
+	</script>
+
+</html>

@@ -6,7 +6,7 @@
 	"id": "H517AA33E",
 	"name": "保险+",
 	"version": {
-		"name": "1.9.0503",
+		"name": "1.9.0504",
 		"code": "83"
 	},
 	"description": "保险plus mobile",
@@ -801,7 +801,8 @@
 					"member-renewal.html",
 					"member-tax-cal.html",
 					"member-life-order.html",
-					"member-promote.html"
+					"member-promote.html",
+					"member-poster.html"
 				],
 				"priority": 0
 			},
@@ -2999,6 +3000,13 @@
 					"images/index/guide_1.jpg"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"member-poster.html": {
+				"resources": [],
+				"refer": [
+					"member-poster-detail.html"
+				],
 				"priority": 0
 			}
 		},

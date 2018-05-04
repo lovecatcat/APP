@@ -233,7 +233,7 @@
 				        success:function(res){
 							plus.nativeUI.closeWaiting();
 			               	if(res.code == 1) {
-			               		alert(JSON.stringify(res.data.list))
+			               		//alert(JSON.stringify(res.data.list))
 								if(res.data.totalRows > manageLife.warranty_list.length && !manageLife.selectData){
 									manageLife.warranty_list = manageLife.warranty_list.concat(res.data.list)
 									self.endPullUpToRefresh(false)

@@ -195,7 +195,7 @@
 				enableHighAccuracy: true,
 			})
 		     
-		    Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
+		    /*Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
 			        //console.log('Message:' + Tunnel._webSocket.readyState);
 			        console.log(event.data);
 			        //如果获取到消息，心跳检测重置
@@ -244,7 +244,7 @@
 					if(_tips != ''){
 						mui.alert(_tips, '温馨提示', '确定');
 					}
-		    });
+		    });*/
 		    
             
             // 运行环境切换到后台，开始倒数20分钟，重启应用
@@ -255,7 +255,11 @@
             		var timer = null;
 	            	clearTimeout(timer);
 	            	timer = setTimeout(function(){
-	            		plus.runtime.restart();	
+	            		if(mui.os.android){
+	            			plus.runtime.quit();
+	            		}else{
+	            			plus.runtime.restart();		
+	            		}
 	            	}, 20*60000)	
             	}
             }, false);

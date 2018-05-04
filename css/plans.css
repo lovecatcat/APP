@@ -1,4 +1,4 @@
-plans-detail-behalf/*公共*/
+/*公共*/
 .BL-ul{
 	list-style: none;
 	padding: 0;
@@ -263,6 +263,10 @@ plans-detail-behalf/*公共*/
 .plans-detail-item li:last-child span{
 	font-size: 1.875rem;
 }
+.plans-detail-behalf{
+	border-top: solid 1px #d2d2d2;
+	padding-top: 1rem;
+}
 .plans-detail-behalf .title{
 	font-weight: 400;
 	line-height: 2.6875rem;
@@ -286,9 +290,13 @@ plans-detail-behalf/*公共*/
 }
 .plans-detail-behalf .content{
 	margin-bottom: 1rem;
+	margin-top: 1rem;
 }
 .plans-detail-behalf .content p{
 	font-size: 1.4375rem;
+	text-indent: 2rem;
+	color: #000;
+	margin-bottom: 0;
 }
 .plans-detail-behalf .content span{
 	font-size: 1.4375rem !important;

@@ -85,13 +85,13 @@
         var titHeight = document.querySelector('#Js-header').offsetHeight;
         document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
         var itemName = ['hengda_applicant','hengda_assured','hengda_beneficiary','hengda_safegoods','hengda_healthinfo','hengda_bank','hengda_upload','hengda_ids','userinfo'];
-
         var subpages = ["insurance-applicant", "insurance-assured", "insurance-beneficiary", "insurance-safegoods", "insurance-healthinfo", "insurance-bank", "insurance-upload"];
 
         var index = new Vue({
             el: '#Js-content',
             data: function() {
                 return {
+                    loading: false,
                     pid: '',
                     userinfo: '',
                     init: {},
@@ -348,7 +348,6 @@
                 },
                 //弹窗
                 showpop:function(e) {
-                    console.log('eeeeeeeee'+e)
                     if (e === 2 && !this.applicant) {
                         mui.toast('请填写投保人信息', {duration: 'short', type: 'div'});
                         return false
@@ -367,6 +366,9 @@
                     } else if (e === 7 && !this.bank) {
                         mui.toast('请填写付款信息', {duration: 'short', type: 'div'})
                         return false
+                    }
+                    if (e === 5) {
+                        plus.nativeUI.showWaiting();
                     }
                     showPopu(subpages[e-1] + '.html', 'hd-'+subpages[e-1], "bottom", index.init);
                 }
@@ -480,6 +482,7 @@
         }
         //返回
         document.querySelector('#backto').addEventListener('tap', function () {
+            plus.webview.getWebviewById('member_life_order') && mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
             if (index.pid) {
                 clearItem(true);
             } else {
@@ -493,7 +496,7 @@
             })
         })
         //提交
-        document.querySelector('#ins-save').addEventListener('tap', function () {
+        document.querySelector('#ins-save').addEventListener('click', function () {
             var war_id = index.ids ? Number(index.ids.policy_id) : ''
             setPushData(war_id);
 
@@ -515,9 +518,18 @@
         }
         var i = 0;
         var pushdata = {};
+
         //核保数据整理
         function setPushData(war_id) {
+            console.log('set')
             console.log(war_id)
+
+            plus.nativeUI.showWaiting();
+            if (index.loading) {
+                console.log('again')
+                return false;
+            }
+
             var toast_text = null
             if (!war_id) {
                 war_id = ''
@@ -525,21 +537,29 @@
             //保存前再次校验
             if (!index.applicant) {
                 mui.toast('请填写投保人信息', {duration: 'short', type: 'div'});
+                plus.nativeUI.closeWaiting();
                 return false;
             }
             if (!checkAppl(index.applicant)) {
+                plus.nativeUI.closeWaiting();
                 return false;
             }
             if (!index.assured) {
                 mui.toast('请填写被保人信息', {duration: 'short', type: 'div'});
+                plus.nativeUI.closeWaiting();
                 return false;
             }
-            if(!RSChanged(index.assured,index.applicant)){return false}
+            if (!RSChanged(index.assured, index.applicant)) {
+                plus.nativeUI.closeWaiting();
+                return false
+            }
             if (!checkAssured(index.assured)) {
+                plus.nativeUI.closeWaiting();
                 return false
             }
 
             if (!index.beneficiary) {
+                plus.nativeUI.closeWaiting();
                 mui.toast('请填写受益人信息', {duration: 'short', type: 'div'});
                 return false;
             }
@@ -554,10 +574,12 @@
                 toast_text = '请上传证件';
             }
             if(toast_text){
+                plus.nativeUI.closeWaiting();
                 mui.toast(toast_text, {duration: 'short', type: 'div'});
                 return false;
             }
             //
+            index.loading = true;
 
             pushdata.id = war_id
             pushdata.supplier_id = SCID
@@ -646,7 +668,7 @@
 
             console.log('==================')
             console.log(JSON.stringify(pushdata))
-            plus.nativeUI.showWaiting();
+
             if (war_id) {
                 console.log('deleteItem')
                 war_id && deleteItem(war_id, '', 'content')
@@ -668,17 +690,19 @@
                     if (res.code) {
                         console.log('删除成功')
                         i++;
-                        if (i >= 3) {
+                        if (i === 3) {
                             save_ins(pushdata);
                         }
                     } else {
                         plus.nativeUI.closeWaiting();
+                        index.loading = false;
                         mui.toast('保存失败', {duration: 'long', type: 'div'})
                         return false
                     }
                 }
             });
         }
+
         //保存保单
         function save_ins(data) {
             luckyAjax({
@@ -686,16 +710,22 @@
                 closeWaiting: true,
                 success: function (res) {
                     if (res.code) {
-                        plus.nativeUI.closeWaiting();
                         plus.storage.setItem('hengda_ids',JSON.stringify(res.data));
                         showPopu('insurance-sign.html', 'hd-insurance-sign', "bottom",res.data.policy_id);
+                        plus.nativeUI.closeWaiting();
                     } else {
                         plus.nativeUI.closeWaiting();
+                        index.loading = false;
                         mui.toast(res.msg, {duration: 'short', type: 'div'})
                     }
                 }
             });
         };
+        //
+        window.addEventListener('resetLoading', function () {
+            index.loading = false;
+            i = 0;
+        });
 
     })
 

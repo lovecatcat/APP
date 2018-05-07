@@ -954,7 +954,9 @@
             // 关闭遮罩层，弹框
             popu.closepop();
         });
-
+        health.$nextTick(function () {
+            plus.nativeUI.closeWaiting();
+        })
         //获取健康告知题目
         luckyAjax({
             data: {data: JSON.stringify({'supplier_id': SCID, 'version': '1'}), server: 'PolicyIns.getMatterList'},

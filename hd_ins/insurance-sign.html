@@ -15,7 +15,7 @@
 
 <body>
 
-<div id="Js-content" class="mui-content BL-rel">
+<div id="Js-content" class="mui-content BL-rel" v-cloak="">
     <!--弹窗 begin-->
     <div class="ins-dialog lg">
         <div class="dialog-header">
@@ -217,6 +217,7 @@
         mui('body').on('tap', '#close-ins-pop', function () {
             // 关闭遮罩层，弹框
             popu.closepop();
+            mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'resetLoading');
         });
 
         mui('body').on('tap', '.btn-copy', function (e) {
@@ -317,7 +318,6 @@
                             }
                             //
                             setTimeout(function () {
-                                mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
                                 plus.webview.close('hd_insurance-index');
                                 popu.closepop();
                                 plus.webview.close('member_life_order');

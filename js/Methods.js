@@ -1970,7 +1970,7 @@ var methods = {
             // 恒大 万年红传家宝
             data.pay_year = 1
             data.safe_year = 0
-            data.base_money = 100
+            data.base_money = 0
             data.year_fee = 100
             data.derate_money = 100
             data.flag = 100

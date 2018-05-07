@@ -46,7 +46,12 @@
 				        </button>
 					</app-select>
 					<app-select label="缴费年限">
-						<button slot="button" class="ins-btn xs-btn" :class="{'blue':item.pay_year===insurance.pay_year}" :disabled="item.pay_year===insurance.pay_year" v-for="(item,index) in mainPyAttr" @click="insurance.pay_year=item.pay_year, resetFee()" v-if="payYearFilter(item.pay_year)">
+						<button slot="button" class="ins-btn xs-btn" 
+							:class="{'blue':item.pay_year===insurance.pay_year}" 
+							:disabled="item.pay_year===insurance.pay_year" 
+							v-for="(item,index) in mainPyAttr"
+							 @click="insurance.pay_year=item.pay_year, resetFee()" 
+							 v-if="payYearFilter(item.pay_year)">
 				            {{item.pay_year | payYearFilter}}
 				        </button>
 					</app-select>
@@ -84,10 +89,14 @@
 					<template v-else-if="!isBaseMoney&&!fuBaseMoney">
 						<!-- 恒大福享今生 -->
 						<app-select label="保证年限" v-if="insurance.safe_id === 'LA063'">
-							<button slot="button" class="ins-btn xs-btn" :class="{'blue': flag['LA063']  == 20}" :disabled="flag['LA063']  == 20" @click="flag = Object.assign({}, flag, {'LA063': 20}), resetFee()">
+							<button slot="button" class="ins-btn xs-btn" :class="{'blue': flag['LA063']  == 20}" 
+								:disabled="flag['LA063']  == 20" 
+								@click="flagChanged('LA063', 20), resetFee()">
 					             	20年
 					        </button>
-							<button slot="button" class="ins-btn xs-btn" :class="{'blue': flag['LA063']  == 30}" :disabled="flag['LA063']  == 30" @click="flag = Object.assign({}, flag, {'LA063': 30}), resetFee()">
+							<button slot="button" class="ins-btn xs-btn" :class="{'blue': flag['LA063']  == 30}" 
+								:disabled="flag['LA063']  == 30"
+								 @click="flagChanged('LA063', 30), resetFee()">
 					             	30年
 					        </button>
 						</app-select>

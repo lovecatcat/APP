@@ -549,12 +549,15 @@ input[type='color']{
 
 
 /* 详情内容样式 */
-.BL-pasual{
+.BL-pasual p{
+	text-indent: 2rem;
 	font-size: 1.4375rem;
 	color: #666666;
 	line-height: 2.2rem;
+	padding: 1.25rem;
 }
-.BL-pasual img{
+.BL-pasual p img{
+	margin-left: -2rem;
 	max-width: 100% !important;
 	height: auto !important;
 }

@@ -452,7 +452,12 @@
                 }
                 data.id = vm.war_id
                 luckyAjax({
-                    data: {data: JSON.stringify(data), server: 'PolicyIns.save'},
+                    data: {
+					    data: JSON.stringify(data),
+					    server: 'PolicyIns.saveImg',
+					    view: true,
+					    device: 'mobile'
+					},
                     success: function (res) {
                         if (res.code) {
                             mui.toast(res.msg, {duration: 'short', type: 'div'})

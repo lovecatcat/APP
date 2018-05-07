@@ -1764,7 +1764,8 @@
 					"images/icon/ico-hide.png",
 					"js/config.js",
 					"images/product/menu-prospect.png",
-					"images/product/menu-pk.png"
+					"images/product/menu-pk.png",
+					"js/pdf.js"
 				],
 				"refer": [
 					"product-contrast.html",
@@ -1883,7 +1884,9 @@
 					"images/icon/ico-duty-nowifi.png"
 				],
 				"priority": 6,
-				"refer": []
+				"refer": [
+					"pdf-modal.html"
+				]
 			},
 			"popup.html": {
 				"href": "popup.html",
@@ -1950,7 +1953,8 @@
 					"images/plans/prospectus/349.jpg",
 					"images/plans/prospectus/354.jpg",
 					"images/plans/prospectus/335.jpg",
-					"images/plans/prospectus/336.jpg"
+					"images/plans/prospectus/336.jpg",
+					"images/plans/prospectus/297.jpg"
 				],
 				"priority": 2,
 				"refer": [
@@ -2097,7 +2101,8 @@
 					"images/plans/plansManage/349.png",
 					"images/plans/plansManage/348.png",
 					"images/plans/plansManage/336.png",
-					"js/vue.min.js"
+					"js/vue.min.js",
+					"images/plans/plansManage/297.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -2423,7 +2428,8 @@
 					"css/mui.css"
 				],
 				"refer": [
-					"member-warranty-manageLife-detail.html"
+					"member-warranty-manageLife-detail.html",
+					"member-warranty-manageLife-insreceipt.html"
 				],
 				"priority": 0
 			},
@@ -2478,7 +2484,8 @@
 					"css/member.css",
 					"js/Date.js",
 					"js/interval-dtpicker.js",
-					"js/config.js"
+					"js/config.js",
+					"images/icon/ico-filter-active.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -2946,7 +2953,8 @@
 					"css/member.css",
 					"css/mui.css",
 					"images/a.pdf",
-					"js/pdf.worker.js"
+					"js/pdf.worker.js",
+					"js/pdf.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -3007,6 +3015,13 @@
 				"refer": [
 					"member-poster-detail.html"
 				],
+				"priority": 0
+			},
+			"member-warranty-manageLife-insreceipt.html": {
+				"resources": [
+					"css/mui.css"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

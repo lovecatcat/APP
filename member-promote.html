@@ -54,7 +54,7 @@
 					        <li class="fItem BL-ub BL-ub-f1" v-for="(item,index) in list" :key="index" v-if="list">
 					            <a class="mui-navigate-right form-list-label BL-ub-f1 BL-ub-f1" :data-url="item.insured_rule">
 					        		<div class="BL-ftz-52 BL-ellipsis BL-pad-r-2">
-					        			{{ item.product_name}}
+					        			{{ item.product_name }}
 					        		</div>
 					            </a>
 					        </li>
@@ -80,7 +80,8 @@
 				row: 10,
 				page: 0,
 				companyId: '',  // 公司ID
-				is_primary: ''  // 是否主险
+				is_primary: '',  // 是否主险
+				insured_rule: 1	  // 是否存在投保规则
 			},
 			watch: {
 	            is_primary: {
@@ -138,6 +139,7 @@
 	    var loaddata = function (e) {
 	        promote.page++;
 	        var basedata = {
+	        	insured_rule: promote.insured_rule,
 	            page: promote.page,
 	            row: 10
 	        };
@@ -149,7 +151,7 @@
 	        if (promote.is_primary) {
 	            basedata.is_primary = promote.is_primary
 	        }
-	        
+
 	        luckyAjax({
 	            data: {
 	                server: 'lifeProduct.getProductList',

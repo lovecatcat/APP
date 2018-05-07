@@ -270,21 +270,28 @@
 .plans-detail-behalf .title{
 	font-weight: 400;
 	line-height: 2.6875rem;
+	
 }
-.plans-detail-behalf .title em{
+.title-flex{
+	float: left;
+	display: flex;
+	align-items: center;
+}
+.plans-detail-behalf .title span{
+	font-weight: 600;
+}
+.plans-detail-behalf .title em,.plans-detail-behalf .title i{
 	display: inline-block;
-	width: 1rem;
-	height: 1rem;
-	background-color: #3B9CF5;
-	border-radius: 50%;
+	width: 2.2rem;
+	height: 2.2rem;
+	margin-right: .5rem;
 }
-.plans-detail-behalf .title i{
-	display: inline-block;
-	width: 1rem;
-	height: 1rem;
-	background-color: orange;
-	border-radius: 50%;
+.plans-detail-behalf .title em img,.plans-detail-behalf .title i img{
+	display: block;
+	width: 2.2rem;
+	height: 2.2rem;
 }
+ 
 .plans-detail-behalf .title button{
 	margin-top: .35rem;
 }
@@ -295,7 +302,7 @@
 .plans-detail-behalf .content p{
 	font-size: 1.4375rem;
 	text-indent: 2rem;
-	color: #000;
+	color: #3c3c3c;
 	margin-bottom: 0;
 }
 .plans-detail-behalf .content span{

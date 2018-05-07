@@ -196,7 +196,11 @@
 								<div class="box-f-3 ins-font-sm">{{item.name}}</div>
 								<div class="form-switch-note ">投保</div>
 								<div class="input-switch">
-									<input type="checkbox" class="switch" @change="chAddonState(item.code)" v-model="addonsSelected[item.code]" />
+									<input type="checkbox"
+										class="switch" 
+										v-model="addonsSelected[item.code]"
+										@change="chAddonState(item.code)" 
+										 />
 									<label></label>
 								</div>
 							</div>
@@ -1569,8 +1573,13 @@
 						<template v-if="item.code === '1002' && addonRes[item.code]">
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
-									<li class="ins-font-xs">
+									<li class="ins-font-xs" v-if="addonRes['1003']">
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money + addonRes['1003']['年缴保费']}}</span>
+										<div class="am-ft-orange"></div>
+									</li>
+									<li class="ins-font-xs" v-else>
 										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money}}</span>
+										<div class="am-ft-orange"></div>
 									</li>
 								</div>
 								<div class="mui-col-sm-6">
@@ -1595,8 +1604,13 @@
 						<template v-if="item.code === '1011' && addonRes[item.code]">
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
-									<li class="ins-font-xs">
+									<li class="ins-font-xs" v-if="addonRes['1003']">
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money + addonRes['1003']['年缴保费']}}</span>
+										<div class="am-ft-orange"></div>
+									</li>
+									<li class="ins-font-xs" v-else>
 										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money}}</span>
+										<div class="am-ft-orange"></div>
 									</li>
 								</div>
 								<div class="mui-col-sm-6">
@@ -1620,15 +1634,14 @@
 						<!--附加爱倍护养老年金保险-->
 						<template v-if="item.code === '1003' && addonsSelected[item.code]">
 							<div class="form-wrap form-bgc-eee">
-								<app-input label="保险金额">
-									<input slot="input" v-model.number="cache.base_money1003" type="number" placeholder="请填写保险金额（元）" @change="flagChanged(item.code)">
-									<div slot="icon" @click="cache.base_money1003 = '' , flagChanged(item.code)" v-show="cache.base_money1003 != ''" class="form-clear-icon">
-										<span class="mui-icon mui-icon-clear"></span>
-									</div>
-								</app-input>
+								<app-select label="保险金额">
+									<button slot="button" class="ins-btn xs-btn blue">
+						             	{{insurance.money}}
+						        	</button>
+								</app-select>
 								<app-select label="缴费年限(年)">
-									<button slot="button" v-for="num in ['1', '3', '5', '10', '15', '20' ]" class="ins-btn xs-btn" :class="{'blue': num == flag[item.code]}" :disabled="num == flag[item.code]" @click="flagChanged(item.code, num)">
-						             	{{num}}年
+									<button slot="button" class="ins-btn xs-btn blue">
+						             	{{mainPayYear}}年交
 						        	</button>
 								</app-select>
 								<app-select label="保险期间(年)">
@@ -1963,7 +1976,6 @@
 					if(value === 1) {
 						return '趸交';
 					} else if(value < 60) {
-						console.log('filter');
 						return value + '年交';
 					} else {
 						return '至' + value + '岁';

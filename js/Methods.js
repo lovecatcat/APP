@@ -18,7 +18,7 @@ var methods = {
             }
         }
         return res
-    },
+    },	
     parseVueObj: function (Obj) {
         return JSON.parse(JSON.stringify(Obj))
     },
@@ -871,6 +871,7 @@ var methods = {
     },
     // 更改附加险状态
     chAddonState: function (index) {
+    	var vm = this
         if (this.uploading) {
             this.addonsSelected[index] = !this.addonsSelected[index]
             this.$forceUpdate()
@@ -878,16 +879,20 @@ var methods = {
         }
         this.checkRS()
         var toastText = null
-        console.log(this.addonsSelected[index])
-        if (this.addonsSelected[index]) {
+        //安卓低配手机点击值不变，手动赋值，解决办法
+//      if(this.addonsSelected[index] === undefined) {
+//      	this.addonsSelected[index] = true
+//      	this.$forceUpdate()
+//      }
+        this.$nextTick(function(){
+        	 console.log(JSON.stringify(this.addonsSelected[index]))
+        	   if (this.addonsSelected[index]) {
             // 主险保费校验不合格
             if (!this.checkMainFee(this.insurance.safe_id)) {
                 this.addonsSelected[index] = false
-//				mui('#addon' + index).switch().toggleAct(false);
                 this.$forceUpdate()
                 return false
             }
-            // var flag = this.flag[index]
             var periodMoney = this.insurance.period_money
 
             switch (this.insurance.safe_id) {
@@ -1075,13 +1080,19 @@ var methods = {
                         toastText = '主险趸交不可附加该险种'
                     }
                     break
+                case '1003':
+                	this.addonsSelected['1002'] = false
+                    this.addonRes['1002'] = ''
+                	this.addonsSelected['1011'] = false
+                    this.addonRes['1011'] = ''
+                    this.$forceUpdate()
+                 	break    
 
             }
 
             if (toastText) {
                 mui.toast(toastText)
                 this.addonsSelected[index] = false
-//				mui('#addon' + index).switch().toggleAct(false);
                 this.$forceUpdate()
             } else if (directNeedCal.indexOf(index) > -1) { // 直接计算
                 this.calMoney(false, index) // 试算附加险
@@ -1091,7 +1102,6 @@ var methods = {
                 toastText = '该附加险必须附加，不能取消'
                 mui.toast(toastText)
                 this.addonsSelected[index] = true
-//				mui('#addon' + index).switch().toggleAct();
                 return false;
             } else if (index === '1168') {
                 this.flag[index] = ''
@@ -1128,6 +1138,15 @@ var methods = {
                 this.$delete(this.addonInsData, 'JER')
                 this.$delete(this.addonRes, 'JER')
                 this.addonsSelected['JER'] = false
+            }  else if (index === '1003') {
+                this.$delete(this.addonInsData, index)
+                this.$delete(this.addonRes, index)
+                this.$delete(this.addonInsData, '1002')
+                this.$delete(this.addonRes, '1002')
+                this.addonsSelected['1002'] = false
+                this.$delete(this.addonInsData, '1011')
+                this.$delete(this.addonRes, '1011')
+                this.addonsSelected['1011'] = false
             } else {
                 //            取消时 清除缓存的提交数据
                 this.flag[index] = ''
@@ -1137,6 +1156,9 @@ var methods = {
             }
             this.$forceUpdate()
         }
+        })
+       
+      
     },
     flagChanged: function (id, num) {
         this.addonRes[id] = null
@@ -1373,15 +1395,6 @@ var methods = {
                 }
                 break
             //招商仁和
-            case '1002': // 附加豁免保险费重大疾病保险
-                if (applAge > 60) {
-                    toastText = '投保人年龄不能大于60周岁'
-                } else if (mainPayYear + applAge > 60 && mainPayYear != 60) {
-                    toastText = '投保年龄加交费年期不能大于60周岁'
-                } else if (applAge > 59 && mainPayYear === 60) {
-                    toastText = '交至60周岁投保人年龄应在18到59周岁'
-                }
-                break
             case '1011': // 招商仁和附加投保人豁免保险费定期寿险
                 if (applAge > 65) {
                     toastText = '投保人年龄不能大于65周岁'
@@ -1740,17 +1753,6 @@ var methods = {
                 }
                 break
                 //招商仁和
-                 case '1003': // 附加爱倍护养老年金保险
-                 if (!this.cache.base_money1003) {
-                    toastText = '请先输入保险金额'
-                } else if (this.cache.base_money1003 < 10000) {
-                    toastText = '最低基本保额为1万元'
-                } else if (this.cache.base_money1003 % 1000 !== 0) {
-                    toastText = '保费需为1千元整数倍'
-                } else if (!flag) {
-                    toastText = '请先选择缴费年限'
-                }
-                break
                  case '1013': // 招商仁和仁安无忧意外伤害保险
                  if (!this.cache.base_money1013) {
                     toastText = '请先输入保险金额'
@@ -1763,7 +1765,6 @@ var methods = {
                 } 
                 break
                  case '1015': // 附加意外门急诊医疗保险
-                 
                  if (!this.cache.base_money1015) {
                     toastText = '请先输入保险金额'
                 } else if (this.cache.base_money1015 < 5000) {
@@ -1904,41 +1905,40 @@ var methods = {
             alias: null
         }
         // 添加特殊参数
-        var filterSafeid = ['31A00050', '12D00080', "HB030", 'DAR', 'LA073']
+        var filterSafeid = ['31A00050', '12D00080', "HB030", 'DAR', 'LA073', '1003']
         if (filterSafeid.indexOf(safeid) > -1) {
-            data = Object.assign(data, {
-                assume_rate: '0',
-                sa_one: '0',
-                fa_one: '0',
-                money_one: '0',
-                sa_two: '0',
-                fa_two: '0',
-                money_two: '0',
-                sa_three: '0',
-                fa_three: '0',
-                money_three: '0',
-                sa_four: '0',
-                fa_four: '0',
-                money_four: '0',
-                sa_five: '0',
-                fa_five: '0',
-                money_five: '0',
-                sa_six: '0',
-                fa_six: '0',
-                money_six: '0',
-                sa_seven: '0',
-                fa_seven: '0',
-                money_seven: '0',
-                sa_eight: '0',
-                fa_eight: '0',
-                money_eight: '0',
-                sa_night: '0',
-                fa_night: '0',
-                money_night: '0',
-                sa_ten: '0',
-                fa_ten: '0',
-                money_ten: '0'
-            })
+                data.assume_rate = '0';
+                data.sa_one= '0';
+                data.fa_one= '0';
+                data.money_one= '0';
+                data.sa_two= '0';
+                data.fa_two= '0';
+                data.money_two= '0';
+                data.sa_three= '0';
+                data.fa_three= '0';
+                data.money_three= '0';
+                data.sa_four= '0';
+                data.fa_four= '0';
+                data.money_four= '0';
+                data.sa_five= '0';
+                data.fa_five= '0';
+                data.money_five= '0';
+                data.sa_six= '0';
+                data.fa_six= '0';
+                data.money_six= '0';
+                data.sa_seven= '0';
+                data.fa_seven= '0';
+                data.money_seven= '0';
+                data.sa_eight= '0';
+                data.fa_eight= '0';
+                data.money_eight= '0';
+                data.sa_night= '0';
+                data.fa_night= '0';
+                data.money_night= '0';
+                data.sa_ten= '0';
+                data.fa_ten= '0';
+                data.money_ten= '0'
+             
         }
         if (safeid === 'CCPAAP1' || safeid === 'P005-3') {
             data.flag = this.prospectus_type
@@ -1970,7 +1970,8 @@ var methods = {
             // 恒大 万年红传家宝
             data.pay_year = 1
             data.safe_year = 0
-            data.base_money = 0
+            data.base_money = 100
+            data.year_fee = 100
             data.derate_money = 100
             data.flag = 100
             data.ylnj = 0
@@ -2034,11 +2035,8 @@ var methods = {
             data.base_money = 100
         } else if (safeid === 'A66') {
             // 乐行天下主险
-            data = Object.assign(data, {
-                money_one: this.cache.pay_moneyRSC,
-                money_two: this.cache.pay_moneyRSD
-            })
-        } else if (safeid === '8111') { // 国华人寿康运金生
+            data.money_one = this.cache.pay_moneyRSC
+            data.money_two = this.cache.pay_moneyRSD;} else if (safeid === '8111') { // 国华人寿康运金生
             data.flag = money / 10000
         } else if (safeid === '1166') { // 国华少儿成长无忧重大疾病保险
             data.pay_year = this.mainPayYear
@@ -2222,23 +2220,20 @@ var methods = {
         } else if (safeid === 'FXLJYS') {
             //  复星乐健一生住院
             data.flag = this.fxljysFXLJYS.shebao + this.fxljysFXLJYS.zytc
-            data = Object.assign(data, {
-                zynmp: this.fxljysFXLJYS.zynmp, // 住院年免赔
-                zfbl: 1, // 自负比例
-                mznmp: this.fxljysFXLJYS.mznmp, // 门诊年免赔
-                mzptcmp: this.fxljysFXLJYS.mzptcmp, // 门诊普通次免赔
-                mztxcimp: this.fxljysFXLJYS.mztxcimp // 门诊特需次免赔
-            })
+            data.zynmp = this.fxljysFXLJYS.zynmp // 住院年免赔
+            data.zfbl = 1 // 自负比例
+            data.mznmp = this.fxljysFXLJYS.mznmp // 门诊年免赔
+            data.mzptcmp = this.fxljysFXLJYS.mzptcmp // 门诊普通次免赔
+            data.mztxcimp = this.fxljysFXLJYS.mztxcimp // 门诊特需次免赔
         } else if (safeid === 'LJYSMZ') {
             //  复星乐健一生门诊
             data.flag = this.fxljysFXLJYS.shebao + this.fxljysFXLJYS.mztc
-            data = Object.assign(data, {
-                zynmp: this.fxljysFXLJYS.zynmp, // 住院年免赔
-                zfbl: 1, // 自负比例
-                mznmp: this.fxljysFXLJYS.mznmp, // 门诊年免赔
-                mzptcmp: this.fxljysFXLJYS.mzptcmp, // 门诊普通次免赔
-                mztxcimp: this.fxljysFXLJYS.mztxcimp // 门诊特需次免赔
-            })
+            data.zynmp = this.fxljysFXLJYS.zynmp // 住院年免赔
+            data.zfbl = 1 // 自负比例
+            data.mznmp = this.fxljysFXLJYS.mznmp // 门诊年免赔
+            data.mzptcmp = this.fxljysFXLJYS.mzptcmp // 门诊普通次免赔
+            data.mztxcimp = this.fxljysFXLJYS.mztxcimp // 门诊特需次免赔
+
         } else if (safeid === '1001') { //  招商仁和
             	//招商仁和爱倍护重大疾病保险
             data.pay_year = this.mainPayYear === 60 ? 6000 : this.mainPayYear
@@ -2246,17 +2241,31 @@ var methods = {
             //  附加豁免保险费重大疾病保险
             data.pay_year = this.mainPayYear === 60 ? 5900 : py
             data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
-            data.base_money = periodMoney
+             if (this.addonRes['1003']) {
+                data.base_money = periodMoney + this.addonRes['1003']['年缴保费']
+            } else {
+                data.base_money = periodMoney
+            }
         } else if (safeid === '1011') {
             //  投保人豁免保险费定期寿险
+            if (this.addonRes['1003']) {
+                data.base_money = periodMoney + this.addonRes['1003']['年缴保费']
+            } else {
+                data.base_money = periodMoney
+            }
             data.pay_year = this.mainPayYear === 60 ? 5900 : py
             data.safe_year = this.mainPayYear
-            data.base_money = periodMoney
         } else if (safeid === '1003') {
             //  附加爱倍护养老年金保险
-            data.pay_year = this.flag[safeid]
+            this.addonsSelected['1002'] = false
+            this.addonRes['1002'] = ''
+        	this.addonsSelected['1011'] = false
+            this.addonRes['1011'] = ''
+            this.$forceUpdate()
+            data.pay_year = this.mainPayYear
             data.safe_year = 8500
-            data.base_money = this.cache.base_money1003
+            data.base_money = this.insurance.money
+            data.njy = this.insurance.period_money * this.mainPayYear
         } else if (safeid === '1013') {
             //  招商仁和仁安无忧意外伤害保险
             data.assu_sex = 0

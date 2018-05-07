@@ -319,6 +319,14 @@
 				parseVueObj: function(Obj) {
 					return JSON.parse(JSON.stringify(Obj))
 				},
+				deepClone: function (obj) {
+				    var newObj = obj instanceof Array ? [] : {};
+				    for (var i in obj) {
+				        newObj[i] = typeof obj[i] == 'object' ?
+				            deepClone(obj[i]) : obj[i];
+				    }
+				    return newObj;
+				},
 				applSex: function(i) {
 					this.appl.sex = i
 				},
@@ -368,7 +376,7 @@
 					}
 				},
 				keepSame: function() { //同投保人
-					this.assu = Object.assign({}, this.assu, this.parseVueObj(this.appl))
+					this.assu = this.deepClone(this.appl)
 				},
 				displace: function() { //投被保人替换
 					var appl = this.appl
@@ -377,8 +385,8 @@
 						appl = this.plans[0].appl
 						assu = this.plans[0].assu
 					}
-					this.appl = Object.assign({}, this.appl, this.parseVueObj(assu))
-					this.assu = Object.assign({}, this.assu, this.parseVueObj(appl))
+					this.appl = this.deepClone(assu)
+					this.assu = this.deepClone(appl)
 				},
 				addIns: function() { //添加险种
 					if(!this.checkName(this.appl.name, '投保人')) {

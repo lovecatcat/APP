@@ -81,7 +81,7 @@
 											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.email_state == '10'" disabled>邮件无法发送</button>
 											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.email_state == '12'" disabled>邮件退回</button>
 											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.email_state == '22'" disabled>邮件错误</button>
-											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.email_state == '23'" disabled>保存错误</button>
+											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.email_state == '2 3'" disabled>保存错误</button>
 											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.email_state == '-1'" disabled>发送异常</button>
 											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.receipt_state == '0'" disabled>回执通过</button>
 											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.receipt_state == '1' && ['11','21'].indexOf(item.email_state) > -1" @click="InsReceipt('1', item.policy_id)">回执未通过</button>

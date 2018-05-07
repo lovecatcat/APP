@@ -29,7 +29,7 @@
 								<p class="member-cmis-txt">可提取</p>
 								<div class="member-cmis-money BL-col-fff">
 									{{ account.canPay_format }}
-									<button :disabled="isExtract" :class="{ 'cmis-btn-disabled': isExtract }" class="cmis-extract-btn" @click="extract(account.canPay)">提取</button>
+									<button class="cmis-extract-btn" @click="extract(account.canPay)">提取</button>
 								</div>
 							</div>
 							<div class="mui-row">
@@ -106,26 +106,26 @@
 		var cmis = new Vue({
 			el: '#Js-cmis',
 			data: {
-				account: null,   // 账户信息
-				isExtract: true  // 提取按钮是否可用
+				account: null   // 账户信息
+//				isExtract: true  // 提取按钮是否可用
 			},
 			methods: {
 				// 判断当前时间，每月26号后不可提取
-			    setExtBtnByTime : function(timestamp) {
-			        var time = new Date(timestamp*1000)   // 时间戳转成日期
-			        var timeFormat = time.Format('yyyy-MM-dd hh:mm:ss')
-			        // 获取由于时间戳转日期的年月
-			        var year = timeFormat.substring(0, 4);
-			        var month = timeFormat.substring(5, 7);
-			        // 设置当前月当前年的25号
-			        var contrastDate = year + "-" + month + "-" + '25'
-			        // 判断当前日期是否大于26日
-			        if (timeFormat >= contrastDate) {
-			          this.isExtract = true
-			        } else {
-			          this.isExtract = false
-			        }
-			    },
+//			    setExtBtnByTime : function(timestamp) {
+//			        var time = new Date(timestamp*1000)   // 时间戳转成日期
+//			        var timeFormat = time.Format('yyyy-MM-dd hh:mm:ss')
+//			        // 获取由于时间戳转日期的年月
+//			        var year = timeFormat.substring(0, 4);
+//			        var month = timeFormat.substring(5, 7);
+//			        // 设置当前月当前年的25号
+//			        var contrastDate = year + "-" + month + "-" + '25'
+//			        // 判断当前日期是否大于26日
+//			        if (timeFormat >= contrastDate) {
+//			          this.isExtract = true
+//			        } else {
+//			          this.isExtract = false
+//			        }
+//			    },
 			    extract: function(val) {
 			        if (parseFloat(val) > 0) {
 			        	mui.openWindow({
@@ -134,8 +134,8 @@
 							show:animateObj.aniDetal
 						});
 			        } else {
-			          mui.toast('金额为0.00元，暂不可提取')
-			          return false
+			        	mui.toast('金额为0.00元，暂不可提取', {duration: 'short', type: 'div'})
+			          	return false
 			        }
 			    },
 			}
@@ -178,7 +178,7 @@
 		        success: function (ret) {
 					if (ret.code == 1) {
 	                	cmis.account = ret.data
-	                	cmis.setExtBtnByTime(ret.data.now_time)
+//	                	cmis.setExtBtnByTime(ret.data.now_time)
 	                } else {
 	                	mui.toast(ret.msg, {duration: 'short', type: 'div'})
 	                }

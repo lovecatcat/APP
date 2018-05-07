@@ -867,12 +867,13 @@
     });
     mui.plusReady(function () {
         var popu = new ClosePopu(); // 实例化关闭窗口对象
+
         //安卓监听返回事件
         plus.key.addEventListener("backbutton",function(){
             popu.closepop();
         });
         //
-        var safegoods = JSON.parse(plus.storage.getItem('hengda_safegoods'));
+        var safegoods = plus.storage.getItem('hengda_safegoods') ? JSON.parse(plus.storage.getItem('hengda_safegoods')) : '';
         if (safegoods) {
             mui.each(safegoods, function (index, item) {
                 if (item.safe_id === tbrhm) {
@@ -881,6 +882,40 @@
                 }
             })
         }
+        //赋值
+        console.log(plus.storage.getItem('hengda_healthinfo'));
+        var hinfo = plus.storage.getItem('hengda_healthinfo') ? JSON.parse(plus.storage.getItem('hengda_healthinfo')) : ''
+        hinfo && setHealth(hinfo)
+
+        function setHealth(data) {
+            mui.each(data, function (index, item) {
+                var aitem = assforms[item.mv_id]
+                if (item.insured_answer === '1') {
+                    health.clientvalue.ass_amswer[item.mv_id] = true
+                    if (aitem && aitem.length === 1) {
+                        console.log(item.mv_id +';' + item.insured_fields)
+                        aitem[0]['value'] = item.insured_fields
+                    } else if (aitem && aitem.length > 1) {
+                        var arr = item.insured_fields.split("|")
+                        for (var i in aitem) {
+                            aitem[i]['value'] = arr[i]
+                        }
+                    }
+                }
+                if (health.showAppl && item.holder_answer === '1') {
+                    health.clientvalue.app_amswer[item.mv_id] = true
+                    if (aitem && aitem.length === 1) {
+                        aitem[0]['value'] = item.holder_fields
+                    } else if (aitem && aitem.length > 1) {
+                        var arr = item.holder_fields.split("|")
+                        for (var i in aitem) {
+                            aitem[i]['value'] = arr[i]
+                        }
+                    }
+                }
+            })
+        }
+        //
         var applicant = JSON.parse(plus.storage.getItem('hengda_applicant'));
         var assured = JSON.parse(plus.storage.getItem('hengda_assured'));
         health.assuAge = getAge(assured.insured_birthday)

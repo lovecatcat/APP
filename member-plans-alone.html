@@ -87,6 +87,13 @@
                         	<span class="BL-ub-f1">{{item.pay_year}}</span>
                         	<span class="BL-ub-f1">{{item.year_fee}}</span>
                         </li>
+                        <li class="BL-ftz-42  BL-ub BL-ub-ac">
+                        	<span class="BL-ub-f1" style="font-weight: 600;">总保费</span>
+                        	<span class="BL-ub-f1"></span>
+                        	<span class="BL-ub-f1"></span>
+                        	<span class="BL-ub-f1"></span>
+                        	<span class="BL-ub-f1" style="font-weight: 600;">{{total}}</span>
+                        </li>
                     </ul>
 				</div>
 				<!--险种信息-->
@@ -100,11 +107,17 @@
 					<div class="BL-title">保险利益</div>
 					<template v-for="(item1,index1) in plansText">
 						<div class="plans-detail-behalf" v-for="(item,index) in item1" v-if="item.content">
-	                    	<div class="title BL-ftz-52">
-	                    		<em v-if="index1 == 0"></em>
-	                    		<i v-else></i>
-	                    		<span>{{item.title}}</span>
-	                    		<button class="BL-btn-white BL-ftz-42 BL-mar-l-1" v-if="item.isEntity == 1" @click="detail(index1, item.title)">明细</button>
+	                    	<div class="title BL-ftz-52 clearfloat">
+	                    		<div class="title-flex">
+		                    		<em v-if="index1 == 0">
+		                    			<img :src="'images/plans/plansIcon/icon-plans'+ index +'.png'" alt="icon"/>
+		                    		</em>
+		                    		<i v-else>
+		                    			<img :src="'images/plans/plansIcon/icon-plans1'+ index +'.png'" alt="icon"/>
+		                    		</i>
+		                    		<span>{{item.title}}</span>
+		                    		<button class="BL-btn-white BL-ftz-42 BL-mar-l-1" v-if="item.isEntity == 1" @click="detail(index1, item.title)">明细</button>
+	                    		</div>
 	                    		<div class="BL-ftz-46 fr" v-if="item.value > 0">
 	                               <span class="BL-col-ff8201">{{item.value}}</span>元
 	                            </div>
@@ -114,7 +127,6 @@
 	                    </div>
 					</template>
 				</div>
-			 
 				<!--保险利益-->
 			
 				<!--资金规划-->

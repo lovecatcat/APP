@@ -29,7 +29,17 @@ var aloneDetail = new Vue({
 		goIns_data: [], // 在线投保数据
 		clause_data: [], //条款数据
 		sub_treasury_id: '',
-		green_server: false //是不是有绿通服务
+		green_server: false, //是不是有绿通服务
+	},
+	computed: {  
+        total: function () {  
+           var total = 0;
+            for(var i in this.children){
+            	total += Number(this.children[i].year_fee)
+            }
+            total = total + Number(this.main.year_fee)
+           return total.toFixed(2)
+        }  
 	},
 	methods: {
 		detail: function(id, name) {

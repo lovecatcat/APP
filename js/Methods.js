@@ -570,7 +570,7 @@ var methods = {
             case '1001': // 招商仁和爱倍护重大疾病保险
                 if (assuAge > 60) {
                     toastText = '被保人年龄不能大于60周岁'
-                } else if (mainPayYear + assuAge > 61 && mainPayYear != 60) {
+                } else if (mainPayYear + assuAge > 60 && mainPayYear != 60) {
                     toastText = '投保年龄加交费年期不能大于60周岁'
                 } else if (assuAge > 59 && mainPayYear === 60) {
                     toastText = '交至60周岁被保人年龄应在0到59周岁'
@@ -1067,7 +1067,8 @@ var methods = {
                     }
                     break
                 //招商仁和
-                case '1002': // 附加豁免保险费重大疾病保险
+//              case '1002': // 附加豁免保险费重大疾病保险
+                case '1011': // 招商仁和附加投保人豁免保险费定期寿险
                     if (this.samePerson) {
                         toastText = '投被保人为同人时不可附加该险种'
                     } else if (this.mainPayYear === 1) {
@@ -1375,12 +1376,40 @@ var methods = {
             case '1002': // 附加豁免保险费重大疾病保险
                 if (applAge > 60) {
                     toastText = '投保人年龄不能大于60周岁'
-                } else if (mainPayYear + applAge > 61 && mainPayYear != 60) {
+                } else if (mainPayYear + applAge > 60 && mainPayYear != 60) {
                     toastText = '投保年龄加交费年期不能大于60周岁'
                 } else if (applAge > 59 && mainPayYear === 60) {
                     toastText = '交至60周岁投保人年龄应在18到59周岁'
                 }
                 break
+            case '1011': // 招商仁和附加投保人豁免保险费定期寿险
+                if (applAge > 65) {
+                    toastText = '投保人年龄不能大于65周岁'
+                } else if (mainPayYear + applAge > 70 && mainPayYear != 60) {
+                    toastText = '投保年龄加交费年期不能大于70周岁'
+                }
+                break
+             case '1003': // 附加爱倍护养老年金保险
+                if (assuAge > 60) {
+                    toastText = '被保人年龄不能大于60周岁'
+                } else if (mainPayYear + assuAge > 60 && mainPayYear != 60) {
+                    toastText = '投保年龄加交费年期不能大于60周岁'
+                } else if (assuAge > 59 && mainPayYear === 60) {
+                    toastText = '交至60周岁被保人年龄应在0到59周岁'
+                }
+                break    
+             case '1013': // 招商仁和仁安无忧意外伤害保险
+                if (assuAge > 65 || assuAge < 18) {
+                    toastText = '被保人年龄在18周岁到65周岁之间'
+                }
+                break    
+             case '1015': // 附加意外门急诊医疗保险
+             case '1017': // 附加住院每日补贴医疗保险
+             case '1018': // 招商仁和仁医保费用补偿医疗保险
+                if (assuAge > 60) {
+                    toastText = '被保人年龄不能大于60周岁'
+                }
+                break    
 
         }
 
@@ -1708,6 +1737,65 @@ var methods = {
                     toastText = '主险保险期间为10年被保人年龄不能超过65岁'
                 } else if (this.insurance.safe_year === 10 && assuAge > 60 && flag === 10) {
                     toastText = '主险保险期间为10年且附加险缴费年限为10年交被保人年龄不能超过60岁'
+                }
+                break
+                //招商仁和
+                 case '1003': // 附加爱倍护养老年金保险
+                 if (!this.cache.base_money1003) {
+                    toastText = '请先输入保险金额'
+                } else if (this.cache.base_money1003 < 10000) {
+                    toastText = '最低基本保额为1万元'
+                } else if (this.cache.base_money1003 % 1000 !== 0) {
+                    toastText = '保费需为1千元整数倍'
+                } else if (!flag) {
+                    toastText = '请先选择缴费年限'
+                }
+                break
+                 case '1013': // 招商仁和仁安无忧意外伤害保险
+                 if (!this.cache.base_money1013) {
+                    toastText = '请先输入保险金额'
+                } else if (this.cache.base_money1013 < 100000) {
+                    toastText = '最低基本保额为10万元'
+                } else if (this.cache.base_money1013 % 1000 !== 0) {
+                    toastText = '保费需为1千元整数倍'
+                } else if (!flag) {
+                    toastText = '请先选择职业分类'
+                } 
+                break
+                 case '1015': // 附加意外门急诊医疗保险
+                 
+                 if (!this.cache.base_money1015) {
+                    toastText = '请先输入保险金额'
+                } else if (this.cache.base_money1015 < 5000) {
+                    toastText = '最低基本保额为5千元'
+                } else if (this.cache.base_money1015 > 30000) {
+                    toastText = '最高基本保额为3万元'
+                } else if (!flag) {
+                    toastText = '请先选择职业分类'
+                } else if (!this.flag['10151']) {
+                    toastText = '请先选择有无社保'
+                }
+                break
+                case '1017': // 附加住院每日补贴医疗保险
+                if (!this.cache.base_money1017) {
+                    toastText = '请先输入保险金额'
+                } else if (this.cache.base_money1017 < 30) {
+                    toastText = '最低基本保额为30元/天'
+                } else if (this.cache.base_money1017 > 500) {
+                    toastText = '最高基本保额为500元/天'
+                } else if (!flag) {
+                    toastText = '请先选择职业分类'
+                }
+                break
+                case '1018': // 招商仁和仁医保费用补偿医疗保险
+                if (!this.cache.base_money1018) {
+                    toastText = '请先输入保险金额'
+                }else if (this.cache.base_money1018 < 5000) {
+                    toastText = '最低基本保额为5千元'
+                } else if (this.cache.base_money1018 > 50000) {
+                    toastText = '最高基本保额为5万元'
+                } else if (!flag) {
+                    toastText = '请先选择职业分类'
                 }
                 break
 
@@ -2159,6 +2247,44 @@ var methods = {
             data.pay_year = this.mainPayYear === 60 ? 5900 : py
             data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
             data.base_money = periodMoney
+        } else if (safeid === '1011') {
+            //  投保人豁免保险费定期寿险
+            data.pay_year = this.mainPayYear === 60 ? 5900 : py
+            data.safe_year = this.mainPayYear
+            data.base_money = periodMoney
+        } else if (safeid === '1003') {
+            //  附加爱倍护养老年金保险
+            data.pay_year = this.flag[safeid]
+            data.safe_year = 8500
+            data.base_money = this.cache.base_money1003
+        } else if (safeid === '1013') {
+            //  招商仁和仁安无忧意外伤害保险
+            data.assu_sex = 0
+            data.pay_year = 1
+            data.safe_year = 1
+            data.flag = this.flag[safeid]
+            data.base_money = this.cache.base_money1013
+        } else if (safeid === '1015') {
+            //  附加意外门急诊医疗保险
+            data.assu_sex = 0
+            data.pay_year = 1
+            data.safe_year = 1
+            data.flag = this.flag['10151'] + this.flag[safeid]
+            data.base_money = this.cache.base_money1015
+        } else if (safeid === '1017') {
+            //  附加住院每日补贴医疗保险
+            data.assu_sex = 0
+            data.pay_year = 1
+            data.safe_year = 1
+            data.flag = this.flag[safeid]
+            data.base_money = this.cache.base_money1017
+        } else if (safeid === '1018') {
+            // 招商仁和仁医保费用补偿医疗保险
+            data.assu_sex = 0
+            data.pay_year = 1
+            data.safe_year = 1
+            data.flag = this.flag[safeid]
+            data.base_money = this.cache.base_money1018
         }
 
         if (isMain) {
@@ -2296,8 +2422,8 @@ var methods = {
         }
         var vm = this
         mustSelected.forEach(function (index, item) {
-            if (vm.Addons[item] && !vm.addonsSelected[item]) {
-                var name = vm.Addons[item].name
+            if (vm.Addons[index] && !vm.addonsSelected[index]) {
+                var name = vm.Addons[index].name
                 mui.toast('【' + name + '】为必选')
                 bool = false
             }

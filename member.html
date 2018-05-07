@@ -86,8 +86,9 @@
 		                       	 计划书管理
 		                    </div>
 		                </a>
-		                <a href="member-commission-account.html" data-wid="member_commission_account" class="mui-col-sm-3 mui-col-xs-3 manage-item">
-		                    <div class="icon icon-commission"></div>
+		                <!--<a href="member-commission-account.html" data-wid="member_commission_account" class="mui-col-sm-3 mui-col-xs-3 manage-item">-->
+		                <a @tap="toastMsg" class="mui-col-sm-3 mui-col-xs-3">
+		                	<div class="icon icon-commission"></div>
 		                    <div class="name">
 		                    	钱包
 		                    </div>
@@ -142,6 +143,7 @@
 								展业夹
 							</div>
 						</a>
+						<!--<a href="member-poster.html" data-wid="member_poster" class="mui-col-sm-3 mui-col-xs-3">-->
 						<a class="mui-col-sm-3 mui-col-xs-3" @tap="toastMsg">
 							<div class="icon icon-post"></div>
 							<div class="name">

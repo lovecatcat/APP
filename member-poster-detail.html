@@ -47,7 +47,7 @@
 			document.getElementById('Js-content').style.height = (winH - topHeight) +'px';
 			
 			document.getElementById('canvas').width = divW;
-			document.getElementById('canvas').height = divH;
+			//document.getElementById('canvas').height = divH;
 			
 			// image.src = config.baseUrl + '?server=user.getQrcode&device=mobile&data={"user_id":"'+ userinfo.id +'"}'
 			
@@ -91,7 +91,8 @@
 				var img = new Image();
 				img.src = "images/member/pos"+pid+".jpg";
 				img.onload = function(){
-					
+					//设置画布高度
+					document.getElementById('canvas').height = divW * (img.height/img.width) + 190;
 					//设置画布背景色
 					context.fillStyle = "#ffffff";
 					context.fillRect(0, 0, divW, divH);

@@ -38,8 +38,8 @@
                         <ul class="flex">
                             <li class="flex-1">{{item.entry}}.&nbsp;{{item.content}}</li>
                             <li class="item-operate BL-mar-t-1" v-if="['10','11','5'].indexOf(item.entry)===-1">
-                                <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.app_amswer[item.id]}" :disabled="clientvalue.app_amswer[item.id]" @tap="appChange(item.id,true)">是</button>
-                                <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.app_amswer[item.id]}" :disabled="!clientvalue.app_amswer[item.id]" @tap="appChange(item.id,false)">否</button>
+                                <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.app_amswer[item.id]}" :disabled="clientvalue.app_amswer[item.id]" @tap="appChange(item.id,true),toblur()">是</button>
+                                <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.app_amswer[item.id]}" :disabled="!clientvalue.app_amswer[item.id]" @tap="appChange(item.id,false),toblur()">否</button>
                             </li>
                         </ul>
                         <template v-if="appforms[item.id] && (clientvalue.app_amswer[item.id]||item.entry==11)">
@@ -50,8 +50,8 @@
                                 <ul class="flex">
                                     <li class="flex-1">{{childitem.entry}}.&nbsp;{{childitem.content}}</li>
                                     <li class="item-operate BL-mar-t-1">
-                                        <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.app_amswer[childitem.id]}" :disabled="clientvalue.app_amswer[childitem.id]" @tap="appChange(childitem.id,true)">是</button>
-                                        <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.app_amswer[childitem.id]}" :disabled="!clientvalue.app_amswer[childitem.id]" @tap="appChange(childitem.id,false)">否</button>
+                                        <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.app_amswer[childitem.id]}" :disabled="clientvalue.app_amswer[childitem.id]" @tap="appChange(childitem.id,true),toblur()">是</button>
+                                        <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.app_amswer[childitem.id]}" :disabled="!clientvalue.app_amswer[childitem.id]" @tap="appChange(childitem.id,false),toblur()">否</button>
                                     </li>
                                 </ul>
                                 <template v-if="appforms[childitem.id] && clientvalue.app_amswer[childitem.id]">
@@ -73,8 +73,8 @@
                         <ul class="flex">
                             <li class="flex-1">{{item.entry}}.&nbsp;{{item.content}}</li>
                             <li class="item-operate BL-mar-t-1" v-if="['10','11','5'].indexOf(item.entry)===-1">
-                                <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.ass_amswer[item.id]}" :disabled="clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,true)">是</button>
-                                <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.ass_amswer[item.id]}" :disabled="!clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,false)">否</button>
+                                <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.ass_amswer[item.id]}" :disabled="clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,true),toblur()">是</button>
+                                <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.ass_amswer[item.id]}" :disabled="!clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,false),toblur()">否</button>
                             </li>
                         </ul>
                         <template v-if="assforms[item.id] && (clientvalue.ass_amswer[item.id]||item.entry==11)">
@@ -85,8 +85,8 @@
                                 <ul class="flex">
                                     <li class="flex-1">{{childitem.entry}}.&nbsp;{{childitem.content}}</li>
                                     <li class="item-operate BL-mar-t-1">
-                                        <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.ass_amswer[childitem.id]}" :disabled="clientvalue.ass_amswer[childitem.id]" @tap="assChange(childitem.id,true)">是</button>
-                                        <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.ass_amswer[childitem.id]}" :disabled="!clientvalue.ass_amswer[childitem.id]" @tap="assChange(childitem.id,false)">否</button>
+                                        <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.ass_amswer[childitem.id]}" :disabled="clientvalue.ass_amswer[childitem.id]" @tap="assChange(childitem.id,true),toblur()">是</button>
+                                        <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.ass_amswer[childitem.id]}" :disabled="!clientvalue.ass_amswer[childitem.id]" @tap="assChange(childitem.id,false),toblur()">否</button>
                                     </li>
                                 </ul>
                                 <template v-if="assforms[childitem.id] && clientvalue.ass_amswer[childitem.id]">
@@ -712,6 +712,9 @@
             }
         },
         methods:{
+            toblur:function(){
+                document.activeElement.blur();
+            },
             change:function(item) {
                 var ret = {
                     status: true,

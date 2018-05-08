@@ -119,6 +119,18 @@
                             </button>
                         </div>
                     </div>
+                    <div class="input-item ins-pd-r-0" v-if="init&&init.nj_get_type">
+                        <label class="">分红领取方式</label>
+                        <div class="input-wrap box-f-1 multi-btn">
+                            <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.shareDrawType}"
+                                    v-for="(item,index) in init.nj_get_type"
+                                    v-if="item.value!==zrwnzh"
+                                    :disabled="item.value===insurance.shareDrawType"
+                                    @tap="insurance.shareDrawType=item.value,toblur()">
+                                {{item.text}}
+                            </button>
+                        </div>
+                    </div>
                     <div class="input-item">
                         <label class="">年缴保费(元)</label>
                         <div class="input-wrap box-f-1">
@@ -133,18 +145,6 @@
                                        readonly>
                             </div>
                             <div class="right-btn orange" @click="calMoney()">点击计算</div>
-                        </div>
-                    </div>
-                    <div class="input-item ins-pd-r-0" v-if="init&&init.nj_get_type">
-                        <label class="">分红领取方式</label>
-                        <div class="input-wrap box-f-1 multi-btn">
-                            <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.shareDrawType}"
-                                    v-for="(item,index) in init.nj_get_type"
-                                    v-if="item.value!==zrwnzh"
-                                    :disabled="item.value===insurance.shareDrawType"
-                                    @tap="insurance.shareDrawType=item.value,toblur()">
-                                {{item.text}}
-                            </button>
                         </div>
                     </div>
                 </template>
@@ -738,52 +738,54 @@
                 console.log('chAddonState')
                 var vm = this
                 if (!vm.addonIns[index]) return
-                if (index === cjb) {
-                    if (vm.addonsSelected[index]) {
-                        vm.insurance.shareDrawType = zrwnzh; //转入万能账户
-                        vm.addonIns[index].period_money = 100
-                        vm.addonIns[index].money = 0
+                this.$nextTick(function () {
+                    if (index === cjb) {
+                        if (vm.addonsSelected[index]) {
+                            vm.insurance.shareDrawType = zrwnzh; //转入万能账户
+                            vm.addonIns[index].period_money = 100
+                            vm.addonIns[index].money = 0
+                        } else {
+                            vm.insurance.shareDrawType = ''
+                        }
+                        vm.countFee()
+                        vm.$forceUpdate()
+                    }
+                    var toast_text = null
+                    var name = vm.Addons[index].name
+                    var safe_id = vm.insurance.code
+                    switch (index) {
+                        case tbrhm:
+                            if (!this.noSamePerson && vm.addonsSelected[index]) {
+                                toast_text = '投保人和被保人是同一人时，不能附加' + name
+                                vm.addonsSelected[index] = false
+                            }
+                            vm.isExempted = vm.addonsSelected[index]
+                            vm.healthinfoOk = false
+                            break
+                        case zxak: // 附加尊享安康费用补偿医疗保险
+                            if ((safe_id === fxjs || safe_id === wnh) && vm.insurance.period_money < 10000) {
+                                toast_text = '主险期交保费1万元（含）以上方可附加' + name
+                                vm.addonsSelected[index] = false
+                            } else if (safe_id === wnh && vm.insurance.pay_year === 1) {
+                                toast_text = '主险【' + vm.insurance.name + '】趸交不可' + name
+                                vm.addonsSelected[index] = false
+                            }
+                            break
+                        default:
+                            break
+                    }
+                    if (toast_text) {
+                        mui.toast(toast_text, {duration: 'short', type: 'div'});
+                        vm.addonsSelected[index] = false
+                        return false
                     } else {
-                        vm.insurance.shareDrawType = ''
+                        if (vm.addonsSelected[index] && !vm.addonIns[index].period_money) {
+                            vm.calMoney(index)
+                        }
                     }
                     vm.countFee()
                     vm.$forceUpdate()
-                }
-                var toast_text = null
-                var name = vm.Addons[index].name
-                var safe_id = vm.insurance.code
-                switch (index) {
-                    case tbrhm:
-                        if (!this.noSamePerson && vm.addonsSelected[index]) {
-                            toast_text = '投保人和被保人是同一人时，不能附加' + name
-                            vm.addonsSelected[index] = false
-                        }
-                        vm.isExempted = vm.addonsSelected[index]
-                        vm.healthinfoOk = false
-                        break
-                    case zxak: // 附加尊享安康费用补偿医疗保险
-                        if ((safe_id === fxjs || safe_id === wnh) && vm.insurance.period_money < 10000) {
-                            toast_text = '主险期交保费1万元（含）以上方可附加' + name
-                            vm.addonsSelected[index] = false
-                        } else if (safe_id === wnh && vm.insurance.pay_year === 1) {
-                            toast_text = '主险【' + vm.insurance.name + '】趸交不可' + name
-                            vm.addonsSelected[index] = false
-                        }
-                        break
-                    default:
-                        break
-                }
-                if (toast_text) {
-                    mui.toast(toast_text, {duration: 'short', type: 'div'});
-                    vm.addonsSelected[index] = false
-                    return false
-                } else {
-                    if (vm.addonsSelected[index] && !vm.addonIns[index].period_money) {
-                        vm.calMoney(index)
-                    }
-                }
-                vm.countFee()
-                vm.$forceUpdate()
+                })
             },
             countFee: function () {
                 var sum = 0
@@ -906,11 +908,13 @@
                     return false
                 } else if ([hjjk, wnq, qwhh].indexOf(id) > -1 && !vm.insurance.money) { //保额
                     toast_text = '请填写基本保险金额'
-                } else if (id === fxjs) { // 保费
+                } else if (id === fxjs) { // 福享金生
                     if (!vm.insurance.guarantee_term) {
                         toast_text = '请选择年金保障年限'
                     } else if (!vm.insurance.period_money) {
                         toast_text = '请填写年缴保费'
+                    } else if (!vm.insurance.shareDrawType) {
+                        toast_text = '请选择分红领取方式'
                     }
                 } else if (id === wnh) { // 万年红
                     if (!vm.insurance.period_money) {

@@ -79,66 +79,39 @@
                 infomat.style.minHeight = (content.offsetHeight - topic.offsetHeight) + 'px';
                 var card_no = plus.webview.currentWebview().noId;
                 var flag = plus.webview.currentWebview().flag;
-                var type = plus.webview.currentWebview().type;
                 var pageid = plus.webview.currentWebview().pageid;
                 if (flag) {
                     document.getElementById('choose').style.display = 'block';
                 }
                 document.getElementById('choose').addEventListener('tap',function () {
                     mui.fire(plus.webview.getWebviewById(pageid), 'getMemberId', {
-                        id: card_no,
-                        type: type
+                        id: card_no
                     });
                     plus.webview.close('communic');
                     mui.back();
                 })
-                if (type === 2) {
-                    luckyAjax({
-                        data: {
-                            server: 'team.getContactsInfo',
-                            data: JSON.stringify({user_id: card_no})
-                        },
-                        success:function(data){
-                            if(data.code == 1){
-                                var data = data.data
-                                document.getElementById('Js-surname').innerHTML = data.user_name.substring(0,1)
-                                document.getElementById('Js-name').innerHTML = data.user_name
-                                document.getElementById('Js-integ').innerHTML = data.pay_points
-                                document.getElementById('Js-phone').innerHTML = data.tel
-                                document.getElementById('Js-ID').innerHTML = data.card_no
-                                document.getElementById('Js-address').innerHTML = data.contact_province_text ? (data.contact_province_text + data.contact_city_text + data.contact_district_text + data.contact_address) : (data.home_province_text + data.home_city_text + data.home_district_text + data.home_address)
-                                document.getElementById('Js-birthday').innerHTML = data.birthday
-                            } else {
-                                mui.alert(data.msg, '提示', function() {
-                                    plus.webview.currentWebview().close()
-                                });
-                            }
+                luckyAjax({
+                    data: {
+                        server: 'team.getContactsInfo',
+                        data: JSON.stringify({card_no: card_no})
+                    },
+                    success:function(data){
+                        if(data.code == 1){
+                            var data = data.data
+                            document.getElementById('Js-surname').innerHTML = data.user_name.substring(0,1)
+                            document.getElementById('Js-name').innerHTML = data.user_name
+                            document.getElementById('Js-integ').innerHTML = data.pay_points
+                            document.getElementById('Js-phone').innerHTML = data.tel
+                            document.getElementById('Js-ID').innerHTML = data.card_no
+                            document.getElementById('Js-address').innerHTML = data.contact_province_text ? (data.contact_province_text + data.contact_city_text + data.contact_district_text + data.contact_address) : (data.home_province_text + data.home_city_text + data.home_district_text + data.home_address)
+                            document.getElementById('Js-birthday').innerHTML = data.birthday
+                        } else {
+                            mui.alert(data.msg, '提示', function() {
+                                plus.webview.currentWebview().close()
+                            });
                         }
-                    });
-				}else{
-                    luckyAjax({
-                        data: {
-                            server: 'team.getContactsInfo',
-                            data: JSON.stringify({card_no: card_no})
-                        },
-                        success:function(data){
-                            if(data.code == 1){
-                                var data = data.data
-                                document.getElementById('Js-surname').innerHTML = data.user_name.substring(0,1)
-                                document.getElementById('Js-name').innerHTML = data.user_name
-                                document.getElementById('Js-integ').innerHTML = data.pay_points
-                                document.getElementById('Js-phone').innerHTML = data.tel
-                                document.getElementById('Js-ID').innerHTML = data.card_no
-                                document.getElementById('Js-address').innerHTML = data.contact_province_text ? (data.contact_province_text + data.contact_city_text + data.contact_district_text + data.contact_address) : (data.home_province_text + data.home_city_text + data.home_district_text + data.home_address)
-                                document.getElementById('Js-birthday').innerHTML = data.birthday
-                            } else {
-                                mui.alert(data.msg, '提示', function() {
-                                    plus.webview.currentWebview().close()
-                                });
-                            }
-                        }
-                    });
-				}
+                    }
+                });
 
 			});
 		</script>

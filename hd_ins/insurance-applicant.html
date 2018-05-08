@@ -81,7 +81,6 @@
                                 <span class="mui-icon mui-icon-clear"></span>
                             </div>
                         </div>
-                        <div class="right-btn right-icon search-icon"></div>
                         <div class="right-btn right-icon address-icon orange"></div>
                     </div>
                 </div>
@@ -236,50 +235,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="input-item box-f-1 box-align-center">
-                    <div class="box-f-1 ins-font-sm BL-col-999">通讯地址是否同现在住址？</div>
-                    <div class="box-f-2">
-                        <button class="ins-btn xs-btn BL-mar-r-1" :class="{'blue':applicant.mail_addr_type}" :disabled="applicant.mail_addr_type"
-                                @tap="applicant.mail_addr_type=!applicant.mail_addr_type,toblur()">是
-                        </button>
-                        <button class="ins-btn xs-btn" :class="{'blue':!applicant.mail_addr_type}" :disabled="!applicant.mail_addr_type"
-                                @tap="applicant.mail_addr_type=!applicant.mail_addr_type,toblur()">否
-                        </button>
-                    </div>
-                </div>
-                <div v-show="!applicant.mail_addr_type">
-                    <div class="input-item">
-                        <label class="">通讯地区</label>
-                        <div class="input-wrap box-f-1">
-                            <div class="input" id="address-select">
-                                {{applicant.holder_contact_address_select}}
-                            </div>
-                            <div class="ins-down-icon"></div>
-                        </div>
-                    </div>
-                    <div class="input-item">
-                        <label class="">详细地址</label>
-                        <div class="input-wrap box-f-1">
-                            <input type="text" v-model="applicant.holder_contact_address" placeholder="请输入">
-                            <div class="form-clear-icon" v-show="applicant.holder_contact_address!=''"
-                                 @change="checkAddress(applicant.holder_contact_address,'投保人通讯')"
-                                 @click="applicant.holder_contact_address=''">
-                                <span class="mui-icon mui-icon-clear"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-item">
-                        <label class="">邮编</label>
-                        <div class="input-wrap box-f-1">
-                            <input type="number" v-model.lazy="applicant.holder_contact_zip"
-                                   @change="checkZipcode(applicant.holder_contact_zip,'投保人')" placeholder="请输入">
-                            <div class="form-clear-icon" v-show="applicant.holder_contact_zip!=''"
-                                 @click="applicant.holder_contact_zip=''">
-                                <span class="mui-icon mui-icon-clear"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="input-item box-f-1">
                 <div class="box-f-3 ins-font-sm BL-col-3b9cf5">是否已参加当地社会基本医疗保险（或公费医疗）？</div>
@@ -298,7 +253,6 @@
 <script src="../js/mui.picker.js"></script>
 <script src="../js/mui.poppicker.js"></script>
 <script src="../js/mui.dtpicker.js"></script>
-<script src="../js/city.data-3.js"></script>
 <script src="../js/IDValidator.min.js"></script>
 <script src="method.js"></script>
 <script type="text/javascript">
@@ -362,15 +316,11 @@
                     holder_home_district_name: '请选择',//现在住址【区】名称
                     holder_home_address: '', //现在住址【地址详情】
                     holder_home_zip: '',//现在住址【邮编】
-                    mail_addr_type: false,//（通讯地址）同现在住址
+                    mail_addr_type: true,//（通讯地址）同现在住址
                     holder_contact_province: '',//通讯地址【省】
                     holder_contact_city: '',//通讯地址【市】
                     holder_contact_district: '',//通讯地址【区】
-                    holder_contact_province_name: '请选择',//通讯地址【省】名称
-                    holder_contact_city_name: '请选择',//通讯地址【市】名称
-                    holder_contact_district_name: '请选择',//通讯地址【区】名称
                     holder_contact_address: '', //通讯地址【地址详情】
-                    holder_contact_address_select: '请选择', //通讯地址【地址详情】
                     holder_contact_zip: '',//通讯地址【邮编】
 
                     holder_has_SSID: false,//是否有社保
@@ -426,6 +376,7 @@
     mui.plusReady(function () {
         var init = plus.webview.currentWebview().data;
         appl.init = init;
+
         //已填信息赋值
         var applicant = plus.storage.getItem('hengda_applicant') ? JSON.parse(plus.storage.getItem('hengda_applicant')) : ''
         if(applicant) {
@@ -455,24 +406,6 @@
 
             })
         })
-        //选择省市区
-        var _getParam = function (obj, param) {
-            return obj[param] || '';
-        };
-        var cityPicker3 = new mui.PopPicker({
-            layer: 3
-        });
-        cityPicker3.setData(cityData3);
-        document.querySelector('#address-select').addEventListener('tap', function () {
-            document.activeElement.blur();
-            cityPicker3.show(function (items) {
-                appl.applicant.holder_contact_province = _getParam(items[0], 'value')
-                appl.applicant.holder_contact_city = _getParam(items[1], 'value')
-                appl.applicant.holder_contact_district = _getParam(items[2], 'value')
-                appl.applicant.holder_contact_zip = _getParam(items[2], 'zip') ? _getParam(items[2], 'zip') : _getParam(items[1], 'zip')
-                appl.applicant.holder_contact_address_select = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
-            });
-        }, false);
         //日期选择
         mui('.search-date').each(function (i, d) {
             d.addEventListener('tap', function () {
@@ -566,7 +499,6 @@
             if (!checkAppl(appl.applicant)) {
                 return false;
             }
-            var flag = false
             var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')) : ''
             if (assured && assured.rel_insured_holder === ISASSURED) {
                 if(!RSChanged(assured, appl.applicant)){return false}
@@ -575,14 +507,13 @@
                 }
                 saveTemp(assured)
                 plus.storage.setItem('hengda_assured', JSON.stringify(assured));
-                flag = true
             }
             saveTemp(appl.applicant)
             plus.storage.setItem('hengda_applicant',JSON.stringify(appl.applicant));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'hengda_applicant',
                 data:'applicant',
-                clear: flag
+                clear: true
             });
             console.log(JSON.stringify(plus.storage.getItem('hengda_applicant')));
             popu.closepop();
@@ -600,17 +531,10 @@
         //
         window.addEventListener('getMemberId', function (event) {
 	        var memberid = event.detail.id
-	        var type = event.detail.type
-            var basedata = {}
-            if (type === 1) {
-                basedata.card_no = memberid
-            } else if (type === 2) {
-                basedata.user_id = memberid
-            }
             luckyAjax({
                 data: {
                     server: 'team.getContactsInfo',
-                    data: JSON.stringify(basedata)
+                    data: JSON.stringify({card_no: memberid})
                 },
                 success:function(data){
                     console.log(JSON.stringify(data))
@@ -628,15 +552,14 @@
                             appl.applicant.holder_home_district_name = info.home_district_text;
                             appl.applicant.holder_home_address = info.home_address;
                             appl.applicant.holder_home_zip = info.home_zip;
-                        }
-                        if (!appl.applicant.mail_addr_type) { //通讯地址否同居住地址
-                            appl.applicant.holder_contact_province = info.contact_province;
-                            appl.applicant.holder_contact_city = info.contact_city;
-                            appl.applicant.holder_contact_district = info.contact_district;
-                            appl.applicant.holder_contact_address = info.contact_address;
-                            appl.applicant.holder_contact_district_name = info.contact_district_text;
-                            appl.applicant.holder_contact_zip = info.contact_zip;
-                            appl.applicant.holder_contact_address_select = info.contact_province_text + ' ' + info.contact_city_text + ' ' + info.contact_district_text;
+                        } else {
+                            if (info.contact_city == '323') {
+                                appl.applicant.holder_home_province = info.contact_province;
+                                appl.applicant.holder_home_city = info.contact_city;
+                                appl.applicant.holder_home_district = info.contact_district;
+                                appl.applicant.holder_home_address = info.contact_address;
+                                appl.applicant.holder_home_zip = info.contact_zip;
+                            }
                         }
                         appl.applicant.holder_weight = parseInt(info.weight) ? Number(info.weight).toFixed(2) : appl.applicant.holder_weight;
                         appl.applicant.holder_height = parseInt(info.height) ? parseInt(info.height) : appl.applicant.holder_height;

@@ -1,0 +1,502 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="../css/mui.css" rel="stylesheet"/>
+    <link href="../css/common.css" rel="stylesheet"/>
+    <link href="../css/module.css" rel="stylesheet"/>
+    <link href="../css/insurance.css" rel="stylesheet"/>
+    <script src="../js/config.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css"/>
+</head>
+
+<body class="BL-bg-f2f">
+<header id="Js-header" class="BL-bg-fff">
+    <div class="BL-mod-headbar BL-mod-headbar-pos">
+        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+        <h1 class="BL-title">平安e生保2017</h1>
+    </div>
+</header>
+<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY" v-cloak>
+    <div class="form-content no-dialog BL-mar-t-1 BL-pad-b-2">
+        <div class="form-wrap">
+            <div class="border-b-e7e7e7">
+                <div class="item-title">投保人信息</div>
+            </div>
+            <div class="input-item">
+                <label class="">证件类型</label>
+                <div class="input-wrap box-f-1">
+                    <div class="input" id="ID_type0">{{applicant.holder_ID_type_name}}</div>
+                    <div class="ins-down-icon"></div>
+                </div>
+            </div>
+            <div class="input-item">
+                <label class="">证件号码</label>
+                <div class="input-wrap box-f-1">
+                    <input type="text" placeholder="请输入" v-model.trim.lazy="applicant.holder_ID_no">
+                    <div class="form-clear-icon" v-show="applicant.holder_ID_no!=''" @click="applicant.holder_ID_no=''">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-item">
+                <label class="">姓名</label>
+                <div class="BL-ub BL-ub-pj BL-ub-f1">
+                    <div class="input-wrap BL-ub-f1">
+                        <input type="text" v-model.trim.lazy="applicant.holder_name"
+                               @change="checkName('投保人',applicant.holder_name)" placeholder="请输入">
+                        <div class="form-clear-icon" v-show="applicant.holder_name!=''"
+                             @click="applicant.holder_name=''">
+                            <span class="mui-icon mui-icon-clear"></span>
+                        </div>
+                    </div>
+                    <div class="right-btn right-icon address-icon orange"></div>
+                </div>
+            </div>
+            <div class="input-item">
+                <label class="">性别</label>
+                <div class="input-wrap box-f-1">
+                    <button class="ins-btn sm-btn"
+                            v-for="(item,index) in init.gender"
+                            v-show="item.value!=='LAB0007'"
+                            :class="{'blue':assured.insured_gender===item.value}"
+                            @tap="assured.insured_gender=item.value,toblur()"
+                            :disabled="IDNO.indexOf(assured.insured_ID_type)>-1">{{item.text}}
+                    </button>
+                </div>
+            </div>
+            <div class="input-item">
+                <label class="">出生日期</label>
+                <div class="input-wrap box-f-1 search-date" data-options='{"type":"date","beginYear":1950}'>
+                    <input type="text"
+                           v-model.lazy="applicant.holder_birthday"
+                           :disabled="IDNO.indexOf(applicant.holder_ID_type)>-1" placeholder="请选择" readonly>
+                    <button class="ins-date-icon" :disabled="IDNO.indexOf(applicant.holder_ID_type)>-1"></button>
+                </div>
+            </div>
+            <div class="input-item">
+                <label class="">手机号码</label>
+                <div class="input-wrap box-f-1">
+                    <input type="number" v-model.lazy="applicant.holder_mobile"
+                           @change="checkPhone('投保人',applicant.holder_mobile)" placeholder="请输入">
+                    <div class="form-clear-icon" v-show="applicant.holder_mobile!=''"
+                         @click="applicant.holder_mobile=''">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-item">
+                <label class="">邮箱</label>
+                <div class="input-wrap box-f-1">
+                    <input type="text" v-model.lazy="applicant.holder_email"
+                           @change="checkEmail('投保人',applicant.holder_email)" placeholder="请输入">
+                    <div class="form-clear-icon" v-show="applicant.holder_email!=''"
+                         @click="applicant.holder_email=''">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-item">
+                <label class="">常住地</label>
+                <div class="input-wrap box-f-1">
+                    <div class="input" id="residence0">{{applicant.holder_residence_name}}</div>
+                    <div class="ins-down-icon"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-wrap margin-t_875">
+            <div class="border-b-e7e7e7">
+                <div class="item-title">被保人信息</div>
+            </div>
+            <div class="input-item ins-pd-r-0" v-if="init">
+                <label class="">是投保人的</label>
+                <div class="input-wrap box-f-1 multi-btn">
+                    <button class="ins-btn xs-btn" :class="{'blue':item.value===assured.rel_insured_holder}"
+                            :disabled="item.value===assured.rel_insured_holder"
+                            v-for="(item,index) in init.is_assured" @click="changeRelation(),assured.rel_insured_holder=item.value">
+                        {{item.text}}
+                    </button>
+                </div>
+            </div>
+
+            <div v-show="!(assured.rel_insured_holder===ISASSURED)">
+                <div class="input-item">
+                    <label class="">证件类型</label>
+                    <div class="input-wrap box-f-1">
+                        <div class="input" id="ID_type1">{{assured.insured_ID_type_name}}</div>
+                        <div class="ins-down-icon"></div>
+                    </div>
+                </div>
+                <div class="input-item">
+                    <label class="">证件号码</label>
+                    <div class="input-wrap box-f-1">
+                        <input type="text" placeholder="请输入" v-model.trim.lazy="assured.insured_ID_no">
+                        <div class="form-clear-icon" v-show="assured.insured_ID_no!=''"
+                             @click="assured.insured_ID_no=''">
+                            <span class="mui-icon mui-icon-clear"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-item">
+                    <label class="">姓名</label>
+                    <div class="BL-ub BL-ub-pj BL-ub-f1">
+                        <div class="input-wrap BL-ub-f1">
+                            <input type="text" v-model.trim.lazy="assured.insured_name"
+                                   @change="checkName('被保人',assured.insured_name)" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.insured_name!=''"
+                                 @click="assured.insured_name=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                        <div class="right-btn right-icon address-icon orange"></div>
+                    </div>
+                </div>
+                <div class="input-item">
+                    <label class="">性别</label>
+                    <div class="input-wrap box-f-1">
+                        <button class="ins-btn sm-btn"
+                                v-for="(item,index) in init.gender"
+                                v-show="item.value!=='LAB0007'"
+                                :class="{'blue':assured.insured_gender===item.value}"
+                                @tap="assured.insured_gender=item.value,toblur()"
+                                :disabled="IDNO.indexOf(assured.insured_ID_type)>-1">{{item.text}}
+                        </button>
+                    </div>
+                </div>
+                <div class="input-item">
+                    <label class="">出生日期</label>
+                    <div class="input-wrap box-f-1 search-date" data-options='{"type":"date","beginYear":1950}'>
+                        <input type="text"
+                               v-model.lazy="assured.insured_birthday"
+                               :disabled="IDNO.indexOf(assured.insured_ID_type)>-1" placeholder="请选择" readonly>
+                        <button class="ins-date-icon" :disabled="IDNO.indexOf(assured.insured_ID_type)>-1"></button>
+                    </div>
+                </div>
+                <div class="input-item">
+                    <label class="">常住地</label>
+                    <div class="input-wrap box-f-1">
+                        <div class="input" id="residence1">{{assured.insured_residence_name}}</div>
+                        <div class="ins-down-icon"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-wrap BL-mar-t-1">
+            <div class="input-item box-f-1">
+                <div class="box-f-3 ins-font-sm">被保人是否已参加当地社保（含新农合）？</div>
+                <div class="input-switch">
+                    <input type="checkbox" class="switch" v-model="assured.insured_has_SSID"/>
+                    <label></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-wrap margin-t_875">
+            <div class="border-b-e7e7e7">
+                <div class="item-title">保险信息</div>
+            </div>
+            <div class="input-item">
+                <label class="">保障计划</label>
+                <div class="input-wrap box-f-1">
+                    <button class="ins-btn sm-btn" :class="{'blue':insurance.amount==1000000}" :disabled="insurance.amount==1000000" @tap="insurance.amount=1000000,toblur()">100万</button>
+                    <button class="ins-btn sm-btn" :class="{'blue':insurance.amount==3000000}" :disabled="insurance.amount==3000000" @tap="insurance.amount=3000000,toblur()">300万</button>
+                </div>
+            </div>
+            <div class="input-item">
+                <label class="">保障期限</label>
+                <div class="input-wrap box-f-1">
+                    <span class="input" style="border: none">1年(可续保)</span>
+                </div>
+            </div>
+            <div class="input-item">
+                <label class="">生效日期</label>
+                <div class="input-wrap box-f-1">
+                    <input type="text" style="border: none" readonly v-model="currentDate">
+                </div>
+            </div>
+        </div>
+        <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1">
+            <label>本人已阅读并了解<a>《保险条款》</a>和<a>《重要声明》</a></label>
+            <input name="checkbox" value="Item 1" type="checkbox" v-model="promise">
+        </div>
+        <footer id="Js-footer" class="BL-footer BL-bg-fff">
+            <div class="BL-ub BL-ub-ac BL-ub-f1 BL-Border-t">
+                <div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll">
+                    <div class="BL-ftz-46 BL-pad-l-1">保费: <span class="BL-col-ff8201">{{insurance.fee}}</span></div>
+                </div>
+                <a class="BL-foot-btn-sign BL-foot-btn-det BL-bg-3b9cf5" @click="sub">
+                    立即付款
+                </a>
+            </div>
+        </footer>
+    </div>
+</div>
+</body>
+<script src="../js/mui.js" type="text/javascript"></script>
+<script src="../js/vue.min.js" type="text/javascript"></script>
+<script src="../js/mui.picker.js"></script>
+<script src="../js/mui.poppicker.js"></script>
+<script src="../js/mui.dtpicker.js"></script>
+<script src="../js/IDValidator.min.js"></script>
+<script src="method.js"></script>
+<script type="text/javascript">
+    mui.init();
+
+    //证件类型
+    var idtype0 = new mui.PopPicker();
+    var idtype1 = new mui.PopPicker();
+
+    //常住地
+    var residence0 = new mui.PopPicker();
+    var residence1 = new mui.PopPicker();
+
+    var pae = new Vue({
+        el: '#Js-content',
+        data: function () {
+            return {
+                init: '',
+                userinfo: '',
+                totalFee: '',//总保费
+                promise:false, //同意声明
+                coverageAmount: {
+                    '100': '1000000',
+                    '300': '3000000'
+                },
+                coverageLevel: {
+                    '100': '03',
+                    '300': '04'
+                },
+                applicant: {
+                    holder_name: '', //姓名
+                    holder_ID_type: IDcard, //证件类型
+                    holder_ID_type_name: '身份证', //证件类型名
+                    holder_ID_no: '', //证件号码
+                    holder_birthday: '', //出生日期
+                    holder_gender: MALE, //性别
+                    holder_mobile: '',//手机号
+                    holder_email: '',//邮箱
+                    holder_residence: '',//常住地
+                    holder_residence_name: '请选择',//常住地名称
+                    holder_has_SSID: false//是否有社保
+                },
+                assured: {
+                    rel_insured_holder: '',//是投保人的
+                    insured_name: '', //姓名
+                    insured_ID_type: IDcard, //证件类型
+                    insured_ID_type_name: '身份证', //证件类型名
+                    insured_ID_no: '', //证件号码
+                    insured_birthday: '', //出生日期
+                    insured_gender: MALE, //性别
+                    insured_mobile: '',//手机号
+                    insured_email: '',//邮箱
+                    insured_residence: '',//常住地
+                    insured_residence_name: '请选择',//常住地名称
+                    insured_has_SSID: false,//是否有社保
+                },
+                insurance: {
+                    is_main: '1', //是主险
+                    product_id: '',//险种id
+                    period_payment: '',//交费期间
+                    period_guanantee: '',//保障期间
+                    fee: '',//保费
+                    amount: ''//保额
+                },
+                currentDate: '' //生效日期
+            }
+        },
+        created:function () {
+            //明天日期
+            var day1 = new Date();
+            day1.setDate(day1.getDate() + 1);
+            var s1 = day1.format("yyyy-MM-dd");
+            this.currentDate = s1;
+        },
+        methods: {
+            sub:function() {
+                //
+            },
+            toblur: function () {
+                document.activeElement.blur();
+            },
+            // 改变投保人与被保人关系时
+            changeRelation:function() {
+                const vm = this
+                vm.assured.insured_name = ''
+                vm.assured.insured_ID_no = ''
+                vm.assured.insured_ID_type = IDcard
+                vm.assured.insured_gender = MALE
+                vm.assured.insured_residence = ''
+                vm.assured.insured_residence_name = '请选择'
+                vm.assured.insured_has_SSID = false
+                vm.assured.insured_birthday = ''
+                if (vm.assured.rel_insured_holder !== ISASSURED) { // 非本人
+                    vm.insurance.fee = ''
+                } else { // 是本人
+                    if (vm.applicant.holder_birthday) {
+                        vm.assured.insured_birthday = vm.applicant.holder_birthday
+                    }
+                    vm.precal()
+                }
+                return true
+            },
+            // 保费试算
+            precal:function() {
+                const vm = this
+                var basedata = {
+                    user_id: vm.userinfo.id,
+                    productInfo: {
+                        productId: vm.insurance.product_id,
+                        benLevel: vm.coverageLevel[vm.insurance.amount],
+                        sumInsured: vm.coverageAmount[vm.insurance.amount]
+                    },
+                    insurant: {
+                        name: vm.assured.insured_name,
+                        birthday: vm.assured.insured_birthday,
+                        sex: vm.assured.insured_gender,
+                        hasSocialSecurity: vm.assured.insured_has_SSID ? has_social_security : no_social_security
+                    },
+                    applicant: {
+                        name: vm.applicant.holder_name,
+                        birthday: vm.applicant.holder_birthday,
+                        sex: vm.applicant.holder_gender,
+                        hasSocialSecurity: vm.applicant.holder_has_SSID ? has_social_security : no_social_security
+                    }
+                }
+                //开始试算
+                luckyAjax({
+                    data: {
+                        data: JSON.stringify({
+                            msg: basedata,
+                            company_code: 'PingAn',
+                            method: 'test_calc'
+                        }),
+                        server: 'PolicyIns.onlineInsured',
+                        device: 'mobile'
+                    },
+                    timeout: 10000,
+                    success: function (res) {
+                        if (res.code && res.data) {
+                        //
+                        }
+                    }
+                })
+                //
+                return true
+            }
+        }
+    });
+    mui.plusReady(function () {
+        statusbar();
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+        var userinfo = plus.storage.getItem('userinfo')?JSON.parse(plus.storage.getItem('userinfo')):'';
+        pae.userinfo = userinfo
+
+        getInit();
+        //投保人证件类型选择
+        document.querySelector('#ID_type0').addEventListener('tap', function () {
+            document.activeElement.blur();
+            idtype0.show(function (items) {
+                pae.applicant.holder_ID_type = items[0].value;
+                pae.applicant.holder_ID_type_name = items[0].text;
+            })
+        })
+        //被保人证件类型选择
+        document.querySelector('#ID_type1').addEventListener('tap', function () {
+            document.activeElement.blur();
+            idtype1.show(function (items) {
+                pae.assured.insured_ID_type = items[0].value;
+                pae.assured.insured_ID_type_name = items[0].text;
+            })
+        })
+        //投保人常住地选择
+        document.querySelector('#residence0').addEventListener('tap', function () {
+            document.activeElement.blur();
+            residence0.show(function (items) {
+                pae.applicant.holder_residence = items[0].value;
+                pae.applicant.holder_residence_name = items[0].text;
+            })
+        })
+        //被保人常住地选择
+        document.querySelector('#residence1').addEventListener('tap', function () {
+            document.activeElement.blur();
+            residence1.show(function (items) {
+                pae.assured.insured_residence = items[0].value;
+                pae.assured.insured_residence_name = items[0].text;
+            })
+        })
+        //日期选择
+        mui('.search-date').each(function (i, d) {
+            d.addEventListener('tap', function () {
+                document.activeElement.blur();
+                var optionsJson = this.getAttribute('data-options') || '{}';
+                var options = JSON.parse(optionsJson);
+                var picker = new mui.DtPicker(options);
+                picker.show(function (rs) {
+                    if (i === 0) {
+                        pae.applicant.holder_birthday = rs.text;
+                    } else if (i === 1) {
+                        pae.assured.insured_birthday = rs.text;
+                    }
+                    picker.dispose();
+                });
+            }, false);
+        });
+        function getInit() {
+            //初始化下拉数据获取
+            luckyAjax({
+                data: {
+                    data: JSON.stringify({'supplier_id': SCID}),
+                    server: 'PolicyIns.initPolicyField'
+                },
+                success: function (data) {
+                    if (data.code) {
+                        var res = {}
+                        var data = data.data;
+                        mui.each(data, function (index, item) {
+                            var itemdata = item.child;
+                            if (item.cate === 'AA') {
+                                console.log(JSON.stringify(itemdata))
+                                res.ID_type = dataToselect(itemdata); //证件类型
+                            } else if (item.cate === 'AB') {
+                                res.gender = dataToselect(item.child); //性别
+                            } else if (item.cate === 'AC') {
+                                res.is_assured = dataToselect(item.child); //与投保人关系
+                            } else if (item.cate === 'AG') {
+                                res.social_security = dataToselect(item.child); //是否有社保
+                            } else if (item.cate === 'AK') {
+                                res.ins_city = dataToselect(item.child); //投保地区
+                            }
+                        });
+                        pae.init = res;
+                        console.log(JSON.stringify(res.ID_type))
+                        var applType = []
+                        mui.each(res.ID_type, function (index, item) {
+                            if (item.value !== BORNid && item.value !== CHILDRENid) {
+                                applType.push(item)
+                            }
+                        })
+                        idtype0.setData(applType);
+                        idtype1.setData(res.ID_type);
+                        residence0.setData(res.ins_city);
+                        residence1.setData(res.ins_city);
+                    }
+                }
+            });
+        }
+        //险种
+        luckyAjax({
+            data: {
+                data: JSON.stringify({'supplier_id': SCID}),
+                server: 'PolicyIns.getProductList'
+            }, //获取险种列表
+            success: function (res) {
+                if (res.code == 1) {
+                    pae.insurance.product_id = res.data[0].id
+                }
+            }
+        })
+    })
+</script>
+</html>

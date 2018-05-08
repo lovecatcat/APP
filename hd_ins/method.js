@@ -317,9 +317,6 @@ var ApplSameHomeAddress = function (appl) {
     appl.holder_contact_province = appl.holder_home_province
     appl.holder_contact_city = appl.holder_home_city
     appl.holder_contact_district = appl.holder_home_district
-    appl.holder_contact_province_name = '广东'
-    appl.holder_contact_city_name = '深圳'
-    appl.holder_contact_district_name = appl.holder_home_district_name
     appl.holder_contact_address = appl.holder_home_address
     appl.holder_contact_zip = appl.holder_home_zip
 };
@@ -375,14 +372,6 @@ var checkAppl = function (appl) {
         return false
     } else if (appl.mail_addr_type ) {
         ApplSameHomeAddress(appl)
-    } else if (!appl.mail_addr_type && !appl.holder_contact_province) {
-        toast_text = '投保人通讯地区【省级】不能为空'
-    } else if (!appl.mail_addr_type && !appl.holder_contact_city) {
-        toast_text = '投保人通讯地区【市级】不能为空'
-    } else if (!appl.mail_addr_type && !checkAddress(appl.holder_contact_address, '投保人通讯')) {
-        return false
-    } else if (!appl.mail_addr_type && !checkZipcode(appl.holder_contact_zip, '投保人通讯')) {
-        return false
     }
 
     if (toast_text) {

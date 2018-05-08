@@ -239,7 +239,7 @@
                     server: 'PolicyIns.onlineInsured',
                     device: 'mobile'
                 },
-                timeout: 10000,
+                timeout: 60000,
                 success: function (res) {
                     if (res.code) {
                         if (res.data.resultCode === '00') {
@@ -318,9 +318,6 @@
                             }
                             //
                             setTimeout(function () {
-                                plus.webview.close('hd_insurance-index');
-                                popu.closepop();
-                                plus.webview.close('member_life_order');
                                 mui.openWindow({
                                     url: '../member-warranty-manage.html',
                                     id: 'member_warranty_manage',
@@ -480,6 +477,7 @@
                         view: true,
                         device: 'mobile'
                     },
+                    timeout: 10000,
                     success: function (res) {
                         if (res.code) {
                             mui.toast(res.msg, {duration: 'short', type: 'div'})

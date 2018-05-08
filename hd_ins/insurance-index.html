@@ -179,15 +179,11 @@
                                     appl_data.holder_home_zip = da.insData.holder_home_zip//现在住址【邮编】
                                 }
                                 appl_data.holder_home_address = da.insData.holder_home_address //现在住址【地址详情】
-                                appl_data.mail_addr_type = da.insData.extend_items.mail_addr_type === '1' ? true : false//（通讯地址）同现在住址
+                                appl_data.mail_addr_type =  true//（通讯地址）同现在住址
                                 appl_data.holder_contact_province = da.insData.holder_contact_province//通讯地址【省】
                                 appl_data.holder_contact_city = da.insData.holder_contact_city//通讯地址【市】
                                 appl_data.holder_contact_district = da.insData.holder_contact_district//通讯地址【区】
-                                appl_data.holder_contact_province_name = da.insData.holder_contact_province_text//通讯地址【省】名称
-                                appl_data.holder_contact_city_name = da.insData.holder_contact_city_text//通讯地址【市】名称
-                                appl_data.holder_contact_district_name = da.insData.holder_contact_district_text//通讯地址【区】名称
                                 appl_data.holder_contact_address = da.insData.holder_contact_address //通讯地址【地址详情】
-                                appl_data.holder_contact_address_select = da.insData.holder_contact_province_text + ' ' + da.insData.holder_contact_city_text + ' ' + da.insData.holder_contact_district_text //通讯地址【地址详情】
                                 appl_data.holder_contact_zip = da.insData.holder_contact_zip//通讯地址【邮编】
 
                                 appl_data.holder_has_SSID = da.insData.holder_has_SSID === has_social_security ? true : false//是否有社保
@@ -588,7 +584,7 @@
             pushdata.is_first = '1'
             pushdata.user_id = index.userinfo.id
             //投保人信息
-            var applfieldFilter = ['holder_contact_address_select', 'holder_has_SSID', 'resident_type', 'temp_holder_job_code', 'mail_addr_type', 'holder_ID_type_name', 'holder_nation_name', 'holder_salary_from_name', 'holder_home_district_name', 'holder_contact_province_name', 'holder_contact_city_name', 'holder_contact_district_name', 'holder_job_name', 'holder_isTaxResidents']
+            var applfieldFilter = ['holder_has_SSID', 'resident_type', 'temp_holder_job_code', 'mail_addr_type', 'holder_ID_type_name', 'holder_nation_name', 'holder_salary_from_name', 'holder_home_district_name', 'holder_job_name', 'holder_isTaxResidents']
             for (var i in index.applicant) {
                 if (applfieldFilter.indexOf(i) === -1) {
                     pushdata[i] = index.applicant[i]
@@ -711,6 +707,7 @@
             luckyAjax({
                 data: {data: JSON.stringify(data), server: 'PolicyIns.save'},
                 closeWaiting: true,
+                timeout: 10000,
                 success: function (res) {
                     if (res.code) {
                         plus.storage.setItem('hengda_ids',JSON.stringify(res.data));

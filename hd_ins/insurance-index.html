@@ -630,6 +630,9 @@
                     draw_age: item.draw_age,
                     shareDrawType: item.code === cjb ? zrwnzh : item.shareDrawType
                 }
+                if (item.code === fxjs) {
+                    safeitem.extend_items.shareDrawType = item.shareDrawType
+                }
                 content.push(safeitem)
             })
 

@@ -82,7 +82,7 @@
 											:data-index="index"
 											v-if="item.ins_state_name=='待投保' || item.ins_state_name=='待支付'">取消订单
 										</a>
-										<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.ins_state_name=='待投保'" :data-supplier="item.supplier_id" :data-policyid="item.policy_id">继续录入</a>
+										<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state==0" :data-supplier="item.supplier_id" :data-policyid="item.policy_id">继续录入</a>
 									</div>
 								</div>
 							</li>
@@ -135,7 +135,7 @@
     
     var self;
 	var user_id;
-	
+
     (function ($) {
         //阻尼系数
 		var deceleration = mui.os.ios?0.003:0.0009;
@@ -166,7 +166,10 @@
 					}
 				}
 			});
-            
+			//继续录入-后更新列表
+            window.addEventListener('reload', function () {
+                plus.webview.currentWebview().reload()
+            });
             // 取消订单
             mui('body').on('tap', '.cancel', function () {
             	var _this = this

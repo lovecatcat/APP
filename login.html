@@ -290,6 +290,9 @@
             var tel = login.tel;
             var code = login.codesms;
             var channel_id = login.channel_id;
+            if(channel_id == 9999){
+            	plus.storage.setItem('changeConfigUrl', )	
+            };
             if (!channel_id) {
                 mui.toast('请输入渠道号', {duration: 'short', type: 'div'});
                 return false;

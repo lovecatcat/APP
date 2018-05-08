@@ -81,7 +81,6 @@
                                 <span class="mui-icon mui-icon-clear"></span>
                             </div>
                         </div>
-                        <div class="right-btn right-icon search-icon"></div>
                         <div class="right-btn right-icon address-icon orange"></div>
                     </div>
                 </div>
@@ -598,17 +597,10 @@
         //
         window.addEventListener('getMemberId', function (event) {
 	        var memberid = event.detail.id
-	        var type = event.detail.type
-            var basedata = {}
-            if (type === 1) {
-                basedata.card_no = memberid
-            } else if (type === 2) {
-                basedata.user_id = memberid
-            }
             luckyAjax({
                 data: {
                     server: 'team.getContactsInfo',
-                    data: JSON.stringify(basedata)
+                    data: JSON.stringify({card_no: memberid})
                 },
                 success:function(data){
                     console.log(JSON.stringify(data))

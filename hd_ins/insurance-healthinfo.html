@@ -843,7 +843,7 @@
                                         }
                                     }
 
-                                    jval.push(input.type !== 'textarea' ? input.value : '(' + input.value + ')')
+                                    jval.push(input.type !== 'textarea' ? input.value : input.value)
                                 }
                                 this.clientvalue.app_fields[j] = jval.reverse().join('|')
                             }
@@ -931,6 +931,9 @@
             mui.each(health.matters, function (index, item) {
                 var insured_answer = health.clientvalue.ass_amswer[item.id] ? '1' : '0'
                 var holder_answer = health.clientvalue.app_amswer[item.id] ? '1' : '0'
+                if (item.id === 168 && health.assuAge <= 2){
+                    insured_answer = '1'
+                }
                 var insured_fields = health.clientvalue.fields[item.id]?health.clientvalue.fields[item.id]:''
                 var holder_fields = health.clientvalue.app_fields[item.id]?health.clientvalue.app_fields[item.id]:''
                 if (item.id === 46) {

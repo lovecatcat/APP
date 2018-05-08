@@ -551,13 +551,6 @@
         //通讯录返回
         window.addEventListener('getMemberId', function (event) {
 	        var memberid = event.detail.id
-            var type = event.detail.type
-            var basedata = {}
-            if (type === 1) {
-                basedata.card_no = memberid
-            } else if (type === 2) {
-                basedata.user_id = memberid
-            }
             luckyAjax({
                 data: {
                     server: 'team.getContactsInfo',

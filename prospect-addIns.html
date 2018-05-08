@@ -60,12 +60,30 @@
 						<app-input label="基本保额" v-if="insurance.safe_id !== 'CCPAAP1' 
 								&& insurance.safe_id !== 'P005-3'
 								&& insurance.safe_id !== '8111' 
-								&& insurance.safe_id !== 'LE234'">
+								&& insurance.safe_id !== 'LE234'
+								&& insurance.safe_id !== '1016'">
 							<input slot="input" v-model.number.lazy="insurance.money" type="number" placeholder="请填写基本保险金额（元）" @change="resetFee()">
 							<div slot="icon" @click="insurance.money = ''" v-show="insurance.money != ''" class="form-clear-icon">
 								<span class="mui-icon mui-icon-clear"></span>
 							</div>
 						</app-input>
+						<template v-else-if="insurance.safe_id == '1016'">
+							<!--招商仁和仁医保费用补偿医疗保险-->
+							<app-select label="有无社保">
+								<button slot="button" v-for="num in ['1', '2']"
+									 class="ins-btn xs-btn" :class="{'blue': num == flag[insurance.safe_id]}" 
+									 :disabled="num == flag[insurance.safe_id]"
+									  @click="flagChanged(insurance.safe_id, num)">
+						             	{{num == '1' ? '有社保': '无社保'}}
+						        </button>
+							</app-select>
+							<app-select label="基本保额">
+								<button slot="button" v-model="insurance.money = 1500000"
+									class="ins-btn xs-btn blue" disabled>
+						            150万
+						        </button>
+							</app-select>
+						</template>
 						<template v-else>
 							<!--千万护航LE234，康运金生8111，e生保P005-3，安联-->
 							<app-select label="基本保额" v-if="prospectus_types.length > 0">

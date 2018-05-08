@@ -587,6 +587,11 @@ var methods = {
                     toastText = '10年缴被保人年龄应在不能大于55周岁'
                 }
                 break
+            case '1016': // 招商仁和仁医保费用补偿医疗保险
+                if (assuAge > 60) {
+                    toastText = '被保人年龄不能大于60周岁'
+                }
+                break
         }
 
         if (toastText) {
@@ -2242,14 +2247,14 @@ var methods = {
             data.pay_year = this.mainPayYear === 60 ? 5900 : py
             data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
              if (this.addonRes['1003']) {
-                data.base_money = periodMoney + this.addonRes['1003']['年缴保费']
+                data.base_money = Number(periodMoney) + Number(this.addonRes['1003']['年缴保费'])
             } else {
                 data.base_money = periodMoney
             }
         } else if (safeid === '1011') {
             //  投保人豁免保险费定期寿险
             if (this.addonRes['1003']) {
-                data.base_money = periodMoney + this.addonRes['1003']['年缴保费']
+                data.base_money = Number(periodMoney) + Number(this.addonRes['1003']['年缴保费'])
             } else {
                 data.base_money = periodMoney
             }
@@ -2294,6 +2299,10 @@ var methods = {
             data.safe_year = 1
             data.flag = this.flag[safeid]
             data.base_money = this.cache.base_money1018
+        }else if (safeid === '1016') {
+            // 招商仁和仁医保费用补偿医疗保险
+            data.assu_sex = 0
+            data.flag = this.flag[safeid]
         }
 
         if (isMain) {

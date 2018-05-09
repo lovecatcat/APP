@@ -110,11 +110,13 @@
 	                    	<div class="title BL-ftz-52 clearfloat">
 	                    		<div class="title-flex">
 		                    		<em v-if="index1 == 0">
-		                    			<img :src="'images/plans/plansIcon/icon-plans'+ index +'.png'" alt="icon"/>
+		                    			<img :src="'images/plans/plansIcon/icon-plans'+ index +'.png'" alt="icon" v-if="index < 11"/>
+		                    			<img :src="'images/plans/plansIcon/icon-plans10.png'" alt="icon" v-else/>
 		                    		</em>
 		                    		<i v-else>
-		                    			<img :src="'images/plans/plansIcon/icon-plans1'+ index +'.png'" alt="icon"/>
-		                    		</i>
+		                    			<img :src="'images/plans/plansIcon/icon-plans2'+ index +'.png'" alt="icon" v-if="index < 11"/>
+										<img :src="'images/plans/plansIcon/icon-plans210.png'" alt="icon" v-else/>
+									</i>
 		                    		<span>{{item.title}}</span>
 		                    		<button class="BL-btn-white BL-ftz-42 BL-mar-l-1" v-if="item.isEntity == 1" @click="detail(index1, item.title)">明细</button>
 	                    		</div>

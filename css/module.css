@@ -471,13 +471,13 @@ BL-modal-icon-0/**
 /* 上下拉加载更多，加载中按钮样式 */
 .mui-pull-top-tips {
 	position: absolute;
-	top: 10rem;
+	top: 0;
 	left: 50%;
 	margin-left: -2rem;
 	width: 4rem;
 	height: 4rem;
 	border-radius: 100%;
-	z-index: 1;
+	z-index: 999999;
 }
 
 .mui-pull-top-wrapper {

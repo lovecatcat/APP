@@ -255,9 +255,12 @@
 
 </body>
 <script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/mui.pullToRefresh.js"></script>
+<script src="js/mui.pullToRefresh.material.js"></script>
 <script src="js/vue.min.js" type="text/javascript"></script>
 <script src="js/cacheImg.js" type="text/javascript"></script>
 <script type="text/javascript">
+	
     mui.init();
 
     //相当于jq的append
@@ -281,21 +284,33 @@
             statusbar();
             var winH = window.innerHeight;
             document.querySelector('#Js-main').style.height = winH + "px";
-
-            mui('.mui-scroll-wrapper').scroll({
-                scrollY: true, //是否竖向滚动
-                scrollX: false, //是否横向滚动
-                startX: 0, //初始化时滚动至x
-                startY: 0, //初始化时滚动至y
-                indicators: false, //是否显示滚动条
-                deceleration: 0.0001, //阻尼系数,系数越小滑动越灵敏
-                bounce: false //是否启用回弹
-            });
+			
+			//阻尼系数
+			var deceleration = mui.os.ios ? 0.003 : 0.0009;
+			mui('.mui-scroll-wrapper').scroll({
+				bounce: false,
+				indicators: false, //是否显示滚动条
+				deceleration: deceleration
+			});
+			
             // 改变头部搜索栏背景色
             document.querySelector(".mui-scroll-wrapper").addEventListener('scroll', function (e) {
                 var y = Math.abs(e.detail.y) * 0.01;
                 document.querySelector('#Js-header').style.background = "rgba(53,153,241," + y + ")";
             });
+            
+            // 下拉刷新加载
+            /*mui('.mui-scroll').pullToRefresh({
+            	down:{
+					callback: function() {
+						var self = this;
+						console.log('aaa')
+						setTimeout(function() {
+							self.endPullDownToRefresh();
+						}, 1000);
+					}
+				}
+            })*/
             
         }
 

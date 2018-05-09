@@ -465,6 +465,13 @@
 							children_base_money = hdFufee2 + hdFufee;
 							children_year_fee = list["年缴保费"]
 							break;
+						case '16216':
+							//附加养老年金
+							children_base_money = year_fee;
+							children_safe_year = tml.flag == 1 ? '74周岁' : '84周岁';
+							children_pay_year = pay_year;
+							children_year_fee = list["年缴保费"];
+							break;
 						//招商仁和
 						case '16120':
 							//附加豁免保险费重大 疾病保险

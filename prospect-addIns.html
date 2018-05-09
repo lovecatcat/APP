@@ -1076,6 +1076,36 @@
 							</div>
 						</template>
 						<!-- 恒大传家宝-->
+						<!--恒大附加养老年金保险-->
+						<template v-if="item.code === 'LA078' && addonsSelected[item.code]">
+							<div class="form-wrap form-bgc-eee">
+								<app-select label="保险金额">
+									<button slot="button" class="ins-btn xs-btn blue">{{insurance.period_money}}</button>
+								</app-select>
+								<app-select label="保险期间">
+									<button slot="button" v-for="num in ['7400', '8400']" class="ins-btn xs-btn" :class="{'blue': num == flag[item.code]}" @click="flagChanged(item.code, num)">
+					             		{{num.substring(0,2)}}周岁
+					        		</button>
+								</app-select>
+								<app-select label="缴费年限(年)">
+									<button slot="button" class="ins-btn xs-btn blue">{{mainPayYear}}</button>
+								</app-select>
+								<div class="input-item">
+									<label class="">年缴保费(元)</label>
+									<div class="BL-ub BL-ub-pj BL-ub-f1">
+										<div class="input-wrap BL-ub-f1">
+											<div class="input BL-bg-fff">
+												<span v-if="addonRes[item.code]">
+							{{addonRes[item.code]['年缴保费']}}
+						</span>&nbsp;
+											</div>
+										</div>
+										<div class="right-btn orange" @click="calMoney(false, item.code)">点击计算</div>
+									</div>
+								</div>
+							</div>
+						</template>
+						<!--恒大附加养老年金保险-->
 						<!--恒大-->
 						<!--信泰-->
 						<!-- 附加健康两全保险 -->

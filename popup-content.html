@@ -25,7 +25,7 @@
 				</div>
 			</div>
 			<!--列表(白豪)-->
-			<div id="modal-list" class="BL-modal BL-modal-w90 BL-pad-lr-2 BL-pad-tb-1_5 BL-ub BL-ub-ac" 
+			<div class="BL-modal BL-modal-w90 BL-pad-lr-2 BL-pad-tb-1_5 BL-ub BL-ub-ac"
 				:class="{'BL-hide': isHide !== 'modal-list'}" v-if="!goIns">
 				<div class="BL-modal-content">
 					<div class="BL-modal-list" v-for="item in goIns_data" @click="showStatement(item.genre)">
@@ -256,33 +256,6 @@
 								}
 							}
 						});
-//					luckyAjax({
-//						data: {
-//							server: 'Proposal.getProductInfo',
-//							device: 'mobile',
-//							view: 'false',
-//							data: JSON.stringify({
-//								code: '',
-//								id: genre
-//							})
-//						},
-//						success: function(res) {
-//							if(res.code == 1) {
-//								var url = res.code.statement
-//								if (url) {
-//								    showPopu("pdf-modal.html", "pdf_modal", 'center', {
-//								        pdf: url
-//								    });
-//								} else {
-//								    mui.toast('暂无条款详情', {duration: 'short', type: 'div'})
-//								    return false;
-//								}
-////								alert(statement)
-//							} else {
-//								mui.toast('加载失败')
-//							}
-//						}
-//					});
 				}
 			}
 		})

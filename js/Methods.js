@@ -1287,6 +1287,19 @@ var methods = {
                     toastText = '被保人年龄不能大于55周岁'
                 }
                 break
+             case 'LA078': //恒大附加养老年金保险
+                if (assuAge > 65) {
+                    toastText = '被保人年龄不能大于65周岁'
+                } else if (mainPayYear === 10 && assuAge > 60) {
+                    toastText = '10年交被保人年龄不能大于60周岁'
+                } else if (mainPayYear === 15 && assuAge > 55) {
+                    toastText = '15年交被保人年龄不能大于55周岁'
+                } else if (mainPayYear === 20 && assuAge > 50) {
+                    toastText = '20年交被保人年龄不能大于50周岁'
+                } else if (mainPayYear === 30 && assuAge > 40) {
+                    toastText = '30年交被保人年龄不能大于40周岁'
+                }
+                break    
 
             //工银
             case 'AMRB':
@@ -1494,6 +1507,11 @@ var methods = {
             case 'HA014': // 恒大恒久安心
                 if (!flag) {
                     toastText = '请先选择保险金额'
+                }
+                break
+            case 'LA078': // 附加养老年金保险
+                if (!flag) {
+                    toastText = '请先选择保障期间'
                 }
                 break
 
@@ -1910,7 +1928,7 @@ var methods = {
             alias: null
         }
         // 添加特殊参数
-        var filterSafeid = ['31A00050', '12D00080', "HB030", 'DAR', 'LA073', '1003']
+        var filterSafeid = ['31A00050', '12D00080', "HB030", 'DAR', 'LA073', '1003', 'LA078']
         if (filterSafeid.indexOf(safeid) > -1) {
                 data.assume_rate = '0';
                 data.sa_one= '0';
@@ -2006,6 +2024,13 @@ var methods = {
             data.pay_year = py
             data.safe_year = py
             data.base_money = periodMoney
+        }  else if (safeid === 'LA078') {
+            // 恒大附加养老年金保险
+            data.pay_year = this.mainPayYear
+            data.safe_year = this.flag[safeid]
+            data.base_money = periodMoney
+            data.nje = periodMoney * this.mainPayYear
+            data.flag = this.flag[safeid] == '7400' ? 1 : 2
         } else if (safeid === 'WPJP') { // 附加乐相伴豁免保险费重大疾病保险
             data.pay_year = py
             data.safe_year = py

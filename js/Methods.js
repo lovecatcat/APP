@@ -160,7 +160,7 @@ var methods = {
 
             // 计划类型
             switch (safeid) {
-                case 'P005-3': //中国平安e生保
+                case 'P005': //中国平安e生保
                     vm.prospectus_types = [{
                         value: 100,
                         name: '有社保100万'
@@ -400,7 +400,7 @@ var methods = {
                 break
 
             //平安
-            case 'P005-3': // 平安e生保
+            case 'P005': // 平安e生保
                 if (assuAge > 60) {
                     toastText = '被保人年龄不能大于60周岁'
                 }
@@ -1975,7 +1975,7 @@ var methods = {
                 data.money_ten= '0'
              
         }
-        if (safeid === 'CCPAAP1' || safeid === 'P005-3') {
+        if (safeid === 'CCPAAP1' || safeid === 'P005') {
             data.flag = this.prospectus_type
         }
 

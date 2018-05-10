@@ -847,8 +847,13 @@
 						<template v-if="item.code === 'HB024'  && addonRes[item.code]">
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
-									<li class="ins-font-xs">
+									<li class="ins-font-xs" v-if="addonRes['LA078']">
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money + addonRes['LA078']['年缴保费']}}</span>
+										<div class="am-ft-orange"></div>
+									</li>
+									<li class="ins-font-xs" v-else>
 										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money}}</span>
+										<div class="am-ft-orange"></div>
 									</li>
 								</div>
 								<div class="mui-col-sm-6">

@@ -1091,6 +1091,12 @@ var methods = {
                 	this.addonsSelected['1011'] = false
                     this.addonRes['1011'] = ''
                     this.$forceUpdate()
+                 	break  
+                //恒大养老年金
+                 case 'LA078':
+                	this.addonsSelected['HB024'] = false
+                    this.addonRes['HB024'] = ''
+                    this.$forceUpdate()
                  	break    
 
             }
@@ -1152,6 +1158,12 @@ var methods = {
                 this.$delete(this.addonInsData, '1011')
                 this.$delete(this.addonRes, '1011')
                 this.addonsSelected['1011'] = false
+            } else if (index === 'LA078') {
+                this.$delete(this.addonInsData, index)
+                this.$delete(this.addonRes, index)
+                this.$delete(this.addonInsData, 'HB024')
+                this.$delete(this.addonRes, 'HB024')
+                this.addonsSelected['HB024'] = false
             } else {
                 //            取消时 清除缓存的提交数据
                 this.flag[index] = ''
@@ -2023,9 +2035,16 @@ var methods = {
             // 恒大附加投保人豁免保费重大疾病保险2017版
             data.pay_year = py
             data.safe_year = py
-            data.base_money = periodMoney
+           	if (this.addonRes['LA078']) {
+                data.base_money = Number(periodMoney) + Number(this.addonRes['LA078']['年缴保费'])
+            } else {
+                data.base_money = periodMoney
+            }
         }  else if (safeid === 'LA078') {
             // 恒大附加养老年金保险
+            this.addonsSelected['HB024'] = false
+            this.addonRes['HB024'] = ''
+            this.$forceUpdate()
             data.pay_year = this.mainPayYear
             data.safe_year = this.flag[safeid]
             data.base_money = periodMoney
@@ -2271,7 +2290,7 @@ var methods = {
             //  附加豁免保险费重大疾病保险
             data.pay_year = this.mainPayYear === 60 ? 5900 : py
             data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
-             if (this.addonRes['1003']) {
+            if (this.addonRes['1003']) {
                 data.base_money = Number(periodMoney) + Number(this.addonRes['1003']['年缴保费'])
             } else {
                 data.base_money = periodMoney

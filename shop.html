@@ -28,8 +28,15 @@
 			$.plusReady(function() {
 				statusbar();
 				var topHeight = document.getElementById('Js-header').offsetHeight / sizeObj.dpl;
-
-				var embed=plus.webview.create('https://mshop.ehuimeng.com/shop/mobile_index', '', {top: topHeight + 'px',bottom:'0px'});
+                var shopurl = 'mshop.ehuimeng.com'
+                if (config.domain.indexOf('ts-') > -1) {
+                    shopurl = 'ts-mshop.ehuimeng.com'
+                }
+                var userinfo = plus.storage.getItem('userinfo') ? JSON.parse(plus.storage.getItem('userinfo')) : '';
+                var embed = plus.webview.create('http://' + shopurl + '/shop/mobile_index?idno='+userinfo.card_no, '', {
+                    top: topHeight + 'px',
+                    bottom: '0px'
+                });
 				plus.webview.currentWebview().append(embed);
 				
 				// 自定义返回事件

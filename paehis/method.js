@@ -2,6 +2,7 @@ var SCID = '8' //平安
 
 var ISASSURED = 'LAC0008'; //被保人是本人
 var COUPLE = 'LAC0009';//投被保人为配偶
+var typename = {'LAA0006': '身份证', 'LAA0013': '户口本', 'LAA0012': '出生证','LAA0011':'驾驶证','LAA0009':'少儿证','LAA0010':'港澳台回乡证','LAA0007':'护照','LAA0008':'军人证'}
 var IDNO = ['LAA0006', 'LAA0013','LAA0011','LAA0009']; //身份证、户口本、驾驶证、少儿证
 var BOOKLET = 'LAA0013'; //户口本
 var IDcard = 'LAA0006'; //身份证

@@ -210,16 +210,21 @@
             	var _this = this
             	var supplier_id = _this.getAttribute('data-supplier')
             	var policyid = _this.getAttribute('data-policyid')
-            	var url = ""
-            	if (supplier_id == 19) {
-            		url = "hd_ins/insurance-index.html"
-            	} else {
-            		return false
-            	}
+            	var url = null
+            	var id = null
+                if (supplier_id == 19) {
+                    url = 'hd_ins/insurance-index.html'
+                    id = 'hd_insurance-index'
+                } else if (supplier_id == 8) {
+                    url = 'paehis/pa-toinsure.html'
+                    id = 'pa_toinsure'
+                } else {
+                    return false
+                }
             	//打开新窗口
                 mui.openWindow({
                     url: url,
-                    id: "hd_insurance-index",
+                    id: id,
                     show: animateObj.aniDetal,
                     extras: {
                         policy_id: policyid

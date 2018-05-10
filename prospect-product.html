@@ -85,9 +85,9 @@
 							<label class="">性别</label>
 							<div class="input-wrap box-f-1">
 								<button :class="{'BL-btn-white': appl.sex == true, 'BL-btn-gray': appl.sex == false}" 
-									@click="applSex(true)" :readonly="edit" v-model="appl.sex">男</button>
+									@click="!edit && applSex(true)" :readonly="edit" v-model="appl.sex">男</button>
 								<button :class="{'BL-btn-white': appl.sex == false, 'BL-btn-gray': appl.sex == true}"
-									 @click="applSex(false)" :readonly="edit" v-model="appl.sex">女</button>
+									 @click="!edit && applSex(false)" :readonly="edit" v-model="appl.sex">女</button>
 							</div>
 						</div>
 					</div>
@@ -105,7 +105,7 @@
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label>姓名</label>
 							<div class="input-wrap">
-								<input v-model.lazy.trim="assu.name" @change="checkName(assu.name, '被保人')" type="text" placeholder="请输入真实姓名">
+								<input v-model.lazy.trim="assu.name" @change="checkName(assu.name, '被保人')" :readonly="edit" type="text" placeholder="请输入真实姓名">
 								<div class="form-clear-icon" v-show="assu.name != '' && !edit">
 									<span class="mui-icon mui-icon-clear" @click="assu.name = '' "></span>
 								</div>
@@ -115,7 +115,7 @@
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">年龄</label>
 							<div class="input-wrap box-f-1">
-								<input v-model.number.lazy.trim="assu.age" @change="checkAge(assu.age, '被保人')" type="number" placeholder="输入年龄">
+								<input v-model.number.lazy.trim="assu.age" @change="checkAge(assu.age, '被保人')" :readonly="edit" type="number" placeholder="输入年龄">
 								<div class="form-clear-icon" v-show="assu.age != '' && !edit">
 									<span class="mui-icon mui-icon-clear" @click="assu.age = '' "></span>
 								</div>
@@ -129,9 +129,9 @@
 							<label class="">性别</label>
 							<div class="input-wrap box-f-1">
 								<button :class="{'BL-btn-white': assu.sex == true, 'BL-btn-gray': assu.sex == false}" 
-									@click="assuSex(true)" :readonly="edit" v-model="assu.sex">男</button>
+									@click="!edit && assuSex(true)" :readonly="edit" v-model="assu.sex">男</button>
 								<button :class="{'BL-btn-white': assu.sex == false, 'BL-btn-gray': assu.sex == true}" 
-									@click="assuSex(false)" :readonly="edit" v-model="assu.sex">女</button>
+									@click="!edit && assuSex(false)" :readonly="edit" v-model="assu.sex">女</button>
 							</div>
 						</div>
 					</div>
@@ -565,7 +565,9 @@
 				var year = now.getFullYear()
 				var month = now.getMonth() + 1
 				var day = now.getDate()
-				var r = birthday.split('-').map(item => parseInt(item))
+				var r = birthday.split('-').map(function(item){
+				    return parseInt(item)
+				})
 				var age = year - r[0]
 				if(r[1] > month || (r[1] === month && r[2] > day)) { // 当月
 					age -= 1

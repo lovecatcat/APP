@@ -121,7 +121,6 @@ function downWgt(wgtUrl, ver) {
         width: '90px'
     })
     plus.downloader.createDownload(wgtUrl, {filename: "_doc/" + ver + '.wgt'}, function (d, status) {
-        plus.nativeUI.closeWaiting()
         if (status == 200) {
             console.log("下载成功：" + d.filename);
             //安装wgt包
@@ -157,6 +156,7 @@ function delFile(url) {
 function installWgt(path) { 
     plus.runtime.install(path, {}, function () {
         console.log("安装wgt文件成功！");
+        plus.nativeUI.closeWaiting();
         delFile(path)
         plus.nativeUI.confirm("更新成功，是否重启？",
             function (e) {

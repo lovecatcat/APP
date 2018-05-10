@@ -587,6 +587,11 @@ var methods = {
                     toastText = '10年缴被保人年龄应在不能大于55周岁'
                 }
                 break
+            case '1016': // 招商仁和仁医保费用补偿医疗保险
+                if (assuAge > 60) {
+                    toastText = '被保人年龄不能大于60周岁'
+                }
+                break
         }
 
         if (toastText) {
@@ -1086,6 +1091,12 @@ var methods = {
                 	this.addonsSelected['1011'] = false
                     this.addonRes['1011'] = ''
                     this.$forceUpdate()
+                 	break  
+                //恒大养老年金
+                 case 'LA078':
+                	this.addonsSelected['HB024'] = false
+                    this.addonRes['HB024'] = ''
+                    this.$forceUpdate()
                  	break    
 
             }
@@ -1147,6 +1158,12 @@ var methods = {
                 this.$delete(this.addonInsData, '1011')
                 this.$delete(this.addonRes, '1011')
                 this.addonsSelected['1011'] = false
+            } else if (index === 'LA078') {
+                this.$delete(this.addonInsData, index)
+                this.$delete(this.addonRes, index)
+                this.$delete(this.addonInsData, 'HB024')
+                this.$delete(this.addonRes, 'HB024')
+                this.addonsSelected['HB024'] = false
             } else {
                 //            取消时 清除缓存的提交数据
                 this.flag[index] = ''
@@ -1282,6 +1299,19 @@ var methods = {
                     toastText = '被保人年龄不能大于55周岁'
                 }
                 break
+             case 'LA078': //恒大附加养老年金保险
+                if (assuAge > 65) {
+                    toastText = '被保人年龄不能大于65周岁'
+                } else if (mainPayYear === 10 && assuAge > 60) {
+                    toastText = '10年交被保人年龄不能大于60周岁'
+                } else if (mainPayYear === 15 && assuAge > 55) {
+                    toastText = '15年交被保人年龄不能大于55周岁'
+                } else if (mainPayYear === 20 && assuAge > 50) {
+                    toastText = '20年交被保人年龄不能大于50周岁'
+                } else if (mainPayYear === 30 && assuAge > 40) {
+                    toastText = '30年交被保人年龄不能大于40周岁'
+                }
+                break    
 
             //工银
             case 'AMRB':
@@ -1489,6 +1519,11 @@ var methods = {
             case 'HA014': // 恒大恒久安心
                 if (!flag) {
                     toastText = '请先选择保险金额'
+                }
+                break
+            case 'LA078': // 附加养老年金保险
+                if (!flag) {
+                    toastText = '请先选择保障期间'
                 }
                 break
 
@@ -1905,7 +1940,7 @@ var methods = {
             alias: null
         }
         // 添加特殊参数
-        var filterSafeid = ['31A00050', '12D00080', "HB030", 'DAR', 'LA073', '1003']
+        var filterSafeid = ['31A00050', '12D00080', "HB030", 'DAR', 'LA073', '1003', 'LA078']
         if (filterSafeid.indexOf(safeid) > -1) {
                 data.assume_rate = '0';
                 data.sa_one= '0';
@@ -2000,7 +2035,21 @@ var methods = {
             // 恒大附加投保人豁免保费重大疾病保险2017版
             data.pay_year = py
             data.safe_year = py
+           	if (this.addonRes['LA078']) {
+                data.base_money = Number(periodMoney) + Number(this.addonRes['LA078']['年缴保费'])
+            } else {
+                data.base_money = periodMoney
+            }
+        }  else if (safeid === 'LA078') {
+            // 恒大附加养老年金保险
+            this.addonsSelected['HB024'] = false
+            this.addonRes['HB024'] = ''
+            this.$forceUpdate()
+            data.pay_year = this.mainPayYear
+            data.safe_year = this.flag[safeid]
             data.base_money = periodMoney
+            data.nje = periodMoney * this.mainPayYear
+            data.flag = this.flag[safeid] == '7400' ? 1 : 2
         } else if (safeid === 'WPJP') { // 附加乐相伴豁免保险费重大疾病保险
             data.pay_year = py
             data.safe_year = py
@@ -2241,15 +2290,15 @@ var methods = {
             //  附加豁免保险费重大疾病保险
             data.pay_year = this.mainPayYear === 60 ? 5900 : py
             data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
-             if (this.addonRes['1003']) {
-                data.base_money = periodMoney + this.addonRes['1003']['年缴保费']
+            if (this.addonRes['1003']) {
+                data.base_money = Number(periodMoney) + Number(this.addonRes['1003']['年缴保费'])
             } else {
                 data.base_money = periodMoney
             }
         } else if (safeid === '1011') {
             //  投保人豁免保险费定期寿险
             if (this.addonRes['1003']) {
-                data.base_money = periodMoney + this.addonRes['1003']['年缴保费']
+                data.base_money = Number(periodMoney) + Number(this.addonRes['1003']['年缴保费'])
             } else {
                 data.base_money = periodMoney
             }
@@ -2294,6 +2343,10 @@ var methods = {
             data.safe_year = 1
             data.flag = this.flag[safeid]
             data.base_money = this.cache.base_money1018
+        }else if (safeid === '1016') {
+            // 招商仁和仁医保费用补偿医疗保险
+            data.assu_sex = 0
+            data.flag = this.flag[safeid]
         }
 
         if (isMain) {

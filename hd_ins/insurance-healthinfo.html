@@ -38,8 +38,8 @@
                         <ul class="flex">
                             <li class="flex-1">{{item.entry}}.&nbsp;{{item.content}}</li>
                             <li class="item-operate BL-mar-t-1" v-if="['10','11','5'].indexOf(item.entry)===-1">
-                                <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.app_amswer[item.id]}" :disabled="clientvalue.app_amswer[item.id]" @tap="appChange(item.id,true)">是</button>
-                                <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.app_amswer[item.id]}" :disabled="!clientvalue.app_amswer[item.id]" @tap="appChange(item.id,false)">否</button>
+                                <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.app_amswer[item.id]}" :disabled="clientvalue.app_amswer[item.id]" @tap="appChange(item.id,true),toblur()">是</button>
+                                <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.app_amswer[item.id]}" :disabled="!clientvalue.app_amswer[item.id]" @tap="appChange(item.id,false),toblur()">否</button>
                             </li>
                         </ul>
                         <template v-if="appforms[item.id] && (clientvalue.app_amswer[item.id]||item.entry==11)">
@@ -50,8 +50,8 @@
                                 <ul class="flex">
                                     <li class="flex-1">{{childitem.entry}}.&nbsp;{{childitem.content}}</li>
                                     <li class="item-operate BL-mar-t-1">
-                                        <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.app_amswer[childitem.id]}" :disabled="clientvalue.app_amswer[childitem.id]" @tap="appChange(childitem.id,true)">是</button>
-                                        <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.app_amswer[childitem.id]}" :disabled="!clientvalue.app_amswer[childitem.id]" @tap="appChange(childitem.id,false)">否</button>
+                                        <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.app_amswer[childitem.id]}" :disabled="clientvalue.app_amswer[childitem.id]" @tap="appChange(childitem.id,true),toblur()">是</button>
+                                        <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.app_amswer[childitem.id]}" :disabled="!clientvalue.app_amswer[childitem.id]" @tap="appChange(childitem.id,false),toblur()">否</button>
                                     </li>
                                 </ul>
                                 <template v-if="appforms[childitem.id] && clientvalue.app_amswer[childitem.id]">
@@ -73,8 +73,8 @@
                         <ul class="flex">
                             <li class="flex-1">{{item.entry}}.&nbsp;{{item.content}}</li>
                             <li class="item-operate BL-mar-t-1" v-if="['10','11','5'].indexOf(item.entry)===-1">
-                                <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.ass_amswer[item.id]}" :disabled="clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,true)">是</button>
-                                <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.ass_amswer[item.id]}" :disabled="!clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,false)">否</button>
+                                <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.ass_amswer[item.id]}" :disabled="clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,true),toblur()">是</button>
+                                <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.ass_amswer[item.id]}" :disabled="!clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,false),toblur()">否</button>
                             </li>
                         </ul>
                         <template v-if="assforms[item.id] && (clientvalue.ass_amswer[item.id]||item.entry==11)">
@@ -85,8 +85,8 @@
                                 <ul class="flex">
                                     <li class="flex-1">{{childitem.entry}}.&nbsp;{{childitem.content}}</li>
                                     <li class="item-operate BL-mar-t-1">
-                                        <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.ass_amswer[childitem.id]}" :disabled="clientvalue.ass_amswer[childitem.id]" @tap="assChange(childitem.id,true)">是</button>
-                                        <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.ass_amswer[childitem.id]}" :disabled="!clientvalue.ass_amswer[childitem.id]" @tap="assChange(childitem.id,false)">否</button>
+                                        <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.ass_amswer[childitem.id]}" :disabled="clientvalue.ass_amswer[childitem.id]" @tap="assChange(childitem.id,true),toblur()">是</button>
+                                        <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.ass_amswer[childitem.id]}" :disabled="!clientvalue.ass_amswer[childitem.id]" @tap="assChange(childitem.id,false),toblur()">否</button>
                                     </li>
                                 </ul>
                                 <template v-if="assforms[childitem.id] && clientvalue.ass_amswer[childitem.id]">
@@ -712,6 +712,9 @@
             }
         },
         methods:{
+            toblur:function(){
+                document.activeElement.blur();
+            },
             change:function(item) {
                 var ret = {
                     status: true,
@@ -843,7 +846,7 @@
                                         }
                                     }
 
-                                    jval.push(input.type !== 'textarea' ? input.value : '(' + input.value + ')')
+                                    jval.push(input.type !== 'textarea' ? input.value : input.value)
                                 }
                                 this.clientvalue.app_fields[j] = jval.reverse().join('|')
                             }
@@ -867,12 +870,13 @@
     });
     mui.plusReady(function () {
         var popu = new ClosePopu(); // 实例化关闭窗口对象
+
         //安卓监听返回事件
         plus.key.addEventListener("backbutton",function(){
             popu.closepop();
         });
         //
-        var safegoods = JSON.parse(plus.storage.getItem('hengda_safegoods'));
+        var safegoods = plus.storage.getItem('hengda_safegoods') ? JSON.parse(plus.storage.getItem('hengda_safegoods')) : '';
         if (safegoods) {
             mui.each(safegoods, function (index, item) {
                 if (item.safe_id === tbrhm) {
@@ -881,6 +885,40 @@
                 }
             })
         }
+        //赋值
+        console.log(plus.storage.getItem('hengda_healthinfo'));
+        var hinfo = plus.storage.getItem('hengda_healthinfo') ? JSON.parse(plus.storage.getItem('hengda_healthinfo')) : ''
+        hinfo && setHealth(hinfo)
+
+        function setHealth(data) {
+            mui.each(data, function (index, item) {
+                var aitem = assforms[item.mv_id]
+                if (item.insured_answer === '1') {
+                    health.clientvalue.ass_amswer[item.mv_id] = true
+                    if (aitem && aitem.length === 1) {
+                        console.log(item.mv_id +';' + item.insured_fields)
+                        aitem[0]['value'] = item.insured_fields
+                    } else if (aitem && aitem.length > 1) {
+                        var arr = item.insured_fields.split("|")
+                        for (var i in aitem) {
+                            aitem[i]['value'] = arr[i]
+                        }
+                    }
+                }
+                if (health.showAppl && item.holder_answer === '1') {
+                    health.clientvalue.app_amswer[item.mv_id] = true
+                    if (aitem && aitem.length === 1) {
+                        aitem[0]['value'] = item.holder_fields
+                    } else if (aitem && aitem.length > 1) {
+                        var arr = item.holder_fields.split("|")
+                        for (var i in aitem) {
+                            aitem[i]['value'] = arr[i]
+                        }
+                    }
+                }
+            })
+        }
+        //
         var applicant = JSON.parse(plus.storage.getItem('hengda_applicant'));
         var assured = JSON.parse(plus.storage.getItem('hengda_assured'));
         health.assuAge = getAge(assured.insured_birthday)
@@ -896,6 +934,9 @@
             mui.each(health.matters, function (index, item) {
                 var insured_answer = health.clientvalue.ass_amswer[item.id] ? '1' : '0'
                 var holder_answer = health.clientvalue.app_amswer[item.id] ? '1' : '0'
+                if (item.id === 168 && health.assuAge <= 2){
+                    insured_answer = '1'
+                }
                 var insured_fields = health.clientvalue.fields[item.id]?health.clientvalue.fields[item.id]:''
                 var holder_fields = health.clientvalue.app_fields[item.id]?health.clientvalue.app_fields[item.id]:''
                 if (item.id === 46) {
@@ -954,7 +995,9 @@
             // 关闭遮罩层，弹框
             popu.closepop();
         });
-
+        health.$nextTick(function () {
+            plus.nativeUI.closeWaiting();
+        })
         //获取健康告知题目
         luckyAjax({
             data: {data: JSON.stringify({'supplier_id': SCID, 'version': '1'}), server: 'PolicyIns.getMatterList'},

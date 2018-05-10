@@ -70,6 +70,9 @@
                             			<th style="min-width: 300px;">万能账户</th>
                             			<th>退保总利益</th>
 	                            	</template>
+                            		<template v-else-if="(formID == '272' || formID == '340') && status">
+                            			<th style="min-width: 300px;">养老年金现金价值</th>
+	                            	</template>
 	                            </tr>
                             </thead>
                 		</table>
@@ -125,6 +128,9 @@
 	                            		<template v-else-if="formID == '347' && status">
 	                            			<td class="table-td-hide" >万能账户</td>
 	                            			<td class="table-td-hide" >退保总利益</td>
+		                            	</template>
+	                            		<template v-else-if="(formID == '272' || formID == '340') && status">
+	                            			<td class="table-td-hide" >养老年金现金价值</td>
 		                            	</template>
 		                            </tr>
 	                            	<tr v-for="(item, index) in main" :key="index" v-if="index <= len">
@@ -275,6 +281,22 @@
 		                            			{{children[index][13]}}
 		                            		</td>
 	                            		</template>
+	                            		<template v-else-if="formID == '272' || formID == '340'">
+	                            			<td v-for="(data, i) in item" v-if="i !== nl">
+		                            			<template v-if="i !== njbf">
+		                            				{{data}}
+		                            			</template>
+		                            			<template v-else-if="i === njbf && index <= pay_year">
+		                            				{{data}}
+		                            			</template>
+		                            			<template v-else-if="i === njbf && index > pay_year">
+		                            				0
+		                            			</template>
+		                            			<td>
+			                            			{{children[index][2]}}
+			                            		</td>
+		                            		</td>
+	                            		</template>
 	                            	</tr>
 	                            </tbody>
 	                            <tbody  v-else>
@@ -321,16 +343,15 @@
 				children: {},
 				mainDescribes: {},
 				childrenDescribes: {},
-				
 				pay_year: '',
 				safe_year: '',
 				levelNum : '',
 				indeLv: '',
 				behalfLevelNum: [348, 370], //有中高低
-				behalfTable: [256, 354, 16201, 16197, 370, 347], //主险利益演示表和附加险有关系的
-				//国华康运一生a,国华康运金生,国华少儿,鑫丰盈年金保险，万年红,信泰千万人生
-				behalfChildren: [87, 355, 16202, 16198, 373, 404, 367], //主险利益演示表和附加险有关系的
-				//国华康运一生附加年金，国华康运金生养老年金  ,国华少儿年金,鑫丰盈养老年金，万年红,信泰千万人生
+				behalfTable: [256, 354, 16201, 16197, 370, 347, 272, 340], //主险利益演示表和附加险有关系的
+				//国华康运一生a,国华康运金生,国华少儿,鑫丰盈年金保险，万年红,信泰千万人生，恒久健康，万年青
+				behalfChildren: [87, 355, 16202, 16198, 373, 404, 367, 16216], //主险利益演示表和附加险有关系的
+				//国华康运一生附加年金，国华康运金生养老年金  ,国华少儿年金,鑫丰盈养老年金，万年红,信泰千万人生，恒大养老年金
 				status: false,//和附加险有没有关系
 				nl : null, //年龄index
 				njbf: null, //保费index
@@ -401,7 +422,6 @@
 				mui.each(data.list.children, function(index, item){
 					if(modal.behalfChildren.indexOf(Number(index)) > -1){
 						modal.status = true
-
 						modal.children = data.list.children[index].list
 						modal.childrenDescribes = data.list.children[index].describes
 					}
@@ -415,7 +435,6 @@
 				modal.main = data.list.list
 				modal.mainDescribes = data.list.describes
 //				alert(JSON.stringify(modal.main))
-				
 			}
 			var njy,
                 nje,

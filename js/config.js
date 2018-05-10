@@ -5,6 +5,13 @@ var config = {
     domain: 'https://www.luckyins.com'
 };
 
+//var config = {
+//  baseUrl: 'http://ts-www.luckyins.com/api/api/invoke',  //团队管理服务器路径
+//  moduleURL: 'http://ts-www.luckyins.com/api/api/',
+//  link: 'http://ts-www.luckyins.com/index/', // 外部链接路径[闪电增员、]
+//  domain: 'http://ts-www.luckyins.com'
+//};
+
 /**
  * 根据不同手机的屏幕Dpi，计算并重置屏幕缩放比例
  */
@@ -69,7 +76,7 @@ var luckyAjax = function(options){
 		},
 		dataType: 'json',//服务器返回json格式数据
 		type: 'post',//HTTP请求类型
-		timeout: 5000,//超时时间设置为5秒；
+		timeout: 10000,//超时时间设置为10秒；
 		headers: {'Content-Type': 'application/json'}
 	};
 	var opt = mui.extend(true, defaults, options);
@@ -92,9 +99,7 @@ var luckyAjax = function(options){
 		},
 		error:function(xhr, type, errorThrown){
 			//opt.error(xhr, type, errorThrown);
-			if(!opt.closeWaiting){
-				plus.nativeUI.closeWaiting();
-			}
+			plus.nativeUI.closeWaiting();
 		    mui.toast(errorThrown, {duration: 'short', type: 'div'});
 		    return false
 		}

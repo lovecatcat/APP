@@ -1,41 +1,26 @@
 var SCID = '19';
 
+var onlineIns = ['HB023', 'LE234', 'HB030', 'LA063', 'LA075']; // 上线的主险id
+//               恒久       护航      青     福享金生    红
 
-// var onlineIns = ['272', '276', '340', '348', '370']; // 上线的主险id
-// //               恒久    护航    青  福享金生    红
-// //主险
-// var qwhh = '276'; //千万护航
-// var hjjk = '272'; //恒久健康
-// var fxjs = '348'; //福享金生
-// var wnh = '370'; //万年红
-// var wnq = '340'; //万年青
-// //附加险
-// var tbrhm = '273'; //投保人豁免重疾2017版
-// var hx = '279'; //恒祥
-// var hs = '278'; //恒顺
-// var zxak = '277'; //尊享安康
-// var hjax = '16205'; //恒久安心住院
-// var cjb = '373'; //传家宝
-
-var onlineIns = ['145', '149', '193', '199', '204']; // 上线的主险id
-//               恒久    护航    青  福享金生    红
 //主险
-var qwhh = '149'; //千万护航
-var hjjk = '145'; //恒久健康
-var fxjs = '199'; //福享金生
-var wnh = '204'; //万年红
-var wnq = '193'; //万年青
+var qwhh = 'LE234'; //千万护航
+var hjjk = 'HB023'; //恒久健康
+var fxjs = 'LA063'; //福享金生
+var wnh = 'LA075'; //万年红
+var wnq = 'HB030'; //万年青
 
 //附加险
-var tbrhm = '146'; //投保人豁免重疾2017版
-var hx = '152'; //恒祥
-var hs = '151'; //恒顺
-var zxak = '150'; //尊享安康
-var hjax = '208'; //恒久安心住院
-var cjb = '205'; //传家宝
+var tbrhm = 'HB024'; //投保人豁免重疾2017版
+var hx = 'HA007'; //恒祥
+var hs = 'HA006'; //恒顺
+var zxak = 'HA005'; //尊享安康
+var hjax = 'HA014'; //恒久安心住院
+var cjb = 'LA073'; //传家宝
 
 var zrwnzh = 'LBD0001' //转入万能账户
 
+var typename = {'LAA0001': '身份证', 'LAA0002': '户口本', 'LAA0005': '出生证'}
 var ISASSURED = 'LAC0001'; //被保人是本人
 var COUPLE = 'LAC0002';//投被保人为配偶
 var BCOUPLE = 'LAN0002';//受益人与被保人为配偶
@@ -332,9 +317,6 @@ var ApplSameHomeAddress = function (appl) {
     appl.holder_contact_province = appl.holder_home_province
     appl.holder_contact_city = appl.holder_home_city
     appl.holder_contact_district = appl.holder_home_district
-    appl.holder_contact_province_name = '广东'
-    appl.holder_contact_city_name = '深圳'
-    appl.holder_contact_district_name = appl.holder_home_district_name
     appl.holder_contact_address = appl.holder_home_address
     appl.holder_contact_zip = appl.holder_home_zip
 };
@@ -390,14 +372,6 @@ var checkAppl = function (appl) {
         return false
     } else if (appl.mail_addr_type ) {
         ApplSameHomeAddress(appl)
-    } else if (!appl.mail_addr_type && !appl.holder_contact_province) {
-        toast_text = '投保人通讯地区【省级】不能为空'
-    } else if (!appl.mail_addr_type && !appl.holder_contact_city) {
-        toast_text = '投保人通讯地区【市级】不能为空'
-    } else if (!appl.mail_addr_type && !checkAddress(appl.holder_contact_address, '投保人通讯')) {
-        return false
-    } else if (!appl.mail_addr_type && !checkZipcode(appl.holder_contact_zip, '投保人通讯')) {
-        return false
     }
 
     if (toast_text) {
@@ -585,6 +559,8 @@ var getOccu = function (id, cb) {
     });
 };
 var AssuSameApplAddress = function (assu,applicant) {
+    assu.insured_home_province = '20'//现在住址【省】
+    assu.insured_home_city = '323'//现在住址【市】
     assu.insured_home_district = applicant.holder_home_district
     assu.insured_home_district_name = applicant.holder_home_district_name
     assu.insured_home_address = applicant.holder_home_address

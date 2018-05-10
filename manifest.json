@@ -6,7 +6,7 @@
 	"id": "H517AA33E",
 	"name": "保险+",
 	"version": {
-		"name": "1.9.0505",
+		"name": "1.9.0504",
 		"code": "83"
 	},
 	"description": "保险plus mobile",
@@ -1771,7 +1771,8 @@
 					"product-contrast.html",
 					"product-company.html",
 					"hd_ins/insurance-index.html",
-					"prospect-product.html"
+					"prospect-product.html",
+					"pdf-modal.html"
 				],
 				"priority": 4
 			},

@@ -107,6 +107,11 @@
 	font-size: 1.625rem !important;
 	line-height: 2rem;
 }
+.BL-pasual p img{
+	margin-left: 0rem;
+	max-width: 100% !important;
+	height: auto !important;
+}
 .news-detail-contain .content img{
 	display: block;
 	width: 100%;

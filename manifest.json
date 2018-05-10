@@ -117,11 +117,7 @@
 					}
 				},
 				"share": {
-					"weixin": {
-						"appid": "wx267c7aeee2b65626",
-						"appsecret": "45a8d5ebba5c83ee929a77335cabb39e",
-						"description": "可选，微信分享"
-					}
+					"weixin": {"appid":"wx267c7aeee2b65626","appsecret":"45a8d5ebba5c83ee929a77335cabb39e","description":"可选，微信分享"}
 				},
 				"oauth": {
 					"weixin": {

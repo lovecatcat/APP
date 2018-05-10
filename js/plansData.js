@@ -399,7 +399,11 @@
 							//恒大
 						case '273':
 							//豁免保费重大疾病保险
-							children_base_money = year_fee;
+							if(children[16216]) {
+								children_base_money = Number(year_fee) + Number(children[16216].list[1][1]);
+							} else {
+								children_base_money = year_fee ;
+							}
 							children_safe_year = pay_year - 1;
 							children_pay_year = pay_year - 1;
 							break;

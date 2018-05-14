@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <title>健康告知</title>
-    <link href="../css/mui.css" rel="stylesheet" />
-    <link href="../css/common.css" rel="stylesheet" />
-    <link href="../css/module.css" rel="stylesheet" />
+    <link href="../css/mui.css" rel="stylesheet"/>
+    <link href="../css/common.css" rel="stylesheet"/>
+    <link href="../css/module.css" rel="stylesheet"/>
     <script src="../js/sha256.js" type="text/javascript"></script>
     <script src="../js/config.js" type="text/javascript"></script>
 </head>
@@ -22,17 +22,23 @@
 </header>
 </body>
 <script src="../js/mui.min.js" type="text/javascript"></script>
+<script src="method.js"></script>
 <script type="text/javascript">
     mui.init();
 
-    (function($) {
-        $.plusReady(function() {
+    (function ($) {
+        $.plusReady(function () {
             statusbar();
             var topHeight = document.getElementById('Js-header').offsetHeight / sizeObj.dpl;
             //智能核保
-            let orderno = 'PA' + new Date().format('yyyyMMdd') + new Date().getTime().toString().substr(-9)
+            var interfaceUrl = null
+            if (config.domain.indexOf('ts-') > -1) {
+                interfaceUrl = 'http://test-mobile.health.pingan.com'
+            }
+            var orderno = 'PA' + new Date().format('yyyyMMdd') + new Date().getTime().toString().substr(-9)
             //请求参数
             const outChannelOrderId = orderno //外部渠道订单号
+//            const outChannelOrderId = 'PA20180514278973713' //外部渠道订单号
             const productId = 'A000000021' //产品编号
             const channelId = '328' //渠道编号
             const successBackUrl = config.domain + 'api/api/invoke?server=PolicyIns.onlineInsured&device=mobile&view=true&data={"msg":"","company_code":"PingAn","method":"returnUwMedicalId"}'
@@ -42,10 +48,16 @@
 
             var basedata = 'channelId=' + channelId + '&failBackUrl=' + encodeURIComponent(failBackUrl) + '&outChannelOrderId=' + outChannelOrderId + '&productId=' + productId + '&successBackUrl=' + encodeURIComponent(successBackUrl)
 
-            var shastr = basedata + '93BEWPQ82UB1NYSWQN6Y1RVUVG687FIG'
+            var shastr = basedata + '123456'
             signature = CryptoJS.SHA256(shastr) + ''
             //发起请求
-            var embed=plus.webview.create('http://test-mobile.health.pingan.com/ehis-hm/aitest/outindex.do?' + basedata + '&signMethod=' + signMethod + '&signature=' + signature, '', {top: topHeight + 'px',bottom:'0px'});
+            var url = interfaceUrl + '/ehis-hm/aitest/outindex.do?' + basedata + '&signMethod=' + signMethod + '&signature=' + signature
+            console.log(url)
+
+            var embed = plus.webview.create(url, '', {
+                top: topHeight + 'px',
+                bottom: '0px'
+            });
             plus.webview.currentWebview().append(embed);
 
             // 自定义返回事件
@@ -60,8 +72,26 @@
                 })
             };
 
-            document.querySelector('#Js-closePage').addEventListener('tap', function(){
-                mui.oldBack();
+            document.querySelector('#Js-closePage').addEventListener('tap', function () {
+                luckyAjax({
+                    data: {
+                        data: JSON.stringify({
+                            msg: {order_no: outChannelOrderId},
+                            company_code: 'PingAn',
+                            method: 'getUwMedicalJson'
+                        }),
+                        server: 'PolicyIns.onlineInsured',
+                        device: 'mobile'
+                    },
+                    timeout: 10000,
+                    success: function (res) {
+                        if (res.code) {
+                            mui.oldBack();
+                        } else {
+                            mui.oldBack();
+                        }
+                    }
+                })
             }, false);
 
         });

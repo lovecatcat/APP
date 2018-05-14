@@ -104,6 +104,15 @@
                     <div class="ins-down-icon"></div>
                 </div>
             </div>
+            <div class="input-item">
+                <label class="">投保地区</label>
+                <div class="input-wrap box-f-1">
+                    <div class="input" id="address-select">
+                        {{address_select}}
+                    </div>
+                    <div class="ins-down-icon"></div>
+                </div>
+            </div>
         </div>
         <div class="form-wrap margin-t_875">
             <div class="border-b-e7e7e7">
@@ -242,6 +251,7 @@
 <script src="../js/mui.picker.js"></script>
 <script src="../js/mui.poppicker.js"></script>
 <script src="../js/mui.dtpicker.js"></script>
+<script src="../js/city.data-3.js"></script>
 <script src="../js/IDValidator.min.js"></script>
 <script src="method.js"></script>
 <script type="text/javascript">
@@ -282,7 +292,10 @@
                 return {
                     init: '',
                     userinfo: '',
-                    war_id: '',
+                    mattersId: '',//健康告知id
+                    address_select: '请选择',//投保地区
+                    war_id: '', //policy_id
+                    order_no: 'PA' + new Date().format('yyyyMMdd') + new Date().getTime().toString().substr(-9),//保单号
                     totalFee: '',//总保费
                     promise: false, //同意声明
                     coverageLevel: {
@@ -334,14 +347,6 @@
                 var s1 = day1.format("yyyy-MM-dd");
                 this.currentDate = s1;
 
-                //编辑保单
-                var pid = plus.webview.currentWebview().policy_id;
-                console.log(pid)
-                if (pid) {
-                    this.pid = pid
-                    this.getWarranty(pid)
-                }
-                //
                 this.$watch('applicant.holder_ID_no', function (val) {
                     IDValidate(IDcard, val, '投保人', this.applicant);
                 });
@@ -357,47 +362,7 @@
                 });
             },
             methods: {
-                //编辑保单数据赋值
-                getWarranty: function (pid) {
-                    const vm = this
-                    luckyAjax({
-                        data: {
-                            data: JSON.stringify({'policy_id': pid}),
-                            server: 'PolicyIns.edit'
-                        },
-                        success: function (res) {
-                            if (res.code) {
-                                var da = res.data
-                                //投保人信息
-                                vm.applicant.holder_name = da.insData.holder_name
-                                vm.applicant.holder_ID_type = da.insData.holder_ID_type //证件类型
-                                vm.applicant.holder_ID_type_name = typename[da.insData.holder_ID_type] //证件类型
-                                vm.applicant.holder_ID_no = da.insData.holder_ID_no
-                                vm.applicant.holder_birthday = da.insData.holder_birthday
-                                vm.applicant.holder_gender = da.insData.holder_gender
-                                vm.applicant.holder_mobile = da.insData.holder_mobile
-                                vm.applicant.holder_email = da.insData.holder_email
-                                //被保人信息
-                                vm.assured.rel_insured_holder = da.insured.rel_insured_holder
-                                vm.assured.insured_name = da.insured.insured_name
-                                vm.assured.insured_ID_type = da.insured.insured_ID_type //证件类型
-                                vm.assured.insured_ID_type_name = typename[da.insured.insured_ID_type] //证件类型名
-                                vm.assured.insured_ID_no = da.insured.insured_ID_no //证件号码
-                                vm.assured.insured_birthday = da.insured.insured_birthday //出生日期
-                                vm.assured.insured_gender = da.insured.insured_gender //性别  1男  2女
-                                vm.assured.insured_mobile = da.insured.insured_mobile//手机号
-                                vm.assured.insured_email = da.insured.insured_email//邮箱
-                                vm.assured.has_insured_SSID = da.insured.has_insured_SSID === has_social_security ? true : false
-                                //险种
-                                if(da.contentList[0]){
-                                    vm.insurance.amount = parseInt(da.contentList[0].amount)
-                                }
-                                pay()
-                            }
-                        }
-                    })
-                },
-                openList:function (e) {
+               openList:function (e) {
                     mui.openWindow({
                         url: '../communic.html',
                         id: 'communic',
@@ -429,6 +394,7 @@
                 // 改变投保人与被保人关系时
                 changeRelation: function () {
                     const vm = this
+                    vm.insurance.fee = ''
                     vm.assured.insured_name = ''
                     vm.assured.insured_ID_no = ''
                     vm.assured.insured_ID_type = IDcard
@@ -449,9 +415,9 @@
                 // 保费试算
                 precal: function (auto) {
                     const vm = this
+                    console.log(vm.insurance.product_id.toString())
                     console.log(auto + ';' + vm.insurance.amount)
                     if (auto && (!vm.insurance.amount || !vm.assured.insured_birthday)) return false
-
                     var basedata = {
                         user_id: vm.userinfo.id,
                         productInfo: {
@@ -519,6 +485,8 @@
                         return false
                     } else if (!this.applicant.holder_residence) {
                         toast_text = '请选择投保人常住地'
+                    } else if (!this.ins_city) {
+                        toast_text = '请选择投保地区'
                     } else if (!this.assured.rel_insured_holder) {
                         toast_text = '请选择投被保人关系'
                     }
@@ -554,7 +522,22 @@
         });
         var userinfo = plus.storage.getItem('userinfo') ? JSON.parse(plus.storage.getItem('userinfo')) : '';
         pae.userinfo = userinfo
-
+        //投保地区
+        var _getParam = function (obj, param) {
+            return obj[param] || '';
+        };
+        var cityPicker3 = new mui.PopPicker({
+            layer: 2
+        });
+        cityPicker3.setData(cityData3);
+        document.querySelector('#address-select').addEventListener('tap', function () {
+            document.activeElement.blur();
+            cityPicker3.show(function (items) {
+                pae.ins_city = _getParam(items[0], 'value');
+                pae.address_select = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text');
+            });
+        }, false);
+        //
 
         //投保人证件类型选择
         document.querySelector('#ID_type0').addEventListener('tap', function () {
@@ -616,9 +599,11 @@
                 success: function (res) {
                     if (res.code == 1) {
                         pae.insurance.product_id = res.data[0].id
+                        console.log(pae.insurance.product_id)
                     }
                 }
-            })
+            });
+
             //初始化下拉数据获取
             luckyAjax({
                 data: {
@@ -659,6 +644,16 @@
                     }
                 }
             });
+            //获取健康告知题目
+            luckyAjax({
+                data: {data: JSON.stringify({'supplier_id': SCID, 'version': '1'}), server: 'PolicyIns.getMatterList'},
+                success: function (res) {
+                    if (res.code) {
+                        pae.mattersId = res.data[0].id;
+                    }
+                }
+            });
+            //
         }
         //保存保单
         function save_ins(data) {
@@ -670,9 +665,8 @@
                     console.log(JSON.stringify(res))
                     if (res.code) {
                         pae.war_id = res.data.policy_id
-                        mui.toast(res.msg, {duration: 'short', type: 'div'})
-//                        online_ins()
-                        plus.nativeUI.closeWaiting();
+                        mui.toast('保存成功，核保中', {duration: 'short', type: 'div'})
+                        online_ins()
                     } else {
                         plus.nativeUI.closeWaiting();
                         mui.toast(res.msg, {duration: 'short', type: 'div'})
@@ -695,24 +689,32 @@
                 timeout: 60000,
                 success: function (res) {
                     if (res.code) {
-                        if (res.data.resultCode === '00') {
-                            mui.toast('核保成功', {duration: 'long', type: 'div'})
+                        if (res.data.returnCode === '00') {
+                            mui.toast('核保成功,正在跳转支付...', {duration: 'long', type: 'div'})
+                            pay(res.data.data.orderId)
                         } else {
-                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
+                            plus.nativeUI.closeWaiting();
+                            mui.toast(res.msg, {duration: 'long', type: 'div'})
                             return false
                         }
                     } else {
+                        plus.nativeUI.closeWaiting();
                         mui.toast(res.msg, {duration: 'long', type: 'div'})
                         return false
                     }
                 }
             });
         };
-        function pay() {
+        function pay(order_no) {
             mui.openWindow({
                 url: 'pa-pay.html',
                 id: 'pa_pay',
-                show: animateObj.aniDetal
+                show: animateObj.aniDetal,
+                extras:{
+                    policy_id: pae.war_id,
+                    order_no: order_no,
+                    fee: pae.insurance.fee
+                }
             });
         };
         //选择通讯录
@@ -756,10 +758,11 @@
             var pushdata = {};
             pushdata.id = pae.war_id
             pushdata.supplier_id = SCID
-            pushdata.ins_area = '323' //深圳
+            pushdata.ins_area = pae.ins_city //投保地区
             pushdata.sales_channel = '2'
             pushdata.is_first = '1'
             pushdata.user_id = pae.userinfo.id
+            pushdata.order_no = pae.order_no
             //投保人信息
             var applfieldFilter = ['holder_residence','holder_residence_name', 'holder_ID_type_name','holder_residence_name']
             for (var i in pae.applicant) {
@@ -778,6 +781,16 @@
             }
             insured.has_insured_SSID = pae.assured.has_insured_SSID ? has_social_security : no_social_security
             pushdata.insured = insured
+            //健康告知
+            var appitems = []
+            appitems.push({
+                mv_id: pae.mattersId,
+                holder_answer : '0',
+                insured_answer : '1',
+                holder_fields : '',
+                insured_fields : '0'
+            })
+            pushdata.matter = appitems
             //险种信息
             var content = []
             content.push(pae.insurance)
@@ -790,7 +803,6 @@
             pushdata.extend_items = extend_items
             //
             save_ins(pushdata)
-
         });
     })
 

@@ -167,8 +167,9 @@ function installWgt(path) {
             "", ['取消', '确定']
         );
     }, function (e) {
-        plus.nativeUI.toast('安装失败')
-        delFile(path)
+        plus.nativeUI.toast('安装失败');
+        plus.nativeUI.closeWaiting();
+        delFile(path);
         console.log("安装wgt文件失败[" + e.code + "]：" + e.message);
     });
 }

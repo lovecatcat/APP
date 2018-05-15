@@ -170,7 +170,7 @@
                         this.user_name = this.tel ? this.tel : ''
                     }
                 } else if (val === 2) {//验证码
-                    if (/^1[3|4|5|6|7|8][0-9]{9}$/.test(this.user_name)) {
+                    if (/^1[3-9][0-9]{9}$/.test(this.user_name)) {
                         if (!this.tel) {
                             this.tel = this.user_name ? this.user_name : ''
                         }
@@ -233,27 +233,27 @@
                 } else if (!tel.trim()) {
                     mui.toast('请输入手机号', {duration: 'short', type: 'div'});
                     return false;
-                } else if (!/^1[3|4|5|6|7|8][0-9]{9}$/.test(tel)) {
+                } else if (!/^1[3-9][0-9]{9}$/.test(tel)) {
                     mui.toast('手机号格式不正确', {duration: 'short', type: 'div'});
                     return false;
                 }
-                luckyAjax({
-                    data: {
-                        data: JSON.stringify({tel: this.tel, channel_id: this.channel_id}),
-                        view: true,
-                        server: 'user.sendSms'
-                    },
-                    success: function (data) {
-                        if (data.code === 1) {
-                            this.disabled = true
-                            login.sended()
-                            mui.toast(data.msg, {duration: 'short', type: 'div'})
-                        } else {
-                            mui.toast(data.msg, {duration: 'short', type: 'div'})
-                            return false;
-                        }
-                    }
-                });
+//                luckyAjax({
+//                    data: {
+//                        data: JSON.stringify({tel: this.tel, channel_id: this.channel_id}),
+//                        view: true,
+//                        server: 'user.sendSms'
+//                    },
+//                    success: function (data) {
+//                        if (data.code === 1) {
+//                            this.disabled = true
+//                            login.sended()
+//                            mui.toast(data.msg, {duration: 'short', type: 'div'})
+//                        } else {
+//                            mui.toast(data.msg, {duration: 'short', type: 'div'})
+//                            return false;
+//                        }
+//                    }
+//                });
             },
             run: function () {
                 this.time = this.second
@@ -311,7 +311,7 @@
                 if (!tel.trim()) {
                     mui.toast('请输入手机号', {duration: 'short', type: 'div'});
                     return false;
-                } else if (!/^1[3|4|5|6|7|8][0-9]{9}$/.test(tel)) {
+                } else if (!/^1[3-9][0-9]{9}$/.test(tel)) {
                     mui.toast('手机号格式不正确', {duration: 'short', type: 'div'});
                     return false;
                 } else if (!code.trim()) {

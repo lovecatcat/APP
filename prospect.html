@@ -23,7 +23,7 @@
 							class="plans-nav mui-active" v-for="plan,index in plans" :key="plan.id" :data-id="plans[index].id" :data-index="index" :id="'plan'+ plans[index].id">
 							<span v-if="!plans[index].assu.name">保障计划</span>
 							<span v-else>{{plans[index].assu.name}}</span>
-							<i class="mui-icon mui-icon-clear" @tap="removePlan(index)" ></i>
+							<i class="mui-icon mui-icon-clear" @tap="removePlan(index)" v-if="plans.length > 1"></i>
 						</div>
 					</div>
 				</div>

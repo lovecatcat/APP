@@ -284,6 +284,7 @@
         }
     };
     mui.plusReady(function () {
+        var self
         function init() {
             statusbar();
             var winH = window.innerHeight;
@@ -302,18 +303,19 @@
                 var y = Math.abs(e.detail.y) * 0.01;
                 document.querySelector('#Js-header').style.background = "rgba(53,153,241," + y + ")";
             });
+
+            // 下拉刷新加载
+            mui('.mui-scroll').pullToRefresh({
+                down: {
+                    callback: function () {
+                        self = this;
+                        getAjax(true)
+                    }
+                }
+            })
         }
 
-        // 下拉刷新加载
-        var self
-        mui('.mui-scroll').pullToRefresh({
-            down: {
-                callback: function () {
-                    self = this;
-                    getAjax(true)
-                }
-            }
-        })
+
         //主列表点击事件
         mui('body').on('tap', '.a-link', function () {
             var extras = null;

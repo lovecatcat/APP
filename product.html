@@ -258,6 +258,7 @@
                         if (type === 1) {
                             self.endPullUpToRefresh();
                         } else if (type === 2) {
+                        	mui.toast('更新完成', {duration: 'short', type: 'div'})
                             self.endPullDownToRefresh();
                         }
                     }

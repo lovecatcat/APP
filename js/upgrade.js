@@ -157,15 +157,18 @@ function installWgt(path) {
     plus.runtime.install(path, {}, function () {
         console.log("安装wgt文件成功！");
         plus.nativeUI.closeWaiting();
-        delFile(path)
-        plus.nativeUI.confirm("更新成功，是否重启？",
-            function (e) {
-                if (e.index === 1) {
-                    plus.runtime.restart();
-                }
-            },
-            "", ['取消', '确定']
-        );
+        delFile(path);
+	    plus.nativeUI.alert( "系统更新成功，请手动退出App重新打开!", function(){
+			//console.log( "User pressed!" );
+		}, "更新提示", "确定" );
+//      plus.nativeUI.confirm("更新成功，请退出app重新",
+//          function (e) {
+//              if (e.index === 1) {
+//                  plus.runtime.restart();
+//              }
+//          },
+//          "", ['取消', '确定']
+//      );
     }, function (e) {
         plus.nativeUI.toast('安装失败');
         plus.nativeUI.closeWaiting();

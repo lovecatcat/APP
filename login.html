@@ -237,23 +237,23 @@
                     mui.toast('手机号格式不正确', {duration: 'short', type: 'div'});
                     return false;
                 }
-//                luckyAjax({
-//                    data: {
-//                        data: JSON.stringify({tel: this.tel, channel_id: this.channel_id}),
-//                        view: true,
-//                        server: 'user.sendSms'
-//                    },
-//                    success: function (data) {
-//                        if (data.code === 1) {
-//                            this.disabled = true
-//                            login.sended()
-//                            mui.toast(data.msg, {duration: 'short', type: 'div'})
-//                        } else {
-//                            mui.toast(data.msg, {duration: 'short', type: 'div'})
-//                            return false;
-//                        }
-//                    }
-//                });
+                luckyAjax({
+                    data: {
+                        data: JSON.stringify({tel: this.tel, channel_id: this.channel_id}),
+                        view: true,
+                        server: 'user.sendSms'
+                    },
+                    success: function (data) {
+                        if (data.code === 1) {
+                            this.disabled = true
+                            login.sended()
+                            mui.toast(data.msg, {duration: 'short', type: 'div'})
+                        } else {
+                            mui.toast(data.msg, {duration: 'short', type: 'div'})
+                            return false;
+                        }
+                    }
+                });
             },
             run: function () {
                 this.time = this.second

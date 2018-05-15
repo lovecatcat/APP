@@ -30,10 +30,16 @@
         $.plusReady(function () {
             statusbar();
             var topHeight = document.getElementById('Js-header').offsetHeight / sizeObj.dpl;
+
             //智能核保
+            var secretKey = null //密钥
             var interfaceUrl = null
             if (config.domain.indexOf('ts-') > -1) {
-                interfaceUrl = 'http://test-mobile.health.pingan.com'
+                secretKey = '123456'
+                interfaceUrl = 'http://test-mobile.health.pingan.com'  //https不行
+            } else {//正式
+                secretKey = 'dqbF7zrF0bHHXfbU'
+                interfaceUrl = 'https://mobile.health.pingan.com'
             }
             var orderno = 'PA' + new Date().format('yyyyMMdd') + new Date().getTime().toString().substr(-9)
             //请求参数
@@ -48,8 +54,7 @@
 
             var basedata = 'channelId=' + channelId + '&failBackUrl=' + encodeURIComponent(failBackUrl) + '&outChannelOrderId=' + outChannelOrderId + '&productId=' + productId + '&successBackUrl=' + encodeURIComponent(successBackUrl)
 
-            var shastr = basedata + '123456'
-            signature = CryptoJS.SHA256(shastr) + ''
+            signature = CryptoJS.SHA256(basedata + secretKey) + ''
             //发起请求
             var url = interfaceUrl + '/ehis-hm/aitest/outindex.do?' + basedata + '&signMethod=' + signMethod + '&signature=' + signature
             console.log(url)

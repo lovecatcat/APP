@@ -748,6 +748,7 @@
         })
         //提交
         document.querySelector('#ins-save').addEventListener('click', function () {
+            pay()
             if (!pae.checkForm()) {
                 return false
             }
@@ -802,7 +803,7 @@
             extend_items.insured_residence = pae.assured.insured_residence;
             pushdata.extend_items = extend_items
             //
-            save_ins(pushdata)
+//            save_ins(pushdata)
         });
     })
 

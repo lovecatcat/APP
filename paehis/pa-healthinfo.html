@@ -75,7 +75,10 @@
                     mui.openWindow({
                         url: 'pa-question.html',
                         id: 'pa_question',
-                        show: animateObj.aniDetal
+                        show: animateObj.aniDetal,
+                        extras: {
+                            order_no: 'PA' + new Date().format('yyyyMMdd') + new Date().getTime().toString().substr(-9)
+                        }
                     });
                 }
             })

@@ -57,8 +57,8 @@
 
             var url = interfaceUrl + '/ehis-hm/cashier/pay.do?' + 'channel_id=' + channel_id + '&channel_order_no=' + channel_order_no + '&goods_desc=' + encodeURIComponent(goods_desc) + '&notify_url=' + encodeURIComponent(notify_url) + '&return_url=' + encodeURIComponent(return_url) + '&sign=' + sign + '&sign_type=' + sign_type + string
             console.log(url)
-//            var embed = plus.webview.create(url, '', {top: topHeight + 'px', bottom: '0px'});
-//            plus.webview.currentWebview().append(embed);
+            var embed = plus.webview.create(url, '', {top: topHeight + 'px', bottom: '0px'});
+            plus.webview.currentWebview().append(embed);
 
             // 自定义返回事件
             mui.oldBack = mui.back;
@@ -77,8 +77,8 @@
                 luckyAjax({
                     data: {
                         data: JSON.stringify({
-//                            msg: {policy_id: plus.webview.currentWebview().policy_id},
-                            msg: {policy_id: '5992'},
+                            msg: {policy_id: plus.webview.currentWebview().policy_id},
+//                            msg: {policy_id: '5992'},
                             company_code: 'PingAn',
                             method: 'pay'
                         }),
@@ -89,12 +89,18 @@
                     success: function (res) {
                         console.log(JSON.stringify(res))
                         if (res.code) {
+                            console.log('支付成功')
                             plus.webview.close('pa_pay');
                             plus.webview.close('pa_toinsure');
                             plus.webview.close('pa_question');
                             plus.webview.close('pa_insurance-index');
                             mui.oldBack();
                         } else {
+                            console.log('支付失败')
+                            plus.webview.close('pa_pay');
+                            plus.webview.close('pa_toinsure');
+                            plus.webview.close('pa_question');
+                            plus.webview.close('pa_insurance-index');
                             mui.oldBack();
                         }
                     }

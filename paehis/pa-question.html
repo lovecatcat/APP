@@ -44,11 +44,10 @@
             var orderno = 'PA' + new Date().format('yyyyMMdd') + new Date().getTime().toString().substr(-9)
             //请求参数
             const outChannelOrderId = orderno //外部渠道订单号
-//            const outChannelOrderId = 'PA20180514278973713' //外部渠道订单号
             const productId = 'A000000021' //产品编号
             const channelId = '328' //渠道编号
-            const successBackUrl = config.domain + 'api/api/invoke?server=PolicyIns.onlineInsured&device=mobile&view=true&data={"msg":"","company_code":"PingAn","method":"returnUwMedicalId"}'
-            const failBackUrl = config.domain + 'api/api/invoke?server=PolicyIns.onlineInsured&device=mobile&view=true&data={"msg":"","company_code":"PingAn","method":"returnUwMedicalId"}'
+            const successBackUrl = config.domain + '/api/api/invoke?server=PolicyIns.pingAnReturnUwMedicalId&device=mobile&view=true'
+            const failBackUrl = config.domain + '/api/api/invoke?server=PolicyIns.pingAnReturnUwMedicalId&device=mobile&view=true'
             const signMethod = 'SHA-256' //签名类型
             var signature = ''
 
@@ -90,6 +89,7 @@
                     },
                     timeout: 10000,
                     success: function (res) {
+                        console.log(JSON.stringify(res))
                         if (res.code) {
                             mui.oldBack();
                         } else {

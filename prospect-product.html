@@ -679,7 +679,7 @@
 				var index = event.detail.data
 				prospect.plans.splice(index, 1)
 				setTimeout(function() {
-					var btn = document.getElementById('plan1');
+					var btn = document.getElementById('plan' + prospect.plans[0].id);
 					//监听点击事件
 					btn.addEventListener("tap", function() {
 						var c = document.querySelector(".plans-nav.mui-active");

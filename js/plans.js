@@ -193,8 +193,11 @@ var aloneDetail = new Vue({
 		var parent_self = plus.webview.getWebviewById('member_plans_detail') //父级id
 		//接收单个计划书数据alone
 		plus.nativeUI.showWaiting();
+		mui.fire(parent_self, 'alones');
+		
 		window.addEventListener('alone', function(event) {
 			var data = event.detail.data
+//			alert(event.detail.pl_id)
 //			alert(JSON.stringify(data))
 			aloneDetail.list = data
 			aloneDetail.adviser = event.detail.adviser

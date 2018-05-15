@@ -58,9 +58,6 @@ var methods = {
         this.flag = {}
         this.addonRes = {}
         this.addonsSelected = {}
-//		mui('.mui-switch').each(function(index , item){
-//			mui(this).switch().toggleCur(false);
-//		})
     },
     companyChanged: function () { //公司下拉
         var vm = this;
@@ -127,10 +124,6 @@ var methods = {
                     vm.Addons[items[0].child[i].code] = child
                 }
             }
-
-//			vm.$nextTick(function() {
-//				mui('.mui-switch').switch();
-//			});
 
             // 保险期间
             var mainSyAttr = vm.unique(items[0].ratio, 'year') // 去重
@@ -2337,7 +2330,6 @@ var methods = {
             data.flag = this.flag[safeid]
             data.base_money = this.cache.base_money1017
         } else if (safeid === '1018') {
-            // 招商仁和仁医保费用补偿医疗保险
             data.assu_sex = 0
             data.pay_year = 1
             data.safe_year = 1
@@ -2345,7 +2337,6 @@ var methods = {
             data.base_money = this.cache.base_money1018
         }else if (safeid === '1016') {
             // 招商仁和仁医保费用补偿医疗保险
-            data.assu_sex = 0
             data.flag = this.flag[safeid]
         }
 

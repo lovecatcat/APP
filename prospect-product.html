@@ -534,7 +534,6 @@
 					}
 					prospect.plan_id = id
 				}
-
 			});
 
 			// 日期选择插件
@@ -667,12 +666,36 @@
 					mui.trigger(btn, 'tap');
 				}, 100)
 			});
-
 			//确认删除
 			window.addEventListener('sure', function(event) {
 				var index = event.detail.data
 				prospect.plans.splice(index, 1)
-				//				 alert(JSON.stringify(prospect.plans))
+				setTimeout(function() {
+					var btn = document.getElementById('plan1');
+					//监听点击事件
+					btn.addEventListener("tap", function() {
+						var c = document.querySelector(".plans-nav.mui-active");
+						if(c) {
+							c.classList.remove("mui-active");
+						}
+						this.classList.add("mui-active");
+						var wid = this.getAttribute("data-wid");
+						var id = this.getAttribute("data-id");
+						var index = this.getAttribute("data-index");
+						if(id) {
+							var data;
+							for(var i = 0; i < prospect.plans.length; i++) {
+								if(prospect.plans[i].id == id) {
+									data = prospect.plans[i]
+									prospect.appl = prospect.plans[i].appl
+									prospect.assu = prospect.plans[i].assu
+								}
+							}
+							prospect.plan_id = id
+						}
+					});
+					mui.trigger(btn, 'tap');
+				}, 100)
 			});
 			//接收险种数据
 			window.addEventListener('SET_INS', function(event) {

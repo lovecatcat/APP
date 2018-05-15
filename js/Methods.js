@@ -1280,7 +1280,12 @@ var methods = {
                     toastText = '缴费为20年交，被保人年龄大于40岁时，不可附加该险种'
                 }
                 break
-
+            case 'RSC':
+            case 'RSD':
+				if (assuAge < 18) {
+                    toastText = '被保人年龄不能小于18周岁'
+                }
+                break
             //恒大
             case 'HA005': // 尊享安康
                 if (assuAge > 65) {
@@ -1451,7 +1456,7 @@ var methods = {
 
         if (toastText) {
             mui.toast('【' + name + '】' + toastText)
-            this.addonsSelected[safeid] = false
+//          this.addonsSelected[safeid] = false
             this.$forceUpdate()
             return false
         }
@@ -2078,7 +2083,8 @@ var methods = {
         } else if (safeid === 'A66') {
             // 乐行天下主险
             data.money_one = this.cache.pay_moneyRSC
-            data.money_two = this.cache.pay_moneyRSD;} else if (safeid === '8111') { // 国华人寿康运金生
+            data.money_two = this.cache.pay_moneyRSD
+        } else if (safeid === '8111') { // 国华人寿康运金生
             data.flag = money / 10000
         } else if (safeid === '1166') { // 国华少儿成长无忧重大疾病保险
             data.pay_year = this.mainPayYear

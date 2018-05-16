@@ -35,7 +35,7 @@
 						<li class="fItem BL-ub BL-ub-f1">
 							<label class="form-list-label">金额（元）</label>
 							<div class="form-list-control BL-txt-r">
-								<input v-model.lazy="amount" type="text" placeholder="请输入">
+								<input v-model.lazy="amount" type="number" placeholder="请输入">
 							</div>
 							<div class="form-list-icon" v-show="amount != ''">
 								<span class="mui-icon mui-icon-clear" @click="amount = ''"></span>
@@ -85,16 +85,20 @@
 			    },
 			    checkAmount: function (amount,canPay) {
 			    	var toast_text = null
-			        var reg = /^([0-9][0-9]*)(\.[\d]{1,2})?$/
+			        var reg =/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
 			        if (!amount) {
 			          toast_text = "请输入金额"
 			        } else if (!reg.test(amount)) {
-			          toast_text = "金额输入错误，请重新输入"
+			        	if (amount.toString().split(".")[0].length > 0 && amount.toString().split(".")[1].length > 2) {
+			        		toast_text = "金额小数部分最多可输入两位，请重新输入"
+			        	} else {
+			        		toast_text = "金额输入错误，请重新输入"
+			        	}
 			        } else if (amount > parseFloat(canPay)) {
 			          toast_text = "金额大于可提取金额，请重新输入"
 			        }
 			        if (toast_text) {
-			          mui.toast(toast_text)
+			          mui.toast(toast_text, {duration: 'short', type: 'div'})
 			          return false
 			        }
 			        return true

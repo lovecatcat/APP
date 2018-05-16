@@ -912,9 +912,7 @@
 					"js/mui.dtpicker.js"
 				],
 				"refer": [
-					"popup-content.html",
-					"prospect-addIns.html",
-					"member-plans-detail.html"
+					"popup-content.html"
 				],
 				"priority": 0
 			},
@@ -1886,8 +1884,7 @@
 				],
 				"priority": 6,
 				"refer": [
-					"pdf-modal.html",
-					"hd_ins/insurance-index.html"
+					"pdf-modal.html"
 				]
 			},
 			"popup.html": {
@@ -1967,15 +1964,7 @@
 					"images/plans/prospectus/264.jpg",
 					"images/plans/prospectus/16197.jpg",
 					"images/plans/plansIcon/icon-plans21.png",
-					"images/icon/plan_del.png",
-					"images/plans/prospectus/300.jpg",
-					"images/plans/plansIcon/icon-plans24.png",
-					"images/plans/prospectus/267.jpg",
-					"images/plans/prospectus/340.jpg",
-					"images/plans/plansIcon/icon-plans9.png",
-					"images/plans/plansIcon/icon-plans25.png",
-					"images/plans/prospectus/348.jpg",
-					"images/plans/plansIcon/icon-plans22.png"
+					"images/icon/plan_del.png"
 				],
 				"priority": 2,
 				"refer": [

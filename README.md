@@ -38,11 +38,11 @@
   },
   "wgt": {
   	"iOS": {
-		"version": "1.9.0520",
+		"version": "1.9.0522",
 		"url": "https://www.ehuimeng.com/Public/Uploads/iOS/H517AA33E.wgt"
 	},
 	"Android": {
-		"version": "1.9.0520",
+		"version": "1.9.0522",
 		"url": "https://www.ehuimeng.com/Public/Uploads/Android/H517AA33E.wgt"
 	}
   }

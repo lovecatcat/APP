@@ -156,9 +156,7 @@
                 handler: function (val) {
                     if (val && val !== 4) {
                         this.page = 0;
-                        mui('#Js-productList .mui-scroll-wrapper').each(function(){
-                            this.setAttribute('data-scroll', '');
-                        });
+                        mui('#Js-productList .mui-scroll-wrapper')[0].setAttribute('data-scroll', '');
                         loaddata(1,true);
                     }
                 }
@@ -166,14 +164,12 @@
             current_instype: {
                 handler: function () {
                     this.page = 0;
-                    mui('#Js-productList .mui-scroll-wrapper').each(function(){
-                        this.setAttribute('data-scroll', '');
-                    });
+                    mui('#Js-productList .mui-scroll-wrapper')[0].setAttribute('data-scroll', '');
                     loaddata(1,true);
                 }
             }
         }
-    });
+    }); 
 
     (function ($) {
         //阻尼系数
@@ -239,8 +235,9 @@
         } else if (product.ordertype === 4 && product.companyId) {
             basedata.company_id = product.companyId;
         }
-        console.log(JSON.stringify(basedata));
+        //console.log(JSON.stringify(basedata));
         luckyAjax({
+        	closeWaiting:  type == 2 ? true:false, 
             data: {
                 server: 'lifeProduct.getProductList',
                 data: JSON.stringify(basedata)
@@ -252,6 +249,7 @@
                         if (type === 1) {
                             self.endPullUpToRefresh(true);
                         } else if (type === 2) {
+                        	mui.toast('更新完成', {duration: 'short', type: 'div'})
                             self.endPullDownToRefresh(true);
                         }
                     } else {

@@ -335,7 +335,10 @@
                     url: href,
                     id: id,
                     show: animateObj.aniDetal,
-                    extras: extras
+                    extras: extras,
+					waiting: {
+						autoShow: false
+					}
                 });
             }
         });
@@ -344,7 +347,11 @@
             mui.openWindow({
                 url: 'communic.html',
                 id: 'communic',
-                show: animateObj.aniDetal
+                show: animateObj.aniDetal,
+				waiting: {
+					autoShow: false
+				}
+                
             });
         })
 

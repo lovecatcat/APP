@@ -99,7 +99,7 @@
                         </div>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu">
                             <a href="recruit.html" data-wid="recruit" class="a-link">
-<!--                            <a @tap="toastMsg">-->
+                                <!--                            <a @tap="toastMsg">-->
                                 <div class="icon">&nbsp;</div>
                                 <div class="name">闪电增员</div>
                             </a>
@@ -208,39 +208,43 @@
                 <!----------- 年金  end   -------------->
                 <div style="background-color: #f5f5f5;" class="BL-ub BL-ub-f1 BL-ub-ver">
                     <div class="mui-row" style="padding-top: 2rem;">
-	                    <div class="mui-col-sm-4 mui-col-xm-4 BL-ub-pc">
-	                    	<a href="sns.html" data-wid="sns" class="a-link">
-		                    	<div style="width: 3.5rem;height: 3.5rem;margin: 0 auto;"><img src="images/index/ico-5.png" /></div>
-		                    	<div style="margin-top: .5rem;font-size: 1.25rem;color: #999999;text-align: center;">
-		                    		SNS活动
-		                    	</div>
-	                    	</a>
-	                    </div>
-	                    <div class="mui-col-sm-4 mui-col-xm-4">
-	                    	<a href="shop.html" data-wid="shop" class="a-link">
-		                    	<div style="width: 3.5rem;height: 3.5rem;margin: 0 auto;"><img src="images/index/ico-6.png" /></div>
-		                    	<div style="margin-top: .5rem;font-size: 1.25rem;color: #999999;text-align: center;">
-		                    		积分商城
-		                    	</div>
-	                    	</a>
-	                    </div>
-	                    <div class="mui-col-sm-4 mui-col-xm-4">
-	                    	<a href="product.html" data-wid="product" class="a-link">
-		                    	<div style="width: 3.5rem;height: 3.5rem;margin: 0 auto;"><img src="images/index/ico-7.png" /></div>
-		                    	<div style="margin-top: .5rem;font-size: 1.25rem;color: #999999;text-align: center;">
-		                    		产品超市
-		                    	</div>
-	                    	</a>
-	                    </div>
+                        <div class="mui-col-sm-4 mui-col-xm-4 BL-ub-pc">
+                            <a href="sns.html" data-wid="sns" class="a-link">
+                                <div style="width: 3.5rem;height: 3.5rem;margin: 0 auto;"><img
+                                        src="images/index/ico-5.png"/></div>
+                                <div style="margin-top: .5rem;font-size: 1.25rem;color: #999999;text-align: center;">
+                                    SNS活动
+                                </div>
+                            </a>
+                        </div>
+                        <div class="mui-col-sm-4 mui-col-xm-4">
+                            <a href="shop.html" data-wid="shop" class="a-link">
+                                <div style="width: 3.5rem;height: 3.5rem;margin: 0 auto;"><img
+                                        src="images/index/ico-6.png"/></div>
+                                <div style="margin-top: .5rem;font-size: 1.25rem;color: #999999;text-align: center;">
+                                    积分商城
+                                </div>
+                            </a>
+                        </div>
+                        <div class="mui-col-sm-4 mui-col-xm-4">
+                            <a href="product.html" data-wid="product" class="a-link">
+                                <div style="width: 3.5rem;height: 3.5rem;margin: 0 auto;"><img
+                                        src="images/index/ico-7.png"/></div>
+                                <div style="margin-top: .5rem;font-size: 1.25rem;color: #999999;text-align: center;">
+                                    产品超市
+                                </div>
+                            </a>
+                        </div>
                     </div>
                     <div style="font-size: 1.25rem; color: #999999; text-align: center;margin-bottom: .5rem;margin-top: 3rem;">
                         保险及服务
                     </div>
                     <div style="font-size: 1.25rem; color: #999999; text-align: center; padding-bottom: 2rem;">
-                        深圳汇盟保险代理有限公司：<a href="ehuimeng.html" data-wid="ehuimeng" class="a-link" style="color: #999999;text-decoration: underline;">www.ehuimeng.com</a>
+                        深圳汇盟保险代理有限公司：<a href="ehuimeng.html" data-wid="ehuimeng" class="a-link"
+                                        style="color: #999999;text-decoration: underline;">www.ehuimeng.com</a>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 
@@ -260,7 +264,7 @@
 <script src="js/vue.min.js" type="text/javascript"></script>
 <script src="js/cacheImg.js" type="text/javascript"></script>
 <script type="text/javascript">
-	
+
     mui.init();
 
     //相当于jq的append
@@ -280,39 +284,37 @@
         }
     };
     mui.plusReady(function () {
+        var self
         function init() {
             statusbar();
             var winH = window.innerHeight;
             document.querySelector('#Js-main').style.height = winH + "px";
-			
-			//阻尼系数
-			var deceleration = mui.os.ios ? 0.003 : 0.0009;
-			mui('.mui-scroll-wrapper').scroll({
-				bounce: false,
-				indicators: false, //是否显示滚动条
-				deceleration: deceleration
-			});
-			
+
+            //阻尼系数
+            var deceleration = mui.os.ios ? 0.003 : 0.0009;
+            mui('.mui-scroll-wrapper').scroll({
+                bounce: false,
+                indicators: false, //是否显示滚动条
+                deceleration: deceleration
+            });
+
             // 改变头部搜索栏背景色
             document.querySelector(".mui-scroll-wrapper").addEventListener('scroll', function (e) {
                 var y = Math.abs(e.detail.y) * 0.01;
                 document.querySelector('#Js-header').style.background = "rgba(53,153,241," + y + ")";
             });
-            
+
             // 下拉刷新加载
-//          mui('.mui-scroll').pullToRefresh({
-//          	down:{
-//					callback: function() {
-//						var self = this;
-//						console.log('aaa')
-//						setTimeout(function() {
-//							self.endPullDownToRefresh();
-//						}, 1000);
-//					}
-//				}
-//          })
-            
+            mui('.mui-scroll').pullToRefresh({
+                down: {
+                    callback: function () {
+                        self = this;
+                        getAjax(true)
+                    }
+                }
+            })
         }
+
 
         //主列表点击事件
         mui('body').on('tap', '.a-link', function () {
@@ -328,7 +330,7 @@
             if (pid) {
                 extras = {product_id: pid};
             }
-            if(href) {
+            if (href) {
                 mui.openWindow({
                     url: href,
                     id: id,
@@ -338,15 +340,15 @@
             }
         });
 
-        mui('body').on('tap', '#Js-communic', function(){
-        	mui.openWindow({
+        mui('body').on('tap', '#Js-communic', function () {
+            mui.openWindow({
                 url: 'communic.html',
                 id: 'communic',
                 show: animateObj.aniDetal
             });
         })
-        
-        
+
+
         var index = new Vue({
             el: '#Js-content',
             data: {
@@ -370,57 +372,67 @@
                 }
             }
         })
-//        console.log(JSON.stringify(index.bannerList));
-        luckyAjax({
-            data: {
-                server: 'lifeProduct.getIndexProductList',
-                data: JSON.stringify({ins_type: 'LBI0016,LBI0001,LBI0008',state: 1})
-            },
-            success: function (data) {
-                console.log(JSON.stringify(data));
-                if (data.code === 1) {
-                    init();
-                    var bannerlist = data.data.banner;
-                    var bhtml = '';
-                    var temp = '';
-                    if (bannerlist.length) {
-                        document.getElementById('default-banner').src = bannerlist[0].image;
-                        bhtml = '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="' + bannerlist[bannerlist.length-1].image + '"></a></div>'
-                        mui.each(bannerlist, function (index, item) {
-                            if (index === 0) {
-                                temp += '<div class="mui-indicator mui-active"></div>';
-                            } else {
-                                temp += '<div class="mui-indicator"></div>'
-                            }
-                            bhtml += '<div class="mui-slider-item"><a href="#"><img src="' + item.image + '"></a></div>'
-                        });
-                        append(document.getElementById("slider-html"), bhtml);
-                        temp = '<div class="mui-slider-indicator">' + temp + '</div>';
-                    	append(document.getElementById("slider"), temp);
-                    } else {
-                        document.getElementById('default-banner').src = 'images/pic/p0.jpg';
-                    }
-                    
-                    mui('.mui-slider')[0].setAttribute('data-slider', '');
-                    mui('.mui-slider').slider();
+        getAjax()
 
-                    //
-                    index.safegoods_1 = data.data.list['意外险'];
-                    index.safegoods_2 = data.data.list['重疾保障'];
-                    index.safegoods_3 = data.data.list['年金保险'];
+        function getAjax(e) {
+            luckyAjax({
+                data: {
+                    server: 'lifeProduct.getIndexProductList',
+                    data: JSON.stringify({ins_type: 'LBI0016,LBI0001,LBI0008', state: 1})
+                },
+                success: function (data) {
+                    console.log(JSON.stringify(data));
+                    if (data.code === 1) {
+                        init();
+                        var bannerlist = data.data.banner;
+                        var bhtml = '';
+                        var temp = '';
+                        if (bannerlist.length) {
+                            document.getElementById('default-banner').src = bannerlist[0].image;
+                            bhtml = '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="' + bannerlist[bannerlist.length - 1].image + '"></a></div>'
+                            mui.each(bannerlist, function (index, item) {
+                                if (index === 0) {
+                                    temp += '<div class="mui-indicator mui-active"></div>';
+                                } else {
+                                    temp += '<div class="mui-indicator"></div>'
+                                }
+                                bhtml += '<div class="mui-slider-item"><a href="#"><img src="' + item.image + '"></a></div>'
+                            });
+                            append(document.getElementById("slider-html"), bhtml);
+                            temp = '<div class="mui-slider-indicator">' + temp + '</div>';
+                            append(document.getElementById("slider"), temp);
+                        } else {
+                            document.getElementById('default-banner').src = 'images/pic/p0.jpg';
+                        }
+
+                        mui('.mui-slider')[0].setAttribute('data-slider', '');
+                        mui('.mui-slider').slider();
+
+                        //
+                        index.safegoods_1 = data.data.list['意外险'];
+                        index.safegoods_2 = data.data.list['重疾保障'];
+                        index.safegoods_3 = data.data.list['年金保险'];
+                        if (e) {
+                        	mui.toast('更新完成', {duration: 'short', type: 'div'});
+                            self.endPullDownToRefresh();
+                        }
 //                    mui.toast(data.msg, {duration: 'short', type: 'div'})
-                } else {
+                    } else {
+                        plus.nativeUI.closeWaiting();
+                        mui.toast(data.msg, {duration: 'short', type: 'div'})
+                        return false;
+                    }
+                },
+                error: function (xhr, type, errorThrown) {
                     plus.nativeUI.closeWaiting();
-                    mui.toast(data.msg, {duration: 'short', type: 'div'})
-                    return false;
+                    mui.toast(errorThrown, {duration: 'short', type: 'div'})
+                    return false
                 }
-            },
-            error: function (xhr, type, errorThrown) {
-                plus.nativeUI.closeWaiting();
-                mui.toast(errorThrown, {duration: 'short', type: 'div'})
-                return false
-            }
-        });
+            });
+        }
+
+//        console.log(JSON.stringify(index.bannerList));
+
     })
 </script>
 

@@ -25,7 +25,7 @@
 							class="plans-nav mui-active" v-for="plan,index in plans" :key="plan.id" :data-id="plans[index].id" :data-index="index" :id="'plan'+ plans[index].id">
 							<span v-if="!plans[index].assu.name">保障计划</span>
 							<span v-else>{{plans[index].assu.name}}</span>
-							<i class="mui-icon mui-icon-clear" @tap="removePlan(index)"></i>
+							<i class="mui-icon mui-icon-clear" @tap="removePlan(index)" v-if="plans.length > 1"></i>
 						</div>
 					</div>
 				</div>
@@ -70,6 +70,7 @@
 							<label class="">年龄</label>
 							<div class="input-wrap box-f-1">
 								<input v-model.number.lazy.trim="appl.age" @change="checkAge(appl.age, '投保人')"
+									@blur="appl.birthday = ''"
 									:readonly="edit"
 									 type="number" placeholder="输入年龄">
 								<div class="form-clear-icon" v-show="appl.age != '' && !edit">
@@ -115,7 +116,7 @@
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">年龄</label>
 							<div class="input-wrap box-f-1">
-								<input v-model.number.lazy.trim="assu.age" @change="checkAge(assu.age, '被保人')" :readonly="edit" type="number" placeholder="输入年龄">
+								<input v-model.number.lazy.trim="assu.age" @change="checkAge(assu.age, '被保人')" @blur="assu.birthday = ''" :readonly="edit" type="number" placeholder="输入年龄">
 								<div class="form-clear-icon" v-show="assu.age != '' && !edit">
 									<span class="mui-icon mui-icon-clear" @click="assu.age = '' "></span>
 								</div>
@@ -185,7 +186,7 @@
 				<!--险种信息 end -->
 				<div style="width: 100%;height: 5.625rem;"></div>
 			</div>
-			<footer id="Js-footer" class="BL-footer BL-bg-fff">
+			<footer id="Js-footer" class="BL-bg-fff">
 				<div class="BL-ub BL-ub-ac BL-ub-f1">
 					<div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll">
 						<div class="context" id="aaaa">
@@ -256,7 +257,7 @@
 								prospect.plans[i].appl = val
 							}
 						}
-						this.appl.birthday&&getAge(val.birthday, 0)
+						this.appl.birthday&&getAge(val.age, 0)
 					},
 					deep: true
 				},
@@ -274,10 +275,11 @@
 								}
 							}
 						}
-						this.assu.birthday&&getAge(val.birthday)
+						this.assu.birthday&&getAge(val.age)
 					},
 					deep: true
 				}
+
 			},
 			filters: {
 				safeYearFilter: function(value, safeid) {
@@ -534,7 +536,6 @@
 					}
 					prospect.plan_id = id
 				}
-
 			});
 
 			// 日期选择插件
@@ -555,23 +556,29 @@
 							prospect.assu.birthday = rs.text
 						}
 						picker.dispose();
-						getAge(rs.text, i)
+						getAge(rs.text, i, 'picker')
 					});
 				}, false);
 			});
 			//时间
-			getAge = function(birthday, i) {
-				var now = new Date()
-				var year = now.getFullYear()
-				var month = now.getMonth() + 1
-				var day = now.getDate()
-				var r = birthday.split('-').map(function(item){
-				    return parseInt(item)
-				})
-				var age = year - r[0]
-				if(r[1] > month || (r[1] === month && r[2] > day)) { // 当月
-					age -= 1
+			getAge = function(birthday, i, type) {
+				var age
+				if(type){
+					var now = new Date()
+					var year = now.getFullYear()
+					var month = now.getMonth() + 1
+					var day = now.getDate()
+					var r = birthday.split('-').map(function(item){
+					    return parseInt(item)
+					})
+					age = year - r[0]
+					if(r[1] > month || (r[1] === month && r[2] > day)) { // 当月
+						age -= 1
+					}
+				}else{
+					age = birthday
 				}
+				
 				if(i == 0 && age < 18) {
 					mui.toast('投保人年龄不能小于18周岁')
 				} else if(i == 0 && age > 18) {
@@ -667,12 +674,36 @@
 					mui.trigger(btn, 'tap');
 				}, 100)
 			});
-
 			//确认删除
 			window.addEventListener('sure', function(event) {
 				var index = event.detail.data
 				prospect.plans.splice(index, 1)
-				//				 alert(JSON.stringify(prospect.plans))
+				setTimeout(function() {
+					var btn = document.getElementById('plan1');
+					//监听点击事件
+					btn.addEventListener("tap", function() {
+						var c = document.querySelector(".plans-nav.mui-active");
+						if(c) {
+							c.classList.remove("mui-active");
+						}
+						this.classList.add("mui-active");
+						var wid = this.getAttribute("data-wid");
+						var id = this.getAttribute("data-id");
+						var index = this.getAttribute("data-index");
+						if(id) {
+							var data;
+							for(var i = 0; i < prospect.plans.length; i++) {
+								if(prospect.plans[i].id == id) {
+									data = prospect.plans[i]
+									prospect.appl = prospect.plans[i].appl
+									prospect.assu = prospect.plans[i].assu
+								}
+							}
+							prospect.plan_id = id
+						}
+					});
+					mui.trigger(btn, 'tap');
+				}, 100)
 			});
 			//接收险种数据
 			window.addEventListener('SET_INS', function(event) {

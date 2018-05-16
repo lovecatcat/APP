@@ -21,7 +21,7 @@
 		
 		<div id="Js-content" class="mui-content BL-overFlow-autoY">
 			<div style="padding: 2rem;">
-				<div id="Js-wrap" class="BL-pad-a1 BL-bg-fff" style=" -webkit-box-shadow:.5rem .5rem 1rem rgba(0,0,0,0.3);">
+				<div id="Js-wrap" style=" -webkit-box-shadow:.5rem .5rem 1rem rgba(0,0,0,0.3);">
 					<div id="Js-context">	
 						<!--画布-->
 			    		<canvas id="canvas"></canvas>	
@@ -31,6 +31,7 @@
 		</div>
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/plusShare.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		mui.init();
 
@@ -44,6 +45,7 @@
 			var divPading = document.getElementById('Js-context').offsetLeft * 2;
 			var divW = document.querySelector('#Js-context').offsetWidth;
 			var divH = winH - topHeight - divPading;
+			var imgdata = null;
 			document.getElementById('Js-content').style.height = (winH - topHeight) +'px';
 			
 			document.getElementById('canvas').width = divW;
@@ -51,23 +53,45 @@
 			
 			// image.src = config.baseUrl + '?server=user.getQrcode&device=mobile&data={"user_id":"'+ userinfo.id +'"}'
 			
+			
 			document.getElementById("Js-openShare").addEventListener("tap", function() {
-			    //分享内容，开发者可自定义
-			    var message = {
-			        title: userinfo.user_name + "的个人海报", //标题
-			        content: "【保险plus，更专业的保险管家】",
-			        href: config.domain + "/share/AppShare.html#/Posterdetail?uId="+ userinfo.id +"&pId="+pid, //分享出去后，点击跳转地址
-			        thumbs: ["_www/images/pic/logo.png"] //分享缩略图
-			    }
-			    //调起分享
-			    plusShare(message, function(res) {
-			        //分享回调函数
-			        if(res) {
-			            plus.nativeUI.toast("分享成功");
-			        } else {
-			            plus.nativeUI.toast("分享失败");
-			        }
-			    })
+				var data = saveImageInfo();
+				var bitmap = new plus.nativeObj.Bitmap("test");
+				
+				bitmap.loadBase64Data(data, function(){
+					//console.log("加载Base64图片数据成功");
+				}, function(){
+					//console.log('加载Base64图片数据失败：'+JSON.stringify(e));
+				});
+				
+				bitmap.save("_doc/a.png"
+				,{
+					overwrite:true,
+					format:'png',
+					quality:100
+				}
+				,function(i){
+					//console.log('保存图片成功：'+JSON.stringify(i));
+					var imgdata = i.target;
+					
+					//分享内容，开发者可自定义
+					var message = {
+						pictures:[imgdata],
+						extra:{scene:"WXSceneSession"}
+					}
+				    //调起分享
+				    plusShare(message, function(res) {
+				        //分享回调函数
+				        if(res) {
+				            plus.nativeUI.toast("分享成功");
+				        } else {
+				            plus.nativeUI.toast("分享失败");
+				        }
+				    })
+				},function(e){
+					console.log('保存图片失败：'+JSON.stringify(e));
+				});
+				bitmap.clear();
 			});
 			
 			initdrawPoster();
@@ -84,7 +108,7 @@
 				qcordImg.src = config.baseUrl + '?server=user.getQrcode&device=mobile&data={"user_id":"'+ userinfo.id +'"}';
 				qcordImg.onload = function(){
 					//先把图片绘制在这里
-					context.drawImage(qcordImg, divW - 160 , divW * (img.height/img.width) + 20, 170, 170);
+					context.drawImage(qcordImg, divW - 190 , divW * (img.height/img.width), 170, 170);
 				}
 				
 				//创建图片对象，用于在canvas中渲染
@@ -95,25 +119,30 @@
 					document.getElementById('canvas').height = divW * (img.height/img.width) + 190;
 					//设置画布背景色
 					context.fillStyle = "#ffffff";
-					context.fillRect(0, 0, divW, divH);
+					context.fillRect(0,0, divW, divH);
 					//先把图片绘制在这里
-					context.drawImage(img, 0, 0, divW, divW * (img.height/img.width));
+					context.drawImage(img, 20, 20, divW - 40, divW * (img.height/img.width) - 40);
 					//设置用户文本的大小字体等属性
 	                context.font = "small-caps 28px STXinwei";
 	                //设置用户文本填充颜色
 	                context.fillStyle = "#333333";
 	                //绘制文字
-	                context.fillText('详情咨询：'+name, 0, divW * (img.height/img.width) + 90);
+	                context.fillText('详情咨询：'+name, 20, divW * (img.height/img.width) + 70);
 	                //设置用户文本填充颜色
 	                context.fillStyle = "#333333";
 	                //绘制文字
-	                context.fillText('联系方式：'+phone, 0, divW * (img.height/img.width) + 130);
+	                context.fillText('联系方式：'+phone, 20, divW * (img.height/img.width) + 110);
 				}
 			};
 			
 			//通过id获取canvas对象
 		    function getCanvasContext(id){
 		        return document.getElementById(id).getContext("2d");
+		    }
+		    
+		    //生成base64
+		    function saveImageInfo(){
+		    	return document.getElementById('canvas').toDataURL();
 		    }
 			
 		});

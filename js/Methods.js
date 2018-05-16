@@ -58,9 +58,6 @@ var methods = {
         this.flag = {}
         this.addonRes = {}
         this.addonsSelected = {}
-//		mui('.mui-switch').each(function(index , item){
-//			mui(this).switch().toggleCur(false);
-//		})
     },
     companyChanged: function () { //公司下拉
         var vm = this;
@@ -127,10 +124,6 @@ var methods = {
                     vm.Addons[items[0].child[i].code] = child
                 }
             }
-
-//			vm.$nextTick(function() {
-//				mui('.mui-switch').switch();
-//			});
 
             // 保险期间
             var mainSyAttr = vm.unique(items[0].ratio, 'year') // 去重
@@ -1287,7 +1280,12 @@ var methods = {
                     toastText = '缴费为20年交，被保人年龄大于40岁时，不可附加该险种'
                 }
                 break
-
+            case 'RSC':
+            case 'RSD':
+				if (assuAge < 18) {
+                    toastText = '被保人年龄不能小于18周岁'
+                }
+                break
             //恒大
             case 'HA005': // 尊享安康
                 if (assuAge > 65) {
@@ -1458,7 +1456,7 @@ var methods = {
 
         if (toastText) {
             mui.toast('【' + name + '】' + toastText)
-            this.addonsSelected[safeid] = false
+//          this.addonsSelected[safeid] = false
             this.$forceUpdate()
             return false
         }
@@ -2085,7 +2083,8 @@ var methods = {
         } else if (safeid === 'A66') {
             // 乐行天下主险
             data.money_one = this.cache.pay_moneyRSC
-            data.money_two = this.cache.pay_moneyRSD;} else if (safeid === '8111') { // 国华人寿康运金生
+            data.money_two = this.cache.pay_moneyRSD
+        } else if (safeid === '8111') { // 国华人寿康运金生
             data.flag = money / 10000
         } else if (safeid === '1166') { // 国华少儿成长无忧重大疾病保险
             data.pay_year = this.mainPayYear
@@ -2337,7 +2336,6 @@ var methods = {
             data.flag = this.flag[safeid]
             data.base_money = this.cache.base_money1017
         } else if (safeid === '1018') {
-            // 招商仁和仁医保费用补偿医疗保险
             data.assu_sex = 0
             data.pay_year = 1
             data.safe_year = 1
@@ -2345,7 +2343,6 @@ var methods = {
             data.base_money = this.cache.base_money1018
         }else if (safeid === '1016') {
             // 招商仁和仁医保费用补偿医疗保险
-            data.assu_sex = 0
             data.flag = this.flag[safeid]
         }
 

@@ -159,7 +159,7 @@
                         mui('#Js-productList .mui-scroll-wrapper').each(function(){
                             this.setAttribute('data-scroll', '');
                         });
-                        loaddata(true);
+                        loaddata(1,true);
                     }
                 }
             },
@@ -169,7 +169,7 @@
                     mui('#Js-productList .mui-scroll-wrapper').each(function(){
                         this.setAttribute('data-scroll', '');
                     });
-                    loaddata(true);
+                    loaddata(1,true);
                 }
             }
         }
@@ -179,7 +179,7 @@
         //阻尼系数
         var deceleration = mui.os.ios ? 0.003 : 0.0009;
         $('#Js-productList .mui-scroll-wrapper').scroll({
-            bounce: true,
+            bounce: false,
             indicators: false, //是否显示滚动条
             deceleration: deceleration
         });
@@ -200,7 +200,14 @@
                     auto: true, // 自动上拉一次
                     callback: function () {
                         self = this
-                        loaddata();
+                        loaddata(1);
+                    }
+                },
+                down:{
+                    callback: function() {
+                        self = this
+                        product.page = 0;
+                        loaddata(2,true);
                     }
                 }
             });
@@ -208,7 +215,7 @@
 
     }(mui));
     //加载险种列表
-    var loaddata = function (e) {
+    var loaddata = function (type,e) {
         product.page++;
         console.log(product.page)
         var basedata = {
@@ -242,9 +249,18 @@
                 console.log(JSON.stringify(data))
                 if (data.code) {
                     if (product.page >= data.data.totalPage) {
-                        self.endPullUpToRefresh(true);
+                        if (type === 1) {
+                            self.endPullUpToRefresh(true);
+                        } else if (type === 2) {
+                            self.endPullDownToRefresh(true);
+                        }
                     } else {
-                        self.endPullUpToRefresh();
+                        if (type === 1) {
+                            self.endPullUpToRefresh();
+                        } else if (type === 2) {
+                        	mui.toast('更新完成', {duration: 'short', type: 'div'})
+                            self.endPullDownToRefresh();
+                        }
                     }
                     if (e) {
                         if (!data.data.count) {
@@ -303,7 +319,7 @@
         product.companyId = e.detail.id;
         product.ordertype = 4;
         product.page = 0;
-        loaddata(true);
+        loaddata(1,true);
     });
 
 </script>

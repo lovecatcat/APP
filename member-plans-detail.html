@@ -75,6 +75,7 @@
 			//		plus.storage.setItem('plans-total', res.data.list);
 			plansDetail.aloneId = pl_id
 			//跳链接
+        
 			var group = new webviewGroup(_self.id, {
 				topHeight: _divH,
 				viewHeight: _viewH,
@@ -94,11 +95,13 @@
 
 				}
 			});
+			var plansnav = 0;
 			mui(".mui-scroll").on("tap", ".plans-nav ", function(e) {
 				var c = document.querySelector(".plans-nav.mui-active");
 				if(c) {
 					c.classList.remove("mui-active");
 				}
+				plansnav++;
 				this.classList.add("mui-active");
 				var wid = this.getAttribute("data-wid");
 				group.switchTab(wid);
@@ -106,16 +109,23 @@
 				var index = this.getAttribute("data-index");
 				if(id) {
 					plansDetail.aloneId = id
+					
 					var alone_self = plus.webview.getWebviewById('member_plans_alone');
 					var alone_table = plus.webview.getWebviewById('member_plans_alone_table');
-					if(alone_self) {
-						setTimeout(function() {
+					if(alone_self && plansnav == 1) {
+						window.addEventListener('alones', function(event) {
 							mui.fire(alone_self, 'alone', {
 								data: plansDetail.detail_list[index],
 								adviser: plansDetail.adviser,
 								pl_id: id
 							});
-						}, 300)
+						})
+					}else if(alone_self){
+						mui.fire(alone_self, 'alone', {
+							data: plansDetail.detail_list[index],
+							adviser: plansDetail.adviser,
+							pl_id: id
+						});
 					}
 				}
 

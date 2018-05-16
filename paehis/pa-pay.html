@@ -36,7 +36,7 @@
             var interfaceUrl = null
             if (config.domain.indexOf('ts-') > -1) {
                 secretKey = '93BEWPQ82UB1NYSWQN6Y1RVUVG687FIG' //移动端
-                interfaceUrl = 'http://test-mobile.health.pingan.com'
+                interfaceUrl = 'https://test-mobile.health.pingan.com:42443'
             } else { //正式
                 secretKey = 'AFZOEUEVTHG8LS46EGDUHQQH5TWGP3QW' //移动端
                 interfaceUrl = 'https://mobile.health.pingan.com'
@@ -45,8 +45,8 @@
             const goods_desc = '平安e生保'
             const total_fee = plus.webview.currentWebview().fee * 100
             const channel_id = '000032'
-            const return_url = config.domain + '/api/api/invoke?server=PolicyIns.pingAnReturnUrl&device=mobile&view=true'
-            const notify_url = config.domain + '/api/api/invoke?server=PolicyIns.pingAnNotifyUrl&device=mobile&view=true'
+            const return_url = config.domain + '/api/api/callBack?param=PingAn.ReturnUrl'
+            const notify_url = config.domain + '/api/api/callBack?param=PingAn.notifyUrl'
             const sign_type = 'SHA-256'
             var sign = ''
 
@@ -78,7 +78,6 @@
                     data: {
                         data: JSON.stringify({
                             msg: {policy_id: plus.webview.currentWebview().policy_id},
-//                            msg: {policy_id: '5992'},
                             company_code: 'PingAn',
                             method: 'pay'
                         }),

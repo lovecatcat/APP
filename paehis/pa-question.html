@@ -46,8 +46,8 @@
             const outChannelOrderId = orderno //外部渠道订单号
             const productId = 'A000000021' //产品编号
             const channelId = '328' //渠道编号
-            const successBackUrl = config.domain + '/api/api/invoke?server=PolicyIns.pingAnReturnUwMedicalId&device=mobile&view=true'
-            const failBackUrl = config.domain + '/api/api/invoke?server=PolicyIns.pingAnReturnUwMedicalId&device=mobile&view=true'
+            const successBackUrl = config.domain + '/api/api/callBack?param=PingAn.returnUwMedicalId'
+            const failBackUrl = config.domain + '/api/api/callBack?param=PingAn.returnUwMedicalId'
             const signMethod = 'SHA-256' //签名类型
             var signature = ''
 

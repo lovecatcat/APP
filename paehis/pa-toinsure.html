@@ -306,8 +306,8 @@
                     },
                     applicant: {
                         holder_name: '', //姓名
-                        holder_ID_type: '', //证件类型
-                        holder_ID_type_name: '请选择', //证件类型名
+                        holder_ID_type: IDcard, //证件类型
+                        holder_ID_type_name: '身份证', //证件类型名
                         holder_ID_no: '', //证件号码
                         holder_birthday: '', //出生日期
                         holder_gender: MALE, //性别
@@ -319,8 +319,8 @@
                     assured: {
                         rel_insured_holder: ISASSURED,//是投保人的
                         insured_name: '', //姓名
-                        insured_ID_type: '', //证件类型
-                        insured_ID_type_name: '请选择', //证件类型名
+                        insured_ID_type: IDcard, //证件类型
+                        insured_ID_type_name: '身份证', //证件类型名
                         insured_ID_no: '', //证件号码
                         insured_birthday: '', //出生日期
                         insured_gender: MALE, //性别
@@ -421,7 +421,7 @@
                 // 保费试算
                 precal: function (auto) {
                     const vm = this
-                    console.log(vm.insurance.product_id.toString())
+                    vm.RSChanged()
                     console.log(auto + ';' + vm.insurance.amount)
                     if (auto && (!vm.insurance.amount || !vm.assured.insured_birthday)) return false
                     var basedata = {
@@ -443,6 +443,7 @@
                             sex: vm.applicant.holder_gender
                         }
                     }
+                    console.log('b')
                     //开始试算
                     luckyAjax({
                         data: {
@@ -478,7 +479,7 @@
                     var toast_text = null
                     if (!this.applicant.holder_ID_type) {
                         toast_text = '请选择投保人证件类型'
-                    } else if (!IDValidate(IDcard, this.applicant.holder_ID_no, '投保人', this.applicant)) {
+                    } else if (!IDValidate(this.applicant.holder_ID_type, this.applicant.holder_ID_no, '投保人', this.applicant)) {
                         return false
                     } else if (!checkName('投保人', this.applicant.holder_name)) {
                         return false
@@ -502,7 +503,7 @@
                     this.RSChanged()
                     if (!this.assured.insured_ID_type) {
                         toast_text = '请选择投保人证件类型'
-                    } else if (!IDValidate(IDcard, this.assured.insured_ID_no, '被保人', this.applicant)) {
+                    } else if (!IDValidate(this.assured.insured_ID_type, this.assured.insured_ID_no, '被保人', this.applicant)) {
                         return false
                     } else if (!checkName('被保人', this.assured.insured_name)) {
                         return false
@@ -812,6 +813,8 @@
             var extend_items = {}
             extend_items.holder_residence = pae.applicant.holder_residence;
             extend_items.insured_residence = pae.assured.insured_residence;
+            extend_items.uw_medical_id = pae.uwMedicalId;
+
             pushdata.extend_items = extend_items
             //
             save_ins(pushdata)

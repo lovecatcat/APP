@@ -40,6 +40,7 @@ var invalid_districts = ['7036','7037','7042','7044'] //不支持的投保地区
 
 //证件号校验
 var IDValidate = function (type, id, owner,data) {
+    console.log('IDValidate'+type+';'+ id+';'+ owner)
     var Validator = new IDValidator();
     var toast_text = null;
     if (!type) {
@@ -68,6 +69,9 @@ var IDValidate = function (type, id, owner,data) {
                     } else if (owner === '被保人') {
                         data.insured_birthday = idInfo.birth;
                         data.insured_gender = sexCode[idInfo.sex];
+                    } else {
+                        data.birthday = idInfo.birth;
+                        data.gender = sexCode[idInfo.sex];
                     }
                 }
                 break;

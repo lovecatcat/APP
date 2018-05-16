@@ -1,15 +1,15 @@
 var config = {
- baseUrl: 'https://www.luckyins.com/api/api/invoke',  //团队管理服务器路径
- moduleURL: 'https://www.luckyins.com/api/api/',
- link: 'https://www.luckyins.com/index/', // 外部链接路径[闪电增员、]
- domain: 'https://www.luckyins.com'
+   baseUrl: 'https://www.luckyins.com/api/api/invoke',  //团队管理服务器路径
+   moduleURL: 'https://www.luckyins.com/api/api/',
+   link: 'https://www.luckyins.com/index/', // 外部链接路径[闪电增员、]
+   domain: 'https://www.luckyins.com'
 };
 
 // var config = {
-//     baseUrl: 'http://ts-www.luckyins.com/api/api/invoke',  //团队管理服务器路径
-//     moduleURL: 'http://ts-www.luckyins.com/api/api/',
-//     link: 'http://ts-www.luckyins.com/index/', // 外部链接路径[闪电增员、]
-//     domain: 'http://ts-www.luckyins.com'
+//     baseUrl: 'https://ts-www.luckyins.com/api/api/invoke',  //团队管理服务器路径
+//     moduleURL: 'https://ts-www.luckyins.com/api/api/',
+//     link: 'https://ts-www.luckyins.com/index/', // 外部链接路径[闪电增员、]
+//     domain: 'https://ts-www.luckyins.com'
 // };
 
 /**

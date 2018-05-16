@@ -384,12 +384,13 @@
 
         function getAjax(e) {
             luckyAjax({
+            	closeWaiting:  e === true ? true:false, 
                 data: {
                     server: 'lifeProduct.getIndexProductList',
                     data: JSON.stringify({ins_type: 'LBI0016,LBI0001,LBI0008', state: 1})
                 },
                 success: function (data) {
-                    console.log(JSON.stringify(data));
+                    //console.log(JSON.stringify(data));
                     if (data.code === 1) {
                         init();
                         var bannerlist = data.data.banner;

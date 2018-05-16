@@ -619,11 +619,11 @@ var data = []
 							if(res.code == 1){
 								var wobj = plus.webview.getWebviewById("member_plans_detail");
 								var wobjTotal = plus.webview.getWebviewById("member_plans_total");
-								var wobjAlone = plus.webview.getWebviewById("member_plans_alone");
+								//var wobjAlone = plus.webview.getWebviewById("member_plans_alone");
 								plus.webview.close('prospect_product')
 								wobj.reload(true);
 								wobjTotal.reload(true);
-								wobjAlone.reload(true);
+								//wobjAlone.reload(true);
 								
 								mui.back()
 							}

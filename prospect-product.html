@@ -625,7 +625,7 @@ var data = []
 								plus.webview.close('prospect_product')
 								wobj.reload(true);
 								wobjTotal.reload(true);
-								wobjAlone.reload(true);
+//								wobjAlone.reload(true);
 								
 								mui.back()
 							}
@@ -706,7 +706,7 @@ var data = []
 			//汇总过来页面会带来totalData，不然没有
 			totalData = plus.webview.currentWebview().totalData
 			parent_pl_id = plus.webview.currentWebview().parent_pl_id
-			if(totalData != 'addPlan'){
+			if(totalData && totalData != 'addPlan'){
 				prospect.edit = true;
 				prospect.edit2 = true;
 				prospect.appl.name = totalData.applicant;
@@ -715,7 +715,7 @@ var data = []
 				prospect.assu.name = totalData.assured;
 				prospect.assu.sex = totalData.assu_sex == 1 ? true : false;
 				prospect.assu.age = totalData.assu_age;
-			}else{
+			}else if(totalData && totalData == 'addPlan'){
 				prospect.edit = true;
 				prospect.edit2 = false;
 			}

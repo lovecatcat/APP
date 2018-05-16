@@ -45,6 +45,7 @@
 			var divPading = document.getElementById('Js-context').offsetLeft * 2;
 			var divW = document.querySelector('#Js-context').offsetWidth;
 			var divH = winH - topHeight - divPading;
+			var bitmap = new plus.nativeObj.Bitmap("test");
 			var imgdata = null;
 			document.getElementById('Js-content').style.height = (winH - topHeight) +'px';
 			
@@ -55,43 +56,24 @@
 			
 			
 			document.getElementById("Js-openShare").addEventListener("tap", function() {
-				var data = saveImageInfo();
-				var bitmap = new plus.nativeObj.Bitmap("test");
-				
-				bitmap.loadBase64Data(data, function(){
-					//console.log("加载Base64图片数据成功");
-				}, function(){
-					//console.log('加载Base64图片数据失败：'+JSON.stringify(e));
-				});
-				
-				bitmap.save("_doc/a.png"
-				,{
-					overwrite:true,
-					format:'png',
-					quality:100
-				}
-				,function(i){
-					//console.log('保存图片成功：'+JSON.stringify(i));
-					var imgdata = i.target;
+				var arrImg = [];
+				arrImg.push(imgdata);
 					
-					//分享内容，开发者可自定义
-					var message = {
-						pictures:[imgdata],
-						extra:{scene:"WXSceneSession"}
-					}
-				    //调起分享
-				    plusShare(message, function(res) {
+				//分享内容，开发者可自定义
+				var message = {
+					pictures:arrImg,
+				}
+					
+				//调起分享
+				plusShare(message, function(res) {
 				        //分享回调函数
 				        if(res) {
 				            plus.nativeUI.toast("分享成功");
 				        } else {
 				            plus.nativeUI.toast("分享失败");
 				        }
-				    })
-				},function(e){
-					console.log('保存图片失败：'+JSON.stringify(e));
-				});
-				bitmap.clear();
+				})
+				//bitmap.clear();
 			});
 			
 			initdrawPoster();
@@ -109,6 +91,28 @@
 				qcordImg.onload = function(){
 					//先把图片绘制在这里
 					context.drawImage(qcordImg, divW - 190 , divW * (img.height/img.width), 170, 170);
+				
+					// 保存为bitmap图片对象
+					var data = saveImageInfo();
+					bitmap.loadBase64Data(data, function(){
+						//console.log("加载Base64图片数据成功");
+					
+						bitmap.save("_doc/a.png",{
+							overwrite:true,
+							format:'png',
+							quality:80
+						},function(i){
+							//console.log('保存图片成功：'+JSON.stringify(i));
+							imgdata = i.target;
+							
+						},function(e){
+							//console.log('保存图片失败：'+JSON.stringify(e));
+						});
+					
+					}, function(){
+						//console.log('加载Base64图片数据失败：'+JSON.stringify(e));
+					});
+					
 				}
 				
 				//创建图片对象，用于在canvas中渲染
@@ -119,7 +123,7 @@
 					document.getElementById('canvas').height = divW * (img.height/img.width) + 190;
 					//设置画布背景色
 					context.fillStyle = "#ffffff";
-					context.fillRect(0,0, divW, divH);
+					context.fillRect(0,0, divW, divW * (img.height/img.width) + 190);
 					//先把图片绘制在这里
 					context.drawImage(img, 20, 20, divW - 40, divW * (img.height/img.width) - 40);
 					//设置用户文本的大小字体等属性
@@ -132,7 +136,8 @@
 	                context.fillStyle = "#333333";
 	                //绘制文字
 	                context.fillText('联系方式：'+phone, 20, divW * (img.height/img.width) + 110);
-				}
+				
+				};
 			};
 			
 			//通过id获取canvas对象

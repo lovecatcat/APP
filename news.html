@@ -81,7 +81,7 @@
         var navHeight = localStorage.getItem('navHeight') / sizeObj.dpl;
         //console.log(navHeight);
         var topHeight = document.querySelector('#Js-header').offsetHeight / sizeObj.dpl;
-        var divHeight = document.querySelector('#Js-content').offsetHeight / sizeObj.dpl ;
+        var divHeight = document.querySelector('#Js-content').offsetHeight / sizeObj.dpl;
         //var _divH = (topHeight + divHeight) / sizeObj.dpl + (Number(navHeight) / sizeObj.dpl);
         var _divH =  mui.os.android ? topHeight + (divHeight * 2) + 2 : topHeight + divHeight + 1; // 头部高度
         var _viewH = winH - _divH; // 内容区域高度

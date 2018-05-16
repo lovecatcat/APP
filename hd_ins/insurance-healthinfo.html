@@ -810,7 +810,7 @@
                                         break
                                     }
                                 }
-                                val.push(input.type !== 'textarea' ? input.value : '(' + input.value + ')')
+                                val.push(input.type !== 'textarea' ? input.value : input.value)
                             }
                             this.clientvalue.fields[i] = val.reverse().join('|')
                         }

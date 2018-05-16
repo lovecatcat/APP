@@ -52,7 +52,7 @@
 									</th>
 									<th width="40%">
 										<div>承保标保</div>
-										<div>{{ goIns_data.money =="" ? 0 : goIns_data.money }}元</div>
+										<div>{{ goIns_data.fee =="" ? 0 : goIns_data.fee }}元</div>
 									</th>
 									<th width="20%">出单件数</th>
 								</tr>
@@ -64,7 +64,7 @@
 									<template v-if="goIns_data.details">
 										<tr v-for="(item,index) in goIns_data.details" :key="index">
 											<td class="BL-txt-l" width="40%">{{ index+1 }}.{{ item.name }}</td>
-											<td width="40%">标保 <span class="BL-col-3b9cf5">{{ item.money }}</span>元</td>
+											<td width="40%">标保 <span class="BL-col-3b9cf5">{{ item.fee }}</span>元</td>
 											<td width="20%">{{ item.count }}件</td>
 										</tr>
 									</template>

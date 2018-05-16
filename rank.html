@@ -21,6 +21,18 @@
         </div>
 	</header>
 	<div id="Js-content" class="mui-content" style="padding-top: 0;">
+		<!-- 靠边按钮 -->
+		<div class="rank-btn BL-bimg-cover"></div>
+		<!-- 靠边按钮内容 -->
+		<div class="rank-btn-content">
+			<h1>排行榜<span class="qq-client-close">关闭</span></h1>
+		    <div class="qq-client-list">
+		        <div class="client-list">精英榜</div>
+		        <div class="client-list">明星机构</div>
+		        <div class="client-list">增员排行</div>
+		        <div class="client-list">件数排行</div>
+		    </div>
+		</div>
 	    <div id="Js-main">
             <div class="mui-scroll-wrapper">
                 <div class="mui-scroll rank-skin">
@@ -219,7 +231,7 @@
 <script type="text/javascript">
 
     mui.init();
-    mui.plusReady(function () {
+    mui.ready(function () {
         statusbar();
         var winH = window.innerHeight;
         document.querySelector('#Js-main').style.height = winH + "px";
@@ -244,6 +256,13 @@
                 document.querySelector('.BL-icon').style.color = "rgba(0,0,0,1)";
             }
         });
+        
+        // 监听靠边按钮事件
+        document.querySelector(".rank-btn").addEventListener('click',function(e) {
+        	document.querySelector(".rank-btn-content").style.right = 0
+        	document.querySelector(".rank-btn-content").style.display = 'block'
+        	document.querySelector(".rank-btn").style.right = '-5rem'
+        })
     })
 </script>
 

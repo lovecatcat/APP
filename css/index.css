@@ -289,6 +289,32 @@ insure-group
 .rank-list .list .list-title {
 	background:#B16BFF;
 }
+.rank-btn {
+	width: 4rem;
+	height: 3rem;
+	position: fixed;
+	top: 48rem;
+	right: -.1rem;
+	background-image: url(../images/rank/rank-btn.png);
+	z-index: 10;
+	transition: all 1s;
+    -moz-transition: all 1s;
+    -webkit-transition: all 1s;
+    -o-transition:all 1s;
+}
+.rank-btn-content {
+	position: fixed;
+	right: -10rem;
+	top: 48rem;
+	border: #ebebeb solid 1px;
+	display: block;
+	background: #ffffff;
+	z-index: 10;
+	transition: all 1s;
+    -moz-transition: all 1s;
+    -webkit-transition: all 1s;
+    -o-transition:all 1s;
+}
 .ico-rank {
 	display: inline-block;
 	width: 2.5rem;

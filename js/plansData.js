@@ -303,7 +303,7 @@
 							children_safe_year = list["保险期间"];
 							children_pay_year = list["缴费年限"];
 							break;
-						case '268':
+						case '282':
 							children_base_money = year_fee;
 							children_safe_year = pay_year - 1;
 							children_pay_year = pay_year - 1;

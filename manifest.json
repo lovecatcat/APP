@@ -378,7 +378,9 @@
 					"images/pic/default-banner.png",
 					"images/index/ico-5.png",
 					"images/index/ico-6.png",
-					"images/index/ico-7.png"
+					"images/index/ico-7.png",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js"
 				],
 				"refer": [
 					"sns.html",
@@ -394,7 +396,8 @@
 					"hd_ins/insurance-index.html",
 					"communic.html",
 					"recruit.html",
-					"product-detail.html"
+					"product-detail.html",
+					"rank.html"
 				],
 				"priority": 0
 			},
@@ -1950,14 +1953,26 @@
 					"images/plans/prospectus/354.jpg",
 					"images/plans/prospectus/335.jpg",
 					"images/plans/prospectus/336.jpg",
-					"images/plans/prospectus/297.jpg"
+					"images/plans/prospectus/297.jpg",
+					"images/plans/plansIcon/icon-plans7.png",
+					"images/plans/plansIcon/icon-plans5.png",
+					"images/plans/plansIcon/icon-plans3.png",
+					"images/plans/plansIcon/icon-plans6.png",
+					"images/plans/plansIcon/icon-plans4.png",
+					"images/plans/plansIcon/icon-plans8.png",
+					"images/plans/plansIcon/icon-plans2.png",
+					"images/plans/prospectus/264.jpg",
+					"images/plans/prospectus/16197.jpg",
+					"images/plans/plansIcon/icon-plans21.png",
+					"images/icon/plan_del.png"
 				],
 				"priority": 2,
 				"refer": [
 					"member-plans-alone-table.html",
 					"popup-content.html",
 					"member-plans-alone-modal.html",
-					"product-company.html"
+					"product-company.html",
+					"member-plans-alone-design.html"
 				]
 			},
 			"member-plans-total.html": {
@@ -1991,7 +2006,9 @@
 					"js/plansData.js"
 				],
 				"priority": 4,
-				"refer": []
+				"refer": [
+					"prospect-product.html"
+				]
 			},
 			"member-plans-detail.html": {
 				"href": "member-plans-detail.html",
@@ -2098,7 +2115,9 @@
 					"images/plans/plansManage/348.png",
 					"images/plans/plansManage/336.png",
 					"js/vue.min.js",
-					"images/plans/plansManage/297.png"
+					"images/plans/plansManage/297.png",
+					"images/plans/plansManage/290.png",
+					"images/plans/plansManage/8.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -2835,7 +2854,12 @@
 					"css/plans.css",
 					"css/mui.picker.min.css"
 				],
-				"refer": [],
+				"refer": [
+					"prospect-addIns.html",
+					"popup-content.html",
+					"communic.html",
+					"member-plans-detail.html"
+				],
 				"priority": 0
 			},
 			"member-warranty-manageLife-detail.html": {
@@ -2865,7 +2889,8 @@
 			},
 			"member-plans-alone-table.html": {
 				"resources": [
-					"css/mui.css"
+					"css/mui.css",
+					"css/plans.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -3019,6 +3044,49 @@
 				],
 				"refer": [],
 				"priority": 0
+			},
+			"rank.html": {
+				"resources": [
+					"css/member.css",
+					"css/mui.css",
+					"css/index.css",
+					"images/icon/ico-back.png",
+					"css/module.css",
+					"css/common.css",
+					"images/member/rank-bg.png",
+					"images/rank/trophy.png",
+					"images/rank/rank-title.png",
+					"images/rank/rank-first.png",
+					"images/rank/rank-second.png",
+					"images/rank/rank-three.png",
+					"images/rank/rank-bg.png",
+					"images/rank/rank-body.png",
+					"images/rank/rank-header.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"prospect-addIns.html": {
+				"resources": [
+					"js/Components.js",
+					"js/Methods.js",
+					"js/mui.poppicker.js",
+					"css/insurance.css",
+					"images/icon/ico-down.png",
+					"css/mui.picker.min.css",
+					"js/mui.js",
+					"css/mui.css",
+					"css/plans.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-plans-alone-design.html": {
+				"resources": [
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {
@@ -3032,7 +3100,6 @@
 				"images/icon/icon-upload-big.png",
 				"css/mui.poppicker.css",
 				"images/pic/p1.jpg",
-				"prospect-addIns.html",
 				"README.md"
 			]
 		}

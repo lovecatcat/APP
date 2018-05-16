@@ -177,3 +177,129 @@ insure-group
 	/*margin-left: -.5rem;*/
 	display: inline-block;
 }
+/* 排行榜 */
+.BL-mod-headbar .ico-back-bg {
+	display: inline-block;
+	position: absolute;
+	top: .5rem;
+	background: rgba(0,0,0,0.3);
+	width: 3.5rem;
+	height: 3.5rem;
+	border-radius: 100%;
+}
+.BL-mod-headbar .ico-back-bg .BL-icon {
+	height: 3.5rem;
+	line-height: 3.5rem;
+	padding: 0 .25rem;
+	position: absolute;
+	top: 0;
+	z-index: 10;
+}
+.BL-mod-headbar .headbar-search .back {
+	width: 2.1875rem;
+	height: 2.1875rem;
+	position: relative;
+	background-image: url(../images/icon/ico-back.png);
+}
+.rank-header{
+	padding: 2rem 1rem 5rem 1rem;
+	text-align: center;
+}
+.rank-explain {
+	width: 100%;
+	margin: 0 auto;
+	background: rgb(95,23,176);
+	padding: .6rem 1rem;
+	color: #ffffff;
+	font-size: 1.4375rem;
+	border-radius: .5rem;
+	box-shadow: 0 0 1rem rgb(36, 20, 38);
+}
+.rank-skin {
+	background: url(../images/rank/rank-bg.png) no-repeat #f2f2f2;
+	background-size: 100%;
+	/*background-position: center;*/
+	background-repeat: no-repeat;
+	background-size: cover;
+	-webkit-background-size: cover;
+}
+.rank-body {
+	width: 100%;
+	min-height: 40rem;
+	margin: -.5rem auto 0rem auto;
+	padding-bottom: 2rem;
+	position: relative;
+}
+.rank-title{
+	width: 50%;
+	height: 13rem;
+	position: absolute;
+	top: -5rem;
+	left: 50%;
+	margin-left: -25%;
+	background-image: url(../images/rank/rank-title.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	-webkit-background-size: contain;
+}
+.rank-title span{
+	display: block;
+	font-size: 2.2rem;
+	font-weight: 800;
+	letter-spacing: .2rem;
+	color: #ffffff;
+	margin-top: -.8rem;
+	text-shadow: 0.1rem 0.1rem 1rem #040404;
+}
+.rank-list {
+	width: 95%;
+	margin: 0 auto;
+	background: #F6EDFE;
+	border-radius: 1rem;
+	padding-top: 7rem;
+	padding-bottom: 2rem;
+	font-size: 1.4375rem;
+}
+.rank-list .list {
+	width: 95%;
+	margin: 0 auto;
+	text-align: center;
+}
+.rank-list .list span {
+	padding: .5rem 0rem;
+}
+.rank-list .list li{
+	background: #EED9FF;
+	border-bottom: .05rem solid #ffffff;
+	color: #666666;
+}
+.rank-list .list li:nth-child(2){
+	background: #F2E4FE;
+	color: #B472ED;
+}
+.rank-list .list li:nth-child(3){
+	background: #F2E4FE;
+	color: #B472ED;
+}
+.rank-list .list li:nth-child(4){
+	background: #F2E4FE;
+	color: #B472ED;
+}
+.rank-list .list .list-title {
+	background:#B16BFF;
+}
+.ico-rank {
+	display: inline-block;
+	width: 2.5rem;
+	height: 3.3125rem;
+}
+.ico-rank-first {
+	background-image: url(../images/rank/rank-first.png);
+}
+.ico-rank-second {
+	background-image: url(../images/rank/rank-second.png);
+}
+.ico-rank-three {
+	background-image: url(../images/rank/rank-three.png);
+}

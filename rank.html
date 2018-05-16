@@ -3,23 +3,248 @@
 
 <head>
     <meta charset="utf-8">
-    <title>排行榜</title>
+    <title></title>
     <link href="css/mui.css" rel="stylesheet"/>
     <link href="css/common.css" rel="stylesheet"/>
+    <link href="css/module.css" rel="stylesheet"/>
+    <link href="css/index.css" rel="stylesheet"/>
     <script src="js/config.js" type="text/javascript"></script>
 </head>
 
 <body>
-
+	<header id="Js-header" style="position: fixed;left: 0;top: 0rem;width: 100%;z-index: 99;">
+        <div class="BL-mod-headbar BL-mod-headbar-pos BL-pad-lr-1_5">
+            <a id="Js-back" class="mui-action-back ico-back-bg">
+                <div class="mui-icon-left-nav BL-icon BL-icon-left" style="color: rgba(255,255,255,1)"></div>
+            </a>
+            <h1 class="BL-title" style="color: rgba(0,0,0,0)">荣誉体系</h1>
+        </div>
+	</header>
+	<div id="Js-content" class="mui-content" style="padding-top: 0;">
+	    <div id="Js-main">
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll rank-skin">
+                    <div class="rank-header">
+                        <img class="BL-mar-b-1" src="images/rank/trophy.png"/>
+                        <div class="rank-explain mui-row">
+                            <span class="mui-col-sm-4 BL-txt-l">统计时间：本月</span>
+                            <span class="mui-col-sm-8 BL-txt-r">以下数据每小时更新一次</span>
+                        </div>
+                    </div>
+                    <div class="rank-body">
+                    	<div class="rank-title BL-ub BL-ub-pc BL-ub-ac">
+                            <span>精英版</span>
+                        </div>
+                        <div class="rank-list">
+                            <ul class="list">
+                                <li class="list-title mui-row">
+                                    <span class="mui-col-sm-2">排名</span>
+                                    <span class="mui-col-sm-4">机构名称</span>
+                                    <span class="mui-col-sm-2">姓名</span>
+                                    <span class="mui-col-sm-4">标保（万元）</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        <i class="ico-rank ico-rank-first BL-bimg-cover"></i>
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        <i class="ico-rank ico-rank-second BL-bimg-cover"></i>
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        <i class="ico-rank ico-rank-three BL-bimg-cover"></i>
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        4
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        5
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <!--<li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        6
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                       7
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        8
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        9
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        10
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        11
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        12
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        13
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        14
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        15
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        16
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        17
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        18
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        19
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-2">
+                                        20
+                                    </span>
+                                    <span class="mui-col-sm-4">福田机构</span>
+                                    <span class="mui-col-sm-2">罗雨晴</span>
+                                    <span class="mui-col-sm-4">10000</span>
+                                </li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
 </body>
 <script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/mui.pullToRefresh.js"></script>
+<script src="js/mui.pullToRefresh.material.js"></script>
+<script src="js/vue.min.js" type="text/javascript"></script>
+<script src="js/cacheImg.js" type="text/javascript"></script>
 <script type="text/javascript">
+
     mui.init();
-
     mui.plusReady(function () {
-    	
-    })
+        statusbar();
+        var winH = window.innerHeight;
+        document.querySelector('#Js-main').style.height = winH + "px";
+        //阻尼系数
+        var deceleration = mui.os.ios ? 0.003 : 0.0009;
+        mui('.mui-scroll-wrapper').scroll({
+            bounce: false,
+            indicators: false, //是否显示滚动条
+            deceleration: deceleration
+        });
 
+        // 改变头部背景色等
+        document.querySelector("#Js-content").addEventListener('scroll', function (e) {
+            var y = Math.abs(e.detail.y) * 0.01;
+            document.querySelector('#Js-header').style.background = "rgba(255,255,255," + y + ")";
+            document.querySelector('.BL-title').style.color = "rgba(0,0,0," + y + ")";
+            if (e.detail.y >= 0) {
+                document.querySelector('.ico-back-bg').style.background = "rgba(0,0,0,.3)";
+                document.querySelector('.BL-icon').style.color = "rgba(255,255,255,1)";
+            } else {
+                document.querySelector('.ico-back-bg').style.background = "rgba(0,0,0,0)";
+                document.querySelector('.BL-icon').style.color = "rgba(0,0,0,1)";
+            }
+        });
+    })
 </script>
 
 </html>

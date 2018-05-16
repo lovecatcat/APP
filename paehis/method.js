@@ -103,6 +103,7 @@ var checkPhone = function (owner, phone) {
 };
 //证件号校验
 var IDValidate = function (type, id, owner, data) {
+    console.log(type+';'+id)
     var Validator = new IDValidator();
     var toast_text = null;
     if (!type) {
@@ -138,7 +139,7 @@ var IDValidate = function (type, id, owner, data) {
                 break;
 
             case PASSPORT:// 护照
-                if (!(/^.[A-Za-z0-9]{4,32}$/).test(value)) {
+                if (!(/^.[A-Za-z0-9]{4,32}$/).test(id)) {
                     toast_text = '请输入' + owner + '3位以上有效的证件号码'
                 }
                 break;
@@ -149,7 +150,7 @@ var IDValidate = function (type, id, owner, data) {
                 break;
 
             case SOLDIER:// 军人证/士兵证
-                if (!(/^.*字第(\d{6,8})$/).test(value)) {
+                if (!(/^.*字第(\d{6,8})$/).test(id)) {
                     toast_text = '请输入' + owner + '正确格式的军人证号码'
                 }
                 break;

@@ -60,9 +60,9 @@
                     <button class="ins-btn sm-btn"
                             v-for="(item,index) in init.gender"
                             v-show="item.value!=='LAB0007'"
-                            :class="{'blue':assured.insured_gender===item.value}"
-                            @tap="assured.insured_gender=item.value,toblur()"
-                            :disabled="IDNO.indexOf(assured.insured_ID_type)>-1">{{item.text}}
+                            :class="{'blue':applicant.holder_gender===item.value}"
+                            @tap="applicant.holder_gender=item.value,toblur()"
+                            :disabled="IDNO.indexOf(applicant.holder_ID_type)>-1">{{item.text}}
                     </button>
                 </div>
             </div>
@@ -230,7 +230,8 @@
             </div>
         </div>
         <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1">
-            <label>本人已阅读并了解<a class="a-link" href="pa-statement.html" data-wid="pa_statement">《保险条款》</a>和<a class="a-link" href="pa-clause.html" data-wid="pa_clause">《重要声明》</a></label>
+            <label>本人已阅读并了解<a class="a-link" href="pa-statement.html" data-wid="pa_statement">《保险条款》</a>和<a
+                    class="a-link" href="pa-clause.html" data-wid="pa_clause">《重要声明》</a></label>
             <input name="checkbox" value="Item 1" type="checkbox" v-model="promise">
         </div>
         <footer id="Js-footer" class="BL-footer BL-bg-fff">
@@ -261,7 +262,7 @@
     mui('body').on('tap', '.a-link', function () {
         var href = this.getAttribute('href');
         var id = this.getAttribute("data-wid");
-        if(href) {
+        if (href) {
             mui.openWindow({
                 url: href,
                 id: id,
@@ -296,6 +297,7 @@
                     address_select: '请选择',//投保地区
                     war_id: '', //policy_id
                     order_no: '',//保单号
+                    uwMedicalId: '',//核保号
                     totalFee: '',//总保费
                     promise: false, //同意声明
                     coverageLevel: {
@@ -304,8 +306,8 @@
                     },
                     applicant: {
                         holder_name: '', //姓名
-                        holder_ID_type: IDcard, //证件类型
-                        holder_ID_type_name: '身份证', //证件类型名
+                        holder_ID_type: '', //证件类型
+                        holder_ID_type_name: '请选择', //证件类型名
                         holder_ID_no: '', //证件号码
                         holder_birthday: '', //出生日期
                         holder_gender: MALE, //性别
@@ -317,8 +319,8 @@
                     assured: {
                         rel_insured_holder: ISASSURED,//是投保人的
                         insured_name: '', //姓名
-                        insured_ID_type: IDcard, //证件类型
-                        insured_ID_type_name: '身份证', //证件类型名
+                        insured_ID_type: '', //证件类型
+                        insured_ID_type_name: '请选择', //证件类型名
                         insured_ID_no: '', //证件号码
                         insured_birthday: '', //出生日期
                         insured_gender: MALE, //性别
@@ -340,6 +342,9 @@
                 }
             },
             created: function () {
+                plus.webview.close('pa_question');
+                this.order_no = plus.webview.currentWebview().order_no
+                this.uwMedicalId = plus.webview.currentWebview().uwMedicalId ? plus.webview.currentWebview().uwMedicalId : ''
                 getInit();
                 //生效日期(明天)
                 var day1 = new Date();
@@ -348,7 +353,7 @@
                 this.currentDate = s1;
 
                 this.$watch('applicant.holder_ID_no', function (val) {
-                    IDValidate(IDcard, val, '投保人', this.applicant);
+                    IDValidate(this.applicant.holder_ID_type, val, '投保人', this.applicant);
                 });
                 this.$watch('applicant.holder_birthday', function (val) {
                     if (changeBirthday('投保人', val)) {
@@ -362,7 +367,7 @@
                 });
             },
             methods: {
-               openList:function (e) {
+                openList: function (e) {
                     mui.openWindow({
                         url: '../communic.html',
                         id: 'communic',
@@ -398,6 +403,7 @@
                     vm.assured.insured_name = ''
                     vm.assured.insured_ID_no = ''
                     vm.assured.insured_ID_type = IDcard
+                    vm.assured.insured_ID_type_name = '身份证'
                     vm.assured.insured_gender = MALE
                     vm.assured.insured_residence = ''
                     vm.assured.insured_residence_name = '请选择'
@@ -434,8 +440,7 @@
                         applicant: {
                             name: vm.applicant.holder_name,
                             birthday: vm.applicant.holder_birthday,
-                            sex: vm.applicant.holder_gender,
-                            hasSocialSecurity: vm.applicant.holder_has_SSID ? has_social_security : no_social_security
+                            sex: vm.applicant.holder_gender
                         }
                     }
                     //开始试算
@@ -513,7 +518,7 @@
                         toast_text = '请选择保障计划'
                     }
                     if (toast_text) {
-                        mui.toast(toast_text, {duration: 'short', type: 'div'});
+                        mui.toast(toast_text, {duration: 'long', type: 'div'});
                         return false;
                     }
                     return true
@@ -545,6 +550,8 @@
             idtype0.show(function (items) {
                 pae.applicant.holder_ID_type = items[0].value;
                 pae.applicant.holder_ID_type_name = items[0].text;
+                console.log(pae.applicant.holder_ID_type)
+                pae.$forceUpdate();
             })
         })
         //被保人证件类型选择
@@ -553,6 +560,7 @@
             idtype1.show(function (items) {
                 pae.assured.insured_ID_type = items[0].value;
                 pae.assured.insured_ID_type_name = items[0].text;
+                pae.$forceUpdate();
             })
         })
         //投保人常住地选择
@@ -629,6 +637,7 @@
                                 res.ins_city = dataToselect(item.child); //投保地区
                             }
                         });
+                        console.log(JSON.stringify(res.ID_type))
                         pae.init = res;
                         console.log(JSON.stringify(res.ID_type))
                         var applType = []
@@ -655,6 +664,7 @@
             });
             //
         }
+
         //保存保单
         function save_ins(data) {
             luckyAjax({
@@ -665,7 +675,7 @@
                     console.log(JSON.stringify(res))
                     if (res.code) {
                         pae.war_id = res.data.policy_id
-                        mui.toast('保存成功，核保中', {duration: 'short', type: 'div'})
+                        mui.toast('保存成功，核保中', {duration: 'long', type: 'div'})
                         online_ins()
                     } else {
                         plus.nativeUI.closeWaiting();
@@ -674,6 +684,7 @@
                 }
             });
         };
+
         //核保
         function online_ins() {
             luckyAjax({
@@ -705,12 +716,13 @@
                 }
             });
         };
+
         function pay(order_no) {
             mui.openWindow({
                 url: 'pa-pay.html',
                 id: 'pa_pay',
                 show: animateObj.aniDetal,
-                extras:{
+                extras: {
                     policy_id: pae.war_id,
                     order_no: order_no,
                     fee: pae.insurance.fee
@@ -764,7 +776,7 @@
             pushdata.user_id = pae.userinfo.id
             pushdata.order_no = pae.order_no
             //投保人信息
-            var applfieldFilter = ['holder_residence','holder_residence_name', 'holder_ID_type_name','holder_residence_name']
+            var applfieldFilter = ['holder_residence', 'holder_residence_name', 'holder_ID_type_name', 'holder_residence_name']
             for (var i in pae.applicant) {
                 if (applfieldFilter.indexOf(i) === -1) {
                     pushdata[i] = pae.applicant[i]
@@ -773,7 +785,7 @@
             //被保人信息
             var insured = {}
             insured.id = ''
-            var assufieldFilter = ['insured_residence','insured_residence_name','has_insured_SSID', 'insured_ID_type_name','insured_residence_name']
+            var assufieldFilter = ['insured_residence', 'insured_residence_name', 'has_insured_SSID', 'insured_ID_type_name', 'insured_residence_name']
             for (var i in pae.assured) {
                 if (assufieldFilter.indexOf(i) === -1) {
                     insured[i] = pae.assured[i]
@@ -785,10 +797,10 @@
             var appitems = []
             appitems.push({
                 mv_id: pae.mattersId,
-                holder_answer : '0',
-                insured_answer : '1',
-                holder_fields : '',
-                insured_fields : '0'
+                holder_answer: '0',
+                insured_answer: '1',
+                holder_fields: '',
+                insured_fields: '0'
             })
             pushdata.matter = appitems
             //险种信息

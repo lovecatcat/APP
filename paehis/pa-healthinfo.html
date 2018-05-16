@@ -49,26 +49,17 @@
 
 </body>
 <script src="../js/mui.min.js" type="text/javascript"></script>
-
+<script src="method.js"></script>
 <script type="text/javascript">
     mui.init();
-    //主列表点击事件
-    mui('body').on('tap', 'a', function () {
-        var href = this.getAttribute('href');
-        var id = this.getAttribute("data-wid");
-        if(href) {
-            mui.openWindow({
-                url: href,
-                id: id,
-                show: animateObj.aniDetal
-            });
-        }
-    });
+
     mui.plusReady(function () {
         statusbar();
         var winH = window.innerHeight;
         var titHeight = document.querySelector('#Js-header').offsetHeight;
         document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+
+        //
         document.querySelector('#modal').addEventListener('tap', function () {
             mui.confirm('健康告知异常需填写问卷，如所患疾病或健康异常不在疾病列表中则不能投保。', '系统提示', ['确定', '重新选择'], function (e) {
                 if (e.index === 0) {
@@ -83,6 +74,23 @@
                 }
             })
         })
+        //
+        //主列表点击事件
+        mui('body').on('tap', 'a', function () {
+            var href = this.getAttribute('href');
+            var id = this.getAttribute("data-wid");
+            if(href) {
+                mui.openWindow({
+                    url: href,
+                    id: id,
+                    show: animateObj.aniDetal,
+                    extras:{
+                        order_no: 'PA' + new Date().format('yyyyMMdd') + new Date().getTime().toString().substr(-9)
+                    }
+                });
+            }
+        });
+        //
     })
 </script>
 </html>

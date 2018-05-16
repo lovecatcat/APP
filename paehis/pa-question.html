@@ -90,8 +90,17 @@
                     timeout: 10000,
                     success: function (res) {
                         console.log(JSON.stringify(res))
+                        plus.nativeUI.closeWaiting();
                         if (res.code) {
-                            mui.oldBack();
+                            mui.openWindow({
+                                url: 'pa-toinsure.html',
+                                id: 'pa_toinsure',
+                                show: animateObj.aniDetal,
+                                extras:{
+                                    order_no: outChannelOrderId,
+                                    uwMedicalId: res.data.uwMedicalId
+                                }
+                            })
                         } else {
                             mui.oldBack();
                         }

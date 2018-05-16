@@ -86,19 +86,22 @@
 			<!--描述：一个投保人计划书 end-->
 
 			<!------------计划书汇总 end  ------------->
-		</div>
-		<footer id="Js-footer" class="BL-footer BL-bg-fff">
-			<div class="BL-ub BL-ub-ac BL-ub-f1">
-				<div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll">
-					<div class="context">
-						总保费: <span class="BL-col-ff8201" id="totalMoney"></span>
+			<footer id="Js-footer" class="BL-footer BL-bg-fff BL-pad-tb-1">
+				<div class="BL-ub BL-ub-ac BL-ub-f1">
+					<div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll">
+						<div class="context">
+							总保费: <span class="BL-col-ff8201" id="totalMoney"></span>
+						</div>
 					</div>
+					<button class="BL-btn-white BL-pad-tb-1 BL-pad-lr-1 BL-mar-r-1 BL-ftz-46" @tap="addPlan">新增方案</button>
+					<button class="BL-btn-blue BL-pad-tb-1 BL-pad-lr-1 BL-mar-r-1 BL-ftz-46" id="goIns">在线投保</button>
+					<!--<a id="goIns" class="BL-foot-btn-sign BL-foot-btn-det BL-bg-3b9cf5">
+						在线投保
+					</a>-->
 				</div>
-				<a id="goIns" class="BL-foot-btn-sign BL-foot-btn-det BL-bg-3b9cf5">
-					在线投保
-				</a>
-			</div>
-		</footer>
+			</footer>
+		</div>
+		
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
@@ -149,6 +152,13 @@
 						}
 					});
 				},
+				addPlan: function(){
+					mui.openWindow({
+						id: 'prospect_product',
+						url: 'prospect-product.html',
+						show: animateObj.aniDetal
+					});
+				}
 			}
 		});
 

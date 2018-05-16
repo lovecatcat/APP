@@ -1070,7 +1070,11 @@ var methods = {
                     }
                     break
                 //招商仁和
-//              case '1002': // 附加豁免保险费重大疾病保险
+                case '1002': // 附加豁免保险费重大疾病保险
+                    if (this.mainPayYear === 1) {
+                        toastText = '主险趸交不可附加该险种'
+                    }
+                    break
                 case '1011': // 招商仁和附加投保人豁免保险费定期寿险
                     if (this.samePerson) {
                         toastText = '投被保人为同人时不可附加该险种'
@@ -1456,7 +1460,7 @@ var methods = {
 
         if (toastText) {
             mui.toast('【' + name + '】' + toastText)
-//          this.addonsSelected[safeid] = false
+            this.addonsSelected[safeid] = false
             this.$forceUpdate()
             return false
         }
@@ -1577,6 +1581,8 @@ var methods = {
                     toastText = '请先选择缴费年限'
                 } else if (flag > this.insurance.safe_year) {
                     toastText = '该附加险缴费年限不能超过主险保障期间'
+                } else if (flag > this.flag['PFR1']) {
+                    toastText = '该附加险缴费年限不能超过保障期间'
                 } else if (!this.flag['PFR1']) {
                     toastText = '请先选择保险期限'
                 } else if (this.flag['PFR1'] < '1000' && this.flag['PFR1'] > this.insurance.safe_year) {

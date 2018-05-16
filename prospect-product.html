@@ -48,7 +48,7 @@
 				<div class="BL-bg-fff prospect-info BL-mar-t-1">
 					<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
 						<div class="BL-pad-lr-1_5">投保人信息</div>
-						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @tap="!edit && displace()">
+						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @tap="!edit2 && displace()">
 						<span>投</span><i class="displace-icon"></i><span>被</span>
 					</button>
 					</div>
@@ -58,28 +58,28 @@
 							<div class="input-wrap">
 								<input v-model.lazy.trim="appl.name"
 									 @change="checkName(appl.name, '投保人')" 
-									 :readonly="edit && plan_id == 1"
+									 :readonly="edit2 && plan_id == 1"
 									 type="text" placeholder="请输入真实姓名">
-								<div class="form-clear-icon" v-show="appl.name != '' && !edit">
+								<div class="form-clear-icon" v-show="appl.name != '' && !edit2">
 									<span class="mui-icon mui-icon-clear" @tap="appl.name = '' "></span>
 								</div>
 							</div>
-							<div class="right-orange-btn address-icon" @tap="!edit && communic('appl')"> </div>
+							<div class="right-orange-btn address-icon" @tap="!edit2 && communic('appl')"> </div>
 						</div>
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">年龄</label>
 							<div class="input-wrap box-f-1">
 								<input v-model.number.lazy.trim="appl.age" @change="checkAge(appl.age, '投保人')"
 									@blur="appl.birthday = ''"
-									:readonly="edit && plan_id == 1"
+									:readonly="edit2 && plan_id == 1"
 									 type="number" placeholder="输入年龄">
-								<div class="form-clear-icon" v-show="appl.age != '' && !edit">
+								<div class="form-clear-icon" v-show="appl.age != '' && !edit2">
 									<span class="mui-icon mui-icon-clear" @tap="appl.age = '' "></span>
 								</div>
 							</div>
 							<div class="input-wrap box-f-1 BL-mar-l-1 search-date" 
 								data-options='{"type":"date","beginYear":1900}'>
-								<input v-model.lazy="appl.birthday" :readonly="edit && plan_id == 1" type="text" placeholder="选择生日">
+								<input v-model.lazy="appl.birthday" :readonly="edit2 && plan_id == 1" type="text" placeholder="选择生日">
 								<div class="ins-date-icon"></div>
 							</div>
 						</div>
@@ -87,9 +87,9 @@
 							<label class="">性别</label>
 							<div class="input-wrap box-f-1">
 								<button :class="{'BL-btn-white': appl.sex == true, 'BL-btn-gray': appl.sex == false}" 
-									@tap="!edit && applSex(true)" :readonly="edit && plan_id == 1" v-model="appl.sex">男</button>
+									@tap="!edit2 && applSex(true)" :readonly="edit2 && plan_id == 1" v-model="appl.sex">男</button>
 								<button :class="{'BL-btn-white': appl.sex == false, 'BL-btn-gray': appl.sex == true}"
-									 @tap="!edit && applSex(false)" :readonly="edit && plan_id == 1" v-model="appl.sex">女</button>
+									 @tap="!edit2 && applSex(false)" :readonly="edit2 && plan_id == 1" v-model="appl.sex">女</button>
 							</div>
 						</div>
 					</div>
@@ -99,7 +99,7 @@
 				<div class="BL-bg-fff BL-mar-t-1 prospect-info">
 					<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
 						<div class="BL-pad-lr-1_5">被保人信息</div>
-						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @tap="!edit && keepSame()">
+						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @tap="!edit2 && keepSame()">
 						<span>同投保人</span>
 					</button>
 					</div>
@@ -108,25 +108,25 @@
 							<label>姓名</label>
 							<div class="input-wrap">
 								<input v-model.lazy.trim="assu.name" @change="checkName(assu.name, '被保人')" 
-									:readonly="edit && plan_id == 1" type="text" placeholder="请输入真实姓名">
-								<div class="form-clear-icon" v-show="assu.name != '' && edit && plan_id != 1">
+									:readonly="edit2 && plan_id == 1" type="text" placeholder="请输入真实姓名">
+								<div class="form-clear-icon" v-show="assu.name != '' && edit2 && plan_id != 1">
 									<span class="mui-icon mui-icon-clear" @tap="assu.name = '' "></span>
 								</div>
 							</div>
-							<div class="right-orange-btn address-icon"  @tap="!edit && communic('assu')"></div>
+							<div class="right-orange-btn address-icon"  @tap="!edit2 && communic('assu')"></div>
 						</div>
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">年龄</label>
 							<div class="input-wrap box-f-1">
 								<input v-model.number.lazy.trim="assu.age" @change="checkAge(assu.age, '被保人')" 
-									@blur="assu.birthday = ''" :readonly="edit && plan_id == 1" type="number" placeholder="输入年龄">
-								<div class="form-clear-icon" v-show="assu.age != '' && !edit">
+									@blur="assu.birthday = ''" :readonly="edit2 && plan_id == 1" type="number" placeholder="输入年龄">
+								<div class="form-clear-icon" v-show="assu.age != '' && !edit2">
 									<span class="mui-icon mui-icon-clear" @tap="assu.age = '' "></span>
 								</div>
 							</div>
 							<div class="input-wrap box-f-1 BL-mar-l-1 search-date" 
 								data-options='{"type":"date","beginYear":1900}'>
-								<input v-model.lazy="assu.birthday" :readonly="!edit"
+								<input v-model.lazy="assu.birthday" :readonly="!edit2"
 									 type="text" placeholder="选择生日">
 								<div class="ins-date-icon"></div>
 							</div>
@@ -135,9 +135,9 @@
 							<label class="">性别</label>
 							<div class="input-wrap box-f-1">
 								<button :class="{'BL-btn-white': assu.sex == true, 'BL-btn-gray': assu.sex == false}" 
-									@tap="!edit && assuSex(true)" :readonly="edit && plan_id == 1" v-model="assu.sex">男</button>
+									@tap="!edit2 && assuSex(true)" :readonly="edit2 && plan_id == 1" v-model="assu.sex">男</button>
 								<button :class="{'BL-btn-white': assu.sex == false, 'BL-btn-gray': assu.sex == true}" 
-									@tap="!edit && assuSex(false)" :readonly="edit && plan_id == 1" v-model="assu.sex">女</button>
+									@tap="!edit2 && assuSex(false)" :readonly="edit2 && plan_id == 1" v-model="assu.sex">女</button>
 							</div>
 						</div>
 					</div>
@@ -161,7 +161,7 @@
 									</div>
 									<div class="BL-ub-f1 BL-txt-r">
 										<button class="BL-btn-white BL-ftz-42" @tap="del(index1, index, item.fj)">删除</button>
-										<button class="BL-btn-blue BL-ftz-42" v-if="!item.fj" @tap="editIns(index1, item)">编辑</button>
+										<button class="BL-btn-blue BL-ftz-42" v-if="!item.fj" @tap="edit2Ins(index1, item)">编辑</button>
 									</div>
 								</div>
 								<ul class="BL-ul BL-col-999 BL-col-999 BL-ftz-42">
@@ -198,8 +198,9 @@
 							总保费: <span class="BL-col-ff8201">{{count}}</span>
 						</div>
 					</div>
-					<button class="BL-btn-white BL-pad-tb-1 BL-pad-lr-1 BL-mar-r-1 BL-ftz-46" v-if="!edit" @tap="addPlan">新增方案</button>
-					<button class="BL-btn-blue BL-pad-tb-1 BL-pad-lr-1 BL-mar-r-1 BL-ftz-46" @tap="pushPlan">生成计划书</button>
+					<button class="BL-btn-white BL-pad-tb-1 BL-pad-lr-1 BL-mar-r-1 BL-ftz-46" v-if="!edit2" @tap="addPlan">新增方案</button>
+					<button class="BL-btn-blue BL-pad-tb-1 BL-pad-lr-1 BL-mar-r-1 BL-ftz-46" v-if="!edit2" @tap="pushPlan">生成计划书</button>
+					<button class="BL-btn-blue BL-pad-tb-1 BL-pad-lr-1 BL-mar-r-1 BL-ftz-46" v-else @tap="pushPlan">确认编辑</button>
 				</div>
 			</footer>
 		</div>
@@ -251,6 +252,7 @@
 				count: 0, //总保费
 				planTime: {}, //临时保存的数据
 				edit: false, //是不是编辑状态
+				edit2: false, //是不是从编辑页面过来
 				Communic: null, //通讯录
 				clickNav: false //没有点击nav
 			},
@@ -583,7 +585,7 @@ var data = []
 							}
 						}
 					}
-					if (prospect.edit && i === 0 && id === 1) { // 编辑接口 第一个是默认编辑
+					if (prospect.edit2 && i === 0 && id === 1) { // 编辑接口 第一个是默认编辑
 			            luckyAjax({
 							data: {
 					            server: 'Proposal.edit',
@@ -612,7 +614,7 @@ var data = []
 				            data: JSON.stringify({
 				            	pl_id: parent_pl_id,
 				            	mode: 'add',
-				              	safes: JSON.stringify(otherChild)
+				              	safes: JSON.stringify(data)
 				            })
 				        },
 				        success:function(res){
@@ -623,8 +625,6 @@ var data = []
 								plus.webview.close('prospect_product')
 								wobj.reload(true);
 								wobjTotal.reload(true);
-								//wobjAlone.reload(true);
-								
 								mui.back()
 							}
 				        }
@@ -682,7 +682,8 @@ var data = []
 								};
 								prospect.count= 0; //总保费
 								prospect.planTime= {}; //临时保存的数据
-								prospect.edit= false //是不是编辑状态
+								prospect.edit= false //是不是从编辑页面过来
+								prospect.edit2= false //是不是从编辑状态
 							}
 				        }
 					});
@@ -703,14 +704,18 @@ var data = []
 			//汇总过来页面会带来totalData，不然没有
 			totalData = plus.webview.currentWebview().totalData
 			parent_pl_id = plus.webview.currentWebview().parent_pl_id
-			if(totalData){
+			if(totalData && totalData != 'addPlan'){
 				prospect.edit = true;
+				prospect.edit2 = true;
 				prospect.appl.name = totalData.applicant;
 				prospect.appl.sex = totalData.appl_sex == 1 ? true : false;
 				prospect.appl.age = totalData.appl_age;
 				prospect.assu.name = totalData.assured;
 				prospect.assu.sex = totalData.assu_sex == 1 ? true : false;
 				prospect.assu.age = totalData.assu_age;
+			}else if(totalData && totalData == 'addPlan'){
+				prospect.edit = true;
+				prospect.edit2 = false;
 			}
 
 			mui(".mui-scroll").on("tap", ".plans-nav ", function(e) {

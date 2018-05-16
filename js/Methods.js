@@ -305,6 +305,12 @@ var methods = {
             case '8109': // 康运一生重大疾病保险A款
                 if (assuAge > 60) {
                     toastText = '被保人年龄不能大于60周岁'
+                }else if (mainPayYear === 10 && assuAge > 55) {
+                    toastText = '10年交时被保人为年龄不能大于55周岁'
+                } else if (mainPayYear === 15 && assuAge > 50) {
+                    toastText = '15年交被保人为年龄不能大于50周岁'
+                } else if (mainPayYear === 20 && assuAge > 45) {
+                    toastText = '20年交被保人为年龄不能大于45周岁'
                 }
                 break
             case '8110': // 华宝安行
@@ -1280,7 +1286,9 @@ var methods = {
 
             //国华
             case '1161':
-                if (mainPayYear === 20 && assuAge > 40) {
+                if (assuAge > 55) {
+                    toastText = '被保人年龄不能大于55周岁'
+                } else if (mainPayYear === 20 && assuAge > 40) {
                     toastText = '缴费为20年交，被保人年龄大于40岁时，不可附加该险种'
                 }
                 break
@@ -1379,8 +1387,8 @@ var methods = {
                 }
                 break
             case 'JCR': // 中英人寿附加保费豁免重大疾病保险
-                if (applAge > 60) {
-                    toastText = '被豁免合同投保人年龄不能大于60周岁'
+             	if (applAge > 60) {
+                    toastText = '投保人年龄不能大于60周岁'
                 }
                 break
             case 'HIA':
@@ -1395,16 +1403,20 @@ var methods = {
                 }
                 break
             case 'JER': // 中英人寿附加投保人保费豁免重大疾病保险
-                if (applAge > 68 || applAge < 18) {
-                    toastText = '被豁免合同被保人年龄在18到68周岁之间'
-                } else if (applAge > 65 && mainPayYear === 10) {
-                    toastText = '10年交投保人年龄不能大于65周岁'
-                } else if (applAge > 60 && mainPayYear === 15) {
-                    toastText = '15年交投保人年龄不能大于60周岁'
-                } else if (applAge > 55 && mainPayYear === 20) {
-                    toastText = '20年交投保人年龄不能大于55周岁'
-                } else if (applAge > 45 && mainPayYear === 30) {
-                    toastText = '30年交投保人年龄不能大于45周岁'
+                if (mainPayYear === 3 && applAge > 62) {
+                    toastText = '3年交投保人年龄不能大于62周岁'
+                } else if (mainPayYear === 5 && applAge > 60) {
+                    toastText = '5年交投保人年龄不能大于60周岁'
+                } else if (mainPayYear === 10 && applAge > 55) {
+                    toastText = '10年交投保人年龄不能大于55周岁'
+                } else if (mainPayYear === 15 && applAge > 50) {
+                    toastText = '15年交投保人年龄不能大于50周岁'
+                } else if (mainPayYear === 19 && applAge > 44) {
+                    toastText = '19年交投保人年龄不能大于44周岁'
+                } else if (mainPayYear === 20 && applAge > 45) {
+                    toastText = '20年交投保人年龄不能大于45周岁'
+                } else if (mainPayYear === 30 && applAge > 35) {
+                    toastText = '30年交投保人年龄不能大35周岁'
                 }
                 break
             //复星

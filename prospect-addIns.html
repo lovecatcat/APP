@@ -1911,7 +1911,7 @@
 				</template>
 
 			</template>
-			<div class="form-button-group BL-mar-t-2 BL-mar-b-2 BL-pad-lr-1_5" @click="savePlan()">
+			<div class="form-button-group BL-mar-t-2 BL-mar-b-2 BL-pad-lr-1_5" @tap="savePlan()">
 				<a type="button" class="form-btn">保存</a>
 			</div>
 		</div>
@@ -2064,7 +2064,7 @@
 			ins.appl = plus.webview.currentWebview().appl
 			ins.assu = plus.webview.currentWebview().assu
 			ins.planTime = plus.webview.currentWebview().planTime // 父页面保存的临时数据
-
+			
 			var data = {
 				server: 'PolicyIns.getCompanyList',
 				device: 'mobile'
@@ -2105,7 +2105,7 @@
 			}
 
 			//判断父页面传过来的数据
-			if(ins.planTime.company) {
+			if(ins.planTime && ins.planTime.company) {
 				ins.company = ins.planTime.company,
 					ins.main = ins.planTime.main,
 					ins.mainSyAttr = ins.planTime.mainSyAttr,

@@ -47,7 +47,7 @@
 							<tr v-for="(item,index) in policy" :key="index">
                                 <td>{{ item.rank_name }}</td>
                                 <td>{{ item.count }}</td>
-                                <td>{{ item.money==""?'0': item.fee }}</td>
+                                <td>{{ item.fee==""?'0': item.fee }}</td>
                                 <td>{{ item.people_num == null? "-" : item.people_num }}</td>
                                 <td class="item_check BL-col-3b9cf5" :data-json="JSON.stringify(item)">查看</td>
                             </tr>
@@ -308,6 +308,7 @@
 					team.page = 1
 					team.totalPage = ''
 					team.person = null
+					team.rank = []
 					getScore (start_time.innerHTML, end_time.innerHTML)
 					getTempList(start_time.innerHTML,end_time.innerHTML,team.rank_txt.value)
 				});

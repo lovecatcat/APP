@@ -278,18 +278,19 @@
                 },
                 // 添加受益人
                 addBeneficiary:function() {
-                    if (this.beneficiariesIndex.length === this.nenesum) {
-                        mui.toast('受益人合计不得指定超过' + this.nenesum + '位', {duration: 'short', type: 'div'})
+                    const vm = this
+                    if (vm.beneficiariesIndex.length === vm.nenesum) {
+                        mui.toast('受益人合计不得指定超过' + vm.nenesum + '位', {duration: 'short', type: 'div'})
                         return false
                     }
-                    var max = this.beneficiariesIndex.length > 0 ? Math.max.apply(null,this.beneficiariesIndex) : 0;
-                    if (!this.checkAllBens()) return false
-                    this.beneficiariesIndex.push(max + 1)
-                    this.$nextTick(function(){
-                        idtype[max].setData(this.init.ID_type);
+                    var max = vm.beneficiariesIndex.length > 0 ? Math.max.apply(null,vm.beneficiariesIndex) : 0;
+                    if (!vm.checkAllBens()) return false
+                    vm.beneficiariesIndex.push(max + 1)
+                    vm.$nextTick(function(){
+                        idtype[max].setData(vm.init.ID_type);
                         cityPicker[max].setData(cityData3);
-                        this.updateBeneficiaryRatio();
-                        this.par_unfold(this.beneficiariesIndex.length - 1, 0);
+                        vm.updateBeneficiaryRatio();
+                        vm.par_unfold(vm.beneficiariesIndex.length - 1, 0);
                     });
                 },
                 // 删除受益人
@@ -341,14 +342,14 @@
                         benefited[item.beneficiary.sort_order].push(Number(item.beneficiary.rate))
                         var toastText = null
                         var owner = '第' + (1 + Number(j)) + '个受益人'
-                        const type = item.beneficiary.ID_type
+                        var type = item.beneficiary.ID_type
+                        console.log(type)
                         var age = getAge(item.beneficiary.birthday)
-                        console.log(item.beneficiary.beneficiary_is_insured + ';' + item.beneficiary.gender + ';' + this.assured.insured_gender)
                         if (!checkName(owner, item.beneficiary.fullname)) {
                             return false
                         } else if (!type) {
                             toastText = '请选择' + owner + '证件类型'
-                        } else if (!IDValidate(type, item.beneficiary.ID_no, owner)) {
+                        } else if (!IDValidate(type, item.beneficiary.ID_no, owner, item.beneficiary)) {
                             return false
                         } else if (!checkTerm(item.beneficiary.ID_expire_end, owner, item)) {
                             return false
@@ -513,12 +514,7 @@
                     var type = vm.beneficiary.ID_type
                     var id = vm.beneficiary.ID_no
                     if (!type || !id) return
-                    var Validator = new IDValidator();
-                    if (IDValidate(type, id, '第' + (vm.index + 1) + '个受益人') && (type === IDcard || type === BOOKLET)) {
-                        var idInfo = Validator.getInfo(id)
-                        vm.beneficiary.birthday = idInfo.birth || ''
-                        vm.beneficiary.gender = [FEMALE, MALE][idInfo.sex]
-                    }
+                    IDValidate(type, id, '第' + (vm.index + 1) + '个受益人',vm.beneficiary)
                 });
                 vm.$nextTick(function() {
                     vm.$parent.initpicker(vm.index)

@@ -140,7 +140,8 @@
 				"password": "",
 				"p12": "",
 				"devices": "universal",
-				"frameworks": []
+				"frameworks": [],
+				"plistcmds": ["Set :NSPhotoLibraryUsageDescription 读取相册用于为用户提供图片预览选取相关图片上传服务器", "Set :NSCameraUsageDescription 使用用户相机用于为用户提供即时拍照上传图片到相应服务器校验信息", "Set :NSPhotoLibraryAddUsageDescription 向用户相册添加图片用于为用户方便存储相应资料图片", "Set :NSLocationAlwaysUsageDescription 持续获取用户地理位置用于为用户提供更精准的服务器分配客户数据信息", "Set :NSLocationWhenInUseUsageDescription 使用用户地理位置用于为用户提供上班打卡获取当前位置信息上传服务器校验", "Set :NSLocationAlwaysAndWhenInUseUsageDescription 使用用户地理位置用于为用户提供上班打卡获取当前位置信息上传服务器校验"]
 			},
 			"google": {
 				"packagename": "",
@@ -284,11 +285,11 @@
 					"images/icon/sign.png",
 					"images/icon/sign-active.png",
 					"js/Tunnel.js",
-					"news.html"
+					"news.html",
+					"prospect.html"
 				],
 				"refer": [
 					"member.html",
-					"prospect.html",
 					"discover.html",
 					"login.html",
 					"guide.html"
@@ -913,7 +914,9 @@
 				],
 				"refer": [
 					"popup-content.html",
-					"prospect-addIns.html"
+					"communic.html",
+					"prospect-addIns.html",
+					"member-plans-detail.html"
 				],
 				"priority": 0
 			},
@@ -2118,8 +2121,7 @@
 					"js/vue.min.js",
 					"images/plans/plansManage/297.png",
 					"images/plans/plansManage/290.png",
-					"images/plans/plansManage/8.png",
-					"images/plans/plansManage/16204.png"
+					"images/plans/plansManage/8.png"
 				],
 				"refer": [
 					"member-plans-detail.html",

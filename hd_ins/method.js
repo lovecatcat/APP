@@ -83,7 +83,7 @@ var IDValidate = function (type, id, owner,data) {
         }
     }
     if (toast_text) {
-        mui.toast(toast_text, {duration: 'short', type: 'div'});
+        mui.toast(toast_text, {duration: 'long', type: 'div'});
         return false;
     }
     return true;
@@ -327,7 +327,7 @@ var ApplSameHomeAddress = function (appl) {
 //校验投保人信息
 var checkAppl = function (appl) {
     var toast_text = null
-    var vm = this
+    var appl_age = getAge(appl.holder_birthday);
     if (!appl.holder_isTaxResidents) {
         toast_text = '请选择投保人居民税收类型'
     } else if (!IDValidate(IDcard, appl.holder_ID_no, '投保人',appl)) {
@@ -338,9 +338,9 @@ var checkAppl = function (appl) {
         return false
     } else if (!appl.holder_birthday) {
         toast_text = '投保人出生日期不能为空'
-    } else if (appl.appl_age < 18) {
+    } else if (appl_age < 18) {
         toast_text = '投保人不能小于18岁'
-    } else if (appl.appl_age > 60) {
+    } else if (appl_age > 60) {
         toast_text = '投保人不能大于60岁'
     } else if (!checkPhone('投保人', appl.holder_mobile)) {
         return false

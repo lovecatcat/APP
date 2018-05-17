@@ -229,10 +229,6 @@
             // 关闭遮罩层，弹框
             popu.closepop();
         });
-        mui('body').on('tap', '#maskInit', function () {
-            // 关闭遮罩层，弹框
-            popu.closepop();
-        }, false);
 
         //
         var bene = new Vue({
@@ -556,7 +552,6 @@
                 };
                 document.querySelector('#address-select' + vm.index).addEventListener('tap', function () {
                     document.activeElement.blur();
-                    var _self = this;
                     cityPicker[vm.index].show(function (items) {
                         vm.beneficiary.province = _getParam(items[0], 'value')
                         vm.beneficiary.city = _getParam(items[1], 'value')

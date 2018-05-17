@@ -408,6 +408,7 @@
         //已填信息赋值
         var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')) : ''
         if(assured) {
+            console.log(JSON.stringify(assured))
             assu.assured = deepClone(assured)
             assu.longTerm = assured.insured_ID_expire_end === '9999-12-31' ? true : false
             assu.assu_age = getAge(assu.assured.insured_birthday)
@@ -585,10 +586,6 @@
             popu.closepop();
         });
 
-        mui('body').on('tap', '#maskInit', function () {
-            // 关闭遮罩层，弹框
-            popu.closepop();
-        }, false);
     });
 </script>
 </html>

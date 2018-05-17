@@ -284,11 +284,11 @@
 					"images/icon/sign.png",
 					"images/icon/sign-active.png",
 					"js/Tunnel.js",
-					"news.html"
+					"news.html",
+					"prospect.html"
 				],
 				"refer": [
 					"member.html",
-					"prospect.html",
 					"discover.html",
 					"login.html",
 					"guide.html"
@@ -912,7 +912,10 @@
 					"js/mui.dtpicker.js"
 				],
 				"refer": [
-					"popup-content.html"
+					"popup-content.html",
+					"communic.html",
+					"prospect-addIns.html",
+					"member-plans-detail.html"
 				],
 				"priority": 0
 			},

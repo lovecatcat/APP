@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<title></title>
@@ -10,6 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
 		<script src="js/config.js" type="text/javascript"></script>
 	</head>
+
 	<body class="BL-bg-f2f">
 		<div id="prospect">
 			<header id="Js-header" class="BL-bg-f2f">
@@ -19,8 +21,7 @@
 				<!--计划书方案选项 begin-->
 				<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
 					<div class="mui-scroll">
-						<div data-wid="prospect_main" href="prospect-main.html" 
-							class="plans-nav mui-active" v-for="plan,index in plans" :key="plan.id" :data-id="plans[index].id" :data-index="index" :id="'plan'+ plans[index].id">
+						<div data-wid="prospect_main" href="prospect-main.html" class="plans-nav mui-active" v-for="plan,index in plans" :key="plan.id" :data-id="plans[index].id" :data-index="index" :id="'plan'+ plans[index].id">
 							<span v-if="!plans[index].assu.name">保障计划</span>
 							<span v-else>{{plans[index].assu.name}}</span>
 							<i class="mui-icon mui-icon-clear" @tap="removePlan(index)" v-if="plans.length > 1"></i>
@@ -29,10 +30,10 @@
 				</div>
 				<!--计划书方案选项 end -->
 				<!--方案名称 begin -->
-				<div class="BL-ub BL-rel BL-bg-fff BL-pad-lr-1_5 BL-pad-tb-1 input-item" style="margin: 1rem 0 0 0;">
+				<div class="BL-ub BL-rel BL-bg-fff BL-pad-lr-1_5 BL-pad-tb-1 input-item BL-border-b" style="margin: 1rem 0 0 0;">
 					<label>计划名称</label>
 					<div class="input-wrap input-wrap-planName box-f-1">
-						<input v-model.lazy.trim="alias" type="text" placeholder="请输入">
+						<input v-model.trim="alias" type="text" placeholder="请输入">
 						<div class="form-clear-icon" v-show="alias != ''">
 							<span class="mui-icon mui-icon-clear" @click="alias = '' "></span>
 						</div>
@@ -44,7 +45,7 @@
 				<!--投保人信息 begin -->
 				<div class="BL-bg-fff prospect-info BL-mar-t-1">
 					<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
-						<div class="BL-pad-lr-1_5">投保人信息</div>
+						<div class="BL-pad-lr-1_5 BL-col-3b9cf5">投保人信息</div>
 						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @click="displace">
 						<span>投</span><i class="displace-icon"></i><span>被</span>
 					</button>
@@ -62,22 +63,22 @@
 						</div>
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">年龄</label>
-							<div class="input-wrap box-f-1">
+							<div class="input-wrap box-f-1 search-date" data-options='{"type":"date","beginYear":1900}'>
+								<input v-model.lazy="appl.birthday"  type="text" placeholder="选择生日">
+								<div class="ins-date-icon"></div>
+							</div>
+							<div class="input-wrap box-f-1  BL-mar-l-1">
 								<input v-model.number.lazy.trim="appl.age" @change="checkAge(appl.age, '投保人')" @blur="appl.birthday = ''" type="number" placeholder="输入年龄">
 								<div class="form-clear-icon" v-show="appl.age != ''">
 									<span class="mui-icon mui-icon-clear" @click="appl.age = '' "></span>
 								</div>
 							</div>
-							<div class="input-wrap box-f-1 BL-mar-l-1 search-date" data-options='{"type":"date","beginYear":1900}'>
-								<input v-model.lazy="appl.birthday" type="text" placeholder="选择生日">
-								<div class="ins-date-icon"></div>
-							</div>
 						</div>
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">性别</label>
 							<div class="input-wrap box-f-1">
-								<button :class="{'BL-btn-white': appl.sex == true, 'BL-btn-gray': appl.sex == false}" @click="applSex(true)" v-model="appl.sex">男</button>
-								<button :class="{'BL-btn-white': appl.sex == false, 'BL-btn-gray': appl.sex == true}" @click="applSex(false)" v-model="appl.sex">女</button>
+								<button :class="{'BL-btn-blue': appl.sex == true, 'BL-btn-black': appl.sex == false}" @click="applSex(true)" v-model="appl.sex">男</button>
+								<button :class="{'BL-btn-blue': appl.sex == false, 'BL-btn-black': appl.sex == true}" @click="applSex(false)" v-model="appl.sex">女</button>
 							</div>
 						</div>
 					</div>
@@ -86,7 +87,7 @@
 				<!--被保人信息 begin -->
 				<div class="BL-bg-fff BL-mar-t-1 prospect-info">
 					<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
-						<div class="BL-pad-lr-1_5">被保人信息</div>
+						<div class="BL-pad-lr-1_5 BL-col-3b9cf5">被保人信息</div>
 						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @click="keepSame">
 							<span>同投保人</span>
 						</button>
@@ -100,26 +101,26 @@
 									<span class="mui-icon mui-icon-clear" @click="assu.name = '' "></span>
 								</div>
 							</div>
-							<div class="right-orange-btn address-icon"  @click="communic('assu')"></div>
+							<div class="right-orange-btn address-icon" @click="communic('assu')"></div>
 						</div>
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">年龄</label>
-							<div class="input-wrap box-f-1">
+							<div class="input-wrap box-f-1 search-date" data-options='{"type":"date","beginYear":1900}'>
+								<input v-model.lazy="assu.birthday" type="text" placeholder="选择生日">
+								<div class="ins-date-icon"></div>
+							</div>
+							<div class="input-wrap box-f-1 BL-mar-l-1">
 								<input v-model.number.lazy.trim="assu.age" @change="checkAge(assu.age, '被保人')" @blur="assu.birthday = ''" type="number" placeholder="输入年龄">
 								<div class="form-clear-icon" v-show="assu.age != ''">
 									<span class="mui-icon mui-icon-clear" @click="assu.age = '' "></span>
 								</div>
 							</div>
-							<div class="input-wrap box-f-1 BL-mar-l-1 search-date" data-options='{"type":"date","beginYear":1900}'>
-								<input v-model.lazy="assu.birthday" type="text" placeholder="选择生日">
-								<div class="ins-date-icon"></div>
-							</div>
 						</div>
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">性别</label>
 							<div class="input-wrap box-f-1">
-								<button :class="{'BL-btn-white': assu.sex == true, 'BL-btn-gray': assu.sex == false}" @click="assuSex(true)" v-model="assu.sex">男</button>
-								<button :class="{'BL-btn-white': assu.sex == false, 'BL-btn-gray': assu.sex == true}" @click="assuSex(false)" v-model="assu.sex">女</button>
+								<button :class="{'BL-btn-blue': assu.sex == true, 'BL-btn-black': assu.sex == false}" @click="assuSex(true)" v-model="assu.sex">男</button>
+								<button :class="{'BL-btn-blue': assu.sex == false, 'BL-btn-black': assu.sex == true}" @click="assuSex(false)" v-model="assu.sex">女</button>
 							</div>
 						</div>
 					</div>
@@ -128,7 +129,7 @@
 				<!--险种信息 begin -->
 				<div class="BL-bg-fff BL-mar-t-1 prospect-info clearfloat" :class="{'BL-pad-b-3' : planList[plan_id].length > 0}">
 					<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
-						<div class="BL-pad-lr-1_5">险种信息</div>
+						<div class="BL-pad-lr-1_5 BL-col-3b9cf5">险种信息</div>
 						<button class="BL-btn-blue BL-abs BL-pad-lr-1" @click="addIns">添加险种</button>
 					</div>
 					<template v-if="planList&&planList[plan_id]" v-for="item1,index1 in planList[plan_id]" :key="index1">
@@ -166,7 +167,7 @@
 							<!--主险信息 end -->
 
 						</div>
-						
+
 						<div class="clearfloat BL-pad-b-1">
 							<button class="BL-btn-white BL-ftz-42 BL-mar-t-1 BL-pad-lr-2 prospect-info-button BL-hide">+添加附加险</button>
 						</div>
@@ -176,7 +177,7 @@
 				<!--险种信息 end -->
 				<div style="width: 100%;height: 5.625rem;"></div>
 			</div>
-			<footer id="Js-footer" class="BL-bg-fff BL-pad-tb-1">
+			<footer id="Js-footer" class="BL-bg-fff BL-pad-tb-1 BL-Border-t">
 				<div class="BL-ub BL-ub-ac BL-ub-f1">
 					<div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll">
 						<div class="context" id="aaaa">
@@ -249,7 +250,7 @@
 								prospect.plans[i].appl = val
 							}
 						}
-						this.appl.birthday&&getAge(val.age, 0)
+						this.appl.birthday && getAge(val.age, 0)
 					},
 					deep: true
 				},
@@ -258,16 +259,16 @@
 						for(var i = 0; i < prospect.plans.length; i++) {
 							if(prospect.plans[i].id == prospect.plan_id) {
 								prospect.plans[i].assu = val
-								if(this.clickNav){ // 切换为未点击nav的状态
+								if(this.clickNav) { // 切换为未点击nav的状态
 									this.clickNav = false
-								}else{ //未点击nav状态改变值
+								} else { //未点击nav状态改变值
 									prospect.plans[i].ins = [];
 									prospect.planList[prospect.plan_id] = [];
 									count()
 								}
 							}
 						}
-						this.assu.birthday&&getAge(val.age)
+						this.assu.birthday && getAge(val.age)
 					},
 					deep: true
 				}
@@ -275,12 +276,12 @@
 			},
 			filters: {
 				safeYearFilter: function(value, safeid) {
-					if(value > 999){
-						var i = String(value).substring(0, String(value).length-2)
+					if(value > 999) {
+						var i = String(value).substring(0, String(value).length - 2)
 						return '至' + i + '周岁';
 					} else if(value > 50 && value !== '999' && value !== 999 && value < 999) {
 						return '至' + value + '周岁';
-					} else if(value == 25 && safeid == '1166'){
+					} else if(value == 25 && safeid == '1166') {
 						return '至25周岁';
 					} else if(value < 50 && value > 0) {
 						return value + '年';
@@ -292,12 +293,12 @@
 					if(value === 1) {
 						return '趸交';
 					} else if(value < 60) {
-//						console.log('filter');
+						//						console.log('filter');
 						return value + '年交';
-					} else if(value > 1000){
+					} else if(value > 1000) {
 						var age = String(value).substring(0, 2)
 						return '至' + age + '周岁';
-					}else {
+					} else {
 						return '至' + value + '周岁';
 					}
 				},
@@ -309,13 +310,16 @@
 				parseVueObj: function(Obj) {
 					return JSON.parse(JSON.stringify(Obj))
 				},
-				deepClone: function (obj) {
-				    var newObj = obj instanceof Array ? [] : {};
-				    for (var i in obj) {
-				        newObj[i] = typeof obj[i] == 'object' ?
-				            deepClone(obj[i]) : obj[i];
-				    }
-				    return newObj;
+				toblur:function(){
+		             document.activeElement.blur();
+		         },
+				deepClone: function(obj) {
+					var newObj = obj instanceof Array ? [] : {};
+					for(var i in obj) {
+						newObj[i] = typeof obj[i] == 'object' ?
+							deepClone(obj[i]) : obj[i];
+					}
+					return newObj;
 				},
 				applSex: function(i) {
 					this.appl.sex = i
@@ -355,7 +359,7 @@
 					var toastText = false
 					if(age == '' && age != 0) {
 						toastText = owner + '年龄不能为空'
-					}else if(Number(age) < 18 && owner == '投保人'){
+					} else if(Number(age) < 18 && owner == '投保人') {
 						toastText = owner + '不能小于18周岁'
 					}
 					if(toastText) {
@@ -371,7 +375,7 @@
 				displace: function() { //投被保人替换
 					var appl = this.appl
 					var assu = this.assu
-					if(!appl.name && !appl.age){
+					if(!appl.name && !appl.age) {
 						appl = this.plans[0].appl
 						assu = this.plans[0].assu
 					}
@@ -407,35 +411,35 @@
 					var ins;
 					for(var i = 0; i < prospect.plans.length; i++) {
 						if(this.plans[i].id == this.plan_id) {
-							
+
 							ins = this.plans[i].ins
 						}
 					}
-					if(fj){ //附加
+					if(fj) { //附加
 						this.$delete(ins[index1].addon, index)
 						this.$delete(this.planList[this.plan_id][index1], index)
-					}else{ //主险
+					} else { //主险
 						ins.splice(index1, 1)
 						this.$delete(this.planList[this.plan_id], index1)
 					}
 					count()
 					this.$forceUpdate()
 				},
-				communic: function(type){
-						//通讯录
+				communic: function(type) {
+					//通讯录
 					this.Communic = type
-			        mui.openWindow({
-			            url: 'communic.html',
-			            id: 'communic',
-			            show: animateObj.aniDetal,
-			            extras:{
-			            	pageid: 'prospect',
-			            	tip: 1,
+					mui.openWindow({
+						url: 'communic.html',
+						id: 'communic',
+						show: animateObj.aniDetal,
+						extras: {
+							pageid: 'prospect',
+							tip: 1,
 							flag: 'onlineIns'
 						}
-			        }) 
+					})
 				},
-				editIns:function(index1, item) { //编辑险种
+				editIns: function(index1, item) { //编辑险种
 					//找到plans对应的ins中的一个,险删掉当前的数据
 					var ins;
 					for(var i = 0; i < prospect.plans.length; i++) {
@@ -473,127 +477,134 @@
 					event.stopPropagation()
 				},
 				addPlan: function() {
-					prospect.max_id++;
-				var data = {
-					id: prospect.max_id,
-					ins: [],
-					appl: {
-						name: '',
-						name: '',
-						age: '',
-						sex: true,
-						birthday: ''
-					},
-					assu: {
-						name: '',
-						age: '',
-						sex: true,
-						birthday: ''
+					for(var i = 0; i < prospect.plans.length; i++) {
+						var planIns = prospect.plans[i].ins
+						if(prospect.plans[i].ins.length < 1) {
+							mui.toast('请先完成当前方案')
+							return false;
+						}
 					}
-				}
-				prospect.plans.push(data);
-				prospect.planList[prospect.max_id] = [];
-				prospect.$forceUpdate();
-				setTimeout(function() {
-					var btn = document.getElementById('plan' + prospect.max_id);
-					//监听点击事件
-					btn.addEventListener("tap", function() {
-						var c = document.querySelector(".plans-nav.mui-active");
-						if(c) {
-							c.classList.remove("mui-active");
+					prospect.max_id++;
+					var data = {
+						id: prospect.max_id,
+						ins: [],
+						appl: {
+							name: '',
+							name: '',
+							age: '',
+							sex: true,
+							birthday: ''
+						},
+						assu: {
+							name: '',
+							age: '',
+							sex: true,
+							birthday: ''
 						}
-						this.classList.add("mui-active");
-						var wid = this.getAttribute("data-wid");
-						var id = this.getAttribute("data-id");
-						var index = this.getAttribute("data-index");
-						if(id) {
-							var data;
-							for(var i = 0; i < prospect.plans.length; i++) {
-								if(prospect.plans[i].id == id) {
-									data = prospect.plans[i]
-									prospect.appl = prospect.plans[i].appl
-									prospect.assu = prospect.plans[i].assu
-								}
+					}
+					prospect.plans.push(data);
+					prospect.planList[prospect.max_id] = [];
+					prospect.$forceUpdate();
+					setTimeout(function() {
+						var btn = document.getElementById('plan' + prospect.max_id);
+						//监听点击事件
+						btn.addEventListener("tap", function() {
+							var c = document.querySelector(".plans-nav.mui-active");
+							if(c) {
+								c.classList.remove("mui-active");
 							}
-							prospect.plan_id = id
-						}
-					});
-					mui.trigger(btn, 'tap');
-				}, 100)
+							this.classList.add("mui-active");
+							var wid = this.getAttribute("data-wid");
+							var id = this.getAttribute("data-id");
+							var index = this.getAttribute("data-index");
+							if(id) {
+								var data;
+								for(var i = 0; i < prospect.plans.length; i++) {
+									if(prospect.plans[i].id == id) {
+										data = prospect.plans[i]
+										prospect.appl = prospect.plans[i].appl
+										prospect.assu = prospect.plans[i].assu
+									}
+								}
+								prospect.plan_id = id
+							}
+						});
+						mui.trigger(btn, 'tap');
+					}, 100)
 				},
 				pushPlan: function() {
 					//点击生成计划书，弹框判断是否要添加方案
-//					var data = {
-//						modalID: 'modal-plan',
-//						formID: 'prospect'
-//					}
-//					showPopu("popup-content.html", "popup_content", 'center', data);
-				var data = []
-				var fristChild = []
-				var otherChild = []
-				for(var i = 0; i < prospect.plans.length; i++) {
-					var id = prospect.plans[i].id
-					var planIns = prospect.plans[i].ins
+					//					var data = {
+					//						modalID: 'modal-plan',
+					//						formID: 'prospect'
+					//					}
+					//					showPopu("popup-content.html", "popup_content", 'center', data);
+					var data = []
+					var fristChild = []
+					var otherChild = []
+					for(var i = 0; i < prospect.plans.length; i++) {
+						var id = prospect.plans[i].id
+						var planIns = prospect.plans[i].ins
 
-					for(var j = 0; j < planIns.length; j++) {
-						if(!planIns[j]) continue
-						var item = prospect.parseVueObj(planIns[j])
-						item.main.alias = prospect.alias
-						item.main.is_save = 1
-						item.main.warranty_year = 105
-						item.main.need_packet = 1
-						item.main.check = 0
-						item.main.flag = item.main.flag ? item.main.flag : 0
-						data.push(item.main)
-						if(i === 0 && id === 1 && j === 0) {
-							fristChild.push(item.main)
-						} else {
-							otherChild.push(item.main)
-						}
-						for(var k in item.addon) {
-							if(!item.addon[k]) continue
-							item.addon[k].is_save = 1
-							item.addon[k].warranty_year = 105
-							item.addon[k].need_packet = 1
-							item.addon[k].check = 0
-							item.addon[k].flag = item.addon[k].flag ? item.addon[k].flag : 0
-							data.push(item.addon[k])
+						for(var j = 0; j < planIns.length; j++) {
+							if(!planIns[j]) continue
+							var item = prospect.parseVueObj(planIns[j])
+							item.main.alias = prospect.alias
+							item.main.is_save = 1
+							item.main.warranty_year = 105
+							item.main.need_packet = 1
+							item.main.check = 0
+							item.main.flag = item.main.flag ? item.main.flag : 0
+							data.push(item.main)
 							if(i === 0 && id === 1 && j === 0) {
-								fristChild.push(item.addon[k])
+								fristChild.push(item.main)
 							} else {
-								otherChild.push(item.addon[k])
+								otherChild.push(item.main)
+							}
+							for(var k in item.addon) {
+								if(!item.addon[k]) continue
+								item.addon[k].is_save = 1
+								item.addon[k].warranty_year = 105
+								item.addon[k].need_packet = 1
+								item.addon[k].check = 0
+								item.addon[k].flag = item.addon[k].flag ? item.addon[k].flag : 0
+								data.push(item.addon[k])
+								if(i === 0 && id === 1 && j === 0) {
+									fristChild.push(item.addon[k])
+								} else {
+									otherChild.push(item.addon[k])
+								}
 							}
 						}
 					}
-				}
-				if(data.length < 1){
-					mui.toast('请先完成一个方案') 
-					return false;
-				}
-		     
-	        	luckyAjax({
-					data: {
-			            server: 'Proposal.add',
-			            data: JSON.stringify({
-			              safes: JSON.stringify(data)
-			            })
-			        },
-			        success:function(res){
-						if(res.code == 1){
-							var id = res.data.data[0].pl_id
-							mui.openWindow({
-								id: 'member_plans_detail',
-								url: 'member-plans-detail.html',
-								show: animateObj.aniDetal,
-								extras: {
-									pl_id: id //pl_id
-								}
-							});
-							
-								prospect.alias= '';
-								prospect.max_id= 1; //id叠加
-								prospect.plan_id= 1; //当前的数据
-								prospect.plans= [{
+					if(data.length < 1) {
+						mui.toast('请先完成一个方案')
+						return false;
+					}
+
+					luckyAjax({
+						data: {
+							server: 'Proposal.add',
+							data: JSON.stringify({
+								safes: JSON.stringify(data)
+							})
+						},
+						success: function(res) {
+							if(res.code == 1) {
+								var id = res.data.data[0].pl_id
+								mui.openWindow({
+									id: 'member_plans_detail',
+									url: 'member-plans-detail.html',
+									show: animateObj.aniDetal,
+									extras: {
+										pl_id: id //pl_id
+									}
+								});
+
+								prospect.alias = '';
+								prospect.max_id = 1; //id叠加
+								prospect.plan_id = 1; //当前的数据
+								prospect.plans = [{
 									id: 1,
 									ins: [],
 									appl: {
@@ -607,30 +618,30 @@
 										sex: true
 									}
 								}];
-								prospect.appl= {
+								prospect.appl = {
 									name: '',
 									age: '',
 									sex: true,
 									birthday: ''
 								};
-								prospect.assu= {
+								prospect.assu = {
 									name: '',
 									age: '',
 									sex: true,
 									birthday: ''
 								};
-								prospect.planList= { //保险计划的列表
+								prospect.planList = { //保险计划的列表
 									1: []
 								};
-								prospect.count= 0; //总保费
-								prospect.planTime= {}; //临时保存的数据
-								prospect.edit= false //是不是编辑状态
-							
-						}
+								prospect.count = 0; //总保费
+								prospect.planTime = {}; //临时保存的数据
+								prospect.edit = false //是不是编辑状态
 
-			        }
-				});
-		        
+							}
+
+						}
+					});
+
 				}
 			}
 		})
@@ -643,9 +654,10 @@
 			var topHeight = document.querySelector('#Js-header').offsetHeight;
 			var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 			document.querySelector('#Js-content').style.height = winH - topHeight - fotHeight + 'px';
-			
+
 			mui(".mui-scroll").on("tap", ".plans-nav", function(e) {
 				prospect.clickNav = true; // 点击变为true
+				prospect.toblur()
 				var c = document.querySelector(".plans-nav.mui-active");
 				if(c) {
 					c.classList.remove("mui-active");
@@ -672,6 +684,7 @@
 			var dates = mui('.search-date');
 			dates.each(function(i, d) {
 				d.addEventListener('tap', function() {
+					 prospect.toblur()
 					var optionsJson = this.getAttribute('data-options') || '{}';
 					var options = JSON.parse(optionsJson);
 					var _this = this
@@ -690,90 +703,93 @@
 			//时间
 			getAge = function(birthday, i, type) {
 				var age
-				if(type){
+				if(type) {
 					var now = new Date()
 					var year = now.getFullYear()
 					var month = now.getMonth() + 1
 					var day = now.getDate()
-					var r = birthday.split('-').map(function(item){
-					    return parseInt(item)
+					var r = birthday.split('-').map(function(item) {
+						return parseInt(item)
 					})
 					age = year - r[0]
 					if(r[1] > month || (r[1] === month && r[2] > day)) { // 当月
 						age -= 1
 					}
-				}else{
+				} else {
 					age = birthday
 				}
-				
+
 				if(i == 0 && age < 18) {
 					mui.toast('投保人年龄不能小于18周岁')
+					prospect.appl.birthday = ''
 				} else if(i == 0 && age > 18) {
 					prospect.appl.age = age
-				} else if(age < 0){
+				} else if(age < 0) {
 					mui.toast('被保人年龄不能小于28天')
+					prospect.assu.birthday = ''
 				} else {
 					prospect.assu.age = age
 				}
 			};
-		
-			count = function(){
-				//算总保费
-					var count = 0;
-					for(var i in prospect.planList) {
-						var item = prospect.planList[i]
-							for(var j = 0; j < item.length; j++) {
-								for(var k in item[j]) {
-									count += Number(item[j][k].period_money)
-								}
-							}
-					}
-					prospect.count = count.toFixed(2)
-			}
-			
-			//通讯录回传信息
-	        window.addEventListener('getMemberId', function (event) {
-		        var memberid = event.detail.id
-		        luckyAjax({
-					data: {
-			            server: 'team.getContactsInfo',
-			            data: JSON.stringify({card_no:memberid})
-			        },
-			        success:function(data){
-		                if(data.code){
-		                 	var info = data.data;
-		                	if(prospect.Communic == 'appl'){
-		                		prospect.appl.name = info.user_name;
-		                		prospect.appl.sex = info.sex == '男' ? true : false;
-		                		prospect.appl.birthday = info.birthday
-		                		getAge(info.birthday, 0, 'picker')
-		                	}else{
-		                		prospect.assu.name = info.user_name;
-		                		prospect.assu.sex = info.sex == '男' ? true : false;
-		                		prospect.assu.birthday = info.birthday
-		                		getAge(info.birthday, 1, 'picker')
-		                	}
 
-		                }
-			        }
+			count = function() {
+				//算总保费
+				var count = 0;
+				for(var i in prospect.planList) {
+					var item = prospect.planList[i]
+					for(var j = 0; j < item.length; j++) {
+						for(var k in item[j]) {
+							count += Number(item[j][k].period_money)
+						}
+					}
+				}
+				prospect.count = count.toFixed(2)
+			}
+
+			//通讯录回传信息
+			window.addEventListener('getMemberId', function(event) {
+				var memberid = event.detail.id
+				luckyAjax({
+					data: {
+						server: 'team.getContactsInfo',
+						data: JSON.stringify({
+							card_no: memberid
+						})
+					},
+					success: function(data) {
+						if(data.code) {
+							var info = data.data;
+							if(prospect.Communic == 'appl') {
+								prospect.appl.name = info.user_name;
+								prospect.appl.sex = info.sex == '男' ? true : false;
+								prospect.appl.birthday = info.birthday
+								getAge(info.birthday, 0, 'picker')
+							} else {
+								prospect.assu.name = info.user_name;
+								prospect.assu.sex = info.sex == '男' ? true : false;
+								prospect.assu.birthday = info.birthday
+								getAge(info.birthday, 1, 'picker')
+							}
+
+						}
+					}
 				});
-		    })
-		
-		
+			})
+
 			//确定添加方案
-//			window.addEventListener('addPlan', function(event) {
-//				
-//
-//			});
+			//			window.addEventListener('addPlan', function(event) {
+			//				
+			//
+			//			});
 			//确认删除
 			window.addEventListener('sure', function(event) {
 				var index = event.detail.data
-//					alert(JSON.stringify(prospect.plans))
-//					alert(prospect.plans[index].id)
-					prospect.planList[prospect.plans[index].id] = []
-					prospect.plans.splice(index, 1)
-//					alert(JSON.stringify(prospect.plans))
-//					alert(JSON.stringify(prospect.planList))
+				//					alert(JSON.stringify(prospect.plans))
+				//					alert(prospect.plans[index].id)
+				prospect.planList[prospect.plans[index].id] = []
+				prospect.plans.splice(index, 1)
+				//					alert(JSON.stringify(prospect.plans))
+				//					alert(JSON.stringify(prospect.planList))
 				count();
 				setTimeout(function() {
 					var btn = document.getElementById('plan' + prospect.plans[0].id);
@@ -824,10 +840,10 @@
 				prospect.planTime = data
 			});
 			//不添加，即生成
-//			window.addEventListener('pushPlan', function(event) {
-//				
-//
-//			});
+			//			window.addEventListener('pushPlan', function(event) {
+			//				
+			//
+			//			});
 
 		});
 	</script>

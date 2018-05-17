@@ -32,7 +32,7 @@
 					</div>
 				</div>
 				<div class="input-item">
-					<label class="">险种</label>
+					<label class="">险种名称</label>
 					<div class="input-wrap box-f-1">
 						<div class="input" @click="insChanged">{{main.text}}</div>
 						<div class="ins-down-icon"></div>
@@ -298,13 +298,13 @@
 		        </button>
 								</app-select>
 								<div class="input-item">
-									<label class="">保险期间</label>
+									<label class="">保险期间(年)</label>
 									<div class="input-wrap box-f-1">
 										<button slot="button" class="ins-btn xs-btn blue">1年</button>
 									</div>
 								</div>
 								<div class="input-item">
-									<label class="">缴费年限</label>
+									<label class="">缴费年限(年)</label>
 									<div class="input-wrap box-f-1">
 										<button slot="button" class="ins-btn xs-btn blue">1年</button>
 									</div>
@@ -349,13 +349,13 @@
 							        </button>
 								</app-select>
 								<div class="input-item">
-									<label class="">保险期间</label>
+									<label class="">保险期间(年)</label>
 									<div class="input-wrap box-f-1">
 										<button slot="button" class="ins-btn xs-btn blue">1年</button>
 									</div>
 								</div>
 								<div class="input-item">
-									<label class="">缴费年限</label>
+									<label class="">缴费年限(年)</label>
 									<div class="input-wrap box-f-1">
 										<button slot="button" class="ins-btn xs-btn blue">1年</button>
 									</div>
@@ -570,7 +570,7 @@
 						<!-- 国华 附加少儿成长无忧年金保险 -->
 						<template v-if="item.code==='1167' && addonsSelected[item.code]">
 							<div class="form-wrap form-bgc-eee">
-								<app-input label="份数">
+								<app-input label="保险份数">
 
 									<input slot="input" type="number" placeholder="请输入份数" v-model.number="cache.base_money1167" @change="flagChanged(item.code)" />
 									<div slot="icon" v-show="cache.base_money1167  != ''" @click="cache.base_money1167  = '' ,flagChanged(item.code)" class="form-clear-icon">
@@ -620,7 +620,7 @@
 						<template v-if="item.code === 'AMRB' && addonsSelected[item.code]">
 							<div class="form-wrap form-bgc-eee">
 								<div class="input-item">
-									<label class="">保险金额</label>
+									<label class="">保险金额(元)</label>
 									<div class="input-wrap box-f-1">
 										<select v-model.number="flag[item.code]" @change="flagChanged(item.code)">
 											<option disabled value=''>请选择金额</option>
@@ -640,13 +640,13 @@
 									</div>
 								</div>
 								<div class="input-item">
-									<label class="">保险期间</label>
+									<label class="">保险期间(年)</label>
 									<div class="input-wrap box-f-1">
 										<button slot="button" class="ins-btn xs-btn blue">1年</button>
 									</div>
 								</div>
 								<div class="input-item">
-									<label class="">缴费年限</label>
+									<label class="">缴费年限(年)</label>
 									<div class="input-wrap box-f-1">
 										<button slot="button" class="ins-btn xs-btn blue">1年</button>
 
@@ -694,14 +694,14 @@
 									</div>
 								</div>
 								<div class="input-item">
-									<label class="">保险期间</label>
+									<label class="">保险期间(年)</label>
 									<div class="input-wrap box-f-1">
 										<button slot="button" class="ins-btn xs-btn blue">1年</button>
 
 									</div>
 								</div>
 								<div class="input-item">
-									<label class="">缴费年限</label>
+									<label class="">缴费年限(年)</label>
 									<div class="input-wrap box-f-1">
 										<button slot="button" class="ins-btn xs-btn blue">1年</button>
 
@@ -956,13 +956,13 @@
 									</div>
 								</div>
 								<div class="input-item">
-									<label class="">保险期间</label>
+									<label class="">保险期间(年)</label>
 									<div class="input-wrap box-f-1">
 										<button slot="button" class="ins-btn xs-btn blue">1年</button>
 									</div>
 								</div>
 								<div class="input-item">
-									<label class="">缴费年限</label>
+									<label class="">缴费年限(年)</label>
 									<div class="input-wrap box-f-1">
 										<button slot="button" class="ins-btn xs-btn blue">1年</button>
 									</div>
@@ -996,13 +996,13 @@
 									最低50元,10的整数倍。累计不超过200元/天
 								</div>
 								<div class="input-item">
-									<label class="">保险期间</label>
+									<label class="">保险期间(年)</label>
 									<div class="input-wrap box-f-1">
 										<button slot="button" class="ins-btn xs-btn blue">1年</button>
 									</div>
 								</div>
 								<div class="input-item">
-									<label class="">缴费年限</label>
+									<label class="">缴费年限(年)</label>
 									<div class="input-wrap box-f-1">
 										<button slot="button" class="ins-btn xs-btn blue">1年</button>
 									</div>
@@ -1033,13 +1033,13 @@
 					        </button>
 								</app-select>
 								<div class="input-item">
-									<label class="">保险期间</label>
+									<label class="">保险期间(年)</label>
 									<div class="input-wrap box-f-1">
 										<button slot="button" class="ins-btn xs-btn blue">1年</button>
 									</div>
 								</div>
 								<div class="input-item">
-									<label class="">缴费年限</label>
+									<label class="">缴费年限(年)</label>
 									<div class="input-wrap box-f-1">
 										<button slot="button" class="ins-btn xs-btn blue">1年</button>
 									</div>
@@ -1087,7 +1087,7 @@
 								<app-select label="保险金额">
 									<button slot="button" class="ins-btn xs-btn blue">{{insurance.period_money}}</button>
 								</app-select>
-								<app-select label="保险期间">
+								<app-select label="保险期间(年)">
 									<button slot="button" v-for="num in ['7400', '8400']" class="ins-btn xs-btn" :class="{'blue': num == flag[item.code]}" @click="flagChanged(item.code, num)">
 					             		{{num.substring(0,2)}}周岁
 					        		</button>
@@ -1636,7 +1636,7 @@
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs" v-if="addonRes['1003']">
-										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money + addonRes['1003']['年缴保费']}}</span>
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money + Number(addonRes['1003']['年缴保费'])}}</span>
 										<div class="am-ft-orange"></div>
 									</li>
 									<li class="ins-font-xs" v-else>
@@ -1667,7 +1667,7 @@
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs" v-if="addonRes['1003']">
-										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money + addonRes['1003']['年缴保费']}}</span>
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money + Number(addonRes['1003']['年缴保费'])}}</span>
 										<div class="am-ft-orange"></div>
 									</li>
 									<li class="ins-font-xs" v-else>

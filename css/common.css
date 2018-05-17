@@ -217,6 +217,15 @@ i {
 	min-height: 2rem;
 	padding: 0 0.5rem;
 }
+.BL-btn-black {
+	background-color: #fff;
+	border: 1px solid #c8c8c8;
+	border-radius: .3125em;
+	color: #999;
+	font-size: 1rem;
+	min-height: 2rem;
+	padding: 0 0.5rem;
+}
 
 
 /* Icon按钮(base样式) = BL-icon[color, font-size, min-height, padding] */

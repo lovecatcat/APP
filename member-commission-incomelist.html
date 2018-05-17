@@ -37,14 +37,14 @@
 					</div>
 				</div>
 				<!--日期筛选 end -->
-				<div v-show="mode==4" id="Js-showDate" class="BL-pad-tb-1 BL-pad-lr-1_5 BL-ftz-42 BL-col-999 BL-bg-f2f">
+				<div v-show="mode==4" id="Js-showDate" class="BL-pad-tb-1 BL-pad-lr-1_5 BL-ftz-42 BL-col-999">
 					筛选时间：<span class="Js-fday">{{ start_time }}</span> --- <span class="Js-sday">{{ end_time }}</span>
 				</div>
 			</div>
 			<!------------条件筛选 end------------->
 			<!------------首期佣金明细 begin------------->
 			<div id="Js-cmistab" class="BL-rel">
-				<div class="mui-content mui-scroll-wrapper BL-bg-f2f">
+				<div class="mui-content mui-scroll-wrapper">
 					<div class="mui-scroll">
 						<template v-if="list">
 							<template v-if="list.length > 0">
@@ -86,11 +86,11 @@
 								</div>
 							</template>
 							<template v-else>
-								<div class="BL-pad-t-1 BL-txt-c BL-ftz-42 BL-col-999">没有更多数据了</div>
+								<div class="BL-txt-c BL-ftz-42 BL-col-999">没有更多数据了</div>
 							</template>
 						</template>
 						<template v-else>
-							<div class="BL-pad-t-1 BL-txt-c BL-ftz-42 BL-col-999">正在加载...</div>
+							<div class="BL-txt-c BL-ftz-42 BL-col-999">正在加载...</div>
 						</template>
 					</div>
 				</div>

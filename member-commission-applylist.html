@@ -22,7 +22,7 @@
 
 		<div id="Js-content" class="mui-content">
 			<!------------条件筛选 begin------------->
-			<div id="Js-cmisFilter" class="member-list-filter">
+			<div id="Js-cmisFilter" class="member-list-filter" :class="{'BL-pad-b-1':mode!= '4'}">
 				<!--日期筛选 begin-->
 				<div class="cmis-date BL-bg-fff">
 					<div class="BL-ub BL-ub-ac member-date-select">
@@ -38,7 +38,7 @@
 					</div>
 				</div>
 				<!--日期筛选 end -->
-				<div v-show="mode==4" id="Js-showDate" class="BL-pad-t-1 BL-pad-lr-1_5 BL-ftz-42 BL-col-999 BL-bg-f2f">
+				<div v-show="mode==4" id="Js-showDate" class="BL-pad-tb-1 BL-pad-lr-1_5 BL-ftz-42 BL-col-999 BL-bg-f2f">
 					筛选时间：<span class="Js-fday">{{ start_time }}</span> --- <span class="Js-sday">{{ end_time }}</span>
 				</div>
 			</div>
@@ -48,7 +48,7 @@
 			<div id="Js-cmisList" class="BL-rel">
 				<div class="mui-content mui-scroll-wrapper BL-bg-f2f">
 					<div class="mui-scroll">
-						<ul v-if="list" class="mui-table-view BL-mar-t-1">
+						<ul v-if="list" class="mui-table-view">
 						    <li v-for="item in list" class="mui-table-view-cell member-cmis-list-item">
 						        <a class="mui-navigate-right" :data-json="JSON.stringify(item)">
 						            <div class="member-cmis-list-l">
@@ -83,7 +83,22 @@
 				start_time: '',
 				end_time: '',
 				list: []
-			}
+			},
+            methods: {
+                setWinHeight: function () {
+                    var winH = window.innerHeight;
+                    var titHeight = document.querySelector('#Js-header').offsetHeight;
+                    var divHeight = document.querySelector('#Js-cmisFilter').offsetHeight;
+                    document.querySelector('#Js-cmisList').style.height = winH - titHeight - divHeight + 'px';
+                }
+            },
+            created: function() {
+                this.$watch('mode', function (val) {
+                    this.$nextTick(function(){
+                        this.setWinHeight()
+                    });
+                });
+            }
 		});
 		
 		// 定义vue过滤器
@@ -111,10 +126,8 @@
 				});
 				
 				statusbar();
-				var winH = window.innerHeight;
-				var titHeight = document.querySelector('#Js-header').offsetHeight;
-				var divHeight = document.querySelector('#Js-cmisFilter').offsetHeight;
-				document.querySelector('#Js-cmisList').style.height = winH - titHeight - divHeight + 'px';
+				apply.setWinHeight()
+
 				var self;
 				var i = 0;
 
@@ -176,7 +189,7 @@
 						apply.mode = 4
 						apply.start_time = f
 						apply.end_time = s
-						
+
 						i = 0
 						apply.list = []
 						self.refresh(true)

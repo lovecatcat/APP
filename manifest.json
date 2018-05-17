@@ -912,7 +912,8 @@
 					"js/mui.dtpicker.js"
 				],
 				"refer": [
-					"popup-content.html"
+					"popup-content.html",
+					"prospect-addIns.html"
 				],
 				"priority": 0
 			},
@@ -2117,7 +2118,8 @@
 					"js/vue.min.js",
 					"images/plans/plansManage/297.png",
 					"images/plans/plansManage/290.png",
-					"images/plans/plansManage/8.png"
+					"images/plans/plansManage/8.png",
+					"images/plans/plansManage/16204.png"
 				],
 				"refer": [
 					"member-plans-detail.html",

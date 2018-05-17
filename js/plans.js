@@ -197,16 +197,21 @@ var aloneDetail = new Vue({
 		
 		window.addEventListener('alone', function(event) {
 			var data = event.detail.data
-//			alert(event.detail.pl_id)
+
 //			alert(JSON.stringify(data))
+
 			aloneDetail.list = data
+//			alert(JSON.stringify(aloneDetail.list.genre))
+			
 			aloneDetail.adviser = event.detail.adviser
 			aloneDetail.pl_id = event.detail.pl_id
 			aloneDetail.haveLevel = false
 			aloneDetail.haveDesign16197 = false
 			aloneDetail.green_server = false
-			
+			aloneDetail.$forceUpdate()
 			groupList(data)
+
+			
 			//规划
 			if(aloneDetail.haveDesign.indexOf(Number(aloneDetail.list.genre)) > -1) {
 				luckyAjax({
@@ -227,6 +232,7 @@ var aloneDetail = new Vue({
 					}
 				});
 			}
+			
 			//通过总库id获取分库id
 			luckyAjax({
 				data: {
@@ -288,8 +294,9 @@ var aloneDetail = new Vue({
 					}
 				}
 			});
-			
 		});
+
+		
 		window.addEventListener('design', function(event) {
 			var data = event.detail.data
 			aloneDetail.manual_content[aloneDetail.levelNum] = aloneDetail.manual_content[aloneDetail.levelNum] ? aloneDetail.manual_content[aloneDetail.levelNum] : []

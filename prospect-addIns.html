@@ -46,12 +46,7 @@
 				        </button>
 					</app-select>
 					<app-select label="缴费年限">
-						<button slot="button" class="ins-btn xs-btn" 
-							:class="{'blue':item.pay_year===insurance.pay_year}" 
-							:disabled="item.pay_year===insurance.pay_year" 
-							v-for="(item,index) in mainPyAttr"
-							 @click="insurance.pay_year=item.pay_year, resetFee()" 
-							 v-if="payYearFilter(item.pay_year)">
+						<button slot="button" class="ins-btn xs-btn" :class="{'blue':item.pay_year===insurance.pay_year}" :disabled="item.pay_year===insurance.pay_year" v-for="(item,index) in mainPyAttr" @click="insurance.pay_year=item.pay_year, resetFee()" v-if="payYearFilter(item.pay_year)">
 				            {{item.pay_year | payYearFilter}}
 				        </button>
 					</app-select>
@@ -70,16 +65,12 @@
 						<template v-else-if="insurance.safe_id == '1016'">
 							<!--招商仁和仁医保费用补偿医疗保险-->
 							<app-select label="有无社保">
-								<button slot="button" v-for="num in ['1', '2']"
-									 class="ins-btn xs-btn" :class="{'blue': num == flag[insurance.safe_id]}" 
-									 :disabled="num == flag[insurance.safe_id]"
-									  @click="flagChanged(insurance.safe_id, num)">
+								<button slot="button" v-for="num in ['1', '2']" class="ins-btn xs-btn" :class="{'blue': num == flag[insurance.safe_id]}" :disabled="num == flag[insurance.safe_id]" @click="flagChanged(insurance.safe_id, num)">
 						             	{{num == '1' ? '有社保': '无社保'}}
 						        </button>
 							</app-select>
 							<app-select label="基本保额">
-								<button slot="button" v-model="insurance.money = 1500000"
-									class="ins-btn xs-btn blue" disabled>
+								<button slot="button" v-model="insurance.money = 1500000" class="ins-btn xs-btn blue" disabled>
 						            150万
 						        </button>
 							</app-select>
@@ -93,7 +84,7 @@
 							</app-select>
 						</template>
 						<div class="input-item">
-							<label>年缴保费(元)</label>
+							<label>年缴保费(元)w</label>
 							<div class="BL-ub BL-ub-pj BL-ub-f1">
 								<div class="input-wrap BL-ub-f1">
 									<input readonly v-model.number.lazy="insurance.period_money" type="number" placeholder="年缴保费（元）">
@@ -107,14 +98,10 @@
 					<template v-else-if="!isBaseMoney&&!fuBaseMoney">
 						<!-- 恒大福享今生 -->
 						<app-select label="保证年限" v-if="insurance.safe_id === 'LA063'">
-							<button slot="button" class="ins-btn xs-btn" :class="{'blue': flag['LA063']  == 20}" 
-								:disabled="flag['LA063']  == 20" 
-								@click="flagChanged('LA063', 20), resetFee()">
+							<button slot="button" class="ins-btn xs-btn" :class="{'blue': flag['LA063']  == 20}" :disabled="flag['LA063']  == 20" @click="flagChanged('LA063', 20), resetFee()">
 					             	20年
 					        </button>
-							<button slot="button" class="ins-btn xs-btn" :class="{'blue': flag['LA063']  == 30}" 
-								:disabled="flag['LA063']  == 30"
-								 @click="flagChanged('LA063', 30), resetFee()">
+							<button slot="button" class="ins-btn xs-btn" :class="{'blue': flag['LA063']  == 30}" :disabled="flag['LA063']  == 30" @click="flagChanged('LA063', 30), resetFee()">
 					             	30年
 					        </button>
 						</app-select>
@@ -161,14 +148,10 @@
 					<template v-else-if="isBaseMoney && !fuBaseMoney && insurance.safe_id === 'FXLJYS'">
 						<div class="input-item">
 							<label>有无社保</label>
-							<button slot="button" class="ins-btn xs-btn" :class="{'blue': fxljysFXLJYS.shebao == 'B'}"
-								 :disabled="fxljysFXLJYS.shebao == 'B'"
-								 @click="fxljysFXLJYS.shebao = 'B', resetFee('fxsb')">
+							<button slot="button" class="ins-btn xs-btn" :class="{'blue': fxljysFXLJYS.shebao == 'B'}" :disabled="fxljysFXLJYS.shebao == 'B'" @click="fxljysFXLJYS.shebao = 'B', resetFee('fxsb')">
 					             	有社保
 					        </button>
-							<button slot="button" class="ins-btn xs-btn" :class="{'blue': fxljysFXLJYS.shebao == 'A'}"
-								 :disabled="fxljysFXLJYS.shebao == 'A'"
-								 @click="fxljysFXLJYS.shebao = 'A', resetFee('fxsb')">
+							<button slot="button" class="ins-btn xs-btn" :class="{'blue': fxljysFXLJYS.shebao == 'A'}" :disabled="fxljysFXLJYS.shebao == 'A'" @click="fxljysFXLJYS.shebao = 'A', resetFee('fxsb')">
 					             	无社保
 					        </button>
 							<!--<div class="input-switch">
@@ -223,11 +206,7 @@
 								<div class="box-f-3 ins-font-sm">{{item.name}}</div>
 								<div class="form-switch-note ">投保</div>
 								<div class="input-switch">
-									<input type="checkbox"
-										class="switch" 
-										v-model="addonsSelected[item.code]"
-										@change="chAddonState(item.code)" 
-										 />
+									<input type="checkbox" class="switch" v-model="addonsSelected[item.code]" @change="chAddonState(item.code)" />
 									<label></label>
 								</div>
 							</div>
@@ -1711,7 +1690,7 @@
 						             	至85周岁
 						        	</button>
 								</app-select>
-								 
+
 								<div class="input-item">
 									<label class="">年缴保费(元)</label>
 									<div class="BL-ub BL-ub-pj BL-ub-f1">
@@ -1737,7 +1716,7 @@
 										<span class="mui-icon mui-icon-clear"></span>
 									</div>
 								</app-input>
-								
+
 								<app-select label="职业分类">
 									<button slot="button" v-for="num in 6" class="ins-btn xs-btn" :class="{'blue': num == flag[item.code]}" :disabled="num == flag[item.code]" @click="flagChanged(item.code, num)">
 						             	{{num}}类
@@ -1792,7 +1771,7 @@
 						        	</button>
 									<button slot="button" class="ins-btn xs-btn" :class="{'blue': '2' == flag['10151']}" :disabled="'2' == flag['10151']" @click="flagChanged('10151', '2')">
 						             	无社保
-						        </button> 
+						        </button>
 								</app-select>
 								<app-select label="缴费年限(年)">
 									<button slot="button" class="ins-btn xs-btn blue">
@@ -1987,10 +1966,10 @@
 					base_moneyPGR: '',
 					base_moneyAMR: '',
 					base_moneyTLR: '',
-					base_money1003:'',
-					base_money1013:'',
-					base_money1015:'',
-					base_money1017:'',
+					base_money1003: '',
+					base_money1013: '',
+					base_money1015: '',
+					base_money1017: '',
 				},
 				mainPayYear: '',
 				mainSafeYear: '',
@@ -2064,7 +2043,7 @@
 			ins.appl = plus.webview.currentWebview().appl
 			ins.assu = plus.webview.currentWebview().assu
 			ins.planTime = plus.webview.currentWebview().planTime // 父页面保存的临时数据
-			
+
 			var data = {
 				server: 'PolicyIns.getCompanyList',
 				device: 'mobile'
@@ -2115,6 +2094,57 @@
 				mainType.setData(ins.planTime.mainTypedata)
 				// 部分险种输入 保额， 算保费
 				var safeid = ins.planTime.insurance.safe_id
+				// 计划类型
+				switch(safeid) {
+					case 'P005': //中国平安e生保
+						ins.prospectus_types = [{
+							value: 100,
+							name: '有社保100万'
+						}, {
+							value: 300,
+							name: '有社保300万'
+						}, {
+							value: 1100,
+							name: '无社保100万'
+						}, {
+							value: 1300,
+							name: '无社保300万'
+						}]
+						break
+					case 'LE234': //恒大千万护航
+						ins.prospectus_types = [{
+							value: 50000,
+							name: '5万'
+						}, {
+							value: 100000,
+							name: '10万'
+						}, {
+							value: 150000,
+							name: '15万'
+						}, {
+							value: 200000,
+							name: '20万'
+						}]
+						break
+					case '8111': //国华康运金生
+						ins.prospectus_types = [{
+							value: 100000,
+							name: '10万'
+						}, {
+							value: 150000,
+							name: '15万'
+						}, {
+							value: 250000,
+							name: '25万'
+						}, {
+							value: 500000,
+							name: '50万'
+						}]
+						break
+					default:
+						ins.prospectus_types = []
+						break
+				}
 				ins.isBaseMoney = calMoneyIns.indexOf(safeid) === -1
 				ins.fuBaseMoney = fuMoneyIns.indexOf(safeid) !== -1
 				if(ins.isBaseMoney) {
@@ -2122,6 +2152,7 @@
 				} else {
 					ins.insurance.money = ''
 				}
+				ins.$forceUpdate()
 			}
 		})
 	</script>

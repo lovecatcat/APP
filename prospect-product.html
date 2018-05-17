@@ -66,16 +66,17 @@
 						</div>
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">年龄</label>
-							<div class="input-wrap box-f-1">
+							<div class="input-wrap box-f-1 search-date" data-options='{"type":"date","beginYear":1900}'>
+								<input v-model.lazy="appl.birthday" :readonly="edit2 && plan_id == 1" type="text" placeholder="选择生日">
+								<div class="ins-date-icon"></div>
+							</div>
+							<div class="input-wrap box-f-1  BL-mar-l-1">
 								<input v-model.number.lazy.trim="appl.age" @change="checkAge(appl.age, '投保人')" @blur="appl.birthday = ''" :readonly="edit2 && plan_id == 1" type="number" placeholder="输入年龄">
 								<div class="form-clear-icon" v-show="appl.age != '' && !edit2">
 									<span class="mui-icon mui-icon-clear" @tap="appl.age = '' "></span>
 								</div>
 							</div>
-							<div class="input-wrap box-f-1 BL-mar-l-1 search-date" data-options='{"type":"date","beginYear":1900}'>
-								<input v-model.lazy="appl.birthday" :readonly="edit2 && plan_id == 1" type="text" placeholder="选择生日">
-								<div class="ins-date-icon"></div>
-							</div>
+							
 						</div>
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">性别</label>
@@ -91,7 +92,7 @@
 				<div class="BL-bg-fff BL-mar-t-1 prospect-info">
 					<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
 						<div class="BL-pad-lr-1_5 BL-col-3b9cf5">被保人信息</div>
-						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @tap="!edit2 && keepSame()">
+						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @tap="!edit2 && keepSame">
 						<span>同投保人</span>
 					</button>
 					</div>
@@ -108,16 +109,17 @@
 						</div>
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">年龄</label>
-							<div class="input-wrap box-f-1">
+							<div class="input-wrap box-f-1 search-date" data-options='{"type":"date","beginYear":1900}'>
+								<input v-model.lazy="assu.birthday" :readonly="!edit2" type="text" placeholder="选择生日">
+								<div class="ins-date-icon"></div>
+							</div>
+							<div class="input-wrap box-f-1  BL-mar-l-1">
 								<input v-model.number.lazy.trim="assu.age" @change="checkAge(assu.age, '被保人')" @blur="assu.birthday = ''" :readonly="edit2 && plan_id == 1" type="number" placeholder="输入年龄">
 								<div class="form-clear-icon" v-show="assu.age != '' && !edit2">
 									<span class="mui-icon mui-icon-clear" @tap="assu.age = '' "></span>
 								</div>
 							</div>
-							<div class="input-wrap box-f-1 BL-mar-l-1 search-date" data-options='{"type":"date","beginYear":1900}'>
-								<input v-model.lazy="assu.birthday" :readonly="!edit2" type="text" placeholder="选择生日">
-								<div class="ins-date-icon"></div>
-							</div>
+							
 						</div>
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">性别</label>
@@ -624,7 +626,6 @@
 									plus.webview.close('prospect_product')
 									wobj.reload(true);
 									wobjTotal.reload(true);
-									alert(wobjAlone)
 									plus.webview.close("member_plans_alone")
 //									wobjAlone.reload(true);
 

@@ -16,13 +16,12 @@
 			<div class="BL-mod-headbar BL-mod-headbar-pos">
 				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
 				<h1 class="BL-title">收入</h1>
-<!--				<a class="BL-icon BL-icon-salary" data-wid="member_commission_salarylist" href="member-commission-salarylist.html"></a>-->
 			</div>
 		</header>
 		
 		<div id="Js-content" class="mui-content">
 			<!------------条件筛选 begin------------->
-			<div id="Js-cmisFilter" class="member-list-filter">
+			<div id="Js-cmisFilter" class="member-list-filter" :class="{'BL-pad-b-1':mode!= '4'}">
 				<!--日期筛选 begin-->
 				<div class="cmis-date BL-bg-fff">
 					<div class="BL-ub BL-ub-ac member-date-select">
@@ -38,7 +37,7 @@
 					</div>
 				</div>
 				<!--日期筛选 end -->
-				<div v-show="mode==4" id="Js-showDate" class="BL-pad-t-1 BL-pad-lr-1_5 BL-ftz-42 BL-col-999 BL-bg-f2f">
+				<div v-show="mode==4" id="Js-showDate" class="BL-pad-tb-1 BL-pad-lr-1_5 BL-ftz-42 BL-col-999 BL-bg-f2f">
 					筛选时间：<span class="Js-fday">{{ start_time }}</span> --- <span class="Js-sday">{{ end_time }}</span>
 				</div>
 			</div>
@@ -49,8 +48,8 @@
 					<div class="mui-scroll">
 						<template v-if="list">
 							<template v-if="list.length > 0">
-								<div v-for="item in list">
-									<div class="mui-row member-cmis-tab-title BL-bg-fff BL-mar-t-1">
+								<div v-for="item in list" class="BL-pad-b-1">
+									<div class="mui-row member-cmis-tab-title BL-bg-fff">
 										<div class="mui-col-sm-6 mui-col-xm-6 BL-txt-l">
 											<span class="BL-col-333">{{ item.day }}</span>
 										</div>
@@ -115,7 +114,22 @@
 				start_time: '',
 				end_time: '',
 				list: null
-			}
+			},
+            methods: {
+                setWinHeight: function () {
+                    var winH = window.innerHeight;
+                    var titHeight = document.querySelector('#Js-header').offsetHeight;
+                    var divHeight = document.querySelector('#Js-cmisFilter').offsetHeight;
+                    document.querySelector('#Js-cmistab').style.height = winH - titHeight - divHeight + 'px';
+                }
+            },
+            created: function() {
+                this.$watch('mode', function (val) {
+                    this.$nextTick(function(){
+                        this.setWinHeight()
+                    });
+                });
+            }
 		});
 		
 		(function($){
@@ -129,10 +143,7 @@
 			
 			$.plusReady(function() {
 				statusbar();
-				var winH = window.innerHeight;
-				var titHeight = document.querySelector('#Js-header').offsetHeight;
-				var divHeight = document.querySelector('#Js-cmisFilter').offsetHeight;
-				document.querySelector('#Js-cmistab').style.height = winH - titHeight - divHeight + 'px';
+                income.setWinHeight()
 				
 				//循环初始化和上拉加载。
 				/**

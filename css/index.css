@@ -272,7 +272,7 @@ insure-group
 .rank-list .list li{
 	background: #EED9FF;
 	border-bottom: .05rem solid #ffffff;
-	color: #666666;
+	color: #333333;
 }
 .rank-list .list li:nth-child(2){
 	background: #F2E4FE;
@@ -290,30 +290,50 @@ insure-group
 	background:#B16BFF;
 }
 .rank-btn {
-	width: 4rem;
-	height: 3rem;
-	position: fixed;
-	top: 48rem;
-	right: -.1rem;
-	background-image: url(../images/rank/rank-btn.png);
+	/*transform: translateX(85%);*/
+	position: absolute;
 	z-index: 10;
-	transition: all 1s;
-    -moz-transition: all 1s;
-    -webkit-transition: all 1s;
-    -o-transition:all 1s;
+	top: 46rem;
+	right: 0rem;
+	height: 3.5rem;
+	line-height: 3.5rem;
+	min-width: 4rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	background: -webkit-linear-gradient(left, #FF8305 , #FFA422); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(right, #FF8305, #FFA422); /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(right, #FF8305, #FFA422); /* Firefox 3.6 - 15 */
+	background: linear-gradient(to right, #FF8305 , #FFA422); /* 标准的语法（必须放在最后） */
+	color: white;
+	text-align: center;
+	vertical-align: middle;
+	border-top-left-radius: 2rem;
+	border-bottom-left-radius: 2rem;
+	transition: all .5s;
+	-moz-transition: all .5s;
+	-webkit-transition: all .5s;
+	-o-transition:all .5s;
 }
-.rank-btn-content {
-	position: fixed;
-	right: -10rem;
-	top: 48rem;
-	border: #ebebeb solid 1px;
-	display: block;
-	background: #ffffff;
-	z-index: 10;
-	transition: all 1s;
-    -moz-transition: all 1s;
-    -webkit-transition: all 1s;
-    -o-transition:all 1s;
+.rank-btn a{
+	pointer-events: auto;
+	position: relative;
+	line-height: 3.5rem;
+	font-size: 2.5rem;
+	text-decoration: none;
+	color: white;
+	transition: background 0.3s;
+	margin-right: .1rem;
+	margin-left: .1rem;
+}
+.rank-txt {
+	display: none;
+	height: 3.5rem;
+	line-height: 3.5rem;
+	font-size: 1.5rem;
+}
+.rank-txt span {
+	margin-left: .5rem;
+	margin-right: .5rem;
 }
 .ico-rank {
 	display: inline-block;

@@ -93,6 +93,20 @@
 				row: 10,
 				count: '0',    //总条数
 				pay_points: '0'   // 体验积分
+			},
+			methods: {
+				setWinHeight: function () {
+					var winH = window.innerHeight;
+					var divHeight = document.querySelector('#Js-intergralFilter').offsetHeight;
+					document.querySelector('#Js-intergraltab').style.height = winH - divHeight + 'px';
+				}
+			},
+			created: function() {
+				this.$watch('mode', function (val) {
+					this.$nextTick(function(){
+						this.setWinHeight()
+                    });
+	            });
 			}
 		});
 		
@@ -118,9 +132,7 @@
 			$.plusReady(function() {
 				user_id = JSON.parse(plus.storage.getItem("userinfo")).id
 				
-				var winH = window.innerHeight;
-				var divHeight = document.querySelector('#Js-intergralFilter').offsetHeight;
-				document.querySelector('#Js-intergraltab').style.height = winH - divHeight + 'px';
+				intergral.setWinHeight()
 				
 				var self;
 				var i = 0;

@@ -29,10 +29,10 @@
 							{{newsDetail_data.title}}
 							</div>	
 							<div class="date">
-								<span id="" style="padding-right: .5rem;">
+								<span style="padding-right: .5rem;">
 									{{newsDetail_data.create_time}} 
 								</span>	
-								<span id="">
+								<span>
 									{{newsDetail_data.type_name}}
 								</span>
 							</div>
@@ -78,15 +78,14 @@
 	<script src="js/plusShare.js"></script>
 	
 	<script type="text/javascript">
+        mui.init();
 		var newsDetail = new Vue({
 			el: '#Js-content',
 			data: {
 				newsDetail_data: {} // 列表数据
 			}
 		});
-		
-		mui.init();
-		
+
 		//非plus环境
 		if(!mui.os.plus) {
 			mui.previewImage(); // H5 非原生图片预览		
@@ -99,7 +98,7 @@
 			startY: 0, //初始化时滚动至y
 			indicators: false, //是否显示滚动条
 			deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
-			bounce: true //是否启用回弹
+			bounce: false //是否启用回弹
 		});
 		
 		mui.plusReady(function() {
@@ -110,48 +109,43 @@
 			var titHeight = document.querySelector('#Js-header').offsetHeight;
 			var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 			document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
-			
-			
-			var images = [].slice.call(document.querySelectorAll('.content img'));
-		    var urls = [];
-		    images.forEach(function(item) {
-		    	urls.push(item.src);
-		    });
-		    mui('.content').on('tap', 'img', function() {
-		        var index = images.indexOf(this);
-		        plus.nativeUI.previewImage(urls, {
-		          current: index,
-		          loop: false, //默认不支持轮播
-		          indicator: 'number'
-		        });
-		    });
-			
+
+
+
 			//添加productId自定义事件监听
-			window.addEventListener('newsId',function(event){
-				mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
-			  //获得事件参数
-			  var id = event.detail.id;
-			  
-			  //100毫秒滚动到顶
-			  mui('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);
-			  
-			  //根据id向服务器请求新闻详情
-				luckyAjax({
-					data: {
-			            server: 'Information.content',
-			            device: 'mobile',
-			           	view: false,
-			            data: JSON.stringify({id: id})
-			        },
-			        success:function(res){
-			        	if(res.code == 1) {
-							newsDetail.newsDetail_data = res.data
-						}else{
-							console.log(res.msg)
-						}
-			        }
-				});
-			});
+            window.addEventListener('newsId', function (event) {
+                mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0);
+                //获得事件参数
+                var id = event.detail.id;
+
+                //100毫秒滚动到顶
+                mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
+
+                //根据id向服务器请求新闻详情
+                luckyAjax({
+                    data: {
+                        server: 'Information.content',
+                        device: 'mobile',
+                        view: false,
+                        data: JSON.stringify({id: id})
+                    },
+                    success: function (res) {
+                        if (res.code == 1) {
+                            newsDetail.newsDetail_data = res.data
+                            newsDetail.$nextTick(function () {
+                                var images = [].slice.call(document.querySelectorAll('.content img'));
+                                images.forEach(function (item) {
+                                    item.setAttribute('data-preview-src', item.src)
+                                    item.setAttribute('data-preview-group', id)
+                                });
+                                mui.previewImage();
+                            })
+                        } else {
+                            console.log(res.msg)
+                        }
+                    }
+                });
+            });
 			
 			// 点赞
 			document.querySelector('.goods').addEventListener('tap', function() {

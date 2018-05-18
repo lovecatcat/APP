@@ -24,12 +24,9 @@
 	    <div id="Js-main">
 	    	<!-- 靠边按钮 -->
 			<div class="rank-btn BL-ub BL-ub-pc BL-ub-ac">
-		        <a class="mui-icon mui-icon-back"></a>
-		        <div class="rank-txt">
-		            <span>精英版</span>
-		            <span>精英版</span>
-		            <span>精英版</span>
-		            <span>精英版</span>
+		        <a class="mui-icon mui-icon-back" @tap="showRank"></a>
+		        <div class="rank-txt" v-show="show">
+		            <span v-for="(item,index) in flagArr" v-show="index!=flag" @tap="flag = index">{{ item }}</span>
 		        </div>
 		    </div>
             <div class="mui-scroll-wrapper">
@@ -43,51 +40,65 @@
                     </div>
                     <div class="rank-body">
                     	<div class="rank-title BL-ub BL-ub-pc BL-ub-ac">
-                            <span>精英版</span>
+                            <span>{{ flagArr[flag] }}</span>
                         </div>
                         <div class="rank-list">
-                            <ul class="list">
+                            <ul class="list"  v-if="flag == 0">
                                 <li class="list-title mui-row">
                                     <span class="mui-col-sm-2">排名</span>
                                     <span class="mui-col-sm-4">机构名称</span>
                                     <span class="mui-col-sm-2">姓名</span>
                                     <span class="mui-col-sm-4">标保（万元）</span>
                                 </li>
-                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in list">
                                     <span class="mui-col-sm-2">
-                                        <i class="ico-rank ico-rank-first BL-bimg-cover"></i>
+                                        <i class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }">{{ index + 1 }}</i>
                                     </span>
                                     <span class="mui-col-sm-4">福田机构</span>
                                     <span class="mui-col-sm-2">罗雨晴</span>
                                     <span class="mui-col-sm-4">10000</span>
                                 </li>
-                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                            </ul>
+                            <ul class="list"  v-if="flag == 1">
+                                <li class="list-title mui-row">
+                                    <span class="mui-col-sm-2">排名</span>
+                                    <span class="mui-col-sm-5">机构名称</span>
+                                    <span class="mui-col-sm-5">标保（万元）</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in list">
                                     <span class="mui-col-sm-2">
-                                        <i class="ico-rank ico-rank-second BL-bimg-cover"></i>
+                                        <i class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }">{{ index + 1 }}</i>
+                                    </span>
+                                    <span class="mui-col-sm-5">福田机构</span>
+                                    <span class="mui-col-sm-5">罗雨晴</span>
+                                </li>
+                            </ul>
+                            <ul class="list"  v-if="flag == 2">
+                                <li class="list-title mui-row">
+                                    <span class="mui-col-sm-2">排名</span>
+                                    <span class="mui-col-sm-4">机构名称</span>
+                                    <span class="mui-col-sm-2">姓名</span>
+                                    <span class="mui-col-sm-4">新增人数</span>
+                                </li>
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in list">
+                                    <span class="mui-col-sm-2">
+                                        <i class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }">{{ index + 1 }}</i>
                                     </span>
                                     <span class="mui-col-sm-4">福田机构</span>
                                     <span class="mui-col-sm-2">罗雨晴</span>
                                     <span class="mui-col-sm-4">10000</span>
                                 </li>
-                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
-                                    <span class="mui-col-sm-2">
-                                        <i class="ico-rank ico-rank-three BL-bimg-cover"></i>
-                                    </span>
-                                    <span class="mui-col-sm-4">福田机构</span>
-                                    <span class="mui-col-sm-2">罗雨晴</span>
-                                    <span class="mui-col-sm-4">10000</span>
+                            </ul>
+                            <ul class="list"  v-if="flag == 3">
+                                <li class="list-title mui-row">
+                                    <span class="mui-col-sm-2">排名</span>
+                                    <span class="mui-col-sm-4">机构名称</span>
+                                    <span class="mui-col-sm-2">姓名</span>
+                                    <span class="mui-col-sm-4">有效件数</span>
                                 </li>
-                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in list">
                                     <span class="mui-col-sm-2">
-                                        4
-                                    </span>
-                                    <span class="mui-col-sm-4">福田机构</span>
-                                    <span class="mui-col-sm-2">罗雨晴</span>
-                                    <span class="mui-col-sm-4">10000</span>
-                                </li>
-                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
-                                    <span class="mui-col-sm-2">
-                                        5
+                                        <i class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }">{{ index + 1 }}</i>
                                     </span>
                                     <span class="mui-col-sm-4">福田机构</span>
                                     <span class="mui-col-sm-2">罗雨晴</span>
@@ -106,16 +117,37 @@
 <script src="js/mui.pullToRefresh.material.js"></script>
 <script src="js/vue.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-
     mui.init();
-    mui.plusReady(function () {
+    var rank = new Vue({
+        el: '#Js-main',
+        data: {
+            flag: 1,
+            show: false,
+            flagArr: ['精英榜','明星机构榜','增员排行榜','件数排行榜'],
+            list: null
+        },
+        methods: {
+            showRank: function () {
+                var vm = this
+                vm.show = true
+                setTimeout(function () {
+                    vm.show = false
+                },2500)
+            },
+            switch: function (index) {
+                var vm = this
+                vm.flag = index
+            }
+        }
+    })
+    mui.ready(function () {
         statusbar();
         var winH = window.innerHeight;
         document.querySelector('#Js-main').style.height = winH + "px";
         //阻尼系数
         var deceleration = mui.os.ios ? 0.003 : 0.0009;
         mui('.mui-scroll-wrapper').scroll({
-            bounce: true,
+            bounce: false,
             indicators: false, //是否显示滚动条
             deceleration: deceleration
         });
@@ -133,14 +165,14 @@
                 document.querySelector('.BL-icon').style.color = "rgba(0,0,0,1)";
             }
         });
-        
-        // 监听靠边按钮事件
-        document.querySelector(".mui-icon-back").addEventListener('click',function(e) {
-            document.querySelector(".rank-txt").style.display = 'inline-block'
-            setTimeout(function () {
-                document.querySelector(".rank-txt").style.display = 'none'
-            },2500)
-        })
+//
+//        // 监听靠边按钮事件
+//        document.querySelector(".mui-icon-back").addEventListener('click',function(e) {
+//            document.querySelector(".rank-txt").style.display = 'inline-block'
+//            setTimeout(function () {
+//                document.querySelector(".rank-txt").style.display = 'none'
+//            },2500)
+//        })
     })
 </script>
 

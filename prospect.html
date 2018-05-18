@@ -46,7 +46,7 @@
 				<div class="BL-bg-fff prospect-info BL-mar-t-1">
 					<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
 						<div class="BL-pad-lr-1_5 BL-col-3b9cf5">投保人信息</div>
-						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @click="displace">
+						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @tap="displace">
 						<span>投</span><i class="displace-icon"></i><span>被</span>
 					</button>
 					</div>
@@ -56,10 +56,10 @@
 							<div class="input-wrap">
 								<input v-model.lazy.trim="appl.name" @change="checkName(appl.name, '投保人')" type="text" placeholder="请输入真实姓名">
 								<div class="form-clear-icon" v-show="appl.name != ''">
-									<span class="mui-icon mui-icon-clear" @click="appl.name = '' "></span>
+									<span class="mui-icon mui-icon-clear" @tap="appl.name = '' "></span>
 								</div>
 							</div>
-							<div class="right-orange-btn address-icon" @click="communic('appl')"> </div>
+							<div class="right-orange-btn address-icon" @tap="communic('appl')"> </div>
 						</div>
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">年龄</label>
@@ -70,15 +70,15 @@
 							<div class="input-wrap box-f-1  BL-mar-l-1">
 								<input v-model.number.lazy.trim="appl.age" @change="checkAge(appl.age, '投保人')" @blur="appl.birthday = ''" type="number" placeholder="输入年龄">
 								<div class="form-clear-icon" v-show="appl.age != ''">
-									<span class="mui-icon mui-icon-clear" @click="appl.age = '' "></span>
+									<span class="mui-icon mui-icon-clear" @tap="appl.age = '' "></span>
 								</div>
 							</div>
 						</div>
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">性别</label>
 							<div class="input-wrap box-f-1">
-								<button :class="{'BL-btn-blue': appl.sex == true, 'BL-btn-black': appl.sex == false}" @click="applSex(true)" v-model="appl.sex">男</button>
-								<button :class="{'BL-btn-blue': appl.sex == false, 'BL-btn-black': appl.sex == true}" @click="applSex(false)" v-model="appl.sex">女</button>
+								<button :class="{'BL-btn-blue': appl.sex == true, 'BL-btn-black': appl.sex == false}" @tap="applSex(true)" v-model="appl.sex">男</button>
+								<button :class="{'BL-btn-blue': appl.sex == false, 'BL-btn-black': appl.sex == true}" @tap="applSex(false)" v-model="appl.sex">女</button>
 							</div>
 						</div>
 					</div>
@@ -88,7 +88,7 @@
 				<div class="BL-bg-fff BL-mar-t-1 prospect-info">
 					<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
 						<div class="BL-pad-lr-1_5 BL-col-3b9cf5">被保人信息</div>
-						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @click="keepSame">
+						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @tap="keepSame">
 							<span>同投保人</span>
 						</button>
 					</div>
@@ -98,10 +98,10 @@
 							<div class="input-wrap">
 								<input v-model.lazy.trim="assu.name" @change="checkName(assu.name, '被保人')" type="text" placeholder="请输入真实姓名">
 								<div class="form-clear-icon" v-show="assu.name != ''">
-									<span class="mui-icon mui-icon-clear" @click="assu.name = '' "></span>
+									<span class="mui-icon mui-icon-clear" @tap="assu.name = '' "></span>
 								</div>
 							</div>
-							<div class="right-orange-btn address-icon" @click="communic('assu')"></div>
+							<div class="right-orange-btn address-icon" @tap="communic('assu')"></div>
 						</div>
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">年龄</label>
@@ -112,15 +112,15 @@
 							<div class="input-wrap box-f-1 BL-mar-l-1">
 								<input v-model.number.lazy.trim="assu.age" @change="checkAge(assu.age, '被保人')" @blur="assu.birthday = ''" type="number" placeholder="输入年龄">
 								<div class="form-clear-icon" v-show="assu.age != ''">
-									<span class="mui-icon mui-icon-clear" @click="assu.age = '' "></span>
+									<span class="mui-icon mui-icon-clear" @tap="assu.age = '' "></span>
 								</div>
 							</div>
 						</div>
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">性别</label>
 							<div class="input-wrap box-f-1">
-								<button :class="{'BL-btn-blue': assu.sex == true, 'BL-btn-black': assu.sex == false}" @click="assuSex(true)" v-model="assu.sex">男</button>
-								<button :class="{'BL-btn-blue': assu.sex == false, 'BL-btn-black': assu.sex == true}" @click="assuSex(false)" v-model="assu.sex">女</button>
+								<button :class="{'BL-btn-blue': assu.sex == true, 'BL-btn-black': assu.sex == false}" @tap="assuSex(true)" v-model="assu.sex">男</button>
+								<button :class="{'BL-btn-blue': assu.sex == false, 'BL-btn-black': assu.sex == true}" @tap="assuSex(false)" v-model="assu.sex">女</button>
 							</div>
 						</div>
 					</div>
@@ -130,7 +130,7 @@
 				<div class="BL-bg-fff BL-mar-t-1 prospect-info clearfloat" :class="{'BL-pad-b-3' : planList[plan_id].length > 0}">
 					<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
 						<div class="BL-pad-lr-1_5 BL-col-3b9cf5">险种信息</div>
-						<button class="BL-btn-blue BL-abs BL-pad-lr-1" @click="addIns">添加险种</button>
+						<button class="BL-btn-blue BL-abs BL-pad-lr-1" @tap="addIns">添加险种</button>
 					</div>
 					<template v-if="planList&&planList[plan_id]" v-for="item1,index1 in planList[plan_id]" :key="index1">
 						<div class="clearfloat" v-if="item1" v-for="item,index in item1" :key="index">
@@ -143,8 +143,8 @@
 										<div class="plans-total-font BL-ftz-42">首年保费:{{item.period_money}}</div>
 									</div>
 									<div class="BL-ub-f1 BL-txt-r">
-										<button class="BL-btn-white BL-ftz-42" @click="del(index1, index, item.fj)">删除</button>
-										<button class="BL-btn-blue BL-ftz-42" v-if="!item.fj" @click="editIns(index1, item)">编辑</button>
+										<button class="BL-btn-white BL-ftz-42" @tap="del(index1, index, item.fj)">删除</button>
+										<button class="BL-btn-blue BL-ftz-42" v-if="!item.fj" @tap="editIns(index1, item)">编辑</button>
 									</div>
 								</div>
 								<ul class="BL-ul BL-col-999 BL-col-999 BL-ftz-42">
@@ -370,9 +370,11 @@
 					}
 				},
 				keepSame: function() { //同投保人
+					this.toblur()
 					this.assu = this.deepClone(this.appl)
 				},
 				displace: function() { //投被保人替换
+					this.toblur()
 					var appl = this.appl
 					var assu = this.assu
 					if(!appl.name && !appl.age) {
@@ -383,6 +385,7 @@
 					this.assu = this.deepClone(appl)
 				},
 				addIns: function() { //添加险种
+					this.toblur()
 					if(!this.checkName(this.appl.name, '投保人')) {
 						return false;
 					} else if(!this.checkAge(this.appl.age, '投保人')) {
@@ -427,6 +430,7 @@
 				},
 				communic: function(type) {
 					//通讯录
+					this.toblur()
 					this.Communic = type
 					mui.openWindow({
 						url: 'communic.html',

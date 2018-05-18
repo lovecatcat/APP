@@ -671,3 +671,16 @@ BL-modal-icon-0/**
 	border: solid 5px #3B9CF5;
 }
 
+/* 下拉二级菜单  */
+.BL-mod-sidemenu{}
+.BL-mod-sidemenu ul{}
+.BL-mod-sidemenu ul li{
+	border-bottom: .1rem solid #eeeeee;
+	color: #666666;
+	font-size: 1.4rem;
+	padding: 1.25rem 0;
+	text-indent: 2rem;
+}
+.BL-mod-sidemenu ul li:last-child{
+	border-bottom: 0 none;
+}

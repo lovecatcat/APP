@@ -84,7 +84,7 @@
 							</app-select>
 						</template>
 						<div class="input-item">
-							<label>年缴保费(元)w</label>
+							<label>年缴保费(元)</label>
 							<div class="BL-ub BL-ub-pj BL-ub-f1">
 								<div class="input-wrap BL-ub-f1">
 									<input readonly v-model.number.lazy="insurance.period_money" type="number" placeholder="年缴保费（元）">
@@ -827,7 +827,7 @@
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs" v-if="addonRes['LA078']">
-										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money + addonRes['LA078']['年缴保费']}}</span>
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{Number(insurance.period_money) + Number(addonRes['LA078']['年缴保费'])}}</span>
 										<div class="am-ft-orange"></div>
 									</li>
 									<li class="ins-font-xs" v-else>
@@ -1489,7 +1489,7 @@
 									</div>
 								</app-input>
 								<app-select label="缴费年限(年)">
-									<button slot="button" v-for="num in ['10', '15', '20', '1800', '6500', '7500']" class="ins-btn xs-btn" :class="{'blue': num == flag[item.code]}" :disabled="num == flag[item.code]" @click="flagChanged(item.code, num)">
+									<button slot="button" v-for="num in ['10', '15', '20', '6500', '7500']" class="ins-btn xs-btn" :class="{'blue': num == flag[item.code]}" :disabled="num == flag[item.code]" @click="flagChanged(item.code, num)">
 						             	{{num < 100 ? num + '年' : '至' + num.substring(0,2) + '岁'}}
 						        </button>
 								</app-select>
@@ -1615,7 +1615,7 @@
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs" v-if="addonRes['1003']">
-										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money + Number(addonRes['1003']['年缴保费'])}}</span>
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{Number(insurance.period_money) + Number(addonRes['1003']['年缴保费'])}}</span>
 										<div class="am-ft-orange"></div>
 									</li>
 									<li class="ins-font-xs" v-else>
@@ -1646,7 +1646,7 @@
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs" v-if="addonRes['1003']">
-										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money + Number(addonRes['1003']['年缴保费'])}}</span>
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{Number(insurance.period_money) + Number(addonRes['1003']['年缴保费'])}}</span>
 										<div class="am-ft-orange"></div>
 									</li>
 									<li class="ins-font-xs" v-else>

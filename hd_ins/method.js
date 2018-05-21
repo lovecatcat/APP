@@ -352,6 +352,8 @@ var checkAppl = function (appl) {
         toast_text = '客户的职业类别与年龄不符'
     } else if (!appl.holder_marriage) {
         toast_text = '投保人婚姻状况不能为空'
+    } else if (!appl.holder_company) {
+        toast_text = '请填写投保人工作单位'
     } else if (!appl.holder_salary_from) {
         toast_text = '投保人收入来源不能为空'
     } else if (!checkEarnings(1, appl.holder_salary_avg)) {
@@ -442,6 +444,8 @@ var checkAssured = function (assu) {
         toast_text = '被保人婚姻状况不能为空'
     } else if (!assu.insured_salary_from) {
         toast_text = '被保人收入来源不能为空'
+    } else if (!assu.insured_company) {
+        toast_text = '请填写被保人工作单位，无工作单位请填写‘无’'
     } else if (!checkHeight('被保人', assu.insured_height)) {
         return false
     } else if (!checkWeight('被保人', assu.insured_weight)) {
@@ -586,6 +590,7 @@ var RSChanged = function(assu,applicant) {
         assu.insured_weight= applicant.holder_weight//体重
         assu.insured_nation= NATION//国籍
         assu.insured_nation_name= '中国'//国籍
+        assu.insured_company= applicant.holder_company//工作单位
         assu.insured_salary_from= applicant.holder_salary_from//收入来源
         assu.insured_salary_from_name= applicant.holder_salary_from_name//收入来源名
         assu.insured_salary_avg= applicant.holder_salary_avg//年收入

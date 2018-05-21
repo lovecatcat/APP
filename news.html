@@ -37,7 +37,7 @@
 	        <!--分类栏目 begin-->
 	        <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
 	            <div class="mui-scroll">
-	                <a data-id="0" data-wid="news_all.html" class="mui-control-item mui-active">
+	                <a data-id="0" data-wid="news_all.html" class="mui-control-item old-active mui-active">
 	                    <span>全部</span>
 	                </a>
 	                <a data-id="1" data-wid="news_cloud.html" class="mui-control-item">
@@ -92,13 +92,6 @@
 		
         window.addEventListener('loadpage', function () {
         	
-        	var sidemenu = plus.webview.create('news-sidemenu.html', 'news_sidemenu',{
-        		top:_divH,
-        		height:_viewH,
-        		bottom:0,
-        		background:'transparent'
-        	});
-        	
             var group = new webviewGroup(_self.id, {
                 topHeight: _divH,
                 viewHeight: _viewH,
@@ -135,15 +128,26 @@
                     }
                 }
             });
+        	
+        	// 添加二级菜单弹窗
+        	var sidemenu = plus.webview.create('news-sidemenu.html', 'news_sidemenu',{
+        		top:_divH,
+        		height:_viewH,
+        		bottom:0,
+        		background:'transparent'
+        	});
         
 	        mui(".mui-scroll").on("tap", ".mui-control-item", function (e) {
-	        	//e.stopPropagation();
 	            pid = this.getAttribute("data-id");
 	            wid = this.getAttribute("data-wid");
-	            	group.switchTab(wid);
+	            group.switchTab(wid);
 	            
 	            /*if(wid=='news_all.html'){
 	            	// 若类型：全部，则不显示下拉菜单
+	            	mui('.mui-control-item').each(function(){
+		    			this.classList.remove('old-active');
+		    		});
+	            	mui('.mui-control-item')[0].classList.add('old-active');
 	            	sidemenu.hide();	
 	            	group.switchTab(wid);
 	            }else{
@@ -160,18 +164,13 @@
 	    		sidemenu.hide();
 	    		
 	    		mui('.mui-control-item').each(function(){
-	    			console.log(this.classList)
-	    			if(this.classList == 'old-active'){
+	    			//console.log(this.classList)
+	    			if(this.className.indexOf('old-active') > -1){
 	    				this.classList.add('mui-active');
 	    			}else{
 	    				this.classList.remove('mui-active');
 	    			}
 	    		});
-	    		
-	    		
-	    		mui('.mui-control-item').each(function(){
-	    			console.log(this.classList)
-	    		})
 	    		
 	    	}, false);
 	        
@@ -179,16 +178,18 @@
 	        	// 接收到二级菜单回传的ID，关闭下拉菜单，切换指定的tab页面，加载数据
 	    		sidemenu.hide();
 	            group.switchTab(wid);
+	            
+	            mui('.mui-control-item').each(function(){
+	    			this.classList.remove('old-active');
+	    		});
+	            mui('.mui-control-item')[pid].classList.add('old-active');
+	            
 //	            mui.fire(wid, 'newTabPage', {
 //	            	id:data.detail.nid	
 //	            });
 	    	}, false);
 	        
-	        window.addEventListener('tap', function(){
-	    		sidemenu.hide();		
-	    	});
           	
-        	//plus.webview.currentWebview().append(sidemenu);
 	        
 		});
     })

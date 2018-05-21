@@ -122,10 +122,14 @@
 						toastText = '请先输入用途'
 					}else if(!this.startAge){
 						toastText = '请先输入开始年龄'
+					}else if(this.startAge > 100){
+						toastText = '请输入正常的年龄'
 					}else if(this.startAge < Number(this.assu_age)){
 						toastText = '开始年龄必须大于被保险人年龄'
 					}else if(!this.endAge){
 						toastText = '请先输入结止年龄'
+					}else if(this.endAge > 100){
+						toastText = '请输入正常的年龄'
 					}else if(this.endAge < this.startAge){
 						toastText = '结止年龄必须大于领取年龄'
 					}else if(!this.money){

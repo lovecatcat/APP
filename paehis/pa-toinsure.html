@@ -234,17 +234,18 @@
                     class="a-link" href="pa-clause.html" data-wid="pa_clause">《重要声明》</a></label>
             <input name="checkbox" value="Item 1" type="checkbox" v-model="promise">
         </div>
-        <footer id="Js-footer" class="BL-footer BL-bg-fff">
-            <div class="BL-ub BL-ub-ac BL-ub-f1 BL-Border-t">
-                <div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll" @click="precal(true)">
-                    <div class="BL-ftz-46 BL-pad-l-1">保费: <span class="BL-col-ff8201">{{insurance.fee}}</span></div>
-                </div>
-                <a class="BL-foot-btn-sign BL-foot-btn-det BL-bg-3b9cf5" id="ins-save">
-                    提交
-                </a>
-            </div>
-        </footer>
+        <br>
     </div>
+    <footer id="Js-footer" class="BL-footer BL-bg-fff">
+        <div class="BL-ub BL-ub-ac BL-ub-f1 BL-Border-t">
+            <div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll" @click="precal(true)">
+                <div class="BL-ftz-46 BL-pad-l-1">保费: <span class="BL-col-ff8201">{{insurance.fee}}</span></div>
+            </div>
+            <a class="BL-foot-btn-sign BL-foot-btn-det BL-bg-3b9cf5" id="ins-save">
+                提交
+            </a>
+        </div>
+    </footer>
 </div>
 </body>
 <script src="../js/mui.js" type="text/javascript"></script>
@@ -276,7 +277,8 @@
         statusbar();
         var winH = window.innerHeight;
         var titHeight = document.querySelector('#Js-header').offsetHeight;
-        document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+        var footHeight = document.querySelector('#Js-footer').offsetHeight;
+        document.querySelector('#Js-content').style.height = winH - titHeight - footHeight + 'px';
 
         //证件类型
         var idtype0 = new mui.PopPicker();

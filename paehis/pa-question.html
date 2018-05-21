@@ -92,15 +92,19 @@
                         console.log(JSON.stringify(res))
                         plus.nativeUI.closeWaiting();
                         if (res.code) {
-                            mui.openWindow({
-                                url: 'pa-toinsure.html',
-                                id: 'pa_toinsure',
-                                show: animateObj.aniDetal,
-                                extras:{
-                                    order_no: outChannelOrderId,
-                                    uwMedicalId: res.data.uwMedicalId
-                                }
-                            })
+                            if (res.data.undwrtDecideType !== 'H') {
+                                mui.openWindow({
+                                    url: 'pa-toinsure.html',
+                                    id: 'pa_toinsure',
+                                    show: animateObj.aniDetal,
+                                    extras:{
+                                        order_no: outChannelOrderId,
+                                        uwMedicalId: res.data.uwMedicalId
+                                    }
+                                })
+                            } else {
+                                mui.oldBack();
+                            }
                         } else {
                             mui.oldBack();
                         }

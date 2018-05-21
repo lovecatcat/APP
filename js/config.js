@@ -66,6 +66,7 @@ var nowNetwork = function() {
  * 重新封装mui-Ajax
  */
 var luckyAjax = function(options){
+	nowNetwork
 	if(!options.closeWaiting){ // 默认打开加载中...
 		plus.nativeUI.showWaiting();
 	}

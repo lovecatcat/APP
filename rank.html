@@ -43,14 +43,15 @@
                             <span>{{ flagArr[flag] }}</span>
                         </div>
                         <div class="rank-list">
-                            <ul class="list"  v-if="flag == 0">
+                            <!-- 精英榜 -->
+                            <ul class="list"  v-if="flag == 0 && person_sale">
                                 <li class="list-title mui-row">
                                     <span class="mui-col-sm-2">排名</span>
                                     <span class="mui-col-sm-4">机构名称</span>
                                     <span class="mui-col-sm-2">姓名</span>
                                     <span class="mui-col-sm-4">标保（万元）</span>
                                 </li>
-                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in person_sale">
+                                <li v-if="person_sale.length > 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in person_sale">
                                     <span class="mui-col-sm-2">
                                         <i class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }">{{ index + 1 }}</i>
                                     </span>
@@ -58,29 +59,37 @@
                                     <span class="mui-col-sm-2">{{ item.user_name }}</span>
                                     <span class="mui-col-sm-4">{{ item.fee }}</span>
                                 </li>
+                                <li v-if="person_sale.length == 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-12 BL-txt-c">暂无数据</span>
+                                </li>
                             </ul>
-                            <ul class="list"  v-if="flag == 1">
+                            <!-- 明星机构 -->
+                            <ul class="list"  v-if="flag == 1 && dept_sale">
                                 <li class="list-title mui-row">
                                     <span class="mui-col-sm-2">排名</span>
                                     <span class="mui-col-sm-5">机构名称</span>
                                     <span class="mui-col-sm-5">标保（万元）</span>
                                 </li>
-                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in dept_sale">
+                                <li v-if="dept_sale.length > 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in dept_sale">
                                     <span class="mui-col-sm-2">
                                         <i class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }">{{ index + 1 }}</i>
                                     </span>
                                     <span class="mui-col-sm-5">{{ item.dept_name }}</span>
                                     <span class="mui-col-sm-5">{{ item.fee }}</span>
                                 </li>
+                                <li v-if="dept_sale.length == 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-12 BL-txt-c">暂无数据</span>
+                                </li>
                             </ul>
-                            <ul class="list"  v-if="flag == 2">
+                            <!-- 增员排行榜 -->
+                            <ul class="list"  v-if="flag == 2 && person_add">
                                 <li class="list-title mui-row">
                                     <span class="mui-col-sm-2">排名</span>
                                     <span class="mui-col-sm-4">机构名称</span>
                                     <span class="mui-col-sm-2">姓名</span>
                                     <span class="mui-col-sm-4">新增人数</span>
                                 </li>
-                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in person_add">
+                                <li v-if="person_add.length > 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in person_add">
                                     <span class="mui-col-sm-2">
                                         <i class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }">{{ index + 1 }}</i>
                                     </span>
@@ -88,21 +97,28 @@
                                     <span class="mui-col-sm-2">{{ item.user_name }}</span>
                                     <span class="mui-col-sm-4">{{ item.add_num }}</span>
                                 </li>
+                                <li v-if="person_add.length == 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-12 BL-txt-c">暂无数据</span>
+                                </li>
                             </ul>
-                            <ul class="list"  v-if="flag == 3">
+                            <!-- 件数排行榜 -->
+                            <ul class="list"  v-if="flag == 3 && piece_num">
                                 <li class="list-title mui-row">
                                     <span class="mui-col-sm-2">排名</span>
                                     <span class="mui-col-sm-4">机构名称</span>
                                     <span class="mui-col-sm-2">姓名</span>
                                     <span class="mui-col-sm-4">有效件数</span>
                                 </li>
-                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in piece_num">
+                                <li v-if="piece_num.length > 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in piece_num">
                                     <span class="mui-col-sm-2">
                                         <i class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }">{{ index + 1 }}</i>
                                     </span>
                                     <span class="mui-col-sm-4">{{ item.dept_name }}</span>
                                     <span class="mui-col-sm-2">{{ item.user_name }}</span>
                                     <span class="mui-col-sm-4">{{ item.fee }}</span>
+                                </li>
+                                <li v-if="piece_num.length == 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-12 BL-txt-c">暂无数据</span>
                                 </li>
                             </ul>
                         </div>
@@ -145,8 +161,6 @@
                 clearTimeout(vm.time)
                 // 回到顶部
                 mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
-                vm.list = null
-                vm.getRank()
             },
             getRank: function () {
                 luckyAjax({

@@ -102,6 +102,10 @@
 			self.panel.addEventListener($.EVENT_MOVE, function(event) {
 				event.preventDefault();
 			}, false);
+			//2018-5-18
+            self.panel.style.display = 'none';
+            self.body.style.display = 'none';
+            //
 		},
 		_createPicker: function() {
 			var self = this;
@@ -145,6 +149,10 @@
 		//显示
 		show: function(callback) {
 			var self = this;
+            //2018-5-18
+            self.panel.style.display = 'block';
+            self.body.style.display = 'block';
+            //
 			self.callback = callback;
 			self.mask.show();
 			document.body.classList.add($.className('poppicker-active-for-page'));
@@ -162,6 +170,10 @@
 			self.panel.classList.remove($.className('active'));
 			self.mask.close();
 			document.body.classList.remove($.className('poppicker-active-for-page'));
+            //2018-5-18
+            self.panel.style.display = 'none';
+            self.body.style.display = 'none';
+            //
 			//处理物理返回键
 			$.back=self.__back;
 		},

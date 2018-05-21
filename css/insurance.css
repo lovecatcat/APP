@@ -36,6 +36,7 @@
 .ins-btn{border-radius: .3rem;font-size: 1.3125rem;height:3.125rem;line-height: 3.125rem;}
 .ins-btn.blue{background-color: #3b9cf5;color: #fff;}
 .right-btn.orange{border: 1px solid #ff9212;color: #ff9212;}
+.right-btn.gray{border: 1px solid #c8c8c8;color: #666;}
 .right-btn.active{border: 1px solid #3B9CF5;color: #fff;background-color: #3B9CF5;}
 .right-btn{height: 2.9375rem;line-height:2.9375rem;font-size:1.125rem;border-radius: .3125rem;text-align: center;padding: 0 1.5rem;margin-left: 1rem;}
 .right-icon{width: 4rem;}
@@ -245,3 +246,4 @@
     background-color: #4cd964;
 }
 .mui-radio input[type='radio']:checked:before, .mui-checkbox input[type='checkbox']:checked:before{color: #3B9CF5}
+input[type='button']:disabled, input[type='button'].mui-disabled, input[type='submit']:disabled, input[type='submit'].mui-disabled, input[type='reset']:disabled, input[type='reset'].mui-disabled, button:disabled, button.mui-disabled, .mui-btn:disabled, .mui-btn.mui-disabled{opacity: 1}

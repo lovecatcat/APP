@@ -150,7 +150,7 @@ insure-group
 .insure-group .item-content .img .new{
 	position: absolute;
 	right: 0;
-	bottom: 0;
+	bottom: .3rem;
 	z-index: 10;
 	padding: .3rem 1rem;
 	background-color: #ff7500;

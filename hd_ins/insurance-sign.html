@@ -162,13 +162,11 @@
             if(item.is_main == 1){
                 img.main_insurance = item
                 luckyAjax({
-                    url:'https://www.luckyins.com/api/api/invoke',
                     data: {
                         data: JSON.stringify({product_id: item.safe_id}),
                         server: 'lifeProduct.getProductInfo'
                     },
                     success: function (data) {
-                        console.log(JSON.stringify(data))
                         plus.nativeUI.closeWaiting();
                         if (data.code === 1) {
                             img.pdfurl = data.data.statement;

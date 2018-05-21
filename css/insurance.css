@@ -244,3 +244,4 @@
 .switch:checked~label:before{
     background-color: #4cd964;
 }
+.mui-radio input[type='radio']:checked:before, .mui-checkbox input[type='checkbox']:checked:before{color: #3B9CF5}

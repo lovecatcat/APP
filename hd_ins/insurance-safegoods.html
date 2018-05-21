@@ -691,7 +691,7 @@
                     var item = {}
                     for (var j in vm.Addons[i].ratio) {
                         item = vm.Addons[i].ratio[j]
-                        if (vm.insurance.pay_year - 1 === +item.pay_year) {
+                        if (vm.insurance.pay_year - 1 === item.pay_year) {
                             tml.pay_year = item.pay_year
                             break
                         }

@@ -157,8 +157,7 @@
 			$.plusReady(function() {
 				statusbar();
 				var winH = window.innerHeight;
-				var titHeight = document.querySelector('#Js-header').offsetHeight;
-				document.querySelector('#Js-cmis').style.height = winH - titHeight + 'px';
+				document.querySelector('#Js-cmis').style.height = winH  + 'px';
 				// 获取账号信息
 				getAccount()
 			})

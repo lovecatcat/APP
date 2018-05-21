@@ -1269,7 +1269,9 @@ var methods = {
 				break
 			case 'WPJP':
 				if(applAge > 69) {
-					toastText = '被豁免合同投保人年龄不能大于69周岁'
+					toastText = '被豁免合同投保人年龄不能大于68周岁'
+				} else if (payOverage > 69){
+					toastText = '投保人交费期满年龄不能大于69周岁'
 				}
 				break
 			case 'RP8P':
@@ -1772,8 +1774,6 @@ var methods = {
 					toastText = '保额以 1000 元为单位递增'
 				} else if(!flag) {
 					toastText = '请先选择缴费年限'
-				} else if(flag == 1800 && assuAge > 18) {
-					toastText = '交至18周岁，被保人年龄不能大于18周岁'
 				} else if(Number(this.flag[safeid].substring(0, 2)) > this.insurance.safe_year) {
 					toastText = '缴费年限不能超过主险保障期间'
 				} else if((Number(this.flag[safeid].substring(0, 2)) + assuAge) > 75) {
@@ -2485,6 +2485,10 @@ var methods = {
 						period_money: vm.addonRes[safeid]['年缴保费'] || vm.addonRes[safeid]['年缴保费(元)'] || vm.addonRes[safeid]['累计保费'] || vm.addonRes[safeid]['门诊总保费'] || ret.data.data[-1][genre].year_fee, // 年交保费
 						flag: ret.data.data[-1][genre].flag,
 						fj: true
+					}
+					if(list.period_money == 0) {
+						mui.toast('超出费率表计算范围，无法投保')
+						vm.addonRes[safeid] = {}
 					}
 					vm.planList[safeid] = list
 				} else {

@@ -37,19 +37,19 @@
 	        <!--分类栏目 begin-->
 	        <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
 	            <div class="mui-scroll">
-	                <a data-wid="news_all.html" class="mui-control-item mui-active">
+	                <a data-id="0" data-wid="news_all.html" class="mui-control-item mui-active">
 	                    <span>全部</span>
 	                </a>
-	                <a data-wid="news_cloud.html" class="mui-control-item">
+	                <a data-id="1" data-wid="news_cloud.html" class="mui-control-item">
 	                    <span>云课堂</span>
 	                </a>
-	                <a data-wid="news_business.html" class="mui-control-item">
+	                <a data-id="2" data-wid="news_business.html" class="mui-control-item">
 	                    <span>行业资讯</span>
 	                </a>
-	                <a data-wid="news_finance.html" class="mui-control-item">
+	                <a data-id="3" data-wid="news_finance.html" class="mui-control-item">
 	                    <span>财经报道</span>
 	                </a>
-	                <a data-wid="news_cream.html" class="mui-control-item">
+	                <a data-id="4" data-wid="news_cream.html" class="mui-control-item">
 	                    <span>精英榜</span>
 	                </a>
 	            </div>
@@ -86,8 +86,19 @@
         var _divH =  mui.os.android ? topHeight + (divHeight * 2) + 2 : topHeight + divHeight + 1; // 头部高度
         var _viewH = winH - _divH; // 内容区域高度
         var _self = plus.webview.currentWebview();
-
+        var pid,wid;
+		
+		
+		
         window.addEventListener('loadpage', function () {
+        	
+        	var sidemenu = plus.webview.create('news-sidemenu.html', 'news_sidemenu',{
+        		top:_divH,
+        		height:_viewH,
+        		bottom:0,
+        		background:'transparent'
+        	});
+        	
             var group = new webviewGroup(_self.id, {
                 topHeight: _divH,
                 viewHeight: _viewH,
@@ -126,9 +137,59 @@
             });
         
 	        mui(".mui-scroll").on("tap", ".mui-control-item", function (e) {
-	            var wid = this.getAttribute("data-wid");
-	            group.switchTab(wid);
+	        	//e.stopPropagation();
+	            pid = this.getAttribute("data-id");
+	            wid = this.getAttribute("data-wid");
+	            	group.switchTab(wid);
+	            
+	            /*if(wid=='news_all.html'){
+	            	// 若类型：全部，则不显示下拉菜单
+	            	sidemenu.hide();	
+	            	group.switchTab(wid);
+	            }else{
+	            	// 若类型：其他菜单项，显示下拉菜单，且通知发送窗口通讯，传输类型ID
+	            	sidemenu.show();
+	            	mui.fire(sidemenu, 'sidemenuId', {
+	            		id:pid	
+	            	})
+	            };*/
 	        });
+	        
+	        window.addEventListener('closeSidemenu', function(){
+	        	//关闭下拉菜单
+	    		sidemenu.hide();
+	    		
+	    		mui('.mui-control-item').each(function(){
+	    			console.log(this.classList)
+	    			if(this.classList == 'old-active'){
+	    				this.classList.add('mui-active');
+	    			}else{
+	    				this.classList.remove('mui-active');
+	    			}
+	    		});
+	    		
+	    		
+	    		mui('.mui-control-item').each(function(){
+	    			console.log(this.classList)
+	    		})
+	    		
+	    	}, false);
+	        
+	        window.addEventListener('itemCurrentId', function(data){
+	        	// 接收到二级菜单回传的ID，关闭下拉菜单，切换指定的tab页面，加载数据
+	    		sidemenu.hide();
+	            group.switchTab(wid);
+//	            mui.fire(wid, 'newTabPage', {
+//	            	id:data.detail.nid	
+//	            });
+	    	}, false);
+	        
+	        window.addEventListener('tap', function(){
+	    		sidemenu.hide();		
+	    	});
+          	
+        	//plus.webview.currentWebview().append(sidemenu);
+	        
 		});
     })
 

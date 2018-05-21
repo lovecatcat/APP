@@ -13,7 +13,7 @@
 	<body>
 		<div id="modal" v-cloak>
 			<!--在线投保(白豪)-->
-			<div id="modal-list" class="BL-modal BL-modal-w90 BL-pad-lr-2 BL-pad-tb-1_5 BL-ub BL-ub-ac" 
+			<div id="modal-list" class="BL-modal BL-modal-w90 BL-pad-lr-2 BL-pad-b-1 BL-ub BL-ub-ac" 
 				:class="{'BL-hide': isHide !== 'modal-list'}" v-if="goIns">
 				<div class="BL-modal-content">
 					<div class="BL-modal-list" v-for="item in goIns_data" @click="goIns_sure(item.genre)">
@@ -25,7 +25,7 @@
 				</div>
 			</div>
 			<!--列表(白豪)-->
-			<div class="BL-modal BL-modal-w90 BL-pad-lr-2 BL-pad-tb-1_5 BL-ub BL-ub-ac"
+			<div class="BL-modal BL-modal-w90 BL-pad-lr-2 BL-pad-b-1 BL-ub BL-ub-ac"
 				:class="{'BL-hide': isHide !== 'modal-list'}" v-if="!goIns">
 				<div class="BL-modal-content">
 					<div class="BL-modal-list" v-for="item in goIns_data" @click="showStatement(item.genre)">

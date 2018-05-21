@@ -1193,7 +1193,7 @@ var methods = {
 			this.flag['HR'] = ''
 			this.cache.quotaHR = 2
 			this.flag['NADD'] = ''
-			this.cache.base_moneyNADD = 0
+			this.cache.base_moneyNADD = ''
 		} else if(safeid == 'NAF' || safeid == 'NCR' || safeid == 'NCUA' || safeid == 'NCWA') {
 			this.flag['CBR'] = ''
 			this.cache.base_moneyCBR = ''
@@ -1221,7 +1221,7 @@ var methods = {
 			this.flag['HR'] = ''
 			this.cache.quotaHR = 2
 			this.flag['NADD'] = ''
-			this.cache.base_moneyNADD = 0
+			this.cache.base_moneyNADD = ''
 		} else if(safeid === '8109') {
 			this.flag[273] = ''
 		} else if(safeid === 'A40' || safeid === 'IA40') {
@@ -1245,9 +1245,6 @@ var methods = {
 		//      }
 		this.addonRes = {}
 		this.addonsSelected = {}
-		//		mui('.mui-switch').each(function(index , item){
-		//			mui(this).switch().toggleCur(false);
-		//		})
 
 	},
 	// 校验附加险投保年龄
@@ -1290,14 +1287,22 @@ var methods = {
 				if(assuAge > 55) {
 					toastText = '被保人年龄不能大于55周岁'
 				} else if(mainPayYear === 20 && assuAge > 40) {
-					toastText = '缴费为20年交，被保人年龄大于40岁时，不可附加该险种'
+					toastText = '缴费为20年交被保人年龄不能大于40周岁'
+				} else if(mainPayYear === 15 && assuAge > 45) {
+					toastText = '缴费为15年交被保人年龄不能大于45周岁'
+				}else if(mainPayYear === 10 && assuAge > 50) {
+					toastText = '缴费为10年交被保人年龄不能大于50周岁'
 				}
 				break
 			case 'RSC':
 			case 'RSD':
 				if(assuAge < 18) {
 					toastText = '被保人年龄不能小于18周岁'
-				}
+				} else if(mainSafeYear === 30 && assuAge > 50) {
+					toastText = '保障期间30年被保人年龄不能大于50周岁'
+				} else if(mainSafeYear === 80 && assuAge > 60) {
+					toastText = '保障期间至80周岁被保人年龄不能大于60周岁'
+				} 
 				break
 				//恒大
 			case 'HA005': // 尊享安康
@@ -1322,6 +1327,15 @@ var methods = {
 				} else if(mainPayYear === 30 && assuAge > 40) {
 					toastText = '30年交被保人年龄不能大于40周岁'
 				}
+				break
+			case 'HB024': //附加投保人豁免保费重大疾病保险2017
+				if(applAge > 65) {
+					toastText = '投保人年龄不能大于65周岁'
+				} else if(mainPayYear === 15 && applAge > 60) {
+					toastText = '14年交投保人年龄不能大于60周岁'
+				} else if(mainPayYear === 19 && applAge > 55) {
+					toastText = '19年交投保人年龄不能大于55周岁'
+				} 
 				break
 
 				//工银
@@ -1399,8 +1413,8 @@ var methods = {
 				}
 				break
 			case 'TLR': // 中英人寿附加定期寿险
-				if(assuAge < 18 || assuAge > 60) {
-					toastText = '被保人年龄在18周岁到60周岁之间'
+				if(applAge < 18 || applAge > 60) {
+					toastText = '投保人年龄在18周岁到60周岁之间'
 				}
 				break
 			case 'JER': // 中英人寿附加投保人保费豁免重大疾病保险
@@ -1483,6 +1497,10 @@ var methods = {
 	checkExtraForm: function(safeid) {
 		var toastText = null
 		var flag = Number(this.flag[safeid])
+		var assuAge = Number(this.assu.age)
+		var applAge = Number(this.appl.age)
+		var mainSafeYear = this.mainSafeYear
+		var mainPayYear = this.mainPayYear
 		var periodMoney = this.insurance.period_money
 		var name = this.Addons[safeid].name
 		var assuAge = Number(this.assu.age)
@@ -1758,7 +1776,15 @@ var methods = {
 					toastText = '保额以 1000 元为单位递增'
 				} else if(!flag) {
 					toastText = '请先选择缴费年限'
-				}
+				} else if(flag === 20 && applAge > 45) {
+					toastText = '20年交投保人年龄不能大于45周岁'
+				} else if(flag === 25 && applAge > 40) {
+					toastText = '25年交投保人年龄不能大于40周岁'
+				} else if(flag === 15 && applAge > 50) {
+					toastText = '15年交投保人年龄不能大于50周岁'
+				} else if(flag === 10 && applAge > 55) {
+					toastText = '10年交投保人年龄不能大于55周岁'
+				} 
 				break
 			case 'CBR': // 中英人寿附加额外给付重大疾病保险
 				if(toastText) break
@@ -2025,7 +2051,7 @@ var methods = {
 			// 恒大 尊享安康
 			data.pay_year = 1
 			data.safe_year = 1
-			data.base_money = 500000
+			data.base_money = this.flag[safeid].substring(1, this.flag[safeid].length) + '0000'
 			data.flag = this.flag[safeid]
 		} else if(safeid === 'LA073') {
 			// 恒大 万年红传家宝
@@ -2482,13 +2508,16 @@ var methods = {
 						safe_year: ret.data.data[-1][genre].safe_year,
 						pay_year: ret.data.data[-1][genre].pay_year,
 						money: ret.data.data[-1][genre].base_money, // 基本保险金额
-						period_money: vm.addonRes[safeid]['年缴保费'] || vm.addonRes[safeid]['年缴保费(元)'] || vm.addonRes[safeid]['累计保费'] || vm.addonRes[safeid]['门诊总保费'] || ret.data.data[-1][genre].year_fee, // 年交保费
+						period_money: vm.addonRes[safeid]['年缴保费'] || vm.addonRes[safeid]['年缴保费(元)'] || vm.addonRes[safeid]['累计保费'] || vm.addonRes[safeid]['门诊总保费'] || ret.data.data[-1][genre].year_fee || 0, // 年交保费
 						flag: ret.data.data[-1][genre].flag,
 						fj: true
 					}
 					if(list.period_money == 0) {
 						mui.toast('超出费率表计算范围，无法投保')
-						vm.addonRes[safeid] = {}
+						vm.addonRes[safeid] = ''
+						vm.addonsSelected[safeid] = false
+						vm.$forceUpdate()
+						return false
 					}
 					vm.planList[safeid] = list
 				} else {

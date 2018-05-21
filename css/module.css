@@ -540,6 +540,7 @@ BL-modal-icon-0/**
 	min-height: 20rem;
 	left: 5%;
 	border-radius: 1rem;
+	overflow: hidden;
 }
 .BL-modal-w70{
 	width: 70%;
@@ -547,7 +548,10 @@ BL-modal-icon-0/**
 	border-radius: 1rem;
 }
 .BL-modal-content {
+	width: 100%;
 	font-size: 1.625rem;	
+	max-height: 25rem;
+	overflow-x: auto;
 	/*margin-bottom: .5rem;*/
 }
 /*链接弹框*/

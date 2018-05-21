@@ -64,7 +64,7 @@
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">年龄</label>
 							<div class="input-wrap box-f-1 search-date" data-options='{"type":"date","beginYear":1900}'>
-								<input v-model.lazy="appl.birthday"  type="text" placeholder="选择生日">
+								<input v-model.lazy="appl.birthday" readonly  type="text" placeholder="选择生日">
 								<div class="ins-date-icon"></div>
 							</div>
 							<div class="input-wrap box-f-1  BL-mar-l-1">
@@ -106,7 +106,7 @@
 						<div class="BL-ub BL-rel BL-mar-t-1 input-item">
 							<label class="">年龄</label>
 							<div class="input-wrap box-f-1 search-date" data-options='{"type":"date","beginYear":1900}'>
-								<input v-model.lazy="assu.birthday" type="text" placeholder="选择生日">
+								<input v-model.lazy="assu.birthday" readonly type="text" placeholder="选择生日">
 								<div class="ins-date-icon"></div>
 							</div>
 							<div class="input-wrap box-f-1 BL-mar-l-1">
@@ -322,9 +322,11 @@
 					return newObj;
 				},
 				applSex: function(i) {
+					this.toblur()
 					this.appl.sex = i
 				},
 				assuSex: function(i) {
+					this.toblur()
 					this.assu.sex = i
 				},
 				checkName: function(name, owner) { //校验姓名
@@ -493,17 +495,16 @@
 						id: prospect.max_id,
 						ins: [],
 						appl: {
-							name: '',
-							name: '',
-							age: '',
+							name: prospect.plans[0].appl.name,
+							age: prospect.plans[0].appl.age,
 							sex: true,
-							birthday: ''
+							birthday: prospect.plans[0].appl.birthday
 						},
 						assu: {
-							name: '',
-							age: '',
+							name: prospect.plans[0].assu.name,
+							age: prospect.plans[0].assu.age,
 							sex: true,
-							birthday: ''
+							birthday: prospect.plans[0].assu.birthday
 						}
 					}
 					prospect.plans.push(data);

@@ -723,6 +723,13 @@
             });
         };
         //
+        //安卓监听返回事件
+        plus.key.addEventListener("backbutton",function(){
+            console.log('back')
+            index.loading = false;
+            i = 0;
+            index.getItem('hengda_ids', 'ids');
+        });
         window.addEventListener('resetLoading', function () {
             index.loading = false;
             i = 0;

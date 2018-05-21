@@ -356,6 +356,9 @@
                 this.$watch('applicant.holder_ID_no', function (val) {
                     IDValidate(this.applicant.holder_ID_type, val, '投保人', this.applicant);
                 });
+                this.$watch('assured.insured_ID_no', function (val) {
+                    IDValidate(this.assured.insured_ID_type, val, '被保人', this.assured);
+                });
                 this.$watch('applicant.holder_birthday', function (val) {
                     if (changeBirthday('投保人', val)) {
                         this.RSChanged()

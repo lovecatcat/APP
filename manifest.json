@@ -6,7 +6,7 @@
 	"id": "H517AA33E",
 	"name": "保险+",
 	"version": {
-		"name": "1.9.0529",
+		"name": "1.9.0530",
 		"code": "83"
 	},
 	"description": "保险plus mobile",
@@ -1969,9 +1969,7 @@
 					"images/plans/prospectus/264.jpg",
 					"images/plans/prospectus/16197.jpg",
 					"images/plans/plansIcon/icon-plans21.png",
-					"images/icon/plan_del.png",
-					"images/plans/prospectus/256.jpg",
-					"images/plans/prospectus/302.jpg"
+					"images/icon/plan_del.png"
 				],
 				"priority": 2,
 				"refer": [
@@ -2124,8 +2122,7 @@
 					"js/vue.min.js",
 					"images/plans/plansManage/297.png",
 					"images/plans/plansManage/290.png",
-					"images/plans/plansManage/8.png",
-					"images/plans/plansManage/302.png"
+					"images/plans/plansManage/8.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -2474,9 +2471,7 @@
 					"js/mui.dtpicker.js",
 					"css/member.css",
 					"js/mui.pullToRefresh.js",
-					"js/mui.pullToRefresh.material.js",
-					"css/module.css",
-					"css/common.css"
+					"js/mui.pullToRefresh.material.js"
 				],
 				"refer": [
 					"member-commission-salarydetail.html"

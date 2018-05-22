@@ -526,6 +526,10 @@
                         mui.toast(toast_text, {duration: 'long', type: 'div'});
                         return false;
                     }
+                    if (this.assured.rel_insured_holder === COUPLE && this.applicant.holder_gender === this.assured.insured_gender) {
+                        mui.toast('投被保人关系与性别不符', {duration: 'long', type: 'div'});
+                        return false;
+                    }
                     return true
                 }
             }

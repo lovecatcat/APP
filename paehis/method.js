@@ -139,13 +139,13 @@ var IDValidate = function (type, id, owner, data) {
                 break;
 
             case PASSPORT:// 护照
-                if (!(/^.[A-Za-z0-9]{4,32}$/).test(id)) {
+                if (!(/^.[A-Za-z0-9]{4,20}$/).test(id)) {
                     toast_text = '请输入' + owner + '3位以上有效的证件号码'
                 }
                 break;
             case HKTW://港澳台
-                if (!(/^.[A-Za-z0-9()（）]{8,32}$/).test(id)) {
-                    toast_text = owner + '港澳台证件号至少8位'
+                if (!(/^.[A-Za-z0-9()（）]{8,20}$/).test(id)) {
+                    toast_text = '请输入' + owner + '至少8位且有效的港澳台证件号'
                 }
                 break;
 

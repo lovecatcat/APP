@@ -317,9 +317,11 @@
 				mui('#Js-person').on('tap', 'a', function(e) {
 				  	var uid = this.getAttribute('data-uid');
 					mui.fire(plus.webview.getWebviewById('team_personal_performance'),'uId',{
-					    'uid': uid
+					    'uid': uid,
+					    'start_time': start_time.innerHTML,
+					    'end_time': end_time.innerHTML
 					});
-					
+
 					//打开新窗口
 					mui.openWindow({
 						id:"team_personal_performance",

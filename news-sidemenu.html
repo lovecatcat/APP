@@ -28,17 +28,20 @@
     mui.init();
 
     mui.plusReady(function () {
+    	// 定义父页窗口对象ID
     	var wvNews = plus.webview.getWebviewById('news');
     	
+    	// 监听一级栏目所选类型ID
     	window.addEventListener('sidemenuId', function(data){
     		console.log(data.detail.id);
     	}, false);
     	
-    	//console.log(document.body)
+    	// 点击非内容区关闭二级菜单窗口
     	window.addEventListener('tap', function(){
     		mui.fire(wvNews, 'closeSidemenu');			
     	});
     	
+    	// 点击内容区，选中菜单回传ID到父页，并关闭二级菜单窗口
     	mui("#Js-sidemenu").on("tap", "li", function (e) {
     		e.stopPropagation();
     		var id = this.getAttribute("data-id");

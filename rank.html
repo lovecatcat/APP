@@ -13,7 +13,7 @@
 
 <body class="BL-overFlow-hiddenX">
 	<header id="Js-header" style="position: fixed;left: 0;top: 0rem;width: 100%;z-index: 99;">
-        <div class="BL-mod-headbar BL-mod-headbar-pos BL-pad-lr-1_5">
+        <div class="BL-mod-headbar BL-mod-headbar-pos" style="border-bottom: 0 none; padding-left: 1.5rem; padding-right: 1.5rem;">
             <a id="Js-back" class="mui-action-back ico-back-bg">
                 <div class="mui-icon-left-nav BL-icon BL-icon-left" style="color: rgba(255,255,255,1)"></div>
             </a>
@@ -24,12 +24,9 @@
 	    <div id="Js-main">
 	    	<!-- 靠边按钮 -->
 			<div class="rank-btn BL-ub BL-ub-pc BL-ub-ac">
-		        <a class="mui-icon mui-icon-back"></a>
-		        <div class="rank-txt">
-		            <span>精英版</span>
-		            <span>精英版</span>
-		            <span>精英版</span>
-		            <span>精英版</span>
+		        <a class="mui-icon mui-icon-back" @click="showRank"></a>
+		        <div class="rank-txt" v-show="show">
+		            <span v-for="(item,index) in flagArr" v-show="index!=flag" @click="change(index)">{{ item }}</span>
 		        </div>
 		    </div>
             <div class="mui-scroll-wrapper">
@@ -43,55 +40,85 @@
                     </div>
                     <div class="rank-body">
                     	<div class="rank-title BL-ub BL-ub-pc BL-ub-ac">
-                            <span>精英版</span>
+                            <span>{{ flagArr[flag] }}</span>
                         </div>
                         <div class="rank-list">
-                            <ul class="list">
+                            <!-- 精英榜 -->
+                            <ul class="list"  v-if="flag == 0 && person_sale">
                                 <li class="list-title mui-row">
                                     <span class="mui-col-sm-2">排名</span>
                                     <span class="mui-col-sm-4">机构名称</span>
                                     <span class="mui-col-sm-2">姓名</span>
                                     <span class="mui-col-sm-4">标保（万元）</span>
                                 </li>
-                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                <li v-if="person_sale.length > 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in person_sale">
                                     <span class="mui-col-sm-2">
-                                        <i class="ico-rank ico-rank-first BL-bimg-cover"></i>
+                                        <i class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }">{{ index + 1 }}</i>
                                     </span>
-                                    <span class="mui-col-sm-4">福田机构</span>
-                                    <span class="mui-col-sm-2">罗雨晴</span>
-                                    <span class="mui-col-sm-4">10000</span>
+                                    <span class="mui-col-sm-4">{{ item.dept_name }}</span>
+                                    <span class="mui-col-sm-2">{{ item.user_name }}</span>
+                                    <span class="mui-col-sm-4">{{ item.fee }}</span>
                                 </li>
-                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
-                                    <span class="mui-col-sm-2">
-                                        <i class="ico-rank ico-rank-second BL-bimg-cover"></i>
-                                    </span>
-                                    <span class="mui-col-sm-4">福田机构</span>
-                                    <span class="mui-col-sm-2">罗雨晴</span>
-                                    <span class="mui-col-sm-4">10000</span>
+                                <li v-if="person_sale.length == 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-12 BL-txt-c">暂无数据</span>
                                 </li>
-                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
-                                    <span class="mui-col-sm-2">
-                                        <i class="ico-rank ico-rank-three BL-bimg-cover"></i>
-                                    </span>
-                                    <span class="mui-col-sm-4">福田机构</span>
-                                    <span class="mui-col-sm-2">罗雨晴</span>
-                                    <span class="mui-col-sm-4">10000</span>
+                            </ul>
+                            <!-- 明星机构 -->
+                            <ul class="list"  v-if="flag == 1 && dept_sale">
+                                <li class="list-title mui-row">
+                                    <span class="mui-col-sm-2">排名</span>
+                                    <span class="mui-col-sm-5">机构名称</span>
+                                    <span class="mui-col-sm-5">标保（万元）</span>
                                 </li>
-                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                <li v-if="dept_sale.length > 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in dept_sale">
                                     <span class="mui-col-sm-2">
-                                        4
+                                        <i class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }">{{ index + 1 }}</i>
                                     </span>
-                                    <span class="mui-col-sm-4">福田机构</span>
-                                    <span class="mui-col-sm-2">罗雨晴</span>
-                                    <span class="mui-col-sm-4">10000</span>
+                                    <span class="mui-col-sm-5">{{ item.dept_name }}</span>
+                                    <span class="mui-col-sm-5">{{ item.fee }}</span>
                                 </li>
-                                <li class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                <li v-if="dept_sale.length == 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-12 BL-txt-c">暂无数据</span>
+                                </li>
+                            </ul>
+                            <!-- 增员排行榜 -->
+                            <ul class="list"  v-if="flag == 2 && person_add">
+                                <li class="list-title mui-row">
+                                    <span class="mui-col-sm-2">排名</span>
+                                    <span class="mui-col-sm-4">机构名称</span>
+                                    <span class="mui-col-sm-2">姓名</span>
+                                    <span class="mui-col-sm-4">新增人数</span>
+                                </li>
+                                <li v-if="person_add.length > 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in person_add">
                                     <span class="mui-col-sm-2">
-                                        5
+                                        <i class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }">{{ index + 1 }}</i>
                                     </span>
-                                    <span class="mui-col-sm-4">福田机构</span>
-                                    <span class="mui-col-sm-2">罗雨晴</span>
-                                    <span class="mui-col-sm-4">10000</span>
+                                    <span class="mui-col-sm-4">{{ item.dept_name }}</span>
+                                    <span class="mui-col-sm-2">{{ item.user_name }}</span>
+                                    <span class="mui-col-sm-4">{{ item.add_num }}</span>
+                                </li>
+                                <li v-if="person_add.length == 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-12 BL-txt-c">暂无数据</span>
+                                </li>
+                            </ul>
+                            <!-- 件数排行榜 -->
+                            <ul class="list"  v-if="flag == 3 && piece_num">
+                                <li class="list-title mui-row">
+                                    <span class="mui-col-sm-2">排名</span>
+                                    <span class="mui-col-sm-4">机构名称</span>
+                                    <span class="mui-col-sm-2">姓名</span>
+                                    <span class="mui-col-sm-4">有效件数</span>
+                                </li>
+                                <li v-if="piece_num.length > 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in piece_num">
+                                    <span class="mui-col-sm-2">
+                                        <i class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }">{{ index + 1 }}</i>
+                                    </span>
+                                    <span class="mui-col-sm-4">{{ item.dept_name }}</span>
+                                    <span class="mui-col-sm-2">{{ item.user_name }}</span>
+                                    <span class="mui-col-sm-4">{{ item.fee }}</span>
+                                </li>
+                                <li v-if="piece_num.length == 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac">
+                                    <span class="mui-col-sm-12 BL-txt-c">暂无数据</span>
                                 </li>
                             </ul>
                         </div>
@@ -106,8 +133,54 @@
 <script src="js/mui.pullToRefresh.material.js"></script>
 <script src="js/vue.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-
     mui.init();
+    var rank = new Vue({
+        el: '#Js-main',
+        data: {
+            flag: 0,
+            show: false,
+            flagArr: ['精英榜','明星机构榜','增员排行榜','件数排行榜'],
+            person_sale: null,   // 精英榜
+            dept_sale: null,  // 明星机构榜
+            person_add: null,
+            piece_num: null,
+            time: ''
+        },
+        methods: {
+            showRank: function () {
+                var vm = this
+                vm.show = true
+                vm.time = setTimeout(function () {
+                    vm.show = false
+                },2500)
+            },
+            change: function (index) {
+                var vm = this
+                vm.flag = index
+                vm.show = false
+                clearTimeout(vm.time)
+                // 回到顶部
+                mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
+            },
+            getRank: function () {
+                luckyAjax({
+                    data: {
+                        server: 'team.honorList'
+                    },
+                    success:function(ret){
+                        if (ret.code == 1) {
+                            rank.person_sale = ret.data.person_sale
+                            rank.dept_sale = ret.data.dept_sale
+                            rank.person_add = ret.data.person_add
+                            rank.piece_num = ret.data.piece_num
+                        } else {
+                            mui.toast(ret.msg, {duration: 'short', type: 'div'})
+                        }
+                    }
+                });
+            }
+        }
+    })
     mui.plusReady(function () {
         statusbar();
         var winH = window.innerHeight;
@@ -115,7 +188,7 @@
         //阻尼系数
         var deceleration = mui.os.ios ? 0.003 : 0.0009;
         mui('.mui-scroll-wrapper').scroll({
-            bounce: true,
+            bounce: false,
             indicators: false, //是否显示滚动条
             deceleration: deceleration
         });
@@ -133,14 +206,8 @@
                 document.querySelector('.BL-icon').style.color = "rgba(0,0,0,1)";
             }
         });
-        
-        // 监听靠边按钮事件
-        document.querySelector(".mui-icon-back").addEventListener('click',function(e) {
-            document.querySelector(".rank-txt").style.display = 'inline-block'
-            setTimeout(function () {
-                document.querySelector(".rank-txt").style.display = 'none'
-            },2500)
-        })
+
+        rank.getRank()
     })
 </script>
 

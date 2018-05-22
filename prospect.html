@@ -659,12 +659,14 @@
 		mui.init();
 
 		mui.plusReady(function() {
-			statusbar();
-			var winH = window.innerHeight;
-			var topHeight = document.querySelector('#Js-header').offsetHeight;
-			var fotHeight = document.querySelector('#Js-footer').offsetHeight;
-			document.querySelector('#Js-content').style.height = winH - topHeight - fotHeight + 'px';
-
+			window.addEventListener('loadSize', function () {
+				statusbar();
+				var winH = window.innerHeight;
+				var topHeight = document.querySelector('#Js-header').offsetHeight;
+				var fotHeight = document.querySelector('#Js-footer').offsetHeight;
+				document.querySelector('#Js-content').style.height = winH - topHeight - fotHeight + 'px';
+			});
+			
 			mui(".mui-scroll").on("tap", ".plans-nav", function(e) {
 				prospect.clickNav = true; // 点击变为true
 				prospect.toblur()

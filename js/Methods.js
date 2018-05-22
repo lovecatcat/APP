@@ -591,6 +591,11 @@ var methods = {
 					toastText = '被保人年龄不能大于60周岁'
 				}
 				break
+			case '1013': // 招商仁和仁安无忧意外伤害保险
+				if(assuAge > 65 || assuAge < 18) {
+					toastText = '被保人年龄在18周岁到65周岁之间'
+				}
+				break	
 		}
 
 		if(toastText) {
@@ -790,6 +795,15 @@ var methods = {
 					toastText = '最低基本保额为5千元'
 				} else if(money % 1000 !== 0) {
 					toastText = '保费需为1千元整数倍'
+				}
+				break
+			case '1013': // 招商仁和仁安无忧意外伤害保险
+				if(money < 100000) {
+					toastText = '最低基本保额为10万元'
+				} else if(money % 1000 !== 0) {
+					toastText = '保费需为1千元整数倍'
+				} else if(!this.flag[safeid]) {
+					toastText = '请先选择职业分类'
 				}
 				break
 
@@ -1470,11 +1484,7 @@ var methods = {
 					toastText = '交至60周岁被保人年龄应在0到59周岁'
 				}
 				break
-			case '1013': // 招商仁和仁安无忧意外伤害保险
-				if(assuAge > 65 || assuAge < 18) {
-					toastText = '被保人年龄在18周岁到65周岁之间'
-				}
-				break
+			
 			case '1015': // 附加意外门急诊医疗保险
 			case '1017': // 附加住院每日补贴医疗保险
 			case '1018': // 招商仁和仁医保费用补偿医疗保险
@@ -1840,17 +1850,7 @@ var methods = {
 				}
 				break
 				//招商仁和
-			case '1013': // 招商仁和仁安无忧意外伤害保险
-				if(!this.cache.base_money1013) {
-					toastText = '请先输入保险金额'
-				} else if(this.cache.base_money1013 < 100000) {
-					toastText = '最低基本保额为10万元'
-				} else if(this.cache.base_money1013 % 1000 !== 0) {
-					toastText = '保费需为1千元整数倍'
-				} else if(!flag) {
-					toastText = '请先选择职业分类'
-				}
-				break
+			
 			case '1015': // 附加意外门急诊医疗保险
 				if(!this.cache.base_money1015) {
 					toastText = '请先输入保险金额'
@@ -2377,11 +2377,10 @@ var methods = {
 			data.njy = this.insurance.period_money * this.mainPayYear
 		} else if(safeid === '1013') {
 			//  招商仁和仁安无忧意外伤害保险
-			data.assu_sex = 0
 			data.pay_year = 1
 			data.safe_year = 1
 			data.flag = this.flag[safeid]
-			data.base_money = this.cache.base_money1013
+			data.base_money = this.insurance.money
 		} else if(safeid === '1015') {
 			//  附加意外门急诊医疗保险
 			data.assu_sex = 0

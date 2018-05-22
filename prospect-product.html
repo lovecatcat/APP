@@ -162,7 +162,10 @@
 										<span>首年保费</span>
 									</li>
 									<li>
-										<span v-if="item.money && item.safe_id !== 'DAR' && item.safe_id !== 'HI' && item.safe_id !== 'RP8P'">{{Number(item.money).toFixed(2)}}</span>
+										<span v-if="item.money && item.safe_id !== 'DAR' && item.safe_id !== 'HI' && item.safe_id !== 'RP8P' && item.safe_id !== 'P005'">{{Number(item.money).toFixed(2)}}</span>
+										<span v-else-if = "item.safe_id == 'P005'">
+											{{String(item.money).length > 3 ? '无社保'+String(item.money).substring(1, String(item.money).length) : '有社保' + item.money}}万
+										</span>
 										<span v-else>—</span>
 										<span>{{item.safe_year , item.safe_id | safeYearFilter}}</span>
 										<span>{{item.pay_year | payYearFilter}}</span>
@@ -181,7 +184,7 @@
 				<!--险种信息 end -->
 				<div style="width: 100%;height: 5.625rem;"></div>
 			</div>
-			<footer id="Js-footer" class="BL-bg-fff BL-pad-tb-1 BL-Border-t">
+			<footer id="Js-footer" class="BL-footer BL-bg-fff BL-pad-tb-1 BL-Border-t">
 				<div class="BL-ub BL-ub-ac BL-ub-f1">
 					<div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll">
 						<div class="context" id="aaaa">
@@ -506,13 +509,13 @@
 						appl: {
 							name: prospect.plans[0].appl.name,
 							age: prospect.plans[0].appl.age,
-							sex: true,
+							sex: prospect.plans[0].appl.sex,
 							birthday: prospect.plans[0].appl.birthday
 						},
 						assu: {
 							name: prospect.plans[0].assu.name,
 							age: prospect.plans[0].assu.age,
-							sex: true,
+							sex: prospect.plans[0].assu.sex,
 							birthday: prospect.plans[0].assu.birthday
 						}
 					}
@@ -696,7 +699,7 @@
 									prospect.edit = false //是不是从编辑页面过来
 									prospect.edit2 = false //是不是从编辑状态
 								}
-								plus.webview.close('prospect_product')
+//								plus.webview.close('prospect_product')
 							}
 						});
 					}

@@ -62,7 +62,7 @@
                             <input type="text" v-model.lazy="applicant.holder_ID_expire_end" placeholder="请选择" :disabled="longTerm" readonly>
                             <button class="ins-date-icon" :disabled="longTerm"></button>
                         </div>
-                        <button class="right-btn orange" :class="{'active':longTerm}" @tap="longTerm=!longTerm,toblur()">长期有效</button>
+                        <button class="right-btn gray" :class="{'active':longTerm}" @tap="longTerm=!longTerm,toblur()">长期有效</button>
                     </div>
                 </div>
             </div>
@@ -248,6 +248,9 @@
     <!--弹窗 end-->
 </div>
 </body>
+<style>
+    .mui-input-group:after{background-color: #fff!important;}
+</style>
 <script src="../js/mui.js" type="text/javascript"></script>
 <script src="../js/vue.min.js" type="text/javascript"></script>
 <script src="../js/mui.picker.js"></script>

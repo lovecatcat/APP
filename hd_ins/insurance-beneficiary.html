@@ -101,7 +101,7 @@
                         <input type="text" v-model.lazy="beneficiary.ID_expire_end" placeholder="请选择" :disabled="longTerm" readonly>
                         <button class="ins-date-icon" :disabled="longTerm"></button>
                     </div>
-                    <button class="right-btn orange" :class="{'active':longTerm}" @tap="longTerm=!longTerm,toblur()" :disabled="[BOOKLET,BORNid].indexOf(beneficiary.ID_type)>-1">长期有效</button>
+                    <button class="right-btn gray" :class="{'active':longTerm}" @tap="longTerm=!longTerm,toblur()" :disabled="[BOOKLET,BORNid].indexOf(beneficiary.ID_type)>-1">长期有效</button>
                 </div>
             </div>
             <div class="input-item">

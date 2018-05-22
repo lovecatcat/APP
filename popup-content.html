@@ -15,7 +15,7 @@
 			<!--在线投保(白豪)-->
 			<div id="modal-list" class="BL-modal BL-modal-w90 BL-pad-lr-2 BL-pad-b-1 BL-ub BL-ub-ac" 
 				:class="{'BL-hide': isHide !== 'modal-list'}" v-if="goIns">
-				<div class="BL-modal-content">
+				<div class="BL-modal-content BL-modal-plancontent">
 					<div class="BL-modal-list" v-for="item in goIns_data" @click="goIns_sure(item.genre)">
 						<i class="BL-modal-icon-2" v-if="item.istrue == true"></i>
 						<i class="BL-modal-icon-3" v-else-if ="item.istrue == false"></i>
@@ -27,7 +27,7 @@
 			<!--列表(白豪)-->
 			<div class="BL-modal BL-modal-w90 BL-pad-lr-2 BL-pad-b-1 BL-ub BL-ub-ac"
 				:class="{'BL-hide': isHide !== 'modal-list'}" v-if="!goIns">
-				<div class="BL-modal-content">
+				<div class="BL-modal-content BL-modal-plancontent">
 					<div class="BL-modal-list" v-for="item in goIns_data" @click="showStatement(item.genre)">
 						<i class="BL-modal-icon-2" v-if="item.istrue == true"></i>
 						<i class="BL-modal-icon-3" v-else-if ="item.istrue == false"></i>

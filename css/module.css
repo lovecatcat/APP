@@ -557,9 +557,7 @@ BL-modal-icon-0/**
 /*链接弹框*/
 .BL-modal-content>.BL-modal-list {
 	position: relative;
-	padding-left: 4rem;
-	/*line-height: 3.8125rem;*/
-	margin-top: 1.5rem;
+	padding: 1rem 0 1rem 4rem;
 }
 .BL-modal i {
 	display: inline-block;

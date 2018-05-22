@@ -111,7 +111,8 @@
                 //编辑保单
                 var openerId = plus.webview.currentWebview().opener().id
                 if (openerId !== 'quickly' && openerId !== 'member_life_order') {
-                    clearItem()
+                    console.log('begin-clear')
+                    this.clearItem()
                 }
                 var pid = plus.webview.currentWebview().policy_id;
                 console.log(pid)
@@ -126,6 +127,28 @@
                 //
             },
             methods:{
+                //清除localstorage
+                clearItem: function (back, timeout) {
+                    for (var i = 0; i < 8; i++) {
+                        plus.storage.removeItem(itemName[i])
+                    }
+                    this.ids = ''
+                    this.applicant = ''
+                    this.assured = ''
+                    this.beneficiary = ''
+                    this.safegoods = ''
+                    this.healthinfo = ''
+                    this.bank = ''
+                    this.sign = ''
+                    this.upload = ''
+                    if (back && timeout) {
+                        setTimeout(function () {
+                            mui.back();
+                        }, 1000)
+                    } else if (back && !timeout) {
+                        mui.back();
+                    }
+                },
                 getReadyItem: function () {
                     var dataName = ['applicant', 'assured', 'beneficiary', 'safegoods', 'healthinfo', 'bank', 'upload', 'ids', 'userinfo'];
                     for (var i = 0; i < itemName.length; i++) {
@@ -470,12 +493,12 @@
                             index.getWarranty(war_id);
                         } else if (res.data.policyInfo.progress === 2) {
                             mui.toast('此单已承保，不能再次编辑', {duration: 'long', type: 'div'})
-                            clearItem(true);
+                            index.clearItem(true);
                             return false
                         }
                     } else {
                         mui.toast('保单不存在', {duration: 'short', type: 'div'})
-                        clearItem()
+                        index.clearItem()
                         return false
                     }
                 }
@@ -485,7 +508,7 @@
         document.querySelector('#backto').addEventListener('tap', function () {
             plus.webview.getWebviewById('member_life_order') && mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
             if (index.pid) {
-                clearItem(true);
+                index.clearItem(true);
             } else {
                 mui.back();
             }
@@ -493,7 +516,7 @@
         //重置
         document.querySelector('#resetData').addEventListener('tap', function () {
             index.$nextTick(function () {
-                clearItem()
+                index.clearItem()
             })
         })
         //提交
@@ -502,29 +525,11 @@
             setPushData(war_id);
 
         });
-        //清除localstorage
-        function clearItem(back, timeout) {
-            for (var i = 0; i < 8; i++) {
-                console.log(itemName[i])
-                plus.storage.removeItem(itemName[i])
-                index[itemName[i].substr(7,itemName[i].length)] = ''
-            }
-            if (back && timeout) {
-                setTimeout(function () {
-                    mui.back();
-                }, 1000)
-            } else if (back && !timeout) {
-                mui.back();
-            }
-        }
         var i = 0;
         var pushdata = {};
 
         //核保数据整理
         function setPushData(war_id) {
-            console.log('set')
-            console.log(war_id)
-
             plus.nativeUI.showWaiting();
             if (index.loading) {
                 console.log('again')

@@ -6,7 +6,7 @@
 	"id": "H517AA33E",
 	"name": "保险+",
 	"version": {
-		"name": "1.9.0529",
+		"name": "1.9.0532",
 		"code": "83"
 	},
 	"description": "保险plus mobile",
@@ -1889,7 +1889,8 @@
 				],
 				"priority": 6,
 				"refer": [
-					"pdf-modal.html"
+					"pdf-modal.html",
+					"hd_ins/insurance-index.html"
 				]
 			},
 			"popup.html": {
@@ -1969,7 +1970,19 @@
 					"images/plans/prospectus/264.jpg",
 					"images/plans/prospectus/16197.jpg",
 					"images/plans/plansIcon/icon-plans21.png",
-					"images/icon/plan_del.png"
+					"images/icon/plan_del.png",
+					"images/plans/prospectus/340.jpg",
+					"images/plans/plansIcon/icon-plans23.png",
+					"images/plans/plansIcon/icon-plans9.png",
+					"images/plans/plansIcon/icon-plans22.png",
+					"images/plans/plansIcon/icon-plans24.png",
+					"images/plans/plansIcon/icon-plans25.png",
+					"images/plans/prospectus/348.jpg",
+					"images/plans/plansIcon/icon-plans26.png",
+					"images/plans/prospectus/16201.jpg",
+					"images/plans/prospectus/16213.jpg",
+					"images/plans/prospectus/16203.jpg",
+					"images/plans/plansIcon/icon-plans10.png"
 				],
 				"priority": 2,
 				"refer": [
@@ -2122,7 +2135,8 @@
 					"js/vue.min.js",
 					"images/plans/plansManage/297.png",
 					"images/plans/plansManage/290.png",
-					"images/plans/plansManage/8.png"
+					"images/plans/plansManage/8.png",
+					"images/plans/plansManage/302.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -2537,7 +2551,8 @@
 					"hd_ins/insurance-upload.html",
 					"hd_ins/insurance-safegood.html",
 					"hd_ins/insurance-sign.html",
-					"hd_ins/insurance-assured.html"
+					"hd_ins/insurance-assured.html",
+					"hd_ins/insurance-safegoods.html"
 				],
 				"priority": 0
 			},
@@ -2549,7 +2564,9 @@
 					"css/mui.picker.min.css",
 					"js/mui.poppicker.js"
 				],
-				"refer": [],
+				"refer": [
+					"hd_ins/pay-statement.html"
+				],
 				"priority": 0
 			},
 			"hd_ins/insurance-beneficiary.html": {
@@ -2640,7 +2657,8 @@
 					"css/common.css",
 					"css/insurance.css",
 					"css/mui.picker.min.css",
-					"css/mui.css"
+					"css/mui.css",
+					"js/browser.min.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2650,7 +2668,8 @@
 					"css/member.css",
 					"css/module.css",
 					"css/common.css",
-					"css/mui.css"
+					"css/mui.css",
+					"js/mui.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2745,9 +2764,13 @@
 					"css/form.css",
 					"css/insurance.css",
 					"css/mui.picker.min.css",
-					"css/mui.css"
+					"css/mui.css",
+					"js/pdf.js"
 				],
-				"refer": [],
+				"refer": [
+					"hd_ins/pay-statement.html",
+					"hd_ins/safe-notice.html"
+				],
 				"priority": 0
 			},
 			"hd_ins/insurance-assured.html": {
@@ -3037,7 +3060,21 @@
 				"priority": 0
 			},
 			"member-poster.html": {
-				"resources": [],
+				"resources": [
+					"images/member/pos4.jpg",
+					"images/member/pos5.jpg",
+					"images/member/pos3.jpg",
+					"images/member/pos11.jpg",
+					"images/member/pos8.jpg",
+					"images/member/pos2.jpg",
+					"css/mui.css",
+					"images/member/pos10.jpg",
+					"images/member/pos6.jpg",
+					"images/member/pos9.jpg",
+					"images/member/pos1.jpg",
+					"images/member/pos12.jpg",
+					"images/member/pos7.jpg"
+				],
 				"refer": [
 					"member-poster-detail.html"
 				],
@@ -3087,6 +3124,48 @@
 				"priority": 0
 			},
 			"member-plans-alone-design.html": {
+				"resources": [
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"news-sidemenu.html": {
+				"resources": [
+					"css/mui.css",
+					"css/module.css",
+					"css/news.css",
+					"css/common.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-poster-detail.html": {
+				"resources": [
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"hd_ins/insurance-safegoods.html": {
+				"resources": [
+					"css/insurance.css",
+					"css/mui.picker.min.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"hd_ins/pay-statement.html": {
+				"resources": [
+					"css/form.css",
+					"css/mui.picker.min.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"hd_ins/safe-notice.html": {
 				"resources": [
 					"css/mui.css"
 				],

@@ -19,24 +19,26 @@
 			</div>
 		</header>
 		<!--日期搜索 begin-->
-		<div id="Js-teamFilter" class="member-team-search BL-ub BL-ub-ac BL-bg-fff">
-			<div class="search-date BL-ub BL-ub-ac" data-options='{"type":"date","beginYear":2000}'>
-				<div id="start_time" class="BL-ub BL-ub-f1 date BL-pad-l-1">开始日期</div>
-				<div class="down">
-					<span class="BL-bimg-contain search-down"></span>
+		<div id="Js-teamFilter" class="BL-ub BL-ub-ac BL-pad-b-1">
+			<div class="member-team-search BL-ub BL-ub-ac BL-ub-f1 BL-bg-fff">
+				<div class="search-date BL-ub BL-ub-ac" data-options='{"type":"date","beginYear":2000}'>
+					<div id="start_time" class="BL-ub BL-ub-f1 date BL-pad-l-1">开始日期</div>
+					<div class="down">
+						<span class="BL-bimg-contain search-down"></span>
+					</div>
 				</div>
-			</div>
-			<div class="search-date BL-ub BL-ub-ac" data-options='{"type":"date","beginYear":2000}'>
-				<div id="end_time" class="BL-ub BL-ub-f1 date BL-pad-l-1">结束日期</div>
-				<div class="down">
-					<span class="BL-bimg-contain search-down"></span>
+				<div class="search-date BL-ub BL-ub-ac" data-options='{"type":"date","beginYear":2000}'>
+					<div id="end_time" class="BL-ub BL-ub-f1 date BL-pad-l-1">结束日期</div>
+					<div class="down">
+						<span class="BL-bimg-contain search-down"></span>
+					</div>
 				</div>
+				<a id="search" class="searchbtn BL-ub BL-ub-pc">搜索</a>
 			</div>
-			<a id="search" class="searchbtn BL-ub BL-ub-pc">搜索</a>
 		</div>
 		<!--日期搜索 end -->
 		<div id="Js-content" class="mui-content BL-overFlow-autoY">
-			<div id="Js-teamtab" class="BL-bg-fff BL-mar-t-1">
+			<div id="Js-teamtab" class="BL-bg-fff">
 				<div class="mui-row member-team-tab-title">
 					<span>承保<i class="BL-col-ff8201">{{ count }}</i>件</span>
 					<span>标保<i class="BL-col-ff8201">{{ money == "" ? 0 : money }}</i>元</span>
@@ -150,8 +152,8 @@
 		
 		window.addEventListener('uId',function(e){
 			// 初始化当前月份和上个月份的个人业绩数据
-			start_time.innerHTML = new Date().addMonth(-1).Format('yyyy-MM-dd');
-			end_time.innerHTML = new Date().addDays(0).Format('yyyy-MM-dd');
+			start_time.innerHTML = e.detail.start_time;
+			end_time.innerHTML = e.detail.end_time;
 			uid = e.detail.uid;
 			getMembers(uid,start_time.innerHTML,end_time.innerHTML)
 		});

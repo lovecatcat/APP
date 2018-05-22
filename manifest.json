@@ -1981,7 +1981,8 @@
 					"images/plans/plansIcon/icon-plans26.png",
 					"images/plans/prospectus/16201.jpg",
 					"images/plans/prospectus/16213.jpg",
-					"images/plans/prospectus/16203.jpg"
+					"images/plans/prospectus/16203.jpg",
+					"images/plans/plansIcon/icon-plans10.png"
 				],
 				"priority": 2,
 				"refer": [
@@ -2550,7 +2551,8 @@
 					"hd_ins/insurance-upload.html",
 					"hd_ins/insurance-safegood.html",
 					"hd_ins/insurance-sign.html",
-					"hd_ins/insurance-assured.html"
+					"hd_ins/insurance-assured.html",
+					"hd_ins/insurance-safegoods.html"
 				],
 				"priority": 0
 			},
@@ -2562,7 +2564,9 @@
 					"css/mui.picker.min.css",
 					"js/mui.poppicker.js"
 				],
-				"refer": [],
+				"refer": [
+					"hd_ins/pay-statement.html"
+				],
 				"priority": 0
 			},
 			"hd_ins/insurance-beneficiary.html": {
@@ -2653,7 +2657,8 @@
 					"css/common.css",
 					"css/insurance.css",
 					"css/mui.picker.min.css",
-					"css/mui.css"
+					"css/mui.css",
+					"js/browser.min.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2663,7 +2668,8 @@
 					"css/member.css",
 					"css/module.css",
 					"css/common.css",
-					"css/mui.css"
+					"css/mui.css",
+					"js/mui.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2758,9 +2764,13 @@
 					"css/form.css",
 					"css/insurance.css",
 					"css/mui.picker.min.css",
-					"css/mui.css"
+					"css/mui.css",
+					"js/pdf.js"
 				],
-				"refer": [],
+				"refer": [
+					"hd_ins/pay-statement.html",
+					"hd_ins/safe-notice.html"
+				],
 				"priority": 0
 			},
 			"hd_ins/insurance-assured.html": {
@@ -3050,7 +3060,21 @@
 				"priority": 0
 			},
 			"member-poster.html": {
-				"resources": [],
+				"resources": [
+					"images/member/pos4.jpg",
+					"images/member/pos5.jpg",
+					"images/member/pos3.jpg",
+					"images/member/pos11.jpg",
+					"images/member/pos8.jpg",
+					"images/member/pos2.jpg",
+					"css/mui.css",
+					"images/member/pos10.jpg",
+					"images/member/pos6.jpg",
+					"images/member/pos9.jpg",
+					"images/member/pos1.jpg",
+					"images/member/pos12.jpg",
+					"images/member/pos7.jpg"
+				],
 				"refer": [
 					"member-poster-detail.html"
 				],
@@ -3112,6 +3136,38 @@
 					"css/module.css",
 					"css/news.css",
 					"css/common.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-poster-detail.html": {
+				"resources": [
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"hd_ins/insurance-safegoods.html": {
+				"resources": [
+					"css/insurance.css",
+					"css/mui.picker.min.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"hd_ins/pay-statement.html": {
+				"resources": [
+					"css/form.css",
+					"css/mui.picker.min.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"hd_ins/safe-notice.html": {
+				"resources": [
+					"css/mui.css"
 				],
 				"refer": [],
 				"priority": 0

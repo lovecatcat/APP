@@ -266,6 +266,11 @@
 						return;
 					};
 
+					if(targetIndex == 1){
+						var loadPageprospect = plus.webview.getWebviewById('prospect');
+						mui.fire(loadPageprospect,'loadSize');
+					}
+
 					if(targetIndex == 2 && !isLoadNew){
 						var loadPageWeb = plus.webview.getWebviewById('news');
 						mui.fire(loadPageWeb,'loadpage');

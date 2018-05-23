@@ -286,10 +286,10 @@
 					"images/icon/sign-active.png",
 					"js/Tunnel.js",
 					"news.html",
-					"prospect.html"
+					"prospect.html",
+					"member.html"
 				],
 				"refer": [
-					"member.html",
 					"discover.html",
 					"login.html",
 					"guide.html"

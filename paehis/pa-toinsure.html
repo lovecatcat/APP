@@ -396,8 +396,6 @@
                         this.assured.insured_ID_no = this.applicant.holder_ID_no
                         this.assured.insured_ID_type = this.applicant.holder_ID_type
                         this.assured.insured_gender = this.applicant.holder_gender
-                        this.assured.insured_mobile = this.applicant.holder_mobile
-                        this.assured.insured_email = this.applicant.holder_email
                         this.assured.insured_residence = this.applicant.holder_residence
                         this.assured.insured_residence_name = this.applicant.holder_residence_name
                         this.assured.insured_birthday = this.applicant.holder_birthday
@@ -521,10 +519,6 @@
                     } else if (!checkName('被保人', this.assured.insured_name)) {
                         return false
                     } else if (!changeBirthday('被保人', this.assured.insured_birthday)) {
-                        return false
-                    } else if (!checkPhone('被保人', this.assured.insured_mobile)) {
-                        return false
-                    } else if (!checkEmail('被保人', this.assured.insured_email)) {
                         return false
                     } else if (!this.assured.insured_residence) {
                         toast_text = '请选择被保人常住地'

@@ -583,6 +583,7 @@
 							}
 							for(var k in item.addon) {
 								if(!item.addon[k]) continue
+								item.addon[k].alias = prospect.alias
 								item.addon[k].is_save = 1
 								item.addon[k].warranty_year = 105
 								item.addon[k].need_packet = 1
@@ -961,7 +962,7 @@
 				}
 
 				if(prospect.editIndex != null) {
-					ins.splice(index1, 1)
+					ins.splice(prospect.editIndex, 1)
 					prospect.$delete(prospect.planList[id], prospect.editIndex)
 					prospect.editIndex = null
 

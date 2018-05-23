@@ -3005,7 +3005,9 @@
 					"js/pdf.worker.js",
 					"js/pdf.js"
 				],
-				"refer": [],
+				"refer": [
+					"pdf-modal-content.html"
+				],
 				"priority": 0
 			},
 			"product-company.html": {

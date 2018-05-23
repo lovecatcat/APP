@@ -246,9 +246,17 @@
                     if (res.code) {
                         if (res.data.resultCode === '00') {
                             mui.toast('自核通过，影像上传中', {duration: 'long', type: 'div'})
+                            //清除本地缓存
+                            for (var i = 0; i < itemName.length; i++) {
+                                plus.storage.removeItem(itemName[i])
+                            }
                             upload_img(img.war_id)
                         } else if (res.data.resultCode === '02') {
                             mui.toast('进入人工核保，影像上传中', {duration: 'long', type: 'div'})
+                            //清除本地缓存
+                            for (var i = 0; i < itemName.length; i++) {
+                                plus.storage.removeItem(itemName[i])
+                            }
                             upload_img(img.war_id)
                         } else {
                             mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
@@ -451,9 +459,18 @@
                 var url = this.pdfurl;
                 console.log(url)
                 if (url) {
-                    showPopu("../pdf-modal.html", "pdf_modal", 'center', {
-                        pdf: url
-                    });
+                    mui.openWindow({
+		                url: '../pdf-modal.html',
+		                id: 'pdf_modal',
+		                show: animateObj.aniDetal,
+		                extras: {
+			    			pdf:url,
+			    			name:this.main_insurance.name
+			    		},
+			    		waiting:{
+			    			auto:false,
+			    		}
+		            });
                 } else {
                     mui.toast('暂无条款详情', {duration: 'short', type: 'div'});
                     return false;

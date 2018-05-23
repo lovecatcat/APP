@@ -124,14 +124,14 @@
             
             document.getElementById('Js-nav').style.opacity = 1;
             
-            window.addEventListener('isStopTunnel', function(data){
+            /*window.addEventListener('isStopTunnel', function(data){
             	if(Tunnel._webSocket && data.flag){
                 	Tunnel._isStop = false;
                 	Tunnel._webSocket.close();
                 };		
             }, false);
  
-		    /*plus.geolocation.watchPosition(function(p){
+		    plus.geolocation.watchPosition(function(p){
 		    	locationd = p;	
 		    }, function(e){
 				//console.log('无法获取当前位置');

@@ -1170,6 +1170,25 @@
                 mui.toast('请先点击计算主险的年交保费', {duration: 'short', type: 'div'});
                 return false
             }
+            // 附加险
+            var addonIns = []
+            var countAddon = 0 // 险种个数
+            for (var k in safe.addonsSelected) {
+                if (safe.addonsSelected[k] === true) {
+                    var name = safe.Addons[k].name
+                    countAddon += 1
+                    if (safe.checkAddonsForm(k)) {
+                        if (!safe.addonIns[k].period_money) {
+                            mui.toast('请计算【' + name + '】的年缴保费', {duration: 'short', type: 'div'});
+                            return false
+                        }
+                        addonIns.push(safe.addonIns[k])
+                    } else {
+                        return false
+                    }
+                }
+            }
+            //
             var insurances = []
             insurances.push(safe.insurance);
             safe.addonIns && mui.each(safe.addonIns, function (index, item) {

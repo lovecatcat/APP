@@ -251,11 +251,21 @@
 //									popu.closepop();
 									var url = res.data.statement
 //									alert(url)
-									console.log(url)
+									console.log(JSON.stringify(res.data))
 									if (url) {
-									    showPopu("pdf-modal.html", "pdf_modal", 'center', {
-									        pdf: config.domain +  url
-									    });
+									    mui.openWindow({
+							                url: 'pdf-modal.html',
+							                id: 'pdf_modal',
+							                show: animateObj.aniDetal,
+							                extras: {
+								    			pdf:config.domain +  url,
+								    			name:res.data.product_name
+								    		},
+								    		waiting:{
+								    			auto:false,
+								    		}
+							            });
+									    
 									} else {
 									    mui.toast('暂无条款详情', {duration: 'short', type: 'div'})
 									    return false;

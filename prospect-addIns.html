@@ -56,7 +56,8 @@
 								&& insurance.safe_id !== 'P005'
 								&& insurance.safe_id !== '8111' 
 								&& insurance.safe_id !== 'LE234'
-								&& insurance.safe_id !== '1016'">
+								&& insurance.safe_id !== '1016'
+								&& insurance.safe_id !== '1013'">
 							<input slot="input" v-model.number.lazy="insurance.money" type="number" placeholder="请填写基本保险金额（元）" @change="resetFee()">
 							<div slot="icon" @click="insurance.money = ''" v-show="insurance.money != ''" class="form-clear-icon">
 								<span class="mui-icon mui-icon-clear"></span>
@@ -65,7 +66,9 @@
 						<template v-else-if="insurance.safe_id == '1016'">
 							<!--招商仁和仁医保费用补偿医疗保险-->
 							<app-select label="有无社保">
-								<button slot="button" v-for="num in ['1', '2']" class="ins-btn xs-btn" :class="{'blue': num == flag[insurance.safe_id]}" :disabled="num == flag[insurance.safe_id]" @click="flagChanged(insurance.safe_id, num)">
+								<button slot="button" v-for="num in ['1', '2']" class="ins-btn xs-btn" 
+									:class="{'blue': num == flag[insurance.safe_id]}" 
+									:disabled="num == flag[insurance.safe_id]" @click="flagChanged(insurance.safe_id, num)">
 						             	{{num == '1' ? '有社保': '无社保'}}
 						        </button>
 							</app-select>
@@ -75,10 +78,31 @@
 						        </button>
 							</app-select>
 						</template>
+						<template v-else-if="insurance.safe_id == '1013'">
+							<!--招商仁和仁安无忧意外伤害保险-->
+							<app-select label="职业分类">
+								<button slot="button" v-for="num in 6" 
+									class="ins-btn xs-btn" 
+									:class="{'blue': num == flag[insurance.safe_id]}" 
+									:disabled="num == flag[insurance.safe_id]" @click="flagChanged(insurance.safe_id, num)">
+					             	{{num}}类
+					        </button>
+					        </app-select>
+							<app-input label="基本保额">
+								<input slot="input" v-model.number.lazy="insurance.money" type="number" placeholder="请填写基本保险金额（元）" @change="resetFee()">
+								<div slot="icon" @click="insurance.money = ''" v-show="insurance.money != ''" class="form-clear-icon">
+									<span class="mui-icon mui-icon-clear"></span>
+								</div>
+							</app-input>
+						</template>
 						<template v-else>
 							<!--千万护航LE234，康运金生8111，e生保P005，安联-->
 							<app-select label="基本保额" v-if="prospectus_types.length > 0">
-								<button slot="button" class="ins-btn xs-btn" :class="{'blue':item.value===prospectus_type}" :disabled="item.value===prospectus_type" v-for="(item,index) in prospectus_types" @click="prospectus_type=item.value , insurance.money=item.value, resetFee()">
+								<button slot="button" class="ins-btn xs-btn" 
+									:class="{'blue':item.value===prospectus_type}" 
+									:disabled="item.value===prospectus_type" 
+									v-for="(item,index) in prospectus_types" 
+									@click="prospectus_type=item.value , insurance.money=item.value, resetFee()">
 						            {{item.name}}
 						        </button>
 							</app-select>
@@ -827,7 +851,7 @@
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs" v-if="addonRes['LA078']">
-										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{Number(insurance.period_money) + Number(addonRes['LA078']['年缴保费'])}}</span>
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{(Number(insurance.period_money) + Number(addonRes['LA078']['年缴保费'])).toFixed(2)}}</span>
 										<div class="am-ft-orange"></div>
 									</li>
 									<li class="ins-font-xs" v-else>
@@ -1444,15 +1468,15 @@
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs" v-if="addonRes['PFR']&&addonRes['CKRA']">
-										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money + addonRes['PFR']['年缴保费']+ addonRes['CKRA']['年缴保费']}}</span>
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{(insurance.period_money + addonRes['PFR']['年缴保费']+ addonRes['CKRA']['年缴保费']).toFixed(2)}}</span>
 										<div class="am-ft-orange"></div>
 									</li>
 									<li class="ins-font-xs" v-else-if="addonRes['PFR']">
-										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money + addonRes['PFR']['年缴保费']}}</span>
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{(insurance.period_money + addonRes['PFR']['年缴保费']).toFixed(2)}}</span>
 										<div class="am-ft-orange"></div>
 									</li>
 									<li class="ins-font-xs" v-else-if="addonRes['CKRA']">
-										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money + addonRes['CKRA']['年缴保费']}}</span>
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{(insurance.period_money + addonRes['CKRA']['年缴保费']).toFixed(2)}}</span>
 										<div class="am-ft-orange"></div>
 									</li>
 									<li class="ins-font-xs" v-else>
@@ -1523,7 +1547,7 @@
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs" v-if="addonRes['FJKLYSQZ']">
-										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{Number(insurance.period_money) + Number(addonRes['FJKLYSQZ']['年缴保费'])}}</span>
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{(Number(insurance.period_money) + Number(addonRes['FJKLYSQZ']['年缴保费'])).toFixed(2)}}</span>
 										<div class="am-ft-orange"></div>
 									</li>
 									<li class="ins-font-xs" v-else>
@@ -1615,7 +1639,7 @@
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs" v-if="addonRes['1003']">
-										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{Number(insurance.period_money) + Number(addonRes['1003']['年缴保费'])}}</span>
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{(Number(insurance.period_money) + Number(addonRes['1003']['年缴保费'])).toFixed(2)}}</span>
 										<div class="am-ft-orange"></div>
 									</li>
 									<li class="ins-font-xs" v-else>
@@ -1646,7 +1670,7 @@
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs" v-if="addonRes['1003']">
-										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{Number(insurance.period_money) + Number(addonRes['1003']['年缴保费'])}}</span>
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{(Number(insurance.period_money) + Number(addonRes['1003']['年缴保费'])).toFixed(2)}}</span>
 										<div class="am-ft-orange"></div>
 									</li>
 									<li class="ins-font-xs" v-else>
@@ -1707,47 +1731,6 @@
 							</div>
 						</template>
 						<!--附加爱倍护养老年金保险-->
-						<!--招商仁和仁安无忧意外伤害保险-->
-						<template v-if="item.code === '1013' && addonsSelected[item.code]">
-							<div class="form-wrap form-bgc-eee">
-								<app-input label="保险金额">
-									<input slot="input" v-model.number="cache.base_money1013" type="number" placeholder="请填写保险金额（元）" @change="flagChanged(item.code)">
-									<div slot="icon" @click="cache.base_money1013 = '' , flagChanged(item.code)" v-show="cache.base_money1013 != ''" class="form-clear-icon">
-										<span class="mui-icon mui-icon-clear"></span>
-									</div>
-								</app-input>
-
-								<app-select label="职业分类">
-									<button slot="button" v-for="num in 6" class="ins-btn xs-btn" :class="{'blue': num == flag[item.code]}" :disabled="num == flag[item.code]" @click="flagChanged(item.code, num)">
-						             	{{num}}类
-						        </button>
-								</app-select>
-								<app-select label="缴费年限(年)">
-									<button slot="button" class="ins-btn xs-btn blue">
-						             	1年
-						        	</button>
-								</app-select>
-								<app-select label="保险期间(年)">
-									<button slot="button" class="ins-btn xs-btn blue">
-						             	1年
-						        	</button>
-								</app-select>
-								<div class="input-item">
-									<label class="">年缴保费(元)</label>
-									<div class="BL-ub BL-ub-pj BL-ub-f1">
-										<div class="input-wrap BL-ub-f1">
-											<div class="input BL-bg-fff">
-												<span v-if="addonRes[item.code]">
-							{{addonRes[item.code]['年缴保费']}}
-						</span>&nbsp;
-											</div>
-										</div>
-										<div class="right-btn orange" @click="calMoney(false, item.code)">点击计算</div>
-									</div>
-								</div>
-							</div>
-						</template>
-						<!--招商仁和仁安无忧意外伤害保险-->
 						<!--招商仁和附加意外门急诊医疗-->
 						<template v-if="item.code === '1015' && addonsSelected[item.code]">
 							<div class="form-wrap form-bgc-eee">
@@ -1967,7 +1950,6 @@
 					base_moneyAMR: '',
 					base_moneyTLR: '',
 					base_money1003: '',
-					base_money1013: '',
 					base_money1015: '',
 					base_money1017: '',
 				},

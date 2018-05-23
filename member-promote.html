@@ -52,7 +52,7 @@
 					            </div>
 					        </li>
 					        <li class="fItem BL-ub BL-ub-f1" v-for="(item,index) in list" :key="index" v-if="list">
-					            <a class="mui-navigate-right form-list-label BL-ub-f1 BL-ub-f1" :data-url="item.insured_rule">
+					            <a class="mui-navigate-right form-list-label BL-ub-f1 BL-ub-f1" :data-name="item.product_name" :data-url="item.insured_rule">
 					        		<div class="BL-ftz-52 BL-ellipsis BL-pad-r-2">
 					        			{{ item.product_name }}
 					        		</div>
@@ -183,13 +183,21 @@
 	    
 	    //列表点击事件查看pdf
 	    mui('body').on('tap', '.mui-navigate-right', function (e) {
-	    	var pdf_url = this.getAttribute('data-url')
-	    	var data = {};
+	    	var pdf_url = this.getAttribute('data-url');
+	    	var pdf_name = this.getAttribute('data-name');
 	    	if (pdf_url) {
-	    		data = {
-					pdf: pdf_url
-				}
-				showPopu("pdf-modal.html", "pdf_modal", 'center',data);
+	    		mui.openWindow({
+	                url: 'pdf-modal.html',
+	                id: 'pdf_modal',
+	                show: animateObj.aniDetal,
+	                extras: {
+		    			pdf:pdf_url,
+		    			name:pdf_name
+		    		},
+		    		waiting:{
+		    			auto:false,
+		    		}
+	            });
 	    	} else {
 	    		mui.toast('暂无投保规则pdf可查看', {duration: 'short', type: 'div'})
 	    		return false

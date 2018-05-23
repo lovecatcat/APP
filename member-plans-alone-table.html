@@ -446,15 +446,15 @@
                 tbnj;
 			mui.each(modal.mainDescribes, function(index,item){
 				if(item.title == '被保险人年龄'){
-					modal.nl = index
+					modal.nl = Number(index)
 				}
 				if(item.title == '年缴保费' || item.title == '年缴保费(元)'){
-					modal.njbf = index
+					modal.njbf = Number(index)
 				}
 				if(modal.formID == '370'){
-					njy = item.title == '年金' ? index : njy
-					nje = item.title == '年金' ? index : nje
-					tbnj = item.title == '特别年金' ? index : tbnj
+					njy = item.title == '年金' ? Number(index) : Number(njy)
+					nje = item.title == '年金' ? Number(index) : Number(nje)
+					tbnj = item.title == '特别年金' ? Number(index) : Number(tbnj)
 					
 				}
 			})

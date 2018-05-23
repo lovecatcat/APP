@@ -2262,7 +2262,7 @@ var methods = {
 			data.flag = 0
 		} else if(safeid === 'JER') {
 			data.pay_year = this.mainPayYear
-			data.safe_year = this.mainPayYear
+			data.safe_year = 0
 			if(this.addonRes['PFR'] && this.addonRes['CKRA']) {
 				data.base_money = periodMoney + this.addonRes['PFR']['年缴保费'] + this.addonRes['CKRA']['年缴保费']
 			} else if(this.addonRes['PFR']) {

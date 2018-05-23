@@ -246,4 +246,4 @@
     background-color: #4cd964;
 }
 .mui-radio input[type='radio']:checked:before, .mui-checkbox input[type='checkbox']:checked:before{color: #3B9CF5}
-input[type='button']:disabled, input[type='button'].mui-disabled, input[type='submit']:disabled, input[type='submit'].mui-disabled, input[type='reset']:disabled, input[type='reset'].mui-disabled, button:disabled, button.mui-disabled, .mui-btn:disabled, .mui-btn.mui-disabled{opacity: 1}
+input[type='text']:disabled,input[type='button']:disabled, input[type='button'].mui-disabled, input[type='submit']:disabled, input[type='submit'].mui-disabled, input[type='reset']:disabled, input[type='reset'].mui-disabled, button:disabled, button.mui-disabled, .mui-btn:disabled, .mui-btn.mui-disabled{opacity: 1}

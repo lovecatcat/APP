@@ -134,6 +134,16 @@
                     </div>
                 </div>
                 <div class="input-item">
+                    <label class="">工作单位</label>
+                    <div class="input-wrap box-f-1">
+                        <input type="text" v-model.trim="applicant.holder_company" placeholder="请输入">
+                        <div class="form-clear-icon" v-show="applicant.holder_company!=''"
+                             @click="applicant.holder_company=''">
+                            <span class="mui-icon mui-icon-clear"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-item">
                     <label class="">年收入(万元)</label>
                     <div class="input-wrap box-f-1">
                         <input type="number" v-model.trim="applicant.holder_salary_avg"
@@ -296,6 +306,7 @@
                     holder_weight: '',//体重
                     holder_nation: '',//国籍
                     holder_nation_name: '中国',//国籍
+                    holder_company: '',//工作单位
                     holder_salary_from: '',//收入来源
                     holder_salary_from_name: '请选择',//收入来源名
                     holder_salary_avg: '',//年收入

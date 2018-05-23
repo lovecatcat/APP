@@ -547,6 +547,11 @@
 	left: 15%;
 	border-radius: 1rem;
 }
+.BL-modal-w80{
+	width: 80%;
+	left: 10%;
+	border-radius: 1rem;
+}
 .BL-modal-content {
 	font-size: 1.625rem;	
 	/*margin-bottom: .5rem;*/

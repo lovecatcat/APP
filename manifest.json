@@ -3105,7 +3105,9 @@
 					"images/rank/rank-body.png",
 					"images/rank/rank-header.png"
 				],
-				"refer": [],
+				"refer": [
+					"popup-content.html"
+				],
 				"priority": 0
 			},
 			"prospect-addIns.html": {

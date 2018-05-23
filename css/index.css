@@ -226,7 +226,7 @@ insure-group
 .rank-body {
 	width: 100%;
 	min-height: 40rem;
-	margin: -.5rem auto 0rem auto;
+	margin: -2rem auto 0rem auto;
 	padding-bottom: 2rem;
 	position: relative;
 }
@@ -268,6 +268,7 @@ insure-group
 }
 .rank-list .list span {
 	padding: .5rem 0rem;
+	line-height: 3.3125rem;
 }
 .rank-list .list li{
 	background: #EED9FF;
@@ -336,9 +337,10 @@ insure-group
 	margin-right: .5rem;
 }
 .ico-rank {
-	display: inline-block;
+	display: block;
 	width: 2.5rem;
 	height: 3.3125rem;
+	margin: 0 auto;
 }
 .ico-rank-first {
 	background-image: url(../images/rank/rank-first.png);

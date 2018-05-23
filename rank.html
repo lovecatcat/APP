@@ -18,6 +18,9 @@
                 <div class="mui-icon-left-nav BL-icon BL-icon-left" style="color: rgba(255,255,255,1)"></div>
             </a>
             <h1 class="BL-title" style="color: rgba(0,0,0,0)">荣誉体系</h1>
+            <div class="control">
+                <a class="BL-icon-txt" style="color: rgba(255,255,255,1)">说明</a>
+            </div>
         </div>
 	</header>
 	<div id="Js-content" class="mui-content" style="padding-top: 0;">
@@ -32,7 +35,7 @@
             <div class="mui-scroll-wrapper">
                 <div class="mui-scroll rank-skin">
                     <div class="rank-header">
-                        <img class="BL-mar-b-1" src="images/rank/trophy.png"/>
+                        <img src="images/rank/trophy.png"/>
                         <div class="rank-explain mui-row">
                             <span class="mui-col-sm-4 BL-txt-l">统计时间：本月</span>
                             <span class="mui-col-sm-8 BL-txt-r">以下数据每小时更新一次</span>
@@ -53,11 +56,12 @@
                                 </li>
                                 <li v-if="person_sale.length > 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in person_sale">
                                     <span class="mui-col-sm-2">
-                                        <i class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }">{{ index + 1 }}</i>
+                                        <i v-if="index==0 || index==1 || index==2" class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }"></i>
+                                        <template v-else>{{ index + 1 }}</template>
                                     </span>
                                     <span class="mui-col-sm-4">{{ item.dept_name }}</span>
                                     <span class="mui-col-sm-2">{{ item.user_name }}</span>
-                                    <span class="mui-col-sm-4">{{ item.fee }}</span>
+                                    <span class="mui-col-sm-4">{{ item.std_premium }}</span>
                                 </li>
                                 <li v-if="person_sale.length == 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac">
                                     <span class="mui-col-sm-12 BL-txt-c">暂无数据</span>
@@ -72,10 +76,11 @@
                                 </li>
                                 <li v-if="dept_sale.length > 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in dept_sale">
                                     <span class="mui-col-sm-2">
-                                        <i class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }">{{ index + 1 }}</i>
+                                        <i v-if="index==0 || index==1 || index==2" class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }"></i>
+                                        <template v-else>{{ index + 1 }}</template>
                                     </span>
                                     <span class="mui-col-sm-5">{{ item.dept_name }}</span>
-                                    <span class="mui-col-sm-5">{{ item.fee }}</span>
+                                    <span class="mui-col-sm-5">{{ item.std_premium }}</span>
                                 </li>
                                 <li v-if="dept_sale.length == 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac">
                                     <span class="mui-col-sm-12 BL-txt-c">暂无数据</span>
@@ -91,7 +96,8 @@
                                 </li>
                                 <li v-if="person_add.length > 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in person_add">
                                     <span class="mui-col-sm-2">
-                                        <i class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }">{{ index + 1 }}</i>
+                                        <i v-if="index==0 || index==1 || index==2" class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }"></i>
+                                        <template v-else>{{ index + 1 }}</template>
                                     </span>
                                     <span class="mui-col-sm-4">{{ item.dept_name }}</span>
                                     <span class="mui-col-sm-2">{{ item.user_name }}</span>
@@ -111,11 +117,12 @@
                                 </li>
                                 <li v-if="piece_num.length > 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac" v-for="(item,index) in piece_num">
                                     <span class="mui-col-sm-2">
-                                        <i class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }">{{ index + 1 }}</i>
+                                        <i v-if="index==0 || index==1 || index==2" class="ico-rank BL-bimg-cover" :class="{'ico-rank-first': index==0, 'ico-rank-second': index==1, 'ico-rank-three': index==2 }"></i>
+                                        <template v-else>{{ index + 1 }}</template>
                                     </span>
                                     <span class="mui-col-sm-4">{{ item.dept_name }}</span>
                                     <span class="mui-col-sm-2">{{ item.user_name }}</span>
-                                    <span class="mui-col-sm-4">{{ item.fee }}</span>
+                                    <span class="mui-col-sm-4">{{ item.std_premium }}</span>
                                 </li>
                                 <li v-if="piece_num.length == 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac">
                                     <span class="mui-col-sm-12 BL-txt-c">暂无数据</span>
@@ -140,7 +147,7 @@
             flag: 0,
             show: false,
             flagArr: ['精英榜','明星机构榜','增员排行榜','件数排行榜'],
-            person_sale: null,   // 精英榜
+            person_sale: null, // 精英榜
             dept_sale: null,  // 明星机构榜
             person_add: null,
             piece_num: null,
@@ -197,17 +204,31 @@
         document.querySelector("#Js-content").addEventListener('scroll', function (e) {
             var y = Math.abs(e.detail.y) * 0.01;
             document.querySelector('#Js-header').style.background = "rgba(255,255,255," + y + ")";
-            document.querySelector('.BL-title').style.color = "rgba(0,0,0," + y + ")";
+            document.querySelector('.BL-title').style.color = "rgba(51,51,51," + y + ")";
             if (e.detail.y >= 0) {
                 document.querySelector('.ico-back-bg').style.background = "rgba(0,0,0,.3)";
                 document.querySelector('.BL-icon').style.color = "rgba(255,255,255,1)";
+                document.querySelector('.BL-icon-txt').style.color = "rgba(255,255,255,1)";
             } else {
                 document.querySelector('.ico-back-bg').style.background = "rgba(0,0,0,0)";
-                document.querySelector('.BL-icon').style.color = "rgba(0,0,0,1)";
+                document.querySelector('.BL-icon').style.color = "rgba(102,102,102,1)";
+                document.querySelector('.BL-icon-txt').style.color = "rgba(0,122,255,1)";
             }
         });
 
         rank.getRank()
+        
+        // 说明查看事件
+		mui('#Js-header').on('tap','.BL-icon-txt', function(e){
+			var tax_id = this.getAttribute('data-tax')
+			var data = {
+				modalID : 'modal-rank',
+				formID : 'rank',
+				goIns_data: ""
+	    	} 
+            // 打开遮罩层，弹框
+            showPopu("popup-content.html", "popup_content", "top", data);
+		});
     })
 </script>
 

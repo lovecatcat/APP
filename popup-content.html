@@ -37,7 +37,7 @@
 				</div>
 			</div>
 			<!-- 业绩表格(雨晴)-->
-			<div id="modal-table-performance" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table-performance'}" v-if="goIns_data">
+			<div id="modal-table-performance" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table-performance'}" v-if="goIns_data && isHide == 'modal-table-performance'">
 				<div class="BL-modal-content BL-modal-tab">
 					<div class="BL-title">
 						{{ goIns_data.rank_name }}
@@ -52,7 +52,7 @@
 									</th>
 									<th width="40%">
 										<div>承保标保</div>
-										<div>{{ goIns_data.fee =="" ? 0 : goIns_data.fee }}元</div>
+										<div>{{ goIns_data.std_premium =="" ? 0 : goIns_data.std_premium }}元</div>
 									</th>
 									<th width="20%">出单件数</th>
 								</tr>
@@ -64,7 +64,7 @@
 									<template v-if="goIns_data.details">
 										<tr v-for="(item,index) in goIns_data.details" :key="index">
 											<td class="BL-txt-l" width="40%">{{ index+1 }}.{{ item.name }}</td>
-											<td width="40%">标保 <span class="BL-col-3b9cf5">{{ item.fee }}</span>元</td>
+											<td width="40%">标保 <span class="BL-col-3b9cf5">{{ item.std_premium }}</span>元</td>
 											<td width="20%">{{ item.count }}件</td>
 										</tr>
 									</template>
@@ -80,7 +80,7 @@
 				</div>
 			</div>
 			<!-- 计划书表格(雨晴)-->
-			<div id="modal-table-prospect" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table-prospect'}" v-if="goIns_data">
+			<div id="modal-table-prospect" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table-prospect'}" v-if="goIns_data && isHide == 'modal-table-prospect'">
 				<div class="BL-modal-content BL-modal-tab">
 					<div class="BL-title">
 						{{ goIns_data.name }}
@@ -106,7 +106,7 @@
 							<table>
 								<tbody>
 									<template v-if="goIns_data.detail">
-										<tr v-for="(item,index) in goIns_data.detail" :key="index">
+										<tr v-for="(item,index) in goIns_data.detail">
 											<td class="BL-txt-l" width="40%">{{ index+1 }}.{{ item.product_name }}</td>
 											<td width="20%">{{ item.base_money }}</td>
 											<td width="20%">{{ item.fee }}</td>
@@ -157,7 +157,16 @@
 					</div>
 				</div>
 			</div>
-		</div>
+			<div id="modal-rank" class="BL-modal BL-modal-w80"  :class="{'BL-hide': isHide !== 'modal-rank'}">
+				<div class="BL-modal-content">
+					<div class="BL-txt-c BL-pad-tb-1_5">排行榜说明</div>
+					<div class="BL-pad-lr-1_25 BL-pad-b-2">
+						<p class="BL-ftz-46">1、业务数据以核心业务系统和当期承保数据为准；</p>
+						<p class="BL-ftz-46">2、若新增有效人数相同，所赠新人达成的标准保费高者优先排名；</p>
+						<p class="BL-ftz-46">3、本排行榜最终解释权归汇盟运营中心。</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>

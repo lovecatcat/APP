@@ -119,10 +119,21 @@
                 //用手机浏览器打开pdf
                 showStatement: function () {
                     var url = this.info.statement;
+                    console.log(JSON.stringify(this.info))
                     if (url) {
-                        showPopu("pdf-modal.html", "pdf_modal", 'center', {
-                            pdf: url
-                        });
+                        mui.openWindow({
+			                url: 'pdf-modal.html',
+			                id: 'pdf_modal',
+			                show: animateObj.aniDetal,
+			                extras: {
+				    			pdf:url,
+				    			name:this.info.product_name
+				    		},
+				    		waiting:{
+				    			auto:false,
+				    		}
+			            });
+                        
                     } else {
                         mui.toast('暂无条款详情', {duration: 'short', type: 'div'})
                         return false;

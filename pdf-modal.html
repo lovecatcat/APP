@@ -8,139 +8,47 @@
 		<link href="css/common.css" rel="stylesheet" />
 		<link href="css/module.css" rel="stylesheet" />
 		<link href="css/member.css" rel="stylesheet" />
-		<script src="js/config.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/config.js"></script>
 	</head>
 
 	<body>
-		<div id="modal" v-cloak>
-			<div id="pdf">
-				<div class="BL-modal-pdf">
-					<i v-if="pdfDoc" class="BL-bimg-contain member-pdt-close" id="close-ins-pop"></i>
-					<div class="pdf-body" id="pdf-body">
-						<canvas id="the-canvas" style="min-width:100%; min-height: 100%;"></canvas>
-					</div>
-					<div class="pdf-foot BL-mar-t-1" v-if="pdfDoc">
-						<button class="BL-mar-r-1" @click="onPrevPage" :disabled="!(pageNum>1)">上一页</button>
-						<button class="BL-mar-l-1" @click="onNextPage" :disabled="!(pageNum<pdfDoc.numPages)">下一页</button>
-					</div>
-					<i class="member-pdt-tool BL-bimg-contain member-pdt-enlarge" style="bottom: 13rem;" @click="big" v-if="pdfDoc"></i>
-					<i class="member-pdt-tool BL-bimg-contain member-pdt-narrow" @click="small" v-if="pdfDoc"></i>
-				</div>
-			</div>
-		</div>
+		<header id="Js-header" class="BL-bg-fff">
+	        <div class="BL-mod-headbar BL-mod-headbar-pos">
+	            <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+	            <h1 id="Js-name" class="BL-title">&nbsp;</h1>
+	            <!--<a class="BL-icon BL-icon-share"></a>-->
+	        </div>
+	   </header>
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
-	<script src="js/vue.min.js" type="text/javascript"></script>
 	<script src="js/pdf.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		mui.init();
-		var promote = new Vue({
-			el: '#modal',
-			data: {
-				pdfDoc: null,
-      			pageNum: 1,
-			    pageRendering: false,
-			    pageNumPending: null,
-			    scale: 1
-			},
-			methods: {
-				big: function () {
-					this.scale = this.scale + .3
-					this.renderPage(this.pageNum)
-				},
-				small: function () {
-					this.scale = this.scale - .3
-					this.renderPage(this.pageNum)
-				},
-			    showPDF: function(url) {
-			      var _this = this
-			      PDFJS.getDocument(url).then(function (pdf) {
-			        _this.pdfDoc = pdf
-			        _this.renderPage(1)
-			      })
-			    },
-			    renderPage: function (num) {
-			      this.pageRendering = true
-			      var _this = this
-			      this.pdfDoc.getPage(num).then(function (page) {
-			        var viewport = page.getViewport(_this.scale)
-			        var canvas = document.getElementById('the-canvas')
-			        canvas.height = viewport.height
-			        canvas.width = viewport.width
-			 
-			        // Render PDF page into canvas context
-			        var renderContext = {
-			          canvasContext: canvas.getContext('2d'),
-			          viewport: viewport
-			        }
-			        var renderTask = page.render(renderContext)
-			 
-			        // Wait for rendering to finish
-			        renderTask.promise.then(function () {
-			          _this.pageRendering = false
-			          if (_this.pageNumPending !== null) {
-			            // New page rendering is pending
-			            this.renderPage(_this.pageNumPending)
-			            _this.pageNumPending = null
-			          }
-			        })
-
-			        plus.nativeUI.closeWaiting();
-			      })
-			    },
-			    queueRenderPage: function (num) {
-			      if (this.pageRendering) {
-			        this.pageNumPending = num
-			      } else {
-			        this.renderPage(num)
-			      }
-			    },
-			    onPrevPage: function () {
-			      if (this.pageNum <= 1) {
-			        return
-			      }
-			      this.pageNum--
-			      this.queueRenderPage(this.pageNum)
-			    },
-			    onNextPage: function () {
-			      if (this.pageNum >= this.pdfDoc.numPages) {
-			        return
-			      }
-			      this.pageNum++
-			      this.queueRenderPage(this.pageNum)
-			    }
-  			}
-		});
 		
 		(function($){
 			// 设置内容区域
 			$.plusReady(function() {
-				popu = new ClosePopu();
-				 // 实例化关闭窗口对象
-				var data = plus.webview.currentWebview().data;
+				statusbar();
 				
-				var container = document.getElementById("pdf");
-				container.style.display = "block";
-				plus.nativeUI.showWaiting();
-//				data.pdf_url = 'images/a.pdf';
-				PDFJS.workerSrc = 'js/pdf.worker.js';
-				promote.showPDF(data.pdf)
+				var titHeight = document.querySelector('#Js-header').offsetHeight / sizeObj.dpl;
+				var name = plus.webview.currentWebview().name;
+				document.getElementById('Js-name').innerText = name.length > 10 ? name.substring(0, 10) + '...' : name;
 				
+				mui.openWindow({
+	                url: 'pdf-modal-content.html',
+	                id: 'pdf_modal_content',
+	                show: animateObj.aniDetal,
+	                styles:{
+	                	top:titHeight + 'px',
+	                },
+	                extras: {
+		    			pdf:plus.webview.currentWebview().pdf,	
+		    		},
+		    		waiting:{
+		    			autoShow:false,
+		    		}
+	           });
 				
-				mui('body').on('tap', '#close-ins-pop', function () {
-		            // 关闭遮罩层，弹框
-		            popu.closepop();
-		        });
-		        
-		        // 点击关闭遮罩层，弹框
-				mui('body').on('tap', '#maskInit', function(){
-					// 关闭遮罩层，弹框
-					popu.closepop();
-				},false);
-
-		        plus.key.addEventListener("backbutton",function(){
-					popu.closepop();
-				});
 			});	
 		}(mui));
 	</script>

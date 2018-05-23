@@ -451,9 +451,18 @@
                 var url = this.pdfurl;
                 console.log(url)
                 if (url) {
-                    showPopu("../pdf-modal.html", "pdf_modal", 'center', {
-                        pdf: url
-                    });
+                    mui.openWindow({
+		                url: '../pdf-modal.html',
+		                id: 'pdf_modal',
+		                show: animateObj.aniDetal,
+		                extras: {
+			    			pdf:url,
+			    			name:this.main_insurance.name
+			    		},
+			    		waiting:{
+			    			auto:false,
+			    		}
+		            });
                 } else {
                     mui.toast('暂无条款详情', {duration: 'short', type: 'div'});
                     return false;

@@ -36,7 +36,7 @@
 				<div class="BL-ub BL-rel BL-bg-fff BL-pad-lr-1_5 BL-pad-tb-1 input-item BL-border-b" style="margin: 1rem 0 0 0;">
 					<label>计划名称</label>
 					<div class="input-wrap input-wrap-planName box-f-1">
-						<input v-model.trim="alias" type="text" placeholder="请输入"  @focus="hideKeyboard" @blur="showKeyboard">
+						<input v-model.trim="alias" type="text" placeholder="请输入(选填)"  @focus="hideKeyboard" @blur="showKeyboard">
 						<div class="form-clear-icon" v-show="alias != ''">
 							<span class="mui-icon mui-icon-clear" @click="alias = '' "></span>
 						</div>
@@ -113,7 +113,7 @@
 							<div class="input-wrap box-f-1 BL-mar-l-1">
 								<input v-model.number.trim="assu.age" @change="checkAge(assu.age, '被保人')" @focus="hideKeyboard" @blur="assu.birthday = '', showKeyboard()" type="number" placeholder="输入年龄">
 								<div class="form-clear-icon" v-show="assu.age != ''">
-									<span class="mui-icon mui-icon-clear" @tap="assu.age = '' "></span>
+									<span class="mui-icon mui-icon-clear" @tap="assu.age = '' , assu.birthday = ''"></span>
 								</div>
 							</div>
 						</div>
@@ -583,6 +583,7 @@
 							}
 							for(var k in item.addon) {
 								if(!item.addon[k]) continue
+								item.addon[k].alias = prospect.alias
 								item.addon[k].is_save = 1
 								item.addon[k].warranty_year = 105
 								item.addon[k].need_packet = 1
@@ -601,7 +602,6 @@
 						mui.toast('请先完成一个方案')
 						return false;
 					}
-
 					luckyAjax({
 						data: {
 							server: 'Proposal.add',
@@ -855,7 +855,7 @@
 				}
 
 				if(prospect.editIndex != null) {
-					ins.splice(index1, 1)
+					ins.splice(prospect.editIndex, 1)
 					prospect.$delete(prospect.planList[id], prospect.editIndex)
 					prospect.editIndex = null
 

@@ -2,6 +2,7 @@ var SCID = '8' //平安
 
 var ISASSURED = 'LAC0008'; //被保人是本人
 var COUPLE = 'LAC0009';//投被保人为配偶
+var OTHER = 'LAC0010'; //其他关系
 var typename = {'LAA0006': '身份证', 'LAA0013': '户口本', 'LAA0012': '出生证','LAA0011':'驾驶证','LAA0009':'少儿证','LAA0010':'港澳台回乡证','LAA0007':'护照','LAA0008':'军人证'}
 var IDNO = ['LAA0006', 'LAA0013','LAA0011','LAA0009']; //身份证、户口本、驾驶证、少儿证
 var BOOKLET = 'LAA0013'; //户口本
@@ -63,7 +64,7 @@ var checkName = function(owner, name) {
     }
 
     if (toast_text) {
-        mui.toast(toast_text, {duration: 'short', type: 'div'});
+        mui.toast(toast_text, {duration: 'long', type: 'div'});
         return false;
     }
     return true
@@ -80,7 +81,7 @@ var checkEmail = function (owner, email) {
         toast_text = '请输入' + owner + '正确格式的邮箱';
     }
     if (toast_text) {
-        mui.toast(toast_text, {duration: 'short', type: 'div'});
+        mui.toast(toast_text, {duration: 'long', type: 'div'});
         return false;
     }
     return true;
@@ -96,7 +97,7 @@ var checkPhone = function (owner, phone) {
         toast_text = '请输入' + owner + '正确的11位或13位手机号'
     }
     if (toast_text) {
-        mui.toast(toast_text, {duration: 'short', type: 'div'});
+        mui.toast(toast_text, {duration: 'long', type: 'div'});
         return false;
     }
     return true
@@ -174,16 +175,16 @@ var changeBirthday = function(owner,val) {
     console.log('changeBirthday'+owner+val)
     var age = getAge(val)
     if (!val) {
-        mui.toast('请选择' + owner + '的出生日期', {duration: 'short', type: 'div'});
+        mui.toast('请选择' + owner + '的出生日期', {duration: 'long', type: 'div'});
         return false
     }else if (owner === '投保人' && age < 16) {
-        mui.toast('投保人不能小于16周岁', {duration: 'short', type: 'div'});
+        mui.toast('投保人不能小于16周岁', {duration: 'long', type: 'div'});
         return false
     } else if (owner === '被保人' && age > 60) {
-        mui.toast('被保人不能大于60周岁', {duration: 'short', type: 'div'});
+        mui.toast('被保人不能大于60周岁', {duration: 'long', type: 'div'});
         return false
     } else if (owner === '被保人' && getDays(val) < 28) {
-        mui.toast('被保人不能小于28天', {duration: 'short', type: 'div'});
+        mui.toast('被保人不能小于28天', {duration: 'long', type: 'div'});
         return false
     }
     return true

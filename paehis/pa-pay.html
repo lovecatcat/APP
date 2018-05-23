@@ -89,13 +89,16 @@
                         console.log(JSON.stringify(res))
                         if (res.code) {
                             console.log('支付成功')
+                            mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
                             plus.webview.close('pa_pay');
                             plus.webview.close('pa_toinsure');
                             plus.webview.close('pa_question');
                             plus.webview.close('pa_insurance-index');
                             mui.oldBack();
+
                         } else {
                             console.log('支付失败')
+                            mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
                             plus.webview.close('pa_pay');
                             plus.webview.close('pa_toinsure');
                             plus.webview.close('pa_question');

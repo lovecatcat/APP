@@ -552,7 +552,7 @@
         document.querySelector('#address-select').addEventListener('tap', function () {
             document.activeElement.blur();
             cityPicker3.show(function (items) {
-                pae.ins_city = _getParam(items[0], 'value');
+                pae.ins_city = _getParam(items[1], 'value');
                 pae.address_select = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text');
             });
         }, false);

@@ -560,6 +560,7 @@
         document.querySelector('#ID_type0').addEventListener('tap', function () {
             document.activeElement.blur();
             idtype0.show(function (items) {
+                pae.applicant.holder_ID_no = ''
                 pae.applicant.holder_ID_type = items[0].value;
                 pae.applicant.holder_ID_type_name = items[0].text;
                 console.log(pae.applicant.holder_ID_type)
@@ -570,6 +571,7 @@
         document.querySelector('#ID_type1').addEventListener('tap', function () {
             document.activeElement.blur();
             idtype1.show(function (items) {
+                pae.assured.insured_ID_no = ''
                 pae.assured.insured_ID_type = items[0].value;
                 pae.assured.insured_ID_type_name = items[0].text;
                 pae.$forceUpdate();

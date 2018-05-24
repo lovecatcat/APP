@@ -1,16 +1,16 @@
-var config = {
-	baseUrl: 'https://www.luckyins.com/api/api/invoke',  //团队管理服务器路径
-	moduleURL: 'https://www.luckyins.com/api/api/',
-	link: 'https://www.luckyins.com/index/', // 外部链接路径[闪电增员、]
-	domain: 'https://www.luckyins.com'
-};
+//var config = {
+//	baseUrl: 'https://www.luckyins.com/api/api/invoke',  //团队管理服务器路径
+//	moduleURL: 'https://www.luckyins.com/api/api/',
+//	link: 'https://www.luckyins.com/index/', // 外部链接路径[闪电增员、]
+//	domain: 'https://www.luckyins.com'
+//};
 
-//  var config = {
-//      baseUrl: 'https://ts-www.luckyins.com/api/api/invoke',  //团队管理服务器路径
-//      moduleURL: 'https://ts-www.luckyins.com/api/api/',
-//      link: 'https://ts-www.luckyins.com/index/', // 外部链接路径[闪电增员、]
-//      domain: 'https://ts-www.luckyins.com'
-//  };
+    var config = {
+        baseUrl: 'https://ts-www.luckyins.com/api/api/invoke',  //团队管理服务器路径
+        moduleURL: 'https://ts-www.luckyins.com/api/api/',
+        link: 'https://ts-www.luckyins.com/index/', // 外部链接路径[闪电增员、]
+        domain: 'https://ts-www.luckyins.com'
+    };
 
 
 /**
@@ -179,7 +179,8 @@ function showPopu(url, id, type, data) {
 			data: data
 		}
 	);
-
+	
+	
 	switch(type){
 		case 'center':
 			move.ani = animateObj.aniConfirm.aniShow;
@@ -213,6 +214,7 @@ var ClosePopu = function() {
 };
 
 ClosePopu.prototype.savagery = function(){ // 关闭父窗口遮罩层
+	console.log(JSON.stringify(this.opener))
 	this.opener.setStyle({
 		mask: 'none'
 	});

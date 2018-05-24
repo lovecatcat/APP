@@ -381,8 +381,7 @@
 					"images/index/ico-6.png",
 					"images/index/ico-7.png",
 					"js/mui.pullToRefresh.js",
-					"js/mui.pullToRefresh.material.js",
-					"images/index/rank.jpg"
+					"js/mui.pullToRefresh.material.js"
 				],
 				"refer": [
 					"sns.html",
@@ -804,8 +803,7 @@
 					"member-tax-cal.html",
 					"member-life-order.html",
 					"member-promote.html",
-					"member-poster.html",
-					"member-requirement.html"
+					"member-poster.html"
 				],
 				"priority": 0
 			},
@@ -1860,7 +1858,8 @@
 					"quickly-filter.html",
 					"product-detail.html",
 					"product-contrast.html",
-					"hd_ins/insurance-index.html"
+					"hd_ins/insurance-index.html",
+					"paehis/pa-healthinfo.html"
 				],
 				"priority": 5
 			},
@@ -1985,8 +1984,7 @@
 					"images/plans/prospectus/16201.jpg",
 					"images/plans/prospectus/16213.jpg",
 					"images/plans/prospectus/16203.jpg",
-					"images/plans/plansIcon/icon-plans10.png",
-					"images/plans/prospectus/16204.jpg"
+					"images/plans/plansIcon/icon-plans10.png"
 				],
 				"priority": 2,
 				"refer": [
@@ -2140,8 +2138,7 @@
 					"images/plans/plansManage/297.png",
 					"images/plans/plansManage/290.png",
 					"images/plans/plansManage/8.png",
-					"images/plans/plansManage/302.png",
-					"images/plans/plansManage/16113.png"
+					"images/plans/plansManage/302.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -3181,11 +3178,19 @@
 				"refer": [],
 				"priority": 0
 			},
-			"member-requirement.html": {
-				"resources": [
-					"member-birthday-customer.html"
+			"paehis/pa-healthinfo.html": {
+				"resources": [],
+				"refer": [
+					"paehis/pa-question.html",
+					"paehis/pa-toinsure.html"
 				],
-				"refer": [],
+				"priority": 0
+			},
+			"paehis/pa-toinsure.html": {
+				"resources": [],
+				"refer": [
+					"paehis/pa-pay.html"
+				],
 				"priority": 0
 			}
 		},

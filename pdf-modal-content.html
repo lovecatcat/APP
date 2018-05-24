@@ -148,7 +148,10 @@
 					});
 			    };
 			    
-				
+				plus.key.addEventListener("backbutton",function(){
+					plus.webview.currentWebview().close();
+					plus.webview.getWebviewById('pdf_modal').close();	
+				});
 			});	
 		}(mui));
 	</script>

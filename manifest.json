@@ -803,7 +803,8 @@
 					"member-tax-cal.html",
 					"member-life-order.html",
 					"member-promote.html",
-					"member-poster.html"
+					"member-poster.html",
+					"member-requirement.html"
 				],
 				"priority": 0
 			},

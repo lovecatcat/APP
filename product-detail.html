@@ -42,6 +42,10 @@
                      v-if="info.company_id===19">
                     我要投保
                 </div>
+                <div class="BL-foot-btn-sign a-link" data-wid="pa_insurance-index" href="paehis/pa-healthinfo.html"
+                     v-else-if="info.company_id===8">
+                    我要投保
+                </div>
                 <div class="BL-foot-btn-sign" @tap="toastMsg" v-else>
                     我要投保
                 </div>

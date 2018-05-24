@@ -2950,7 +2950,8 @@
 				],
 				"refer": [
 					"member-warranty-manageLife-detail.html",
-					"hd_ins/insurance-index.html"
+					"hd_ins/insurance-index.html",
+					"paehis/pa-pay.html"
 				],
 				"priority": 0
 			},
@@ -3191,6 +3192,61 @@
 				"refer": [
 					"paehis/pa-pay.html"
 				],
+				"priority": 0
+			},
+			"paehis/pa-healthinfo.html": {
+				"resources": [
+					"css/mui.picker.min.css",
+					"css/mui.css",
+					"paehis/method.js",
+					"css/form.css"
+				],
+				"refer": [
+					"paehis/pa-toinsure.html"
+				],
+				"priority": 0
+			},
+			"paehis/pa-toinsure.html": {
+				"resources": [
+					"js/IDValidator.min.js",
+					"js/mui.poppicker.js",
+					"css/insurance.css",
+					"js/mui.js",
+					"js/city.data-3.js"
+				],
+				"refer": [
+					"communic.html",
+					"paehis/pa-statement.html",
+					"paehis/pa-clause.html",
+					"paehis/pa-pay.html"
+				],
+				"priority": 0
+			},
+			"paehis/pa-statement.html": {
+				"resources": [
+					"js/sha256.js",
+					"js/md5.js",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"paehis/pa-clause.html": {
+				"resources": [
+					"css/mui.picker.min.css",
+					"css/mui.css",
+					"css/form.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"paehis/pa-pay.html": {
+				"resources": [
+					"js/sha256.js",
+					"css/mui.css",
+					"paehis/method.js"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

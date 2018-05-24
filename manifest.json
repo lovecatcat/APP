@@ -804,7 +804,8 @@
 					"member-tax-cal.html",
 					"member-life-order.html",
 					"member-promote.html",
-					"member-poster.html"
+					"member-poster.html",
+					"member-requirement.html"
 				],
 				"priority": 0
 			},
@@ -3176,6 +3177,13 @@
 			"hd_ins/safe-notice.html": {
 				"resources": [
 					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-requirement.html": {
+				"resources": [
+					"member-birthday-customer.html"
 				],
 				"refer": [],
 				"priority": 0

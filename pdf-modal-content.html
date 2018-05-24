@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
-		<meta name="viewport" content="target-densitydpi=device-dpi, initial-scale=0.18, minimum-scale=0.18, maximum-scale=5, user-scalable=yes">
+		<meta name="viewport" content="target-densitydpi=device-dpi, initial-scale=0.2, minimum-scale=0.2, maximum-scale=5, user-scalable=yes">
 		<link href="css/mui.css" rel="stylesheet" />
 		<link href="css/common.css" rel="stylesheet" />
 		<link href="css/module.css" rel="stylesheet" />
@@ -26,32 +26,76 @@
 				
 				// 实例化关闭窗口对象
 				var url = plus.webview.currentWebview().pdf;
+				//var url = "_doc/pdf.pdf";
 				PDFJS.workerSrc = 'js/pdf.worker.js';
 				
-				// Asynchronous download of PDF
-				var loadingTask = PDFJS.getDocument(url);
-				loadingTask.promise.then(function(pdf) {
-				  	//console.log('Page loaded');
-				  	var id = '';
-            		var idTemplate = 'the-canvas-';
-            		var pageNum = pdf.numPages;
-				  	
-				  	creatCanvas(pageNum, idTemplate);
-				  	
-				  	// Fetch the first page
-				  	for(var i=1;i<=pageNum;i++){
-						id = idTemplate + i;
-						renderPDF(pdf, i, id);
-				  	};
-				}, function (reason) {
-				  	// PDF loading error
-				  	plus.nativeUI.closeWaiting();
-				  	mui.alert('PDF文件加载失败', '提示', '返回', function(){
-				  		plus.webview.currentWebview().close();
-				  		plus.webview.getWebviewById('pdf_modal').close();
-				  	})
-				});
+				if (!/\w\.pdf$/i.test(url)) {
+					mui.alert('PDF文件加载失败', '提示', '返回', function(){
+						plus.webview.currentWebview().close();
+						plus.webview.getWebviewById('pdf_modal').close();
+					});
+					return false;
+				};
 				
+				var startStr = url.lastIndexOf('/');
+				var lastStr = url.indexOf('.pdf');
+				var pdf_name = url.substring(startStr + 1,lastStr);
+				
+				plus.io.resolveLocalFileSystemURL("_doc/download/"+ pdf_name +".pdf", function (e) {
+			        e.remove(function () {
+			            console.log('删除成功')
+			        }, function () {
+			            console.log('删除失败')
+			        })
+			    }, function () {
+			        console.log('读取失败')
+			    })
+				
+				plus.downloader.createDownload(url, {filename: "_doc/download/"+ pdf_name +".pdf"}, function (d, status) {
+			        if (status == 200) {
+			            //console.log(d.filename);
+			            plus.io.resolveLocalFileSystemURL('_doc/download/', function(entry) {
+			            	var reader = entry.createReader();
+		                    reader.readEntries(function(subFiles) {
+		                        //console.log(subFiles[0].fullPath);
+			            		for(var i = 0, len = subFiles.length; i < len; i++) {
+		                            if(subFiles[i].fullPath.indexOf(pdf_name) > -1){
+		                            	
+										// Asynchronous download of PDF
+										var loadingTask = PDFJS.getDocument(subFiles[i].fullPath);
+										loadingTask.promise.then(function(pdf) {
+										  	console.log('Page loaded');
+										  	var id = '';
+						            		var idTemplate = 'the-canvas-';
+						            		var pageNum = pdf.numPages;
+										  	
+										  	creatCanvas(pageNum, idTemplate);
+										  	
+										  	// Fetch the first page
+										  	for(var i=1;i<=pageNum;i++){
+												id = idTemplate + i;
+												renderPDF(pdf, i, id);
+										  	};
+										}, function (reason) {
+										  	// PDF loading error
+										  	plus.nativeUI.closeWaiting();
+										  	mui.alert('PDF文件加载失败', '提示', '返回', function(){
+										  		plus.webview.currentWebview().close();
+										  		plus.webview.getWebviewById('pdf_modal').close();
+										  	})
+										});
+										
+										return false;
+		                            }
+		                        }
+						
+						    })
+			            })
+					} else {
+			            plus.nativeUI.toast('下载失败')
+			            console.log("下载wgt失败" + d.filename);
+			        }
+			    }).start();
 				
 				/**
 			     * 创建canvas容器插入body
@@ -80,7 +124,7 @@
 			     * @param canvasId
 			     */
 			    function renderPDF(pdf, num, canvasId){
-					var scale = 5;
+					var scale = 3;
 			    	pdf.getPage(num).then(function(page) {
 						    
 						    var viewport = page.getViewport(scale);
@@ -104,7 +148,10 @@
 					});
 			    };
 			    
-				
+				plus.key.addEventListener("backbutton",function(){
+					plus.webview.currentWebview().close();
+					plus.webview.getWebviewById('pdf_modal').close();	
+				});
 			});	
 		}(mui));
 	</script>

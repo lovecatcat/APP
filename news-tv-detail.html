@@ -29,10 +29,10 @@
 							{{newsTvDetail_data.title}}
 							</div>
 							<div class="date">
-								<span id="" style="padding-right: .5rem;">
+								<span style="padding-right: .5rem;">
 									{{newsTvDetail_data.create_time}} 
 								</span>
-								<span id="">
+								<span>
 									{{newsTvDetail_data.type_name}}
 								</span>
 							</div>
@@ -102,7 +102,7 @@
 				startY: 0, //初始化时滚动至y
 				indicators: false, //是否显示滚动条
 				deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
-				bounce: true //是否启用回弹
+				bounce: false //是否启用回弹
 			});
 
 			mui.plusReady(function() {

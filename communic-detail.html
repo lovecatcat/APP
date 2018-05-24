@@ -45,7 +45,7 @@
 				        </li>
 				        <li class="fItem BL-ub BL-ub-f1">
 				            <a href="javascript:;" class="BL-ub BL-ub-ac BL-ub-f1">
-				                <div class="form-list-label">身份证号</div>
+				                <div class="form-list-label">证件号码</div>
 				                <div id="Js-ID" class="form-list-control BL-txt-r BL-col-333"></div>
 				            </a>
 				        </li>
@@ -79,13 +79,15 @@
                 infomat.style.minHeight = (content.offsetHeight - topic.offsetHeight) + 'px';
                 var card_no = plus.webview.currentWebview().noId;
                 var flag = plus.webview.currentWebview().flag;
+                var typeid = plus.webview.currentWebview().typeid;
                 var pageid = plus.webview.currentWebview().pageid;
                 if (flag) {
                     document.getElementById('choose').style.display = 'block';
                 }
                 document.getElementById('choose').addEventListener('tap',function () {
                     mui.fire(plus.webview.getWebviewById(pageid), 'getMemberId', {
-                        id: card_no
+                        id: card_no,
+                        typeid: typeid
                     });
                     plus.webview.close('communic');
                     mui.back();

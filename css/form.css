@@ -353,6 +353,9 @@ input[type='text']:-ms-input-placeholder,input[type='password']:-ms-input-placeh
 .form-under-btn{padding: 1rem 1.5rem;overflow: hidden;}
 .under-btn{border-radius: 2.5rem;color: #3b9cf5;border-color: #3b9cf5;margin-left: 2rem;text-align: center;font-size: 1.25rem;padding: .6rem 1.5rem;float: right}
 /*表单按钮*/
+.form-button-group.BL-mar-t_1 {
+    margin-top: -2rem;
+}
 .form-button-group {
 	padding: 2rem 1.5rem;
 }
@@ -367,8 +370,10 @@ input[type='text']:-ms-input-placeholder,input[type='password']:-ms-input-placeh
     border-radius: .625rem;
     text-align: center;
 }
+.form-button-group .form-btn.gray{
+    background-color: #fff;color:#3b9cf5 }
 /*条款*/
-.form-clause p{font-size: 1.4375rem;line-height: 1.875rem;color: #555;}
+.form-clause p{font-size: 1.4375rem;line-height: 2rem;color: #333;}
 .form-cal{font-size: 1.625rem;color: #3b9cf5;display: block;border-left: 1px solid #3b9cf5;padding-left: 1rem;}
 /* 浮动 */
 .form-float-left{
@@ -377,3 +382,7 @@ input[type='text']:-ms-input-placeholder,input[type='password']:-ms-input-placeh
 .form-float-right{
 	float: right
 }
+.form-table{font-size: 1.4375rem;padding: 1rem;background-color: #fff;}
+.form-table tr{border: 1px solid #ddd;}
+.form-table td{padding: 1rem;}
+.form-table p{font-size: 1.4375rem;color: #333}

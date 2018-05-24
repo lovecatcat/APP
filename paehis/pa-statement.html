@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SNS活动</title>
+    <link href="../css/mui.css" rel="stylesheet" />
+    <link href="../css/common.css" rel="stylesheet" />
+    <link href="../css/module.css" rel="stylesheet" />
+    <script src="../js/md5.js" type="text/javascript"></script>
+    <script src="../js/sha256.js" type="text/javascript"></script>
+    <script src="../js/config.js" type="text/javascript"></script>
+</head>
+
+<body class="BL-bg-f2f">
+<header id="Js-header" class="BL-bg-fff">
+    <div class="BL-mod-headbar BL-mod-headbar-pos">
+        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+        <a id="Js-closePage" class="BL-ctrl-close">关闭</a>
+        <!--<a id="Js-closePage" class="mui-icon-closeempty BL-icon" style="left: 4rem;font-size: 4rem;font-weight: 500;"></a>-->
+        <h1 class="BL-title">保险条款</h1>
+    </div>
+</header>
+</body>
+<script src="../js/mui.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mui.init();
+
+    (function($) {
+        $.plusReady(function() {
+            statusbar();
+            var topHeight = document.getElementById('Js-header').offsetHeight / sizeObj.dpl;
+            var embed=plus.webview.create('https://mobile.health.pingan.com/ehis-hm/H704/insurance_terms_P005_A000000021.html', '', {top: topHeight + 'px',bottom:'0px'});
+            plus.webview.currentWebview().append(embed);
+
+            // 自定义返回事件
+            mui.oldBack = mui.back;
+            mui.back = function () {
+                embed.canBack(function (e) {
+                    if (e.canBack) {
+                        embed.back();
+                    } else {
+                        mui.oldBack();
+                    }
+                })
+            };
+
+            document.querySelector('#Js-closePage').addEventListener('tap', function(){
+                mui.oldBack();
+            }, false);
+
+        });
+    })(mui);
+</script>
+
+</html>

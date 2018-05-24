@@ -157,10 +157,13 @@
 					</div>
 				</div>
 			</div>
-			<div id="modal-rank" class="BL-modal BL-modal-w80"  :class="{'BL-hide': isHide !== 'modal-rank'}">
+			<div id="modal-rank" class="BL-modal BL-modal-w80">
 				<div class="BL-modal-content">
-					<div class="BL-txt-c BL-pad-tb-1_5">排行榜说明</div>
-					<div class="BL-pad-lr-1_25 BL-pad-b-2">
+					<div class="BL-txt-c BL-pad-tb-1_5 BL-rel">
+						排行榜说明
+						<span class="mui-icon mui-icon-clear BL-modal-close"></span>
+					</div>
+					<div class="BL-pad-lr-1_5 BL-pad-b-2">
 						<p class="BL-ftz-46">1、业务数据以核心业务系统和当期承保数据为准；</p>
 						<p class="BL-ftz-46">2、若新增有效人数相同，所赠新人达成的标准保费高者优先排名；</p>
 						<p class="BL-ftz-46">3、本排行榜最终解释权归汇盟运营中心。</p>
@@ -294,7 +297,11 @@
 				popu.closepop();
 			},false);
 			
-			 mui('body').on('tap', '#close-ins-pop', function () {
+			mui('body').on('tap', '#close-ins-pop', function () {
+	            // 关闭遮罩层，弹框
+	            popu.closepop();
+	        });
+	        mui('body').on('tap', '.BL-modal-close', function () {
 	            // 关闭遮罩层，弹框
 	            popu.closepop();
 	        });

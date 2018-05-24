@@ -122,7 +122,7 @@
                                     </span>
                                     <span class="mui-col-sm-4">{{ item.dept_name }}</span>
                                     <span class="mui-col-sm-2">{{ item.user_name }}</span>
-                                    <span class="mui-col-sm-4">{{ item.std_premium }}</span>
+                                    <span class="mui-col-sm-4">{{ item.count }}</span>
                                 </li>
                                 <li v-if="piece_num.length == 0" class="mui-row BL-ub BL-ub-pc BL-ub-ac">
                                     <span class="mui-col-sm-12 BL-txt-c">暂无数据</span>
@@ -151,7 +151,8 @@
             dept_sale: null,  // 明星机构榜
             person_add: null,
             piece_num: null,
-            time: ''
+            time: '',
+            type: ['person_sale','dept_sale', 'person_add', 'piece_num'] // person_sale=精英榜，dept_sale=明星机构,person_add=增员排行,piece_num=件数排行
         },
         methods: {
             showRank: function () {
@@ -168,18 +169,35 @@
                 clearTimeout(vm.time)
                 // 回到顶部
                 mui('.mui-scroll-wrapper').scroll().scrollTo(0,0);
+                vm.getRank()
             },
             getRank: function () {
                 luckyAjax({
                     data: {
-                        server: 'team.honorList'
+                        server: 'team.honorList',
+                        data: JSON.stringify({           	
+		            		type: rank.type[rank.flag]
+			            })
                     },
                     success:function(ret){
                         if (ret.code == 1) {
-                            rank.person_sale = ret.data.person_sale
-                            rank.dept_sale = ret.data.dept_sale
-                            rank.person_add = ret.data.person_add
-                            rank.piece_num = ret.data.piece_num
+                        	switch (rank.flag)
+                        	{
+                        		case 0: 
+	                        		rank.person_sale = ret.data.person_sale
+	                        		break;
+								case 1:
+									rank.dept_sale = ret.data.dept_sale
+									break;
+								case 2:
+									rank.person_add = ret.data.person_add
+									break;
+								case 3:
+									rank.piece_num = ret.data.piece_num
+									break;
+								default:
+								  	mui.toast("加载数据失败", {duration: 'short', type: 'div'})
+                        	}
                         } else {
                             mui.toast(ret.msg, {duration: 'short', type: 'div'})
                         }

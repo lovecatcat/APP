@@ -681,6 +681,13 @@
 	border: solid 5px #3B9CF5;
 }
 
+.BL-modal-close{
+	color: #bebebe;
+	position: absolute;
+    font-size: 2.4rem;
+    top: 2rem;
+    right: 1rem;
+}
 /* 下拉二级菜单  */
 .BL-mod-sidemenu{}
 /*.BL-mod-sidemenu ul{}*/

@@ -381,7 +381,8 @@
 					"images/index/ico-6.png",
 					"images/index/ico-7.png",
 					"js/mui.pullToRefresh.js",
-					"js/mui.pullToRefresh.material.js"
+					"js/mui.pullToRefresh.material.js",
+					"images/index/rank.jpg"
 				],
 				"refer": [
 					"sns.html",
@@ -1983,7 +1984,8 @@
 					"images/plans/prospectus/16201.jpg",
 					"images/plans/prospectus/16213.jpg",
 					"images/plans/prospectus/16203.jpg",
-					"images/plans/plansIcon/icon-plans10.png"
+					"images/plans/plansIcon/icon-plans10.png",
+					"images/plans/prospectus/16204.jpg"
 				],
 				"priority": 2,
 				"refer": [
@@ -2137,7 +2139,8 @@
 					"images/plans/plansManage/297.png",
 					"images/plans/plansManage/290.png",
 					"images/plans/plansManage/8.png",
-					"images/plans/plansManage/302.png"
+					"images/plans/plansManage/302.png",
+					"images/plans/plansManage/16113.png"
 				],
 				"refer": [
 					"member-plans-detail.html",

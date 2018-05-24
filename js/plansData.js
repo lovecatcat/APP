@@ -5,7 +5,7 @@
 	var clause_data = []; //条框数据
 	var totalMoney = 0; //总保费
 	var describes = {}; //保险利益
-	var hd = [272, 276, 340, 348, 370];
+	var hd = [272, 276, 340, 348, 370, 264];//有在线投保的
 	var groupList = function(data, pl_id) {
 
 		var content = data;

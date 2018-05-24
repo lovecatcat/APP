@@ -183,7 +183,7 @@
 				<!--险种信息 end -->
 				<div style="width: 100%;height: 5.625rem;"></div>
 			</div>
-			<footer id="Js-footer" class="BL-footer BL-bg-fff BL-pad-tb-1 BL-Border-t" v-if="JsFooter">
+			<footer id="Js-footer" class="BL-bg-fff BL-pad-tb-1 BL-Border-t" :class="{'BL-footer' : JsFooter}">
 				<div class="BL-ub BL-ub-ac BL-ub-f1">
 					<div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll">
 						<div class="context" id="aaaa">
@@ -703,7 +703,7 @@
 									prospect.edit = false //是不是从编辑页面过来
 									prospect.edit2 = false //是不是从编辑状态
 								}
-								//								plus.webview.close('prospect_product')
+//								plus.webview.close('prospect_product')
 								plus.webview.close("member_plans_alone")
 							}
 						});
@@ -725,6 +725,7 @@
 			totalData = plus.webview.currentWebview().totalData
 			parent_pl_id = plus.webview.currentWebview().parent_pl_id
 			if(totalData && totalData != 'addPlan') {
+				console.log('编辑')
 				prospect.edit = true;
 				prospect.edit2 = true;
 				prospect.appl.name = totalData.applicant;
@@ -734,6 +735,7 @@
 				prospect.assu.sex = totalData.assu_sex == 1 ? true : false;
 				prospect.assu.age = totalData.assu_age;
 			} else if(totalData && totalData == 'addPlan') {
+				console.log('新增方案')
 				prospect.edit = true;
 				prospect.edit2 = false;
 			}
@@ -755,7 +757,7 @@
 							data = prospect.plans[i]
 							prospect.appl = prospect.plans[i].appl
 							prospect.assu = prospect.plans[i].assu
-						}
+						} 
 					}
 					prospect.plan_id = id
 				}

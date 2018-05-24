@@ -144,6 +144,7 @@
 				},
 				edit: function(item){
 //					plus.webview.close("member_plans_alone");
+					
 					mui.openWindow({
 						id: 'prospect_product',
 						url: 'prospect-product.html',
@@ -160,7 +161,7 @@
 		(function($) {
 			//阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
-
+			
 			$.plusReady(function() {
 				plus.nativeUI.showWaiting();
 				var winH = window.innerHeight;
@@ -171,6 +172,8 @@
 					var _self = plus.webview.getWebviewById('member_plans_detail.html')
 					mui.fire(_self, 'show');
 				});
+				
+				plus.webview.close("prospect_product");
 
 				var pl_id = plus.webview.currentWebview().pl_id //获取从列表从过来的plid,最大的
 				plansTotal.parent_pl_id = pl_id

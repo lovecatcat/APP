@@ -183,7 +183,7 @@
 				isHide: '' , //要弹哪个框
 				formID: '', //来自哪个页面
 				goIns: false, //是不是在线投保
-				gonIns_genre: [272, 276, 340, 348, 370], //目前只有恒大才能去在线投保
+				gonIns_genre: [272, 276, 340, 348, 370, 264], //目前只有恒大才能去在线投保
 				goIns_data: ''
 			},
 			methods: {
@@ -225,7 +225,13 @@
 
 				},
 				goIns_sure: function(genre){
-					if(modal.gonIns_genre.indexOf(genre) > -1){
+					if(modal.gonIns_genre.indexOf(genre) > -1 && genre == 264){
+						mui.openWindow({
+							id: 'pa_insurance-index',
+							url: 'paehis/pa-healthinfo.html',
+							show: animateObj.aniDetal
+						})
+					}else if(modal.gonIns_genre.indexOf(genre) > -1){
 						mui.openWindow({
 							id: 'hd_insurance-index',
 							url: 'hd_ins/insurance-index.html',
@@ -290,6 +296,7 @@
 			modal.formID = data.formID
 			modal.goIns = data.goIns
 			modal.goIns_data = data.goIns_data
+			alert(JSON.stringify(modal.goIns_data))
 			
 			// 点击关闭遮罩层，弹框
 			mui('body').on('tap', '#maskInit', function(){

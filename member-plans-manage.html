@@ -172,6 +172,7 @@
 					mui('#Js-planList .mui-scroll').pullToRefresh().pullUpLoading();
 				},
 				Del: function() {
+					// alert(this.checkModel.length )
 					if(this.checkModel.length < 1) {
 						mui.toast('请先选择计划')
 					} else {
@@ -270,7 +271,7 @@
 							check += plansManage.manage_list[index].id + ','
 						}
 					})
-
+					plansManage.checkModel = []
 					check = check.substring(0, check.length - 1);
 					plansManage.manage_list = arr
 					//					删除

@@ -449,6 +449,7 @@
         document.querySelector('#ID_type').addEventListener('tap', function () {
             document.activeElement.blur();
             idtype.show(function (items) {
+                assu.assured.insured_ID_no = ''
                 assu.assured.insured_ID_type = items[0].value;
                 assu.assured.insured_ID_type_name = items[0].text;
                 astypeChange();

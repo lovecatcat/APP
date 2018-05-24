@@ -79,13 +79,15 @@
                 infomat.style.minHeight = (content.offsetHeight - topic.offsetHeight) + 'px';
                 var card_no = plus.webview.currentWebview().noId;
                 var flag = plus.webview.currentWebview().flag;
+                var typeid = plus.webview.currentWebview().typeid;
                 var pageid = plus.webview.currentWebview().pageid;
                 if (flag) {
                     document.getElementById('choose').style.display = 'block';
                 }
                 document.getElementById('choose').addEventListener('tap',function () {
                     mui.fire(plus.webview.getWebviewById(pageid), 'getMemberId', {
-                        id: card_no
+                        id: card_no,
+                        typeid: typeid
                     });
                     plus.webview.close('communic');
                     mui.back();

@@ -3181,21 +3181,6 @@
 				"priority": 0
 			},
 			"paehis/pa-healthinfo.html": {
-				"resources": [],
-				"refer": [
-					"paehis/pa-question.html",
-					"paehis/pa-toinsure.html"
-				],
-				"priority": 0
-			},
-			"paehis/pa-toinsure.html": {
-				"resources": [],
-				"refer": [
-					"paehis/pa-pay.html"
-				],
-				"priority": 0
-			},
-			"paehis/pa-healthinfo.html": {
 				"resources": [
 					"css/mui.picker.min.css",
 					"css/mui.css",

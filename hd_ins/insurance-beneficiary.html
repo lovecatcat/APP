@@ -142,6 +142,7 @@
                 <div class="input-wrap box-f-1 multi-btn">
                     <button class="ins-btn xs-btn"
                             v-for="(item,ind) in count"
+                            v-show="ind<2"
                             :class="{'blue':ind+1===beneficiary.sort_order}"
                             :disabled="ind+1===beneficiary.sort_order"
                             @tap="beneficiary.sort_order=ind+1,toblur()">
@@ -519,6 +520,7 @@
                 document.querySelector('#ID_type' + vm.index).addEventListener('tap', function () {
                     document.activeElement.blur();
                     idtype[vm.index].show(function (items) {
+                        vm.beneficiary.ID_no = ''
                         vm.beneficiary.ID_type = items[0].value;
                         vm.beneficiary.ID_type_name = items[0].text;
                         if (vm.beneficiary.ID_type === BOOKLET || vm.beneficiary.ID_type === BORNid) {

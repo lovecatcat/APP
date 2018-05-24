@@ -33,7 +33,7 @@
 .ins-dialog.lg{height: 92%;}
 .ins-dialog.xs{height: 50%;}
 .ins-dialog.md{height: 70%;}
-.ins-btn{border-radius: .3rem;font-size: 1.3125rem;height:3.125rem;line-height: 3.125rem;}
+.ins-btn{border-radius: .3rem;font-size: 1.3125rem;height:3.125rem;line-height: 3.125rem;background-color: #f3f3f3;}
 .ins-btn.blue{background-color: #3b9cf5;color: #fff;}
 .right-btn.orange{border: 1px solid #ff9212;color: #ff9212;}
 .right-btn.gray{border: 1px solid #c8c8c8;color: #666;}

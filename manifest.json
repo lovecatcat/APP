@@ -1985,7 +1985,8 @@
 					"images/plans/prospectus/16213.jpg",
 					"images/plans/prospectus/16203.jpg",
 					"images/plans/plansIcon/icon-plans10.png",
-					"images/plans/prospectus/16204.jpg"
+					"images/plans/prospectus/16204.jpg",
+					"images/plans/prospectus/16113.jpg"
 				],
 				"priority": 2,
 				"refer": [
@@ -2191,7 +2192,11 @@
 					"css/mui.css",
 					"css/form.css",
 					"css/module.css",
-					"css/common.css"
+					"css/common.css",
+					"js/upgrade.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/config.js"
 				],
 				"refer": [
 					"member-changepwd.html",
@@ -3109,7 +3114,13 @@
 					"images/rank/rank-three.png",
 					"images/rank/rank-bg.png",
 					"images/rank/rank-body.png",
-					"images/rank/rank-header.png"
+					"images/rank/rank-header.png",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"js/mui.min.js",
+					"js/config.js"
 				],
 				"refer": [
 					"popup-content.html"
@@ -3176,6 +3187,13 @@
 			"hd_ins/safe-notice.html": {
 				"resources": [
 					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pdf-modal-content.html": {
+				"resources": [
+					"js/pdf.worker.js"
 				],
 				"refer": [],
 				"priority": 0

@@ -5,12 +5,12 @@ var config = {
 	domain: 'https://www.luckyins.com'
 };
 
-    // var config = {
-    //     baseUrl: 'https://ts-www.luckyins.com/api/api/invoke',  //团队管理服务器路径
-    //     moduleURL: 'https://ts-www.luckyins.com/api/api/',
-    //     link: 'https://ts-www.luckyins.com/index/', // 外部链接路径[闪电增员、]
-    //     domain: 'https://ts-www.luckyins.com'
-    // };
+//     var config = {
+//         baseUrl: 'https://ts-www.luckyins.com/api/api/invoke',  //团队管理服务器路径
+//         moduleURL: 'https://ts-www.luckyins.com/api/api/',
+//         link: 'https://ts-www.luckyins.com/index/', // 外部链接路径[闪电增员、]
+//         domain: 'https://ts-www.luckyins.com'
+//     };
 
 
 /**
@@ -99,6 +99,7 @@ var luckyAjax = function(options){
 			opt.success(data);
 		},
 		error:function(xhr, type, errorThrown){
+			console.log(type)
 			//opt.error(xhr, type, errorThrown);
 			plus.nativeUI.closeWaiting();
 		    mui.toast(errorThrown, {duration: 'short', type: 'div'});

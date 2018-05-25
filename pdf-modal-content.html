@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
-		<meta name="viewport" content="target-densitydpi=device-dpi, initial-scale=0.2, minimum-scale=0.2, maximum-scale=5, user-scalable=yes">
+		<meta name="viewport" content="target-densitydpi=device-dpi, initial-scale=0.3, minimum-scale=0.3, maximum-scale=5, user-scalable=yes">
 		<link href="css/mui.css" rel="stylesheet" />
 		<link href="css/common.css" rel="stylesheet" />
 		<link href="css/module.css" rel="stylesheet" />
@@ -26,7 +26,7 @@
 				
 				// 实例化关闭窗口对象
 				var url = plus.webview.currentWebview().pdf;
-				//var url = "_doc/pdf.pdf";
+				//var url = "images/kyjs.pdf";
 				PDFJS.workerSrc = 'js/pdf.worker.js';
 				
 				if (!/\w\.pdf$/i.test(url)) {
@@ -72,10 +72,11 @@
 										  	creatCanvas(pageNum, idTemplate);
 										  	
 										  	// Fetch the first page
-										  	for(var i=1;i<=pageNum;i++){
-												id = idTemplate + i;
-												renderPDF(pdf, i, id);
-										  	};
+//										  	for(var i=1;i<=pageNum;i++){
+//												id = idTemplate + i;
+//												renderPDF(pdf, i, idTemplate+i);
+//										  	};
+										  	renderPDF(pdf, 1, idTemplate, pageNum);
 										}, function (reason) {
 										  	// PDF loading error
 										  	plus.nativeUI.closeWaiting();
@@ -107,7 +108,7 @@
 						var id = template + i;
 				  	
 				    	var pdfCanvas = document.createElement('div');
-				    	pdfCanvas.className = 'BL-mar-b-2 BL-bg-fff';
+				    	pdfCanvas.className = 'BL-mar-b-2 BL-bg-fff BL-ub BL-ub-pc';
 				    	
 				    	var canvasNew = document.createElement('canvas');
 	        			canvasNew.id = id;
@@ -123,16 +124,18 @@
 			     * @param num
 			     * @param canvasId
 			     */
-			    function renderPDF(pdf, num, canvasId){
-					var scale = 3;
+			    var isAjaxNext = false; //是否加载下一页
+			    function renderPDF(pdf, num, idTemplate, totalPage){
+					var scale = 2.2;
 			    	pdf.getPage(num).then(function(page) {
 						    
 						    var viewport = page.getViewport(scale);
-						    var canvas = document.getElementById(canvasId);
+						    var canvas = document.getElementById(idTemplate + num);
 						    var context = canvas.getContext('2d');
 						    canvas.height = viewport.height;
 						    canvas.width = viewport.width;
-						
+							isAjaxNext = false;
+							
 						    // Render PDF page into canvas context
 						    var renderContext = {
 						      	canvasContext: context,
@@ -141,9 +144,17 @@
 						    var renderTask = page.render(renderContext);
 						    renderTask.then(function () {
 						      	//console.log('渲染完毕');
-						      	if(num==1){
+						      	isAjaxNext = true;
+						      	
+						      	if(num==totalPage){
 				  					plus.nativeUI.closeWaiting();
-						      	};
+						      	}
+						      	
+						      	if(isAjaxNext && num + 1 <= totalPage){
+						      		console.log(num + 1)
+						      		renderPDF(pdf, num+1, idTemplate, totalPage);	
+						      	}
+						      	
 						    });
 					});
 			    };

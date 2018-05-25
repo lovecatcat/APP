@@ -12,159 +12,141 @@
 	</head>
 
 	<body class="BL-bg-f2f">
-		
+
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
 	<script src="js/pdf.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		mui.init();
-		
-		(function($){
+
+		(function($) {
 			// 设置内容区域
 			$.plusReady(function() {
 				plus.nativeUI.showWaiting();
-				
+
 				var url = plus.webview.currentWebview().pdf;
-			    var isAjaxNext = false; //是否加载下一页
-				
+				var isAjaxNext = false; //是否加载下一页
+
 				//var url = "images/kyjs.pdf";
 				PDFJS.workerSrc = 'js/pdf.worker.js';
-				
-				if (!/\w\.pdf$/i.test(url)) {
-					mui.alert('PDF文件加载失败', '提示', '返回', function(){
+
+				if(!/\w\.pdf$/i.test(url)) {
+					mui.alert('PDF文件加载失败', '提示', '返回', function() {
 						plus.webview.currentWebview().close();
 						plus.webview.getWebviewById('pdf_modal').close();
 					});
 					return false;
 				};
-				
+
 				var startStr = url.lastIndexOf('/');
 				var lastStr = url.indexOf('.pdf');
-				var pdf_name = url.substring(startStr + 1,lastStr);
-				
-				plus.io.resolveLocalFileSystemURL("_doc/download/"+ pdf_name +".pdf", function (e) {
-			        e.remove(function () {
-			            console.log('删除成功')
-			        }, function () {
-			            console.log('删除失败')
-			        })
-			    }, function () {
-			        console.log('读取失败')
-			    })
-				
-				plus.downloader.createDownload(url, {filename: "_doc/download/"+ pdf_name +".pdf"}, function (d, status) {
-			        if (status == 200) {
-			            //console.log(d.filename);
-			            plus.io.resolveLocalFileSystemURL('_doc/download/', function(entry) {
-			            	var reader = entry.createReader();
-		                    reader.readEntries(function(subFiles) {
-		                        //console.log(subFiles[0].fullPath);
-			            		for(var i = 0, len = subFiles.length; i < len; i++) {
-		                            if(subFiles[i].fullPath.indexOf(pdf_name) > -1){
-		                            	
-										// Asynchronous download of PDF
-										var loadingTask = PDFJS.getDocument(subFiles[i].fullPath);
-										loadingTask.promise.then(function(pdf) {
-										  	console.log('Page loaded');
-										  	var id = '';
-						            		var idTemplate = 'the-canvas-';
-						            		var pageNum = pdf.numPages;
-										  	
-										  	creatCanvas(pageNum, idTemplate);
-										  	
-										  	// Fetch the first page
-//										  	for(var i=1;i<=pageNum;i++){
-//												id = idTemplate + i;
-//												renderPDF(pdf, i, idTemplate+i);
-//										  	};
-										  	renderPDF(pdf, 1, idTemplate, pageNum);
-										}, function (reason) {
-										  	// PDF loading error
-										  	plus.nativeUI.closeWaiting();
-										  	mui.alert('PDF文件加载失败', '提示', '返回', function(){
-										  		plus.webview.currentWebview().close();
-										  		plus.webview.getWebviewById('pdf_modal').close();
-										  	})
-										});
-										
-										return false;
-		                            }
-		                        }
-						
-						    })
-			            })
+				var pdf_name = url.substring(startStr + 1, lastStr);
+
+				plus.downloader.createDownload(url, {filename: "_doc/download/" + pdf_name + ".pdf"}, function(d, status) {
+					if(status == 200) {
+						// Asynchronous download of PDF
+						var loadingTask = PDFJS.getDocument(plus.io.convertLocalFileSystemURL(d.filename));
+						loadingTask.promise.then(function(pdf) {
+							console.log('Page loaded');
+							var id = '';
+							var idTemplate = 'the-canvas-';
+							var pageNum = pdf.numPages;
+
+							creatCanvas(pageNum, idTemplate);
+							renderPDF(pdf, 1, idTemplate, pageNum);
+						}, function(reason) {
+							// PDF loading error
+							plus.nativeUI.closeWaiting();
+							mui.alert('PDF文件加载失败', '提示', '返回', function() {
+								plus.webview.currentWebview().close();
+								plus.webview.getWebviewById('pdf_modal').close();
+							})
+						});
+
 					} else {
-			            plus.nativeUI.toast('下载失败')
-			            console.log("下载wgt失败" + d.filename);
-			        }
-			    }).start();
-				
+						plus.nativeUI.toast('下载失败')
+						console.log("下载wgt失败" + d.filename);
+					}
+				}).start();
+
 				/**
-			     * 创建canvas容器插入body
-			     * @param pageNum
-			     * @param template
-			     */
-			    function creatCanvas(pageNum, template){
-			    	for(var i=1;i<=pageNum;i++){
+				 * 创建canvas容器插入body
+				 * @param pageNum
+				 * @param template
+				 */
+				function creatCanvas(pageNum, template) {
+					for(var i = 1; i <= pageNum; i++) {
 						var id = template + i;
-				  	
-				    	var pdfCanvas = document.createElement('div');
-				    	pdfCanvas.className = 'BL-mar-b-2 BL-bg-fff BL-ub BL-ub-pc';
-				    	
-				    	var canvasNew = document.createElement('canvas');
-	        			canvasNew.id = id;
-	        			
-	        			pdfCanvas.appendChild(canvasNew);
-	        			document.body.appendChild(pdfCanvas);
-        			}
-			    };
-			    
-			    /**
-			     * 渲染PDF里的每一张内容
-			     * @param pdf
-			     * @param num
-			     * @param canvasId
-			     */
-			    function renderPDF(pdf, num, idTemplate, totalPage){
+
+						var pdfCanvas = document.createElement('div');
+						pdfCanvas.className = 'BL-mar-b-2 BL-bg-fff BL-ub BL-ub-pc';
+
+						var canvasNew = document.createElement('canvas');
+						canvasNew.id = id;
+
+						pdfCanvas.appendChild(canvasNew);
+						document.body.appendChild(pdfCanvas);
+					}
+				};
+
+				/**
+				 * 渲染PDF里的每一张内容
+				 * @param pdf
+				 * @param num
+				 * @param canvasId
+				 */
+				function renderPDF(pdf, num, idTemplate, totalPage) {
 					var scale = 2.2;
-			    	pdf.getPage(num).then(function(page) {
-						    
-						    var viewport = page.getViewport(scale);
-						    var canvas = document.getElementById(idTemplate + num);
-						    var context = canvas.getContext('2d');
-						    canvas.height = viewport.height;
-						    canvas.width = viewport.width;
-							isAjaxNext = false;
+					pdf.getPage(num).then(function(page) {
+
+						var viewport = page.getViewport(scale);
+						var canvas = document.getElementById(idTemplate + num);
+						var context = canvas.getContext('2d');
+						canvas.height = viewport.height;
+						canvas.width = viewport.width;
+						isAjaxNext = false;
+
+						// Render PDF page into canvas context
+						var renderContext = {
+							canvasContext: context,
+							viewport: viewport
+						};
+						var renderTask = page.render(renderContext);
+						renderTask.then(function() {
+							//console.log('渲染完毕');
+							isAjaxNext = true;
+
+							if(num == 1) {
+								plus.nativeUI.closeWaiting();
+							}
+
+							if(isAjaxNext && num + 1 <= totalPage) {
+								console.log(num + 1)
+								renderPDF(pdf, num + 1, idTemplate, totalPage);
+							}
 							
-						    // Render PDF page into canvas context
-						    var renderContext = {
-						      	canvasContext: context,
-						      	viewport: viewport
-						    };
-						    var renderTask = page.render(renderContext);
-						    renderTask.then(function () {
-						      	//console.log('渲染完毕');
-						      	isAjaxNext = true;
-						      	
-						      	if(num==5){
-				  					plus.nativeUI.closeWaiting();
-						      	}
-						      	
-						      	if(isAjaxNext && num + 1 <= totalPage){
-						      		console.log(num + 1)
-						      		renderPDF(pdf, num+1, idTemplate, totalPage);	
-						      	}
-						      	
-						    });
+							if(num+1 > totalPage){
+								plus.io.resolveLocalFileSystemURL("_doc/download/" + pdf_name + ".pdf", function(e) {
+									e.remove(function() {
+										console.log('删除成功')
+									}, function() {
+										console.log('删除失败')
+									})
+								}, function() {
+									console.log('读取失败')
+								})
+							}
+							
+						});
 					});
-			    };
-			    
-				plus.key.addEventListener("backbutton",function(){
+				};
+
+				plus.key.addEventListener("backbutton", function() {
 					plus.webview.currentWebview().close();
-					plus.webview.getWebviewById('pdf_modal').close();	
+					plus.webview.getWebviewById('pdf_modal').close();
 				});
-			});	
+			});
 		}(mui));
 	</script>
-</html>
 
+</html>

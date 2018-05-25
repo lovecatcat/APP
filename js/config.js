@@ -99,10 +99,11 @@ var luckyAjax = function(options){
 			opt.success(data);
 		},
 		error:function(xhr, type, errorThrown){
-			console.log(type)
 			//opt.error(xhr, type, errorThrown);
 			plus.nativeUI.closeWaiting();
-		    mui.toast(errorThrown, {duration: 'short', type: 'div'});
+			
+			//type：错误描述，可取值："timeout", "error", "abort", "parsererror"、"null"
+			mui.toast(errorThrown, {duration: 'short', type: 'div'});	
 		    return false
 		}
 	})

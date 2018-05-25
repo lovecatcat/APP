@@ -54,6 +54,8 @@ var methods = {
 		this.mainPyAttr = [];
 		this.Addons = {};
 		this.addonRes = {}; //附加险清空
+		this.mainInsData = {}; // 主险提交信息
+		this.addonInsData = {};// 附加险提交信息
 		this.planList = {} //列表信息清空
 		this.flag = {}
 		this.addonRes = {}
@@ -795,6 +797,11 @@ var methods = {
 					toastText = '最低基本保额为5千元'
 				} else if(money % 1000 !== 0) {
 					toastText = '保费需为1千元整数倍'
+				}
+				break
+			case '1016': // 招商仁和仁医保费用补偿医疗保险
+				if(!this.flag[safeid]) {
+					toastText = '请先选择有无社保'
 				}
 				break
 			case '1013': // 招商仁和仁安无忧意外伤害保险
@@ -2413,7 +2420,6 @@ var methods = {
 			if(noNeedCal.indexOf(safeid) > -1) {
 				return false
 			}
-			//			alert(JSON.stringify(this.addonInsData[safeid]))
 		}
 		console.log(JSON.stringify({
 			safes: JSON.stringify([data])

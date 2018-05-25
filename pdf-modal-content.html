@@ -24,8 +24,9 @@
 			$.plusReady(function() {
 				plus.nativeUI.showWaiting();
 				
-				// 实例化关闭窗口对象
 				var url = plus.webview.currentWebview().pdf;
+			    var isAjaxNext = false; //是否加载下一页
+				
 				//var url = "images/kyjs.pdf";
 				PDFJS.workerSrc = 'js/pdf.worker.js';
 				
@@ -124,7 +125,6 @@
 			     * @param num
 			     * @param canvasId
 			     */
-			    var isAjaxNext = false; //是否加载下一页
 			    function renderPDF(pdf, num, idTemplate, totalPage){
 					var scale = 2.2;
 			    	pdf.getPage(num).then(function(page) {
@@ -146,7 +146,7 @@
 						      	//console.log('渲染完毕');
 						      	isAjaxNext = true;
 						      	
-						      	if(num==totalPage){
+						      	if(num==5){
 				  					plus.nativeUI.closeWaiting();
 						      	}
 						      	

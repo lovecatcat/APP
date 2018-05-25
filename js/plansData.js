@@ -5,7 +5,7 @@
 	var clause_data = []; //条框数据
 	var totalMoney = 0; //总保费
 	var describes = {}; //保险利益
-	var hd = [272, 276, 340, 348, 370, 264];//有在线投保的
+	var hd = [272, 276, 340, 348, 370, 16217, 264];//有在线投保的
 	var groupList = function(data, pl_id) {
 
 		var content = data;
@@ -45,7 +45,7 @@
 
 		if(parent_id == 290 || parent_id == 360 || parent_id == 370 || parent_id == 16197) {
 			year_fee = content.year_fee;
-		} else if(parent_id == 347 || parent_id == 348) {
+		} else if(parent_id == 347 || parent_id == 348 || parent_id == 16217) {
 			year_fee = listMain["累计保费"];
 		} else if(parent_id == 337) {
 			year_fee = listMain["住院总保费"];
@@ -71,7 +71,7 @@
 			} else {
 				base_money = '计划三'
 			}
-		} else if(parent_id == 347 || parent_id == 301 || parent_id == 348 || parent_id == 349 ||parent_id == 370 || parent_id == 16197) {
+		} else if(parent_id == 347 || parent_id == 301 || parent_id == 348 || parent_id == 349 ||parent_id == 370 || parent_id == 16197 || parent_id == 16217) {
 			base_money = listMain["保险金额"];
 		} else if(parent_id == 360) {
 			base_money = listMain["保额"];

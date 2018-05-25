@@ -487,6 +487,12 @@ var methods = {
 					toastText = '被保人在0周岁到50周岁之间'
 				}
 				break
+			case 'NHFA': // 爱心保智选医疗保险
+			case 'NHGA': // 爱心保卓越医疗保险
+				if(assuAge > 65 || assuAge < 0) {
+					toastText = '被保人在30天到65周岁之间'
+				}
+				break
 				// 恒大
 			case 'HB023': // 恒久健康终身重大疾病保险2017
 				if([1, 3, 5, 10].indexOf(mainPayYear) > -1 && assuAge > 65) {
@@ -536,6 +542,25 @@ var methods = {
 					toastText = '5年交被保人不能超过65周岁'
 				} else if(mainPayYear === 10 && assuAge > 60) {
 					toastText = '10年交被保人不能超过60周岁'
+				}
+				break
+			case 'LA080': // 恒大人寿万年福养老年金保险
+				if(mainPayYear === 1 && assuAge > 59 && assuSex) {
+					toastText = '趸交男性被保人为年龄不能大于59周岁'
+				} else if(mainPayYear === 3 && assuAge > 57 && assuSex) {
+					toastText = '3年交男性被保人为年龄不能大于57周岁'
+				} else if(mainPayYear === 5 && assuAge > 55 && assuSex) {
+					toastText = '5年交男性被保人为年龄不能大于55周岁'
+				} else if(mainPayYear === 10 && assuAge > 50 && assuSex) {
+					toastText = '10年交男性被保人为年龄不能大于50周岁'
+				} else if(mainPayYear === 1 && assuAge > 54 && !assuSex) {
+					toastText = '趸交女性被保人为年龄不能大于54周岁'
+				} else if(mainPayYear === 3 && assuAge > 52 && !assuSex) {
+					toastText = '3年交女性被保人为年龄不能大于52周岁'
+				} else if(mainPayYear === 5 && assuAge > 50 && !assuSex) {
+					toastText = '5年交女性被保人为年龄不能大于50周岁'
+				} else if(mainPayYear === 10 && assuAge > 45 && !assuSex) {
+					toastText = '10年交女性被保人为年龄不能大于45周岁'
 				}
 				break
 				// 复星
@@ -743,6 +768,13 @@ var methods = {
 					toastText = '保费需为1万元整数倍'
 				}
 				break
+			case 'NHFA': // 爱心保智选医疗保险
+			case 'NHGA': // 爱心保卓越医疗保险
+				if(!this.flag[safeid]) {
+					toastText = '请先选择有无社保'
+				}
+				break
+				break
 				//恒大
 			case 'HB023': // 恒久健康终身重大疾病保险2017
 				if(money < 10000 || money % 1000 !== 0) {
@@ -767,12 +799,14 @@ var methods = {
 				}
 				break
 			case 'LA075': // 恒大万年红
+			case 'LA080': // 恒大人寿万年福养老年金保险
 				if(periodMoney < 1000) {
 					toastText = '最低年缴保费为1千元'
 				} else if(periodMoney % 1000 !== 0) {
 					toastText = '保费需为1千元整数倍'
 				}
 				break
+			
 				//复星
 			case 'FXKLYSA': // 康乐一生重大疾病保险A款
 			case 'FXKLYSB': // 康乐一生重大疾病保险B款
@@ -2410,6 +2444,10 @@ var methods = {
 			data.base_money = this.cache.base_money1018
 		} else if(safeid === '1016') {
 			// 招商仁和仁医保费用补偿医疗保险
+			data.flag = this.flag[safeid]
+		} else if(safeid === 'NHFA' || safeid === 'NHGA') {
+//			爱心保智选医疗保险
+//			爱心保卓越医疗保险
 			data.flag = this.flag[safeid]
 		}
 

@@ -57,13 +57,15 @@
 								&& insurance.safe_id !== '8111' 
 								&& insurance.safe_id !== 'LE234'
 								&& insurance.safe_id !== '1016'
-								&& insurance.safe_id !== '1013'">
+								&& insurance.safe_id !== '1016'
+								&& insurance.safe_id !== 'NHFA'
+								&& insurance.safe_id !== 'NHGA' ">
 							<input slot="input" v-model.number.lazy="insurance.money" type="number" placeholder="请填写基本保险金额（元）" @change="resetFee()">
 							<div slot="icon" @click="insurance.money = ''" v-show="insurance.money != ''" class="form-clear-icon">
 								<span class="mui-icon mui-icon-clear"></span>
 							</div>
 						</app-input>
-						<template v-else-if="insurance.safe_id == '1016'">
+						<template v-else-if="insurance.safe_id == '1016' || insurance.safe_id == 'NHFA' || insurance.safe_id == 'NHGA'">
 							<!--招商仁和仁医保费用补偿医疗保险-->
 							<app-select label="有无社保">
 								<button slot="button" v-for="num in ['1', '2']" class="ins-btn xs-btn" 
@@ -72,9 +74,16 @@
 						             	{{num == '1' ? '有社保': '无社保'}}
 						        </button>
 							</app-select>
-							<app-select label="基本保额">
+							<app-select label="基本保额" v-if="insurance.safe_id == '1016'">
 								<button slot="button" v-model="insurance.money = 1500000" class="ins-btn xs-btn blue" disabled>
 						            150万
+						        </button>
+							</app-select>
+							<!--爱心保智选医疗保险-->
+							<!--爱心保卓越医疗保险-->
+							<app-select label="基本保额" v-else>
+								<button slot="button" v-model="insurance.money = 2000000" class="ins-btn xs-btn blue" disabled>
+						            200万
 						        </button>
 							</app-select>
 						</template>
@@ -1886,7 +1895,7 @@
 	<script src="js/Components.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="js/Methods.js"></script>
 	<script type="text/javascript">
-		const calMoneyIns = ['3188', 'ANIA', '12D00080', 'LA075', 'LA063'] // 算保额的主险
+		const calMoneyIns = ['3188', 'ANIA', '12D00080', 'LA075', 'LA063', 'LA080'] // 算保额的主险
 		const fuMoneyIns = ['A66'] // 通过附加算主险,只有乐行天下
 		const mustSelected = ['291', '177', '11', 'RSD', 'RSC', '349', '8111', '1002'] // 必须附加的附加险
 		//		const noNeedCal = ['291', '11', '349', '12E20010', 'LA073', 'DAR'] // 不需要计算的险种

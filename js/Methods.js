@@ -799,6 +799,11 @@ var methods = {
 					toastText = '保费需为1千元整数倍'
 				}
 				break
+			case '1016': // 招商仁和仁医保费用补偿医疗保险
+				if(!this.flag[safeid]) {
+					toastText = '请先选择有无社保'
+				}
+				break
 			case '1013': // 招商仁和仁安无忧意外伤害保险
 				if(money < 100000) {
 					toastText = '最低基本保额为10万元'

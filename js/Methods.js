@@ -54,6 +54,8 @@ var methods = {
 		this.mainPyAttr = [];
 		this.Addons = {};
 		this.addonRes = {}; //附加险清空
+		this.mainInsData = {}; // 主险提交信息
+		this.addonInsData = {};// 附加险提交信息
 		this.planList = {} //列表信息清空
 		this.flag = {}
 		this.addonRes = {}
@@ -2413,7 +2415,6 @@ var methods = {
 			if(noNeedCal.indexOf(safeid) > -1) {
 				return false
 			}
-			//			alert(JSON.stringify(this.addonInsData[safeid]))
 		}
 		console.log(JSON.stringify({
 			safes: JSON.stringify([data])

@@ -103,7 +103,13 @@ var luckyAjax = function(options){
 			plus.nativeUI.closeWaiting();
 			
 			//type：错误描述，可取值："timeout", "error", "abort", "parsererror"、"null"
-			mui.toast(errorThrown, {duration: 'short', type: 'div'});	
+			if(type == 'timeout'){
+				mui.toast('网络请求超时，请稍后重试!', {duration: 'long', type: 'div'});	
+			}else if(type == 'null' || type == 'abort'){
+				mui.toast('网络异常，请检查您的网络!', {duration: 'long', type: 'div'});	
+			}else{
+				mui.toast(errorThrown, {duration: 'long', type: 'div'});		
+			};
 		    return false
 		}
 	})

@@ -76,16 +76,16 @@
         });
         
         var user_id = JSON.parse(plus.storage.getItem("userinfo")).id
-        var winH = window.screen.height;
-        var navHeight = localStorage.getItem('navHeight');
-        var topHeight = document.querySelector('#Js-header').offsetHeight;
-        var divHeight = document.querySelector('#Js-content').offsetHeight;
-        var _divH = Number(topHeight) / sizeObj.dpl + Number(divHeight) / sizeObj.dpl;
-        var _viewH = Number(winH) / sizeObj.dpl - _divH - Number(navHeight) / sizeObj.dpl; // 内容区域高度
         var _self = plus.webview.currentWebview();
         var pid,wid;
 		
         window.addEventListener('loadpage', function () {
+	        var winH = window.screen.height;
+	        var navHeight = localStorage.getItem('navHeight');
+	        var topHeight = document.querySelector('#Js-header').offsetHeight;
+	        var divHeight = document.querySelector('#Js-content').offsetHeight;
+	        var _divH = Number(topHeight) / sizeObj.dpl + Number(divHeight) / sizeObj.dpl;
+	        var _viewH = Number(winH) / sizeObj.dpl - _divH - Number(navHeight) / sizeObj.dpl; // 内容区域高度
         	
             var group = new webviewGroup(_self.id, {
                 topHeight: _divH,

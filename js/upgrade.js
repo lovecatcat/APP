@@ -123,9 +123,10 @@ function downWgt(wgtUrl, ver) {
 	
     plus.nativeUI.showWaiting('正在更新资源', {
         style: 'white',
-        width: '90px'
+        width: '120px'
     })
     
+    // 创建下载对象
     var dtask = plus.downloader.createDownload(wgtUrl, {filename: "_doc/" + ver + '.wgt'}, function (d, status) {
         if (status == 200) {
             console.log("下载成功：" + d.filename);
@@ -136,13 +137,70 @@ function downWgt(wgtUrl, ver) {
             console.log("下载wgt失败" + d.filename);
             delFile(d.filename)
         }
-    }).start();
-//  dtask.addEventListener('statechanged', function(task, status){
-//  	var a = task.downloadedSize / task.totalSize * 100;
-//  	console.log(a);
-//  }, false);
-//  dtask.start();
+    });
+    
+    // 监测网络发生改变并处理
+    document.addEventListener("netchange", function(){
+    	var nt = plus.networkinfo.getCurrentType();
+		switch (nt){
+			case plus.networkinfo.CONNECTION_ETHERNET:
+			case plus.networkinfo.CONNECTION_WIFI:
+			case plus.networkinfo.CONNECTION_CELL4G:
+				dtesk('恢复下载，正在更新资源');
+				setTimeout(function(){
+					dtask.resume(); 	
+				}, 1500);
+			break;
+			case plus.networkinfo.CONNECTION_CELL3G:
+			case plus.networkinfo.CONNECTION_CELL2G:
+				plus.nativeUI.closeWaiting();
+				plus.nativeUI.toast('当前网络环境不佳，已暂停下载');
+				dtask.pause(); 
+			break; 
+			default:
+				plus.nativeUI.closeWaiting();
+				plus.nativeUI.toast('当前网络环境不佳，已暂停下载');
+				dtask.pause(); 
+			break;
+		}
+    }, false);
+    
+    // 监测下载进度
+    dtask.addEventListener('statechanged', function(task, status){
+    	var taskSize = parseInt(task.downloadedSize / task.totalSize * 100);
+		
+    	switch(taskSize){
+    		case 10 :
+    		case 30 :
+    		case 50 :
+    		case 75 :
+    		case 90 :
+    			dtesk('已下载：' + taskSize + '%');
+			break;
+    		case 100 :
+    			dtesk('下载完成，正在解压更新文件');
+			break;
+    	}
+    	
+    }, false);
+    
+    // 下载开始
+    dtask.start();
 }
+
+
+/**
+ * 下载进度
+ * @param {String} text 当前显示内容
+ */
+function dtesk(text) {
+    plus.nativeUI.closeWaiting();
+	plus.nativeUI.showWaiting(text, {
+		style: 'white',
+		width: '120px'
+	});
+}
+
 
 /**
  * 删除文件
@@ -169,8 +227,9 @@ function installWgt(path) {
         console.log("安装wgt文件成功！");
         plus.nativeUI.closeWaiting();
         delFile(path);
-	    plus.nativeUI.alert( "系统更新成功，请手动退出App重新打开!", function(){
+	    plus.nativeUI.alert( "更新完毕，请手动退出App重新打开!", function(){
 			//console.log( "User pressed!" );
+			plus.nativeUI.closeWaiting();
 		}, "更新提示", "确定" );
 //      plus.nativeUI.confirm("更新成功，请退出app重新",
 //          function (e) {

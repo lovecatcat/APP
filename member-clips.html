@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/module.css" rel="stylesheet" />
+		<script src="js/config.js" type="text/javascript"></script>
+	</head>
+
+	<body class="BL-bg-f2f">
+		<header id="Js-header" class="BL-bg-fff">
+			<div class="BL-mod-headbar BL-mod-headbar-pos">
+				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+				<h1 class="BL-title">展业夹</h1>
+				<a class="BL-icon BL-icon-search"></a>
+			</div>
+		</header>
+
+		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY" style="background-color: #69bafa;">
+			<div class="BL-pad-a1">
+				<div class="mui-row">
+					<a class="mui-col-sm-6 mui-col-xs-6 BL-pad-a_5" @tap="toastMsg">
+						<img src="images/member/clips_1.png" />
+					</a>
+					<a class="mui-col-sm-6 mui-col-xs-6 BL-pad-a_5" href="member-promote.html" data-wid="member_promote">
+						<img src="images/member/clips_2.png" />
+					</a>
+					<a class="mui-col-sm-6 mui-col-xs-6 BL-pad-a_5" @tap="toastMsg">
+						<img src="images/member/clips_3.png" />
+					</a>
+					<a class="mui-col-sm-6 mui-col-xs-6 BL-pad-a_5" @tap="toastMsg">
+						<img src="images/member/clips_4.png" />
+					</a>
+					<a class="mui-col-sm-6 mui-col-xs-6 BL-pad-a_5" @tap="toastMsg">
+						<img src="images/member/clips_5.png" />
+					</a>
+					<a class="mui-col-sm-6 mui-col-xs-6 BL-pad-a_5" @tap="toastMsg">
+						<img src="images/member/clips_6.png" />
+					</a>
+					<a class="mui-col-sm-6 mui-col-xs-6 BL-pad-a_5" @tap="toastMsg">
+						<img src="images/member/clips_7.png" />
+					</a>
+				</div>	
+			</div>
+		</div>
+
+	</body>
+	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/vue.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		mui.init();
+		
+		var clips = new Vue({
+	        el: '#Js-content',
+	        data: {},
+	        methods:{
+	        	toastMsg: function () {
+	                mui.toast('功能开发中，敬请期待', {duration: 'short', type: 'div'})
+	                return false;
+	            }
+	        }
+	    })
+		
+		mui('body').on('tap', 'a', function () {
+	        var href = this.getAttribute('href');
+	        var id = this.getAttribute("data-wid");
+	
+	        if (href && ~href.indexOf('.html')) {
+	            mui.openWindow({
+	                url: href,
+	                id: id,
+	                show: animateObj.aniPage
+	            });
+	        }
+	    });
+		
+		mui.plusReady(function() {
+			statusbar();
+				
+			var winH = window.innerHeight;
+			var topHeight = document.querySelector('#Js-header').offsetHeight;
+			document.querySelector('#Js-content').style.height = (Number(winH) - Number(topHeight)) + 'px';
+			
+		})
+	</script>
+</html>

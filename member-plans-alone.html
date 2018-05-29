@@ -17,7 +17,7 @@
         	时间：2018-03-07
         	描述：单个计划书详情 begin
         -->
-		<div id="Js-alone" class="mui-content BL-bg-3b9cf5 plans-detail BL-overFlow-autoY" v-cloak> 
+		<div id="Js-alone" class="mui-content plans-detail-content BL-bg-3b9cf5 plans-detail BL-overFlow-autoY" v-cloak> 
 			
 				<div class="plans-detail-banner">
 					<img :src="'images/plans/prospectus/'+ Number(list.genre) + '.jpg'" alt="导航图" >
@@ -62,39 +62,62 @@
 				</div>
 				<!--保险计划-->
 				<!--险种信息-->
-				<div class="plans-detail-box BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff">
+				<div class="plans-detail-box BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff" style="overflow: hidden;">
+					<!--<table class="BL-ftz-46">
+						<tr>
+							<td>险种</td>
+							<td>保险金额</td>
+							<td>保险期间</td>
+							<td>交费期间</td>
+							<td>年交保费</td>
+						</tr>
+						<tr>
+							<td v-if="main.short_name">{{main.short_name}}</td>
+							<td v-else>{{main.name}}</td>
+							<td>{{main.base_money}}</td>
+							<td>{{main.safe_year}}</td>
+							<td>{{main.pay_year}}</td>
+							<td>{{main.year_fee}}</td>
+						</tr>
+						<tr v-for="item in children">
+							<td v-if="main.short_name">{{item.short_name}}</td>
+							<td v-else>{{item.name}}</td>
+							<td>{{item.base_money}}</td>
+							<td>{{item.safe_year}}</td>
+							<td>{{item.pay_year}}</td>
+							<td>{{item.year_fee}}</td>
+						</tr>
+					</table>-->
+					
 					<ul class="BL-ul">
-                        <li class="BL-ftz-42  BL-ub BL-ub-ac">
-                        	<span class="BL-ub-f1">险种</span>
-                        	<span class="BL-ub-f1">保险金额</span>
-                        	<span class="BL-ub-f1">保险期间</span>
-                        	<span class="BL-ub-f1">交费期间</span>
-                        	<span class="BL-ub-f1">年交保费</span>
+                        <li class="BL-ftz-42">
+                        	<span>险种</span>
+                        	<span>保险金额</span>
+                        	<span>保险期间</span>
+                        	<span>交费期间</span>
+                        	<span>年交保费</span>
                         </li>
-                        <li class="BL-ftz-46 BL-ub BL-ub-ac">
-                        	<span class="BL-ub-f1" v-if="main.short_name">{{main.short_name}}</span>
-                        	<span class="BL-ub-f1" v-else>{{main.name}}</span>
-                        	<span class="BL-ub-f1">{{main.base_money}}</span>
-                        	<span class="BL-ub-f1">{{main.safe_year}}</span>
-                        	<span class="BL-ub-f1">{{main.pay_year}}</span>
-                        	<span class="BL-ub-f1">{{main.year_fee}}</span>
+                        <li class="BL-ftz-46">
+                        	<span v-if="main.short_name">{{main.short_name}}</span>
+                        	<span v-else>{{main.name}}</span>
+                        	<span>{{main.base_money}}</span>
+                        	<span>{{main.safe_year}}</span>
+                        	<span>{{main.pay_year}}</span>
+                        	<span>{{main.year_fee}}</span>
                         </li>
-                        <li class="BL-ftz-46 BL-ub BL-ub-ac" v-for="item in children">
-                        	<span class="BL-ub-f1" v-if="item.short_name">{{item.short_name}}</span>
-                        	<span class="BL-ub-f1" v-else>{{item.name}}</span>
-                        	<span class="BL-ub-f1">{{item.base_money}}</span>
-                        	<span class="BL-ub-f1">{{item.safe_year}}</span>
-                        	<span class="BL-ub-f1">{{item.pay_year}}</span>
-                        	<span class="BL-ub-f1">{{item.year_fee}}</span>
-                        </li>
-                        <li class="BL-ftz-42  BL-ub BL-ub-ac">
-                        	<span class="BL-ub-f1" style="font-weight: 600;">总保费</span>
-                        	<span class="BL-ub-f1"></span>
-                        	<span class="BL-ub-f1"></span>
-                        	<span class="BL-ub-f1"></span>
-                        	<span class="BL-ub-f1" style="font-weight: 600;">{{total}}</span>
+                        <li class="BL-ftz-46" v-for="item in children">
+                        	<span v-if="item.short_name">{{item.short_name}}</span>
+                        	<span v-else>{{item.name}}</span>
+                        	<span>{{item.base_money}}</span>
+                        	<span>{{item.safe_year}}</span>
+                        	<span>{{item.pay_year}}</span>
+                        	<span>{{item.year_fee}}</span>
                         </li>
                     </ul>
+                    <div class="BL-mar-t-1">
+						<span class="BL-ftz-46" style="font-weight: 600;">总保费</span>
+						<span class="BL-ftz-46 fr" style="font-weight: 600;">{{total}}</span>
+					</div>
 				</div>
 				<!--险种信息-->
 				<!--产品图片-->

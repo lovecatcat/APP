@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>养老规划演算表</title>
+    <link href="css/mui.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/module.css" rel="stylesheet" />
+    <link href="css/form.css" rel="stylesheet" />
+    <script src="js/config.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+</head>
+
+<body class="BL-bg-f2f">
+<header id="Js-header" class="BL-bg-fff">
+    <div class="BL-mod-headbar BL-mod-headbar-pos">
+        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+        <h1 class="BL-title">养老规划演算表</h1>
+        <div class="control">
+            <a>下一步</a>
+        </div>
+    </div>
+</header>
+
+<div id="slider" class="mui-slider">
+
+    <div id="Js-content" class="BL-pad-t-1">
+        <div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
+            <a class="mui-control-item mui-active" href="#item1">基本养老金演算</a>
+            <a class="mui-control-item" href="#item2">社会养老险估算表</a>
+            <a class="mui-control-item" href="#item3">每年需存金额</a>
+        </div>
+    </div>
+    <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+
+    <div class="mui-slider-group" id="Js-slider-group">
+        <!--第一个内容区容器-->
+        <div id="item1" class="mui-slider-item mui-control-content mui-active">
+            <ul class="mui-table-view form-list-cell" style="margin-top: 0rem !important;">
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">年龄</label>
+                    <div class="form-list-control">
+                        <input type="text" placeholder="请输入您的年龄" v-model="age">
+                    </div>
+                    <div class="form-list-icon" v-show="age!=''"
+                         @click="age=''">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </li>
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">预计退休年龄</label>
+                    <div class="form-list-control">
+                        <input type="text" placeholder="请输入" v-model="retireAge">
+                    </div>
+                    <div class="form-list-icon">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </li>
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">目前每月支出</label>
+                    <div class="form-list-control">
+                        <input type="text" placeholder="请输入您目前每月支出" v-model="alimony">
+                    </div>
+                    <div class="form-list-icon" v-show="alimony!=''"
+                         @click="alimony=''">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </li>
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">通货膨胀率</label>
+                    <div class="form-list-control">
+                        <div class="BL-ub-f1 BL-txt-r" id="select_lv">
+                            {{ select_lv_text }}
+                        </div>
+                    </div>
+                    <div class="form-list-icon">
+                        <div class="mui-icon mui-icon-arrowright"></div>
+                    </div>
+                </li>
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">离退休年龄</label>
+                    <div class="form-list-control">
+                        <input type="text" placeholder="请输入" v-model="nper">
+                    </div>
+                    <div class="form-list-icon">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </li>
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">退休生活年数</label>
+                    <div class="form-list-control">
+                        <input type="text" placeholder="请输入" v-model="retireAgeNum">
+                    </div>
+                    <div class="form-list-icon">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </li>
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">退休第一年需要养老金</label>
+                    <div class="form-list-control">
+                        <input type="text" placeholder="请输入" v-model="total">
+                    </div>
+                    <div class="form-list-icon">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </li>
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">总需养老金</label>
+                    <div class="form-list-control">
+                        <input type="text" placeholder="请输入" v-model="allTotal">
+                    </div>
+                    <div class="form-list-icon">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--第二个内容区-->
+        <div id="item2" class="mui-slider-item mui-control-content">
+            <ul class="mui-table-view form-list-cell" style="margin-top: 0rem !important;">
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">目前月收入</label>
+                    <div class="form-list-control">
+                        <div class="BL-ub-f1 BL-txt-r" id="select_monthIncome">
+                            {{ select_monthIncome_text }}
+                        </div>
+                    </div>
+                    <div class="form-list-icon">
+                        <div class="mui-icon mui-icon-arrowright"></div>
+                    </div>
+                </li>
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">总需退休金</label>
+                    <div class="form-list-control">
+                        <input type="text" placeholder="请输入" v-model="allTotal">
+                    </div>
+                    <div class="form-list-icon">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </li>
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">社保替代率</label>
+                    <div class="form-list-control">
+                        <input type="text" placeholder="请输入" v-model="rate">
+                    </div>
+                    <div class="form-list-icon">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </li>
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">社保给付约为</label>
+                    <div class="form-list-control">
+                        <input type="text" placeholder="请输入" v-model="pay">
+                    </div>
+                    <div class="form-list-icon">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </li>
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">缺口</label>
+                    <div class="form-list-control">
+                        <input type="text" placeholder="请输入" v-model="balance">
+                    </div>
+                    <div class="form-list-icon">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--第三个内容区-->
+        <div id="item3" class="mui-slider-item mui-control-content">
+            <ul class="mui-table-view form-list-cell" style="margin-top: 0rem !important;">
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">总需退休金</label>
+                    <div class="form-list-control">
+                        <input type="text" placeholder="请输入每年收入" v-model="balance">
+                    </div>
+                    <div class="form-list-icon">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </li>
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">投资风格</label>
+                    <div class="form-list-control">
+                        <div class="BL-ub-f1 BL-txt-r" id="select_type">
+                            {{ select_type_text }}
+                        </div>
+                    </div>
+                    <div class="form-list-icon">
+                        <div class="mui-icon mui-icon-arrowright"></div>
+                    </div>
+                </li>
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">保证收益账户</label>
+                    <div class="form-list-control">
+                        <input type="text" placeholder="请输入" v-model="account">
+                    </div>
+                    <div class="form-list-icon">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </li>
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">准备年数</label>
+                    <div class="form-list-control">
+                        <div class="BL-ub-f1 BL-txt-r" id="select_years">
+                            {{ select_years_text }}
+                        </div>
+                    </div>
+                    <div class="form-list-icon">
+                        <div class="mui-icon mui-icon-arrowright"></div>
+                    </div>
+                </li>
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">收益率假设</label>
+                    <div class="form-list-control">
+                        <div class="BL-ub-f1 BL-txt-r" id="select_yields">
+                            {{ select_yields_text }}
+                        </div>
+                    </div>
+                    <div class="form-list-icon">
+                        <div class="mui-icon mui-icon-arrowright"></div>
+                    </div>
+                </li>
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">每年应存金额</label>
+                    <div class="form-list-control">
+                        <input type="text" placeholder="请输入" v-model="realStorage">
+                    </div>
+                    <div class="form-list-icon">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/vue.min.js" type="text/javascript"></script>
+<script src="js/mui.picker.js" type="text/javascript"></script>
+<script src="js/mui.poppicker.js" type="text/javascript"></script>
+<script src="js/mui.dtpicker.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mui.init();
+    var safe = new Vue({
+        el: '#Js-slider-group',
+        data: function () {
+            return {
+                age: "", // 年龄
+                retireAge: "60", // 预计退休年龄
+                alimony: "", // 目前每月支出
+                select_lv: [
+                    {"text":"1%","value":"1"},
+                    {"text":"2%","value":"2"},
+                    {"text":"3%","value":"3"},
+                    {"text":"4%","value":"4"},
+                    {"text":"5%","value":"5"},
+                    {"text":"6%","value":"6"}
+                ],
+                select_lv_value: "",
+                select_lv_text: "请选择",
+                nper: "", // 离退休年龄
+                retireAgeNum: "25",  // 退休生活年数
+                total: "", // 退休第一年需要养老金
+                allTotal: "", // 总需养老金
+                select_monthIncome: [
+                    {"text":"5000","value":"0"},
+                    {"text":"10000","value":"1"},
+                    {"text":"20000","value":"2"},
+                    {"text":"30000","value":"3"},
+                    {"text":"40000","value":"4"},
+                    {"text":"50000","value":"5"},
+                    {"text":"100000","value":"6"}
+                ],
+                select_monthIncome_value: "",
+                select_monthIncome_text: "请选择",
+                rate: "0.00%", // 社保替代率
+                pay: "0.00", // 社保给付约为
+                balance: "0.00", // 总需退休金
+                select_type: [
+                    {"text":"保守型","value":"30"},
+                    {"text":"稳健型","value":"30"},
+                    {"text":"平衡型","value":"40"},
+                    {"text":"进取型","value":"30"},
+                    {"text":"激进型","value":"20"}
+                ],
+                select_type_value: "",
+                select_type_text: "请选择",
+                account: "0.00", // 保证收益账户
+                select_years: [
+                    {"text":"1","value":"1"},
+                    {"text":"3","value":"3"},
+                    {"text":"5","value":"5"},
+                    {"text":"8","value":"8"},
+                    {"text":"10","value":"10"},
+                    {"text":"15","value":"15"},
+                    {"text":"20","value":"20"}
+                ],
+                select_years_value: "",
+                select_years_text: "请选择",
+                select_yields: [
+                    {"text":"3%","value":"3"},
+                    {"text":"4%","value":"4"},
+                    {"text":"5%","value":"5"},
+                    {"text":"6%","value":"6"},
+                    {"text":"7%","value":"7"},
+                    {"text":"8%","value":"8"},
+                    {"text":"9%","value":"9"},
+                    {"text":"10%","value":"10"}
+                ],
+                select_yields_value: "",
+                select_yields_text: "请选择",
+                realStorage: "0.00"   // 每年应存金额
+            }
+        }
+    })
+
+    mui.plusReady(function() {
+        statusbar();
+        var winH = window.innerHeight;
+        var topHeight = document.getElementById('Js-header').offsetHeight;
+        var mainHeight = document.getElementById('Js-content').offsetHeight;
+        document.querySelector('.mui-slider-group').style.height = winH - topHeight - mainHeight + 'px';
+
+        //通货膨胀率选择
+        var select_lv = new mui.PopPicker();
+        select_lv.setData(safe.select_lv);
+        document.querySelector('#select_lv').addEventListener('tap', function () {
+            disease.show(function (items) {
+                safe.select_lv_value = items[0].value;
+                safe.select_lv_text = items[0].text;
+            })
+        })
+
+        //目前月收入选择
+        var select_monthIncome = new mui.PopPicker();
+        select_monthIncome.setData(safe.select_type);
+        document.querySelector('#select_monthIncome').addEventListener('tap', function () {
+            select_monthIncome.show(function (items) {
+                safe.select_monthIncome_value = items[0].value;
+                safe.select_monthIncome_text = items[0].text;
+            })
+        })
+
+        //投资风格选择
+        var select_type = new mui.PopPicker();
+        select_type.setData(safe.select_type);
+        document.querySelector('#select_type').addEventListener('tap', function () {
+            select_type.show(function (items) {
+                safe.select_type_value = items[0].value;
+                safe.select_type_text = items[0].text;
+            })
+        })
+
+        //准备年数选择
+        var select_years = new mui.PopPicker();
+        select_years.setData(safe.select_years);
+        document.querySelector('#select_years').addEventListener('tap', function () {
+            select_years.show(function (items) {
+                safe.select_years_value = items[0].value;
+                safe.select_years_text = items[0].text;
+            })
+        })
+
+        //收益率假设选择
+        var select_yields = new mui.PopPicker();
+        select_yields.setData(safe.select_yields);
+        document.querySelector('#select_yields').addEventListener('tap', function () {
+            select_yields.show(function (items) {
+                safe.select_yields_value = items[0].value;
+                safe.select_yields_text = items[0].text;
+            })
+        })
+    });
+</script>
+
+</html>

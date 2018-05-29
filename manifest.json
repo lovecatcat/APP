@@ -398,7 +398,10 @@
 					"communic.html",
 					"recruit.html",
 					"product-detail.html",
-					"rank.html"
+					"rank.html",
+					"requirement_safe1.html",
+					"requirement_safe.html",
+					"requirement_retire.html"
 				],
 				"priority": 0
 			},
@@ -2139,7 +2142,8 @@
 					"images/plans/plansManage/297.png",
 					"images/plans/plansManage/290.png",
 					"images/plans/plansManage/8.png",
-					"images/plans/plansManage/302.png"
+					"images/plans/plansManage/302.png",
+					"images/plans/plansManage/16113.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -3231,6 +3235,37 @@
 					"js/sha256.js",
 					"css/mui.css",
 					"paehis/method.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"requirement_safe1.html": {
+				"resources": [
+					"js/mui.poppicker.js",
+					"css/mui.picker.min.css",
+					"css/mui.css",
+					"css/form.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"requirement_safe.html": {
+				"resources": [
+					"css/sns.css",
+					"js/mui.poppicker.js",
+					"css/mui.css",
+					"css/form.css",
+					"css/mui.picker.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"requirement_retire.html": {
+				"resources": [
+					"js/mui.poppicker.js",
+					"css/mui.picker.min.css",
+					"css/form.css",
+					"css/mui.css"
 				],
 				"refer": [],
 				"priority": 0

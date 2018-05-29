@@ -137,6 +137,21 @@ function downWgt(wgtUrl, ver) {
             delFile(d.filename)
         }
     }).start();
+    
+    document.addEventListener("netchange", function(){
+    	var nt = plus.networkinfo.getCurrentType();
+		switch (nt){
+			case plus.networkinfo.CONNECTION_CELL3G:
+			case plus.networkinfo.CONNECTION_CELL2G:
+			plus.nativeUI.toast('当前网络不佳，已取消下载');
+			dtask.abort(); 
+			break; 
+			default:
+			plus.nativeUI.toast('当前网络不佳，已取消下载');
+			dtask.abort(); 
+			break;
+		}
+    }, false);
 //  dtask.addEventListener('statechanged', function(task, status){
 //  	var a = task.downloadedSize / task.totalSize * 100;
 //  	console.log(a);

@@ -241,7 +241,7 @@
                     server: 'PolicyIns.onlineInsured',
                     device: 'mobile'
                 },
-                timeout: 60000,
+                timeout: 30000,
                 success: function (res) {
                     if (res.code) {
                         if (res.data.resultCode === '00') {
@@ -259,7 +259,10 @@
                             }
                             upload_img(img.war_id)
                         } else {
-                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
+                            mui.toast(res.data && res.data.resultMsg ? res.data.resultMsg : '网络出错，请稍后再试', {
+                                duration: 'long',
+                                type: 'div'
+                            })
                             return false
                         }
                     } else {
@@ -290,11 +293,11 @@
                     }
                     if (res.code) {
                         if (res.data.resultCode === '00') {
-                            mui.toast('上传成功，承保中', {duration: 'long', type: 'div'})
+                            mui.toast('上传成功，承保中', {duration: 'short', type: 'div'})
                             ins_pay(id)
                             return false
                         } else {
-                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
+                            mui.toast(res.data && res.data.resultMsg ? res.data.resultMsg : '网络出错，请稍后再试', {duration: 'long', type: 'div'})
                             return false
                         }
                     } else {
@@ -348,7 +351,7 @@
                                 mui.back();
                             }, 4500)
                         } else {
-                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'})
+                            mui.toast(res.data && res.data.resultMsg ? res.data.resultMsg : '网络出错，请稍后再试', {duration: 'long', type: 'div'})
                             setTimeout(function () {
                                 mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
                                 plus.webview.close('hd_insurance-index');

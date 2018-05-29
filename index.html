@@ -16,8 +16,8 @@
 		<!----------- 主导航  begin -------------->
 		<nav id="Js-nav" style="opacity: 0;" class="mui-bar mui-bar-tab BL-bg-fff BL-mod-footNav BL-Border-t">
 			<a data-index="0" class="mui-tab-item footNav-item mui-active">
-				<span class="footNav-icon footNav-icon-hm"></span>
-				<span class="footNav-label">首页</span>
+				<span class="footNav-icon footNav-icon-hm" id="homeicon"></span>
+				<span class="footNav-label" id="homename">首页</span>
 			</a>
 			<a data-index="1" class="mui-tab-item footNav-item">
 				<span class="footNav-icon footNav-icon-prospect"></span>
@@ -36,12 +36,12 @@
 
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
-	<script src="js/Tunnel.js" type="text/javascript"></script>
+	<!--<script src="js/Tunnel.js" type="text/javascript"></script>-->
 	<script src="js/upgrade.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		var navHeight = document.querySelector('#Js-nav').offsetHeight / sizeObj.dpl;
-		localStorage.setItem("navHeight", document.querySelector('#Js-nav').offsetHeight); // 储存底部导航高度 
-		
+		localStorage.setItem("navHeight", document.querySelector('#Js-nav').offsetHeight); // 储存底部导航高度
+
 		mui.plusReady(function() {
 			var nums = 0;
             var userinfo = plus.storage.getItem('userinfo');
@@ -73,6 +73,13 @@
 				});
 					
 			}
+			//首页logo
+            var logodata = null
+            window.addEventListener('homeicon', function (event) {
+                logodata = event.detail.data ? JSON.parse(event.detail.data) : ''
+                document.getElementById('homeicon').style.backgroundImage = logodata.img_url_head ? 'url(' + logodata.img_url_head + ')' : 'url(./images/icon/nav-index-active.png)'
+                document.getElementById('homename').innerHTML = logodata.module_name
+            })
             
             window.addEventListener('closeGuide', function () {
             	if (plus.runtime.appid !== 'HBuilder') { // 开发模式不检测更新
@@ -124,14 +131,14 @@
             
             document.getElementById('Js-nav').style.opacity = 1;
             
-            window.addEventListener('isStopTunnel', function(data){
-            	if(Tunnel._webSocket && data.flag){
-                	Tunnel._isStop = false;
-                	Tunnel._webSocket.close();
-                };		
-            }, false);
+//            window.addEventListener('isStopTunnel', function(data){
+//            	if(Tunnel._webSocket && data.flag){
+//                	Tunnel._isStop = false;
+//                	Tunnel._webSocket.close();
+//                };
+//            }, false);
  
-		    /*plus.geolocation.watchPosition(function(p){
+		    plus.geolocation.watchPosition(function(p){
 		    	locationd = p;	
 		    }, function(e){
 				//console.log('无法获取当前位置');
@@ -140,56 +147,56 @@
 				enableHighAccuracy: true,
 			})
 		     
-		    Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
-			        //console.log('Message:' + Tunnel._webSocket.readyState);
-			        console.log(event.data);
-			        //如果获取到消息，心跳检测重置
-			        //拿到任何消息都说明当前连接是正常的
-			        var _info = '';
-			        var _tips = '';
-			        var data = JSON.parse(event.data);
-			        if(Tunnel._sessionId==''){
-			        	Tunnel._sessionId = data.session_id;	
-			        };
-			        //console.log(JSON.stringify({"uid":JSON.parse(userinfo).id,"type":5,"flag":plus.device.uuid,"platform":navigator.platform,"userAgent":navigator.userAgent,"location":locationd, "screen":plus.screen, "networkinfo":nowNetwork()}))
-			        
-					switch (data.code){
-					    case 1:
-					        _info = '非法连接';
-					        break;
-					    case 2:
-					        _info = '非法用户';
-					        break;
-					    case 3:
-					        _info = '您的帐号在其它设备上登录，已经注销当前帐号';
-					        break;
-					    case 20:
-					        _tips = data.message;
-					        break;
-					    case 21:
-					        if(data.command == 'location'){
-					        	type = 21;	
-							    Tunnel._webSocket.send(JSON.stringify({"uid":JSON.parse(userinfo).id,"type":5,"flag":plus.device.uuid,"platform":navigator.platform,"userAgent":navigator.userAgent,"location":locationd, "session_id":Tunnel._sessionId, "screen":plus.screen, "networkinfo":nowNetwork()}));
-					        };
-					        break;
-					}
-					if(_info != ''){
-						nums++;
-					};
-					
-					if(_info != '' && nums ==1){
-						Tunnel._isStop = false;
-						Tunnel._webSocket.close();
-						plus.storage.clear();
-						mui.alert(_info, '操作提示', '确定', function(){
-							plus.runtime.restart();		
-						});
-					};
-					
-					if(_tips != ''){
-						mui.alert(_tips, '温馨提示', '确定');
-					}
-		    });*/
+//		    Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
+//			        //console.log('Message:' + Tunnel._webSocket.readyState);
+//			        console.log(event.data);
+//			        //如果获取到消息，心跳检测重置
+//			        //拿到任何消息都说明当前连接是正常的
+//			        var _info = '';
+//			        var _tips = '';
+//			        var data = JSON.parse(event.data);
+//			        if(Tunnel._sessionId==''){
+//			        	Tunnel._sessionId = data.session_id;
+//			        };
+//			        //console.log(JSON.stringify({"uid":JSON.parse(userinfo).id,"type":5,"flag":plus.device.uuid,"platform":navigator.platform,"userAgent":navigator.userAgent,"location":locationd, "screen":plus.screen, "networkinfo":nowNetwork()}))
+//
+//					switch (data.code){
+//					    case 1:
+//					        _info = '非法连接';
+//					        break;
+//					    case 2:
+//					        _info = '非法用户';
+//					        break;
+//					    case 3:
+//					        _info = '您的帐号在其它设备上登录，已经注销当前帐号';
+//					        break;
+//					    case 20:
+//					        _tips = data.message;
+//					        break;
+//					    case 21:
+//					        if(data.command == 'location'){
+//					        	type = 21;
+//							    Tunnel._webSocket.send(JSON.stringify({"uid":JSON.parse(userinfo).id,"type":5,"flag":plus.device.uuid,"platform":navigator.platform,"userAgent":navigator.userAgent,"location":locationd, "session_id":Tunnel._sessionId, "screen":plus.screen, "networkinfo":nowNetwork()}));
+//					        };
+//					        break;
+//					}
+//					if(_info != ''){
+//						nums++;
+//					};
+//
+//					if(_info != '' && nums ==1){
+//						Tunnel._isStop = false;
+//						Tunnel._webSocket.close();
+//						plus.storage.clear();
+//						mui.alert(_info, '操作提示', '确定', function(){
+//							plus.runtime.restart();
+//						});
+//					};
+//
+//					if(_tips != ''){
+//						mui.alert(_tips, '温馨提示', '确定');
+//					}
+//		    });
 		    
             
             // 运行环境切换到后台，开始倒数20分钟，重启应用
@@ -259,7 +266,15 @@
 				tabs[j].addEventListener("tap", function() {
 					// 获取当前结点的索引
 					targetIndex = this.getAttribute("data-index");
-					// 转换为number类型
+					console.log(typeof targetIndex + targetIndex)
+					var urlimg = null
+                    if (targetIndex == '0') {
+                        urlimg = logodata.img_url_head ? logodata.img_url_head : './images/icon/nav-index-active.png'
+                    } else {
+                        urlimg = logodata.img_url_tail ? logodata.img_url_tail : './images/icon/nav-index.png'
+                    }
+                    document.getElementById('homeicon').style.backgroundImage = 'url(' + urlimg + ')'
+                    // 转换为number类型
 					targetIndex = parseInt(targetIndex, 10);
 					
 					if(targetIndex == activeIndex) {

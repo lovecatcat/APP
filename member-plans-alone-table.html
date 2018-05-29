@@ -352,7 +352,7 @@
 				indeLv: '',
 				behalfLevelNum: [348, 370], //有中高低
 				behalfTable: [256, 354, 16201, 16197, 370, 347, 272, 340], //主险利益演示表和附加险有关系的
-				//国华康运一生a,国华康运金生,国华少儿,鑫丰盈年金保险，万年红,信泰千万人生，恒久健康，万年青
+				//国华康运一生a,国华康运金生,国华少儿,鑫丰盈年金保险，万年红,信泰千万人生，恒久健康，万年青，万年福
 				behalfChildren: [87, 355, 16202, 16198, 373, 404, 367, 16216], //主险利益演示表和附加险有关系的
 				//国华康运一生附加年金，国华康运金生养老年金  ,国华少儿年金,鑫丰盈养老年金，万年红,信泰千万人生，恒大养老年金
 				status: false,//和附加险有没有关系
@@ -434,6 +434,7 @@
 					}
 				})
 //				alert(JSON.stringify(	modal.childrenDescribes))
+//				alert(JSON.stringify(modal.main ))
 			}else{
 				var describes = {}
 				mui.each(data.list.describes, function(index, item){
@@ -443,6 +444,7 @@
 				})
 				modal.main = data.list.list
 				modal.mainDescribes = describes
+				
 			}
 			var njy,
                 nje,
@@ -529,6 +531,9 @@
                 	ret.njy = njy;
                     ret.nje = nje;
                     ret.tbnj = tbnj;
+                    ret.zfbl = 0;
+                    ret.ylnj = 0
+                    ret.zsj = 0
                     ret.fj = true;
                     ret.genre = 373;
                     ret.year_fee = 100;
@@ -576,6 +581,7 @@
 					});
 			}
 			if(modal.formID == '370'){
+				//万年红
 				njy = modal.main[11][njy]
 				nje = modal.main[104-manData.assu_age][nje];
 				tbnj = modal.main[5][tbnj]

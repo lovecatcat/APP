@@ -2125,6 +2125,7 @@ var methods = {
 			data.njy = 0
 			data.nje = 0
 			data.tbnj = 0
+			data.zfbl = 0
 		} else if(safeid === 'HA006') {
 			// 恒大 恒顺
 			data.pay_year = 1
@@ -2252,11 +2253,17 @@ var methods = {
 			data.safe_year = 1
 			data.base_money = this.cache.base_moneyNADD
 			data.flag = this.flag[safeid]
-		} else if(safeid === 'ACIWP' || safeid === 'NWPD') {
-			// 附加豁免保险费重大疾病保险 附加豁免保险费定期寿险
+		} else if(safeid === 'ACIWP') {
+			// 附加豁免保险费重大疾病保险 
 			data.pay_year = py
 			data.safe_year = py
 			data.base_money = periodMoney
+		}else if(safeid === 'NWPD') {
+			// 附加豁免保险费定期寿险2016
+			data.pay_year = py
+			data.safe_year = 0
+			data.base_money = periodMoney
+			data.flag = this.samePerson ? 2 : 1
 		} else if(safeid === 'HI') { // 附加住院津贴医疗保险
 			data.pay_year = 1
 			data.safe_year = 1

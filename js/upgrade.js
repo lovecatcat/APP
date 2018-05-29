@@ -116,11 +116,17 @@ function compareVersion(oldVer, newVer) {
  */
 function downWgt(wgtUrl, ver) {
     console.log("下载wgt文件");
+    
+    if(methods == 'hand'){
+		document.getElementById('Js-updateSystem').classList.remove('mui-active');
+	};
+	
     plus.nativeUI.showWaiting('正在更新资源', {
         style: 'white',
         width: '90px'
     })
-    plus.downloader.createDownload(wgtUrl, {filename: "_doc/" + ver + '.wgt'}, function (d, status) {
+    
+    var dtask = plus.downloader.createDownload(wgtUrl, {filename: "_doc/" + ver + '.wgt'}, function (d, status) {
         if (status == 200) {
             console.log("下载成功：" + d.filename);
             //安装wgt包
@@ -131,6 +137,11 @@ function downWgt(wgtUrl, ver) {
             delFile(d.filename)
         }
     }).start();
+//  dtask.addEventListener('statechanged', function(task, status){
+//  	var a = task.downloadedSize / task.totalSize * 100;
+//  	console.log(a);
+//  }, false);
+//  dtask.start();
 }
 
 /**

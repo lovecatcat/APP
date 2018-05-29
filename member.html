@@ -66,7 +66,7 @@
 		        </div>
 	        	<div class="section section-manage BL-pad-lr-1_25">
 		            <div class="mui-row manage-group" v-if="menuitems" v-cloak>
-						<a  v-for="item in menuitems" v-if="memberItems.indexOf(item.module_sn)>-1&&item.state" :href="item.html" :data-wid="item.wid"
+						<a  v-for="item in menuitems" v-show="memberItems.indexOf(item.module_sn)>-1&&item.state" :href="item.html" :data-wid="item.wid"
 						   class="mui-col-sm-3 mui-col-xs-3">
 							<div class="icon" :style="'background: url('+ item.img_url_head+') no-repeat center center;background-size: contain;'"></div>
 							<div class="name">
@@ -199,14 +199,24 @@
             member.userinfo = plus.storage.getItem('userinfo') ? JSON.parse(plus.storage.getItem('userinfo')) : '';
         });
 
+        window.addEventListener('loadpageMember', function (e) {
+            setTimeout(function () {
+                statusbar();
+                var winH = window.innerHeight;
+                var titHeight = document.querySelector('#Js-header').offsetHeight;
+                var hrHeight = document.querySelector('.member-hr').offsetHeight;
+                document.querySelector('#Js-content').style.height = (winH - titHeight) + 'px';
+                document.querySelector('.mheader').style.height = (hrHeight - titHeight) + 'px';
+            }, 100);
+        })
 		//菜单显隐
         window.addEventListener('showmenu', function (event) {
 			var data = event.detail.data ? JSON.parse(event.detail.data) : ''
             mui.each(data, function (index, item) {
-                if(member.itemlink[item.module_sn]){
+                if (member.itemlink[item.module_sn]) {
                     item.html = member.itemlink[item.module_sn].html
                     item.wid = member.itemlink[item.module_sn].wid
-				}
+                }
             })
             member.menuitems = data
 			console.log(JSON.stringify(data))

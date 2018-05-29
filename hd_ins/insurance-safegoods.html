@@ -732,8 +732,6 @@
                         }
                     }
                 }
-
-
             },
             chAddonState: function (index) {
                 console.log('chAddonState')
@@ -928,6 +926,42 @@
                     mui.toast(toast_text, {duration: 'short', type: 'div'});
                     return false
                 }
+                return vm.checkMoney()
+            },
+            checkMoney: function() {
+                var money = Number(this.insurance.money)
+                var period_money = Number(this.insurance.period_money)
+                var name = this.insurance.name
+                var toast_text = null
+                switch (this.insurance.code) {
+                    case hjjk: // 恒久健康终身重大疾病保险2017
+                        if (money < 10000) {
+                            toast_text = '【' + name + '】的最低保额为1万元'
+                        } else if (money % 1000 !== 0) {
+                            toast_text = '【' + name + '】的保额需为1千元整数倍'
+                        }
+                        break
+                    case wnq: // 万年青终身重大疾病保险
+                        if (money < 50000) {
+                            toast_text = '【' + name + '】的最低保额为5万元'
+                        } else if (money % 10000 !== 0) {
+                            toast_text = '【' + name + '】的保额需为1万元整数倍'
+                        }
+                        break
+                    case fxjs: // 福享金生终身年金保险
+                    case wnh: // 万年红终身年金保险
+                    case wnf: // 万年福年金保险
+                        if (period_money < 1000) {
+                            toast_text = '【' + name + '】的最低保费为1千元'
+                        } else if (period_money % 1000 !== 0) {
+                            toast_text = '【' + name + '】的保费需为1千元整数倍'
+                        }
+                        break
+                }
+                if (toast_text) {
+                    mui.toast(toast_text, {duration: 'long', type: 'div'});
+                    return false
+                }
                 return true
             },
             //试算
@@ -1001,7 +1035,7 @@
                         server: 'PolicyIns.onlineInsured',
                         device: 'mobile'
                     },
-                    timeout: 600000,
+                    timeout: 50000,
                     success: function (res) {
                         if (res.code && res.data) {
                             var data = res.data
@@ -1039,7 +1073,8 @@
                                 return false;
                             }
                         } else {
-//                            console.log('试算失败')
+                            mui.toast('网络出错，请稍后再试', {duration: 'short', type: 'div'});
+                            return false;
                         }
                     }
                 });

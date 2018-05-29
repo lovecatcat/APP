@@ -146,10 +146,7 @@ function downWgt(wgtUrl, ver) {
 			case plus.networkinfo.CONNECTION_ETHERNET:
 			case plus.networkinfo.CONNECTION_WIFI:
 			case plus.networkinfo.CONNECTION_CELL4G:
-				plus.nativeUI.showWaiting('恢复下载，正在更新资源', {
-					style: 'white',
-					width: '120px'
-				});
+				dtesk('恢复下载，正在更新资源');
 				setTimeout(function(){
 					dtask.resume(); 	
 				}, 1500);

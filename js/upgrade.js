@@ -136,27 +136,40 @@ function downWgt(wgtUrl, ver) {
             console.log("下载wgt失败" + d.filename);
             delFile(d.filename)
         }
-    }).start();
+    });
     
     document.addEventListener("netchange", function(){
     	var nt = plus.networkinfo.getCurrentType();
 		switch (nt){
+			case plus.networkinfo.CONNECTION_ETHERNET:
+			case plus.networkinfo.CONNECTION_WIFI:
+			case plus.networkinfo.CONNECTION_CELL4G:
+				plus.nativeUI.showWaiting('恢复下载，正在更新资源', {
+			        style: 'white',
+			        width: '90px'
+			    });
+			    dtask.resume(); 
+			break;
 			case plus.networkinfo.CONNECTION_CELL3G:
 			case plus.networkinfo.CONNECTION_CELL2G:
-			plus.nativeUI.toast('当前网络不佳，已取消下载');
-			dtask.abort(); 
+			plus.nativeUI.closeWaiting();
+			plus.nativeUI.toast('当前网络不佳，已暂停下载');
+			dtask.pause(); 
 			break; 
 			default:
-			plus.nativeUI.toast('当前网络不佳，已取消下载');
-			dtask.abort(); 
+			plus.nativeUI.closeWaiting();
+			plus.nativeUI.toast('当前网络不佳，已暂停下载');
+			dtask.pause(); 
 			break;
 		}
     }, false);
-//  dtask.addEventListener('statechanged', function(task, status){
-//  	var a = task.downloadedSize / task.totalSize * 100;
-//  	console.log(a);
-//  }, false);
-//  dtask.start();
+    
+    dtask.addEventListener('statechanged', function(task, status){
+    	var a = task.downloadedSize / task.totalSize * 100;
+    	console.log(a);
+    }, false);
+    
+    dtask.start();
 }
 
 /**
@@ -186,6 +199,7 @@ function installWgt(path) {
         delFile(path);
 	    plus.nativeUI.alert( "系统更新成功，请手动退出App重新打开!", function(){
 			//console.log( "User pressed!" );
+			plus.nativeUI.closeWaiting();
 		}, "更新提示", "确定" );
 //      plus.nativeUI.confirm("更新成功，请退出app重新",
 //          function (e) {

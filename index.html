@@ -36,7 +36,7 @@
 
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
-	<!--<script src="js/Tunnel.js" type="text/javascript"></script>-->
+	<script src="js/Tunnel.js" type="text/javascript"></script>
 	<script src="js/upgrade.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		var navHeight = document.querySelector('#Js-nav').offsetHeight / sizeObj.dpl;
@@ -131,12 +131,12 @@
             
             document.getElementById('Js-nav').style.opacity = 1;
             
-//            window.addEventListener('isStopTunnel', function(data){
-//            	if(Tunnel._webSocket && data.flag){
-//                	Tunnel._isStop = false;
-//                	Tunnel._webSocket.close();
-//                };
-//            }, false);
+            window.addEventListener('isStopTunnel', function(data){
+              	if(Tunnel._webSocket && data.flag){
+                  	Tunnel._isStop = false;
+                  	Tunnel._webSocket.close();
+                };
+            }, false);
  
 		    plus.geolocation.watchPosition(function(p){
 		    	locationd = p;	
@@ -147,56 +147,56 @@
 				enableHighAccuracy: true,
 			})
 		     
-//		    Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
-//			        //console.log('Message:' + Tunnel._webSocket.readyState);
-//			        console.log(event.data);
-//			        //如果获取到消息，心跳检测重置
-//			        //拿到任何消息都说明当前连接是正常的
-//			        var _info = '';
-//			        var _tips = '';
-//			        var data = JSON.parse(event.data);
-//			        if(Tunnel._sessionId==''){
-//			        	Tunnel._sessionId = data.session_id;
-//			        };
-//			        //console.log(JSON.stringify({"uid":JSON.parse(userinfo).id,"type":5,"flag":plus.device.uuid,"platform":navigator.platform,"userAgent":navigator.userAgent,"location":locationd, "screen":plus.screen, "networkinfo":nowNetwork()}))
-//
-//					switch (data.code){
-//					    case 1:
-//					        _info = '非法连接';
-//					        break;
-//					    case 2:
-//					        _info = '非法用户';
-//					        break;
-//					    case 3:
-//					        _info = '您的帐号在其它设备上登录，已经注销当前帐号';
-//					        break;
-//					    case 20:
-//					        _tips = data.message;
-//					        break;
-//					    case 21:
-//					        if(data.command == 'location'){
-//					        	type = 21;
-//							    Tunnel._webSocket.send(JSON.stringify({"uid":JSON.parse(userinfo).id,"type":5,"flag":plus.device.uuid,"platform":navigator.platform,"userAgent":navigator.userAgent,"location":locationd, "session_id":Tunnel._sessionId, "screen":plus.screen, "networkinfo":nowNetwork()}));
-//					        };
-//					        break;
-//					}
-//					if(_info != ''){
-//						nums++;
-//					};
-//
-//					if(_info != '' && nums ==1){
-//						Tunnel._isStop = false;
-//						Tunnel._webSocket.close();
-//						plus.storage.clear();
-//						mui.alert(_info, '操作提示', '确定', function(){
-//							plus.runtime.restart();
-//						});
-//					};
-//
-//					if(_tips != ''){
-//						mui.alert(_tips, '温馨提示', '确定');
-//					}
-//		    });
+		    Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
+			        //console.log('Message:' + Tunnel._webSocket.readyState);
+			        console.log(event.data);
+			        //如果获取到消息，心跳检测重置
+			        //拿到任何消息都说明当前连接是正常的
+			        var _info = '';
+			        var _tips = '';
+			        var data = JSON.parse(event.data);
+			        if(Tunnel._sessionId==''){
+			        	Tunnel._sessionId = data.session_id;
+			        };
+			        //console.log(JSON.stringify({"uid":JSON.parse(userinfo).id,"type":5,"flag":plus.device.uuid,"platform":navigator.platform,"userAgent":navigator.userAgent,"location":locationd, "screen":plus.screen, "networkinfo":nowNetwork()}))
+
+					switch (data.code){
+					    case 1:
+					        _info = '非法连接';
+					        break;
+					    case 2:
+					        _info = '非法用户';
+					        break;
+					    case 3:
+					        _info = '您的帐号在其它设备上登录，已经注销当前帐号';
+					        break;
+					    case 20:
+					        _tips = data.message;
+					        break;
+					    case 21:
+					        if(data.command == 'location'){
+					        	type = 21;
+							    Tunnel._webSocket.send(JSON.stringify({"uid":JSON.parse(userinfo).id,"type":5,"flag":plus.device.uuid,"platform":navigator.platform,"userAgent":navigator.userAgent,"location":locationd, "session_id":Tunnel._sessionId, "screen":plus.screen, "networkinfo":nowNetwork()}));
+					        };
+					        break;
+					}
+					if(_info != ''){
+						nums++;
+					};
+
+					if(_info != '' && nums ==1){
+						Tunnel._isStop = false;
+						Tunnel._webSocket.close();
+						plus.storage.clear();
+						mui.alert(_info, '操作提示', '确定', function(){
+							plus.runtime.restart();
+						});
+					};
+
+					if(_tips != ''){
+						mui.alert(_tips, '温馨提示', '确定');
+					}
+		    });
 		    
             
             // 运行环境切换到后台，开始倒数20分钟，重启应用

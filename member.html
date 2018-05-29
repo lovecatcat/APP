@@ -77,7 +77,7 @@
 				</div>
 				<div class="section section-manage BL-pad-lr-1_25">
 					<div class="mui-row manage-group" v-if="menuitems" v-cloak>
-						<a v-for="item in menuitems" v-show="memberItems2.indexOf(item.module_sn)>-1&&item.state" :href="item.html" :data-wid="item.wid"
+						<a v-for="item in menuitems" v-if="memberItems2.indexOf(item.module_sn)>-1&&item.state" :href="item.html" :data-wid="item.wid"
 						   class="mui-col-sm-3 mui-col-xs-3">
 							<div class="icon" :style="'background: url('+ item.img_url_head+') no-repeat center center;background-size: contain;'"></div>
 							<div class="name">

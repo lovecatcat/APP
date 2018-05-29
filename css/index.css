@@ -42,31 +42,6 @@ insure-group
 	margin-top: .53125rem;
 	text-align: center;
 }
-.squared-menu:nth-child(1) .icon{
-	background-image: url(../images/icon/index-ico1.png);
-}
-.squared-menu:nth-child(2) .icon{
-	background-image: url(../images/icon/index-ico2.png);
-}
-.squared-menu:nth-child(3) .icon{
-	background-image: url(../images/icon/index-ico3.png);
-}
-.squared-menu:nth-child(4) .icon{
-	background-image: url(../images/icon/index-ico4.png);
-}
-.squared-menu:nth-child(5) .icon{
-	background-image: url(../images/icon/index-ico5.png);
-}
-.squared-menu:nth-child(6) .icon{
-	background-image: url(../images/icon/index-ico6.png);
-}
-.squared-menu:nth-child(7) .icon{
-	background-image: url(../images/icon/index-ico7.png);
-}
-.squared-menu:nth-child(8) .icon{
-	background-image: url(../images/icon/index-ico8.png);
-}
-
 .product-left{
 	margin-right: 1.5rem;
 }

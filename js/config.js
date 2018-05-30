@@ -5,12 +5,12 @@ var config = {
 	domain: 'https://www.luckyins.com'
 };
 
- // var config = {
- //     baseUrl: 'https://ts-www.luckyins.com/api/api/invoke',  //团队管理服务器路径
- //     moduleURL: 'https://ts-www.luckyins.com/api/api/',
- //     link: 'https://ts-www.luckyins.com/index/', // 外部链接路径[闪电增员、]
- //     domain: 'https://ts-www.luckyins.com'
- // };
+//  var config = {
+//      baseUrl: 'https://ts-www.luckyins.com/api/api/invoke',  //团队管理服务器路径
+//      moduleURL: 'https://ts-www.luckyins.com/api/api/',
+//      link: 'https://ts-www.luckyins.com/index/', // 外部链接路径[闪电增员、]
+//      domain: 'https://ts-www.luckyins.com'
+//  };
 
 
 /**
@@ -108,7 +108,47 @@ var luckyAjax = function(options){
 			}else if(type == 'null' || type == 'abort'){
 				mui.toast('网络异常，请检查您的网络!', {duration: 'long', type: 'div'});	
 			}else{
-				mui.toast(errorThrown, {duration: 'long', type: 'div'});
+				mui.toast(errorThrown, {duration: 'long', type: 'div'});	
+				
+				setTimeout(function(){
+					// 截屏绘制 : 上传错误页面提示
+					var bitmap= new plus.nativeObj.Bitmap('error');
+					// 将webview内容绘制到Bitmap对象中
+					plus.webview.currentWebview().draw(bitmap, function(){
+						//console.log(bitmap.toBase64Data());
+						
+						bitmap.save("_doc/error.jpg" ,{} ,function(path){
+							//console.log('保存图片成功：'+JSON.stringify(path));
+							
+							//src转base64
+	       					var img = new Image()
+				            img.src = path.target;
+				            var canvas = document.createElement('canvas');
+				            var drawer = canvas.getContext('2d');
+				            img.onload = function () {
+				                canvas.width = img.width;
+				                canvas.height = img.height;
+				                drawer.drawImage(img, 0, 0, canvas.width, canvas.height)
+				                var base64Img = canvas.toDataURL('image/jpeg');
+				                
+				                // 删除本地图片
+				                plus.io.resolveLocalFileSystemURL(path.target, function(e) {
+									e.remove(function() {
+										//console.log('删除成功')
+									}, function() {
+										//console.log('删除失败')
+									})			
+								}, function() {
+									//console.log('读取失败')
+								})
+				            };
+						},function(e){
+							//console.log('保存图片失败：'+JSON.stringify(e));
+						});
+					},function(e){
+						//console.log('截屏绘制图片失败：'+JSON.stringify(e));
+					});
+				}, 2000);
 			};	
 		    return false
 		}

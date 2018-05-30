@@ -299,6 +299,8 @@
                     mattersId: '',//健康告知id
                     address_select: '请选择',//投保地区
                     war_id: '', //policy_id
+                    content_id: '',
+                    matter_id: '',
                     order_no: '',//保单号
                     uwMedicalId: '',//核保号
                     totalFee: '',//总保费
@@ -334,6 +336,7 @@
                         has_insured_SSID: false,//是否有社保
                     },
                     insurance: {
+                        id: '',
                         is_main: '1', //是主险
                         product_id: '',//险种id
                         period_payment: '1',//交费期间
@@ -692,6 +695,8 @@
                     console.log(JSON.stringify(res))
                     if (res.code) {
                         pae.war_id = res.data.policy_id
+                        pae.content_id = res.data.content_id[0]
+                        pae.matter_id = res.data.matterValue_id[0]
                         mui.toast('保存成功，核保中', {duration: 'long', type: 'div'})
                         online_ins()
                     } else {
@@ -720,6 +725,7 @@
                     if (res.code) {
                         if (res.data.returnCode === '00') {
                             mui.toast('核保成功,正在跳转支付...', {duration: 'long', type: 'div'})
+                            pae.loading = false;
                             pay(res.data.data.orderId)
                         } else {
                             plus.nativeUI.closeWaiting();
@@ -825,6 +831,7 @@
             //健康告知
             var appitems = []
             appitems.push({
+                id: pae.matter_id,
                 mv_id: pae.mattersId,
                 holder_answer: '0',
                 insured_answer: '1',
@@ -833,6 +840,7 @@
             })
             pushdata.matter = appitems
             //险种信息
+            pae.insurance.id = pae.content_id
             var content = []
             content.push(pae.insurance)
             pushdata.total = Number(pae.insurance.fee).toFixed(2) //总保费

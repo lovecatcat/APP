@@ -164,16 +164,14 @@
 		                            	</template>
 		                            </tr>
 	                            
-	                            	
-	                            
 	                            		<tr v-for="(item, index) in main" :key="index" v-if="index <= len">
 	                            		<template v-if="formID == '256'">
 	                            			<td v-for="(data, i) in item" v-if="i != nl">
 		                            			<template v-if="i != njbf">
-		                            				{{data}}
+		                            				{{data | ToFixed}}
 		                            			</template>
 		                            			<template v-else-if="i == njbf && index <= pay_year">
-		                            				{{data}}
+		                            				{{data | ToFixed}}
 		                            			</template>
 		                            			<template v-else-if="i == njbf && index > pay_year">
 		                            				0
@@ -181,13 +179,13 @@
 		                            		</td>
 		                            		<template v-if="status && (data.title == '生存保险金' || data.title == '现金价值')" 
 		                            			v-for="(data, i) in childrenDescribes">
-		                            			<td>{{children[index][i]}}</td> 
+		                            			<td>{{children[index][i] | ToFixed}}</td> 
 		                            		</template>
 	                            		</template>
 	                            		<template v-else-if="formID == '354'">
 	                            			<!--国华康运金身-->
 	                            			<td>
-		                            			{{item[1]}}
+		                            			{{item[1] | ToFixed}}
 		                            		</td>
 	                            			<td v-if="index <= pay_year">
 		                            			{{item[2] , children[index][2] | capitalize}}
@@ -205,7 +203,7 @@
 		                            			{{item[5] , children[index][1] | capitalize}}
 		                            		</td>
 	                            			<td>
-		                            			{{children[index][5]}}
+		                            			{{children[index][5] | ToFixed}}
 		                            		</td>
 	                            		</template>
 	                            		<template v-else-if="formID == '16201'">
@@ -220,19 +218,19 @@
 		                            			{{item[1] , children[index][5] | capitalize}}
 		                            		</td>
 		                            		<td>
-		                            			{{item[4]}}
+		                            			{{item[4] | ToFixed}}
 		                            		</td>
 		                            		<td>
 		                            			{{item[3] , children[index][7] | capitalize}}
 		                            		</td>
 	                            			<td>
-		                            			{{children[index][2]}}
+		                            			{{children[index][2] | ToFixed}}
 		                            		</td>
 	                            			<td>
-		                            			{{children[index][3]}}
+		                            			{{children[index][3] | ToFixed}}
 		                            		</td>
 	                            			<td>
-		                            			{{children[index][4]}}
+		                            			{{children[index][4] | ToFixed}}
 		                            		</td>
 	                            			
 	                            		</template>
@@ -240,134 +238,134 @@
 	                            			<!--工银鑫丰盈-->
 	                            			<td v-for="(data, i) in item" v-if="i != nl">
 		                            			<template v-if="i != njbf">
-		                            				{{data}}
+		                            				{{data | ToFixed}}
 		                            			</template> 
 		                            		</td>
 		                            		<td>
-		                            			{{children[index][17]}}
+		                            			{{children[index][17] | ToFixed}}
 		                            		</td>
 		                            		<td>
-		                            			{{children[index][21]}}
+		                            			{{children[index][21] | ToFixed}}
 		                            		</td>
 		                            		<td>
-		                            			{{children[index][22]}}
+		                            			{{children[index][22] | ToFixed}}
 		                            		</td>
 	                            			<td>
-		                            			{{children[index][19]}}
+		                            			{{children[index][19] | ToFixed}}
 		                            		</td>
 	                            			<td>
-		                            			{{children[index][13]}}
+		                            			{{children[index][13] | ToFixed}}
 		                            		</td>
 	                            		</template>
 	                            		<template v-else-if="formID == '370'">
 	                            			<!--恒大万年红-->
 	                            			<td v-for="(data, i) in item" v-if="i != nl && i < 25">
 		                            			<template v-if="i != njbf ">
-		                            				{{data}}
+		                            				{{data | ToFixed}}
 		                            			</template>
 		                            		</td>
 		                            		<td>
-		                            			{{item[25]}}
+		                            			{{item[25] | ToFixed}}
 		                            		</td>
 		                            		<td v-if="levelNum == 'min'">
-		                            			{{item[26]}}
+		                            			{{item[26] | ToFixed}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'mid'">
-		                            			{{item[28]}}
+		                            			{{item[28] | ToFixed}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'max'">
-		                            			{{item[27]}}
+		                            			{{item[27] | ToFixed}}
 		                            		</td>
 		                            		<td v-if="levelNum == 'min'">
-		                            			{{item[30]}}
+		                            			{{item[30] | ToFixed}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'mid'">
-		                            			{{item[31]}}
+		                            			{{item[31] | ToFixed}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'max'">
-		                            			{{item[32]}}
+		                            			{{item[32] | ToFixed}}
 		                            		</td>
 		                            		<td v-if="levelNum == 'min'">
-		                            			{{item[35]}}
+		                            			{{item[35] | ToFixed}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'mid'">
-		                            			{{item[36]}}
+		                            			{{item[36] | ToFixed}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'max'">
-		                            			{{item[37]}}
+		                            			{{item[37] | ToFixed}}
 		                            		</td>
 	                            		</template>
 	                            		<template v-else-if="formID == '16217'">
-	                            			<!--恒大万年红-->
+	                            			<!--恒大万年福-->
 	                            			<td v-for="(data, i) in item" v-if="i != nl && i < 23">
 		                            			<template v-if="i != njbf ">
-		                            				{{data}}
+		                            				{{data | ToFixed}}
 		                            			</template>
 		                            		</td>
 		                            		<td>
-		                            			{{item[23]}}
+		                            			{{item[23] | ToFixed}}
 		                            		</td>
 		                            		<td v-if="levelNum == 'min'">
-		                            			{{item[26]}}
+		                            			{{item[26] | ToFixed}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'mid'">
-		                            			{{item[24]}}
+		                            			{{item[24] | ToFixed}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'max'">
-		                            			{{item[25]}}
+		                            			{{item[25] | ToFixed}}
 		                            		</td>
 		                            		<td v-if="levelNum == 'min'">
-		                            			{{item[28]}}
+		                            			{{item[28] | ToFixed}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'mid'">
-		                            			{{item[29]}}
+		                            			{{item[29] | ToFixed}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'max'">
-		                            			{{item[30]}}
+		                            			{{item[30] | ToFixed}}
 		                            		</td>
 		                            		<td v-if="levelNum == 'min'">
-		                            			{{item[31]}}
+		                            			{{item[31] | ToFixed}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'mid'">
-		                            			{{item[32]}}
+		                            			{{item[32] | ToFixed}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'max'">
-		                            			{{item[33]}}
+		                            			{{item[33] | ToFixed}}
 		                            		</td>
 	                            		</template>
 	                            		<template v-else-if="formID == '347'">
 	                            			<!--信泰千万人生-->
 	                            			<td v-for="(data, i) in item" v-if="i != nl">
 		                            			<template v-if="i != njbf">
-		                            				{{data}}
+		                            				{{data | ToFixed}}
 		                            			</template>
 		                            		</td>
 		                            		<td v-if="levelNum == 'min'">
-		                            			{{children[index][9]}}
+		                            			{{children[index][9] | ToFixed}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'mid'">
-		                            			{{children[index][10]}}
+		                            			{{children[index][10] | ToFixed}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'max'">
-		                            			{{children[index][11]}}
+		                            			{{children[index][11] | ToFixed}}
 		                            		</td>
 		                            		<td v-if="levelNum == 'min'">
-		                            			{{children[index][13]}}
+		                            			{{children[index][13] | ToFixed}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'mid'">
-		                            			{{children[index][14]}}
+		                            			{{children[index][14] | ToFixed}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'max'">
-		                            			{{children[index][15]}}
+		                            			{{children[index][15] | ToFixed}}
 		                            		</td>
 	                            		</template>
 	                            		<template v-else-if="formID == '272' || formID == '340'">
 	                            			<td v-for="(data, i) in item" v-if="i != nl && i != 8">
 		                            			<template v-if="i != njbf">
-		                            				{{data}}
+		                            				{{data | ToFixed}}
 		                            			</template>
 		                            			<template v-else-if="i == njbf && index <= pay_year">
-		                            				{{data}}
+		                            				{{data | ToFixed}}
 		                            			</template>
 		                            			<template v-else-if="i == njbf && index > pay_year">
 		                            				0
@@ -377,7 +375,7 @@
 		                            			{{item[8] , children[index][2] | capitalize}}
 		                            		</td>
 		                            		<td>
-		                            			{{children[index][4]}}
+		                            			{{children[index][4] | ToFixed}}
 		                            		</td>
 	                            		</template>
 	                            	</tr>
@@ -410,10 +408,10 @@
 	                            		<template v-if="formID == '370'">
 		                            		<td v-for="(data, i) in item" v-if="i != nl && i < 25">
 		                            			<template v-if="i != njbf">
-		                            				{{data}}
+		                            				{{data | ToFixed}}
 		                            			</template>
 		                            			<template v-else-if="i == njbf && index <= pay_year">
-		                            				{{data}}
+		                            				{{data | ToFixed}}
 		                            			</template>
 		                            			<template v-else-if="i == njbf && index > pay_year">
 		                            				0
@@ -423,10 +421,10 @@
 	                            		<template v-else-if="formID == '16217'">
 		                            		<td v-for="(data, i) in item" v-if="i != nl && i < 23">
 		                            			<template v-if="i != njbf">
-		                            				{{data}}
+		                            				{{data | ToFixed}}
 		                            			</template>
 		                            			<template v-else-if="i == njbf && index <= pay_year">
-		                            				{{data}}
+		                            				{{data | ToFixed}}
 		                            			</template>
 		                            			<template v-else-if="i == njbf && index > pay_year">
 		                            				0
@@ -436,10 +434,10 @@
 	                            		<template v-else>
 		                            		<td v-for="(data, i) in item" v-if="i != nl">
 		                            			<template v-if="i != njbf">
-		                            				{{data}}
+		                            				{{data | ToFixed}}
 		                            			</template>
 		                            			<template v-else-if="i == njbf && index <= pay_year">
-		                            				{{data}}
+		                            				{{data | ToFixed}}
 		                            			</template>
 		                            			<template v-else-if="i == njbf && index > pay_year">
 		                            				0
@@ -489,8 +487,12 @@
 	            capitalize: function (mainValue, childrenValue) {  
 	               var a = mainValue ? Number(mainValue) : 0 ;
 	               var b = childrenValue ? Number(childrenValue) : 0 ;
-	               return (a + b).toFixed(2)
-	            }  
+	               return (a + b).toFixed(0)
+	            },
+	            ToFixed:  function (mainValue) {
+			        var a = mainValue ? Number(mainValue) : 0 ;
+			        return a.toFixed(0)
+			    },
         	},
         	methods :{
         		close: function() {

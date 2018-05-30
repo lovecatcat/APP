@@ -198,19 +198,8 @@
                 <div class="input-item">
                     <label class="">居住地</label>
                     <div class="input-wrap box-f-1">
-                        <div class="input" id="address-select">
-                            {{address_select}}
-                        </div>
-                        <div class="ins-down-icon"></div>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">投保地区</label>
-                    <div class="input-wrap box-f-1">
-                        <div class="input flex">
-                            <div class="flex-1 BL-col-999">广东</div>
-                            <div class="flex-1 BL-col-999">深圳</div>
-                            <div class="flex-1" id="appl-district">{{applicant.holder_home_district_name}}</div>
+                        <div class="input" id="address-select0">
+                            {{holder_home_province_name}}{{holder_home_city_name}}{{holder_home_district_name}}
                         </div>
                         <div class="ins-down-icon"></div>
                     </div>
@@ -233,6 +222,37 @@
                                @change="checkZipcode(applicant.holder_home_zip,'投保人')" placeholder="请输入">
                         <div class="form-clear-icon" v-show="applicant.holder_home_zip!=''"
                              @click="applicant.holder_home_zip=''">
+                            <span class="mui-icon mui-icon-clear"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-item">
+                    <label class="">联系地址</label>
+                    <div class="input-wrap box-f-1">
+                        <div class="input" id="address-select1">
+                            {{holder_contact_province_name}}{{holder_contact_city_name}}{{holder_contact_district_name}}
+                        </div>
+                        <div class="ins-down-icon"></div>
+                    </div>
+                </div>
+                <div class="input-item">
+                    <label class="">详细地址</label>
+                    <div class="input-wrap box-f-1">
+                        <input type="text" v-model="applicant.holder_contact_address"
+                               @change="checkAddress(applicant.holder_contact_address,'投保人')" placeholder="请输入">
+                        <div class="form-clear-icon" v-show="applicant.holder_contact_address!=''"
+                             @click="applicant.holder_contact_address=''">
+                            <span class="mui-icon mui-icon-clear"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-item">
+                    <label class="">邮编</label>
+                    <div class="input-wrap box-f-1">
+                        <input type="number" v-model.lazy="applicant.holder_contact_zip"
+                               @change="checkZipcode(applicant.holder_contact_zip,'投保人')" placeholder="请输入">
+                        <div class="form-clear-icon" v-show="applicant.holder_contact_zip!=''"
+                             @click="applicant.holder_contact_zip=''">
                             <span class="mui-icon mui-icon-clear"></span>
                         </div>
                     </div>
@@ -301,9 +321,11 @@
                     holder_company: '',//工作单位
                     holder_salary_avg: '',//年收入
 
-                    holder_home_province: '20',//现在住址【省】
-                    holder_home_city: '323',//现在住址【市】
+                    holder_home_province: '',//现在住址【省】
+                    holder_home_city: '',//现在住址【市】
                     holder_home_district: '',//现在住址【区】
+                    holder_home_province_name: '请选择',//现在住址【省】名称
+                    holder_home_city_name: '请选择',//现在住址【市】名称
                     holder_home_district_name: '请选择',//现在住址【区】名称
                     holder_home_address: '', //现在住址【地址详情】
                     holder_home_zip: '',//现在住址【邮编】
@@ -311,6 +333,9 @@
                     holder_contact_province: '',//通讯地址【省】
                     holder_contact_city: '',//通讯地址【市】
                     holder_contact_district: '',//通讯地址【区】
+                    holder_contact_province_name: '请选择',//通讯地址【省】名称
+                    holder_contact_city_name: '请选择',//通讯地址【市】名称
+                    holder_contact_district_name: '请选择',//通讯地址【区】名称
                     holder_contact_address: '', //通讯地址【地址详情】
                     holder_contact_zip: '',//通讯地址【邮编】
 
@@ -405,8 +430,12 @@
         document.querySelector('#address-select').addEventListener('tap', function () {
             document.activeElement.blur();
             cityPicker3.show(function (items) {
-                pae.ins_city = _getParam(items[1], 'value');
-                pae.address_select = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text');
+                appl.applicant.holder_home_province = _getParam(items[0], 'value');
+                appl.applicant.holder_home_province_name = _getParam(items[0], 'text');
+                appl.applicant.holder_home_city = _getParam(items[1], 'value');
+                appl.applicant.holder_home_city_name = _getParam(items[1], 'text');
+                appl.applicant.holder_home_district = _getParam(items[2], 'value');
+                appl.applicant.holder_home_district_name = _getParam(items[2], 'text');
             });
         }, false);
         //日期选择

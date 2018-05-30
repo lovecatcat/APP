@@ -1062,9 +1062,6 @@ var methods = {
 						break
 					case 'ACIWP': // 附加豁免保险费重大疾病保险
 					case 'NWPD': // 附加豁免保险费定期寿险(2016)
-						if(this.samePerson) {
-							toastText = '投被保人为同人时不可附加该险种'
-						}
 						if(this.mainPayYear === 1) {
 							toastText = '主险趸交不可附加该险种'
 						}
@@ -2051,7 +2048,7 @@ var methods = {
 			alias: null
 		}
 		// 添加特殊参数
-		var filterSafeid = ['31A00050', '12D00080', "HB030", 'DAR', 'LA073', '1003', 'LA078']
+		var filterSafeid = ['31A00050', '12D00080', "HB030", 'DAR', 'LA073', '1003', 'LA078', 'LA075', 'LA080']
 		if(filterSafeid.indexOf(safeid) > -1) {
 			data.assume_rate = '0';
 			data.sa_one = '0';

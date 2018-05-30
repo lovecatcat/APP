@@ -410,7 +410,7 @@
                     server: 'User.getMenuModuleList'
                 },
                 success: function (res) {
-                    console.log(JSON.stringify(res))
+                    //console.log(JSON.stringify(res))
                     if (res.code) {
                         if (res.data) {
                             var indexItem = []
@@ -426,10 +426,18 @@
                                     });
                                 }
                             })
-                            index.items = indexItem
-                            mui.fire(plus.webview.getWebviewById('member'), 'showmenu', {
-                                data: JSON.stringify(indexItem)
-                            });
+                            index.items = indexItem;
+                            
+                            var timeout = setInterval(function(){
+                            	if(plus.webview.getWebviewById('member')){
+                            		mui.fire(plus.webview.getWebviewById('member'), 'showmenu', {
+		                                data: JSON.stringify(indexItem)
+		                            });	
+		                            clearInterval(timeout);
+                            	};
+                            	console.log(JSON.stringify(indexItem));
+                            }, 100);
+                            
                         }
                     } else {
                         plus.nativeUI.closeWaiting();

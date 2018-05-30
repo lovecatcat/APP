@@ -16,18 +16,42 @@ function checkUpdate(version, method) {
     mui.getJSON(checkUrl + '?_=' + new Date().toString(), function (data) {
     	var os = mui.os.android ? 'Android' : 'iOS';
       	if(method == "auto" && data.update.auto == "true"){
-	        if (os === 'Android') {
-	            checkInstall(version, data)
-	        } else if (os === 'iOS') {
-	            checkUpdateWgt(version, data.wgt.iOS)
-	        }
+      		if(os === 'iOS'){
+      			if(compareVersion(version, data[os].version)) {
+      				plus.nativeUI.alert( "当前App版本过低，为正常使用，请点击[确定]跳转下载更新!", function(){
+						jumpToAppMarket(data[os].url)	
+					}, "更新提示", "确定" );
+			    }else{
+			    	checkUpdateWgt(version, data.wgt.iOS)
+			    }
+      		}else if(os === 'Android'){
+      			if(compareVersion(version, data[os].version)) {
+			        plus.nativeUI.alert( "当前App版本过低，为正常使用，请点击[确定]跳转下载更新!", function(){
+						jumpToAppMarket(data[os].url)	
+					}, "更新提示", "确定" );
+			    }else{
+			    	checkInstall(version, data)
+			    }
+      		}
         }else if(method == "hand" && data.update.hand == "true"){
         	methods = 'hand';
-        	if (os === 'Android') {
-	            checkInstall(version, data)
-	        } else if (os === 'iOS') {
-	            checkUpdateWgt(version, data.wgt.iOS)
-	        }
+        	if(os === 'iOS'){
+      			if(compareVersion(version, data[os].version)) {
+      				plus.nativeUI.alert( "当前App版本过低，为正常使用，请点击[确定]跳转下载更新!", function(){
+						jumpToAppMarket(data[os].url)	
+					}, "更新提示", "确定" );
+			    }else{
+			    	checkUpdateWgt(version, data.wgt.iOS)
+			    }
+      		}else if(os === 'Android'){
+      			if(compareVersion(version, data[os].version)) {
+			        plus.nativeUI.alert( "当前App版本过低，为正常使用，请点击[确定]跳转下载更新!", function(){
+						jumpToAppMarket(data[os].url)	
+					}, "更新提示", "确定" );
+			    }else{
+			    	checkInstall(version, data)
+			    }
+      		}
         }
     })
 }
@@ -65,6 +89,24 @@ function checkInstall(version, data) {
 
 }
 
+/**
+ * 跳转app下载超市
+ * @param {string} url 下载地址
+ */
+function jumpToAppMarket (url) {
+	console.log(url)
+    if (plus.os.name == "iOS") {
+        plus.runtime.openURL(url);
+    } else if (plus.os.name == "Android") {
+//      var Uri = plus.android.importClass("android.net.Uri");
+//      var uri = Uri.parse("market://details?id=" + 'com.tencent.mm' );
+//      var Intent = plus.android.importClass('android.content.Intent');
+//      var intent = new Intent(Intent.ACTION_VIEW, uri);
+//      var main = plus.android.runtimeMainActivity();
+//      main.startActivity(intent);
+		plus.runtime.openURL(url);
+    }
+}
 
 /**
  * 增量式更新
@@ -170,11 +212,13 @@ function downWgt(wgtUrl, ver) {
     	var taskSize = parseInt(task.downloadedSize / task.totalSize * 100);
 		
     	switch(taskSize){
+    		case 5 :
     		case 10 :
-    		case 30 :
+    		case 20 :
+    		case 35 :
     		case 50 :
     		case 75 :
-    		case 90 :
+    		case 95 :
     			dtesk('已下载：' + taskSize + '%');
 			break;
     		case 100 :

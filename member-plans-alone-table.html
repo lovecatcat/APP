@@ -39,9 +39,23 @@
                    		 <table class="BL-ftz-46">
                 			 <thead class=" BL-col-3b9cf5">
 	                            <tr>
-	                            	<th style="min-width: 300px;" v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄'">
-                            			{{item.title}}
-                            		</th>
+	                            	<template v-if="formID == '370'">
+	                            		<th style="min-width: 300px;" v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄' && index < 25">
+	                            			{{item.title}}
+	                            		</th>
+	                            	</template>
+	                            	<template v-else-if="formID == '16217'">
+	                            		<th style="min-width: 300px;" v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄' && index < 23">
+	                            			{{item.title}}
+	                            		</th>
+	                            	</template>
+	                            	<template v-else>
+	                            		<th style="min-width: 300px;" v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄'">
+	                            			{{item.title}}
+	                            		</th>
+	                            	</template>
+	                            	
+	                            	
                             		<template v-if="formID == '256' && status">
                             			<th style="min-width: 300px;">年金现金价值</th>
                             			<th style="min-width: 300px;">生存保险金</th>
@@ -61,10 +75,11 @@
                             			<th style="min-width: 300px;">附加身故保险金</th>
                             			<th style="min-width: 300px;">部分领取</th>
 	                            	</template>
-                            		<template v-else-if="formID == '370' && status">
+                            		<template v-else-if="(formID == '370' || formID == '16217') && status">
                             			<th style="min-width: 300px;">部分领取</th>
                             			<th style="min-width: 300px;">万能账户</th>
                             			<th style="min-width: 300px;">退保总利益</th>
+                            			<th style="min-width: 300px;">身故总利益</th>
 	                            	</template>
                             		<template v-else-if="formID == '347' && status">
                             			<th style="min-width: 300px;">万能账户</th>
@@ -87,7 +102,6 @@
                             		<td>
                             			{{item[nl]}} 
                             		</td>
-                            		
 	                            </tr>
 	                        </tbody>
                         </table> 
@@ -97,10 +111,25 @@
                     		<table class="BL-ftz-46">
 	                            <tbody v-if="status">
 	                            	<tr style="height: 0;visibility: hidden;">
-		                            	<td class="table-td-hide" 
-		                            		v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄'">
-	                            			{{item.title}}
-	                            		</td>
+		                            	<!--這個判断是用来判断万年红应该显示的字段，名字要自定义-->
+	                            		<template v-if="formID == '370'">
+		                            		<td class="table-td-hide" 
+			                            		v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄' && index < 25">
+		                            			{{item.title}}
+		                            		</td>
+		                            	</template>
+	                            		<template v-else-if="formID == '16217'">
+		                            		<td class="table-td-hide" 
+			                            		v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄' && index < 23">
+		                            			{{item.title}}
+		                            		</td>
+		                            	</template>
+		                            	<template v-else>
+		                            		<td class="table-td-hide" 
+			                            		v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄'">
+		                            			{{item.title}}
+		                            		</td>
+		                            	</template>
 	                            		<template v-if="formID == '256' && status">
 	                            			<td class="table-td-hide" >年金现金价值</td>
 	                            			<td class="table-td-hide" >生存保险金</td>
@@ -120,10 +149,11 @@
 	                            			<td class="table-td-hide" >附加身故保险金</td>
 	                            			<td class="table-td-hide" >部分领取</td>
 		                            	</template>
-	                            		<template v-else-if="formID == '370' && status">
+	                            		<template v-else-if="(formID == '370' || formID == '16217') && status">
 	                            			<td class="table-td-hide" >部分领取</td>
 	                            			<td class="table-td-hide" >万能账户</td>
 	                            			<td class="table-td-hide" >退保总利益</td>
+	                            			<td class="table-td-hide" >身故总利益</td>
 		                            	</template>
 	                            		<template v-else-if="formID == '347' && status">
 	                            			<td class="table-td-hide" >万能账户</td>
@@ -133,7 +163,10 @@
 	                            			<td class="table-td-hide" >养老年金</td>
 		                            	</template>
 		                            </tr>
-	                            	<tr v-for="(item, index) in main" :key="index" v-if="index <= len">
+	                            
+	                            	
+	                            
+	                            		<tr v-for="(item, index) in main" :key="index" v-if="index <= len">
 	                            		<template v-if="formID == '256'">
 	                            			<td v-for="(data, i) in item" v-if="i != nl">
 		                            			<template v-if="i != njbf">
@@ -228,31 +261,78 @@
 	                            		</template>
 	                            		<template v-else-if="formID == '370'">
 	                            			<!--恒大万年红-->
-	                            			<td v-for="(data, i) in item" v-if="i != nl">
-		                            			<template v-if="i != njbf">
+	                            			<td v-for="(data, i) in item" v-if="i != nl && i < 25">
+		                            			<template v-if="i != njbf ">
 		                            				{{data}}
 		                            			</template>
 		                            		</td>
 		                            		<td>
-		                            			{{children[index][21]}}
+		                            			{{item[25]}}
 		                            		</td>
 		                            		<td v-if="levelNum == 'min'">
-		                            			{{children[index][22]}}
+		                            			{{item[26]}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'mid'">
-		                            			{{children[index][24]}}
+		                            			{{item[28]}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'max'">
-		                            			{{children[index][23]}}
+		                            			{{item[27]}}
 		                            		</td>
 		                            		<td v-if="levelNum == 'min'">
-		                            			{{children[index][28]}}
+		                            			{{item[30]}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'mid'">
-		                            			{{children[index][29]}}
+		                            			{{item[31]}}
 		                            		</td>
 		                            		<td v-else-if="levelNum == 'max'">
-		                            			{{children[index][30]}}
+		                            			{{item[32]}}
+		                            		</td>
+		                            		<td v-if="levelNum == 'min'">
+		                            			{{item[35]}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'mid'">
+		                            			{{item[36]}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'max'">
+		                            			{{item[37]}}
+		                            		</td>
+	                            		</template>
+	                            		<template v-else-if="formID == '16217'">
+	                            			<!--恒大万年红-->
+	                            			<td v-for="(data, i) in item" v-if="i != nl && i < 23">
+		                            			<template v-if="i != njbf ">
+		                            				{{data}}
+		                            			</template>
+		                            		</td>
+		                            		<td>
+		                            			{{item[23]}}
+		                            		</td>
+		                            		<td v-if="levelNum == 'min'">
+		                            			{{item[26]}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'mid'">
+		                            			{{item[24]}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'max'">
+		                            			{{item[25]}}
+		                            		</td>
+		                            		<td v-if="levelNum == 'min'">
+		                            			{{item[28]}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'mid'">
+		                            			{{item[29]}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'max'">
+		                            			{{item[30]}}
+		                            		</td>
+		                            		<td v-if="levelNum == 'min'">
+		                            			{{item[31]}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'mid'">
+		                            			{{item[32]}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'max'">
+		                            			{{item[33]}}
 		                            		</td>
 	                            		</template>
 	                            		<template v-else-if="formID == '347'">
@@ -301,26 +381,71 @@
 		                            		</td>
 	                            		</template>
 	                            	</tr>
+	                            
 	                            </tbody>
 	                            <tbody  v-else>
 	                            	<tr style="height: 0;visibility: hidden;">
-		                            	<td class="table-td-hide" 
+		                            	
+	                            		<template v-if="formID == '370'">
+		                            		<td class="table-td-hide" 
+		                            		v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄' && index < 25">
+	                            			{{item.title}}
+	                            		</td>
+		                            	</template>
+	                            		<template v-else-if="formID == '16217'">
+		                            		<td class="table-td-hide" 
+		                            		v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄' && index < 23">
+	                            			{{item.title}}
+	                            		</td>
+		                            	</template>
+		                            	<template v-else>
+		                            		<td class="table-td-hide" 
 		                            		v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄'">
 	                            			{{item.title}}
 	                            		</td>
+		                            	</template>
+	                            	
 		                            </tr>
 	                            	<tr v-for="(item, index) in main" :key="index" v-if="index <= len">
-	                            		<td v-for="(data, i) in item" v-if="i != nl">
-	                            			<template v-if="i != njbf">
-	                            				{{data}}
-	                            			</template>
-	                            			<template v-else-if="i == njbf && index <= pay_year">
-	                            				{{data}}
-	                            			</template>
-	                            			<template v-else-if="i == njbf && index > pay_year">
-	                            				0
-	                            			</template>
-	                            		</td>
+	                            		<template v-if="formID == '370'">
+		                            		<td v-for="(data, i) in item" v-if="i != nl && i < 25">
+		                            			<template v-if="i != njbf">
+		                            				{{data}}
+		                            			</template>
+		                            			<template v-else-if="i == njbf && index <= pay_year">
+		                            				{{data}}
+		                            			</template>
+		                            			<template v-else-if="i == njbf && index > pay_year">
+		                            				0
+		                            			</template>
+		                            		</td>
+	                            		</template>
+	                            		<template v-else-if="formID == '16217'">
+		                            		<td v-for="(data, i) in item" v-if="i != nl && i < 23">
+		                            			<template v-if="i != njbf">
+		                            				{{data}}
+		                            			</template>
+		                            			<template v-else-if="i == njbf && index <= pay_year">
+		                            				{{data}}
+		                            			</template>
+		                            			<template v-else-if="i == njbf && index > pay_year">
+		                            				0
+		                            			</template>
+		                            		</td>
+	                            		</template>
+	                            		<template v-else>
+		                            		<td v-for="(data, i) in item" v-if="i != nl">
+		                            			<template v-if="i != njbf">
+		                            				{{data}}
+		                            			</template>
+		                            			<template v-else-if="i == njbf && index <= pay_year">
+		                            				{{data}}
+		                            			</template>
+		                            			<template v-else-if="i == njbf && index > pay_year">
+		                            				0
+		                            			</template>
+		                            		</td>
+	                            		</template>
 	                            	</tr>
 	                            </tbody>
 	                        </table>
@@ -350,8 +475,8 @@
 				safe_year: '',
 				levelNum : '',
 				indeLv: '',
-				behalfLevelNum: [348, 370], //有中高低
-				behalfTable: [256, 354, 16201, 16197, 370, 347, 272, 340], //主险利益演示表和附加险有关系的
+				behalfLevelNum: [348, 370, 16217], //有中高低
+				behalfTable: [256, 354, 16201, 16197, 370, 347, 272, 340, 16217], //主险利益演示表和附加险有关系的
 				//国华康运一生a,国华康运金生,国华少儿,鑫丰盈年金保险，万年红,信泰千万人生，恒久健康，万年青，万年福
 				behalfChildren: [87, 355, 16202, 16198, 373, 404, 367, 16216], //主险利益演示表和附加险有关系的
 				//国华康运一生附加年金，国华康运金生养老年金  ,国华少儿年金,鑫丰盈养老年金，万年红,信泰千万人生，恒大养老年金
@@ -434,7 +559,7 @@
 					}
 				})
 //				alert(JSON.stringify(	modal.childrenDescribes))
-//				alert(JSON.stringify(modal.main ))
+//				alert(JSON.stringify(modal.mainDescribes ))
 			}else{
 				var describes = {}
 				mui.each(data.list.describes, function(index, item){
@@ -456,12 +581,7 @@
 				if(item.title == '年缴保费' || item.title == '年缴保费(元)'){
 					modal.njbf = index
 				}
-				if(modal.formID == '370'){
-					njy = item.title == '年金' ? Number(index) : Number(njy)
-					nje = item.title == '年金' ? Number(index) : Number(nje)
-					tbnj = item.title == '特别年金' ? Number(index) : Number(tbnj)
-					
-				}else if(modal.formID == '16197' && item.title == '年金'){
+				if(modal.formID == '16197' && item.title == '年金'){
 					njy = index
 					nje = index
 					tbnj = index
@@ -527,18 +647,7 @@
                 ret.fa_ten = 0;
                 ret.money_ten = 0;
                 ret.level = modal.indeLv;
-                if(modal.formID == '370'){
-                	ret.njy = njy;
-                    ret.nje = nje;
-                    ret.tbnj = tbnj;
-                    ret.zfbl = 0;
-                    ret.ylnj = 0
-                    ret.zsj = 0
-                    ret.fj = true;
-                    ret.genre = 373;
-                    ret.year_fee = 100;
-                    ret.base_money = manData.year_fee;
-                }else if(modal.formID == '16197') {
+                if(modal.formID == '16197') {
                 	ret.pay_year = 1;
                 	ret.level=0;
                 	ret.safe_year = 10500;
@@ -580,11 +689,11 @@
 						}
 					});
 			}
-			if(modal.formID == '370'){
+			if(modal.formID == '370' || modal.formID == '16217'){
 				//万年红
-				njy = modal.main[11][njy]
-				nje = modal.main[104-manData.assu_age][nje];
-				tbnj = modal.main[5][tbnj]
+//				njy = modal.main[11][njy]
+//				nje = modal.main[104-manData.assu_age][nje];
+//				tbnj = modal.main[5][tbnj]
 				addXuanr()
 			}else if(modal.formID == '347'){
 				addXuanr()

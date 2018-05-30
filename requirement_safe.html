@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>保障规划演算表</title>
+    <link href="css/mui.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/module.css" rel="stylesheet" />
+    <link href="css/form.css" rel="stylesheet" />
+    <script src="js/config.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+</head>
+
+<body class="BL-bg-f2f">
+    <header id="Js-header" class="BL-bg-fff">
+        <div class="BL-mod-headbar BL-mod-headbar-pos">
+            <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+            <h1 class="BL-title">保障规划演算表</h1>
+            <div class="control" href="product.html" data-wid="product" data-tid="LBI0001">
+                <a>下一步</a>
+            </div>
+        </div>
+    </header>
+
+    <div id="slider" class="mui-slider">
+
+        <div id="Js-content" class="BL-pad-t-1">
+            <div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
+                <a class="mui-control-item mui-active" href="#item1">重大疾病保额估算表</a>
+                <a class="mui-control-item" href="#item2">终身寿险保额估算表</a>
+            </div>
+        </div>
+        <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+
+        <div class="mui-slider-group" id="Js-slider-group" v-cloak>
+            <!--第一个内容区容器-->
+            <div id="item1" class="mui-slider-item mui-control-content mui-active">
+                <ul class="mui-table-view form-list-cell" style="margin-top: 0rem !important;">
+                    <li class="fItem BL-ub BL-ub-f1">
+                        <label class="form-list-label">重疾医疗费</label>
+                        <div class="form-list-control">
+                            <div class="BL-ub-f1 BL-txt-r" id="hos_money">
+                                {{ hos_money_text }}
+                            </div>
+                        </div>
+                        <div class="form-list-icon">
+                            <div class="mui-icon mui-icon-arrowright"></div>
+                        </div>
+                    </li>
+                    <li class="fItem BL-ub BL-ub-f1">
+                        <label class="form-list-label">护养康复费</label>
+                        <div class="form-list-control">
+                            <div class="BL-ub-f1 BL-txt-r" id="ks_money">
+                                {{ ks_money_text }}
+                            </div>
+                        </div>
+                        <div class="form-list-icon">
+                            <div class="mui-icon mui-icon-arrowright"></div>
+                        </div>
+                    </li>
+                    <li class="fItem BL-ub BL-ub-f1">
+                        <label class="form-list-label">每月收入</label>
+                        <div class="form-list-control">
+                            <input type="number" placeholder="请输入每月收入" v-model="monthIncome">
+                        </div>
+                        <div class="form-list-icon" v-show="monthIncome!=''"
+                             @click="monthIncome=''">
+                            <span class="mui-icon mui-icon-clear"></span>
+                        </div>
+                    </li>
+                    <li class="fItem BL-ub BL-ub-f1">
+                        <label class="form-list-label">收入补偿</label>
+                        <div class="form-list-control">
+                            <input type="text" v-model="allTotalBack" readonly>
+                        </div>
+                    </li>
+                    <li class="fItem BL-ub BL-ub-f1">
+                        <label class="form-list-label">保障额度</label>
+                        <div class="form-list-control">
+                            <input type="text" v-model="allTotalStrong" readonly>
+                        </div>
+                    </li>
+                    <li class="fItem BL-ub BL-ub-f1">
+                        <label class="form-list-label">规划年数</label>
+                        <div class="form-list-control">
+                            <div class="BL-ub-f1 BL-txt-r" id="plan_year">
+                                {{ plan_year_text }}
+                            </div>
+                        </div>
+                        <div class="form-list-icon">
+                            <div class="mui-icon mui-icon-arrowright"></div>
+                        </div>
+                    </li>
+                    <li class="fItem BL-ub BL-ub-f1">
+                        <label class="form-list-label">每年准备</label>
+                        <div class="form-list-control">
+                            <input type="text" v-model="allTotalyear" readonly>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!--第二个内容区-->
+            <div id="item2" class="mui-slider-item mui-control-content">
+                <ul class="mui-table-view form-list-cell" style="margin-top: 0rem !important;">
+                    <li class="fItem BL-ub BL-ub-f1">
+                        <label class="form-list-label">每年收入</label>
+                        <div class="form-list-control">
+                            <input type="number" placeholder="请输入每年收入" v-model="yearIncome">
+                        </div>
+                        <div class="form-list-icon" v-show="yearIncome!=''"
+                             @click="yearIncome=''">
+                            <span class="mui-icon mui-icon-clear"></span>
+                        </div>
+                    </li>
+                    <li class="fItem BL-ub BL-ub-f1">
+                        <label class="form-list-label">年缴保费</label>
+                        <div class="form-list-control">
+                            <input type="text" v-model="allTotalbf" readonly>
+                        </div>
+                    </li>
+                    <li class="fItem BL-ub BL-ub-f1">
+                        <label class="form-list-label">或（保额）</label>
+                        <div class="form-list-control">
+                            <input type="text" v-model="allTotalbe" readonly>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/vue.min.js" type="text/javascript"></script>
+<script src="js/mui.picker.js" type="text/javascript"></script>
+<script src="js/mui.poppicker.js" type="text/javascript"></script>
+<script src="js/mui.dtpicker.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mui.init();
+    var safe = new Vue({
+        el: '#Js-slider-group',
+        data: function () {
+            return {
+                hos_money:  [
+                    {"text":"基本（30万）","value":"300000"},
+                    {"text":"中等（50万）","value":"500000"},
+                    {"text":"充足（100万）","value":"1000000"}
+                ],
+                hos_money_value: "",
+                hos_money_text: "请选择",
+                ks_money:  [
+                    {"text":"基本（10万）","value":"100000"},
+                    {"text":"中等（20万）","value":"200000"},
+                    {"text":"充足（30万）","value":"300000"}
+                ],
+                ks_money_value: "",
+                ks_money_text: "请选择",
+                plan_year:  [
+                    {"text":"10年","value":"4.07"},
+                    {"text":"15年","value":"2.99"},
+                    {"text":"20年","value":"2.49"}
+                ],
+                plan_year_value: "",
+                plan_year_text: "请选择",
+                monthIncome: "", // 每月收入
+                allTotalBack: "0.00", // 收入补偿
+                allTotalStrong: "0.00", // 保障额度
+                allTotalyear: "0.00",  // 每年准备
+                yearIncome: "", // 每年收入
+                allTotalbf: "0.00", // 年缴保费
+                allTotalbe: "0.00" // 年缴保额
+            }
+        },
+        methods: {
+            // 保障额度
+            TotalStrong: function (money1, money2, money3){
+                var total =  parseInt(money1) + parseInt(money2) + parseInt(money3);
+                return total;
+            },
+            // 每年准备
+            AllTotalyear: function (money1, money2, money3, rate){
+                if(rate==''){
+                    return 0;
+                }else{
+                    var total = (parseInt(money1) + parseInt(money2) + parseInt(money3)) * (rate/100);
+                    return total;
+                }
+            }
+        },
+        watch: {
+            hos_money_value: function (val) {
+                if(val == '' || this.ks_money_value == '' || parseInt(this.allTotalBack) == ''){
+                    return false;
+                }
+                if (this.plan_year_value) {
+                    this.allTotalStrong = this.TotalStrong(val, this.ks_money_value, parseInt(this.allTotalBack)).toFixed(2);
+                    this.allTotalyear = this.AllTotalyear(val, this.ks_money_value, parseInt(this.allTotalBack), this.plan_year_value).toFixed(2);
+                }
+            },
+            ks_money_value: function (val) {
+                if(val == '' || this.hos_money_value == '' || parseInt(this.allTotalBack) == ''){
+                    return false;
+                }
+                if (this.plan_year_value) {
+                    this.allTotalStrong = this.TotalStrong(this.hos_money_value, val, parseInt(this.allTotalBack)).toFixed(2);
+                    this.allTotalyear = this.AllTotalyear(this.hos_money_value, val, parseInt(this.allTotalBack), this.plan_year_value).toFixed(2);
+                }
+            },
+            monthIncome: function (val) {
+                if(val == ""){
+                    this.allTotalBack = "0.00"
+                }else{
+                    this.allTotalBack =  (val * 12 * 5 * (40/100)).toFixed(2);
+                }
+
+                if(val == '' || this.hos_money_value == '' || this.ks_money_value == ''){
+                    return false;
+                }
+                if (this.plan_year_value) {
+                    this.allTotalStrong = this.TotalStrong(this.hos_money_value, this.ks_money_value, parseInt(this.allTotalBack)).toFixed(2);
+                    this.allTotalyear = this.AllTotalyear(this.hos_money_value, this.ks_money_value, parseInt(val), this.plan_year_value).toFixed(2);
+                }
+            },
+            plan_year_value: function (val) {
+                if(val == '' || this.hos_money_value == '' || this.ks_money_value == ''){
+                    return false;
+                }
+                if (val) {
+                    this.allTotalStrong = this.TotalStrong(this.hos_money_value, this.ks_money_value, parseInt(this.allTotalBack)).toFixed(2);
+                    this.allTotalyear = this.AllTotalyear(this.hos_money_value, this.ks_money_value, parseInt(this.allTotalBack), val).toFixed(2);
+                }
+            },
+            yearIncome: function (val) {
+                if(val ==''){
+                    this.allTotalbf = "0.00"
+                    this.allTotalbe = "0.00"
+                }else{
+                    this.allTotalbf = (parseInt(val)* 0.1).toFixed(2);
+                    this.allTotalbe = (parseInt(val)* 10).toFixed(2);
+                }
+            },
+        }
+    })
+
+    mui.plusReady(function() {
+        statusbar();
+        var winH = window.innerHeight;
+        var topHeight = document.getElementById('Js-header').offsetHeight;
+        var mainHeight = document.getElementById('Js-content').offsetHeight;
+        document.querySelector('.mui-slider-group').style.height = winH - topHeight - mainHeight + 'px';
+
+        //重疾医疗费选择
+        var hos_money = new mui.PopPicker();
+        hos_money.setData(safe.hos_money);
+        document.querySelector('#hos_money').addEventListener('tap', function () {
+            hos_money.show(function (items) {
+                safe.hos_money_value = items[0].value;
+                safe.hos_money_text = items[0].text;
+            })
+        })
+
+        //护养康复费选择
+        var ks_money = new mui.PopPicker();
+        ks_money.setData(safe.ks_money);
+        document.querySelector('#ks_money').addEventListener('tap', function () {
+            ks_money.show(function (items) {
+                safe.ks_money_value = items[0].value;
+                safe.ks_money_text = items[0].text;
+            })
+        })
+
+        //规划年数选择
+        var plan = new mui.PopPicker();
+        plan.setData(safe.plan_year);
+        document.querySelector('#plan_year').addEventListener('tap', function () {
+            plan.show(function (items) {
+                safe.plan_year_value = items[0].value;
+                safe.plan_year_text = items[0].text;
+            })
+        })
+
+        //跳转养老年金
+        mui('body').on('tap', '.control', function(){
+            var extras = null;
+            var href = this.getAttribute('href');
+            var id = this.getAttribute("data-wid");
+            var tid = this.getAttribute("data-tid");
+
+            if (tid) {
+                extras = {instype_id: tid};
+            }
+            //非plus环境，直接走href跳转
+            if(!mui.os.plus) {
+                location.href = href;
+                return;
+            };
+
+            if(href && ~href.indexOf('.html')) {
+                mui.openWindow({
+                    url: href,
+                    id: id,
+                    show: animateObj.aniDetal,
+                    extras: extras,
+                    waiting: {
+                        autoShow: false
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+</html>

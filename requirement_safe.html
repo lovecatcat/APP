@@ -17,7 +17,7 @@
         <div class="BL-mod-headbar BL-mod-headbar-pos">
             <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
             <h1 class="BL-title">保障规划演算表</h1>
-            <div class="control">
+            <div class="control" href="product.html" data-wid="product" data-tid="LBI0001">
                 <a>下一步</a>
             </div>
         </div>
@@ -33,7 +33,7 @@
         </div>
         <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
 
-        <div class="mui-slider-group" id="Js-slider-group">
+        <div class="mui-slider-group" id="Js-slider-group" v-cloak>
             <!--第一个内容区容器-->
             <div id="item1" class="mui-slider-item mui-control-content mui-active">
                 <ul class="mui-table-view form-list-cell" style="margin-top: 0rem !important;">
@@ -62,7 +62,7 @@
                     <li class="fItem BL-ub BL-ub-f1">
                         <label class="form-list-label">每月收入</label>
                         <div class="form-list-control">
-                            <input type="text" placeholder="请输入每月收入" v-model="monthIncome">
+                            <input type="number" placeholder="请输入每月收入" v-model="monthIncome">
                         </div>
                         <div class="form-list-icon" v-show="monthIncome!=''"
                              @click="monthIncome=''">
@@ -106,7 +106,7 @@
                     <li class="fItem BL-ub BL-ub-f1">
                         <label class="form-list-label">每年收入</label>
                         <div class="form-list-control">
-                            <input type="text" placeholder="请输入每年收入" v-model="yearIncome">
+                            <input type="number" placeholder="请输入每年收入" v-model="yearIncome">
                         </div>
                         <div class="form-list-icon" v-show="yearIncome!=''"
                              @click="yearIncome=''">
@@ -180,7 +180,7 @@
             // 每年准备
             AllTotalyear: function (money1, money2, money3, rate){
                 if(rate==''){
-                    return false;
+                    return 0;
                 }else{
                     var total = (parseInt(money1) + parseInt(money2) + parseInt(money3)) * (rate/100);
                     return total;
@@ -189,18 +189,46 @@
         },
         watch: {
             hos_money_value: function (val) {
-                if(val == '' || this.ks_money_value == '' || this.allTotalBack == ''){
+                if(val == '' || this.ks_money_value == '' || parseInt(this.allTotalBack) == ''){
                     return false;
                 }
-                this.allTotalStrong = this.TotalStrong(val, this.ks_money_value, this.allTotalBack).toFixed(2);
-                this.allTotalyear = this.AllTotalyear(val, this.ks_money_value, this.allTotalBack, this.plan_year_value).toFixed(2);
+                if (this.plan_year_value) {
+                    this.allTotalStrong = this.TotalStrong(val, this.ks_money_value, parseInt(this.allTotalBack)).toFixed(2);
+                    this.allTotalyear = this.AllTotalyear(val, this.ks_money_value, parseInt(this.allTotalBack), this.plan_year_value).toFixed(2);
+                }
             },
             ks_money_value: function (val) {
-                if(val == '' || this.hos_money_value == '' || this.allTotalBack == ''){
+                if(val == '' || this.hos_money_value == '' || parseInt(this.allTotalBack) == ''){
                     return false;
                 }
-                this.allTotalStrong = this.TotalStrong(this.hos_money_value, val, this.allTotalBack).toFixed(2);
-                this.allTotalyear = this.AllTotalyear(this.hos_money_value, val, this.allTotalBack, this.plan_year_value).toFixed(2);
+                if (this.plan_year_value) {
+                    this.allTotalStrong = this.TotalStrong(this.hos_money_value, val, parseInt(this.allTotalBack)).toFixed(2);
+                    this.allTotalyear = this.AllTotalyear(this.hos_money_value, val, parseInt(this.allTotalBack), this.plan_year_value).toFixed(2);
+                }
+            },
+            monthIncome: function (val) {
+                if(val == ""){
+                    this.allTotalBack = "0.00"
+                }else{
+                    this.allTotalBack =  (val * 12 * 5 * (40/100)).toFixed(2);
+                }
+
+                if(val == '' || this.hos_money_value == '' || this.ks_money_value == ''){
+                    return false;
+                }
+                if (this.plan_year_value) {
+                    this.allTotalStrong = this.TotalStrong(this.hos_money_value, this.ks_money_value, parseInt(this.allTotalBack)).toFixed(2);
+                    this.allTotalyear = this.AllTotalyear(this.hos_money_value, this.ks_money_value, parseInt(val), this.plan_year_value).toFixed(2);
+                }
+            },
+            plan_year_value: function (val) {
+                if(val == '' || this.hos_money_value == '' || this.ks_money_value == ''){
+                    return false;
+                }
+                if (val) {
+                    this.allTotalStrong = this.TotalStrong(this.hos_money_value, this.ks_money_value, parseInt(this.allTotalBack)).toFixed(2);
+                    this.allTotalyear = this.AllTotalyear(this.hos_money_value, this.ks_money_value, parseInt(this.allTotalBack), val).toFixed(2);
+                }
             },
             yearIncome: function (val) {
                 if(val ==''){
@@ -214,7 +242,7 @@
         }
     })
 
-    mui.ready(function() {
+    mui.plusReady(function() {
         statusbar();
         var winH = window.innerHeight;
         var topHeight = document.getElementById('Js-header').offsetHeight;
@@ -250,6 +278,35 @@
                 safe.plan_year_text = items[0].text;
             })
         })
+
+        //跳转养老年金
+        mui('body').on('tap', '.control', function(){
+            var extras = null;
+            var href = this.getAttribute('href');
+            var id = this.getAttribute("data-wid");
+            var tid = this.getAttribute("data-tid");
+
+            if (tid) {
+                extras = {instype_id: tid};
+            }
+            //非plus环境，直接走href跳转
+            if(!mui.os.plus) {
+                location.href = href;
+                return;
+            };
+
+            if(href && ~href.indexOf('.html')) {
+                mui.openWindow({
+                    url: href,
+                    id: id,
+                    show: animateObj.aniDetal,
+                    extras: extras,
+                    waiting: {
+                        autoShow: false
+                    }
+                });
+            }
+        });
     });
 </script>
 

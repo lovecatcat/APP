@@ -401,7 +401,8 @@
 					"rank.html",
 					"requirement_safe1.html",
 					"requirement_safe.html",
-					"requirement_retire.html"
+					"requirement_retire.html",
+					"member-clips.html"
 				],
 				"priority": 0
 			},
@@ -3258,7 +3259,9 @@
 					"css/form.css",
 					"css/mui.picker.min.css"
 				],
-				"refer": [],
+				"refer": [
+					"product.html"
+				],
 				"priority": 0
 			},
 			"requirement_retire.html": {
@@ -3268,7 +3271,9 @@
 					"css/form.css",
 					"css/mui.css"
 				],
-				"refer": [],
+				"refer": [
+					"product.html"
+				],
 				"priority": 0
 			},
 			"member-clips.html": {
@@ -3280,12 +3285,15 @@
 					"images/member/clips_3.png",
 					"images/member/clips_1.png",
 					"css/mui.css",
-					"images/member/clips_4.png"
+					"images/member/clips_4.png",
+					"images/member/clips_8.png",
+					"images/member/clips_9.png"
 				],
 				"refer": [
 					"member-promote.html",
 					"requirement_rate.html",
-					"requirement_safe.html"
+					"requirement_safe.html",
+					"requirement_retire.html"
 				],
 				"priority": 0
 			},

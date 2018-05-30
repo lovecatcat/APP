@@ -1,7 +1,7 @@
 var SCID = '19';
 
-var onlineIns = ['HB023', 'LE234', 'HB030', 'LA063', 'LA075']; // 上线的主险id
-//               恒久       护航      青     福享金生    红
+var onlineIns = ['HB023', 'LE234', 'HB030', 'LA063', 'LA075', 'LA080']; // 上线的主险id
+//               恒久       护航      青     福享金生    红     万年福
 
 //主险
 var qwhh = 'LE234'; //千万护航
@@ -9,6 +9,7 @@ var hjjk = 'HB023'; //恒久健康
 var fxjs = 'LA063'; //福享金生
 var wnh = 'LA075'; //万年红
 var wnq = 'HB030'; //万年青
+var wnf = 'LA080'; //万年福
 
 //附加险
 var tbrhm = 'HB024'; //投保人豁免重疾2017版
@@ -17,6 +18,7 @@ var hs = 'HA006'; //恒顺
 var zxak = 'HA005'; //尊享安康
 var hjax = 'HA014'; //恒久安心住院
 var cjb = 'LA073'; //传家宝
+var ylnj = 'LA078'; //养老年金
 
 var zrwnzh = 'LBD0001' //转入万能账户
 

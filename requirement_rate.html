@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="css/mui.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/module.css" rel="stylesheet" />
+    <link href="css/form.css" rel="stylesheet" />
+    <script src="js/config.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+</head>
+
+<body class="BL-bg-f2f">
+
+    <header id="Js-header" class="BL-bg-fff">
+        <div class="BL-mod-headbar BL-mod-headbar-pos">
+            <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+            <h1 class="BL-title">单利与复利</h1>
+        </div>
+    </header>
+    <div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY" v-cloak>
+        <ul class="mui-table-view form-list-cell">
+            <li class="fItem BL-ub BL-ub-f1">
+                <label class="form-list-label">投资年限</label>
+                <div class="form-list-control">
+                    <div class="BL-ub-f1 BL-txt-r" id="invest_years">
+                        {{ invest_years_text }}
+                    </div>
+                </div>
+                <div class="form-list-icon">
+                    <div class="mui-icon mui-icon-arrowright"></div>
+                </div>
+            </li>
+            <li class="fItem BL-ub BL-ub-f1">
+                <label class="form-list-label">利率</label>
+                <div class="form-list-control">
+                    <div class="BL-ub-f1 BL-txt-r" id="rate">
+                        {{ rate_text }}
+                    </div>
+                </div>
+                <div class="form-list-icon">
+                    <div class="mui-icon mui-icon-arrowright"></div>
+                </div>
+            </li>
+            <li class="fItem BL-ub BL-ub-f1">
+                <label class="form-list-label">本金</label>
+                <div class="form-list-control">
+                    <div class="BL-ub-f1 BL-txt-r" id="principal">
+                        {{ principal_text }}
+                    </div>
+                </div>
+                <div class="form-list-icon">
+                    <div class="mui-icon mui-icon-arrowright"></div>
+                </div>
+            </li>
+            <li class="fItem BL-ub BL-ub-f1">
+                <label class="form-list-label">回报年限</label>
+                <div class="form-list-control">
+                    <div class="BL-ub-f1 BL-txt-r" id="report_years">
+                        {{ report_years_text }}
+                    </div>
+                </div>
+                <div class="form-list-icon">
+                    <div class="mui-icon mui-icon-arrowright"></div>
+                </div>
+            </li>
+        </ul>
+        <div class="BL-pad-a1 BL-bg-fff BL-Border-t" v-show="show">
+            <div class="BL-pad-a1 BL-radiu-a_3" style="background: rgb(211,233,252)">
+                <p class="BL-col-3b9cf5 BL-ftz-52 BL-mar-b-1">单利与复利演算表</p>
+                <table class="BL-bg-fff BL-col-333 BL-txt-c form-tab">
+                    <thead>
+                        <td>年数</td>
+                        <td>本金</td>
+                        <td>单利本息</td>
+                        <td>复利本息</td>
+                    </thead>
+                    <tbody v-if="tabDate">
+                        <tr v-for="item in tabDate">
+                            <td>{{ item.yearNum }}</td>
+                            <td>{{ item.principal }}</td>
+                            <td>{{ item.simple }}</td>
+                            <td>{{ item.compound }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="js/mui.min.js" type="text/javascript"></script>
+    <script src="js/vue.min.js" type="text/javascript"></script>
+    <script src="js/mui.picker.js" type="text/javascript"></script>
+    <script src="js/mui.poppicker.js" type="text/javascript"></script>
+    <script src="js/mui.dtpicker.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        mui.init();
+        var safe = new Vue({
+            el: '#Js-content',
+            data: function () {
+                return {
+                    num: 0,
+                    show: false,
+                    tabDate: [],
+                    invest_years:  [
+                        {"text":"5","value":"5"},
+                        {"text":"10","value":"10"},
+                        {"text":"15","value":"15"},
+                        {"text":"20","value":"20"},
+                        {"text":"25","value":"25"},
+                        {"text":"30","value":"30"}
+                    ],
+                    invest_years_value: "",
+                    invest_years_text: "请选择",
+                    rate:  [
+                        {"text":"3%","value":"3"},
+                        {"text":"4%","value":"4"},
+                        {"text":"5%","value":"5"},
+                        {"text":"6%","value":"6"},
+                        {"text":"7%","value":"7"},
+                        {"text":"8%","value":"8"},
+                        {"text":"9%","value":"9"}
+                    ],
+                    rate_value: "",
+                    rate_text: "请选择",
+                    principal:  [
+                        {"text":"10000","value":"10000"},
+                        {"text":"50000","value":"50000"},
+                        {"text":"100000","value":"100000"},
+                        {"text":"200000","value":"200000"},
+                        {"text":"300000","value":"300000"},
+                        {"text":"400000","value":"400000"}
+                    ],
+                    principal_value: "",
+                    principal_text: "请选择",
+                    report_years:  [
+                        {"text":"5","value":"5"},
+                        {"text":"10","value":"10"},
+                        {"text":"20","value":"20"},
+                        {"text":"30","value":"30"},
+                        {"text":"40","value":"40"},
+                        {"text":"50","value":"50"}
+                    ],
+                    report_years_value: "",
+                    report_years_text: "请选择",
+                }
+            },
+            methods: {
+                tableData: function (inYears, principal, rate, reYears){
+                    this.tabDate = []
+                    this.num = 0
+                    if(this.show){
+                        for(var i=1; i<=reYears; i++){
+                            var dataItem = {}
+                            dataItem["yearNum"] = i;
+                            if(i<=inYears){
+                                dataItem["principal"] = principal
+                            }else{
+                                dataItem["principal"] =  "-"
+                            };
+                            dataItem["simple"] = this.simple(inYears, principal, rate, i)
+                            dataItem["compound"] = this.compound(inYears, principal, rate, i)
+                            this.tabDate.push(dataItem)
+                        };
+                    }
+
+                },
+                //单利
+                simple: function (inYears, principal, rate, j){
+                    var simpleInt = 0;
+                    if(j <= inYears){
+                        if(j > 1){
+                            var total = 0; // 利息累加
+                            for(var i=1;i<j;i++){
+                                total += (principal * (1+rate) - principal) * (j - i);
+                            }
+                            simpleInt = principal * j * (1+rate) + total;
+                        }else{
+                            simpleInt = principal * (1+rate);
+                        };
+                    }else{
+                        this.num++; // 倍数增加
+                        var tol = 0; // 利息累加
+                        for(var i=1;i<inYears;i++){
+                            tol += (principal * (1+rate) - principal) * (inYears - i);
+                        }
+                        simpleInt = principal * inYears * (1+rate) + tol +  principal * inYears * rate * this.num;
+                    };
+                    return simpleInt;
+                },
+                //复利
+                compound:  function (inYears, principal, rate, j){
+                    console.log(j +" == " +inYears + " " + principal +" "+ rate)
+                    var compoundInt = 0;
+                    var tol = 0;
+                    if(j <= 1){
+                        compoundInt = principal * (1+rate);
+                    }else{
+                        for(var i=1;i<=j;i++){
+                            if(i<=inYears){
+                                compoundInt += principal * Math.pow(1 + rate, i);
+                                tol += principal * Math.pow(1 + rate, i);
+                            }else{
+                                compoundInt = tol * Math.pow(1 + rate, this.num);
+                            }
+                        };
+                    };
+                    return compoundInt.toFixed(2);
+                }
+            },
+            watch: {
+                invest_years_value: function (val) {
+                    if ((this.rate_value/100)!="" && this.principal_value!="" && this.report_years_value!="") {
+                        this.show = true
+                        this.tableData (val, this.principal_value,(this.rate_value/100),this.report_years_value)
+                    } else {
+                        this.show = false
+                        this.tableData ()
+                    }
+                },
+                rate_value: function (val) {
+                    if (this.invest_years_value && this.principal_value!="" && this.report_years_value!="") {
+                        this.show = true
+                        this.tableData (this.invest_years_value,this.principal_value,(val/100),this.report_years_value)
+                    } else {
+                        this.show = false
+                        this.tableData ()
+                    }
+                },
+                principal_value: function (val) {
+                    if (this.invest_years_value && (this.rate_value/100)!="" && this.report_years_value!="") {
+                        this.show = true
+                        this.tableData (this.invest_years_value,val,(this.rate_value/100),this.report_years_value)
+                    } else {
+                        this.show = false
+                        this.tableData ()
+                    }
+                },
+                report_years_value: function (val) {
+                    if (this.invest_years_value && (this.rate_value/100)!="" && this.principal_value!="") {
+                        this.show = true
+                        this.tableData (this.invest_years_value,this.principal_value,(this.rate_value/100),val)
+                    } else {
+                        this.show = false
+                        this.tableData ()
+                    }
+                }
+            }
+        })
+        mui.plusReady(function() {
+            statusbar();
+            var winH = window.innerHeight;
+            var titHeight = document.querySelector('#Js-header').offsetHeight;
+            document.querySelector('#Js-content').style.height = (winH - titHeight) +'px';
+
+            //投资年限选择
+            var invest_years = new mui.PopPicker();
+            invest_years.setData(safe.invest_years);
+            document.querySelector('#invest_years').addEventListener('tap', function () {
+                invest_years.show(function (items) {
+                    safe.invest_years_value = items[0].value;
+                    safe.invest_years_text = items[0].text;
+                })
+            })
+
+            //利率选择
+            var rate = new mui.PopPicker();
+            rate.setData(safe.rate);
+            document.querySelector('#rate').addEventListener('tap', function () {
+                rate.show(function (items) {
+                    safe.rate_value = items[0].value;
+                    safe.rate_text = items[0].text;
+                })
+            })
+
+            //本金选择
+            var principal = new mui.PopPicker();
+            principal.setData(safe.principal);
+            document.querySelector('#principal').addEventListener('tap', function () {
+                principal.show(function (items) {
+                    safe.principal_value = items[0].value;
+                    safe.principal_text = items[0].text;
+                })
+            })
+
+            //回报年限
+            var report_years = new mui.PopPicker();
+            report_years.setData(safe.report_years);
+            document.querySelector('#report_years').addEventListener('tap', function () {
+                report_years.show(function (items) {
+                    safe.report_years_value = items[0].value;
+                    safe.report_years_text = items[0].text;
+                })
+            })
+        })
+    </script>
+</body>
+</html>

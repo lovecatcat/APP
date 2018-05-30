@@ -478,7 +478,9 @@
 							break;
 						//招商仁和
 						case '16120':
+						case '16219':
 							//附加豁免保险费重大 疾病保险
+//							附加投保人豁免保险费重大疾病保险
 							if(children[16119]) {
 								children_base_money = Number(year_fee) + Number(children[16119].list[1][1]);
 							} else {

@@ -25,7 +25,7 @@
 
 /* 列表筛选——状态 */
 .filter-state{
-	margin-top: 1rem;
+	margin-top: .7rem;
 	background-color: #ffffff;
 }
 .filter-state .state-select{

@@ -65,88 +65,23 @@
 		            </div>
 		        </div>
 	        	<div class="section section-manage BL-pad-lr-1_25">
-		            <div class="mui-row manage-group">
-		                <a href="member-warranty-manage.html" data-wid="member_warranty_manage"
-		                   class="mui-col-sm-3 mui-col-xs-3">
-		                    <div class="icon icon-insure"></div>
-		                    <div class="name">
-		                        保单管理
-		                    </div>
-		                </a>
-		                <a href="member-team.html" data-wid="member_team" class="mui-col-sm-3 mui-col-xs-3 manage-item">
-		                    <div class="icon icon-team"></div>
-		                    <div class="name">
-		                        团队管理
-		                    </div>
-		                </a>
-		                <a href="member-plans-manage.html" data-wid="member_plans_manage"
-		                   class="mui-col-sm-3 mui-col-xs-3 manage-item">
-		                    <div class="icon icon-profile"></div>
-		                    <div class="name">
-		                       	 计划书管理
-		                    </div>
-		                </a>
-		                <a href="member-commission-account.html" data-wid="member_commission_account" class="mui-col-sm-3 mui-col-xs-3 manage-item">
-		                	<div class="icon icon-commission"></div>
-		                    <div class="name">
-		                    	钱包
-		                    </div>
-		                </a>
+		            <div class="mui-row manage-group" v-if="menuitems" v-cloak>
+						<a  v-for="item in menuitems" v-show="memberItems.indexOf(item.module_sn)>-1&&item.state" :href="item.html" :data-wid="item.wid"
+						   class="mui-col-sm-3 mui-col-xs-3">
+							<div class="icon" :style="'background: url('+ item.img_url_head+') no-repeat center center;background-size: contain;'"></div>
+							<div class="name">
+								{{item.module_name}}
+							</div>
+						</a>
 		            </div>
-					<div class="mui-row manage-group">
-						<a href="member-intergral.html" data-wid="member_intergral" class="mui-col-sm-3 mui-col-xs-3">
-<!--						<a @tap="toastMsg" class="mui-col-sm-3 mui-col-xs-3">-->
-							<div class="icon icon-integ"></div>
-							<div class="name">
-								积分管理
-							</div>
-						</a>
-						<a href="member-birthday.html" data-wid="member_birthday" class="mui-col-sm-3 mui-col-xs-3">
-							<div class="icon icon-birthday"></div>
-							<div class="name">
-								生日跟踪
-							</div>
-						</a>
-						<!--<a href="member-renewal.html" data-wid="member_renewal" class="mui-col-sm-3 mui-col-xs-3">-->
-						<a @tap="toastMsg" class="mui-col-sm-3 mui-col-xs-3">
-							<div class="icon icon-renewal"></div>
-							<div class="name">
-								续期管理
-							</div>
-						</a>
-						<a href="member-duty.html" data-wid="member_duty" class="mui-col-sm-3 mui-col-xs-3">
-							<div class="icon icon-duty"></div>
-							<div class="name">
-								考勤
-							</div>
-						</a>
-					</div>
 				</div>
 				<div class="section section-manage BL-pad-lr-1_25">
-					<div class="mui-row manage-group">
-						<!--<a class="mui-col-sm-3 mui-col-xs-3"  href="member-requirement.html" data-wid="member_requirement">-->
-						<a class="mui-col-sm-3 mui-col-xs-3" @tap="toastMsg">
-							<div class="icon icon-receive"></div>
+					<div class="mui-row manage-group" v-if="menuitems" v-cloak>
+						<a v-for="item in menuitems" v-if="memberItems2.indexOf(item.module_sn)>-1&&item.state" :href="item.html" :data-wid="item.wid"
+						   class="mui-col-sm-3 mui-col-xs-3">
+							<div class="icon" :style="'background: url('+ item.img_url_head+') no-repeat center center;background-size: contain;'"></div>
 							<div class="name">
-								收藏
-							</div>
-						</a>
-						<a href="member-tax-cal.html" data-wid="member_tax_cal" class="mui-col-sm-3 mui-col-xs-3">
-							<div class="icon icon-calcu"></div>
-							<div class="name">
-								计税器
-							</div>
-						</a>
-						<a href="member-clips.html" data-wid="member_clips" class="mui-col-sm-3 mui-col-xs-3">
-							<div class="icon icon-zhanyejia"></div>
-							<div class="name">
-								展业夹
-							</div>
-						</a>
-						<a href="member-poster.html" data-wid="member_poster" class="mui-col-sm-3 mui-col-xs-3">
-							<div class="icon icon-post"></div>
-							<div class="name">
-								海报
+								{{item.module_name}}
 							</div>
 						</a>
 					</div>
@@ -194,6 +129,59 @@
         el: '#Js-content',
         data: {
             userinfo: '',
+			menuitems: '',
+            memberItems: ['warranty','team','plans','commission','intergral','birthday','renewal','duty'],
+            memberItems2: ['requirement','taxcal','promote','poster'],
+			itemlink:{
+                'warranty':{
+                    'html':'member-warranty-manage.html',
+					'wid': 'member_warranty_manage'
+				},
+                'team':{
+                    'html':'member-team.html',
+                    'wid': 'member_team'
+                },
+                'plans':{
+                    'html':'member-plans-manage.html',
+                    'wid': 'member_plans_manage'
+                },
+                'commission':{
+                    'html':'member-commission-account.html',
+                    'wid': 'member_commission_account'
+                },
+                'intergral':{
+                    'html':'member-intergral.html',
+                    'wid': 'member_intergral'
+                },
+                'birthday':{
+                    'html':'member-birthday.html',
+                    'wid': 'member_birthday'
+                },
+                'renewal':{
+                    'html':'member-renewal.html',
+                    'wid': 'member_renewal'
+                },
+                'renewal':{
+                    'html':'member-duty.html',
+                    'wid': 'member_duty'
+                },
+                'requirement':{
+                    'html':'member-requirement.html',
+                    'wid': 'member_requirement'
+                },
+                'taxcal':{
+                    'html':'member-tax-cal.html',
+                    'wid': 'member_tax_cal'
+                },
+                'promote':{
+                    'html':'member-promote.html',
+                    'wid': 'member_promote'
+                },
+                'poster':{
+                    'html':'member-poster.html',
+                    'wid': 'member_poster'
+                }
+			}
         },
         methods:{
         	toastMsg: function () {
@@ -202,6 +190,7 @@
             }
         }
     })
+
     mui.plusReady(function () {
 //        isLogin();
         var userinfo = plus.storage.getItem('userinfo') ? JSON.parse(plus.storage.getItem('userinfo')) : '';
@@ -209,6 +198,7 @@
         window.addEventListener('reload', function () {
             member.userinfo = plus.storage.getItem('userinfo') ? JSON.parse(plus.storage.getItem('userinfo')) : '';
         });
+
         window.addEventListener('loadpageMember', function (e) {
             setTimeout(function () {
                 statusbar();
@@ -219,6 +209,27 @@
                 document.querySelector('.mheader').style.height = (hrHeight - titHeight) + 'px';
             }, 100);
         })
+		//菜单显隐
+        window.addEventListener('showmenu', function (event) {
+			var data = event.detail.data ? JSON.parse(event.detail.data) : ''
+            mui.each(data, function (index, item) {
+                if (member.itemlink[item.module_sn]) {
+                    item.html = member.itemlink[item.module_sn].html
+                    item.wid = member.itemlink[item.module_sn].wid
+                }
+            })
+            member.menuitems = data
+			console.log(JSON.stringify(data))
+            member.$nextTick(function () {
+                statusbar();
+                var winH = window.innerHeight;
+                var titHeight = document.querySelector('#Js-header').offsetHeight;
+                var hrHeight = document.querySelector('.member-hr').offsetHeight;
+                document.querySelector('#Js-content').style.height = (winH - titHeight) + 'px';
+                document.querySelector('.mheader').style.height = (hrHeight - titHeight) + 'px';
+            })
+        })
+
     })
     function nofind() {
         var img = event.srcElement;

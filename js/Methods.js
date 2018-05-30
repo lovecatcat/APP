@@ -1137,6 +1137,7 @@ var methods = {
 						}
 						break
 					case '1011': // 招商仁和附加投保人豁免保险费定期寿险
+					case '1011': // 招商仁和附加豁免保险费重大疾病保险
 						if(this.samePerson) {
 							toastText = '投被保人为同人时不可附加该险种'
 						} else if(this.mainPayYear === 1) {
@@ -1148,6 +1149,8 @@ var methods = {
 						this.addonRes['1002'] = ''
 						this.addonsSelected['1011'] = false
 						this.addonRes['1011'] = ''
+						this.addonsSelected['1012'] = false
+						this.addonRes['1012'] = ''
 						this.$forceUpdate()
 						break
 						//恒大养老年金
@@ -1216,6 +1219,9 @@ var methods = {
 					this.$delete(this.addonInsData, '1011')
 					this.$delete(this.addonRes, '1011')
 					this.addonsSelected['1011'] = false
+					this.$delete(this.addonInsData, '1012')
+					this.$delete(this.addonRes, '1012')
+					this.addonsSelected['1012'] = false
 				} else if(index === 'LA078') {
 					this.$delete(this.addonInsData, index)
 					this.$delete(this.addonRes, index)
@@ -1417,6 +1423,15 @@ var methods = {
 					toastText = '被保人年龄不能大于70周岁'
 				}
 				break
+			case 'ACIWP': //附加豁免保费重大疾病保险
+				if(applAge > 60) {
+					toastText = '投保人年龄不能大于60周岁'
+				} else if(mainPayYear === 20 && applAge > 55) {
+					toastText = '20年交投保人年龄不能大于55周岁'
+				} else if(mainPayYear === 30 && applAge > 45) {
+					toastText = '30年交投保人年龄不能大于45周岁'
+				}
+				break	
 
 				//信泰
 			case '31A00050': // 附加信泰百万健康重大疾病
@@ -1517,6 +1532,7 @@ var methods = {
 				}
 				break
 			case '1003': // 附加爱倍护养老年金保险
+			case '1012': // 招商仁和附加豁免保险费重大疾病保险
 				if(assuAge > 60) {
 					toastText = '被保人年龄不能大于60周岁'
 				} else if(mainPayYear + assuAge > 60 && mainPayYear != 60) {
@@ -1851,10 +1867,12 @@ var methods = {
 					toastText = '保额以 1000 元为单位递增'
 				} else if(!flag) {
 					toastText = '请先选择缴费年限'
-				} else if(Number(this.flag[safeid].substring(0, 2)) > this.insurance.safe_year) {
+				} else if(flag < 100 && Number(this.flag[safeid].substring(0, 2)) > this.insurance.safe_year) {
 					toastText = '缴费年限不能超过主险保障期间'
-				} else if((Number(this.flag[safeid].substring(0, 2)) + assuAge) > 75) {
+				} else if(flag < 100 && (Number(this.flag[safeid].substring(0, 2)) + assuAge) > 75) {
 					toastText = '缴费期结束时被保险人不能超过 75 周岁'
+				} else if (flag > 100 && (Number(this.flag[safeid].substring(0, 2)) - assuAge) > this.insurance.safe_year){
+					toastText = '缴费年限不能超过主险保障期间'
 				}
 				break
 			case 'CKRA': // 中英人寿附加额外给付重大疾病保险（B 款
@@ -2107,6 +2125,7 @@ var methods = {
 			data.njy = 0
 			data.nje = 0
 			data.tbnj = 0
+			data.zfbl = 0
 		} else if(safeid === 'HA006') {
 			// 恒大 恒顺
 			data.pay_year = 1
@@ -2234,11 +2253,17 @@ var methods = {
 			data.safe_year = 1
 			data.base_money = this.cache.base_moneyNADD
 			data.flag = this.flag[safeid]
-		} else if(safeid === 'ACIWP' || safeid === 'NWPD') {
-			// 附加豁免保险费重大疾病保险 附加豁免保险费定期寿险
+		} else if(safeid === 'ACIWP') {
+			// 附加豁免保险费重大疾病保险 
 			data.pay_year = py
 			data.safe_year = py
 			data.base_money = periodMoney
+		}else if(safeid === 'NWPD') {
+			// 附加豁免保险费定期寿险2016
+			data.pay_year = py
+			data.safe_year = 0
+			data.base_money = periodMoney
+			data.flag = this.samePerson ? 2 : 1
 		} else if(safeid === 'HI') { // 附加住院津贴医疗保险
 			data.pay_year = 1
 			data.safe_year = 1
@@ -2387,8 +2412,9 @@ var methods = {
 		} else if(safeid === '1001') { //  招商仁和
 			//招商仁和爱倍护重大疾病保险
 			data.pay_year = this.mainPayYear === 60 ? 6000 : this.mainPayYear
-		} else if(safeid === '1002') {
+		} else if(safeid === '1002' || safeid === '1012') {
 			//  附加豁免保险费重大疾病保险
+			// 招商仁和附加豁免保险费重大疾病保险
 			data.pay_year = this.mainPayYear === 60 ? 5900 : py
 			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
 			if(this.addonRes['1003']) {
@@ -2396,7 +2422,7 @@ var methods = {
 			} else {
 				data.base_money = periodMoney
 			}
-		} else if(safeid === '1011') {
+		} else if(safeid === '1011' ) {
 			//  投保人豁免保险费定期寿险
 			if(this.addonRes['1003']) {
 				data.base_money = Number(periodMoney) + Number(this.addonRes['1003']['年缴保费'])
@@ -2411,6 +2437,8 @@ var methods = {
 			this.addonRes['1002'] = ''
 			this.addonsSelected['1011'] = false
 			this.addonRes['1011'] = ''
+			this.addonsSelected['1012'] = false
+			this.addonRes['1012'] = ''
 			this.$forceUpdate()
 			data.pay_year = this.mainPayYear
 			data.safe_year = 8500

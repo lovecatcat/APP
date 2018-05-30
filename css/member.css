@@ -104,54 +104,6 @@
 	height: 2.5rem;
 	margin-bottom: .8rem;
 }
-.member-index .section-manage .manage-group .icon-insure{
-	background: url(../images/icon/member-insure.png) no-repeat center center;
-	background-size: contain;
-}
-.member-index .section-manage .manage-group .icon-team{
-	background: url(../images/icon/member-team.png) no-repeat center center;
-	background-size: contain;
-}
-.member-index .section-manage .manage-group .icon-profile{
-	background: url(../images/icon/member-profile.png) no-repeat center center;
-	background-size: contain;
-}
-.member-index .section-manage .manage-group .icon-commission{
-	background: url(../images/icon/member-commission.png) no-repeat center center;
-	background-size: contain;
-}
-.member-index .section-manage .manage-group .icon-integ{
-	background: url(../images/icon/member-integ.png) no-repeat center center;
-	background-size: contain;
-}
-.member-index .section-manage .manage-group .icon-birthday{
-	background: url(../images/icon/member-birthday.png) no-repeat center center;
-	background-size: contain;
-}
-.member-index .section-manage .manage-group .icon-renewal{
-	background: url(../images/icon/member-renewal.png) no-repeat center center;
-	background-size: contain;
-}
-.member-index .section-manage .manage-group .icon-duty{
-	background: url(../images/icon/member-duty.png) no-repeat center center;
-	background-size: contain;
-}
-.member-index .section-manage .manage-group .icon-receive{
-	background: url(../images/icon/member-receive.png) no-repeat center center;
-	background-size: contain;
-}
-.member-index .section-manage .manage-group .icon-calcu{
-	background: url(../images/icon/member-calcu.png) no-repeat center center;
-	background-size: contain;
-}
-.member-index .section-manage .manage-group .icon-post{
-	background: url(../images/icon/member-post.png) no-repeat center center;
-	background-size: contain;
-}
-.member-index .section-manage .manage-group .icon-zhanyejia{
-	background: url(../images/icon/member-zhanyejia.png) no-repeat center center;
-	background-size: contain;
-}
 /* 列表分类栏目 */
 .BL-segmented-control.mui-scroll-wrapper{
 	border-bottom: 1px solid #e7e7e7;

@@ -132,12 +132,12 @@
             
             document.getElementById('Js-nav').style.opacity = 1;
             
-            window.addEventListener('isStopTunnel', function(data){
-              	if(Tunnel._webSocket && data.flag){
-                  	Tunnel._isStop = false;
-                  	Tunnel._webSocket.close();
-                };
-            }, false);
+//            window.addEventListener('isStopTunnel', function(data){
+//              	if(Tunnel._webSocket && data.flag){
+//                  	Tunnel._isStop = false;
+//                  	Tunnel._webSocket.close();
+//                };
+//            }, false);
  
 		    plus.geolocation.watchPosition(function(p){
 		    	locationd = p;	
@@ -148,7 +148,7 @@
 				enableHighAccuracy: true,
 			})
 		     
-		    Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
+		    /*Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
 			        //console.log('Message:' + Tunnel._webSocket.readyState);
 			        console.log(event.data);
 			        //如果获取到消息，心跳检测重置
@@ -197,7 +197,7 @@
 					if(_tips != ''){
 						mui.alert(_tips, '温馨提示', '确定');
 					}
-		    });
+		    });*/
 		    
             
             // 运行环境切换到后台，开始倒数20分钟，重启应用

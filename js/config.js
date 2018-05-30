@@ -108,8 +108,8 @@ var luckyAjax = function(options){
 			}else if(type == 'null' || type == 'abort'){
 				mui.toast('网络异常，请检查您的网络!', {duration: 'long', type: 'div'});	
 			}else{
-				mui.toast(errorThrown, {duration: 'long', type: 'div'});		
-			};
+				mui.toast(errorThrown, {duration: 'long', type: 'div'});
+			};	
 		    return false
 		}
 	})

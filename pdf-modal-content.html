@@ -22,7 +22,10 @@
 		(function($) {
 			// 设置内容区域
 			$.plusReady(function() {
-				plus.nativeUI.showWaiting();
+				plus.nativeUI.showWaiting('正在加载，请稍等', {
+			        style: 'white',
+			        width: '120px'
+			    })
 
 				var url = plus.webview.currentWebview().pdf;
 				var isAjaxNext = false; //是否加载下一页

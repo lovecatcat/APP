@@ -17,8 +17,8 @@
     <div class="BL-mod-headbar BL-mod-headbar-pos">
         <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
         <h1 class="BL-title">养老规划演算表</h1>
-        <div class="control">
-            <a>下一步</a>
+        <div class="control" href="product.html" data-wid="product" data-tid="LBI0008">
+            <a >下一步</a>
         </div>
     </div>
 </header>
@@ -28,13 +28,13 @@
     <div id="Js-content" class="BL-pad-t-1">
         <div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
             <a class="mui-control-item mui-active" href="#item1">基本养老金演算</a>
-            <a class="mui-control-item" href="#item2">社会养老险估算表</a>
+            <a class="mui-control-item" href="#item2">社会养老险演算</a>
             <a class="mui-control-item" href="#item3">每年需存金额</a>
         </div>
     </div>
     <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
 
-    <div class="mui-slider-group" id="Js-slider-group">
+    <div class="mui-slider-group" id="Js-slider-group" v-cloak>
         <!--第一个内容区容器-->
         <div id="item1" class="mui-slider-item mui-control-content mui-active">
             <ul class="mui-table-view form-list-cell" style="margin-top: 0rem !important;">
@@ -308,6 +308,19 @@
             income: function(allTotal, type){
                 var incomeTotal = (allTotal * type).toFixed(2);
                 return incomeTotal;
+            },
+            //每年应存金额
+            RealStorage: function(balance, nper, rate, year){
+                var sum = 0;
+                var total = 0; // 保证收益账户 / Math.pow((1+rate),(回报年限 - 准备年数))
+                for(var k=0;k<=year;k++){
+                    if(year - k > 0 ){
+                        sum += Math.pow(1 + rate, year - k);
+                    }
+                }
+                var real =  balance / Math.pow(1 + rate, nper);
+                real = (real / sum).toFixed(2);
+                return real;
             }
         },
         watch: {
@@ -355,7 +368,7 @@
             },
             // 总需退休金监听
             allTotal: function (val) {
-                if(val){
+                if(val && this.select_monthIncome_value){
                     var rate = this.rate(this.select_monthIncome_value)
                     this.society_rate = rate + '%';
                     this.society_pay = this.pay(this.select_monthIncome_text, rate)
@@ -367,17 +380,37 @@
                 }
             },
             // 投资风格
-            select_type_value: function(val){
-                if(val){
-                    this.account = this.income(parseInt(this.balance, (parseInt(val) /100)))
+            select_type: function(val){
+                if(val.value!=""){
+                    this.account = this.income(parseInt(this.balance), (parseInt(val.value) /100))
                 }else{
                     this.realStorage = "0.00"
                 }
             },
+            // 准备年数
+            select_years_value: function(val){
+                var rate = this.select_yields_value
+                var nper = this.retireAge - parseInt(this.age);
+                if(val!="" && rate!=""){
+                    this.realStorage = this.RealStorage(parseInt(this.account), parseInt(nper) - val, parseInt(rate) /100, val)
+                }else{
+                    this.realStorage = "0.00"
+                }
+            },
+            // 收益率假设
+            select_yields_value: function(val){
+                var year = this.select_years_value
+                var nper = this.retireAge - parseInt(this.age);
+                if(val!="" && year!=""&& this.age!=""){
+                    this.realStorage = this.RealStorage(parseInt(this.account), parseInt(nper) - year, parseInt(val) /100, year)
+                }else{
+                    this.realStorage = "0.00"
+                }
+            }
         }
     })
 
-    mui.ready(function() {
+    mui.plusReady(function() {
         statusbar();
         var winH = window.innerHeight;
         var topHeight = document.getElementById('Js-header').offsetHeight;
@@ -409,6 +442,7 @@
         select_type.setData(safe.select_type);
         document.querySelector('#select_type').addEventListener('tap', function () {
             select_type.show(function (items) {
+                safe.select_type = items[0]
                 safe.select_type_value = items[0].value;
                 safe.select_type_text = items[0].text;
             })
@@ -433,6 +467,35 @@
                 safe.select_yields_text = items[0].text;
             })
         })
+
+        //跳转养老年金
+        mui('body').on('tap', '.control', function(){
+            var extras = null;
+            var href = this.getAttribute('href');
+            var id = this.getAttribute("data-wid");
+            var tid = this.getAttribute("data-tid");
+
+            if (tid) {
+                extras = {instype_id: tid};
+            }
+            //非plus环境，直接走href跳转
+            if(!mui.os.plus) {
+                location.href = href;
+                return;
+            };
+
+            if(href && ~href.indexOf('.html')) {
+                mui.openWindow({
+                    url: href,
+                    id: id,
+                    show: animateObj.aniDetal,
+                    extras: extras,
+                    waiting: {
+                        autoShow: false
+                    }
+                });
+            }
+        });
     });
 </script>
 

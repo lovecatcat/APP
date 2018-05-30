@@ -131,7 +131,7 @@
                     <label class="">婚姻状况</label>
                     <div class="input-wrap box-f-1 multi-btn">
                         <button class="ins-btn xs-btn" :class="{'blue':item.value===applicant.holder_marriage}" :disabled="item.value===applicant.holder_marriage"
-                                v-for="(item,index) in init.marriage" @tap="applicant.holder_marriage=item.value,toblur()">
+                                v-for="(item,index) in init.marriage" @tap="applicant.holder_marriage=item.value,toblur()" v-show="item.value!==unknowmarry">
                             {{item.text}}
                         </button>
                     </div>
@@ -194,6 +194,15 @@
             <div class="form-wrap margin-t_875">
                 <div class="border-b-e7e7e7">
                     <div class="item-title">地址信息</div>
+                </div>
+                <div class="input-item">
+                    <label class="">居住地</label>
+                    <div class="input-wrap box-f-1">
+                        <div class="input" id="address-select">
+                            {{address_select}}
+                        </div>
+                        <div class="ins-down-icon"></div>
+                    </div>
                 </div>
                 <div class="input-item">
                     <label class="">投保地区</label>
@@ -368,7 +377,13 @@
         //
         //证件类型选择
         var idtype = new mui.PopPicker();
-        idtype.setData(init.ID_type);
+        var appltype = []
+        mui.each(init.ID_type,function (index,item) {
+            if(typename[item.value]){
+                appltype.push(item)
+            }
+        })
+        idtype.setData(appltype);
         document.querySelector('#ID_type').addEventListener('tap', function () {
             document.activeElement.blur();
             idtype.show(function (items) {
@@ -378,17 +393,22 @@
 //                astypeChange();
             })
         })
-        //深圳投保地区
-        var district = new mui.PopPicker();
-        document.querySelector('#appl-district').addEventListener('tap', function () {
+        //居住、联系地区
+        var _getParam = function (obj, param) {
+            return obj[param] || '';
+        };
+        var cityPicker3 = new mui.PopPicker({
+            layer: 3
+        });
+        cityPicker3.setData(cityData3);
+        //
+        document.querySelector('#address-select').addEventListener('tap', function () {
             document.activeElement.blur();
-            district.show(function (items) {
-                appl.applicant.holder_home_district = items[0].value;
-                appl.applicant.holder_home_district_name = items[0].text;
-                appl.applicant.holder_home_zip = items[0].zip;
-
-            })
-        })
+            cityPicker3.show(function (items) {
+                pae.ins_city = _getParam(items[1], 'value');
+                pae.address_select = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text');
+            });
+        }, false);
         //日期选择
         mui('.search-date').each(function (i, d) {
             d.addEventListener('tap', function () {

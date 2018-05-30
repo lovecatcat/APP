@@ -1,42 +1,38 @@
-var SCID = '85';
+var SCID = '85'; //招商仁和
 
-var onlineIns = ['HB023', 'LE234', 'HB030', 'LA063', 'LA075']; // 上线的主险id
-//               恒久       护航      青     福享金生    红
+var onlineIns = ['1001']; // 上线的主险code
+//               爱倍护
 
 //主险
-var qwhh = 'LE234'; //千万护航
-var hjjk = 'HB023'; //恒久健康
-var fxjs = 'LA063'; //福享金生
-var wnh = 'LA075'; //万年红
-var wnq = 'HB030'; //万年青
+var abh = '1001'; //爱倍护
 
 //附加险
-var tbrhm = 'HB024'; //投保人豁免重疾2017版
-var hx = 'HA007'; //恒祥
-var hs = 'HA006'; //恒顺
-var zxak = 'HA005'; //尊享安康
-var hjax = 'HA014'; //恒久安心住院
-var cjb = 'LA073'; //传家宝
+var hmzj = '1002'; //附加豁免保险费重大疾病保险
+var tbrhmds = '1011'; //附加投保人豁免保险费定期寿险
+var ylnj = '1003'; //附加爱倍护养老年金
+var zybc = '1018';//附加住院补偿
+var zybt = '1017';//附加住院每日补贴
+var ywmjz = '1015';//附加意外门急诊
+var tbrhmzj = '1012';//附加投保人豁免保险费重大疾病保险
 
-var zrwnzh = 'LBD0001' //转入万能账户
 
-var typename = {'LAA0001': '身份证', 'LAA0002': '户口本', 'LAA0005': '出生证'}
-var ISASSURED = 'LAC0001'; //被保人是本人
-var COUPLE = 'LAC0002';//投被保人为配偶
-var BCOUPLE = 'LAN0002';//受益人与被保人为配偶
-var IDNO = ['LAA0001', 'LAA0002']; //身份证、户口本
-var BOOKLET = 'LAA0002'; //户口本
-var IDcard = 'LAA0001'; //身份证
-var BORNid = 'LAA0005'; //出生证
-var MALE = 'LAB0001'; //男
-var FEMALE = 'LAB0002'; //女
-var TAXTYPE = 'LAH0001'; //仅为中国税收居民
-var NATION = 'LAI0001'; //中国
+var typename = {'LAA004A': '身份证', 'LAA004B': '户口簿', 'LAA004D': '军人身份证','LAA004E':'士兵证','LAA004G':'中国护照','LAA004I':'港澳通行证','LAA004J':'台湾通行证','LAA004L':'出生证'}
+var ISASSURED = 'LAC001C'; //被保人是本人
+var COUPLE = 'LAC001D';//投被保人为配偶
+var BCOUPLE = 'LAN003H';//受益人与被保人为配偶
+var IDNO = ['LAA004A', 'LAA004B']; //身份证、户口本
+var BOOKLET = 'LAA004B'; //户口本
+var IDcard = 'LAA004A'; //身份证
+var BORNid = 'LAA004L'; //出生证
+var MALE = 'LAB0017'; //男
+var FEMALE = 'LAB0018'; //女
+var TAXTYPE = 'LAH0007'; //仅为中国税收居民
+var NATION = 'LAI005L'; //中国
+var unknowmarry = 'LAD001B' ;//婚姻状况未知
 
-var SY_TYPE = 'LAP0001'; //受益类型：身故
-var has_social_security = 'LAG0001'; //有社保
-var no_social_security = 'LAG0002';//无社保
-var invalid_districts = ['7036','7037','7042','7044'] //不支持的投保地区
+var SY_TYPE = 'LAP000C'; //受益类型：身故
+var has_social_security = 'LAG000C'; //有社保
+var no_social_security = 'LAG000D';//无社保
 
 //证件号校验
 var IDValidate = function (type, id, owner,data) {

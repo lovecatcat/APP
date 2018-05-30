@@ -807,7 +807,8 @@
 					"member-life-order.html",
 					"member-promote.html",
 					"member-poster.html",
-					"member-requirement.html"
+					"member-requirement.html",
+					"member-clips.html"
 				],
 				"priority": 0
 			},
@@ -3261,6 +3262,34 @@
 				"priority": 0
 			},
 			"requirement_retire.html": {
+				"resources": [
+					"js/mui.poppicker.js",
+					"css/mui.picker.min.css",
+					"css/form.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-clips.html": {
+				"resources": [
+					"images/member/clips_6.png",
+					"images/member/clips_2.png",
+					"images/member/clips_5.png",
+					"images/member/clips_7.png",
+					"images/member/clips_3.png",
+					"images/member/clips_1.png",
+					"css/mui.css",
+					"images/member/clips_4.png"
+				],
+				"refer": [
+					"member-promote.html",
+					"requirement_rate.html",
+					"requirement_safe.html"
+				],
+				"priority": 0
+			},
+			"requirement_rate.html": {
 				"resources": [
 					"js/mui.poppicker.js",
 					"css/mui.picker.min.css",

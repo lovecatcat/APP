@@ -51,16 +51,13 @@
                 <li class="fItem BL-ub BL-ub-f1">
                     <label class="form-list-label">预计退休年龄</label>
                     <div class="form-list-control">
-                        <input type="text" placeholder="请输入" v-model="retireAge">
-                    </div>
-                    <div class="form-list-icon">
-                        <span class="mui-icon mui-icon-clear"></span>
+                        <input type="text" v-model="retireAge" readonly>
                     </div>
                 </li>
                 <li class="fItem BL-ub BL-ub-f1">
-                    <label class="form-list-label">目前每月支出</label>
+                    <label class="form-list-label">目前每年支出</label>
                     <div class="form-list-control">
-                        <input type="text" placeholder="请输入您目前每月支出" v-model="alimony">
+                        <input type="text" placeholder="请输入您目前每年支出" v-model="alimony">
                     </div>
                     <div class="form-list-icon" v-show="alimony!=''"
                          @click="alimony=''">
@@ -81,37 +78,25 @@
                 <li class="fItem BL-ub BL-ub-f1">
                     <label class="form-list-label">离退休年龄</label>
                     <div class="form-list-control">
-                        <input type="text" placeholder="请输入" v-model="nper">
-                    </div>
-                    <div class="form-list-icon">
-                        <span class="mui-icon mui-icon-clear"></span>
+                        <input type="text" v-model="nper" readonly>
                     </div>
                 </li>
                 <li class="fItem BL-ub BL-ub-f1">
                     <label class="form-list-label">退休生活年数</label>
                     <div class="form-list-control">
-                        <input type="text" placeholder="请输入" v-model="retireAgeNum">
-                    </div>
-                    <div class="form-list-icon">
-                        <span class="mui-icon mui-icon-clear"></span>
+                        <input type="text" v-model="retireAgeNum" readonly>
                     </div>
                 </li>
                 <li class="fItem BL-ub BL-ub-f1">
                     <label class="form-list-label">退休第一年需要养老金</label>
                     <div class="form-list-control">
-                        <input type="text" placeholder="请输入" v-model="total">
-                    </div>
-                    <div class="form-list-icon">
-                        <span class="mui-icon mui-icon-clear"></span>
+                        <input type="text" v-model="total" readonly>
                     </div>
                 </li>
                 <li class="fItem BL-ub BL-ub-f1">
                     <label class="form-list-label">总需养老金</label>
                     <div class="form-list-control">
-                        <input type="text" placeholder="请输入" v-model="allTotal">
-                    </div>
-                    <div class="form-list-icon">
-                        <span class="mui-icon mui-icon-clear"></span>
+                        <input type="text" v-model="allTotal" readonly>
                     </div>
                 </li>
             </ul>
@@ -133,37 +118,25 @@
                 <li class="fItem BL-ub BL-ub-f1">
                     <label class="form-list-label">总需退休金</label>
                     <div class="form-list-control">
-                        <input type="text" placeholder="请输入" v-model="allTotal">
-                    </div>
-                    <div class="form-list-icon">
-                        <span class="mui-icon mui-icon-clear"></span>
+                        <input type="text" v-model="allTotal" readonly>
                     </div>
                 </li>
                 <li class="fItem BL-ub BL-ub-f1">
                     <label class="form-list-label">社保替代率</label>
                     <div class="form-list-control">
-                        <input type="text" placeholder="请输入" v-model="rate">
-                    </div>
-                    <div class="form-list-icon">
-                        <span class="mui-icon mui-icon-clear"></span>
+                        <input type="text" v-model="society_rate" readonly>
                     </div>
                 </li>
                 <li class="fItem BL-ub BL-ub-f1">
                     <label class="form-list-label">社保给付约为</label>
                     <div class="form-list-control">
-                        <input type="text" placeholder="请输入" v-model="pay">
-                    </div>
-                    <div class="form-list-icon">
-                        <span class="mui-icon mui-icon-clear"></span>
+                        <input type="text" v-model="society_pay" readonly>
                     </div>
                 </li>
                 <li class="fItem BL-ub BL-ub-f1">
                     <label class="form-list-label">缺口</label>
                     <div class="form-list-control">
-                        <input type="text" placeholder="请输入" v-model="balance">
-                    </div>
-                    <div class="form-list-icon">
-                        <span class="mui-icon mui-icon-clear"></span>
+                        <input type="text" v-model="balance" readonly>
                     </div>
                 </li>
             </ul>
@@ -174,10 +147,7 @@
                 <li class="fItem BL-ub BL-ub-f1">
                     <label class="form-list-label">总需退休金</label>
                     <div class="form-list-control">
-                        <input type="text" placeholder="请输入每年收入" v-model="balance">
-                    </div>
-                    <div class="form-list-icon">
-                        <span class="mui-icon mui-icon-clear"></span>
+                        <input type="text" v-model="balance" readonly>
                     </div>
                 </li>
                 <li class="fItem BL-ub BL-ub-f1">
@@ -194,10 +164,7 @@
                 <li class="fItem BL-ub BL-ub-f1">
                     <label class="form-list-label">保证收益账户</label>
                     <div class="form-list-control">
-                        <input type="text" placeholder="请输入" v-model="account">
-                    </div>
-                    <div class="form-list-icon">
-                        <span class="mui-icon mui-icon-clear"></span>
+                        <input type="text" v-model="account" readonly>
                     </div>
                 </li>
                 <li class="fItem BL-ub BL-ub-f1">
@@ -225,10 +192,7 @@
                 <li class="fItem BL-ub BL-ub-f1">
                     <label class="form-list-label">每年应存金额</label>
                     <div class="form-list-control">
-                        <input type="text" placeholder="请输入" v-model="realStorage">
-                    </div>
-                    <div class="form-list-icon">
-                        <span class="mui-icon mui-icon-clear"></span>
+                        <input type="text" v-model="realStorage" readonly>
                     </div>
                 </li>
             </ul>
@@ -249,7 +213,7 @@
             return {
                 age: "", // 年龄
                 retireAge: "60", // 预计退休年龄
-                alimony: "", // 目前每月支出
+                alimony: "", // 目前每年支出
                 select_lv: [
                     {"text":"1%","value":"1"},
                     {"text":"2%","value":"2"},
@@ -260,10 +224,10 @@
                 ],
                 select_lv_value: "",
                 select_lv_text: "请选择",
-                nper: "", // 离退休年龄
+                nper: "0", // 离退休年龄
                 retireAgeNum: "25",  // 退休生活年数
-                total: "", // 退休第一年需要养老金
-                allTotal: "", // 总需养老金
+                total: "0.00", // 退休第一年需要养老金
+                allTotal: "0.00", // 总需养老金
                 select_monthIncome: [
                     {"text":"5000","value":"0"},
                     {"text":"10000","value":"1"},
@@ -275,8 +239,8 @@
                 ],
                 select_monthIncome_value: "",
                 select_monthIncome_text: "请选择",
-                rate: "0.00%", // 社保替代率
-                pay: "0.00", // 社保给付约为
+                society_rate: "0.00%", // 社保替代率
+                society_pay: "0.00", // 社保给付约为
                 balance: "0.00", // 总需退休金
                 select_type: [
                     {"text":"保守型","value":"30"},
@@ -313,10 +277,107 @@
                 select_yields_text: "请选择",
                 realStorage: "0.00"   // 每年应存金额
             }
+        },
+        methods: {
+            // 退休第一年需养老奖金 公式FV
+            fv: function (pmt, nper, rate){
+                var fv = (pmt * 12 * Math.pow(1 + rate/100, nper)).toFixed(2);
+                return fv;
+            },
+            // 总需养老金 公式PV
+            pv: function (total, nper, rate){
+                var pv = (total * (1 - Math.pow(1 + rate/100, -nper)) /( rate / 100)).toFixed(2);
+                return pv;
+            },
+            //社保替代率
+            rate: function (val){
+                var rateArr = ['42.64', '34.75', '17.38', '11.58', '8.69', '6.95', '3.48'];
+                return rateArr[val];
+            },
+            // 社保给付金额
+            pay: function (val, rate){
+                var pay = ((rate / 100 * parseFloat(val))*12 *20).toFixed(2);
+                return pay;
+            },
+            //缺口
+            balances: function (allTotal, pay){
+                var balance = (allTotal - pay).toFixed(2);
+                return balance;
+            },
+            //保证收益账户
+            income: function(allTotal, type){
+                var incomeTotal = (allTotal * type).toFixed(2);
+                return incomeTotal;
+            }
+        },
+        watch: {
+            age: function (val) {
+                if (val) {
+                    this.nper = this.retireAge - val;
+                    if(this.alimony!="" && this.select_lv_value!=""){
+                        var fvs = this.fv(this.alimony, this.nper, this.select_lv_value);
+                        var pvs = this.pv(fvs, 20, this.select_lv_value);
+                        this.total = fvs
+                        this.allTotal = pvs
+                    }
+                }
+            },
+            alimony: function(val){
+                this.nper = this.retireAge - this.age;
+                if(this.nper!="" && this.select_lv_value!=""){
+                    var fvs = this.fv(val, this.nper, this.select_lv_value);
+                    var pvs = this.pv(fvs, 20, this.select_lv_value);
+                    this.total = fvs
+                    this.allTotal = pvs
+                }
+            },
+            select_lv_value: function(val){
+                this.nper = this.retireAge - this.age;
+                if(this.nper!="" && this.alimony!=""){
+                    var fvs = this.fv(this.alimony, this.nper, val);
+                    var pvs = this.pv(fvs, 25, val);
+                    this.total = fvs
+                    this.allTotal = pvs
+                }
+            },
+            // 目前月收入
+            select_monthIncome_value: function(val){
+                if(val){
+                    var rate = this.rate(val)
+                    this.society_rate = rate + '%';
+                    this.society_pay = this.pay(this.select_monthIncome_text, rate)
+                    this.balance = this.balances(this.allTotal, this.society_pay)
+                }else{
+                    this.society_rate = '0.00%';
+                    this.balance = "0.00"
+                    this.society_pay = "0.00"
+                }
+            },
+            // 总需退休金监听
+            allTotal: function (val) {
+                if(val){
+                    var rate = this.rate(this.select_monthIncome_value)
+                    this.society_rate = rate + '%';
+                    this.society_pay = this.pay(this.select_monthIncome_text, rate)
+                    this.balance = this.balances(val, this.society_pay)
+                }else{
+                    this.society_rate = '0.00%';
+                    this.balance = "0.00"
+                    this.society_pay = "0.00"
+                }
+            },
+            // 投资风格
+            select_type_value: function(val){
+                if(val){
+                    this.account = this.income(parseInt(this.balance, (parseInt(val) /100)))
+                }else{
+                    this.realStorage = "0.00"
+                }
+            },
         }
     })
 
-    mui.plusReady(function() {
+    mui.ready(function() {
         statusbar();
         var winH = window.innerHeight;
         var topHeight = document.getElementById('Js-header').offsetHeight;
@@ -327,7 +388,7 @@
         var select_lv = new mui.PopPicker();
         select_lv.setData(safe.select_lv);
         document.querySelector('#select_lv').addEventListener('tap', function () {
-            disease.show(function (items) {
+            select_lv.show(function (items) {
                 safe.select_lv_value = items[0].value;
                 safe.select_lv_text = items[0].text;
             })
@@ -335,7 +396,7 @@
 
         //目前月收入选择
         var select_monthIncome = new mui.PopPicker();
-        select_monthIncome.setData(safe.select_type);
+        select_monthIncome.setData(safe.select_monthIncome);
         document.querySelector('#select_monthIncome').addEventListener('tap', function () {
             select_monthIncome.show(function (items) {
                 safe.select_monthIncome_value = items[0].value;

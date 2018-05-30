@@ -17,20 +17,16 @@
     <header id="Js-header" class="BL-bg-fff">
         <div class="BL-mod-headbar BL-mod-headbar-pos">
             <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
-            <h1 class="BL-title">添加受益人</h1>
-            <div class="control">
-                <a>保存</a>
-            </div>
+            <h1 class="BL-title">单利与复利</h1>
         </div>
     </header>
-
-    <div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
+    <div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY" v-cloak>
         <ul class="mui-table-view form-list-cell">
             <li class="fItem BL-ub BL-ub-f1">
-                <label class="form-list-label">重疾医疗费</label>
+                <label class="form-list-label">投资年限</label>
                 <div class="form-list-control">
-                    <div class="BL-ub-f1 BL-txt-r" id="medical_fee">
-                        {{ medical_text }}
+                    <div class="BL-ub-f1 BL-txt-r" id="invest_years">
+                        {{ invest_years_text }}
                     </div>
                 </div>
                 <div class="form-list-icon">
@@ -38,10 +34,10 @@
                 </div>
             </li>
             <li class="fItem BL-ub BL-ub-f1">
-                <label class="form-list-label">护养康复费</label>
+                <label class="form-list-label">利率</label>
                 <div class="form-list-control">
-                    <div class="BL-ub-f1 BL-txt-r" id="recovery_fee">
-                        {{ recovery_text }}
+                    <div class="BL-ub-f1 BL-txt-r" id="rate">
+                        {{ rate_text }}
                     </div>
                 </div>
                 <div class="form-list-icon">
@@ -49,38 +45,10 @@
                 </div>
             </li>
             <li class="fItem BL-ub BL-ub-f1">
-                <label class="form-list-label">每月收入</label>
+                <label class="form-list-label">本金</label>
                 <div class="form-list-control">
-                    <input type="text" placeholder="请输入每月收入" v-model="monthIncome">
-                </div>
-                <div class="form-list-icon" v-show="monthIncome!=''"
-                     @click="monthIncome=''">
-                    <span class="mui-icon mui-icon-clear"></span>
-                </div>
-            </li>
-            <li class="fItem BL-ub BL-ub-f1">
-                <label class="form-list-label">收入补偿</label>
-                <div class="form-list-control">
-                    <input type="text" placeholder="请输入" v-model="allTotalBack">
-                </div>
-                <div class="form-list-icon">
-                    <span class="mui-icon mui-icon-clear"></span>
-                </div>
-            </li>
-            <li class="fItem BL-ub BL-ub-f1">
-                <label class="form-list-label">保障额度</label>
-                <div class="form-list-control">
-                    <input type="text" placeholder="请输入" v-model="allTotalStrong">
-                </div>
-                <div class="form-list-icon">
-                    <span class="mui-icon mui-icon-clear"></span>
-                </div>
-            </li>
-            <li class="fItem BL-ub BL-ub-f1">
-                <label class="form-list-label">规划年数</label>
-                <div class="form-list-control">
-                    <div class="BL-ub-f1 BL-txt-r" id="plan_year">
-                        {{ plan_text }}
+                    <div class="BL-ub-f1 BL-txt-r" id="principal">
+                        {{ principal_text }}
                     </div>
                 </div>
                 <div class="form-list-icon">
@@ -88,15 +56,35 @@
                 </div>
             </li>
             <li class="fItem BL-ub BL-ub-f1">
-                <label class="form-list-label">每年准备</label>
+                <label class="form-list-label">回报年限</label>
                 <div class="form-list-control">
-                    <input type="text" placeholder="请输入" v-model="allTotalyear">
+                    <div class="BL-ub-f1 BL-txt-r" id="report_years">
+                        {{ report_years_text }}
+                    </div>
                 </div>
                 <div class="form-list-icon">
-                    <span class="mui-icon mui-icon-clear"></span>
+                    <div class="mui-icon mui-icon-arrowright"></div>
                 </div>
             </li>
         </ul>
+        <div class="BL-mar-t-1 BL-pad-a1 BL-bg-fff" v-show="show">
+            <table class="BL-col-999 BL-txt-c form-tab">
+                <thead>
+                    <th>年数</th>
+                    <th>本金</th>
+                    <th>单利本息</th>
+                    <th>复利本息</th>
+                </thead>
+                <tbody>
+                    <tr v-for="item in tabDate">
+                        <td>{{ item.yearNum }}</td>
+                        <td>{{ item.principal }}</td>
+                        <td>{{ item.simple }}</td>
+                        <td>{{ item.compound }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <script src="js/mui.min.js" type="text/javascript"></script>
     <script src="js/vue.min.js" type="text/javascript"></script>
@@ -109,31 +97,146 @@
             el: '#Js-content',
             data: function () {
                 return {
-                    medical_fee:  [
-                        {"text":"基本（30万）","value":"300000"},
-                        {"text":"中等（50万）","value":"500000"},
-                        {"text":"充足（100万）","value":"1000000"}
+                    num: 0,
+                    show: false,
+                    tabDate: [],
+                    invest_years:  [
+                        {"text":"5","value":"5"},
+                        {"text":"10","value":"10"},
+                        {"text":"15","value":"15"},
+                        {"text":"20","value":"20"},
+                        {"text":"25","value":"25"},
+                        {"text":"30","value":"30"}
                     ],
-                    medical_value: "",
-                    medical_text: "请选择",
-                    recovery_fee:  [
-                        {"text":"基本（10万）","value":"100000"},
-                        {"text":"中等（20万）","value":"200000"},
-                        {"text":"充足（30万）","value":"300000"}
+                    invest_years_value: "",
+                    invest_years_text: "请选择",
+                    rate:  [
+                        {"text":"3%","value":"3"},
+                        {"text":"4%","value":"4"},
+                        {"text":"5%","value":"5"},
+                        {"text":"6%","value":"6"},
+                        {"text":"7%","value":"7"},
+                        {"text":"8%","value":"8"},
+                        {"text":"9%","value":"9"}
                     ],
-                    recovery_value: "",
-                    recovery_text: "请选择",
-                    plan_year:  [
-                        {"text":"10年","value":"4.07"},
-                        {"text":"15年","value":"2.99"},
-                        {"text":"20年","value":"2.49"}
+                    rate_value: "",
+                    rate_text: "请选择",
+                    principal:  [
+                        {"text":"10000","value":"10000"},
+                        {"text":"50000","value":"50000"},
+                        {"text":"100000","value":"100000"},
+                        {"text":"200000","value":"200000"},
+                        {"text":"300000","value":"300000"},
+                        {"text":"400000","value":"400000"}
                     ],
-                    plan_value: "",
-                    plan_text: "请选择",
-                    monthIncome: "", // 每月收入
-                    allTotalBack: "0.00", // 收入补偿
-                    allTotalStrong: "0.00", // 保障额度
-                    allTotalyear: "0.00"  // 每年准备
+                    principal_value: "",
+                    principal_text: "请选择",
+                    report_years:  [
+                        {"text":"5","value":"5"},
+                        {"text":"10","value":"10"},
+                        {"text":"20","value":"20"},
+                        {"text":"30","value":"30"},
+                        {"text":"40","value":"40"},
+                        {"text":"50","value":"50"}
+                    ],
+                    report_years_value: "",
+                    report_years_text: "请选择",
+                }
+            },
+            methods: {
+                tableData: function (inYears, principal, rate, reYears){
+                    this.tabDate = []
+                    this.num = 0
+                    if(this.show){
+                        for(var i=1; i<=reYears; i++){
+                            var dataItem = {}
+                            dataItem["yearNum"] = i;
+                            if(i<=inYears){
+                                dataItem["principal"] = principal
+                            }else{
+                                dataItem["principal"] =  "-"
+                            };
+                            dataItem["simple"] = this.simple(inYears, principal, rate, i)
+                            dataItem["compound"] = this.compound(inYears, principal, rate, i)
+                            this.tabDate.push(dataItem)
+                        };
+                    }
+
+                },
+                //单利
+                simple: function (inYears, principal, rate, j){
+                    var simpleInt = 0;
+                    if(j <= inYears){
+                        if(j > 1){
+                            var total = 0; // 利息累加
+                            for(var i=1;i<j;i++){
+                                total += (principal * (1+rate) - principal) * (j - i);
+                            }
+                            simpleInt = principal * j * (1+rate) + total;
+                        }else{
+                            simpleInt = principal * (1+rate);
+                        };
+                    }else{
+                        this.num++; // 倍数增加
+                        var tol = 0; // 利息累加
+                        for(var i=1;i<inYears;i++){
+                            tol += (principal * (1+rate) - principal) * (inYears - i);
+                        }
+                        simpleInt = principal * inYears * (1+rate) + tol +  principal * inYears * rate * this.num;
+                    };
+                    return simpleInt;
+                },
+                //复利
+                compound:  function (inYears, principal, rate, j){
+                    var compoundInt = 0;
+                    var tol = 0;
+                    if(j <= 1){
+                        compoundInt = principal * (1+rate);
+                    }else{
+                        for(var i=1;i<=j;i++){
+                            if(i<=inYears){
+                                compoundInt += principal * Math.pow(1 + rate, i);
+                                tol += principal * Math.pow(1 + rate, i);
+                            }else{
+                                compoundInt = tol * Math.pow(1 + rate, this.num);
+                            }
+                        };
+                    };
+                    return compoundInt.toFixed(2);
+                }
+            },
+            watch: {
+                invest_years_value: function (val) {
+                    if ((this.rate_value/100)!="" && this.principal_value!="" && this.report_years_value!="") {
+                        this.show = true
+                        this.tableData (val, this.principal_value,(this.rate_value/100),this.report_years_value)
+                    } else {
+                        this.tableData ()
+                    }
+                },
+                rate_value: function (val) {
+                    if (this.invest_years_value && this.principal_value!="" && this.report_years_value!="") {
+                        this.show = true
+                        this.tableData (this.invest_years_value,this.principal_value,(val/100),this.report_years_value)
+                    } else {
+                        this.tableData ()
+                    }
+                },
+                principal_value: function (val) {
+                    if (this.invest_years_value && (this.rate_value/100)!="" && this.report_years_value!="") {
+                        this.show = true
+                        this.tableData (this.invest_years_value,val,(this.rate_value/100),this.report_years_value)
+                    } else {
+                        this.tableData ()
+                    }
+                },
+                report_years_value: function (val) {
+                    if (this.invest_years_value && (this.rate_value/100)!="" && this.principal_value!="") {
+                        this.show = true
+                        this.tableData (this.invest_years_value,this.principal_value,(this.rate_value/100),val)
+                    } else {
+                        this.tableData ()
+                    }
                 }
             }
         })
@@ -143,33 +246,43 @@
             var titHeight = document.querySelector('#Js-header').offsetHeight;
             document.querySelector('#Js-content').style.height = (winH - titHeight) +'px';
 
-            //重疾医疗费选择
-            var disease = new mui.PopPicker();
-            disease.setData(safe.medical_fee);
-            document.querySelector('#medical_fee').addEventListener('tap', function () {
-                disease.show(function (items) {
-                    safe.medical_value = items[0].value;
-                    safe.medical_text = items[0].text;
+            //投资年限选择
+            var invest_years = new mui.PopPicker();
+            invest_years.setData(safe.invest_years);
+            document.querySelector('#invest_years').addEventListener('tap', function () {
+                invest_years.show(function (items) {
+                    safe.invest_years_value = items[0].value;
+                    safe.invest_years_text = items[0].text;
                 })
             })
 
-            //护养康复费选择
-            var recovery = new mui.PopPicker();
-            recovery.setData(safe.recovery_fee);
-            document.querySelector('#recovery_fee').addEventListener('tap', function () {
-                recovery.show(function (items) {
-                    safe.recovery_value = items[0].value;
-                    safe.recovery_text = items[0].text;
+            //利率选择
+            var rate = new mui.PopPicker();
+            rate.setData(safe.rate);
+            document.querySelector('#rate').addEventListener('tap', function () {
+                rate.show(function (items) {
+                    safe.rate_value = items[0].value;
+                    safe.rate_text = items[0].text;
                 })
             })
 
-            //规划年数选择
-            var plan = new mui.PopPicker();
-            plan.setData(safe.plan_year);
-            document.querySelector('#plan_year').addEventListener('tap', function () {
-                plan.show(function (items) {
-                    safe.plan_value = items[0].value;
-                    safe.plan_text = items[0].text;
+            //本金选择
+            var principal = new mui.PopPicker();
+            principal.setData(safe.principal);
+            document.querySelector('#principal').addEventListener('tap', function () {
+                principal.show(function (items) {
+                    safe.principal_value = items[0].value;
+                    safe.principal_text = items[0].text;
+                })
+            })
+
+            //回报年限
+            var report_years = new mui.PopPicker();
+            report_years.setData(safe.report_years);
+            document.querySelector('#report_years').addEventListener('tap', function () {
+                report_years.show(function (items) {
+                    safe.report_years_value = items[0].value;
+                    safe.report_years_text = items[0].text;
                 })
             })
         })

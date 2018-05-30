@@ -40,8 +40,8 @@
                     <li class="fItem BL-ub BL-ub-f1">
                         <label class="form-list-label">重疾医疗费</label>
                         <div class="form-list-control">
-                            <div class="BL-ub-f1 BL-txt-r" id="medical_fee">
-                                {{ medical_text }}
+                            <div class="BL-ub-f1 BL-txt-r" id="hos_money">
+                                {{ hos_money_text }}
                             </div>
                         </div>
                         <div class="form-list-icon">
@@ -51,8 +51,8 @@
                     <li class="fItem BL-ub BL-ub-f1">
                         <label class="form-list-label">护养康复费</label>
                         <div class="form-list-control">
-                            <div class="BL-ub-f1 BL-txt-r" id="recovery_fee">
-                                {{ recovery_text }}
+                            <div class="BL-ub-f1 BL-txt-r" id="ks_money">
+                                {{ ks_money_text }}
                             </div>
                         </div>
                         <div class="form-list-icon">
@@ -72,26 +72,20 @@
                     <li class="fItem BL-ub BL-ub-f1">
                         <label class="form-list-label">收入补偿</label>
                         <div class="form-list-control">
-                            <input type="text" placeholder="请输入" v-model="allTotalBack">
-                        </div>
-                        <div class="form-list-icon">
-                            <span class="mui-icon mui-icon-clear"></span>
+                            <input type="text" v-model="allTotalBack" readonly>
                         </div>
                     </li>
                     <li class="fItem BL-ub BL-ub-f1">
                         <label class="form-list-label">保障额度</label>
                         <div class="form-list-control">
-                            <input type="text" placeholder="请输入" v-model="allTotalStrong">
-                        </div>
-                        <div class="form-list-icon">
-                            <span class="mui-icon mui-icon-clear"></span>
+                            <input type="text" v-model="allTotalStrong" readonly>
                         </div>
                     </li>
                     <li class="fItem BL-ub BL-ub-f1">
                         <label class="form-list-label">规划年数</label>
                         <div class="form-list-control">
                             <div class="BL-ub-f1 BL-txt-r" id="plan_year">
-                                {{ plan_text }}
+                                {{ plan_year_text }}
                             </div>
                         </div>
                         <div class="form-list-icon">
@@ -101,10 +95,7 @@
                     <li class="fItem BL-ub BL-ub-f1">
                         <label class="form-list-label">每年准备</label>
                         <div class="form-list-control">
-                            <input type="text" placeholder="请输入" v-model="allTotalyear">
-                        </div>
-                        <div class="form-list-icon">
-                            <span class="mui-icon mui-icon-clear"></span>
+                            <input type="text" v-model="allTotalyear" readonly>
                         </div>
                     </li>
                 </ul>
@@ -125,24 +116,17 @@
                     <li class="fItem BL-ub BL-ub-f1">
                         <label class="form-list-label">年缴保费</label>
                         <div class="form-list-control">
-                            <input type="text" placeholder="请输入" v-model="allTotalbf">
-                        </div>
-                        <div class="form-list-icon">
-                            <span class="mui-icon mui-icon-clear"></span>
+                            <input type="text" v-model="allTotalbf" readonly>
                         </div>
                     </li>
                     <li class="fItem BL-ub BL-ub-f1">
                         <label class="form-list-label">或（保额）</label>
                         <div class="form-list-control">
-                            <input type="text" placeholder="请输入" v-model="allTotalbe">
-                        </div>
-                        <div class="form-list-icon">
-                            <span class="mui-icon mui-icon-clear"></span>
+                            <input type="text" v-model="allTotalbe" readonly>
                         </div>
                     </li>
                 </ul>
             </div>
-
         </div>
     </div>
 </body>
@@ -157,27 +141,27 @@
         el: '#Js-slider-group',
         data: function () {
             return {
-                medical_fee:  [
+                hos_money:  [
                     {"text":"基本（30万）","value":"300000"},
                     {"text":"中等（50万）","value":"500000"},
                     {"text":"充足（100万）","value":"1000000"}
                 ],
-                medical_value: "",
-                medical_text: "请选择",
-                recovery_fee:  [
+                hos_money_value: "",
+                hos_money_text: "请选择",
+                ks_money:  [
                     {"text":"基本（10万）","value":"100000"},
                     {"text":"中等（20万）","value":"200000"},
                     {"text":"充足（30万）","value":"300000"}
                 ],
-                recovery_value: "",
-                recovery_text: "请选择",
+                ks_money_value: "",
+                ks_money_text: "请选择",
                 plan_year:  [
                     {"text":"10年","value":"4.07"},
                     {"text":"15年","value":"2.99"},
                     {"text":"20年","value":"2.49"}
                 ],
-                plan_value: "",
-                plan_text: "请选择",
+                plan_year_value: "",
+                plan_year_text: "请选择",
                 monthIncome: "", // 每月收入
                 allTotalBack: "0.00", // 收入补偿
                 allTotalStrong: "0.00", // 保障额度
@@ -186,10 +170,51 @@
                 allTotalbf: "0.00", // 年缴保费
                 allTotalbe: "0.00" // 年缴保额
             }
+        },
+        methods: {
+            // 保障额度
+            TotalStrong: function (money1, money2, money3){
+                var total =  parseInt(money1) + parseInt(money2) + parseInt(money3);
+                return total;
+            },
+            // 每年准备
+            AllTotalyear: function (money1, money2, money3, rate){
+                if(rate==''){
+                    return false;
+                }else{
+                    var total = (parseInt(money1) + parseInt(money2) + parseInt(money3)) * (rate/100);
+                    return total;
+                }
+            }
+        },
+        watch: {
+            hos_money_value: function (val) {
+                if(val == '' || this.ks_money_value == '' || this.allTotalBack == ''){
+                    return false;
+                }
+                this.allTotalStrong = this.TotalStrong(val, this.ks_money_value, this.allTotalBack).toFixed(2);
+                this.allTotalyear = this.AllTotalyear(val, this.ks_money_value, this.allTotalBack, this.plan_year_value).toFixed(2);
+            },
+            ks_money_value: function (val) {
+                if(val == '' || this.hos_money_value == '' || this.allTotalBack == ''){
+                    return false;
+                }
+                this.allTotalStrong = this.TotalStrong(this.hos_money_value, val, this.allTotalBack).toFixed(2);
+                this.allTotalyear = this.AllTotalyear(this.hos_money_value, val, this.allTotalBack, this.plan_year_value).toFixed(2);
+            },
+            yearIncome: function (val) {
+                if(val ==''){
+                    this.allTotalbf = "0.00"
+                    this.allTotalbe = "0.00"
+                }else{
+                    this.allTotalbf = (parseInt(val)* 0.1).toFixed(2);
+                    this.allTotalbe = (parseInt(val)* 10).toFixed(2);
+                }
+            },
         }
     })
 
-    mui.plusReady(function() {
+    mui.ready(function() {
         statusbar();
         var winH = window.innerHeight;
         var topHeight = document.getElementById('Js-header').offsetHeight;
@@ -197,22 +222,22 @@
         document.querySelector('.mui-slider-group').style.height = winH - topHeight - mainHeight + 'px';
 
         //重疾医疗费选择
-        var disease = new mui.PopPicker();
-        disease.setData(safe.medical_fee);
-        document.querySelector('#medical_fee').addEventListener('tap', function () {
-            disease.show(function (items) {
-                safe.medical_value = items[0].value;
-                safe.medical_text = items[0].text;
+        var hos_money = new mui.PopPicker();
+        hos_money.setData(safe.hos_money);
+        document.querySelector('#hos_money').addEventListener('tap', function () {
+            hos_money.show(function (items) {
+                safe.hos_money_value = items[0].value;
+                safe.hos_money_text = items[0].text;
             })
         })
 
         //护养康复费选择
-        var recovery = new mui.PopPicker();
-        recovery.setData(safe.recovery_fee);
-        document.querySelector('#recovery_fee').addEventListener('tap', function () {
-            recovery.show(function (items) {
-                safe.recovery_value = items[0].value;
-                safe.recovery_text = items[0].text;
+        var ks_money = new mui.PopPicker();
+        ks_money.setData(safe.ks_money);
+        document.querySelector('#ks_money').addEventListener('tap', function () {
+            ks_money.show(function (items) {
+                safe.ks_money_value = items[0].value;
+                safe.ks_money_text = items[0].text;
             })
         })
 
@@ -221,8 +246,8 @@
         plan.setData(safe.plan_year);
         document.querySelector('#plan_year').addEventListener('tap', function () {
             plan.show(function (items) {
-                safe.plan_value = items[0].value;
-                safe.plan_text = items[0].text;
+                safe.plan_year_value = items[0].value;
+                safe.plan_year_text = items[0].text;
             })
         })
     });

@@ -333,12 +333,12 @@ input[type='text']:-ms-input-placeholder,input[type='password']:-ms-input-placeh
 	height: 5rem;
 	margin-right: .5rem;
 }
-.form-list-cell-media .form-tab {
+.form-tab {
 	font-size: 1.4375rem;
 	border: 1px solid #cccccc;
 	width: 100%;
 }
-.form-list-cell-media .form-tab td {
+.form-tab td, .form-tab th {
 	padding: 1rem 0rem;
 	border: 1px solid #cccccc;
 }

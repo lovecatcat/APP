@@ -374,7 +374,10 @@
         }
     });
 
+
     mui.plusReady(function () {
+        var popu = new ClosePopu(); // 实例化关闭窗口对象
+
         var init = plus.webview.currentWebview().data;
         appl.init = init;
 
@@ -486,7 +489,7 @@
             });
         });
 
-        var popu = new ClosePopu(); // 实例化关闭窗口对象
+
         //安卓监听返回事件
         plus.key.addEventListener("backbutton",function(){
             popu.closepop();

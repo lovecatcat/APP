@@ -73,7 +73,6 @@
             };
 
             document.querySelector('#Js-closePage').addEventListener('tap', function () {
-//                mui.oldBack();
                 luckyAjax({
                     data: {
                         data: JSON.stringify({
@@ -89,20 +88,32 @@
                         console.log(JSON.stringify(res))
                         if (res.code) {
                             console.log('支付成功')
-                            mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
-                            plus.webview.close('pa_pay');
-                            plus.webview.close('pa_toinsure');
-                            plus.webview.close('pa_question');
-                            plus.webview.close('pa_insurance-index');
-                            mui.oldBack();
+                            mui.openWindow({
+                                url: '../member-warranty-manage.html',
+                                id: 'member_warranty_manage',
+                                show: animateObj.aniDetal
+                            })
+                            plus.webview.close('member_life_order');
+                            setTimeout(function () {
+                                plus.webview.close('pa_pay');
+                                plus.webview.close('pa_toinsure');
+                                plus.webview.close('pa_question');
+                                plus.webview.close('pa_insurance-index');
+                            }, 100)
                         } else {
                             console.log('支付失败')
-                            mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
-                            plus.webview.close('pa_pay');
-                            plus.webview.close('pa_toinsure');
-                            plus.webview.close('pa_question');
-                            plus.webview.close('pa_insurance-index');
-                            mui.oldBack();
+                            mui.openWindow({
+                                url: '../member-life-order.html',
+                                id: 'member_life_order',
+                                show: animateObj.aniDetal
+                            })
+                            setTimeout(function () {
+                                plus.webview.close('pa_pay');
+                                plus.webview.close('pa_toinsure');
+                                plus.webview.close('pa_question');
+                                plus.webview.close('pa_insurance-index');
+                            }, 100)
+
                         }
                     }
                 })

@@ -50,7 +50,7 @@
 
 		<!------------产品列表 begin------------->
 		<div id="Js-orderList" class="BL-rel">
-			<div class="mui-content mui-scroll-wrapper BL-mar-t-1">
+			<div class="mui-content mui-scroll-wrapper BL-mar-t-07">
 				<div class="mui-scroll">
 					<!-- 数据列表-->
 					<ul class="mui-table-view product-list-cell">
@@ -170,6 +170,16 @@
             //继续录入-后更新列表
             window.addEventListener('reload', function () {
                 plus.webview.currentWebview().reload()
+            });
+            window.addEventListener('closeins', function (e) {
+                console.log('closeins')
+                var company = e.detail.data
+                setTimeout(function () {
+                    if (company === 'hengda') {
+                        plus.webview.close('hd-insurance-sign');
+                        plus.webview.close('hd_insurance-index');
+                    }
+                },100)
             });
             // 取消订单
             mui('body').on('tap', '.cancel', function () {

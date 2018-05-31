@@ -3,7 +3,7 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'],i
     font-size: 1.625rem;
     height: 5.3rem;
 }
-.form-list-cell{margin-top: 1rem!important;}
+.form-list-cell{margin-top: .7rem!important;}
 .form-list-cell .fItem {
     position: relative;
     display: -webkit-box;

@@ -36,7 +36,7 @@
 
 			<div id="Js-content" class="mui-content BL-overFlow-autoY">
 				<!--方案名称 begin -->
-				<div class="BL-ub BL-rel BL-bg-fff BL-pad-lr-1_5 BL-pad-tb-1 input-item BL-border-b" style="margin: 1rem 0 0 0;">
+				<div class="BL-ub BL-rel BL-bg-fff BL-pad-lr-1_5 BL-pad-tb-1 input-item BL-border-b" style="margin: .7rem 0 0 0;">
 					<label>计划名称</label>
 					<div class="input-wrap input-wrap-planName box-f-1">
 						<input v-model.trim="alias" type="text" placeholder="请输入(选填)" @focus="hideKeyboard" @blur="showKeyboard">
@@ -47,7 +47,7 @@
 				</div>
 				<!--方案名称 end -->
 				<!--投保人信息 begin -->
-				<div class="BL-bg-fff prospect-info BL-mar-t-1">
+				<div class="BL-bg-fff prospect-info BL-mar-t-07">
 					<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
 						<div class="BL-pad-lr-1_5 BL-col-3b9cf5">投保人信息</div>
 						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @tap="!edit2 && displace()">
@@ -90,7 +90,7 @@
 				</div>
 				<!--投保人信息 end -->
 				<!--被保人信息 begin -->
-				<div class="BL-bg-fff BL-mar-t-1 prospect-info">
+				<div class="BL-bg-fff BL-mar-t-07 prospect-info">
 					<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
 						<div class="BL-pad-lr-1_5 BL-col-3b9cf5">被保人信息</div>
 						<button class="BL-btn-blue BL-abs BL-pad-lr-1 BL-ub BL-ub-ac" @tap="!edit2 && keepSame()">
@@ -133,7 +133,7 @@
 				</div>
 				<!--被保人信息 end -->
 				<!--险种信息 begin -->
-				<div class="BL-bg-fff BL-mar-t-1 prospect-info clearfloat" :class="{'BL-pad-b-3' : planList[plan_id].length > 0}">
+				<div class="BL-bg-fff BL-mar-t-07 prospect-info clearfloat" :class="{'BL-pad-b-3' : planList[plan_id].length > 0}">
 					<div class="BL-pad-tb-1 BL-ub BL-ub-ac BL-rel BL-border-b title">
 						<div class="BL-pad-lr-1_5 BL-col-3b9cf5">险种信息</div>
 						<button class="BL-btn-blue BL-abs BL-pad-lr-1" @tap="addIns">添加险种</button>

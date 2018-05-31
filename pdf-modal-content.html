@@ -57,6 +57,15 @@
 
 							creatCanvas(pageNum, idTemplate);
 							renderPDF(pdf, 1, idTemplate, pageNum);
+							
+							if(pageNum > 10){
+								plus.nativeUI.closeWaiting();
+								plus.nativeUI.showWaiting('pdf文件较大，渲染时间较长，请耐心等待！', {
+							        style: 'white',
+							        width: '150px'
+							    })
+							}
+							
 						}, function(reason) {
 							// PDF loading error
 							plus.nativeUI.closeWaiting();
@@ -99,7 +108,7 @@
 				 * @param canvasId
 				 */
 				function renderPDF(pdf, num, idTemplate, totalPage) {
-					var scale = 2.2;
+					var scale = totalPage > 8 ? 1.6 : 2.2;
 					pdf.getPage(num).then(function(page) {
 
 						var viewport = page.getViewport(scale);
@@ -119,7 +128,7 @@
 							//console.log('渲染完毕');
 							isAjaxNext = true;
 
-							if(num == 1) {
+							if(num == totalPage) {
 								plus.nativeUI.closeWaiting();
 							}
 

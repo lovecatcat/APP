@@ -898,7 +898,9 @@
 	right: 1rem;
 	font-size: 2rem;
 }
-
+.warranty-mui-table-view .mui-table-view-cell:after {
+	height: 0px;
+}
 /* 生日跟踪 */
 .member-birth-sum {
 	right: 1.5rem;
@@ -1096,20 +1098,24 @@
 .member-tax-money .tax-btn {
 	position: absolute;
 	bottom: 1.5rem;
-	right: 1.5rem;
-	padding:  .5rem 2rem;
+	right: 3%;
+	padding:  .5rem 0rem;
+	width: 17%;
+}
+.important-pad-2 {
+	padding-right: 2rem !important;
 }
 input[type='number'].member-tax-input{
-	width: 50%;
+	width: 55%;
     height: 5rem;
     line-height: 5rem;
     background: transparent;
     text-align: center;
-    font-size: 1.875rem;
+    font-size: 2rem;
     color: #ffffff;
-    border-bottom: 1px solid #CCCCCC;
+    border-bottom: 1px solid #6c6c6c;
     border-radius: 0rem;
-    padding: 0rem 2rem;
+    padding: 0rem;
 }
 .mui-icon-tax {
 	position: absolute;
@@ -1122,8 +1128,9 @@ input[type='number'].member-tax-input{
     display: inline-block;
     text-decoration: none;
     -webkit-font-smoothing: antialiased;
-    top: 1.2rem;
-    right: 9.2rem;
+	right: 22%;
+	height: 5rem;
+	line-height: 5rem;
 }
 
 .member-taxtab-title {

@@ -403,7 +403,9 @@ i {
 .BL-pad-t-1 {
 	padding-top: 1rem;
 }
-
+.BL-pad-t-1_5 {
+	padding-top: 1.5rem;
+}
 .BL-pad-t-2 {
 	padding-top: 2rem;
 }
@@ -437,7 +439,6 @@ i {
 .BL-pad-b-1 {
 	padding-bottom: 1rem;
 }
-
 .BL-pad-b-2 {
 	padding-bottom: 2rem;
 }
@@ -484,6 +485,9 @@ i {
 }
 .BL-mar-b-1 {
 	margin-bottom: 1rem;
+}
+.BL-mar-b-1_5 {
+	margin-bottom: 1.5rem;
 }
 .BL-mar-b-2 {
 	margin-bottom: 2rem;

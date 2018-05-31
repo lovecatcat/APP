@@ -1781,7 +1781,8 @@
 					"product-company.html",
 					"hd_ins/insurance-index.html",
 					"prospect-product.html",
-					"pdf-modal.html"
+					"pdf-modal.html",
+					"paehis/pa-healthinfo.html"
 				],
 				"priority": 4
 			},
@@ -3271,7 +3272,9 @@
 					"css/form.css",
 					"css/mui.css"
 				],
-				"refer": [],
+				"refer": [
+					"product.html"
+				],
 				"priority": 0
 			},
 			"member-clips.html": {
@@ -3283,12 +3286,15 @@
 					"images/member/clips_3.png",
 					"images/member/clips_1.png",
 					"css/mui.css",
-					"images/member/clips_4.png"
+					"images/member/clips_4.png",
+					"images/member/clips_8.png",
+					"images/member/clips_9.png"
 				],
 				"refer": [
 					"member-promote.html",
 					"requirement_rate.html",
-					"requirement_safe.html"
+					"requirement_safe.html",
+					"requirement_retire.html"
 				],
 				"priority": 0
 			},
@@ -3298,6 +3304,14 @@
 					"css/mui.picker.min.css",
 					"css/form.css",
 					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-requirement.html": {
+				"resources": [
+					"js/mui.poppicker.js",
+					"css/form.css"
 				],
 				"refer": [],
 				"priority": 0

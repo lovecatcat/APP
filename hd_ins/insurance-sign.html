@@ -322,6 +322,7 @@
                         id: 'member_warranty_manage',
                         show: animateObj.aniDetal
                     })
+                    plus.webview.close('member_life_order');
                     setTimeout(function () {
                         mui.fire(plus.webview.getWebviewById('member_warranty_manage'), 'closeins', {data: 'hengda'});
                     }, 500)

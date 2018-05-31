@@ -416,11 +416,18 @@
         var topHeight = document.getElementById('Js-header').offsetHeight;
         var mainHeight = document.getElementById('Js-content').offsetHeight;
         document.querySelector('.mui-slider-group').style.height = winH - topHeight - mainHeight + 'px';
+        
+        // 切换监听
+        document.querySelector('.mui-slider').addEventListener('slide', function(event) {
+        	document.activeElement.blur();
+		});
+        
 
         //通货膨胀率选择
         var select_lv = new mui.PopPicker();
         select_lv.setData(safe.select_lv);
         document.querySelector('#select_lv').addEventListener('tap', function () {
+            document.activeElement.blur();
             select_lv.show(function (items) {
                 safe.select_lv_value = items[0].value;
                 safe.select_lv_text = items[0].text;
@@ -431,6 +438,7 @@
         var select_monthIncome = new mui.PopPicker();
         select_monthIncome.setData(safe.select_monthIncome);
         document.querySelector('#select_monthIncome').addEventListener('tap', function () {
+            document.activeElement.blur();
             select_monthIncome.show(function (items) {
                 safe.select_monthIncome_value = items[0].value;
                 safe.select_monthIncome_text = items[0].text;
@@ -441,6 +449,7 @@
         var select_type = new mui.PopPicker();
         select_type.setData(safe.select_type);
         document.querySelector('#select_type').addEventListener('tap', function () {
+            document.activeElement.blur();
             select_type.show(function (items) {
                 safe.select_type = items[0]
                 safe.select_type_value = items[0].value;
@@ -452,6 +461,7 @@
         var select_years = new mui.PopPicker();
         select_years.setData(safe.select_years);
         document.querySelector('#select_years').addEventListener('tap', function () {
+            document.activeElement.blur();
             select_years.show(function (items) {
                 safe.select_years_value = items[0].value;
                 safe.select_years_text = items[0].text;
@@ -462,6 +472,7 @@
         var select_yields = new mui.PopPicker();
         select_yields.setData(safe.select_yields);
         document.querySelector('#select_yields').addEventListener('tap', function () {
+            document.activeElement.blur();
             select_yields.show(function (items) {
                 safe.select_yields_value = items[0].value;
                 safe.select_yields_text = items[0].text;
@@ -470,6 +481,7 @@
 
         //跳转养老年金
         mui('body').on('tap', '.control', function(){
+        	document.activeElement.blur();
             var extras = null;
             var href = this.getAttribute('href');
             var id = this.getAttribute("data-wid");
@@ -478,23 +490,25 @@
             if (tid) {
                 extras = {instype_id: tid};
             }
-            //非plus环境，直接走href跳转
-            if(!mui.os.plus) {
-                location.href = href;
-                return;
-            };
-
-            if(href && ~href.indexOf('.html')) {
-                mui.openWindow({
-                    url: href,
-                    id: id,
-                    show: animateObj.aniDetal,
-                    extras: extras,
-                    waiting: {
-                        autoShow: false
-                    }
-                });
-            }
+            setTimeout(function(){
+	            //非plus环境，直接走href跳转
+	            if(!mui.os.plus) {
+	                location.href = href;
+	                return;
+	            };
+     
+            	if(href && ~href.indexOf('.html')) {
+	                mui.openWindow({
+	                    url: href,
+	                    id: id,
+	                    show: animateObj.aniDetal,
+	                    extras: extras,
+	                    waiting: {
+	                        autoShow: false
+	                    }
+	                });
+	            }
+            },500)
         });
     });
 </script>

@@ -41,7 +41,7 @@
                 <li class="fItem BL-ub BL-ub-f1">
                     <label class="form-list-label">年龄</label>
                     <div class="form-list-control">
-                        <input type="text" placeholder="请输入您的年龄" v-model="age">
+                        <input type="number" placeholder="请输入您的年龄" v-model="age">
                     </div>
                     <div class="form-list-icon" v-show="age!=''"
                          @click="age=''">
@@ -57,7 +57,7 @@
                 <li class="fItem BL-ub BL-ub-f1">
                     <label class="form-list-label">目前每年支出</label>
                     <div class="form-list-control">
-                        <input type="text" placeholder="请输入您目前每年支出" v-model="alimony">
+                        <input type="number" placeholder="请输入您目前每年支出" v-model="alimony">
                     </div>
                     <div class="form-list-icon" v-show="alimony!=''"
                          @click="alimony=''">

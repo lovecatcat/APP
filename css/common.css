@@ -766,4 +766,8 @@ input[type='color']{
 	text-overflow:ellipsis;
 	white-space: nowrap;
 }
+/* 字体加粗 */
+.BL-thick {
+	font-weight: 600;
+}
 

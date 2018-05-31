@@ -94,9 +94,11 @@
                                 id: 'member_warranty_manage',
                                 show: animateObj.aniDetal
                             })
+                            plus.webview.close('member_life_order');
                             setTimeout(function () {
+                                plus.webview.close('pa_pay');
                                 mui.fire(plus.webview.getWebviewById('member_warranty_manage'), 'closeins', {data: 'pingan'});
-                            }, 500)
+                            }, 300)
                         } else {
                             console.log('支付失败')
                             mui.openWindow({
@@ -105,8 +107,9 @@
                                 show: animateObj.aniDetal
                             })
                             setTimeout(function () {
+                                plus.webview.close('pa_pay');
                                 mui.fire(plus.webview.getWebviewById('member_life_order'), 'closeins', {data: 'pingan'});
-                            }, 500)
+                            }, 300)
                         }
                     }
                 })

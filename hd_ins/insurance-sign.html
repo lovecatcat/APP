@@ -307,7 +307,38 @@
                 }
             });
         };
-        //
+        //承保接口调完后
+        function afterPay(clear, e) {
+            if (clear) {
+                //清除本地缓存
+                for (var i = 0; i < itemName.length; i++) {
+                    plus.storage.removeItem(itemName[i])
+                }
+            }
+            if (e) { //承保成功
+                setTimeout(function () {
+                    mui.openWindow({
+                        url: '../member-warranty-manage.html',
+                        id: 'member_warranty_manage',
+                        show: animateObj.aniDetal
+                    })
+                    setTimeout(function () {
+                        mui.fire(plus.webview.getWebviewById('member_warranty_manage'), 'closeins', {data: 'hengda'});
+                    }, 500)
+                }, 3000)
+            } else {
+                setTimeout(function () {
+                    mui.openWindow({
+                        url: '../member-life-order.html',
+                        id: 'member_life_order',
+                        show: animateObj.aniDetal
+                    })
+                    setTimeout(function () {
+                        mui.fire(plus.webview.getWebviewById('member_life_order'), 'closeins', {data: 'hengda'});
+                    }, 500)
+                }, 3000)
+            }
+        }
         //承保
         function ins_pay(id) {
             luckyAjax({
@@ -325,47 +356,20 @@
                     if (res.code) {
                         if (res.data.resultCode === '00') {
                             mui.toast('承保成功', {duration: 'long', type: 'div'});
-                            //清除本地缓存
-                            for (var i = 0; i < itemName.length; i++) {
-                                plus.storage.removeItem(itemName[i])
-                            }
-                            //
-                            setTimeout(function () {
-                                mui.openWindow({
-                                    url: '../member-warranty-manage.html',
-                                    id: 'member_warranty_manage',
-                                    show: animateObj.aniDetal
-                                })
-                            }, 4500)
+                            afterPay(true, true)
                         } else if (res.data.resultCode === '02') {
                             mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
-                            //清除本地缓存
-                            for (var i = 0; i < itemName.length; i++) {
-                                plus.storage.removeItem(itemName[i])
-                            }
-                            //
-                            setTimeout(function () {
-                                mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
-                                plus.webview.close('hd_insurance-index');
-                                popu.closepop();
-                                mui.back();
-                            }, 4500)
+                            afterPay(true)
                         } else {
-                            mui.toast(res.data && res.data.resultMsg ? res.data.resultMsg : '网络出错，请稍后再试', {duration: 'long', type: 'div'})
-                            setTimeout(function () {
-                                mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
-                                plus.webview.close('hd_insurance-index');
-                                popu.closepop();
-                                mui.back();
-                            }, 4500)
+                            mui.toast(res.data && res.data.resultMsg ? res.data.resultMsg : '承保失败', {
+                                duration: 'long',
+                                type: 'div'
+                            })
+                            afterPay()
                         }
                     } else {
-                        mui.toast('承保失败', {duration: 'long', type: 'div'})
-                        setTimeout(function () {
-                            plus.webview.close('hd_insurance-index');
-                            popu.closepop();
-                            mui.back();
-                        }, 3500)
+                        mui.toast('网络出错，请稍后再试', {duration: 'long', type: 'div'})
+                        return false
                     }
                 }
             });

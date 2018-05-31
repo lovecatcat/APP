@@ -115,13 +115,15 @@
                     this.clearItem()
                 }
                 var pid = plus.webview.currentWebview().policy_id;
-                console.log(pid)
                 if (pid) {
                     document.getElementById('resetData').style.display = 'none'
                     this.pid = pid
                     plus.storage.setItem('hengda_ids', JSON.stringify({policy_id: pid}));
                     checkStatus(pid)
                 } else {
+                    if (plus.storage.getItem('hengda_ids')) {
+                        this.clearItem()
+                    }
                     this.getReadyItem();
                 }
                 //

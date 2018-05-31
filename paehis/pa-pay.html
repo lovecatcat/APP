@@ -73,6 +73,7 @@
             };
 
             document.querySelector('#Js-closePage').addEventListener('tap', function () {
+
                 luckyAjax({
                     data: {
                         data: JSON.stringify({
@@ -85,35 +86,41 @@
                     },
                     timeout: 10000,
                     success: function (res) {
+                        plus.nativeUI.showWaiting();
                         console.log(JSON.stringify(res))
                         if (res.code) {
                             console.log('支付成功')
-                            mui.openWindow({
-                                url: '../member-warranty-manage.html',
-                                id: 'member_warranty_manage',
-                                show: animateObj.aniDetal
-                            })
-                            plus.webview.close('member_life_order');
                             setTimeout(function () {
-                                plus.webview.close('pa_pay');
-                                plus.webview.close('pa_toinsure');
-                                plus.webview.close('pa_question');
-                                plus.webview.close('pa_insurance-index');
-                            }, 100)
+                                plus.nativeUI.closeWaiting();
+                                mui.openWindow({
+                                    url: '../member-warranty-manage.html',
+                                    id: 'member_warranty_manage',
+                                    show: animateObj.aniDetal
+                                })
+                                plus.webview.close('member_life_order');
+                                setTimeout(function () {
+                                    plus.webview.close('pa_pay');
+                                    plus.webview.close('pa_toinsure');
+                                    plus.webview.close('pa_question');
+                                    plus.webview.close('pa_insurance-index');
+                                }, 500)
+                            }, 3000)
                         } else {
                             console.log('支付失败')
-                            mui.openWindow({
-                                url: '../member-life-order.html',
-                                id: 'member_life_order',
-                                show: animateObj.aniDetal
-                            })
                             setTimeout(function () {
-                                plus.webview.close('pa_pay');
-                                plus.webview.close('pa_toinsure');
-                                plus.webview.close('pa_question');
-                                plus.webview.close('pa_insurance-index');
-                            }, 100)
-
+                                plus.nativeUI.closeWaiting();
+                                mui.openWindow({
+                                    url: '../member-life-order.html',
+                                    id: 'member_life_order',
+                                    show: animateObj.aniDetal
+                                })
+                                setTimeout(function () {
+                                    plus.webview.close('pa_pay');
+                                    plus.webview.close('pa_toinsure');
+                                    plus.webview.close('pa_question');
+                                    plus.webview.close('pa_insurance-index');
+                                }, 500)
+                            }, 3000)
                         }
                     }
                 })

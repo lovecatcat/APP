@@ -377,19 +377,6 @@
 
     mui.plusReady(function () {
         var popu = new ClosePopu(); // 实例化关闭窗口对象
-        //
-        setTimeout(function () {
-            mui.openWindow({
-                url: '../member-life-order.html',
-                id: 'member_life_order',
-                show: animateObj.aniDetal
-            })
-            setTimeout(function () {
-                mui.fire(plus.webview.getWebviewById('member_life_order'), 'closeins', {data:'hengda'});
-            },1500)
-        }, 4500)
-        //
-
 
         var init = plus.webview.currentWebview().data;
         appl.init = init;

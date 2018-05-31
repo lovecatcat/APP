@@ -324,8 +324,9 @@
                     })
                     plus.webview.close('member_life_order');
                     setTimeout(function () {
-                        mui.fire(plus.webview.getWebviewById('member_warranty_manage'), 'closeins', {data: 'hengda'});
-                    }, 500)
+                        plus.webview.close('hd-insurance-sign');
+                        plus.webview.close('hd_insurance-index');
+                    }, 200)
                 }, 3000)
             } else {
                 setTimeout(function () {
@@ -335,8 +336,10 @@
                         show: animateObj.aniDetal
                     })
                     setTimeout(function () {
-                        mui.fire(plus.webview.getWebviewById('member_life_order'), 'closeins', {data: 'hengda'});
-                    }, 500)
+                        plus.webview.close('hd-insurance-sign');
+                        plus.webview.close('hd_insurance-index');
+                        mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
+                    }, 200)
                 }, 3000)
             }
         }

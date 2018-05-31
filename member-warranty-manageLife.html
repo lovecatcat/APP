@@ -246,12 +246,14 @@
 								}else{
 									self.endPullUpToRefresh(true)
 								}
+								manageLife.ins_type = []
 								$.each(res.data.ins_type, function(index, item) {
 									manageLife.ins_type.push({
 										value: item.id,
 										text: item.enum_name
 									})
 								});
+								manageLife.state = []
 								$.each(res.data.state, function(index, item) {
 									manageLife.state.push({
 										value: index,
@@ -262,12 +264,14 @@
 								warrantyState.setData(manageLife.state);
 						
 				        	} else if (res.code == 0){
+				        		manageLife.ins_type = []
                                 $.each(res.data.ins_type, function(index, item) {
                                     manageLife.ins_type.push({
                                         value: item.id,
                                         text: item.enum_name
                                     })
                                 });
+                                manageLife.state = []
                                 $.each(res.data.state, function(index, item) {
                                     manageLife.state.push({
                                         value: index,

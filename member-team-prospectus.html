@@ -29,24 +29,28 @@
 						</a>
 					</div>
 				</div>
-				<!--日期筛选 end -->
-				<div v-show="mode==4" id="Js-showDate" class="BL-pad-t-1 BL-pad-lr-1_5 BL-ftz-42 BL-col-999">
-					筛选时间：<span class="Js-fday">{{ start_time }}</span> --- <span class="Js-sday">{{ end_time }}</span>
+				
+				<div class="BL-mar-t-1">
+					<!--今日通知 -->
+					<div class="mui-row member-team-tab-title BL-col-ff8201 BL-bg-fff" v-show="mode=='1'">
+						通知：今天有{{ people_num }}人做了计划书，合计有{{ plan_num }}份
+					</div>
+					<!--日期筛选 -->
+					<div v-show="mode==4 || mode==3 || mode==2" id="Js-showDate" class="mui-row member-team-tab-title BL-col-999 BL-bg-fff">
+						筛选时间：<span class="Js-fday" style="margin-right: 0rem;">{{ start_time }} </span>——<span class="Js-sday"> {{ end_time }}</span>
+					</div>
+					<table class="member-team-tab fixed-thead">
+						<thead>
+							<tr>
+								<th width="10%">序号</th>
+								<th width="30%">姓名</th>
+								<th width="15%">计划书</th>
+								<th width="25%">日期</th>
+								<th width="20%">操作</th>
+							</tr>
+						</thead>
+					</table>
 				</div>
-				<div class="mui-row member-team-tab-title BL-col-ff8201 BL-bg-fff BL-mar-t-1">
-					通知：今天有{{ people_num }}人做了计划书，合计有{{ plan_num }}份
-				</div>
-				<table class="member-team-tab fixed-thead">
-					<thead>
-						<tr>
-							<th width="10%">序号</th>
-							<th width="30%">姓名</th>
-							<th width="15%">计划书</th>
-							<th width="25%">日期</th>
-							<th width="20%">操作</th>
-						</tr>
-					</thead>
-				</table>
 			</div>
 			<!------------条件筛选 end------------->
 			<!------------计划书明细 begin------------->

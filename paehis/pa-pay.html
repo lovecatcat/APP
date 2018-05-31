@@ -73,7 +73,6 @@
             };
 
             document.querySelector('#Js-closePage').addEventListener('tap', function () {
-//                mui.oldBack();
                 luckyAjax({
                     data: {
                         data: JSON.stringify({
@@ -97,8 +96,10 @@
                             plus.webview.close('member_life_order');
                             setTimeout(function () {
                                 plus.webview.close('pa_pay');
-                                mui.fire(plus.webview.getWebviewById('member_warranty_manage'), 'closeins', {data: 'pingan'});
-                            }, 300)
+                                plus.webview.close('pa_toinsure');
+                                plus.webview.close('pa_question');
+                                plus.webview.close('pa_insurance-index');
+                            }, 100)
                         } else {
                             console.log('支付失败')
                             mui.openWindow({
@@ -108,8 +109,11 @@
                             })
                             setTimeout(function () {
                                 plus.webview.close('pa_pay');
-                                mui.fire(plus.webview.getWebviewById('member_life_order'), 'closeins', {data: 'pingan'});
-                            }, 300)
+                                plus.webview.close('pa_toinsure');
+                                plus.webview.close('pa_question');
+                                plus.webview.close('pa_insurance-index');
+                            }, 100)
+
                         }
                     }
                 })

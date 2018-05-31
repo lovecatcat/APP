@@ -14,7 +14,7 @@
 
 	<body class="BL-bg-f2f">
 		<div id="Js-content" class="mui-content BL-bg-f2f" v-cloak>
-			<div class="BL-bg-fff BL-pad-b-1" id="Js-pertab">
+			<div class="BL-bg-fff BL-pad-b-1 BL-mar-b-1" id="Js-pertab">
 				<!--日期搜索 begin-->
 				<div id="Js-teamFilter" class="member-team-search BL-ub BL-ub-ac BL-ub-f1">
 					<div class="search-date BL-ub BL-ub-ac"  data-options='{"type":"date","beginYear":2000}'>
@@ -55,7 +55,7 @@
 					</table>
 				</div>
 			</div>
-			<div id="Js-teamRole" class="member-team-search BL-ub BL-ub-ac BL-ub-f1 BL-bg-fff" style="border-bottom: 1px solid #C7C7CC;">
+			<div id="Js-teamRole" class="member-team-search BL-ub BL-ub-ac BL-ub-f1 BL-bg-fff" style="border-bottom: 1px solid #e7e7e7">
 				<div class="search-role BL-rel" style="width: 13rem;">
 					<div class="BL-pad-lr-1" id="rank_search">{{rank_txt.text}}</div>
 					<div class="down BL-abs" style="right: 0rem; top: 1rem">
@@ -63,7 +63,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="BL-rel BL-mar-t-1 BL-mar-b-2" id="Js-person">
+			<div class="BL-rel BL-mar-b-2" id="Js-person">
 				<template v-if="person">
 					<ul v-if="person.length > 0" class="mui-table-view">
 					    <li v-for="(item,index) in person" :key="index" class="mui-table-view-cell member-team-list-item">
@@ -84,10 +84,10 @@
 					        </a>
 					    </li>
 					</ul>
-					<div v-if="person.length == 0" class="BL-txt-c BL-ftz-42 BL-col-999">没有更多数据了</div>
+					<div v-if="person.length == 0" class="BL-txt-c BL-ftz-42 BL-col-999 BL-pad-tb-1">没有更多数据了</div>
 				</template>
 				<template v-else>
-					<div class="BL-txt-c BL-ftz-42 BL-col-999">正在加载...</div>
+					<div class="BL-txt-c BL-ftz-42 BL-col-999 BL-pad-tb-1">正在加载...</div>
 				</template>
 			</div>
 		</div>

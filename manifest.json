@@ -401,8 +401,7 @@
 					"rank.html",
 					"requirement_safe1.html",
 					"requirement_safe.html",
-					"requirement_retire.html",
-					"member-clips.html"
+					"requirement_retire.html"
 				],
 				"priority": 0
 			},
@@ -2145,7 +2144,8 @@
 					"images/plans/plansManage/290.png",
 					"images/plans/plansManage/8.png",
 					"images/plans/plansManage/302.png",
-					"images/plans/plansManage/16113.png"
+					"images/plans/plansManage/16113.png",
+					"images/plans/plansManage/16211.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -3271,9 +3271,7 @@
 					"css/form.css",
 					"css/mui.css"
 				],
-				"refer": [
-					"product.html"
-				],
+				"refer": [],
 				"priority": 0
 			},
 			"member-clips.html": {
@@ -3285,15 +3283,12 @@
 					"images/member/clips_3.png",
 					"images/member/clips_1.png",
 					"css/mui.css",
-					"images/member/clips_4.png",
-					"images/member/clips_8.png",
-					"images/member/clips_9.png"
+					"images/member/clips_4.png"
 				],
 				"refer": [
 					"member-promote.html",
 					"requirement_rate.html",
-					"requirement_safe.html",
-					"requirement_retire.html"
+					"requirement_safe.html"
 				],
 				"priority": 0
 			},

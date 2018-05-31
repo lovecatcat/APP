@@ -52,7 +52,7 @@
                 <!----------- 图片轮播  end   -------------->
 
                 <!----------- 九宫格菜单  begin -------------->
-                <div class="BL-mar-b-1 BL-bg-fff" style="padding-top: 1.25rem;width:100%;min-height: 12rem;">
+                <div class="BL-mar-b-07 BL-bg-fff" style="padding-top: 1.25rem;width:100%;">
                     <div class="mui-row squared" v-if="items" v-cloak>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu" v-for="item in items" v-show="indexItems.indexOf(item.module_sn)>-1&&item.state">
                             <a :href="item.module_sn+'.html'" :data-wid="item.module_sn" class="a-link" v-if="item.is_complete">
@@ -67,14 +67,14 @@
                     </div>
                 </div>
                 <!----------- 排行榜专区  begin -------------->
-                <div class="BL-mar-b-1" v-if="items" v-for="item in items" v-show="item.module_sn==='rank'&&item.state">
+                <div class="BL-mar-b-07" v-if="items" v-for="item in items" v-show="item.module_sn==='rank'&&item.state">
                 	<a href="rank.html" data-wid="rank" class="a-link">
                 		<img :src="item.img_url_head" />
                 	</a>
                 </div>
                 <!----------- 排行榜专区  end -------------->
                 <!----------- 意外和医疗  begin -------------->
-                <div class="insure BL-mar-b-1" v-if="safegoods_1" v-cloak>
+                <div class="insure BL-mar-b-07" v-if="safegoods_1" v-cloak>
                     <div class="BL-ub BL-ub-pj BL-ub-ac insure-hd">
                         <div class="BL-ub BL-ub-ac title">
                             <div class="icon icon-1"></div>
@@ -107,7 +107,7 @@
                 <!----------- 意外和医疗  end   -------------->
 
                 <!----------- 疾病保障  begin -------------->
-                <div class="insure BL-mar-b-1" v-if="safegoods_2" v-cloak>
+                <div class="insure BL-mar-b-07" v-if="safegoods_2" v-cloak>
                     <div class="BL-ub BL-ub-pj BL-ub-ac insure-hd">
                         <div class="BL-ub BL-ub-ac title">
                             <div class="icon icon-2"></div>

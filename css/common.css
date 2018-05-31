@@ -163,7 +163,7 @@ i {
 }
 
 .BL-bg-f2f {
-	background-color: #f2f2f2 !important;
+	background-color: #f5f5f5 !important;
 }
 
 
@@ -400,6 +400,9 @@ i {
 	padding-right: 3rem;
 }
 
+.BL-pad-t-07 {
+	padding-top: .7rem;
+}
 .BL-pad-t-1 {
 	padding-top: 1rem;
 }
@@ -473,6 +476,9 @@ i {
 .BL-mar-t-0 {
 	margin-top: 0rem !important;
 }
+.BL-mar-t-07 {
+	margin-top: .7rem;
+}
 .BL-mar-t-1 {
 	margin-top: 1rem;
 }
@@ -481,6 +487,9 @@ i {
 }
 .BL-mar-t-3 {
 	margin-top: 3rem;
+}
+.BL-mar-b-07 {
+	margin-bottom: .7rem;
 }
 .BL-mar-b-1 {
 	margin-bottom: 1rem;

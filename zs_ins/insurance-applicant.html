@@ -199,7 +199,7 @@
                     <label class="">居住地</label>
                     <div class="input-wrap box-f-1">
                         <div class="input" id="address-select0">
-                            {{holder_home_province_name}}{{holder_home_city_name}}{{holder_home_district_name}}
+                            {{applicant.holder_home_province_name}}{{applicant.holder_home_city_name}}{{applicant.holder_home_district_name}}
                         </div>
                         <div class="ins-down-icon"></div>
                     </div>
@@ -230,7 +230,7 @@
                     <label class="">联系地址</label>
                     <div class="input-wrap box-f-1">
                         <div class="input" id="address-select1">
-                            {{holder_contact_province_name}}{{holder_contact_city_name}}{{holder_contact_district_name}}
+                            {{applicant.holder_contact_province_name}}{{applicant.holder_contact_city_name}}{{applicant.holder_contact_district_name}}
                         </div>
                         <div class="ins-down-icon"></div>
                     </div>
@@ -419,13 +419,38 @@
             })
         })
         //居住、联系地区
-        var _getParam = function (obj, param) {
-            return obj[param] || '';
-        };
-        var cityPicker3 = new mui.PopPicker({
-            layer: 3
-        });
-        cityPicker3.setData(cityData3);
+        var applarea = [];
+        for (var i = 0; i < 2; i++) {
+            applarea.push(new mui.PopPicker({
+                layer: 3
+            }));
+            applarea[i].setData(cityData3);
+            var _getParam = function (obj, param) {
+                return obj[param] || '';
+            };
+            document.querySelector('#address-select' + i + 1).addEventListener('tap', function () {
+                document.activeElement.blur();
+                applarea[i].show(function (items) {
+                    if (i === 0) {
+                        appl.applicant.holder_home_province = _getParam(items[0], 'value');
+                        appl.applicant.holder_home_province_name = _getParam(items[0], 'text');
+                        appl.applicant.holder_home_city = _getParam(items[1], 'value');
+                        appl.applicant.holder_home_city_name = _getParam(items[1], 'text');
+                        appl.applicant.holder_home_district = _getParam(items[2], 'value');
+                        appl.applicant.holder_home_district_name = _getParam(items[2], 'text');
+                        appl.applicant.holder_home_zip = _getParam(items[2], 'text')?_getParam(items[2], 'zip'):_getParam(items[1], 'zip');
+                    } else if (i === 1) {
+                        appl.applicant.holder_contact_province = _getParam(items[0], 'value');
+                        appl.applicant.holder_contact_province_name = _getParam(items[0], 'text');
+                        appl.applicant.holder_contact_city = _getParam(items[1], 'value');
+                        appl.applicant.holder_contact_city_name = _getParam(items[1], 'text');
+                        appl.applicant.holder_contact_district = _getParam(items[2], 'value');
+                        appl.applicant.holder_contact_district_name = _getParam(items[2], 'text');
+                        appl.applicant.holder_contact_zip = _getParam(items[2], 'text')?_getParam(items[2], 'zip'):_getParam(items[1], 'zip');
+                    }
+                });
+            }, false);
+        }
         //
         document.querySelector('#address-select').addEventListener('tap', function () {
             document.activeElement.blur();

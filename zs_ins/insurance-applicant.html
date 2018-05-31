@@ -103,30 +103,6 @@
                         <div class="ins-date-icon"></div>
                     </div>
                 </div>
-                <div class="input-item">
-                    <label class="">国籍</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" class="BL-col-666" v-model.lazy="applicant.holder_nation_name" readonly>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">手机号码</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="number" v-model.lazy="applicant.holder_mobile"
-                               @change="checkPhone('投保人',applicant.holder_mobile)" placeholder="请输入">
-                        <div class="form-clear-icon" v-show="applicant.holder_mobile!=''"
-                             @click="applicant.holder_mobile=''">
-                            <span class="mui-icon mui-icon-clear"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">职业</label>
-                    <div class="input-wrap box-f-1" id="occu-first">
-                        <input type="text" placeholder="请选择" v-model="applicant.holder_job_name" readonly>
-                        <div class="ins-down-icon"></div>
-                    </div>
-                </div>
                 <div class="input-item ins-pd-r-0" v-if="init&&init.marriage">
                     <label class="">婚姻状况</label>
                     <div class="input-wrap box-f-1 multi-btn">
@@ -134,27 +110,6 @@
                                 v-for="(item,index) in init.marriage" @tap="applicant.holder_marriage=item.value,toblur()" v-show="item.value!==unknowmarry">
                             {{item.text}}
                         </button>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">工作单位</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" v-model.trim.lazy="applicant.holder_company" placeholder="请输入">
-                        <div class="form-clear-icon" v-show="applicant.holder_company"
-                             @click="applicant.holder_company=''">
-                            <span class="mui-icon mui-icon-clear"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">年收入(万元)</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="number" v-model.trim="applicant.holder_salary_avg"
-                               @change="checkEarnings(1,applicant.holder_salary_avg)" placeholder="请输入">
-                        <div class="form-clear-icon" v-show="applicant.holder_salary_avg!=''"
-                             @click="applicant.holder_salary_avg=''">
-                            <span class="mui-icon mui-icon-clear"></span>
-                        </div>
                     </div>
                 </div>
                 <div class="input-item">
@@ -180,43 +135,16 @@
                     </div>
                 </div>
                 <div class="input-item">
-                    <label class="">邮箱</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" v-model.lazy="applicant.holder_email"
-                               @change="checkEmail('投保人',applicant.holder_email)" placeholder="请输入">
-                        <div class="form-clear-icon" v-show="applicant.holder_email!=''"
-                             @click="applicant.holder_email=''">
-                            <span class="mui-icon mui-icon-clear"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-wrap margin-t_875">
-                <div class="border-b-e7e7e7">
-                    <div class="item-title">地址信息</div>
-                </div>
-                <div class="input-item">
                     <label class="">居住地</label>
                     <div class="input-wrap box-f-1">
                         <div class="input" id="address-select0">
-                            {{applicant.holder_home_province_name}}{{applicant.holder_home_city_name}}{{applicant.holder_home_district_name}}
+                            {{applicant.holder_home_ssq_name}}
                         </div>
                         <div class="ins-down-icon"></div>
                     </div>
                 </div>
                 <div class="input-item">
-                    <label class="">详细地址</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" v-model="applicant.holder_home_address"
-                               @change="checkAddress(applicant.holder_home_address,'投保人')" placeholder="请输入">
-                        <div class="form-clear-icon" v-show="applicant.holder_home_address!=''"
-                             @click="applicant.holder_home_address=''">
-                            <span class="mui-icon mui-icon-clear"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-item">
-                    <label class="">邮编</label>
+                    <label class="">居住地邮编</label>
                     <div class="input-wrap box-f-1">
                         <input type="number" v-model.lazy="applicant.holder_home_zip"
                                @change="checkZipcode(applicant.holder_home_zip,'投保人')" placeholder="请输入">
@@ -227,42 +155,118 @@
                     </div>
                 </div>
                 <div class="input-item">
-                    <label class="">联系地址</label>
+                    <label class="">居住地详细地址</label>
                     <div class="input-wrap box-f-1">
-                        <div class="input" id="address-select1">
-                            {{applicant.holder_contact_province_name}}{{applicant.holder_contact_city_name}}{{applicant.holder_contact_district_name}}
+                        <input type="text" v-model="applicant.holder_home_address"
+                               @change="checkAddress(applicant.holder_home_address,'投保人')" placeholder="请输入">
+                        <div class="form-clear-icon" v-show="applicant.holder_home_address!=''"
+                             @click="applicant.holder_home_address=''">
+                            <span class="mui-icon mui-icon-clear"></span>
                         </div>
+                    </div>
+                </div>
+                <div class="input-item">
+                    <label class="">手机号码</label>
+                    <div class="input-wrap box-f-1">
+                        <input type="number" v-model.lazy="applicant.holder_mobile"
+                               @change="checkPhone('投保人',applicant.holder_mobile)" placeholder="请输入">
+                        <div class="form-clear-icon" v-show="applicant.holder_mobile!=''"
+                             @click="applicant.holder_mobile=''">
+                            <span class="mui-icon mui-icon-clear"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-item">
+                    <label class="">邮箱</label>
+                    <div class="input-wrap box-f-1">
+                        <input type="text" v-model.lazy="applicant.holder_email"
+                               @change="checkEmail('投保人',applicant.holder_email)" placeholder="请输入">
+                        <div class="form-clear-icon" v-show="applicant.holder_email!=''"
+                             @click="applicant.holder_email=''">
+                            <span class="mui-icon mui-icon-clear"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-item">
+                    <label class="">职业</label>
+                    <div class="input-wrap box-f-1" id="occu-first">
+                        <input type="text" placeholder="请选择" v-model="applicant.holder_job_name" readonly>
                         <div class="ins-down-icon"></div>
                     </div>
                 </div>
                 <div class="input-item">
-                    <label class="">详细地址</label>
+                    <label class="">年收入(万元)</label>
                     <div class="input-wrap box-f-1">
-                        <input type="text" v-model="applicant.holder_contact_address"
-                               @change="checkAddress(applicant.holder_contact_address,'投保人')" placeholder="请输入">
-                        <div class="form-clear-icon" v-show="applicant.holder_contact_address!=''"
-                             @click="applicant.holder_contact_address=''">
+                        <input type="number" v-model.trim="applicant.holder_salary_avg"
+                               @change="checkEarnings(1,applicant.holder_salary_avg)" placeholder="请输入">
+                        <div class="form-clear-icon" v-show="applicant.holder_salary_avg!=''"
+                             @click="applicant.holder_salary_avg=''">
                             <span class="mui-icon mui-icon-clear"></span>
                         </div>
                     </div>
                 </div>
                 <div class="input-item">
-                    <label class="">邮编</label>
+                    <label class="">国籍</label>
                     <div class="input-wrap box-f-1">
-                        <input type="number" v-model.lazy="applicant.holder_contact_zip"
-                               @change="checkZipcode(applicant.holder_contact_zip,'投保人')" placeholder="请输入">
-                        <div class="form-clear-icon" v-show="applicant.holder_contact_zip!=''"
-                             @click="applicant.holder_contact_zip=''">
+                        <input type="text" class="BL-col-666" v-model.lazy="applicant.holder_nation_name" readonly>
+                    </div>
+                </div>
+                <div class="input-item">
+                    <label class="">工作单位</label>
+                    <div class="input-wrap box-f-1">
+                        <input type="text" v-model.trim.lazy="applicant.holder_company" placeholder="请输入">
+                        <div class="form-clear-icon" v-show="applicant.holder_company"
+                             @click="applicant.holder_company=''">
                             <span class="mui-icon mui-icon-clear"></span>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="input-item box-f-1">
-                <div class="box-f-3 ins-font-sm BL-col-3b9cf5">是否已参加当地社会基本医疗保险（或公费医疗）？</div>
-                <div class="input-switch">
-                    <input type="checkbox" class="switch" v-model="applicant.holder_has_SSID"/>
-                    <label></label>
+                <div class="input-item box-f-1">
+                    <div class="box-f-3 ins-font-sm BL-col-3b9cf5">联系地址是否同居住地址？</div>
+                    <div class="input-switch">
+                        <input type="checkbox" class="switch" v-model="applicant.sameToHome"/>
+                        <label></label>
+                    </div>
+                </div>
+                <div v-show="!applicant.sameToHome">
+                    <div class="input-item">
+                        <label class="">联系地址</label>
+                        <div class="input-wrap box-f-1">
+                            <div class="input" id="address-select1">
+                                {{applicant.holder_contact_ssq_name}}
+                            </div>
+                            <div class="ins-down-icon"></div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">联系地详细地址</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" v-model="applicant.holder_contact_address"
+                                   @change="checkAddress(applicant.holder_contact_address,'投保人')" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="applicant.holder_contact_address!=''"
+                                 @click="applicant.holder_contact_address=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">联系地邮编</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" v-model.lazy="applicant.holder_contact_zip"
+                                   @change="checkZipcode(applicant.holder_contact_zip,'投保人')" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="applicant.holder_contact_zip!=''"
+                                 @click="applicant.holder_contact_zip=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-item box-f-1">
+                    <div class="box-f-3 ins-font-sm BL-col-3b9cf5">是否有社保？</div>
+                    <div class="input-switch">
+                        <input type="checkbox" class="switch" v-model="applicant.holder_has_SSID"/>
+                        <label></label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -278,6 +282,7 @@
 <script src="../js/mui.picker.js"></script>
 <script src="../js/mui.poppicker.js"></script>
 <script src="../js/mui.dtpicker.js"></script>
+<script src="../js/city.data-3.js"></script>
 <script src="../js/IDValidator.min.js"></script>
 <script src="method.js"></script>
 <script type="text/javascript">
@@ -321,23 +326,25 @@
                     holder_company: '',//工作单位
                     holder_salary_avg: '',//年收入
 
-                    holder_home_province: '',//现在住址【省】
-                    holder_home_city: '',//现在住址【市】
-                    holder_home_district: '',//现在住址【区】
-                    holder_home_province_name: '请选择',//现在住址【省】名称
-                    holder_home_city_name: '请选择',//现在住址【市】名称
-                    holder_home_district_name: '请选择',//现在住址【区】名称
-                    holder_home_address: '', //现在住址【地址详情】
-                    holder_home_zip: '',//现在住址【邮编】
-                    mail_addr_type: true,//（通讯地址）同现在住址
-                    holder_contact_province: '',//通讯地址【省】
-                    holder_contact_city: '',//通讯地址【市】
-                    holder_contact_district: '',//通讯地址【区】
-                    holder_contact_province_name: '请选择',//通讯地址【省】名称
-                    holder_contact_city_name: '请选择',//通讯地址【市】名称
-                    holder_contact_district_name: '请选择',//通讯地址【区】名称
-                    holder_contact_address: '', //通讯地址【地址详情】
-                    holder_contact_zip: '',//通讯地址【邮编】
+                    holder_home_province: '',//居住地【省】
+                    holder_home_city: '',//居住地【市】
+                    holder_home_district: '',//居住地【区】
+                    holder_home_ssq_name: '请选择',//省市区名称
+                    holder_home_province_name: '请选择',//居住地【省】名称
+                    holder_home_city_name: '请选择',//居住地【市】名称
+                    holder_home_district_name: '请选择',//居住地【区】名称
+                    holder_home_address: '', //居住地【地址详情】
+                    holder_home_zip: '',//居住地【邮编】
+                    sameToHome: false,//联系地址同居住地址
+                    holder_contact_province: '',//联系地址【省】
+                    holder_contact_city: '',//联系地址【市】
+                    holder_contact_district: '',//联系地址【区】
+                    holder_contact_ssq_name: '请选择',//省市区名称
+                    holder_contact_province_name: '请选择',//联系地址【省】名称
+                    holder_contact_city_name: '请选择',//联系地址【市】名称
+                    holder_contact_district_name: '请选择',//联系地址【区】名称
+                    holder_contact_address: '', //联系地址【地址详情】
+                    holder_contact_zip: '',//联系地址【邮编】
 
                     holder_has_SSID: false,//是否有社保
                     holder_marriage: '',//婚姻状况
@@ -393,7 +400,7 @@
         appl.init = init;
 
         //已填信息赋值
-        var applicant = plus.storage.getItem('hengda_applicant') ? JSON.parse(plus.storage.getItem('hengda_applicant')) : ''
+        var applicant = plus.storage.getItem('zhaos_applicant') ? JSON.parse(plus.storage.getItem('zhaos_applicant')) : ''
         if(applicant) {
             appl.applicant = deepClone(applicant)
             appl.longTerm = applicant.holder_ID_expire_end === '9999-12-31' ? true : false
@@ -419,50 +426,44 @@
             })
         })
         //居住、联系地区
-        var applarea = [];
-        for (var i = 0; i < 2; i++) {
-            applarea.push(new mui.PopPicker({
-                layer: 3
-            }));
-            applarea[i].setData(cityData3);
-            var _getParam = function (obj, param) {
-                return obj[param] || '';
-            };
-            document.querySelector('#address-select' + i + 1).addEventListener('tap', function () {
-                document.activeElement.blur();
-                applarea[i].show(function (items) {
-                    if (i === 0) {
-                        appl.applicant.holder_home_province = _getParam(items[0], 'value');
-                        appl.applicant.holder_home_province_name = _getParam(items[0], 'text');
-                        appl.applicant.holder_home_city = _getParam(items[1], 'value');
-                        appl.applicant.holder_home_city_name = _getParam(items[1], 'text');
-                        appl.applicant.holder_home_district = _getParam(items[2], 'value');
-                        appl.applicant.holder_home_district_name = _getParam(items[2], 'text');
-                        appl.applicant.holder_home_zip = _getParam(items[2], 'text')?_getParam(items[2], 'zip'):_getParam(items[1], 'zip');
-                    } else if (i === 1) {
-                        appl.applicant.holder_contact_province = _getParam(items[0], 'value');
-                        appl.applicant.holder_contact_province_name = _getParam(items[0], 'text');
-                        appl.applicant.holder_contact_city = _getParam(items[1], 'value');
-                        appl.applicant.holder_contact_city_name = _getParam(items[1], 'text');
-                        appl.applicant.holder_contact_district = _getParam(items[2], 'value');
-                        appl.applicant.holder_contact_district_name = _getParam(items[2], 'text');
-                        appl.applicant.holder_contact_zip = _getParam(items[2], 'text')?_getParam(items[2], 'zip'):_getParam(items[1], 'zip');
-                    }
-                });
-            }, false);
-        }
-        //
-        document.querySelector('#address-select').addEventListener('tap', function () {
+        var _getParam = function (obj, param) {
+            return obj[param] || '';
+        };
+        var applarea0 = new mui.PopPicker({
+            layer: 3
+        });
+        var applarea1 = new mui.PopPicker({
+            layer: 3
+        });
+        applarea0.setData(cityData3);
+        applarea1.setData(cityData3);
+        document.querySelector('#address-select0').addEventListener('tap', function () {
             document.activeElement.blur();
-            cityPicker3.show(function (items) {
+            applarea0.show(function (items) {
                 appl.applicant.holder_home_province = _getParam(items[0], 'value');
                 appl.applicant.holder_home_province_name = _getParam(items[0], 'text');
                 appl.applicant.holder_home_city = _getParam(items[1], 'value');
                 appl.applicant.holder_home_city_name = _getParam(items[1], 'text');
                 appl.applicant.holder_home_district = _getParam(items[2], 'value');
                 appl.applicant.holder_home_district_name = _getParam(items[2], 'text');
+                appl.applicant.holder_home_zip = _getParam(items[2], 'text')?_getParam(items[2], 'zip'):_getParam(items[1], 'zip');
+                appl.applicant.holder_home_ssq_name = _getParam(items[0], 'text') + ' ' + _getParam(items[1], 'text') + ' ' + _getParam(items[2], 'text');
             });
         }, false);
+        document.querySelector('#address-select1').addEventListener('tap', function () {
+            document.activeElement.blur();
+            applarea1.show(function (items) {
+                appl.applicant.holder_contact_province = _getParam(items[0], 'value');
+                appl.applicant.holder_contact_province_name = _getParam(items[0], 'text');
+                appl.applicant.holder_contact_city = _getParam(items[1], 'value');
+                appl.applicant.holder_contact_city_name = _getParam(items[1], 'text');
+                appl.applicant.holder_contact_district = _getParam(items[2], 'value');
+                appl.applicant.holder_contact_district_name = _getParam(items[2], 'text');
+                appl.applicant.holder_contact_zip = _getParam(items[2], 'text')?_getParam(items[2], 'zip'):_getParam(items[1], 'zip');
+                appl.applicant.holder_contact_ssq_name = _getParam(items[0], 'text') + ' ' + _getParam(items[1], 'text') + ' ' + _getParam(items[2], 'text');
+            });
+        }, false);
+        //
         //日期选择
         mui('.search-date').each(function (i, d) {
             d.addEventListener('tap', function () {
@@ -480,10 +481,6 @@
                 });
             }, false);
         });
-        //深圳区获取
-        getCityArea(appl.applicant.holder_home_city, function (e) {
-            district.setData(e)
-        })
         //职业
 		var arrOccu = [];
         for (var i = 0; i < 4; i++) {
@@ -550,29 +547,29 @@
         //保存
         document.querySelector('#saveAppl').addEventListener('tap', function () {
             document.activeElement.blur();
-            if(appl.applicant.mail_addr_type){
+            if(appl.applicant.sameToHome){
                 ApplSameHomeAddress(appl.applicant);
             }
             if (!checkAppl(appl.applicant)) {
                 return false;
             }
-            var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')) : ''
+            var assured = plus.storage.getItem('zhaos_assured') ? JSON.parse(plus.storage.getItem('zhaos_assured')) : ''
             if (assured && assured.rel_insured_holder === ISASSURED) {
                 if(!RSChanged(assured, appl.applicant)){return false}
                 if (!checkAssured(assured)) {
                     return false
                 }
                 saveTemp(assured)
-                plus.storage.setItem('hengda_assured', JSON.stringify(assured));
+                plus.storage.setItem('zhaos_assured', JSON.stringify(assured));
             }
             saveTemp(appl.applicant)
-            plus.storage.setItem('hengda_applicant',JSON.stringify(appl.applicant));
-            mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
-                item: 'hengda_applicant',
+            plus.storage.setItem('zhaos_applicant',JSON.stringify(appl.applicant));
+            mui.fire(plus.webview.getWebviewById('zs_insurance-index'), 'saveFlag', {
+                item: 'zhaos_applicant',
                 data:'applicant',
                 clear: true
             });
-            console.log(JSON.stringify(plus.storage.getItem('hengda_applicant')));
+            console.log(JSON.stringify(plus.storage.getItem('zhaos_applicant')));
             popu.closepop();
             mui.back();
         })

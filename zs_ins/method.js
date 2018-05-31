@@ -233,8 +233,10 @@ var checkAddress = function (val, owner) {
     var m = val.match(/[\u4e00-\u9fa5]{1}/g)
     if (!val) {
         toast_text = '请录入' + owner + '详细地址'
-    } else if (!m || m.length < 12) {
-        toast_text = owner + '详细地址填写有误,请确认至少有12个汉字'
+    } else if (!m || m.length < 4) {
+        toast_text = owner + '详细地址填写有误,请确认至少有4个汉字'
+    } else if (!m || m.length > 50) {
+        toast_text = owner + '详细地址不能超过50个汉字'
     }
     if (toast_text) {
         mui.toast(toast_text, {duration: 'short', type: 'div'});
@@ -242,15 +244,7 @@ var checkAddress = function (val, owner) {
     }
     return true
 };
-//投保地区校验
-var checkHomeDistrict = function (val,owner) {
-    console.log(owner + 'checkHomeDistrict:' + val)
-    if (invalid_districts.indexOf(val.toString()) > -1) {
-        mui.toast(owner + '所选投保地区暂不支持投保', {duration: 'short', type: 'div'});
-        return false
-    }
-    return true
-};
+
 //校验邮编
 var checkZipcode = function (val, owner) {
     var toast_text = null;
@@ -314,11 +308,15 @@ var checkWeight = function (owner, val) {
 };
 //投保人通讯地址同居住地址
 var ApplSameHomeAddress = function (appl) {
-    appl.holder_contact_province = appl.holder_home_province
-    appl.holder_contact_city = appl.holder_home_city
-    appl.holder_contact_district = appl.holder_home_district
-    appl.holder_contact_address = appl.holder_home_address
-    appl.holder_contact_zip = appl.holder_home_zip
+    appl.holder_contact_province = appl.holder_home_province //居住地【省】
+    appl.holder_contact_city = appl.holder_home_city //居住地【市】
+    appl.holder_contact_district = appl.holder_home_district //居住地【区】
+    appl.holder_contact_ssq_name = appl.holder_home_ssq_name //省市区名称
+    appl.holder_contact_province_name = appl.holder_home_province_name //居住地【省】名称
+    appl.holder_contact_city_name = appl.holder_home_city_name //居住地【市】名称
+    appl.holder_contact_district_name = appl.holder_home_district_name //居住地【区】名称
+    appl.holder_contact_address = appl.holder_home_address  //居住地【地址详情】
+    appl.holder_contact_zip = appl.holder_home_zip //居住地【邮编】
 };
 //校验投保人信息
 var checkAppl = function (appl) {
@@ -344,14 +342,8 @@ var checkAppl = function (appl) {
         toast_text = '投保人职业不能为空'
     } else if (!checkOccupation('投保人',appl)) {
         return false
-    } else if (appl.appl_age >= 18 && (appl.holder_job_code === '7852' || appl.holder_job_code === '7853')) {
-        toast_text = '客户的职业类别与年龄不符'
-    } else if (!appl.holder_marriage) {
-        toast_text = '投保人婚姻状况不能为空'
     } else if (!appl.holder_company) {
         toast_text = '请填写投保人工作单位'
-    } else if (!appl.holder_salary_from) {
-        toast_text = '投保人收入来源不能为空'
     } else if (!checkEarnings(1, appl.holder_salary_avg)) {
         return false
     } else if (!checkHeight('投保人', appl.holder_height)) {
@@ -361,11 +353,9 @@ var checkAppl = function (appl) {
     } else if (!checkEmail('投保人', appl.holder_email)) {
         return false
     } else if (!appl.holder_home_province) {
-        toast_text = '投保人现在住址【省级】不能为空'
+        toast_text = '投保人居住地【省级】不能为空'
     } else if (!appl.holder_home_city) {
-        toast_text = '投保人现在住址【市级】不能为空'
-    } else if (!checkHomeDistrict(appl.holder_home_district, '投保人')) {
-        return false
+        toast_text = '投保人居住地【市级】不能为空'
     } else if (!checkAddress(appl.holder_home_address, '投保人')) {
         return false
     } else if (!checkZipcode(appl.holder_home_zip, '投保人')) {

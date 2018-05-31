@@ -71,6 +71,22 @@
                 }
             }
         });
+        //关闭在线投保页面
+        window.addEventListener('closeins', function (e) {
+            var company = e.detail.data
+            setTimeout(function () {
+                if (company === 'hengda') {
+                    plus.webview.close('hd-insurance-sign');
+                    plus.webview.close('hd_insurance-index');
+                } else if (company === 'pingan') {
+                    plus.webview.close('pa_pay');
+                    plus.webview.close('pa_toinsure');
+                    plus.webview.close('pa_question');
+                    plus.webview.close('pa_insurance-index');
+                }
+            },1000)
+        });
+        //
         mui(".mui-slider-indicator").on("tap", ".mui-control-item", function(e) {
             var wid = this.getAttribute("data-wid");
             group.switchTab(wid);

@@ -74,13 +74,6 @@
 				});
 					
 			}
-			//首页logo
-            var logodata = null
-            window.addEventListener('homeicon', function (event) {
-                logodata = event.detail.data ? JSON.parse(event.detail.data) : ''
-                document.getElementById('homeicon').style.backgroundImage = logodata.img_url_head ? 'url(' + logodata.img_url_head + ')' : 'url(./images/icon/nav-index-active.png)'
-                document.getElementById('homename').innerHTML = logodata.module_name
-            })
             
             window.addEventListener('closeGuide', function () {
             	if (plus.runtime.appid !== 'HBuilder') { // 开发模式不检测更新
@@ -130,7 +123,16 @@
                 return false;
             };
             
-            document.getElementById('Js-nav').style.opacity = 1;
+			//首页logo
+            var logodata = null
+            window.addEventListener('homeicon', function (event) {
+                logodata = event.detail.data ? JSON.parse(event.detail.data) : ''
+                document.getElementById('homeicon').style.backgroundImage = logodata.img_url_head ? 'url(' + logodata.img_url_head + ')' : 'url(./images/icon/nav-index-active.png)'
+                document.getElementById('homename').innerHTML = logodata.module_name;
+                
+            	document.getElementById('Js-nav').style.opacity = 1;
+            })
+            
             
             window.addEventListener('isStopTunnel', function(data){
                 if(Tunnel._webSocket && data.flag){
@@ -139,7 +141,7 @@
                 };
             }, false);
  
-		    plus.geolocation.watchPosition(function(p){
+		    /*plus.geolocation.watchPosition(function(p){
 		    	locationd = p;	
 		    }, function(e){
 				//console.log('无法获取当前位置');
@@ -197,7 +199,7 @@
 					if(_tips != ''){
 						mui.alert(_tips, '温馨提示', '确定');
 					}
-		    });
+		    });*/
 		    
             
             // 运行环境切换到后台，开始倒数20分钟，重启应用

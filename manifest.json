@@ -3298,7 +3298,8 @@
 					"member-promote.html",
 					"requirement_rate.html",
 					"requirement_safe.html",
-					"requirement_retire.html"
+					"requirement_retire.html",
+					"member-statement.html"
 				],
 				"priority": 0
 			},
@@ -3315,7 +3316,31 @@
 			"member-requirement.html": {
 				"resources": [
 					"js/mui.poppicker.js",
-					"css/form.css"
+					"css/form.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-statement.html": {
+				"resources": [
+					"images/icon/ico-filter.png",
+					"js/pdf.js",
+					"css/member.css",
+					"css/mui.css",
+					"js/interval-dtpicker.js",
+					"css/form.css",
+					"images/icon/ico-filter-active.png"
+				],
+				"refer": [
+					"pdf-modal.html",
+					"quickly-filter.html"
+				],
+				"priority": 0
+			},
+			"pdf-modal-content.html": {
+				"resources": [
+					"js/pdf.worker.js"
 				],
 				"refer": [],
 				"priority": 0

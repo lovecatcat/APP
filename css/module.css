@@ -624,6 +624,13 @@
     overflow: auto;
     overflow-x: hidden;
 }
+/* 表格模态框关闭按钮 */
+.BL-modal-icon-closeempty {
+	position: absolute;
+	right: 1rem;
+	font-size: 3.5rem;
+	top: 1.8rem;
+}
 /*文字弹框*/
 .BL-modal-bottom {
 	background: #fff;

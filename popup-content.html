@@ -39,8 +39,9 @@
 			<!-- 业绩表格(雨晴)-->
 			<div id="modal-table-performance" class="BL-modal BL-modal-w100"  :class="{'BL-hide': isHide !== 'modal-table-performance'}" v-if="goIns_data && isHide == 'modal-table-performance'">
 				<div class="BL-modal-content BL-modal-tab">
-					<div class="BL-title">
+					<div class="BL-title BL-rel">
 						{{ goIns_data.rank_name }}
+						<div class="mui-icon mui-icon-closeempty BL-modal-icon-closeempty" id="close-ins-pop"></div>
 					</div> 
 					<div class="BL-modal-tab-body">
 						<table class="fixed-thead">
@@ -84,6 +85,7 @@
 				<div class="BL-modal-content BL-modal-tab">
 					<div class="BL-title">
 						{{ goIns_data.name }}
+						<div class="mui-icon mui-icon-closeempty BL-modal-icon-closeempty" id="close-ins-pop"></div>
 					</div>
 					<div class="BL-modal-tab-body">
 						<table class="fixed-thead">

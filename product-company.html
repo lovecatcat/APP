@@ -28,6 +28,8 @@
 </body>
 <script src="js/mui.min.js" type="text/javascript"></script>
 <script src="js/vue.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/mui.zoom.js" ></script>
+<script type="text/javascript" src="js/mui.previewimage.js" ></script>
 <script type="text/javascript">
     mui.init();
 
@@ -85,6 +87,15 @@
                         company.$nextTick(function () {
                             var topHeight = document.querySelector('#Js-header').offsetHeight;
                             document.querySelector('#Js-content').style.height = winH - topHeight + 'px';
+                            
+                            //图片放大
+                            var images = [].slice.call(document.querySelectorAll('#Js-content img'));
+                            images.forEach(function(item, idx) {
+                                item.setAttribute('data-preview-src',item.src)
+                                item.setAttribute('data-preview-group',1)
+                            });
+                            mui.previewImage();
+                            
                         })
                     } else {
                         mui.toast(res.msg, {duration: 'short', type: 'div'})

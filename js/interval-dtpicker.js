@@ -160,7 +160,7 @@
 					var nowDate = formartDate(year, month + 1, (i + 1 - startWeek), '-');
 					var addClass = '';
 					if(allWeek == 0 || allWeek == 6){ // 当前月份星期六，日字体颜色变红
-							addClass = 'dayoff-red';
+							addClass = 'dayoff';
 					};
 					
 					eleTemp.push('<li data-date="'+ formartDate(year, month+1, (i + 1 - startWeek), '-') +'" class="current-month"><span title=' + nowDate + ' class="dayStyle ' + addClass + '">' + (i + 1 - startWeek) + '<i></i></span></li>');	

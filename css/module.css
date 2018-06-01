@@ -611,7 +611,7 @@
     font-weight: 500;
 }
 .BL-modal-tab-body {
-    padding-bottom: 2.1875rem;
+    padding-bottom: .5rem;
 }
 .BL-modal-tab-body .fixed-thead {
     width: 100%;
@@ -623,6 +623,13 @@
     max-height: 25rem;
     overflow: auto;
     overflow-x: hidden;
+}
+/* 表格模态框关闭按钮 */
+.BL-modal-icon-closeempty {
+	position: absolute;
+	right: 1rem;
+	font-size: 3.5rem;
+	top: 1.8rem;
 }
 /*文字弹框*/
 .BL-modal-bottom {

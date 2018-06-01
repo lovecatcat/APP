@@ -401,8 +401,7 @@
 					"rank.html",
 					"requirement_safe1.html",
 					"requirement_safe.html",
-					"requirement_retire.html",
-					"member-clips.html"
+					"requirement_retire.html"
 				],
 				"priority": 0
 			},
@@ -1782,7 +1781,8 @@
 					"product-company.html",
 					"hd_ins/insurance-index.html",
 					"prospect-product.html",
-					"pdf-modal.html"
+					"pdf-modal.html",
+					"paehis/pa-healthinfo.html"
 				],
 				"priority": 4
 			},
@@ -2145,7 +2145,12 @@
 					"images/plans/plansManage/290.png",
 					"images/plans/plansManage/8.png",
 					"images/plans/plansManage/302.png",
-					"images/plans/plansManage/16113.png"
+					"images/plans/plansManage/16113.png",
+					"images/plans/plansManage/16211.png",
+					"images/plans/plansManage/332.png",
+					"images/plans/plansManage/16213.png",
+					"images/plans/plansManage/16139.png",
+					"images/plans/plansManage/16208.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -3293,7 +3298,8 @@
 					"member-promote.html",
 					"requirement_rate.html",
 					"requirement_safe.html",
-					"requirement_retire.html"
+					"requirement_retire.html",
+					"member-statement.html"
 				],
 				"priority": 0
 			},
@@ -3303,6 +3309,38 @@
 					"css/mui.picker.min.css",
 					"css/form.css",
 					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-requirement.html": {
+				"resources": [
+					"js/mui.poppicker.js",
+					"css/form.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-statement.html": {
+				"resources": [
+					"images/icon/ico-filter.png",
+					"js/pdf.js",
+					"css/member.css",
+					"css/mui.css",
+					"js/interval-dtpicker.js",
+					"css/form.css",
+					"images/icon/ico-filter-active.png"
+				],
+				"refer": [
+					"pdf-modal.html",
+					"quickly-filter.html"
+				],
+				"priority": 0
+			},
+			"pdf-modal-content.html": {
+				"resources": [
+					"js/pdf.worker.js"
 				],
 				"refer": [],
 				"priority": 0

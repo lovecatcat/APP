@@ -43,10 +43,11 @@
 							<span>首年保费</span>
 						</li>
 						<li>
-							<span>{{content.mainList.base_money}}</span>
+							<span>{{Number(content.mainList.base_money).toFixed(0)}}</span>
 							<span>{{content.mainList.safe_year}}</span>
 							<span>{{content.mainList.pay_year}}</span>
-							<span class="year_fee">{{content.mainList.year_fee}}</span>
+							<span class="year_fee" v-if="zs.indexOf(Number(content.mainList.genre)) > -1">{{Number(content.mainList.year_fee).toFixed(0)}}</span>
+							<span class="year_fee" v-else>{{content.mainList.year_fee}}</span>
 
 						</li>
 					</ul>
@@ -77,7 +78,8 @@
 							<span>{{child.base_money}}</span>
 							<span>{{child.safe_year}}</span>
 							<span>{{child.pay_year}}</span>
-							<span class="year_fee">{{child.year_fee}}</span>
+							<span class="year_fee" v-if="zs.indexOf(Number(content.mainList.genre)) > -1">{{Number(child.year_fee).toFixed(0)}}</span>
+							<span class="year_fee" v-else>{{child.year_fee}}</span>
 						</li>
 					</ul>
 				</div>
@@ -114,6 +116,7 @@
 		var plansTotal = new Vue({
 			el: '#Js-plansTotal',
 			data: {
+				zs: [16211, 16113, 16213, 16139],
 				total_list: [],
 				plansData: [],
 				parent_pl_id: '',
@@ -165,9 +168,10 @@
 			$.plusReady(function() {
 				plus.nativeUI.showWaiting();
 				var winH = window.innerHeight;
+				localStorage.setItem('winH' , winH)
 				var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 				document.querySelector('#Js-plansTotal').style.height = (winH - fotHeight) + 'px';
-
+		
 				mui('body').on('tap', '#btn', function() {
 					var _self = plus.webview.getWebviewById('member_plans_detail.html')
 					mui.fire(_self, 'show');

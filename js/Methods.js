@@ -73,8 +73,14 @@ var methods = {
 				ratio: []
 			}
 			vm.resetMainIns(); //重置
+			vm.companyAjax()
+			
+		});
 
-			luckyAjax({
+	},
+	companyAjax: function() {
+		var vm = this;
+		luckyAjax({
 				data: {
 					server: 'PolicyIns.getProductList',
 					device: 'mobile',
@@ -100,8 +106,6 @@ var methods = {
 					}
 				}
 			});
-		});
-
 	},
 	insChanged: function(index) { //险种下拉
 		var vm = this;

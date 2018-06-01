@@ -46,7 +46,7 @@
 				<div class="mui-content mui-scroll-wrapper BL-bg-f2f BL-pad-t-07">
 					<div class="mui-scroll">
 						<!--活动中，数据列表-->
-						<ul class="mui-table-view plan-list-cell">
+						<ul  v-if="manage_list.length>0" class="mui-table-view plan-list-cell">
 							<li class="BL-ub BL-ub-ac cItem" v-for="(item, index) in manage_list" :key="index" :class="{'cItem-active': checkModel.indexOf(item.id) > -1}" @click="goPLandetail(item.id, index)">
 								<div class="selected" v-show="editShow">
 									<div class="mui-icon mui-icon-checkmarkempty"></div>

@@ -248,11 +248,17 @@
         var topHeight = document.getElementById('Js-header').offsetHeight;
         var mainHeight = document.getElementById('Js-content').offsetHeight;
         document.querySelector('.mui-slider-group').style.height = winH - topHeight - mainHeight + 'px';
+        
+        // 切换监听
+        document.querySelector('.mui-slider').addEventListener('slide', function(event) {
+        	document.activeElement.blur();
+		});
 
         //重疾医疗费选择
         var hos_money = new mui.PopPicker();
         hos_money.setData(safe.hos_money);
         document.querySelector('#hos_money').addEventListener('tap', function () {
+            document.activeElement.blur();
             hos_money.show(function (items) {
                 safe.hos_money_value = items[0].value;
                 safe.hos_money_text = items[0].text;
@@ -263,6 +269,7 @@
         var ks_money = new mui.PopPicker();
         ks_money.setData(safe.ks_money);
         document.querySelector('#ks_money').addEventListener('tap', function () {
+            document.activeElement.blur();
             ks_money.show(function (items) {
                 safe.ks_money_value = items[0].value;
                 safe.ks_money_text = items[0].text;
@@ -273,6 +280,7 @@
         var plan = new mui.PopPicker();
         plan.setData(safe.plan_year);
         document.querySelector('#plan_year').addEventListener('tap', function () {
+            document.activeElement.blur();
             plan.show(function (items) {
                 safe.plan_year_value = items[0].value;
                 safe.plan_year_text = items[0].text;
@@ -281,6 +289,7 @@
 
         //跳转养老年金
         mui('body').on('tap', '.control', function(){
+        	document.activeElement.blur();
             var extras = null;
             var href = this.getAttribute('href');
             var id = this.getAttribute("data-wid");
@@ -289,23 +298,26 @@
             if (tid) {
                 extras = {instype_id: tid};
             }
-            //非plus环境，直接走href跳转
-            if(!mui.os.plus) {
-                location.href = href;
-                return;
-            };
-
-            if(href && ~href.indexOf('.html')) {
-                mui.openWindow({
-                    url: href,
-                    id: id,
-                    show: animateObj.aniDetal,
-                    extras: extras,
-                    waiting: {
-                        autoShow: false
-                    }
-                });
-            }
+            
+            setTimeout(function(){
+	            //非plus环境，直接走href跳转
+	            if(!mui.os.plus) {
+	                location.href = href;
+	                return;
+	            };
+     
+            	if(href && ~href.indexOf('.html')) {
+	                mui.openWindow({
+	                    url: href,
+	                    id: id,
+	                    show: animateObj.aniDetal,
+	                    extras: extras,
+	                    waiting: {
+	                        autoShow: false
+	                    }
+	                });
+	            }
+            },500)
         });
     });
 </script>

@@ -10,6 +10,14 @@
     <link href="css/member.css" rel="stylesheet" />
     <script src="js/config.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+    <style>
+    	.BL-width-100 {
+    		width: 100%;
+    	}
+    	.BL-width-50 {
+    		width: 50%;
+    	}
+    </style>
 </head>
 
 <body class="BL-bg-f2f">
@@ -21,7 +29,7 @@
 </header>
 <div id="Js-content" class="mui-content BL-overFlow-autoY" v-cloak>
     <div class="BL-bg-fff BL-mar-t-1">
-        <ul class="mui-table-view mui-table-view-chevron">
+        <ul class="mui-table-view mui-table-view-chevron warranty-mui-table-view">
             <li class="mui-table-view-cell member-warranty-detail-item">
                 <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l">
                     <span class="BL-col-3b9cf5">保单状态</span>
@@ -43,11 +51,11 @@
                     </table>
                 </div>
             </li>
-            <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-b-1">
+            <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-b-1_5">
                 <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l mui-navigate-right">
                     <span class="BL-col-3b9cf5">险种信息</span>
                 </a>
-                <div class=" BL-pad-lr-1_5 BL-pad-tb-1_5  mui-table-view mui-table-view-chevron"  style="overflow: hidden">
+                <div class=" BL-pad-lr-1_5 BL-pad-t-1_5  mui-table-view mui-table-view-chevron"  style="overflow: hidden">
 					<ul style="width: 30%;float: left; " class="BL-bg-f2f">
                 		<li>险种名称</li>
                 		<li>保额/份数</li>
@@ -59,7 +67,7 @@
                 		<li>保险生效</li>
                 	</ul>
                     <div class="BL-ub" style="width: 70%;float: left;overflow-y: hidden;overflow-x: scroll;">
-                    	<ul style="width:50%;border-left: none;" v-for="item in productInfo">
+                    	<ul style="border-left: none;" :class="{'BL-width-50':productInfo.length>1,'BL-width-100':productInfo.length==1}" v-for="item in productInfo">
                     		<li>{{item.product_name}}</li>
                     		<li>{{item.amount}}</li>
                     		<li>{{item.period_payment}}</li>
@@ -72,11 +80,11 @@
                     </div>
                 </div>
             </li>
-            <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-b-1">
+            <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-b-1_5">
                 <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l mui-navigate-right">
                     <span class="BL-col-3b9cf5">投保人信息</span>
                 </a>
-                <div class=" BL-pad-lr-1_5 BL-pad-tb-1_5 mui-table-view mui-table-view-chevron"  style="overflow: hidden">
+                <div class=" BL-pad-lr-1_5 BL-pad-t-1_5 mui-table-view mui-table-view-chevron"  style="overflow: hidden">
                     <ul style="width: 40%;float: left;" class="BL-bg-f2f">
                 		<li>姓名</li>
                 		<li>性别</li>
@@ -104,17 +112,17 @@
                 	</ul>
                 </div>
             </li>
-            <li class="member-warranty-detail-item BL-mar-b-1" v-if="holderInfo.rel_holder_insured == '本人' || insuredInfo.rel_insured_holder == '本人'">
+            <li class="member-warranty-detail-item BL-mar-b-1_5" v-if="holderInfo.rel_holder_insured == '本人' || insuredInfo.rel_insured_holder == '本人'">
                 <div class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l">
                     <span class="BL-col-3b9cf5">被保人信息</span>
                     <div class="fr">同投保人</div>
                 </div>
             </li>
-            <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-b-1" v-if="holderInfo.rel_holder_insured !== '本人' && insuredInfo.rel_insured_holder !== '本人'">
+            <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-b-1_5" v-if="holderInfo.rel_holder_insured !== '本人' && insuredInfo.rel_insured_holder !== '本人'">
                 <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l mui-navigate-right">
                     <span class="BL-col-3b9cf5">被保人信息</span>
                 </a>
-                <div class=" BL-pad-lr-1_5 BL-pad-tb-1_5 mui-table-view mui-table-view-chevron"  style="overflow: hidden">
+                <div class=" BL-pad-lr-1_5 BL-pad-t-1_5 mui-table-view mui-table-view-chevron"  style="overflow: hidden">
                     <ul style="width: 40%;float: left;" class="BL-bg-f2f">
                 		<li>姓名</li>
                 		<li>性别</li>
@@ -141,13 +149,13 @@
                 	</ul>
                 </div>
             </li>
-            <li class="member-warranty-detail-item BL-mar-b-1" v-if="beneficiaryInfo.length < 1">
+            <li class="member-warranty-detail-item BL-mar-b-1_5" v-if="beneficiaryInfo.length < 1">
                 <div class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l">
                     <span class="BL-col-3b9cf5">受益人信息</span>
                     <div class="fr">法定</div>
                 </div>
             </li>
-            <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-b-1" v-if="beneficiaryInfo.length > 0">
+            <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-b-1_5" v-if="beneficiaryInfo.length > 0">
                 <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l mui-navigate-right">
                     <span class="BL-col-3b9cf5">受益人信息</span>
                 </a>
@@ -160,12 +168,12 @@
                 		<li>证件号码</li>
                 	</ul>
                     <div class="BL-ub" style="width: 70%;float: left;overflow-y: hidden;overflow-x: scroll;">
-                    	<ul style="width:50%;border-left: none;" v-for="item in beneficiaryInfo">
+                    	<ul style="border-left: none;" :class="{'BL-width-50':beneficiaryInfo.length>1,'BL-width-100':beneficiaryInfo.length==1}" v-for="item in beneficiaryInfo">
                     		<li>{{item.fullname}}</li>
                     		<li>{{item.gender_text}}</li>
                     		<li>{{item.birthday}}</li>
                     		<li>{{item.id_type_text}}</li>
-                    		<li>{{item.ID_no}}</li>
+                    		<li style="word-break:break-all;word-wrap : break-word ;">{{item.ID_no}}</li>
                     	</ul>
                     </div>
                 </div>

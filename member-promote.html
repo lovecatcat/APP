@@ -140,6 +140,7 @@
 	        promote.page++;
 	        var basedata = {
 	        	insured_rule: promote.insured_rule,
+	        	state: "1",   // 1 表示上线
 	            page: promote.page,
 	            row: 10
 	        };
@@ -151,14 +152,13 @@
 	        if (promote.is_primary) {
 	            basedata.is_primary = promote.is_primary
 	        }
-
+	        
 	        luckyAjax({
 	            data: {
 	                server: 'lifeProduct.getProductList',
 	                data: JSON.stringify(basedata)
 	            },
 	            success: function (data) {
-	            	console.log(JSON.stringify(data))
 	                if (data.code) {
 	                    if (promote.page >= data.data.totalPage) {
 	                        self.endPullUpToRefresh(true);

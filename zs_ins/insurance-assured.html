@@ -122,58 +122,13 @@
                             <button class="ins-date-icon" :disabled="IDNO.indexOf(assured.insured_ID_type)>-1"></button>
                         </div>
                     </div>
-                    <div class="input-item">
-                        <label class="">国籍</label>
-                        <div class="input-wrap box-f-1">
-                            <input type="text" v-model.lazy="assured.insured_nation_name" readonly>
-                        </div>
-                    </div>
-                    <div class="input-item">
-                        <label class="">手机号码</label>
-                        <div class="input-wrap box-f-1">
-                            <input type="number" v-model="assured.insured_mobile"
-                                   @change="checkPhone('被保人',assured.insured_mobile)" placeholder="请输入">
-                            <div class="form-clear-icon" v-show="assured.insured_mobile!=''"
-                                 @click="assured.insured_mobile=''">
-                                <span class="mui-icon mui-icon-clear"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-item">
-                        <label class="">职业</label>
-                        <div class="input-wrap box-f-1" id="occu-first">
-                            <input type="text" placeholder="请选择" readonly v-model="assured.insured_job_name" readonly>
-                            <div class="ins-down-icon"></div>
-                        </div>
-                    </div>
                     <div class="input-item ins-pd-r-0" v-if="init&&init.marriage">
                         <label class="">婚姻状况</label>
                         <div class="input-wrap box-f-1 multi-btn">
                             <button class="ins-btn xs-btn" :class="{'blue':item.value===assured.insured_marriage}"
-                                    v-for="(item,index) in init.marriage" :disabled="item.value===assured.insured_marriage" @tap="assured.insured_marriage=item.value,toblur()">
+                                    v-for="(item,index) in init.marriage" :disabled="item.value===assured.insured_marriage" @tap="assured.insured_marriage=item.value,toblur()" v-show="item.value!==unknowmarry">
                                 {{item.text}}
                             </button>
-                        </div>
-                    </div>
-                    <div class="input-item">
-                        <label class="">工作单位</label>
-                        <div class="input-wrap box-f-1">
-                            <input type="text" v-model.trim.lazy="assured.insured_company" placeholder="请输入">
-                            <div class="form-clear-icon" v-show="assured.insured_company"
-                                 @click="assured.insured_company=''">
-                                <span class="mui-icon mui-icon-clear"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-item">
-                        <label class="">年收入(万元)</label>
-                        <div class="input-wrap box-f-1">
-                            <input type="number" v-model.trim="assured.insured_salary_avg"
-                                   @change="checkEarnings(2,assured.insured_salary_avg)" placeholder="请输入">
-                            <div class="form-clear-icon" v-show="assured.insured_salary_avg!=''"
-                                 @click="assured.insured_salary_avg=''">
-                                <span class="mui-icon mui-icon-clear"></span>
-                            </div>
                         </div>
                     </div>
                     <div class="input-item">
@@ -198,6 +153,18 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="input-item">
+                        <label class="">手机号码</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" v-model="assured.insured_mobile"
+                                   @change="checkPhone('被保人',assured.insured_mobile)" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.insured_mobile!=''"
+                                 @click="assured.insured_mobile=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="input-item">
                         <label class="">邮箱</label>
                         <div class="input-wrap box-f-1">
@@ -209,60 +176,123 @@
                             </div>
                         </div>
                     </div>
+                    <div class="input-item">
+                        <label class="">职业</label>
+                        <div class="input-wrap box-f-1" id="occu-first">
+                            <input type="text" placeholder="请选择" readonly v-model="assured.insured_job_name" readonly>
+                            <div class="ins-down-icon"></div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">年收入(万元)</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" v-model.trim="assured.insured_salary_avg"
+                                   @change="checkEarnings(2,assured.insured_salary_avg)" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.insured_salary_avg!=''"
+                                 @click="assured.insured_salary_avg=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">国籍</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" v-model.lazy="assured.insured_nation_name" readonly>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">工作单位</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" v-model.trim.lazy="assured.insured_company" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.insured_company"
+                                 @click="assured.insured_company=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-wrap margin-t_875">
-                    <div class="border-b-e7e7e7">
-                        <div class="item-title">地址信息</div>
-                    </div>
-                    <div class="input-item box-f-1 box-align-center">
-                        <div class="box-f-1 ins-font-sm BL-col-999">是否与投保人同地址？</div>
-                        <div class="box-f-2">
-                            <button class="ins-btn xs-btn BL-mar-r-1" :class="{'blue':assured.addr_type}" :disabled="assured.addr_type"
-                                    @tap="assured.addr_type=!assured.addr_type,toblur()">是
-                            </button>
-                            <button class="ins-btn xs-btn" :class="{'blue':!assured.addr_type}" :disabled="!assured.addr_type"
-                                    @tap="assured.addr_type=!assured.addr_type,toblur()">否
-                            </button>
+                        <div class="border-b-e7e7e7">
+                            <div class="item-title">地址信息</div>
                         </div>
-                    </div>
-                    <div v-show="!assured.addr_type">
-                        <div class="input-item">
-                            <label class="">投保地区</label>
-                            <div class="input-wrap box-f-1">
-                                <div class="input flex">
-                                    <div class="flex-1 BL-col-999">广东</div>
-                                    <div class="flex-1 BL-col-999">深圳</div>
-                                    <div class="flex-1" id="assu-district">{{assured.insured_home_district_name}}</div>
-                                </div>
-                                <div class="ins-down-icon"></div>
+                        <div class="input-item box-f-1 box-align-center">
+                            <div class="box-f-1 ins-font-sm BL-col-999">是否与投保人同地址？</div>
+                            <div class="box-f-2">
+                                <button class="ins-btn xs-btn BL-mar-r-1" :class="{'blue':assured.addr_type}" :disabled="assured.addr_type"
+                                        @tap="assured.addr_type=!assured.addr_type,toblur()">是
+                                </button>
+                                <button class="ins-btn xs-btn" :class="{'blue':!assured.addr_type}" :disabled="!assured.addr_type"
+                                        @tap="assured.addr_type=!assured.addr_type,toblur()">否
+                                </button>
                             </div>
                         </div>
-                        <div class="input-item">
-                            <label class="">详细地址</label>
-                            <div class="input-wrap box-f-1">
-                                <input type="text" v-model="assured.insured_home_address"
-                                       @change="checkAddress(assured.insured_home_address,'被保人')" placeholder="请输入">
-                                <div class="form-clear-icon" v-show="assured.insured_home_address!=''"
-                                     @click="assured.insured_home_address=''">
-                                    <span class="mui-icon mui-icon-clear"></span>
+                        <div v-show="!assured.addr_type">
+                            <div class="input-item">
+                                <label class="">居住地</label>
+                                <div class="input-wrap box-f-1">
+                                    <div class="input" id="address-select0">
+                                        {{assured.insured_home_ssq_name}}
+                                    </div>
+                                    <div class="ins-down-icon"></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="input-item">
-                            <label class="">邮编</label>
-                            <div class="input-wrap box-f-1">
-                                <input type="number" v-model.lazy="assured.insured_home_zip"
-                                       @change="checkZipcode(assured.insured_home_zip,'被保人')" placeholder="请输入">
-                                <div class="form-clear-icon" v-show="assured.insured_home_zip!=''"
-                                     @click="assured.insured_home_zip=''">
-                                    <span class="mui-icon mui-icon-clear"></span>
+                            <div class="input-item">
+                                <label class="">居住地邮编</label>
+                                <div class="input-wrap box-f-1">
+                                    <input type="number" v-model.lazy="assured.insured_home_zip"
+                                           @change="checkZipcode(assured.insured_home_zip,'被保人')" placeholder="请输入">
+                                    <div class="form-clear-icon" v-show="assured.insured_home_zip!=''"
+                                         @click="assured.insured_home_zip=''">
+                                        <span class="mui-icon mui-icon-clear"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-item">
+                                <label class="">居住地详细地址</label>
+                                <div class="input-wrap box-f-1">
+                                    <input type="text" v-model="assured.insured_home_address"
+                                           @change="checkAddress(assured.insured_home_address,'被保人')" placeholder="请输入">
+                                    <div class="form-clear-icon" v-show="assured.insured_home_address!=''"
+                                         @click="assured.insured_home_address=''">
+                                        <span class="mui-icon mui-icon-clear"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-item">
+                                <label class="">联系地址</label>
+                                <div class="input-wrap box-f-1">
+                                    <div class="input" id="address-select1">
+                                        {{assured.insured_contact_ssq_name}}
+                                    </div>
+                                    <div class="ins-down-icon"></div>
+                                </div>
+                            </div>
+                            <div class="input-item">
+                                <label class="">联系地详细地址</label>
+                                <div class="input-wrap box-f-1">
+                                    <input type="text" v-model="assured.insured_contact_address"
+                                           @change="checkAddress(assured.insured_contact_address,'投保人')" placeholder="请输入">
+                                    <div class="form-clear-icon" v-show="assured.insured_contact_address!=''"
+                                         @click="assured.insured_contact_address=''">
+                                        <span class="mui-icon mui-icon-clear"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-item">
+                                <label class="">联系地邮编</label>
+                                <div class="input-wrap box-f-1">
+                                    <input type="number" v-model.lazy="assured.insured_contact_zip"
+                                           @change="checkZipcode(assured.insured_contact_zip,'投保人')" placeholder="请输入">
+                                    <div class="form-clear-icon" v-show="assured.insured_contact_zip!=''"
+                                         @click="assured.insured_contact_zip=''">
+                                        <span class="mui-icon mui-icon-clear"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 <div class="input-item box-f-1">
-                    <div class="box-f-3 ins-font-sm BL-col-3b9cf5">是否已参加当地社会基本医疗保险（或公费医疗）？</div>
+                    <div class="box-f-3 ins-font-sm BL-col-3b9cf5">是否有社保？</div>
                     <div class="input-switch">
                         <input type="checkbox" class="switch" v-model="assured.insured_has_SSID"/>
                         <label></label>
@@ -283,6 +313,7 @@
 <script src="../js/mui.picker.js"></script>
 <script src="../js/mui.poppicker.js"></script>
 <script src="../js/mui.dtpicker.js"></script>
+<script src="../js/city.data-3.js"></script>
 <script src="../js/IDValidator.min.js"></script>
 <script src="method.js"></script>
 <script type="text/javascript">
@@ -295,7 +326,7 @@
             id: 'communic',
             show: animateObj.aniDetal,
             extras:{
-                pageid: 'hd-insurance-assured',
+                pageid: 'zs-insurance-assured',
                 tid: 1,
 				flag: 'onlineIns'
 			}
@@ -328,13 +359,25 @@
                     insured_company: '',//工作单位
                     insured_salary_avg: '',//年收入
 
-                    addr_type: false,//是否所有地址同投保人,
-                    insured_home_province: '20',//现在住址【省】
-                    insured_home_city: '323',//现在住址【市】
-                    insured_home_district: '',//现在住址【区】
-                    insured_home_district_name: '请选择',//现在住址【区】名称
-                    insured_home_address: '', //现在住址【地址详情】
-                    insured_home_zip: '',//现在住址【邮编】
+                    addr_type: false,//地址同投保人
+                    insured_home_province: '',//居住地【省】
+                    insured_home_city: '',//居住地【市】
+                    insured_home_district: '',//居住地【区】
+                    insured_home_ssq_name: '请选择',//省市区名称
+                    insured_home_province_name: '请选择',//居住地【省】名称
+                    insured_home_city_name: '请选择',//居住地【市】名称
+                    insured_home_district_name: '请选择',//居住地【区】名称
+                    insured_home_address: '', //居住地【地址详情】
+                    insured_home_zip: '',//居住地【邮编】
+                    insured_contact_province: '',//联系地址【省】
+                    insured_contact_city: '',//联系地址【市】
+                    insured_contact_district: '',//联系地址【区】
+                    insured_contact_ssq_name: '请选择',//省市区名称
+                    insured_contact_province_name: '请选择',//联系地址【省】名称
+                    insured_contact_city_name: '请选择',//联系地址【市】名称
+                    insured_contact_district_name: '请选择',//联系地址【区】名称
+                    insured_contact_address: '', //联系地址【地址详情】
+                    insured_contact_zip: '',//联系地址【邮编】
 
                     insured_has_SSID: false,//是否有社保
                     insured_marriage: '',//婚姻状况
@@ -392,11 +435,11 @@
         console.log('plus-ready')
         var init = plus.webview.currentWebview().data;
         assu.init = init;
-        var applicant = JSON.parse(plus.storage.getItem('hengda_applicant'))
+        var applicant = JSON.parse(plus.storage.getItem('zhaos_applicant'))
         console.log(JSON.stringify(applicant))
         assu.applicant = applicant
         //已填信息赋值
-        var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')) : ''
+        var assured = plus.storage.getItem('zhaos_assured') ? JSON.parse(plus.storage.getItem('zhaos_assured')) : ''
         if(assured) {
             console.log(JSON.stringify(assured))
             assu.assured = deepClone(assured)
@@ -404,31 +447,60 @@
             assu.assu_age = getAge(assu.assured.insured_birthday)
         }
         //
-        //深圳投保地区
-        var district = new mui.PopPicker();
-        document.querySelector('#assu-district').addEventListener('tap', function () {
+        //居住、联系地区
+        var _getParam = function (obj, param) {
+            return obj[param] || '';
+        };
+        var applarea0 = new mui.PopPicker({
+            layer: 3
+        });
+        var applarea1 = new mui.PopPicker({
+            layer: 3
+        });
+        applarea0.setData(cityData3);
+        applarea1.setData(cityData3);
+        document.querySelector('#address-select0').addEventListener('tap', function () {
             document.activeElement.blur();
-            district.show(function (items) {
-                assu.assured.insured_home_district = items[0].value;
-                assu.assured.insured_home_district_name = items[0].text;
-                assu.assured.insured_home_zip = items[0].zip;
-
-            })
-        })
-        //深圳区获取
-        getCityArea('323', function (e) {
-            district.setData(e)
-        })
+            applarea0.show(function (items) {
+                assu.assured.insured_home_province = _getParam(items[0], 'value');
+                assu.assured.insured_home_province_name = _getParam(items[0], 'text');
+                assu.assured.insured_home_city = _getParam(items[1], 'value');
+                assu.assured.insured_home_city_name = _getParam(items[1], 'text');
+                assu.assured.insured_home_district = _getParam(items[2], 'value');
+                assu.assured.insured_home_district_name = _getParam(items[2], 'text');
+                assu.assured.insured_home_zip = _getParam(items[2], 'text')?_getParam(items[2], 'zip'):_getParam(items[1], 'zip');
+                assu.assured.insured_home_ssq_name = _getParam(items[0], 'text') + ' ' + _getParam(items[1], 'text') + ' ' + _getParam(items[2], 'text');
+            });
+        }, false);
+        document.querySelector('#address-select1').addEventListener('tap', function () {
+            document.activeElement.blur();
+            applarea1.show(function (items) {
+                assu.assured.insured_contact_province = _getParam(items[0], 'value');
+                assu.assured.insured_contact_province_name = _getParam(items[0], 'text');
+                assu.assured.insured_contact_city = _getParam(items[1], 'value');
+                assu.assured.insured_contact_city_name = _getParam(items[1], 'text');
+                assu.assured.insured_contact_district = _getParam(items[2], 'value');
+                assu.assured.insured_contact_district_name = _getParam(items[2], 'text');
+                assu.assured.insured_contact_zip = _getParam(items[2], 'text')?_getParam(items[2], 'zip'):_getParam(items[1], 'zip');
+                assu.assured.insured_contact_ssq_name = _getParam(items[0], 'text') + ' ' + _getParam(items[1], 'text') + ' ' + _getParam(items[2], 'text');
+            });
+        }, false);
         //证件类型选择
         var idtype = new mui.PopPicker();
-        idtype.setData(init.ID_type);
+        var assutype = []
+        mui.each(init.ID_type,function (index,item) {
+            if(typename[item.value]){
+                assutype.push(item)
+            }
+        })
+        idtype.setData(assutype);
         document.querySelector('#ID_type').addEventListener('tap', function () {
             document.activeElement.blur();
             idtype.show(function (items) {
                 assu.assured.insured_ID_no = ''
                 assu.assured.insured_ID_type = items[0].value;
                 assu.assured.insured_ID_type_name = items[0].text;
-                astypeChange();
+                astypeChange('被保人');
             })
         })
 
@@ -513,7 +585,6 @@
         document.querySelector('#saveAssu').addEventListener('tap', function () {
             document.activeElement.blur();
             if(!RSChanged(assu.assured,assu.applicant)){return false;}
-//            console.log(JSON.stringify(assu.assured))
             if (!checkAssured(assu.assured)) {
                 return false
             }
@@ -521,9 +592,9 @@
                 mui.toast('投被保人性别与关系不符', {duration: 'short', type: 'div'});
                 return false;
             }
-            plus.storage.setItem('hengda_assured',JSON.stringify(assu.assured));
-            mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
-                item: 'hengda_assured',
+            plus.storage.setItem('zhaos_assured',JSON.stringify(assu.assured));
+            mui.fire(plus.webview.getWebviewById('zs_insurance-index'), 'saveFlag', {
+                item: 'zhaos_assured',
                 data: 'assured',
                 clear: true
             });
@@ -547,13 +618,26 @@
                         assu.assured.insured_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : assu.assured.insured_salary_avg;
                         assu.assured.insured_mobile = info.tel;
                         assu.assured.insured_email = info.email !== '0' ? info.email : '';
-                        if (!assu.assuredaddr_type && info.home_city == '323') { //深圳
+                        if (!assu.assured.addr_type) { //深圳
                             assu.assured.insured_home_province = info.home_province;
+                            assu.assured.insured_home_province_name = info.home_province_text;
                             assu.assured.insured_home_city = info.home_city;
+                            assu.assured.insured_home_city_name = info.home_city_text;
                             assu.assured.insured_home_district = info.home_district;
                             assu.assured.insured_home_district_name = info.home_district_text;
                             assu.assured.insured_home_address = info.home_address;
                             assu.assured.insured_home_zip = info.home_zip;
+                            assu.assured.insured_home_ssq_name = info.home_province_text + ' ' + info.home_city_text + ' ' + info.home_district_text;
+
+                            assu.assured.insured_contact_province = info.contact_province;
+                            assu.assured.insured_contact_province_name = info.contact_province_text;
+                            assu.assured.insured_contact_city = info.contact_city;
+                            assu.assured.insured_contact_city_name = info.contact_city_text;
+                            assu.assured.insured_contact_district = info.contact_district;
+                            assu.assured.insured_contact_district_name = info.contact_district_text;
+                            assu.assured.insured_contact_address = info.contact_address;
+                            assu.assured.insured_contact_zip = info.contact_zip;
+                            assu.assured.insured_contact_ssq_name = info.contact_province_text + ' ' + info.contact_city_text + ' ' + info.contact_district_text;
                         }
                         assu.assured.insured_weight = parseInt(info.weight) ? Number(info.weight).toFixed(2) : assu.assured.insured_weight;
                         assu.assured.insured_height = parseInt(info.height) ? parseInt(info.height) : assu.assured.insured_height;

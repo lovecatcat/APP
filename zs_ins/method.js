@@ -9,12 +9,13 @@ var abh = '1001'; //爱倍护
 //附加险
 var hmzj = '1002'; //附加豁免保险费重大疾病保险
 var tbrhmds = '1011'; //附加投保人豁免保险费定期寿险
+var tbrhmzj = '1012';//附加投保人豁免保险费重大疾病保险
 var ylnj = '1003'; //附加爱倍护养老年金
 var zybc = '1018';//附加住院补偿
 var zybt = '1017';//附加住院每日补贴
 var ywmjz = '1015';//附加意外门急诊
-var tbrhmzj = '1012';//附加投保人豁免保险费重大疾病保险
 
+var hmx = ['1002','1011','1012'] //豁免险种
 
 var typename = {'LAA004A': '身份证', 'LAA004B': '户口簿', 'LAA004D': '军人身份证','LAA004E':'士兵证','LAA004G':'中国护照','LAA004I':'港澳通行证','LAA004J':'台湾通行证','LAA004L':'出生证'}
 var ISASSURED = 'LAC001C'; //被保人是本人
@@ -29,6 +30,7 @@ var FEMALE = 'LAB0018'; //女
 var TAXTYPE = 'LAH0007'; //仅为中国税收居民
 var NATION = 'LAI005L'; //中国
 var unknowmarry = 'LAD001B' ;//婚姻状况未知
+var benerel = ['LAN003G','LAN003K'] ;//不支持的受益人关系
 
 var SY_TYPE = 'LAP000C'; //受益类型：身故
 var has_social_security = 'LAG000C'; //有社保
@@ -324,7 +326,7 @@ var checkAppl = function (appl) {
     var appl_age = getAge(appl.holder_birthday);
     if (!appl.holder_isTaxResidents) {
         toast_text = '请选择投保人居民税收类型'
-    } else if (!IDValidate(IDcard, appl.holder_ID_no, '投保人',appl)) {
+    } else if (!IDValidate(appl.holder_ID_type, appl.holder_ID_no, '投保人',appl)) {
         return false
     } else if (!checkTerm(appl.holder_ID_expire_end, '投保人',appl)) {
         return false
@@ -382,12 +384,10 @@ var getDays = function(str) {
 var checkIDtype = function (birthday, idtype, owner) {
     var toast_text = null
     var age = getAge(birthday)
-    if (age > 2 && idtype === BORNid) {
-        toast_text = owner + '大于2周岁不能选择出生证';
-    } else if ((age < 2 || age > 16) && idtype === BOOKLET) {
-        toast_text = owner + '2周岁至16周岁才能选择户口本';
-    } else if (getDays(birthday) < 30) {
-        toast_text = '被保人0周岁需出生满30天';
+    if (getDays(birthday) < 28) {
+        toast_text = '被保人0周岁需出生满28天';
+    }if (age > 60) {
+        toast_text = '被保人不能大于60周岁';
     }
     if (toast_text) {
         mui.toast(toast_text, {duration: 'short', type: 'div'});
@@ -426,8 +426,6 @@ var checkAssured = function (assu) {
         return false
     } else if (!assu.insured_marriage) {
         toast_text = '被保人婚姻状况不能为空'
-    } else if (!assu.insured_salary_from) {
-        toast_text = '被保人收入来源不能为空'
     } else if (!assu.insured_company) {
         toast_text = '请填写被保人工作单位，无工作单位请填写‘无’'
     } else if (!checkHeight('被保人', assu.insured_height)) {
@@ -438,8 +436,6 @@ var checkAssured = function (assu) {
         toast_text = '被保人现在住址【省级】不能为空'
     } else if (!assu.insured_home_city) {
         toast_text = '被保人现在住址【市级】不能为空'
-    } else if (!checkHomeDistrict(assu.insured_home_district, '被保人')) {
-        return false
     } else if (!checkAddress(assu.insured_home_address, '被保人')) {
         return false
     } else if (!checkZipcode(assu.insured_home_zip, '被保人')) {
@@ -451,15 +447,7 @@ var checkAssured = function (assu) {
     }
     return true
 };
-//被保人体质指数
-// var checkHeightWeight = function (h, w) {
-//     var flag = (w / (h * h) * 10000.00).toFixed(2)
-//     if (flag < 18 || flag > 28) {
-//         mui.toast('被保人体质指数' + flag + '不在18~28之间', {duration: 'short', type: 'div'});
-//         return false
-//     }
-//     return true
-// };
+
 //职业限制
 var checkOccupation = function(owner,e) {
     var toast_text = null
@@ -496,14 +484,25 @@ var checkOccupation = function(owner,e) {
     return true
 };
 //出生证、户口本 长期有效
-var astypeChange = function () {
-    assu.assured.insured_ID_no = ''
-    if (assu.assured.insured_ID_type === BOOKLET || assu.assured.insured_ID_type === BORNid) {
-        assu.assured.insured_ID_expire_end = '9999-12-31'
-        assu.longTerm = true
-    } else {
-        assu.assured.insured_ID_expire_end = ''
-        assu.longTerm = false
+var astypeChange = function (owner) {
+    if (owner === '投保人') {
+        appl.applicant.holder_ID_no = ''
+        if (appl.applicant.holder_ID_type === BOOKLET || appl.applicant.holder_ID_type === BORNid) {
+            appl.applicant.holder_ID_expire_end = '9999-12-31'
+            appl.longTerm = true
+        } else {
+            appl.applicant.holder_ID_expire_end = ''
+            appl.longTerm = false
+        }
+    } else if (owner === '被保人') {
+        assu.assured.insured_ID_no = ''
+        if (assu.assured.insured_ID_type === BOOKLET || assu.assured.insured_ID_type === BORNid) {
+            assu.assured.insured_ID_expire_end = '9999-12-31'
+            assu.longTerm = true
+        } else {
+            assu.assured.insured_ID_expire_end = ''
+            assu.longTerm = false
+        }
     }
 };
 //获取市/区
@@ -550,13 +549,26 @@ var getOccu = function (id, cb) {
         }
     });
 };
-var AssuSameApplAddress = function (assu,applicant) {
-    assu.insured_home_province = '20'//现在住址【省】
-    assu.insured_home_city = '323'//现在住址【市】
-    assu.insured_home_district = applicant.holder_home_district
-    assu.insured_home_district_name = applicant.holder_home_district_name
-    assu.insured_home_address = applicant.holder_home_address
-    assu.insured_home_zip = applicant.holder_home_zip
+var AssuSameApplAddress = function (assu,appl) {
+    assu.insured_contact_province = appl.holder_contact_province //联系地址【省】
+    assu.insured_contact_city = appl.holder_contact_city //联系地址【市】
+    assu.insured_contact_district = appl.holder_contact_district //联系地址【区】
+    assu.insured_contact_ssq_name = appl.holder_contact_ssq_name //省市区名称
+    assu.insured_contact_province_name = appl.holder_contact_province_name //联系地址【省】名称
+    assu.insured_contact_city_name = appl.holder_contact_city_name //联系地址【市】名称
+    assu.insured_contact_district_name = appl.holder_contact_district_name //联系地址【区】名称
+    assu.insured_contact_address = appl.holder_contact_address  //联系地址【地址详情】
+    assu.insured_contact_zip = appl.holder_contact_zip //联系地址【邮编】
+
+    assu.insured_home_province = appl.holder_home_province //居住地【省】
+    assu.insured_home_city = appl.holder_home_city //居住地【市】
+    assu.insured_home_district = appl.holder_home_district //居住地【区】
+    assu.insured_home_ssq_name = appl.holder_home_ssq_name //省市区名称
+    assu.insured_home_province_name = appl.holder_home_province_name //居住地【省】名称
+    assu.insured_home_city_name = appl.holder_home_city_name //居住地【市】名称
+    assu.insured_home_district_name = appl.holder_home_district_name //居住地【区】名称
+    assu.insured_home_address = appl.holder_home_address  //居住地【地址详情】
+    assu.insured_home_zip = appl.holder_home_zip //居住地【邮编】
 };
 //被保人为本人
 var RSChanged = function(assu,applicant) {

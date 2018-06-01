@@ -294,7 +294,7 @@
             id: 'communic',
             show: animateObj.aniDetal,
             extras:{
-                pageid: 'hd-insurance-applicant',
+                pageid: 'zs-insurance-applicant',
                 tid: 1,
 				flag: 'onlineIns'
 			}
@@ -312,7 +312,7 @@
                 applicant: {
                     holder_name: '', //姓名
                     holder_ID_type: '', //证件类型
-                    holder_ID_type_name: '身份证', //证件类型名
+                    holder_ID_type_name: '请选择', //证件类型名
                     holder_ID_no: '', //证件号码
                     holder_birthday: '', //出生日期
                     holder_ID_expire_end: '', //证件有效期
@@ -357,7 +357,6 @@
         },
         created: function () {
 //            字段初始化
-            this.applicant.holder_ID_type = IDcard;
             this.applicant.holder_gender = MALE;
             this.applicant.holder_nation = NATION;
 
@@ -368,7 +367,7 @@
                 }
             });
             this.$watch('applicant.holder_ID_no', function (val) {
-                IDValidate(IDcard, val, '投保人',this.applicant);
+                IDValidate(this.applicant.holder_ID_type, val, '投保人',this.applicant);
             });
             this.$watch('longTerm', function (val) {
                 this.applicant.holder_ID_expire_end = val ? '9999-12-31' : ''
@@ -389,7 +388,7 @@
             })
         },
         methods:{
-            toblur:function(){
+            toblur: function () {
                 document.activeElement.blur();
             }
         }
@@ -422,7 +421,7 @@
                 appl.applicant.holder_ID_no = ''
                 appl.applicant.holder_ID_type = items[0].value;
                 appl.applicant.holder_ID_type_name = items[0].text;
-//                astypeChange();
+                astypeChange('投保人');
             })
         })
         //居住、联系地区
@@ -548,7 +547,7 @@
         document.querySelector('#saveAppl').addEventListener('tap', function () {
             document.activeElement.blur();
             if(appl.applicant.sameToHome){
-                ApplSameHomeAddress(appl.applicant);
+                ApplSameHomeAddress('投保人', appl.applicant);
             }
             if (!checkAppl(appl.applicant)) {
                 return false;
@@ -595,22 +594,26 @@
                         appl.applicant.holder_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : appl.applicant.holder_salary_avg;
                         appl.applicant.holder_mobile = info.tel;
                         appl.applicant.holder_email = info.email !== '0' ? info.email : '';
-                        if (info.home_city == '323') { //深圳
-                            appl.applicant.holder_home_province = info.home_province;
-                            appl.applicant.holder_home_city = info.home_city;
-                            appl.applicant.holder_home_district = info.home_district;
-                            appl.applicant.holder_home_district_name = info.home_district_text;
-                            appl.applicant.holder_home_address = info.home_address;
-                            appl.applicant.holder_home_zip = info.home_zip;
-                        } else {
-                            if (info.contact_city == '323') {
-                                appl.applicant.holder_home_province = info.contact_province;
-                                appl.applicant.holder_home_city = info.contact_city;
-                                appl.applicant.holder_home_district = info.contact_district;
-                                appl.applicant.holder_home_address = info.contact_address;
-                                appl.applicant.holder_home_zip = info.contact_zip;
-                            }
-                        }
+                        appl.applicant.holder_home_province = info.home_province;
+                        appl.applicant.holder_home_province_name = info.home_province_text;
+                        appl.applicant.holder_home_city = info.home_city;
+                        appl.applicant.holder_home_city_name = info.home_city_text;
+                        appl.applicant.holder_home_district = info.home_district;
+                        appl.applicant.holder_home_district_name = info.home_district_text;
+                        appl.applicant.holder_home_address = info.home_address;
+                        appl.applicant.holder_home_zip = info.home_zip;
+                        appl.applicant.holder_home_ssq_name = info.home_province_text + ' ' + info.home_city_text + ' ' + info.home_district_text;
+
+                        appl.applicant.holder_contact_province = info.contact_province;
+                        appl.applicant.holder_contact_province_name = info.contact_province_text;
+                        appl.applicant.holder_contact_city = info.contact_city;
+                        appl.applicant.holder_contact_city_name = info.contact_city_text;
+                        appl.applicant.holder_contact_district = info.contact_district;
+                        appl.applicant.holder_contact_district_name = info.contact_district_text;
+                        appl.applicant.holder_contact_address = info.contact_address;
+                        appl.applicant.holder_contact_zip = info.contact_zip;
+                        appl.applicant.holder_contact_ssq_name = info.contact_province_text + ' ' + info.contact_city_text + ' ' + info.contact_district_text;
+
                         appl.applicant.holder_weight = parseInt(info.weight) ? Number(info.weight).toFixed(2) : appl.applicant.holder_weight;
                         appl.applicant.holder_height = parseInt(info.height) ? parseInt(info.height) : appl.applicant.holder_height;
                     }

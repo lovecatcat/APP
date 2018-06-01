@@ -110,10 +110,10 @@
                 console.log('index-created')
                 //编辑保单
                 var openerId = plus.webview.currentWebview().opener().id
-                if (openerId !== 'quickly' && openerId !== 'member_life_order') {
-                    console.log('begin-clear')
-                    this.clearItem()
-                }
+//                if (openerId !== 'quickly' && openerId !== 'member_life_order') {
+//                    console.log('begin-clear')
+//                    this.clearItem()
+//                }
                 var pid = plus.webview.currentWebview().policy_id;
                 console.log(pid)
                 if (pid) {

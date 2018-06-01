@@ -102,7 +102,7 @@ var aloneDetail = new Vue({
 				year_fee: this.list.year_fee,
 				safe_year: this.list.safe_year,
 			}
-			var design = this.manual_content[this.pl_id][this.levelNum[this.pl_id]]
+			var design = this.manual_content[this.pl_id] ? this.manual_content[this.pl_id][this.levelNum[this.pl_id]] : null
 			// 判断是不是需要附加险，是传全部，不是只传主险
 			if(this.behalfTable.indexOf(Number(id)) > -1) {
 				list = this.list

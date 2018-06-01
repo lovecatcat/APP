@@ -1980,6 +1980,7 @@
 			mui.back = function() {
 				// 返回按钮，未点击保存，吧数据传给父页面
 				var data = {
+					sc_id: ins.sc_id,
 					company: ins.company,
 					main: ins.main,
 					mainSyAttr: ins.mainSyAttr,
@@ -1997,10 +1998,12 @@
 
 			//判断父页面传过来的数据
 			if(ins.planTime && ins.planTime.company) {
-				ins.company = ins.planTime.company,
-					ins.main = ins.planTime.main,
-					ins.mainSyAttr = ins.planTime.mainSyAttr,
-					ins.mainPyAttr = ins.planTime.mainPyAttr,
+					ins.sc_id = ins.planTime.sc_id
+					ins.companyAjax()
+					ins.company = ins.planTime.company
+					ins.main = ins.planTime.main
+					ins.mainSyAttr = ins.planTime.mainSyAttr
+					ins.mainPyAttr = ins.planTime.mainPyAttr
 					ins.Addons = ins.planTime.Addons
 				ins.insurance = ins.planTime.insurance
 				mainType.setData(ins.planTime.mainTypedata)

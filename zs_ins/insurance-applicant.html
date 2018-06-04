@@ -594,26 +594,29 @@
                         appl.applicant.holder_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : appl.applicant.holder_salary_avg;
                         appl.applicant.holder_mobile = info.tel;
                         appl.applicant.holder_email = info.email !== '0' ? info.email : '';
-                        appl.applicant.holder_home_province = info.home_province;
-                        appl.applicant.holder_home_province_name = info.home_province_text;
-                        appl.applicant.holder_home_city = info.home_city;
-                        appl.applicant.holder_home_city_name = info.home_city_text;
-                        appl.applicant.holder_home_district = info.home_district;
-                        appl.applicant.holder_home_district_name = info.home_district_text;
-                        appl.applicant.holder_home_address = info.home_address;
-                        appl.applicant.holder_home_zip = info.home_zip;
-                        appl.applicant.holder_home_ssq_name = info.home_province_text + ' ' + info.home_city_text + ' ' + info.home_district_text;
+                        if (info.home_province) {
+                            appl.applicant.holder_home_province = info.home_province;
+                            appl.applicant.holder_home_province_name = info.home_province_text;
+                            appl.applicant.holder_home_city = info.home_city;
+                            appl.applicant.holder_home_city_name = info.home_city_text;
+                            appl.applicant.holder_home_district = info.home_district;
+                            appl.applicant.holder_home_district_name = info.home_district_text;
+                            appl.applicant.holder_home_address = info.home_address;
+                            appl.applicant.holder_home_zip = info.home_zip;
+                            appl.applicant.holder_home_ssq_name = info.home_province_text + ' ' + info.home_city_text + ' ' + info.home_district_text;
+                        }
+                        if (info.contact_province) {
+                            appl.applicant.holder_contact_province = info.contact_province;
+                            appl.applicant.holder_contact_province_name = info.contact_province_text;
+                            appl.applicant.holder_contact_city = info.contact_city;
+                            appl.applicant.holder_contact_city_name = info.contact_city_text;
+                            appl.applicant.holder_contact_district = info.contact_district;
+                            appl.applicant.holder_contact_district_name = info.contact_district_text;
+                            appl.applicant.holder_contact_address = info.contact_address;
+                            appl.applicant.holder_contact_zip = info.contact_zip;
+                            appl.applicant.holder_contact_ssq_name = info.contact_province_text + ' ' + info.contact_city_text + ' ' + info.contact_district_text;
 
-                        appl.applicant.holder_contact_province = info.contact_province;
-                        appl.applicant.holder_contact_province_name = info.contact_province_text;
-                        appl.applicant.holder_contact_city = info.contact_city;
-                        appl.applicant.holder_contact_city_name = info.contact_city_text;
-                        appl.applicant.holder_contact_district = info.contact_district;
-                        appl.applicant.holder_contact_district_name = info.contact_district_text;
-                        appl.applicant.holder_contact_address = info.contact_address;
-                        appl.applicant.holder_contact_zip = info.contact_zip;
-                        appl.applicant.holder_contact_ssq_name = info.contact_province_text + ' ' + info.contact_city_text + ' ' + info.contact_district_text;
-
+                        }
                         appl.applicant.holder_weight = parseInt(info.weight) ? Number(info.weight).toFixed(2) : appl.applicant.holder_weight;
                         appl.applicant.holder_height = parseInt(info.height) ? parseInt(info.height) : appl.applicant.holder_height;
                     }

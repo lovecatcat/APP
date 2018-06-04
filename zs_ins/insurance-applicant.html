@@ -349,6 +349,7 @@
                     holder_has_SSID: false,//是否有社保
                     holder_marriage: '',//婚姻状况
                     holder_job_code: {},//职业
+                    holder_job_cate: '',//职业分类
                     temp_holder_job_code: '',//职业代码
                     holder_job_name: '',//职业名称
                     holder_isTaxResidents: '' //税收标识
@@ -493,6 +494,7 @@
 			}, false);
 		})
         arrOccu[0].setData(init.occupation);
+        console.log(JSON.stringify(init.occupation))
         document.querySelector('#occu-first').addEventListener('tap', function () {
             document.activeElement.blur();
             var arr = {}
@@ -510,6 +512,7 @@
                         //console.log(items2[0].value)
                         appl.applicant.holder_job_name = items2[0].text;
                         appl.applicant.holder_job_code = arr;
+                        appl.applicant.holder_job_cate = items2[0].cate;
                         appl.applicant.temp_holder_job_code = items2[0].value;
                         getOccu(items2[0].value, function (res2) {
                             if (!res2) return
@@ -519,6 +522,7 @@
                                 //console.log(items3[0].value)
                                 appl.applicant.holder_job_name = items3[0].text;
                                 appl.applicant.holder_job_code = arr;
+                                appl.applicant.holder_job_cate = items3[0].cate;
                                 appl.applicant.temp_holder_job_code = items3[0].value;
                                 getOccu(items3[0].value, function (res3) {
                                     if (!res3) return
@@ -528,6 +532,7 @@
                                         //console.log(items4[0].value)
                                         appl.applicant.holder_job_name = items4[0].text;
                                         appl.applicant.holder_job_code = arr;
+                                        appl.applicant.holder_job_cate = items4[0].cate;
                                         appl.applicant.temp_holder_job_code = items4[0].value;
                                     });
                                 })

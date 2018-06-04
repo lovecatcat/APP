@@ -539,7 +539,8 @@ var getOccu = function (id, cb) {
                 mui.each(data.data, function (ind, ite) {
                     arr.push({
                         text: ite.name,
-                        value: ite.id
+                        value: ite.id,
+                        cate: ite.enum_value
                     });
                 });
                 cb(arr)
@@ -594,6 +595,7 @@ var RSChanged = function(assu,applicant) {
         assu.insured_has_SSID= applicant.holder_has_SSID//是否有社保
         assu.insured_marriage= applicant.holder_marriage//婚姻状况
         assu.insured_job_code= applicant.holder_job_code//职业
+        assu.insured_job_cate= applicant.holder_job_cate//职业分类
         assu.temp_insured_job_code= applicant.temp_holder_job_code//职业代码
         assu.insured_job_name= applicant.holder_job_name//职业名称
         assu.insured_isTaxResidents= applicant.holder_isTaxResidents

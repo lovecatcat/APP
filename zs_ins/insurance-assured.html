@@ -382,6 +382,7 @@
                     insured_has_SSID: false,//是否有社保
                     insured_marriage: '',//婚姻状况
                     insured_job_code: {},//职业
+                    insured_job_cate: '',//职业分类
                     temp_insured_job_code: '',//职业代码
                     insured_job_name: '',//职业名称
                     insured_isTaxResidents: '' //税收标识
@@ -550,6 +551,7 @@
                         arr[2] = items2[0].value
                         assu.assured.insured_job_name = items2[0].text;
                         assu.assured.insured_job_code = arr;
+                        assu.assured.insured_job_cate = items2[0].cate;
                         assu.assured.temp_insured_job_code = items2[0].value
                         getOccu(items2[0].value, function (res2) {
                             if (!res2) return
@@ -558,6 +560,7 @@
                                 arr[3] = items3[0].value
                                 assu.assured.insured_job_name = items3[0].text;
                                 assu.assured.insured_job_code = arr;
+                                assu.assured.insured_job_cate = items3[0].cate;
                                 assu.assured.temp_insured_job_code = items3[0].value
                                 getOccu(items3[0].value, function (res3) {
                                     if (!res3) return
@@ -566,6 +569,7 @@
                                         arr[4] = items4[0].value
                                         assu.assured.insured_job_name = items4[0].text;
                                         assu.assured.insured_job_code = arr;
+                                        assu.assured.insured_job_cate = items4[0].cate;
                                         assu.assured.temp_insured_job_code = items4[0].value
                                     });
                                 })

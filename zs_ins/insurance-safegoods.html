@@ -170,7 +170,7 @@
                     </div>
                     <div class="mui-col-sm-6">
                         <li class="ins-font-xs">
-                            保障期间(年)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].safe_year}}</span>
+                            保障期间(年)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].safe_year | safeYearFilter}}</span>
                         </li>
                     </div>
                     <div class="mui-col-sm-6">
@@ -309,7 +309,7 @@
                 applicant: {},
                 init: {}, //初始化数据
                 safegoods: null, //所有产品
-                totalFee: '',
+                totalFee: 0,
                 insurances: [], //保存的险种
                 Addons: {}, //所有附加险
                 hasAddons: false, //是否有附加险
@@ -343,7 +343,7 @@
             //保障期间
             safeYearFilter: function (value) {
                 if (value > 50 && value !== '999' && value !== 999) {
-                    return '至' + value + '岁';
+                    return '至' + value + '周岁';
                 } else if (value < 50 && value > 0) {
                     return value + '年';
                 } else {
@@ -357,7 +357,7 @@
                 } else if (value < 60) {
                     return value + '年交';
                 } else {
-                    return '至' + value + '岁';
+                    return '至' + value + '周岁';
                 }
             }
         },
@@ -514,7 +514,7 @@
                     money: '', //基本保险金额
                     period_money: '' //年缴保费
                 }
-//                console.log(i + ', 是否初始化：' + init)
+                console.log(i + ', 是否初始化：' + init)
                 if (hmx.indexOf(i) > -1) {
                     var item = {}
                     for (var j in vm.Addons[i].ratio) {
@@ -529,6 +529,10 @@
                         tml.safe_year = item.year
                     }
                     tml.money = vm.insurance.period_money
+                } else if(i == ylnj){
+                    tml.safe_year = 85
+                    tml.pay_year = vm.insurance.pay_year
+                    tml.money = vm.insurance.period_money
                 } else {
                     if (vm.Addons[i].ratio.length === 1) {
                         tml.safe_year = vm.Addons[i].ratio[0].year
@@ -536,7 +540,6 @@
                     }
                     tml.money = ''
                 }
-//                console.log('设置附加险,ID:' + i)
                 vm.addonIns[i] = tml
                 console.log(JSON.stringify(tml))
                 if (init) {
@@ -746,6 +749,7 @@
                 }
                 //
                 var safe_year = index ? vm.addonIns[index].safe_year : vm.insurance.safe_year
+                var ssid = vm.assured.insured_has_SSID ? '1' : '2'
                 console.log(JSON.stringify(vm.applicant))
                 var basedata = {}
                 basedata.user_id = vm.userinfo.id
@@ -765,10 +769,57 @@
                 basedata.flag = 0
                 basedata.check = 0
                 basedata.alias = null
-                basedata.base_money = index ?  vm.addonIns[index].money : vm.insurance.money
+                basedata.base_money = index ?  Number(vm.addonIns[index].money) : Number(vm.insurance.money)
                 basedata.is_save = 0
                 if (index) {
                     basedata.year_fee = vm.addonIns[index].period_money
+                    if (!vm.checkAddonsForm(index)) {
+                        return false
+                    }
+                }
+                if (['1003'].indexOf(index) > -1) {
+                    basedata.assume_rate = '0';
+                    basedata.sa_one = '0';
+                    basedata.fa_one = '0';
+                    basedata.money_one = '0';
+                    basedata.sa_two = '0';
+                    basedata.fa_two = '0';
+                    basedata.money_two = '0';
+                    basedata.sa_three = '0';
+                    basedata.fa_three = '0';
+                    basedata.money_three = '0';
+                    basedata.sa_four = '0';
+                    basedata.fa_four = '0';
+                    basedata.money_four = '0';
+                    basedata.sa_five = '0';
+                    basedata.fa_five = '0';
+                    basedata.money_five = '0';
+                    basedata.sa_six = '0';
+                    basedata.fa_six = '0';
+                    basedata.money_six = '0';
+                    basedata.sa_seven = '0';
+                    basedata.fa_seven = '0';
+                    basedata.money_seven = '0';
+                    basedata.sa_eight = '0';
+                    basedata.fa_eight = '0';
+                    basedata.money_eight = '0';
+                    basedata.sa_night = '0';
+                    basedata.fa_night = '0';
+                    basedata.money_night = '0';
+                    basedata.sa_ten = '0';
+                    basedata.fa_ten = '0';
+                    basedata.money_ten = '0'
+
+                    //附加爱倍护养老年金保险
+                    basedata.safe_year = 8500
+                    basedata.njy = this.insurance.period_money * this.insurance.pay_year
+                }
+                if (index === ywmjz) {
+                    basedata.assu_sex = 0
+                    basedata.flag = ssid + vm.assured.insured_job_cate
+                } else if ([zybc, zybt].indexOf(index) > -1) {
+                    basedata.assu_sex = 0
+                    basedata.flag = vm.assured.insured_job_cate
                 }
                 var postData = JSON.stringify({
                     safes: JSON.stringify([basedata])
@@ -794,7 +845,16 @@
                                 mui.each(res.describes, function(index, item) {
                                     data[item.title] = res.list[1][index]
                                 })
-//                            vm.addonIns[index].period_money = vm.addonRes[safeid]['年缴保费'] || vm.addonRes[safeid]['年缴保费(元)'] || vm.addonRes[safeid]['累计保费'] || vm.addonRes[safeid]['门诊总保费'] || ret.data.data[-1][genre].year_fee || 0
+                                console.log(JSON.stringify(data))
+                                vm.addonIns[index].period_money = data['年缴保费']
+                                if (vm.addonIns[ylnj] && vm.addonsSelected[index]) {
+                                    if (index !== ylnj) { //非养老年金附加险
+                                        console.log('aaaaa')
+                                        vm.addonIns[ylnj].money = Number(vm.insurance.period_money) + Number(vm.addonIns[index].period_money)
+                                        vm.addonIns[ylnj].period_money = ''
+                                    }
+                                }
+                                console.log(vm.addonIns[ylnj].money)
                                 vm.countFee()
                             } else {
                                 mui.toast('网络出错，请稍后再试', {duration: 'short', type: 'div'});
@@ -831,7 +891,7 @@
                 });
             },
             checkAddonsForm: function (index) {
-//                console.log('附加险表单校验' + index)
+                console.log('附加险表单校验' + index)
                 var addon = this.addonIns[index]
                 var name = this.Addons[index].name
                 var toast_text = null
@@ -863,30 +923,30 @@
                 switch (index) {
                     case ylnj: // 附加爱倍护养老年金
                         if (money < 10000) {
-                            toast_text = '【' + name + '】的最低保额为1万元'
+                            toast_text = '最低保额为1万元'
                         } else if (money % 1000 !== 0) {
-                            toast_text = '【' + name + '】的保额需为1千元整数倍'
+                            toast_text = '保额需为1千元整数倍'
                         }
                         break
                     case ywmjz: // //附加意外门急诊
                         if (money < 5000) {
-                            toast_text = '【' + name + '】最低保额为5千元'
+                            toast_text = '最低保额为5千元'
                         }else if (money > 30000) {
-                            toast_text = '【' + name + '】最高保额为3万元'
+                            toast_text = '最高保额为3万元'
                         }
                         break
                     case zybc: // 附加住院补偿
                         if (money < 5000) {
-                            toast_text = '【' + name + '】最低保额为5千元'
+                            toast_text = '最低保额为5千元'
                         } else if (money > 50000) {
-                            toast_text = '【' + name + '】最高保额为5万元'
+                            toast_text = '最高保额为5万元'
                         }
                         break
                     case zybt: // 附加住院每日补贴
                         if (money < 30) {
-                            toast_text = '【' + name + '】最低保额为30元/天'
+                            toast_text = '最低保额为30元/天'
                         } else if (money > 500) {
-                            toast_text = '【' + name + '】最高保额为500元/天'
+                            toast_text = '最高保额为500元/天'
                         }
                         break
                     default:
@@ -953,13 +1013,10 @@
             if (!safe.checkForm()) {
                 return false
             }
-//            if ((safe.insurance.code === fxjs || safe.insurance.code === wnh) && !safe.insurance.money) {
-//                mui.toast('请先点击计算主险的基本保额', {duration: 'short', type: 'div'});
-//                return false
-//            } else if ((safe.insurance.code !== fxjs && safe.insurance.code !== wnh) && !safe.insurance.period_money) {
-//                mui.toast('请先点击计算主险的年交保费', {duration: 'short', type: 'div'});
-//                return false
-//            }
+            if (!safe.insurance.period_money) {
+                mui.toast('请先点击计算主险的年交保费', {duration: 'short', type: 'div'});
+                return false
+            }
             // 附加险
             var addonIns = []
             var countAddon = 0 // 险种个数
@@ -988,7 +1045,7 @@
             })
             plus.storage.setItem('zhaos_safegoods', JSON.stringify(insurances));
 //            console.log(JSON.stringify(plus.storage.getItem('zhaos_safegoods')))
-            mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
+            mui.fire(plus.webview.getWebviewById('zs_insurance-index'), 'saveFlag', {
                 item: 'zhaos_safegoods',
                 data: 'safegoods'
             });

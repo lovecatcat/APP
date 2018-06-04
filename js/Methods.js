@@ -2651,6 +2651,7 @@ var methods = {
 			safeid: this.insurance.safe_id
 		});
 
-		old_back()
+		//old_back()
+		plus.webview.hide(plus.webview.currentWebview());
 	}
 }

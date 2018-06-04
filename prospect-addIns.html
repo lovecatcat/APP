@@ -1976,7 +1976,7 @@
 					mui.toast('加载失败')
 				}
 			});
-			old_back = mui.back; //保存back事件
+			//old_back = mui.back; //保存back事件
 			mui.back = function() {
 				// 返回按钮，未点击保存，吧数据传给父页面
 				var data = {
@@ -1993,7 +1993,8 @@
 				mui.fire(parent_self, 'SET_TIME', {
 					ins: data
 				});
-				old_back();
+				//old_back();
+				plus.webview.hide(plus.webview.currentWebview());
 			}
 
 			//判断父页面传过来的数据

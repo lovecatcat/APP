@@ -962,6 +962,23 @@
                             return false
                         }
                         break
+                    case ylnj: // 附加养老年金
+                        if (pay_year < 10 && (age > 65)) {
+                            toast_text = pay_year + '年交投保年龄上限为65周岁'
+                        } else if (pay_year === 10 && age > 60) {
+                            toast_text = pay_year + '年交投保年龄上限为60周岁'
+                        } else if (pay_year === 15 && age > 55) {
+                            toast_text = pay_year + '年交投保年龄上限为55周岁'
+                        } else if (pay_year === 20 && age > 50) {
+                            toast_text = pay_year + '年交投保年龄上限为50周岁'
+                        } else if (pay_year === 30 && age > 40) {
+                            toast_text = pay_year + '年交投保年龄上限为40周岁'
+                        }
+                        if (toast_text) {
+                            mui.toast(toast_text, {duration: 'short', type: 'div'});
+                            return false
+                        }
+                        break
                     case qwhh: // 千万护航两全保险
                         if (age < 18 || age > 55) {
                             toast_text = '投保年龄范围在18-55周岁'

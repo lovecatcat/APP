@@ -6,6 +6,7 @@
 	var totalMoney = 0; //总保费
 	var describes = {}; //保险利益
 	var hd = [272, 276, 340, 348, 370, 16217, 264];//有在线投保的
+	var zs = [16211, 16113, 16213, 16139,16120,16219,16137,16119,16139,16212,16214,16215];//招商
 	var groupList = function(data, pl_id) {
 
 		var content = data;
@@ -72,9 +73,9 @@
 				base_money = '计划三'
 			}
 		} else if(parent_id == 347 || parent_id == 301 || parent_id == 348 || parent_id == 349 ||parent_id == 370 || parent_id == 16197 || parent_id == 16217) {
-			base_money = listMain["保险金额"];
+			base_money = Number(listMain["保险金额"]).toFixed(0);
 		} else if(parent_id == 360) {
-			base_money = listMain["保额"];
+			base_money = Number(listMain["保额"]).toFixed(0);
 		} else if(parent_id == 337) { //复星乐健一生住院保险
 			var fxflag = '';
 			if(content.flag.slice(0, 1) === 'B') {
@@ -84,9 +85,14 @@
 			}
 			base_money = fxflag + content.flag.substr(1)
 		} else {
-			base_money = content.base_money
+			base_money = Number(content.base_money).toFixed(0)
 		};
-		totalMoney += Number(year_fee);
+		if(zs.indexOf(Number(parent_id)) > -1) {
+	      totalMoney += Number(Number(year_fee).toFixed(0));
+	    }else{
+	      totalMoney += Number(year_fee);
+	    }
+		
 		if(!pl_id) {
 			plansData = [];
 			plansDataList.mainList = {
@@ -538,7 +544,11 @@
 							break;
 					}
 
-					totalMoney += Number(children_year_fee);
+					if(zs.indexOf(Number(index)) > -1) {
+						totalMoney += Number(Number(children_year_fee).toFixed(0));
+					}else{
+						totalMoney += Number(children_year_fee);
+					}
 
 					plansDataList.childrenList.push({
 						name: tml.name,

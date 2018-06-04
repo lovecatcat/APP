@@ -92,6 +92,194 @@
                         <label></label>
                     </div>
                 </div>
+                <!--附加豁免保险费重大疾病保险-->
+                <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==hmzj" v-show="addonsSelected[index]">
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money}}</span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            保障期间(年)&nbsp;<span class="BL-col-ff8201">终身</span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            交费期间(年)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].pay_year | payYearFilter}}</span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            年缴保费(元)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].period_money}}</span>
+                        </li>
+                    </div>
+                </div>
+                <!--附加投保人豁免保险费定期寿险-->
+                <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==tbrhmds" v-show="addonsSelected[index]">
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money}}</span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            保障期间(年)&nbsp;<span class="BL-col-ff8201">终身</span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            交费期间(年)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].pay_year | payYearFilter}}</span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            年缴保费(元)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].period_money}}</span>
+                        </li>
+                    </div>
+                </div>
+                <!--附加投保人豁免保险费重大疾病保险-->
+                <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==tbrhmzj" v-show="addonsSelected[index]">
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money}}</span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            保障期间(年)&nbsp;<span class="BL-col-ff8201">终身</span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            交费期间(年)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].pay_year | payYearFilter}}</span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            年缴保费(元)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].period_money}}</span>
+                        </li>
+                    </div>
+                </div>
+                <!--附加爱倍护养老年金-->
+                <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==ylnj" v-show="addonsSelected[index]">
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money}}</span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            保障期间(年)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].safe_year}}</span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            交费期间(年)&nbsp;<span class="BL-col-ff8201">{{insurance.pay_year | payYearFilter}}</span>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6">
+                        <li class="ins-font-xs">
+                            年缴保费(元)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].period_money}}</span>
+                        </li>
+                    </div>
+                </div>
+                <!--附加意外门急诊-->
+                <template v-if="index==ywmjz">
+                    <div class="input-item ins-pd-r-0">
+                        <label class="">交费期间</label>
+                        <div class="input-wrap box-f-1">
+                            <button class="ins-btn xs-btn blue" disabled>1年</button>
+                        </div>
+                    </div>
+                    <div class="input-item ins-pd-r-0">
+                        <label class="">保险期间</label>
+                        <div class="input-wrap box-f-1">
+                            <button class="ins-btn xs-btn blue" disabled>1年</button>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">基本保额(元)</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" placeholder="请输入" v-model.number.lazy="addonIns[index].money"
+                                   @change="addonIns[index].period_money=''">
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">年缴保费(元)</label>
+                        <div class="BL-ub BL-ub-pj BL-ub-f1">
+                            <div class="input-wrap BL-ub-f1">
+                                <input type="number" class="BL-col-ff8201"
+                                       v-model.number.lazy="addonIns[index].period_money" readonly>
+                            </div>
+                            <div class="right-btn orange" @click="calMoney(index)">点击计算</div>
+                        </div>
+                    </div>
+                </template>
+                <!--附加住院每日补贴-->
+                <template v-if="index==zybt">
+                    <div class="input-item ins-pd-r-0">
+                        <label class="">交费期间</label>
+                        <div class="input-wrap box-f-1">
+                            <button class="ins-btn xs-btn blue" disabled>1年</button>
+                        </div>
+                    </div>
+                    <div class="input-item ins-pd-r-0">
+                        <label class="">保险期间</label>
+                        <div class="input-wrap box-f-1">
+                            <button class="ins-btn xs-btn blue" disabled>1年</button>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">基本保额(元)</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" placeholder="请输入" v-model.number.lazy="addonIns[index].money"
+                                   @change="addonIns[index].period_money=''">
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">年缴保费(元)</label>
+                        <div class="BL-ub BL-ub-pj BL-ub-f1">
+                            <div class="input-wrap BL-ub-f1">
+                                <input type="number" class="BL-col-ff8201"
+                                       v-model.number.lazy="addonIns[index].period_money" readonly>
+                            </div>
+                            <div class="right-btn orange" @click="calMoney(index)">点击计算</div>
+                        </div>
+                    </div>
+                </template>
+                <!--附加住院补偿-->
+                <template v-if="index==zybc">
+                    <div class="input-item ins-pd-r-0">
+                        <label class="">交费期间</label>
+                        <div class="input-wrap box-f-1">
+                            <button class="ins-btn xs-btn blue" disabled>1年</button>
+                        </div>
+                    </div>
+                    <div class="input-item ins-pd-r-0">
+                        <label class="">保险期间</label>
+                        <div class="input-wrap box-f-1">
+                            <button class="ins-btn xs-btn blue" disabled>1年</button>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">基本保额(元)</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" placeholder="请输入" v-model.number.lazy="addonIns[index].money"
+                                   @change="addonIns[index].period_money=''">
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">年缴保费(元)</label>
+                        <div class="BL-ub BL-ub-pj BL-ub-f1">
+                            <div class="input-wrap BL-ub-f1">
+                                <input type="number" class="BL-col-ff8201"
+                                       v-model.number.lazy="addonIns[index].period_money" readonly>
+                            </div>
+                            <div class="right-btn orange" @click="calMoney(index)">点击计算</div>
+                        </div>
+                    </div>
+                </template>
             </div>
         </div>
     </div>
@@ -595,7 +783,7 @@
                     },
                     timeout: 50000,
                     success: function (ret) {
-                        if(index){
+                        if(index){//附加险
                             if(ret.data.data &&
                                 ret.data.data[-1][genre] &&
                                 ret.data.data[-1][genre].main &&
@@ -607,11 +795,12 @@
                                     data[item.title] = res.list[1][index]
                                 })
 //                            vm.addonIns[index].period_money = vm.addonRes[safeid]['年缴保费'] || vm.addonRes[safeid]['年缴保费(元)'] || vm.addonRes[safeid]['累计保费'] || vm.addonRes[safeid]['门诊总保费'] || ret.data.data[-1][genre].year_fee || 0
+                                vm.countFee()
                             } else {
                                 mui.toast('网络出错，请稍后再试', {duration: 'short', type: 'div'});
                                 return false;
                             }
-                        } else {
+                        } else {//主险
                             if(ret.data.data &&
                                 ret.data.data[0][genre] &&
                                 ret.data.data[0][genre].main &&
@@ -630,6 +819,9 @@
                                 })
                                 var data = ret.list[1]
                                 vm.insurance.period_money = data[i]
+                                // 重置附加险
+                                vm.resetAddons();
+                                vm.countFee()
                             } else {
                                 mui.toast('网络出错，请稍后再试', {duration: 'short', type: 'div'});
                                 return false;

@@ -96,7 +96,7 @@
                 <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==hmzj" v-show="addonsSelected[index]">
                     <div class="mui-col-sm-6">
                         <li class="ins-font-xs">
-                            保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money}}</span>
+                            保险金额(元)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].money}}</span>
                         </li>
                     </div>
                     <div class="mui-col-sm-6">
@@ -822,7 +822,7 @@
                     basedata.flag = vm.assured.insured_job_cate
                 } else if (hmx.indexOf(index) > -1) {
                     if (vm.addonsSelected[ylnj]) {
-                        basedata.base_money += vm.addonIns[ylnj].money
+                        basedata.base_money = this.insurance.period_money + Number(vm.addonIns[ylnj].money)
                     }
                     if (index === tbrhmds) {
                         basedata.safe_year = this.insurance.pay_year
@@ -847,16 +847,20 @@
                                 ret.data.data[-1][genre].main &&
                                 ret.data.data[-1][genre].main.list &&
                                 ret.data.data[-1][genre].main.list[1]) { // 附加险
-                                if (index == ylnj) {
-                                    vm.addonsSelected[hmzj] = false
-                                }
+
                                 var res = ret.data.data[-1][genre].main
                                 var data = {}
                                 mui.each(res.describes, function (index, item) {
                                     data[item.title] = res.list[1][index]
                                 })
-                                console.log(JSON.stringify(data))
+                                if (index == ylnj) {
+                                    vm.addonsSelected[hmzj] = false
+                                    vm.addonIns[hmzj].money = vm.insurance.period_money + Number(data['年缴保费'])
+                                }
+                                console.log(vm.addonIns[hmzj].money)
                                 vm.addonIns[index].period_money = data['年缴保费']
+                                console.log(vm.addonIns[index].period_money)
+                                vm.$forceUpdate()
                                 vm.countFee()
                             } else {
                                 mui.toast('网络出错，请稍后再试', {duration: 'short', type: 'div'});

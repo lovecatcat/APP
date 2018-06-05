@@ -67,6 +67,12 @@
                 <div class="mui-icon mui-icon-arrowright"></div>
             </div>
         </div>
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" @tap="showpop(8)">
+            <label class="ins-font-md" :class="{'BL-col-3b9cf5':agent}">代理人告知</label>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </div>
     </form>
     <div class="BL-mar-t-3 BL-pad-lr-1_5">
         <a type="button" id="ins-save" class="form-btn blue">提交</a>
@@ -85,7 +91,7 @@
         var titHeight = document.querySelector('#Js-header').offsetHeight;
         document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
         var itemName = ['zhaos_applicant','zhaos_assured','zhaos_beneficiary','zhaos_safegoods','zhaos_healthinfo','zhaos_bank','zhaos_upload','zhaos_ids','userinfo'];
-        var subpages = ["insurance-applicant", "insurance-assured", "insurance-beneficiary", "insurance-safegoods", "insurance-healthinfo", "insurance-bank", "insurance-upload"];
+        var subpages = ["insurance-applicant", "insurance-assured", "insurance-beneficiary", "insurance-safegoods", "insurance-healthinfo", "insurance-bank", "insurance-upload","insurance-agent"];
 
         var index = new Vue({
             el: '#Js-content',
@@ -103,7 +109,8 @@
                     healthinfo: '',
                     bank: '',
                     sign: '',
-                    upload: ''
+                    upload: '',
+                    agent: ''
                 }
             },
             created:function(){

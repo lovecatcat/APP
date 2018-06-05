@@ -58,7 +58,7 @@
                     </div>
                     <div v-for="(item,index) in matters" v-if="isShow(index,2)" v-show="!assfolder">
                         <ul class="flex">
-                            <li class="flex-1" v-html="item.content">{{index}}</li>
+                            <li class="flex-1" v-html="item.content"></li>{{index}}
                             <li class="item-operate BL-mar-t-1">
                                 <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.ass_amswer[item.id]}" :disabled="clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,true),toblur()">是</button>
                                 <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.ass_amswer[item.id]}" :disabled="!clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,false),toblur()">否</button>
@@ -172,6 +172,155 @@
             value: ''
         }],
         '220': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '221': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '222': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '223': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '225': [{
+            title: '检查原因',
+            type: 'text',
+            value: ''
+        }, {
+            title: '检查结果',
+            type: 'text',
+            value: ''
+        }],
+        '228': [{
+            title: '智能障碍等级',
+            type: 'text',
+            value: ''
+        }],
+        '230': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '235': [{
+            title: '怀孕周数',
+            type: 'text',
+            value: ''
+        }],
+        '237': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '238': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '239': [{
+            title: '患病对象',
+            type: 'text',
+            value: ''
+        }, {
+            title: '所患疾病名称',
+            type: 'text',
+            value: ''
+        }, {
+            title: '患病时年龄(周岁)',
+            type: 'number',
+            value: ''
+        }, {
+            title: '生存情况(健在或者身故)',
+            type: 'text',
+            value: ''
+        }, {
+            title: '身故时年龄(周岁)',
+            type: 'number',
+            value: ''
+        }],
+        '245': [{
+            title: 'A. 请告知出生体重',
+            type: 'number',
+            msg: '请输入正确的出生体重，保留2位小数',
+            reg: /^\d+$/,
+            value: ''
+        }],
+        '247': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '248': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '249': [{
+            title: '参加的项目',
+            type: 'text',
+            value: ''
+        }, {
+            title: '参加的次数',
+            type: 'number',
+            value: ''
+        }],
+        '252': [{
+            title: '驾照类型',
+            type: 'text',
+            value: ''
+        }],
+        '254': [{
+            title: '次数',
+            type: 'number',
+            value: ''
+        }, {
+            title: '时间',
+            type: 'date',
+            value: ''
+        }, {
+            title: '违章类型',
+            type: 'text',
+            value: ''
+        }],
+        '258': [{
+            title: '居住的国家或地区',
+            type: 'text',
+            value: ''
+        }, {
+            title: '居住时间',
+            type: 'text',
+            value: ''
+        }],
+        '261': [{
+            title: '计划去的国家或地区',
+            type: 'text',
+            value: ''
+        }, {
+            title: '目的',
+            type: 'text',
+            value: ''
+        }, {
+            title: '居住时间(月)',
+            type: 'text',
+            value: ''
+        }],
+        '265': [{
+            title: '投保险种',
+            type: 'text',
+            value: ''
+        }, {
+            title: '保险金额',
+            type: 'text',
+            value: ''
+        }, {
+            title: '承保公司',
+            type: 'text',
+            value: ''
+        }, {
+            title: '日期',
+            type: 'date',
+            value: ''
+        }],
+        '270': [{
             type: 'textarea',
             value: ''
         }]
@@ -300,6 +449,14 @@
             type: 'text',
             value: ''
         }],
+        '237': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '238': [{
+            type: 'textarea',
+            value: ''
+        }],
         '239': [{
             title: '患病对象',
             type: 'text',
@@ -326,6 +483,14 @@
             type: 'number',
             msg: '请输入正确的出生体重，保留2位小数',
             reg: /^\d+$/,
+            value: ''
+        }],
+        '247': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '248': [{
+            type: 'textarea',
             value: ''
         }],
         '249': [{
@@ -392,6 +557,10 @@
         },{
             title: '日期',
             type: 'date',
+            value: ''
+        }],
+        '270': [{
+            type: 'textarea',
             value: ''
         }]
     };
@@ -505,7 +674,7 @@
                 return ret
             },
             isShow:function(i, type) {
-                if (i === 272) {
+                if (i === 36 || i === 35) {
                     return false
                 }
                 return true

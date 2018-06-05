@@ -1312,3 +1312,139 @@ input[type='number'].member-tax-input{
     height: 2.5rem;
 	background-image: url("../images/icon/ico-narrow.png");
 }
+/* 风险评测 */
+.member-risk-banner {
+	position: relative;
+	height: 25rem;
+	background-image: url(../images/member/risk-evaluation.png);
+	background-size: 100% 100%;
+}
+.member-risk-body {
+	position: absolute;
+	top: 10.53125rem;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+.member-risk-form {
+	background: #ffffff;
+	width: 88%;
+	padding: 2.875rem;
+	margin: 0 auto;
+	box-shadow: 0 0 2rem rgba(2,111,208,0.3);
+	-webkit-box-shadow: 0 0 2rem rgba(2,111,208,0.3);
+	-moz-box-shadow: 0 0 2rem rgba(2,111,208,0.3);
+}
+input[type='text'].member-risk-input{
+	border: 1px solid #c8c8c8;
+	border-radius: .3125rem;
+	font-size: 1.4375rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	height: 2.9375rem;
+	text-align: left;
+	padding-left: 1rem;
+}
+.risk-form-btn{
+	border-radius: .3rem;
+	font-size: 1.3125rem;
+	height:3.125rem;
+	line-height: 3.125rem;
+	background-color: transparent;
+	padding: 0 2rem;
+}
+.risk-form-btn.blue{
+	background-color: #3b9cf5;color: #fff;
+}
+.mui-progressbar {
+	height: .2rem;
+	background: #efefef;
+}
+.risk_list {
+	font-size: 1.5rem;
+}
+.risk_list li {
+	list-style-type: unset;
+	padding-bottom: 2rem;
+	padding-left: .5rem;
+	margin-left: .2rem;
+}
+.risk_list li.mui-radio label{
+	display: block;
+	width: 94%;
+	padding-right: 2rem;
+}
+.risk_list li.mui-radio input[type='radio'] {
+	position: absolute;
+	top: .2rem;
+	right: .2rem;
+	display: inline-block;
+	width: 2rem;
+	height: 2rem;
+	border: 0;
+	outline: 0 !important;
+	background-color: transparent;
+	-webkit-appearance: none;
+}
+.risk_list li.mui-radio input[type='radio']:before {
+	font-family: Muiicons;
+	font-size: 2rem;
+	font-weight: normal;
+	line-height: 1;
+	text-decoration: none;
+	color: #aaa;
+	border-radius: 0;
+	background: none;
+	-webkit-font-smoothing: antialiased;
+}
+.risk_list li.mui-radio input[type='radio']:checked:before {
+	color: #007aff;
+}
+.form-btn.back-btn, .form-btn.submit-btn {
+	width: 90%;
+	margin: 0 auto;
+	/*box-shadow: 0 0 2px #3B9CF5;*/
+	/*-webkit-box-shadow: 0 0 2px #3B9CF5;*/
+	/*-moz-box-shadow: 0 0 2px #3B9CF5;*/
+}
+.form-button-group .form-btn.back-btn {
+	background: transparent;
+	color: #3B9CF5;
+	border: 3px solid #3B9CF5;
+}
+.form-btn.submit-btn:disabled {
+	color: #666666;
+	background: #cccccc;
+}
+.member-risk-tab {
+	width: 100%;
+	font-size: 1.125rem;
+	border: 1px solid #cccccc;
+	text-align: center;
+}
+.member-risk-tab th{
+	background: rgba(231,231,231,0.5);
+	padding: 1rem .5rem;
+	white-space: normal;
+	border: 1px solid #cccccc;
+}
+.member-risk-tab td {
+	color: #999999;
+	padding: 1rem .5rem;
+	border: 1px solid #cccccc;
+}
+.member-risk-tab tbody tr>td:nth-child(1) {
+	color: #333;
+}
+.member-risk-tab tbody tr>td:nth-child(2) {
+	text-align: left;
+}
+.risk-circle {
+	width: 2rem;
+	height: 2rem;
+	margin-right: 1rem;
+	background: #3B9CF5;
+	border-radius: 50%;
+	border: .3rem solid #cad6e2;
+}

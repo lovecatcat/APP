@@ -401,7 +401,9 @@
 					"rank.html",
 					"requirement_safe1.html",
 					"requirement_safe.html",
-					"requirement_retire.html"
+					"requirement_retire.html",
+					"requirement_risk.html",
+					"requirement_risk_result.html"
 				],
 				"priority": 0
 			},
@@ -3341,6 +3343,47 @@
 			"pdf-modal-content.html": {
 				"resources": [
 					"js/pdf.worker.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"requirement_risk.html": {
+				"resources": [
+					"css/mui.css",
+					"css/member.css",
+					"images/member/risk-evaluation.png",
+					"css/module.css",
+					"css/common.css",
+					"css/form.css"
+				],
+				"refer": [
+					"requirement_risk_question.html"
+				],
+				"priority": 0
+			},
+			"requirement_risk_question.html": {
+				"resources": [
+					"js/mui.poppicker.js",
+					"css/mui.picker.min.css",
+					"css/mui.css",
+					"css/member.css",
+					"css/form.css"
+				],
+				"refer": [
+					"requirement_risk_result.html"
+				],
+				"priority": 0
+			},
+			"requirement_risk_result.html": {
+				"resources": [
+					"css/sns.css",
+					"js/Date.js",
+					"css/mui.css",
+					"js/interval-dtpicker.js",
+					"css/member.css",
+					"images/member/pingheng.png",
+					"images/member/pinghengxing.jpg",
+					"images/member/jinquxing.jpg"
 				],
 				"refer": [],
 				"priority": 0

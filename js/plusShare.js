@@ -61,7 +61,7 @@
 			callback && callback(false);
 		}
 	}
-	var open = function(msg, callback) {
+	var open = function(msg, callback, fn) {
 		/**
 		 *如下情况直接打开系统分享
 		 * 1、未配置微信分享通道
@@ -80,6 +80,7 @@
 				}]
 			}, function(e) {
 				var index = e.index;
+				fn();
 				switch(index) {
 					case 1: //分享到微信好友
 						msg.extra = {

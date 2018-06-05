@@ -36,27 +36,14 @@
                     </div>
                     <div v-for="(item,index) in matters" v-if="isShow(index,1)" v-show="!appfolder">
                         <ul class="flex">
-                            <li class="flex-1">{{item.entry}}.&nbsp;{{item.content}}</li>
-                            <li class="item-operate BL-mar-t-1" v-if="['10','11','5'].indexOf(item.entry)===-1">
+                            <li class="flex-1" v-html="item.content"></li>
+                            <li class="item-operate BL-mar-t-1">
                                 <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.app_amswer[item.id]}" :disabled="clientvalue.app_amswer[item.id]" @tap="appChange(item.id,true),toblur()">是</button>
                                 <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.app_amswer[item.id]}" :disabled="!clientvalue.app_amswer[item.id]" @tap="appChange(item.id,false),toblur()">否</button>
                             </li>
                         </ul>
                         <template v-if="appforms[item.id] && (clientvalue.app_amswer[item.id]||item.entry==11)">
                             <app-form :forms="appforms[item.id]"></app-form>
-                        </template>
-                        <template v-if="item.child">
-                            <div v-for="childitem in item.child" :key="childitem.id">
-                                <ul class="flex">
-                                    <li class="flex-1">{{childitem.entry}}.&nbsp;{{childitem.content}}</li>
-                                    <li class="item-operate BL-mar-t-1">
-                                        <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.app_amswer[childitem.id]}" :disabled="clientvalue.app_amswer[childitem.id]" @tap="appChange(childitem.id,true),toblur()">是</button>
-                                        <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.app_amswer[childitem.id]}" :disabled="!clientvalue.app_amswer[childitem.id]" @tap="appChange(childitem.id,false),toblur()">否</button>
-                                    </li>
-                                </ul>
-                                <template v-if="appforms[childitem.id] && clientvalue.app_amswer[childitem.id]">
-                                    <app-form :forms="appforms[childitem.id]"></app-form>
-                                </template>
                         </template>
                     </div>
                 </div>
@@ -71,27 +58,14 @@
                     </div>
                     <div v-for="(item,index) in matters" v-if="isShow(index,2)" v-show="!assfolder">
                         <ul class="flex">
-                            <li class="flex-1">{{item.entry}}.&nbsp;{{item.content}}</li>
-                            <li class="item-operate BL-mar-t-1" v-if="['10','11','5'].indexOf(item.entry)===-1">
+                            <li class="flex-1" v-html="item.content">{{index}}</li>
+                            <li class="item-operate BL-mar-t-1">
                                 <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.ass_amswer[item.id]}" :disabled="clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,true),toblur()">是</button>
                                 <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.ass_amswer[item.id]}" :disabled="!clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,false),toblur()">否</button>
                             </li>
                         </ul>
                         <template v-if="assforms[item.id] && (clientvalue.ass_amswer[item.id]||item.entry==11)">
                             <app-form :forms="assforms[item.id]"></app-form>
-                        </template>
-                        <template v-if="item.child">
-                            <div v-for="childitem in item.child" :key="childitem.id">
-                                <ul class="flex">
-                                    <li class="flex-1">{{childitem.entry}}.&nbsp;{{childitem.content}}</li>
-                                    <li class="item-operate BL-mar-t-1">
-                                        <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.ass_amswer[childitem.id]}" :disabled="clientvalue.ass_amswer[childitem.id]" @tap="assChange(childitem.id,true),toblur()">是</button>
-                                        <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.ass_amswer[childitem.id]}" :disabled="!clientvalue.ass_amswer[childitem.id]" @tap="assChange(childitem.id,false),toblur()">否</button>
-                                    </li>
-                                </ul>
-                                <template v-if="assforms[childitem.id] && clientvalue.ass_amswer[childitem.id]">
-                                    <app-form :forms="assforms[childitem.id]"></app-form>
-                                </template>
                         </template>
                     </div>
                 </div>
@@ -170,6 +144,10 @@
             value: ''
         }],
         '213': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '214': [{
             type: 'textarea',
             value: ''
         }],
@@ -259,6 +237,10 @@
             type: 'textarea',
             value: ''
         }],
+        '214': [{
+            type: 'textarea',
+            value: ''
+        }],
         '215': [{
             type: 'textarea',
             value: ''
@@ -281,6 +263,135 @@
         }],
         '220': [{
             type: 'textarea',
+            value: ''
+        }],
+        '221': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '222': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '223': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '225': [{
+            title: '检查原因',
+            type: 'text',
+            value: ''
+        }, {
+            title: '检查结果',
+            type: 'text',
+            value: ''
+        }],
+        '228': [{
+            title: '智能障碍等级',
+            type: 'text',
+            value: ''
+        }],
+        '230': [{
+            type: 'textarea',
+            value: ''
+        }],
+        '235': [{
+            title: '怀孕周数',
+            type: 'text',
+            value: ''
+        }],
+        '239': [{
+            title: '患病对象',
+            type: 'text',
+            value: ''
+        },{
+            title: '所患疾病名称',
+            type: 'text',
+            value: ''
+        },{
+            title: '患病时年龄(周岁)',
+            type: 'number',
+            value: ''
+        },{
+            title: '生存情况(健在或者身故)',
+            type: 'text',
+            value: ''
+        },{
+            title: '身故时年龄(周岁)',
+            type: 'number',
+            value: ''
+        }],
+        '245': [{
+            title: 'A. 请告知出生体重',
+            type: 'number',
+            msg: '请输入正确的出生体重，保留2位小数',
+            reg: /^\d+$/,
+            value: ''
+        }],
+        '249': [{
+            title: '参加的项目',
+            type: 'text',
+            value: ''
+        },{
+            title: '参加的次数',
+            type: 'number',
+            value: ''
+        }],
+        '252': [{
+            title: '驾照类型',
+            type: 'text',
+            value: ''
+        }],
+        '254': [{
+            title: '次数',
+            type: 'number',
+            value: ''
+        }, {
+            title: '时间',
+            type: 'date',
+            value: ''
+        }, {
+            title: '违章类型',
+            type: 'text',
+            value: ''
+        }],
+        '258': [{
+            title: '居住的国家或地区',
+            type: 'text',
+            value: ''
+        },{
+            title: '居住时间',
+            type: 'text',
+            value: ''
+        }],
+        '261': [{
+            title: '计划去的国家或地区',
+            type: 'text',
+            value: ''
+        },{
+            title: '目的',
+            type: 'text',
+            value: ''
+        },{
+            title: '居住时间(月)',
+            type: 'text',
+            value: ''
+        }],
+        '265': [{
+            title: '投保险种',
+            type: 'text',
+            value: ''
+        },{
+            title: '保险金额',
+            type: 'text',
+            value: ''
+        },{
+            title: '承保公司',
+            type: 'text',
+            value: ''
+        },{
+            title: '日期',
+            type: 'date',
             value: ''
         }]
     };
@@ -394,16 +505,7 @@
                 return ret
             },
             isShow:function(i, type) {
-                if (i === 0 || i === 12) {
-                    return false
-                }
-                if (i === 10 && type === 1 && !this.isApplWm ) {
-                    return false
-                }
-                if (i === 10 && type === 2 && !this.isAssuWm ) {
-                    return false
-                }
-                if (i === 11 && (type === 1 || (i === 11 && type === 2 && this.assuAge > 2))) {
+                if (i === 272) {
                     return false
                 }
                 return true
@@ -525,7 +627,7 @@
         var safegoods = plus.storage.getItem('zhaos_safegoods') ? JSON.parse(plus.storage.getItem('zhaos_safegoods')) : '';
         if (safegoods) {
             mui.each(safegoods, function (index, item) {
-                if (item.safe_id === tbrhm) {
+                if ([tbrhmds, tbrhmzj].indexOf(item.safe_id) > -1) {
                     health.showAppl = true
                     health.appfolder = false
                 }

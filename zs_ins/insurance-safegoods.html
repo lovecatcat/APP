@@ -201,8 +201,7 @@
                     <div class="input-item">
                         <label class="">基本保额(元)</label>
                         <div class="input-wrap box-f-1">
-                            <input type="number" placeholder="请输入" v-model.number.lazy="addonIns[index].money"
-                                   @change="addonIns[index].period_money=''">
+                            <input type="number" placeholder="请输入" v-model.number.lazy="addonIns[index].money" @change="addonIns[index].period_money=''">
                         </div>
                     </div>
                     <div class="input-item">
@@ -565,6 +564,10 @@
                 if (!vm.addonIns[index]) return
                 this.$nextTick(function () {
                     console.log('-------------')
+                    if (!vm.addonsSelected[index]) {
+                        console.log('ddddd')
+                        vm.setAddons(index)
+                    }
                     var toast_text = null
                     var name = vm.Addons[index].name
                     var safe_id = vm.insurance.code
@@ -582,7 +585,6 @@
                             break
                     }
                     if (toast_text) {
-                        console.log('1')
                         mui.toast(toast_text, {duration: 'short', type: 'div'});
                         vm.addonsSelected[index] = false
                         return false
@@ -727,6 +729,7 @@
 
                         })
                     },
+                    timeout: 50000,
                     success: function(res) {
                         if(res.code == 1) {
                             genre = res.data.id
@@ -825,8 +828,6 @@
                         basedata.safe_year = this.insurance.pay_year
                     }
                 }
-//                {"safes":"[{\"user_id\":465,\"applicant\":\"尴尬\",\"appl_sex\":1,\"appl_age\":25,\"assured\":\"刚好\",\"assu_sex\":1,\"assu_age\":30,\"safe_year\":5,\"pay_year\":4,\"warranty_year\":1,\"genre\":16137,\"fj\":true,\"is_save\":0,\"derate_money\":0,\"need_packet\":0,\"flag\":0,\"check\":0,\"alias\":null,\"base_money\":4557}]"} at js/Methods.js:2490
-
                 var postData = JSON.stringify({
                     safes: JSON.stringify([basedata])
                 })
@@ -840,15 +841,18 @@
                     },
                     timeout: 50000,
                     success: function (ret) {
-                        if(index){//附加险
-                            if(ret.data.data &&
+                        if (index) {//附加险
+                            if (ret.data.data &&
                                 ret.data.data[-1][genre] &&
                                 ret.data.data[-1][genre].main &&
                                 ret.data.data[-1][genre].main.list &&
                                 ret.data.data[-1][genre].main.list[1]) { // 附加险
+                                if (index == ylnj) {
+                                    vm.addonsSelected[hmzj] = false
+                                }
                                 var res = ret.data.data[-1][genre].main
                                 var data = {}
-                                mui.each(res.describes, function(index, item) {
+                                mui.each(res.describes, function (index, item) {
                                     data[item.title] = res.list[1][index]
                                 })
                                 console.log(JSON.stringify(data))
@@ -859,7 +863,7 @@
                                 return false;
                             }
                         } else {//主险
-                            if(ret.data.data &&
+                            if (ret.data.data &&
                                 ret.data.data[0][genre] &&
                                 ret.data.data[0][genre].main &&
                                 ret.data.data[0][genre].main.list &&
@@ -1032,6 +1036,10 @@
                         return false
                     }
                 }
+            }
+            if (!safe.addonsSelected[hmzj]) {
+                mui.toast('招商仁和【附加豁免保险费重大疾病保险】为必选', {duration: 'long', type: 'div'});
+                return false
             }
             //
             var insurances = []

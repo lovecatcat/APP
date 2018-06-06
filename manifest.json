@@ -403,7 +403,8 @@
 					"requirement_safe.html",
 					"requirement_retire.html",
 					"requirement_risk.html",
-					"requirement_risk_result.html"
+					"requirement_risk_result.html",
+					"requirement_risk_ppt.html"
 				],
 				"priority": 0
 			},
@@ -3386,6 +3387,23 @@
 					"images/member/jinquxing.jpg"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"requirement_risk_ppt.html": {
+				"resources": [
+					"images/member/req-bg.jpg",
+					"css/member.css",
+					"js/interval-dtpicker.js",
+					"css/mui.css",
+					"images/member/risk-education.png",
+					"images/member/risk-medical.png",
+					"images/member/req-bg.png",
+					"images/member/risk-pension.png"
+				],
+				"refer": [
+					"requirement_safe.html",
+					"requirement_retire.html"
+				],
 				"priority": 0
 			}
 		},

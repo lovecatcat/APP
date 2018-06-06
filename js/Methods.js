@@ -827,6 +827,11 @@ var methods = {
 					toastText = '最低保额5万元！'
 				}
 				break
+			case 'LXYS': // 乐享一生
+				if(!this.flag[safeid]) {
+					toastText = '请先选择有无社保'
+				}
+				break
 				//招商仁和
 			case '1001': // 招商仁和爱倍护重大疾病保险
 				if(money < 10000) {

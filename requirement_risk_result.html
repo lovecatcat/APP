@@ -13,6 +13,7 @@
     <header id="Js-header" class="BL-bg-fff">
         <div class="BL-mod-headbar BL-mod-headbar-pos">
             <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+            <a id="Js-closePage" class="BL-ctrl-close">关闭</a>
             <h1 class="BL-title">需求分析</h1>
             <div class="control" href="requirement_risk_ppt.html" data-wid="requirement_risk_ppt">
                 <a>下一步</a>
@@ -133,7 +134,7 @@
         bounce: true //是否启用回弹
     });
 
-    mui.ready(function() {
+    mui.plusReady(function() {
         statusbar();
         var winH = window.innerHeight;
         var titHeight = document.querySelector('#Js-header').offsetHeight;
@@ -195,6 +196,16 @@
                 }
             },500)
         });
+        
+        // 自定义关闭事件
+        document.querySelector('#Js-closePage').addEventListener('tap', function(){
+//            plus.webview.currentWebview().opener().close()
+            plus.webview.close('requirement_risk_question');
+            plus.webview.close('requirement_risk');
+            setTimeout(function(){
+                plus.webview.currentWebview().close();
+            },500);
+        }, false);
     });
 </script>
 </html>

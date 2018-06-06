@@ -483,7 +483,9 @@
 					"images/icon/ico-filter.png",
 					"images/icon/ico-eye.png",
 					"images/icon/ico-hide.png",
-					"js/config.js"
+					"js/config.js",
+					"images/icon/ico-search-blue.png",
+					"js/vue.min.js"
 				],
 				"refer": [
 					"product-detail.html",
@@ -2693,7 +2695,12 @@
 			},
 			"shop.html": {
 				"resources": [
-					"css/mui.css"
+					"css/mui.css",
+					"css/module.css",
+					"js/mui.min.js",
+					"css/common.css",
+					"fonts/mui.ttf",
+					"js/config.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2985,7 +2992,12 @@
 					"images/icon/ico-filter-active.png",
 					"js/pdf.js",
 					"js/pdf.worker.js",
-					"images/a.pdf"
+					"images/a.pdf",
+					"images/icon/ico-search-blue.png",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"js/mui.min.js",
+					"js/config.js"
 				],
 				"refer": [
 					"quickly-filter.html",
@@ -3265,7 +3277,15 @@
 					"js/mui.poppicker.js",
 					"css/mui.css",
 					"css/form.css",
-					"css/mui.picker.min.css"
+					"css/mui.picker.min.css",
+					"css/module.css",
+					"js/mui.picker.js",
+					"js/mui.min.js",
+					"css/common.css",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"js/mui.dtpicker.js",
+					"js/config.js"
 				],
 				"refer": [
 					"product.html"
@@ -3277,7 +3297,15 @@
 					"js/mui.poppicker.js",
 					"css/mui.picker.min.css",
 					"css/form.css",
-					"css/mui.css"
+					"css/mui.css",
+					"css/module.css",
+					"js/mui.picker.js",
+					"js/mui.min.js",
+					"css/common.css",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"js/mui.dtpicker.js",
+					"js/config.js"
 				],
 				"refer": [
 					"product.html"
@@ -3295,7 +3323,14 @@
 					"css/mui.css",
 					"images/member/clips_4.png",
 					"images/member/clips_8.png",
-					"images/member/clips_9.png"
+					"images/member/clips_9.png",
+					"images/icon/ico-search-blue.png",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"css/module.css",
+					"js/mui.min.js",
+					"css/common.css",
+					"js/config.js"
 				],
 				"refer": [
 					"member-promote.html",
@@ -3311,7 +3346,15 @@
 					"js/mui.poppicker.js",
 					"css/mui.picker.min.css",
 					"css/form.css",
-					"css/mui.css"
+					"css/mui.css",
+					"css/module.css",
+					"js/mui.picker.js",
+					"js/mui.min.js",
+					"css/common.css",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"js/mui.dtpicker.js",
+					"js/config.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -3386,7 +3429,9 @@
 					"images/member/pinghengxing.jpg",
 					"images/member/jinquxing.jpg"
 				],
-				"refer": [],
+				"refer": [
+					"requirement_risk_ppt.html"
+				],
 				"priority": 0
 			},
 			"requirement_risk_ppt.html": {

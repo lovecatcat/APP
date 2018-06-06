@@ -590,6 +590,11 @@ var methods = {
 					toastText = '保障期间为70年时不能20年交'
 				}
 				break
+			case 'LXYS': // 复星乐健一生
+				if(assuAge > 49) {
+					toastText = '被保人年龄不能大于49周岁'
+				}
+				break
 				//安联
 			case 'CCPAAP1': // 安联-出行无忧
 				if(assuAge < 18) {
@@ -2474,9 +2479,10 @@ var methods = {
 		} else if(safeid === '1016') {
 			// 招商仁和仁医保费用补偿医疗保险
 			data.flag = this.flag[safeid]
-		} else if(safeid === 'NHFA' || safeid === 'NHGA') {
+		} else if(safeid === 'NHFA' || safeid === 'NHGA' || safeid === 'LXYS') {
 //			爱心保智选医疗保险
 //			爱心保卓越医疗保险
+//复星联合乐享一生医疗保险
 			data.flag = this.flag[safeid]
 		}
 

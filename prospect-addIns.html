@@ -59,13 +59,14 @@
 								&& insurance.safe_id !== '1016'
 								&& insurance.safe_id !== '1013'
 								&& insurance.safe_id !== 'NHFA'
-								&& insurance.safe_id !== 'NHGA' ">
+								&& insurance.safe_id !== 'NHGA' 
+								&& insurance.safe_id !== 'LXYS'">
 							<input slot="input" v-model.number.lazy="insurance.money" type="number" placeholder="请填写基本保险金额（元）" @change="resetFee()">
 							<div slot="icon" @click="insurance.money = ''" v-show="insurance.money != ''" class="form-clear-icon">
 								<span class="mui-icon mui-icon-clear"></span>
 							</div>
 						</app-input>
-						<template v-else-if="insurance.safe_id == '1016' || insurance.safe_id == 'NHFA' || insurance.safe_id == 'NHGA'">
+						<template v-else-if="insurance.safe_id == '1016' || insurance.safe_id == 'NHFA' || insurance.safe_id == 'NHGA' || insurance.safe_id == 'LXYS'">
 							<!--招商仁和仁医保费用补偿医疗保险-->
 							<app-select label="有无社保">
 								<button slot="button" v-for="num in ['1', '2']" class="ins-btn xs-btn" 
@@ -81,6 +82,7 @@
 							</app-select>
 							<!--爱心保智选医疗保险-->
 							<!--爱心保卓越医疗保险-->
+							<!--复星联合乐享一生医疗保险-->
 							<app-select label="基本保额" v-else>
 								<button slot="button" v-model="insurance.money = 2000000" class="ins-btn xs-btn blue" disabled>
 						            200万
@@ -187,11 +189,6 @@
 							<button slot="button" class="ins-btn xs-btn" :class="{'blue': fxljysFXLJYS.shebao == 'A'}" :disabled="fxljysFXLJYS.shebao == 'A'" @click="fxljysFXLJYS.shebao = 'A', resetFee('fxsb')">
 					             	无社保
 					        </button>
-							<!--<div class="input-switch">
-									<input type="checkbox" class="switch"
-										 @click="fxljysFXLJYS.shebao == 'B' ? fxljysFXLJYS.shebao = 'A' : fxljysFXLJYS.shebao = 'B', resetFee('fxsb')" />
-									<label></label>
-								</div>-->
 						</div>
 						<div class="input-item">
 							<label class="">险种</label>

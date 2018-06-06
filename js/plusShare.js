@@ -80,7 +80,9 @@
 				}]
 			}, function(e) {
 				var index = e.index;
-				fn();
+				if(fn){
+					fn();	
+				};
 				switch(index) {
 					case 1: //分享到微信好友
 						msg.extra = {

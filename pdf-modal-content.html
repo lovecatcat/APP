@@ -29,7 +29,7 @@
 
 				var url = plus.webview.currentWebview().pdf;
 				var isAjaxNext = false; //是否加载下一页
-
+				console.log(url)
 				//var url = "images/kyjs.pdf";
 				PDFJS.workerSrc = 'js/pdf.worker.js';
 
@@ -60,7 +60,7 @@
 							
 							if(pageNum > 10){
 								plus.nativeUI.closeWaiting();
-								plus.nativeUI.showWaiting('pdf文件较大，渲染时间较长，请耐心等待！', {
+								plus.nativeUI.showWaiting('pdf文件较大，请耐心等待！', {
 							        style: 'white',
 							        width: '150px'
 							    })

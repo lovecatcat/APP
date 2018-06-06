@@ -36,13 +36,13 @@
                     </div>
                     <div v-for="(item,index) in matters" v-if="isShow(index,1)" v-show="!appfolder">
                         <ul class="flex">
-                            <li class="flex-1" v-html="item.content"></li>
-                            <li class="item-operate BL-mar-t-1">
+                            <li class="flex-1" v-html="index+1+'.'+item.content"></li>
+                            <li class="item-operate BL-mar-t-1" v-if="['1049'].indexOf(item.entry)===-1">
                                 <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.app_amswer[item.id]}" :disabled="clientvalue.app_amswer[item.id]" @tap="appChange(item.id,true),toblur()">是</button>
                                 <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.app_amswer[item.id]}" :disabled="!clientvalue.app_amswer[item.id]" @tap="appChange(item.id,false),toblur()">否</button>
                             </li>
                         </ul>
-                        <template v-if="appforms[item.id] && (clientvalue.app_amswer[item.id]||item.entry==11)">
+                        <template v-if="appforms[item.id] && (clientvalue.app_amswer[item.id]||item.entry==1049)">
                             <app-form :forms="appforms[item.id]"></app-form>
                         </template>
                     </div>
@@ -58,13 +58,13 @@
                     </div>
                     <div v-for="(item,index) in matters" v-if="isShow(index,2)" v-show="!assfolder">
                         <ul class="flex">
-                            <li class="flex-1" v-html="item.content"></li>{{index}}
-                            <li class="item-operate BL-mar-t-1">
+                            <li class="flex-1" v-html="index+1+'.'+item.content"></li>
+                            <li class="item-operate BL-mar-t-1" v-if="['1049'].indexOf(item.entry)===-1">
                                 <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.ass_amswer[item.id]}" :disabled="clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,true),toblur()">是</button>
                                 <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.ass_amswer[item.id]}" :disabled="!clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,false),toblur()">否</button>
                             </li>
                         </ul>
-                        <template v-if="assforms[item.id] && (clientvalue.ass_amswer[item.id]||item.entry==11)">
+                        <template v-if="assforms[item.id] && (clientvalue.ass_amswer[item.id]||item.entry==1049)">
                             <app-form :forms="assforms[item.id]"></app-form>
                         </template>
                     </div>
@@ -88,12 +88,14 @@
     mui.init();
     const assforms = {
         '198': [{
+            id: 199,
             title: '每日吸烟量(支/天)',
             type: 'number',
             msg: '请输入整数',
             reg: /^\d+$/,
             value: ''
         }, {
+            id: 200,
             title: '吸烟年限(年)',
             type: 'number',
             msg: '请输入整数',
@@ -101,21 +103,25 @@
             value: ''
         }],
         '201': [{
+            id: 202,
             title: '戒烟时间',
             type: 'date',
             value: ''
         }, {
+            id: 203,
             title: '戒烟原因',
             type: 'text',
             value: ''
         }],
         '204': [{
+            id: 205,
             title: '每周饮酒量(两/周)',
             type: 'number',
             msg: '请输入整数',
             reg: /^\d+$/,
             value: ''
         }, {
+            id: 206,
             title: '饮酒年限(年)',
             type: 'number',
             msg: '请输入整数',
@@ -123,10 +129,12 @@
             value: ''
         }],
         '207': [{
+            id: 208,
             title: '停止饮酒时间',
             type: 'date',
             value: ''
         }, {
+            id: 209,
             title: '停止饮酒原因',
             type: 'text',
             value: ''
@@ -188,15 +196,18 @@
             value: ''
         }],
         '225': [{
+            id: 226,
             title: '检查原因',
             type: 'text',
             value: ''
         }, {
+            id: 227,
             title: '检查结果',
             type: 'text',
             value: ''
         }],
         '228': [{
+            id: 229,
             title: '智能障碍等级',
             type: 'text',
             value: ''
@@ -206,6 +217,7 @@
             value: ''
         }],
         '235': [{
+            id: 236,
             title: '怀孕周数',
             type: 'text',
             value: ''
@@ -219,28 +231,34 @@
             value: ''
         }],
         '239': [{
+            id: 240,
             title: '患病对象',
             type: 'text',
             value: ''
         }, {
+            id: 241,
             title: '所患疾病名称',
             type: 'text',
             value: ''
         }, {
+            id: 242,
             title: '患病时年龄(周岁)',
             type: 'number',
             value: ''
         }, {
+            id: 243,
             title: '生存情况(健在或者身故)',
             type: 'text',
             value: ''
         }, {
+            id: 244,
             title: '身故时年龄(周岁)',
             type: 'number',
             value: ''
         }],
         '245': [{
-            title: 'A. 请告知出生体重',
+            id: 246,
+            title: 'A. 出生体重',
             type: 'number',
             msg: '请输入正确的出生体重，保留2位小数',
             reg: /^\d+$/,
@@ -255,67 +273,82 @@
             value: ''
         }],
         '249': [{
+            id: 250,
             title: '参加的项目',
             type: 'text',
             value: ''
         }, {
+            id: 251,
             title: '参加的次数',
             type: 'number',
             value: ''
         }],
         '252': [{
+            id: 253,
             title: '驾照类型',
             type: 'text',
             value: ''
         }],
         '254': [{
+            id: 255,
             title: '次数',
             type: 'number',
             value: ''
         }, {
+            id: 256,
             title: '时间',
             type: 'date',
             value: ''
         }, {
+            id: 257,
             title: '违章类型',
             type: 'text',
             value: ''
         }],
         '258': [{
+            id: 259,
             title: '居住的国家或地区',
             type: 'text',
             value: ''
         }, {
+            id: 260,
             title: '居住时间',
             type: 'text',
             value: ''
         }],
         '261': [{
+            id: 262,
             title: '计划去的国家或地区',
             type: 'text',
             value: ''
         }, {
+            id: 263,
             title: '目的',
             type: 'text',
             value: ''
         }, {
+            id: 264,
             title: '居住时间(月)',
             type: 'text',
             value: ''
         }],
         '265': [{
+            id: 266,
             title: '投保险种',
             type: 'text',
             value: ''
         }, {
+            id: 267,
             title: '保险金额',
             type: 'text',
             value: ''
         }, {
+            id: 268,
             title: '承保公司',
             type: 'text',
             value: ''
         }, {
+            id: 269,
             title: '日期',
             type: 'date',
             value: ''
@@ -327,12 +360,14 @@
     };
     const appforms = {
         '198': [{
+            id: 199,
             title: '每日吸烟量(支/天)',
             type: 'number',
             msg: '请输入整数',
             reg: /^\d+$/,
             value: ''
         }, {
+            id: 200,
             title: '吸烟年限(年)',
             type: 'number',
             msg: '请输入整数',
@@ -340,21 +375,25 @@
             value: ''
         }],
         '201': [{
+            id: 202,
             title: '戒烟时间',
             type: 'date',
             value: ''
         }, {
+            id: 203,
             title: '戒烟原因',
             type: 'text',
             value: ''
         }],
         '204': [{
+            id: 205,
             title: '每周饮酒量(两/周)',
             type: 'number',
             msg: '请输入整数',
             reg: /^\d+$/,
             value: ''
         }, {
+            id: 206,
             title: '饮酒年限(年)',
             type: 'number',
             msg: '请输入整数',
@@ -362,10 +401,12 @@
             value: ''
         }],
         '207': [{
+            id: 208,
             title: '停止饮酒时间',
             type: 'date',
             value: ''
         }, {
+            id: 209,
             title: '停止饮酒原因',
             type: 'text',
             value: ''
@@ -427,15 +468,18 @@
             value: ''
         }],
         '225': [{
+            id: 226,
             title: '检查原因',
             type: 'text',
             value: ''
         }, {
+            id: 227,
             title: '检查结果',
             type: 'text',
             value: ''
         }],
         '228': [{
+            id: 229,
             title: '智能障碍等级',
             type: 'text',
             value: ''
@@ -445,6 +489,7 @@
             value: ''
         }],
         '235': [{
+            id: 236,
             title: '怀孕周数',
             type: 'text',
             value: ''
@@ -458,28 +503,34 @@
             value: ''
         }],
         '239': [{
+            id: 240,
             title: '患病对象',
             type: 'text',
             value: ''
-        },{
+        }, {
+            id: 241,
             title: '所患疾病名称',
             type: 'text',
             value: ''
-        },{
+        }, {
+            id: 242,
             title: '患病时年龄(周岁)',
             type: 'number',
             value: ''
-        },{
+        }, {
+            id: 243,
             title: '生存情况(健在或者身故)',
             type: 'text',
             value: ''
-        },{
+        }, {
+            id: 244,
             title: '身故时年龄(周岁)',
             type: 'number',
             value: ''
         }],
         '245': [{
-            title: 'A. 请告知出生体重',
+            id: 246,
+            title: 'A. 出生体重',
             type: 'number',
             msg: '请输入正确的出生体重，保留2位小数',
             reg: /^\d+$/,
@@ -494,67 +545,82 @@
             value: ''
         }],
         '249': [{
+            id: 250,
             title: '参加的项目',
             type: 'text',
             value: ''
-        },{
+        }, {
+            id: 251,
             title: '参加的次数',
             type: 'number',
             value: ''
         }],
         '252': [{
+            id: 253,
             title: '驾照类型',
             type: 'text',
             value: ''
         }],
         '254': [{
+            id: 255,
             title: '次数',
             type: 'number',
             value: ''
         }, {
+            id: 256,
             title: '时间',
             type: 'date',
             value: ''
         }, {
+            id: 257,
             title: '违章类型',
             type: 'text',
             value: ''
         }],
         '258': [{
+            id: 259,
             title: '居住的国家或地区',
             type: 'text',
             value: ''
-        },{
+        }, {
+            id: 260,
             title: '居住时间',
             type: 'text',
             value: ''
         }],
         '261': [{
+            id: 262,
             title: '计划去的国家或地区',
             type: 'text',
             value: ''
-        },{
+        }, {
+            id: 263,
             title: '目的',
             type: 'text',
             value: ''
-        },{
+        }, {
+            id: 264,
             title: '居住时间(月)',
             type: 'text',
             value: ''
         }],
         '265': [{
+            id: 266,
             title: '投保险种',
             type: 'text',
             value: ''
-        },{
+        }, {
+            id: 267,
             title: '保险金额',
             type: 'text',
             value: ''
-        },{
+        }, {
+            id: 268,
             title: '承保公司',
             type: 'text',
             value: ''
-        },{
+        }, {
+            id: 269,
             title: '日期',
             type: 'date',
             value: ''
@@ -575,13 +641,13 @@
 	                    <div class="input-item" v-if="item.type=='number'">
 	                        <label class="">{{item.title}}</label>
 	                        <div class="input-wrap box-f-1">
-	                            <input type="number" v-model="item.value" placeholder="请输入" @change="$parent.change(item)">
+	                            <input type="number" v-model="item.value" placeholder="请输入" @change="$parent.change(item,true)">
 	                        </div>
 	                    </div>
 	                    <div class="input-item box-f-1 box-align-center" v-else-if="item.type=='radio'">
 		                    <div class="box-f-2 ins-font-sm">{{item.title}}</div>
 		                    <div class="box-f-1">
-		                        <div class="mui-switch mui-switch-mini" @click="item.value=!item.value,$parent.change(item)">
+		                        <div class="mui-switch mui-switch-mini" @click="item.value=!item.value,$parent.change(item,true)">
 		                            <div class="mui-switch-handle"></div>
 		                        </div>
 		                    </div>
@@ -589,25 +655,25 @@
 	                    <div class="input-item" v-else-if="item.type=='text'">
 	                        <label class="">{{item.title}}</label>
 	                        <div class="input-wrap box-f-1">
-	                            <input type="text" v-model="item.value" placeholder="请输入" @change="$parent.change(item)">
+	                            <input type="text" v-model="item.value" placeholder="请输入" @change="$parent.change(item,true)">
 	                        </div>
 	                    </div>
 	                    <div class="input-item" v-else-if="item.type=='date'">
                             <label class="">{{item.title}}</label>
                             <div class="input-wrap box-f-1">
-                                <input type="date" v-model="item.value" placeholder="请选择" @change="$parent.change(item)">
+                                <input type="date" v-model="item.value" placeholder="请选择" @change="$parent.change(item,true)">
                             </div>
                         </div>
                         <div class="input-item" v-else-if="item.type=='select'">
                         	<label class="">{{item.title}}</label>
                         	<div class="input-wrap box-f-1">
-                                <select class="input" v-model="item.value" @change="$parent.change(item)">
+                                <select class="input" v-model="item.value" @change="$parent.change(item,true)">
                                   <option disabled value="">请选择</option>
                                   <option :value="ind" v-for="(ite,ind) in item.options" :key="ind">{{ite}}</option>
                                 </select>
                             </div>
                         </div>
-                    	<textarea name="" placeholder="请说明" v-else-if="item.type=='textarea'" v-model="item.value" @change="$parent.change(item)"></textarea>
+                    	<textarea name="" placeholder="请说明" v-else-if="item.type=='textarea'" v-model="item.value" @change="$parent.change(item,true)"></textarea>
                     </div>
                 </li>
 		      `,
@@ -641,65 +707,91 @@
             toblur:function(){
                 document.activeElement.blur();
             },
-            change:function(item) {
+            change:function(item, auto) {
+                console.log('change')
                 var ret = {
                     status: true,
                     msg: ''
                 }
                 var msg = ''
                 if (item.reg && item.msg && !item.reg.test(item.value)) { // 正则
-                    mui.toast(item.msg, {duration: 'short', type: 'div'});
                     ret = { status: false, msg: item.msg }
                 } else if ((item.type === 'number') && !/^\d+\.?\d*$/.test(item.value)) {
                     msg = item.msg || '请输入正确的数字'
-                    mui.toast(msg, {duration: 'short', type: 'div'});
                     ret = { status: false, msg }
                 } else if (item.type === 'text' && !item.value) {
                     msg = item.msg || '请输入' + item.title
-                    mui.toast(msg, {duration: 'short', type: 'div'});
                     ret = { status: false, msg }
                 } else if (item.type === 'date' && !/^[1-2][0-9][0-9][0-9]-[0-1]{0,1}[0-9]-[0-3]{0,1}[0-9]$/.test(item.value)) {
                     msg = '请输入日期，形如 1999-12-31'
-                    mui.toast(msg, {duration: 'short', type: 'div'});
                     ret = { status: false, msg }
                 } else if (item.type === 'textarea' && !item.value) {
                     msg = '请完成说明'
-                    mui.toast(msg, {duration: 'short', type: 'div'});
                     ret = { status: false, msg }
                 } else if (item.type === 'select' && !item.value) {
                     msg = '请完成选择'
-                    mui.toast(msg, {duration: 'short', type: 'div'});
                     ret = { status: false, msg }
                 }
-                return ret
+                if (auto) {
+                    if (msg) {
+                        console.log('aaaaa')
+                        mui.toast(msg, {duration: 'short', type: 'div'});
+                        return false
+                    }
+                } else {
+                    return ret
+                }
             },
             isShow:function(i, type) {
                 if (i === 36 || i === 35) {
+                    return false
+                }
+                if ([21, 22, 23].indexOf(i) > -1 && type === 1 && !this.isApplWm) {
+                    return false
+                }
+                if ([21, 22, 23].indexOf(i) > -1 && type === 2 && !this.isAssuWm) {
+                    return false
+                }
+                if ([25, 26, 27].indexOf(i) > -1 && (type === 1 || ([25, 26, 27].indexOf(i) > -1 && type === 2 && this.assuAge > 2))) {
                     return false
                 }
                 return true
             },
             assChange:function(id,state){
                 this.clientvalue.ass_amswer[id] = state;
+                if(assforms[id]){
+                    for (var i in assforms[id]) {
+                        if(assforms[id][i]['id']){
+                            this.clientvalue.ass_amswer[assforms[id][i]['id']] = state;
+                        }
+                    }
+                }
                 this.$forceUpdate();
             },
             appChange:function(id,state){
                 this.clientvalue.app_amswer[id] = state;
+                if(appforms[id]){
+                    for (var i in appforms[id]) {
+                        if(appforms[id][i]['id']){
+                            this.clientvalue.app_amswer[appforms[id][i]['id']] = state;
+                        }
+                    }
+                }
                 this.$forceUpdate();
             },
             getIndex:function(id, chief) {
                 for (var i in this.matters) {
                     var item = this.matters[i]
                     if (item.id === id && !chief) {
-                        return i
+                        return Number(i) + 1
                     }
-                    if (item.id === chief) {
-                        for (var j = 0; j < item.child.length; j++) {
-                            if (item.child[j].id === id) {
-                                return i + item.child[j].entry
-                            }
-                        }
-                    }
+//                    if (item.id === chief) {
+//                        for (var j = 0; j < item.child.length; j++) {
+//                            if (item.child[j].id === id) {
+//                                return i + item.child[j].entry
+//                            }
+//                        }
+//                    }
                 }
                 return -1
             },
@@ -709,51 +801,49 @@
                 var title = ''
                 var msg = ''
 
+                console.log(JSON.stringify(this.clientvalue.ass_amswer))
                 for (var i in this.clientvalue.ass_amswer) {
-                    if (this.clientvalue.ass_amswer[i] === true) {
+                    if (this.clientvalue.ass_amswer[i]) {
                         var item = this.assforms[i]
                         if (item && item.length) {
-                            var val = []
-                            for (var k = item.length - 1; k >= 0; k--) {
+                            for (var k = 0; k <= item.length - 1; k++) {
                                 input = item[k]
                                 title = input.title ? input.title : ''
                                 var who = this.showAppl ? '被保人' : ''
-                                msg = '问题'+ this.getIndex(Number(i), Number(input.chief)) + who + title + ','
-
+                                msg = '问题'+ this.getIndex(Number(i), Number(input.chief)) + who + ', '
                                 if (input.must !== false || input.value) {
                                     var ret = this.change(input)
                                     if (!ret.status) {
                                         toast_text = msg + ret.msg
+                                        console.log(toast_text)
                                         break
                                     }
                                 }
-                                val.push(input.type !== 'textarea' ? input.value : input.value)
+                                if (item.length>1) {
+                                    this.clientvalue.fields[input.id] = input.value
+                                } else {
+                                    if (input.id) {
+                                        this.clientvalue.fields[input.id] = input.value
+                                    } else {
+                                        this.clientvalue.fields[i] = input.value
+                                    }
+                                }
                             }
-                            this.clientvalue.fields[i] = val.reverse().join('|')
+//                            this.clientvalue.fields[i] = val.reverse().join('|')
                         }
                     } else {
                         this.clientvalue.fields[i] = ''
                     }
                 }
-                //2周岁及以下
-                if (this.assuAge <= 2) {
-                    if (!this.assforms['168'][0].value || !this.assforms['168'][1].value) {
-                        mui.toast('请填写被保人 11 题', {duration: 'short', type: 'div'});
-                        return false
-                    } else {
-                        this.clientvalue.fields[168] = parseInt(this.assforms['168'][0].value) + '|' + Number(this.assforms['168'][1].value).toFixed(2)
-                    }
-                }
                 if (this.showAppl) {
                     for (var j in this.clientvalue.app_amswer) {
-                        if (this.clientvalue.app_amswer[j] === true) {
+                        if (this.clientvalue.app_amswer[j]) {
                             var jitem = this.appforms[j]
                             if (jitem && jitem.length) {
-                                var jval = []
-                                for (var l = jitem.length - 1; l >= 0; l--) {
+                                for (var l = 0; l <= jitem.length - 1; l++) {
                                     input = jitem[l]
                                     title = input.title ? input.title : ''
-                                    msg = '投保人问题 ' + this.getIndex(Number(j), Number(input.chief)) + ' ' + title + '，'
+                                    msg = '投保人问题 ' + this.getIndex(Number(j), Number(input.chief)) +', '
 
                                     if (input.must !== false || input.value) {
                                         var jret = this.change(input)
@@ -762,10 +852,17 @@
                                             break
                                         }
                                     }
-
-                                    jval.push(input.type !== 'textarea' ? input.value : input.value)
+                                    if (jitem.length>1) {
+                                        this.clientvalue.app_fields[input.id] = input.value
+                                    } else {
+                                        if (input.id) {
+                                            this.clientvalue.app_fields[input.id] = input.value
+                                        } else {
+                                            this.clientvalue.app_fields[i] = input.value
+                                        }
+                                    }
                                 }
-                                this.clientvalue.app_fields[j] = jval.reverse().join('|')
+//                                this.clientvalue.app_fields[j] = jval.reverse().join('|')
                             }
                         } else {
                             this.clientvalue.app_fields[j] = ''
@@ -774,7 +871,17 @@
                 }
                 if (toast_text) {
                     mui.toast(toast_text, {duration: 'short', type: 'div'});
+                    console.log(toast_text)
                     return false
+                }
+                //2周岁及以下
+                if (this.assuAge <= 2) {
+                    if (!this.assforms['245'][0].value) {
+                        mui.toast('请填写被保人 26 题', {duration: 'short', type: 'div'});
+                        return false
+                    } else {
+                        this.clientvalue.fields[245] = Number(this.assforms['245'][0].value).toFixed(2)
+                    }
                 }
                 this.$forceUpdate()
                 if (!this.promise) {
@@ -787,7 +894,6 @@
     });
     mui.plusReady(function () {
         var popu = new ClosePopu(); // 实例化关闭窗口对象
-
         //安卓监听返回事件
         plus.key.addEventListener("backbutton",function(){
             popu.closepop();
@@ -812,13 +918,17 @@
                 var aitem = assforms[item.mv_id]
                 if (item.insured_answer === '1') {
                     health.clientvalue.ass_amswer[item.mv_id] = true
+                    console.log(item.mv_id +';'+item.insured_fields)
                     if (aitem && aitem.length === 1) {
-                        console.log(item.mv_id +';' + item.insured_fields)
                         aitem[0]['value'] = item.insured_fields
+                        if (aitem[0]['id']) {
+                            aitem[0]['value'] = item.insured_fields
+                        }
                     } else if (aitem && aitem.length > 1) {
-                        var arr = item.insured_fields.split("|")
                         for (var i in aitem) {
-                            aitem[i]['value'] = arr[i]
+                            if (item.mv_id === aitem[i]['id']) {
+                                aitem[i]['value'] = item.insured_fields
+                            }
                         }
                     }
                 }
@@ -826,10 +936,12 @@
                     health.clientvalue.app_amswer[item.mv_id] = true
                     if (aitem && aitem.length === 1) {
                         aitem[0]['value'] = item.holder_fields
+                        if(aitem[0]['id']){
+                            aitem[0]['value'] = health.clientvalue.holder_fields[aitem[0]['id']]
+                        }
                     } else if (aitem && aitem.length > 1) {
-                        var arr = item.holder_fields.split("|")
                         for (var i in aitem) {
-                            aitem[i]['value'] = arr[i]
+                            aitem[i]['value'] = health.clientvalue.holder_fields[aitem[i]['id']]
                         }
                     }
                 }
@@ -846,38 +958,20 @@
             if (!health.checkForm()) {
                 return false
             }
+            console.log(JSON.stringify(health.clientvalue))
             //
             var appitems = []
             mui.each(health.matters, function (index, item) {
                 var insured_answer = health.clientvalue.ass_amswer[item.id] ? '1' : '0'
                 var holder_answer = health.clientvalue.app_amswer[item.id] ? '1' : '0'
-                if (item.id === 168 && health.assuAge <= 2){
+                if (item.id === 245 && health.assuAge <= 2){
                     insured_answer = '1'
                 }
                 var insured_fields = health.clientvalue.fields[item.id]?health.clientvalue.fields[item.id]:''
                 var holder_fields = health.clientvalue.app_fields[item.id]?health.clientvalue.app_fields[item.id]:''
-                if (item.id === 46) {
-                    //投被保人身高、体重
-                    holder_answer = '1'
-                    insured_answer = '1'
-                    holder_fields = parseInt(applicant.holder_height) + '|' + Number(applicant.holder_weight).toFixed(2)
-                    insured_fields = parseInt(assured.insured_height) + '|' + Number(assured.insured_weight).toFixed(2)
-                } else if (item.id === 171) {
-                    //投被保人年收入、收入来源
-                    holder_answer = '1'
-                    insured_answer = '1'
-                    holder_fields = applicant.holder_salary_avg + '|' + applicant.holder_salary_from
-                    insured_fields = assured.insured_salary_avg + '|' + assured.insured_salary_from
-                } else if (item.id === 173) {
-                    //投被保人是否有社保
-                    holder_answer = '1'
-                    insured_answer = '1'
-                    holder_fields = applicant.holder_has_SSID ? '有社保' : '无社保'
-                    insured_fields = assured.insured_has_SSID ? '有社保' : '无社保'
-                }
                 //168: 2岁及以下
                 //164: 女性补充告知
-                if ((item.id === 168 && health.assuAge <= 2) || (item.id === 164 && ((health.showAppl && health.isApplWm) || health.isAssuWm)) || (item.id !== 168 && item.id !== 164)) {
+                if ((item.id === 245 && health.assuAge <= 2) || (item.id === 235 && ((health.showAppl && health.isApplWm) || health.isAssuWm)) || (item.id !== 245 && item.id !== 235)) {
                     appitems.push({
                         mv_id: item.id,
                         insured_answer: insured_answer,
@@ -900,7 +994,7 @@
             })
             console.log(JSON.stringify(appitems))
             plus.storage.setItem('zhaos_healthinfo', JSON.stringify(appitems));
-            mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
+            mui.fire(plus.webview.getWebviewById('zs_insurance-index'), 'saveFlag', {
                 item: 'zhaos_healthinfo',
                 data: 'healthinfo'
             });

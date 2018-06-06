@@ -275,11 +275,26 @@
 			    //调起分享
 			    plusShare(message, function(res) {
 			        //分享回调函数
-			        if(res) {
+			        if(res){
 			            plus.nativeUI.toast("分享成功");
 			        } else {
 			            plus.nativeUI.toast("分享失败");
 			        }
+			    }, function(){
+		    	 	luckyAjax({
+						data: {
+							server: 'Proposal.addNum',
+							view: true,
+							data: JSON.stringify({
+								pl_id: pl_id
+							})
+						},
+						success: function(res) {
+							if(res.code == 1) {
+								console.log('分享成功')
+							}  
+						}
+					});
 			    })
 			});
 		})

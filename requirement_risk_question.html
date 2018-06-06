@@ -16,6 +16,7 @@
 	<header id="Js-header" class="BL-bg-fff">
 	    <div class="BL-mod-headbar BL-mod-headbar-pos">
 	        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+	        <a id="Js-closePage" class="BL-ctrl-close">关闭</a>
 	        <h1 class="BL-title">测试题<span id="Js-index"></span></h1>
 	    </div>
 	</header>
@@ -397,6 +398,7 @@
             d.addEventListener('click', function () {
                 risk.$nextTick(function(){
                     risk.question[risk.index].finish = true
+                    console.log(risk.index + "...." + risk.question[risk.index].finish)
                     setTimeout(function(){
                         if (risk.index != (risk.sum-1)) {
                             risk.index ++
@@ -404,7 +406,7 @@
                         gallery.slider().gotoItem(risk.index);
                         progressbar.progressbar({progress:((risk.index+1)/risk.sum)*100}).show();
                         document.querySelector('#Js-index').innerHTML = (risk.index + 1) + '/' + risk.sum
-                    },200)
+                    },100)
                 })
             }, false);
         });
@@ -446,6 +448,14 @@
                 });
             },500)
         },false);
+        
+        // 自定义关闭事件
+        document.querySelector('#Js-closePage').addEventListener('tap', function(){
+            plus.webview.currentWebview().opener().close()
+            setTimeout(function(){
+                plus.webview.currentWebview().close();
+            },500);
+        }, false);
     });
 </script>
 

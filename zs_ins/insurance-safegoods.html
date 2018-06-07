@@ -70,14 +70,24 @@
                         <input type="number" placeholder="请输入" v-model.number.lazy="insurance.money" @change="resetMoney()">
                     </div>
                 </div>
-                <div class="input-item ins-pd-r-0" v-if="init&&init.nj_get_type">
-                    <label class="">分红领取方式</label>
+                <div class="input-item ins-pd-r-0" v-if="init&&init.hl_get_type">
+                    <label class="">红利领取方式</label>
                     <div class="input-wrap box-f-1 multi-btn">
-                        <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.shareDrawType}"
-                                v-for="(item,index) in init.nj_get_type"
-                                v-if="item.value!==zrwnzh"
-                                :disabled="item.value===insurance.shareDrawType"
-                                @tap="insurance.shareDrawType=item.value,toblur()">
+                        <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.BonusGetMode}"
+                                v-for="(item,index) in init.hl_get_type"
+                                :disabled="item.value===insurance.BonusGetMode"
+                                @tap="insurance.BonusGetMode=item.value,toblur()">
+                            {{item.text}}
+                        </button>
+                    </div>
+                </div>
+                <div class="input-item ins-pd-r-0" v-if="init&&init.sc_get_type">
+                    <label class="">生存金领取方式</label>
+                    <div class="input-wrap box-f-1 multi-btn">
+                        <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.bcestype}"
+                                v-for="(item,index) in init.sc_get_type"
+                                :disabled="item.value===insurance.bcestype"
+                                @tap="insurance.bcestype=item.value,toblur()">
                             {{item.text}}
                         </button>
                     </div>
@@ -341,11 +351,8 @@
                     pay_year: '',
                     money: '', // 基本保险金额
                     period_money: '', // 年交保费
-                    guarantee_term: '',//年金保障年限  20 30
-                    draw_freq: '',//生存金领取方式 年领 月领
-                    draw_age: '',//年金领取年龄
-                    shareDrawType: '',//分红领取方式 累计生息 转入万能账户 现金领取
-                    autoApl: false //是否自动垫交
+                    bcestype: '',//生存金领取方式 累计生息 现金领取
+                    BonusGetMode: ''//分红领取方式 累计生息 保额分红 现金领取
                 }
             }
         },
@@ -698,6 +705,10 @@
                     return false
                 } else if (!vm.insurance.money) { //保额
                     toast_text = '请填写基本保险金额'
+                } else if (!vm.insurance.bcestype) { //生存金领取方式
+                    toast_text = '请选择生存金领取方式'
+                } else if (!vm.insurance.BonusGetMode) { //分红领取方式
+                    toast_text = '请选择分红领取方式'
                 }
                 if (toast_text) {
                     mui.toast(toast_text, {duration: 'short', type: 'div'});
@@ -1018,7 +1029,7 @@
         safe.appl_age = getAge(applicant.holder_birthday)
         safe.applicant = applicant
         safe.assured = assured
-        safe.noSamePerson = assured.rel_insured_holder === ISASSURED ? false : true;
+        safe.noSamePerson = assured.rel_holder_insured === ISASSURED ? false : true;
 //
         getIns(); //获取险种列表
         //安卓监听返回事件

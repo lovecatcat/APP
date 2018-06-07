@@ -26,16 +26,16 @@
         <div class="form-content margin-t-6_125 BL-pad-b-2" v-cloak>
             <div class="form-wrap" v-if="init&&init.is_assured">
                 <div class="input-item ins-pd-r-0">
-                    <label class="">是投保人的</label>
+                    <label class="">投保人是被保人的</label>
                     <div class="input-wrap box-f-1 multi-btn">
-                        <button class="ins-btn xs-btn" :class="{'blue':item.value===assured.rel_insured_holder}" :disabled="item.value===assured.rel_insured_holder"
-                                v-for="(item,index) in init.is_assured" @click="assured.rel_insured_holder=item.value">
+                        <button class="ins-btn xs-btn" :class="{'blue':item.value===assured.rel_holder_insured}" :disabled="item.value===assured.rel_holder_insured"
+                                v-for="(item,index) in init.is_assured" @click="assured.rel_holder_insured=item.value">
                             {{item.text}}
                         </button>
                     </div>
                 </div>
             </div>
-            <div v-show="!(assured.rel_insured_holder===ISASSURED)">
+            <div v-show="!(assured.rel_holder_insured===ISASSURED)">
                 <div class="form-wrap margin-t_875" v-if="init&&init.tax_type">
                     <div class="border-b-e7e7e7">
                         <div class="item-title">被保人声明</div>
@@ -342,7 +342,7 @@
                 longTerm: false,
                 assu_age: '',//被保人年龄
                 assured: {
-                    rel_insured_holder: '',//是投保人的
+                    rel_holder_insured: '',//是投保人的
                     insured_name: '', //姓名
                     insured_ID_type: '', //证件类型
                     insured_ID_type_name: '请选择', //证件类型名
@@ -394,7 +394,7 @@
             //字段初始化
             this.assured.insured_gender = MALE;
             this.assured.insured_nation = NATION;
-            this.assured.rel_insured_holder = ISASSURED;
+            this.assured.rel_holder_insured = ISASSURED;
             this.$watch('assured.insured_ID_no', function (val) {
                 IDValidate(this.assured.insured_ID_type, val, '被保人',this.assured);
             });
@@ -592,7 +592,7 @@
             if (!checkAssured(assu.assured)) {
                 return false
             }
-            if (assu.assured.rel_insured_holder === COUPLE && assu.assured.insured_gender === assu.applicant.holder_gender) {
+            if (assu.assured.rel_holder_insured === COUPLE && assu.assured.insured_gender === assu.applicant.holder_gender) {
                 mui.toast('投被保人性别与关系不符', {duration: 'short', type: 'div'});
                 return false;
             }

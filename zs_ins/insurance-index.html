@@ -90,7 +90,7 @@
         var winH = window.innerHeight;
         var titHeight = document.querySelector('#Js-header').offsetHeight;
         document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
-        var itemName = ['zhaos_applicant','zhaos_assured','zhaos_beneficiary','zhaos_safegoods','zhaos_healthinfo','zhaos_bank','zhaos_upload','zhaos_ids','userinfo'];
+        var itemName = ['zhaos_applicant','zhaos_assured','zhaos_beneficiary','zhaos_safegoods','zhaos_healthinfo','zhaos_bank','zhaos_upload','zhaos_agent','zhaos_ids','userinfo'];
         var subpages = ["insurance-applicant", "insurance-assured", "insurance-beneficiary", "insurance-safegoods", "insurance-healthinfo", "insurance-bank", "insurance-upload","insurance-agent"];
 
         var index = new Vue({
@@ -136,7 +136,7 @@
             methods:{
                 //清除localstorage
                 clearItem: function (back, timeout) {
-                    for (var i = 0; i < 8; i++) {
+                    for (var i = 0; i < 9; i++) {
                         plus.storage.removeItem(itemName[i])
                     }
                     this.ids = ''
@@ -148,6 +148,7 @@
                     this.bank = ''
                     this.sign = ''
                     this.upload = ''
+                    this.agent = ''
                     if (back && timeout) {
                         setTimeout(function () {
                             mui.back();
@@ -157,7 +158,7 @@
                     }
                 },
                 getReadyItem: function () {
-                    var dataName = ['applicant', 'assured', 'beneficiary', 'safegoods', 'healthinfo', 'bank', 'upload', 'ids', 'userinfo'];
+                    var dataName = ['applicant', 'assured', 'beneficiary', 'safegoods', 'healthinfo', 'bank', 'upload','agent', 'ids', 'userinfo'];
                     for (var i = 0; i < itemName.length; i++) {
                         this.getItem(itemName[i], dataName[i]);
                     }
@@ -179,6 +180,7 @@
                     var health_data = []
                     var bank_data = {}
                     var upload_data = {}
+                    var agent_data = {}
                     luckyAjax({
                         data: {
                             data: JSON.stringify({'policy_id': pid}),
@@ -229,9 +231,9 @@
                                 appl_data.holder_isTaxResidents = TAXTYPE //税收标识
                                 appl_data.resident_type = da.insData.extend_items.resident_type //居民类型
                                 //被保人
-                                assu_data.rel_insured_holder = da.insured.rel_insured_holder
+                                assu_data.rel_holder_insured = da.insured.rel_holder_insured
                                 assu_data.addr_type = da.insData.extend_items.addr_type
-                                if (da.insured.rel_insured_holder === ISASSURED) {//被保人为本人
+                                if (da.insured.rel_holder_insured === ISASSURED) {//被保人为本人
                                     RSChanged(assu_data, appl_data)
                                 } else {
                                     assu_data.insured_name = da.insured.insured_name //姓名
@@ -481,7 +483,9 @@
                         } else if (item.cate === 'area') {
                             res.province = dataToselect(item.child, true); //省
                         } else if (item.cate === 'BA') {
-                            res.nj_get_type = dataToselect(item.child); //年金领取类型
+                            res.sc_get_type = dataToselect(item.child); //生存金领取方式
+                        } else if (item.cate === 'AZ') {
+                            res.hl_get_type = dataToselect(item.child); //红利领取方式
                         }
                     });
                     index.init = res;
@@ -530,6 +534,7 @@
         })
         //提交
         document.querySelector('#ins-save').addEventListener('click', function () {
+            console.log(1)
             var war_id = index.ids ? Number(index.ids.policy_id) : ''
             setPushData(war_id);
 
@@ -539,6 +544,7 @@
 
         //核保数据整理
         function setPushData(war_id) {
+            console.log(JSON.stringify(index.applicant))
             plus.nativeUI.showWaiting();
             if (index.loading) {
                 console.log('again')
@@ -587,6 +593,8 @@
                 toast_text = '请填写付款信息';
             } else if (!index.upload) {
                 toast_text = '请上传证件';
+            } else if (!index.agent) {
+                toast_text = '请填写代理人告知';
             }
             if(toast_text){
                 plus.nativeUI.closeWaiting();
@@ -603,7 +611,7 @@
             pushdata.is_first = '1'
             pushdata.user_id = index.userinfo.id
             //投保人信息
-            var applfieldFilter = ['holder_has_SSID', 'resident_type', 'temp_holder_job_code', 'mail_addr_type', 'holder_ID_type_name', 'holder_nation_name', 'holder_home_district_name', 'holder_job_name', 'holder_isTaxResidents']
+            var applfieldFilter = ['holder_has_SSID', 'resident_type', 'temp_holder_job_code', 'mail_addr_type', 'holder_ID_type_name', 'holder_nation_name', 'holder_home_ssq_name', 'holder_home_province_name', 'holder_home_city_name', 'holder_home_district_name', 'holder_contact_ssq_name', 'holder_contact_province_name', 'holder_contact_city_name', 'holder_contact_district_name', 'holder_job_name', 'holder_isTaxResidents','sameToHome']
             for (var i in index.applicant) {
                 if (applfieldFilter.indexOf(i) === -1) {
                     pushdata[i] = index.applicant[i]
@@ -613,7 +621,7 @@
             //被保人信息
             var insured = {}
             insured.id = ''
-            var assufieldFilter = ['insured_has_SSID', 'insured_temp_job_code', 'addr_type', 'insured_isTaxResidents', 'insured_job_name', 'insured_ID_type_name', 'insured_nation_name', 'insured_home_district_name']
+            var assufieldFilter = ['insured_has_SSID', 'insured_temp_job_code', 'addr_type', 'insured_isTaxResidents', 'insured_job_name', 'insured_ID_type_name', 'insured_nation_name', 'insured_home_district_name', 'insured_home_ssq_name', 'insured_home_province_name', 'insured_home_city_name', 'insured_home_district_name', 'insured_contact_ssq_name', 'insured_contact_province_name', 'insured_contact_city_name', 'insured_contact_district_name']
             for (var i in index.assured) {
                 if (assufieldFilter.indexOf(i) === -1) {
                     insured[i] = index.assured[i]
@@ -621,9 +629,16 @@
             }
             insured.has_insured_SSID = index.assured.insured_has_SSID ? has_social_security : no_social_security
             pushdata.insured = insured
+            //代理人告知
+            var extend_items = {}
+            var agentFilter = ['process_name', 'duration_name']
+            for (var i in index.agent) {
+                if (agentFilter.indexOf(i) === -1) {
+                    extend_items[i] = (typeof index.agent[i] === 'boolean') && index.agent[i] ? '1' : '0'
+                }
+            }
             //险种信息
             var content = []
-
             var totalfee = 0
             mui.each(index.safegoods, function (index, item) {
                 var safeitem = {}
@@ -636,11 +651,15 @@
                 totalfee += Number(item.period_money)
 
                 safeitem.extend_items = {
-                    autoApl: item.autoApl ? '1' : '0',
-                    guarantee_term: item.guarantee_term,
-                    draw_freq: item.draw_freq,
-                    draw_age: item.draw_age,
-                    shareDrawType: item.shareDrawType
+                    BonusGetMode: item.BonusGetMode,
+                    level: ''
+                }
+                if (item.is_main) {
+                    extend_items.bcestype = item.bcestype
+                }
+                console.log(item.code)
+                if (item.code === hmzj) {
+                    safeitem.extend_items.level = '1'
                 }
                 content.push(safeitem)
             })
@@ -661,8 +680,11 @@
                 }
             }
             //银行信息
+            var bankFilter = ['temp_bank_name', 'temp_bank_name','bank_ss_name','bank_province_name','bank_area_name','temp_bank_type']
             for (var i in index.bank) {
-                pushdata[i] = index.bank[i]
+                if (bankFilter.indexOf(i) === -1) {
+                    pushdata[i] =index.bank[i]
+                }
             }
             pushdata.bank_holder = index.applicant.holder_name
             //健康告知
@@ -670,7 +692,7 @@
             //影像
             pushdata.img_json = index.upload
             //
-            var extend_items = {}
+
             extend_items.resident_type = index.applicant.resident_type;
             extend_items.isTaxResidents = index.applicant.holder_isTaxResidents;
             extend_items.isTaxResidentsInsured = index.assured.insured_isTaxResidents;
@@ -724,7 +746,8 @@
                 success: function (res) {
                     if (res.code) {
                         plus.storage.setItem('zhaos_ids',JSON.stringify(res.data));
-                        showPopu('insurance-sign.html', 'zs-insurance-sign', "bottom",res.data.policy_id);
+//                        showPopu('insurance-sign.html', 'zs-insurance-sign', "bottom",res.data.policy_id);
+                        online_ins(res.data.policy_id)
                         plus.nativeUI.closeWaiting();
                     } else {
                         plus.nativeUI.closeWaiting();
@@ -734,7 +757,39 @@
                 }
             });
         };
-        //
+        //核保
+        function online_ins(war_id) {
+            luckyAjax({
+                data: {
+                    data: JSON.stringify({
+                        msg: {policy_id: war_id},
+                        company_code: 'ZhaoShang',
+                        method: 'insure'
+                    }),
+                    server: 'PolicyIns.onlineInsured',
+                    device: 'mobile'
+                },
+                timeout: 30000,
+                success: function (res) {
+                    if (res.code) {
+                        if (res.data.resultCode === '00') {
+                            mui.toast('自核通过，影像上传中', {duration: 'long', type: 'div'})
+                        } else if (res.data.resultCode === '02') {
+                            mui.toast('进入人工核保，影像上传中', {duration: 'long', type: 'div'})
+                        } else {
+                            mui.toast(res.data && res.data.resultMsg ? res.data.resultMsg : '网络出错，请稍后再试', {
+                                duration: 'long',
+                                type: 'div'
+                            })
+                            return false
+                        }
+                    } else {
+                        mui.toast('网络错误，请重试', {duration: 'long', type: 'div'})
+                        return false
+                    }
+                }
+            });
+        };
         //安卓监听返回事件
         plus.key.addEventListener("backbutton",function(){
             console.log('back')

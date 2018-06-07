@@ -400,7 +400,7 @@ var checkAssured = function (assu) {
     // console.info('校验被保人信息')
     var toast_text = null
     const vm = this
-    if (!assu.rel_insured_holder) {
+    if (!assu.rel_holder_insured) {
         toast_text = '请选择与投保人关系'
     } else if (!assu.insured_isTaxResidents) {
         toast_text = '请选择被保人居民税收类型'
@@ -573,7 +573,7 @@ var AssuSameApplAddress = function (assu,appl) {
 };
 //被保人为本人
 var RSChanged = function(assu,applicant) {
-    if(assu.rel_insured_holder ===ISASSURED){
+    if(assu.rel_holder_insured ===ISASSURED){
         assu.insured_name= applicant.holder_name //姓名
         assu.insured_ID_type= IDcard //证件类型
         assu.insured_ID_type_name= '身份证' //证件类型名

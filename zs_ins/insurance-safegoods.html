@@ -70,6 +70,18 @@
                         <input type="number" placeholder="请输入" v-model.number.lazy="insurance.money" @change="resetMoney()">
                     </div>
                 </div>
+                <div class="input-item ins-pd-r-0" v-if="init&&init.nj_get_type">
+                    <label class="">分红领取方式</label>
+                    <div class="input-wrap box-f-1 multi-btn">
+                        <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.shareDrawType}"
+                                v-for="(item,index) in init.nj_get_type"
+                                v-if="item.value!==zrwnzh"
+                                :disabled="item.value===insurance.shareDrawType"
+                                @tap="insurance.shareDrawType=item.value,toblur()">
+                            {{item.text}}
+                        </button>
+                    </div>
+                </div>
                 <div class="input-item">
                     <label class="">年缴保费(元)</label>
                     <div class="BL-ub BL-ub-pj BL-ub-f1">

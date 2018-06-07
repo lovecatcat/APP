@@ -474,15 +474,13 @@
                             res.beneficiary_type = dataToselect(item.child); //受益人类型 法定 指定
                         } else if (item.cate === 'AP') {
                             res.benefit_type = dataToselect(item.child); //受益类型 身故
+                        } else if (item.cate === 'AU') {
+                            res.account_type = dataToselect(item.child); //银行卡账号类型
                         } else if (item.cate === 'AV') {
                             res.bank_code = dataToselect(item.child); //银行代码
                         } else if (item.cate === 'area') {
                             res.province = dataToselect(item.child, true); //省
-                        } else if (item.cate === 'BB') {
-                            res.nj_safe_year = dataToselect(item.child); //年金保障年限
-                        } else if (item.cate === 'BC') {
-                            res.nj_get_way = dataToselect(item.child); //年金领取方式
-                        } else if (item.cate === 'BD') {
+                        } else if (item.cate === 'BA') {
                             res.nj_get_type = dataToselect(item.child); //年金领取类型
                         }
                     });
@@ -605,7 +603,7 @@
             pushdata.is_first = '1'
             pushdata.user_id = index.userinfo.id
             //投保人信息
-            var applfieldFilter = ['holder_has_SSID', 'resident_type', 'temp_holder_job_code', 'mail_addr_type', 'holder_ID_type_name', 'holder_nation_name', 'holder_salary_from_name', 'holder_home_district_name', 'holder_job_name', 'holder_isTaxResidents']
+            var applfieldFilter = ['holder_has_SSID', 'resident_type', 'temp_holder_job_code', 'mail_addr_type', 'holder_ID_type_name', 'holder_nation_name', 'holder_home_district_name', 'holder_job_name', 'holder_isTaxResidents']
             for (var i in index.applicant) {
                 if (applfieldFilter.indexOf(i) === -1) {
                     pushdata[i] = index.applicant[i]
@@ -615,7 +613,7 @@
             //被保人信息
             var insured = {}
             insured.id = ''
-            var assufieldFilter = ['insured_has_SSID', 'insured_temp_job_code', 'addr_type', 'insured_isTaxResidents', 'insured_job_name', 'insured_ID_type_name', 'insured_nation_name', 'insured_salary_from_name', 'insured_home_district_name']
+            var assufieldFilter = ['insured_has_SSID', 'insured_temp_job_code', 'addr_type', 'insured_isTaxResidents', 'insured_job_name', 'insured_ID_type_name', 'insured_nation_name', 'insured_home_district_name']
             for (var i in index.assured) {
                 if (assufieldFilter.indexOf(i) === -1) {
                     insured[i] = index.assured[i]
@@ -636,19 +634,13 @@
                 safeitem.fee = item.period_money
                 safeitem.amount = item.money
                 totalfee += Number(item.period_money)
-                if (item.code === qwhh) {
-                    safeitem.quantity = (item.money / 50000).toString()
-                }
 
                 safeitem.extend_items = {
                     autoApl: item.autoApl ? '1' : '0',
                     guarantee_term: item.guarantee_term,
                     draw_freq: item.draw_freq,
                     draw_age: item.draw_age,
-                    shareDrawType: item.code === cjb ? zrwnzh : item.shareDrawType
-                }
-                if (item.code === fxjs) {
-                    safeitem.extend_items.shareDrawType = item.shareDrawType
+                    shareDrawType: item.shareDrawType
                 }
                 content.push(safeitem)
             })
@@ -732,7 +724,7 @@
                 success: function (res) {
                     if (res.code) {
                         plus.storage.setItem('zhaos_ids',JSON.stringify(res.data));
-                        showPopu('insurance-sign.html', 'hd-insurance-sign', "bottom",res.data.policy_id);
+                        showPopu('insurance-sign.html', 'zs-insurance-sign', "bottom",res.data.policy_id);
                         plus.nativeUI.closeWaiting();
                     } else {
                         plus.nativeUI.closeWaiting();

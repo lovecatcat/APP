@@ -914,21 +914,25 @@
         hinfo && setHealth(hinfo)
 
         function setHealth(data) {
+            var arr = {}
+            mui.each(data, function (index, item) {
+                arr[item.mv_id] = item
+            })
             mui.each(data, function (index, item) {
                 var aitem = assforms[item.mv_id]
                 if (item.insured_answer === '1') {
                     health.clientvalue.ass_amswer[item.mv_id] = true
                     console.log(item.mv_id +';'+item.insured_fields)
                     if (aitem && aitem.length === 1) {
-                        aitem[0]['value'] = item.insured_fields
                         if (aitem[0]['id']) {
+                            aitem[0]['value'] = arr[aitem[0]['id']].insured_fields
+                        } else {
+                            console.log(item.mv_id )
                             aitem[0]['value'] = item.insured_fields
                         }
                     } else if (aitem && aitem.length > 1) {
                         for (var i in aitem) {
-                            if (item.mv_id === aitem[i]['id']) {
-                                aitem[i]['value'] = item.insured_fields
-                            }
+                            aitem[i]['value'] = arr[aitem[i]['id']].insured_fields
                         }
                     }
                 }
@@ -946,6 +950,7 @@
                     }
                 }
             })
+            console.log(JSON.stringify(arr))
         }
         //
         var applicant = JSON.parse(plus.storage.getItem('zhaos_applicant'));

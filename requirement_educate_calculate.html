@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="css/mui.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/module.css" rel="stylesheet" />
+    <link href="css/member.css" rel="stylesheet" />
+    <script src="js/config.js" type="text/javascript"></script>
+</head>
+<body class="BL-bg-f2f">
+    <header id="Js-header" class="BL-bg-fff">
+        <div class="BL-mod-headbar BL-mod-headbar-pos">
+            <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+            <h1 class="BL-title">教育金测算</h1>
+        </div>
+    </header>
+    <div id="Js-content" class="mui-content BL-rel" style="background: rgba(59,156,245,0.8)" v-cloak>
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <div class="member-card">
+                    <div class="member-card-header BL-bg-ebf5fe">
+                        <p class="BL-bold BL-ftz-48 BL-col-3b9cf5">教育阶段：<span class="BL-col-333">学前教育-{{ xq.school_year }}学年</span></p>
+                        <div class="member-card-tip">
+                            (包含各种亲子班、早教班等费用)
+                        </div>
+                    </div>
+                    <div class="member-card-content">
+                        <div class="mui-row">
+                            <div class="mui-col-xs-5 card-dis">公立&nbsp;{{ xq.tuition[0] }}/年(元)</div>
+                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ xq.total[0] }}</span></div>
+                            <div class="mui-col-xs-1 mui-radio card-radio">
+                                <input type="radio" :value="xq.tuition[0]" v-model="xq.fee" @change="stage_total(0,xq.fee,'xq')">
+                            </div>
+                        </div>
+                        <div class="mui-row">
+                            <div class="mui-col-xs-5 card-dis">私立&nbsp;{{ xq.tuition[1] }}/年(元)</div>
+                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ xq.total[1] }}</span></div>
+                            <div class="mui-col-xs-1 mui-radio card-radio">
+                                <input type="radio" :value="xq.tuition[1]" v-model="xq.fee" @change="stage_total(1,xq.fee,'xq')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-card-header BL-bg-ebf5fe">
+                        <p class="BL-bold BL-ftz-48 BL-col-3b9cf5">教育阶段：<span class="BL-col-333">小学-{{ xx.school_year }}学年</span></p>
+                        <div class="member-card-tip">
+                            (包含各种兴趣班、培训班等费用)
+                        </div>
+                    </div>
+                    <div class="member-card-content">
+                        <div class="mui-row">
+                            <div class="mui-col-xs-5 card-dis">公立&nbsp;{{ xx.tuition[0] }}/年(元)</div>
+                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ xx.total[0] }}</span></div>
+                            <div class="mui-col-xs-1 mui-radio card-radio">
+                                <input type="radio" :value="xx.tuition[0]" v-model="xx.fee" @change="stage_total(0,xx.fee,'xx')">
+                            </div>
+                        </div>
+                        <div class="mui-row">
+                            <div class="mui-col-xs-5 card-dis">私立&nbsp;{{ xx.tuition[1] }}/年(元)</div>
+                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ xx.total[1] }}</span></div>
+                            <div class="mui-col-xs-1 mui-radio card-radio">
+                                <input type="radio" :value="xx.tuition[1]" v-model="xx.fee" @change="stage_total(1,xx.fee,'xx')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-card-header BL-bg-ebf5fe">
+                        <p class="BL-bold BL-ftz-48 BL-col-3b9cf5">教育阶段：<span class="BL-col-333">初中-{{ cz.school_year }}学年</span></p>
+                        <div class="member-card-tip">
+                            (包含各种辅导班、兴趣班等费用)
+                        </div>
+                    </div>
+                    <div class="member-card-content">
+                        <div class="mui-row">
+                            <div class="mui-col-xs-5 card-dis">公立&nbsp;{{ cz.tuition[0] }}/年(元)</div>
+                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ cz.total[0] }}</span></div>
+                            <div class="mui-col-xs-1 mui-radio card-radio">
+                                <input type="radio" :value="cz.tuition[0]" v-model="cz.fee" @change="stage_total(0,cz.fee,'cz')">
+                            </div>
+                        </div>
+                        <div class="mui-row">
+                            <div class="mui-col-xs-5 card-dis">私立&nbsp;{{ cz.tuition[1] }}/年(元)</div>
+                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ cz.total[1] }}</span></div>
+                            <div class="mui-col-xs-1 mui-radio card-radio">
+                                <input type="radio" :value="cz.tuition[1]" v-model="cz.fee" @change="stage_total(1,cz.fee,'cz')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-card-header BL-bg-ebf5fe">
+                        <p class="BL-bold BL-ftz-48 BL-col-3b9cf5">教育阶段：<span class="BL-col-333">高中-{{ gz.school_year }}学年</span></p>
+                        <div class="member-card-tip">
+                            (包含各种辅导班、兴趣班、假期活动等费用)
+                        </div>
+                    </div>
+                    <div class="member-card-content">
+                        <div class="mui-row">
+                            <div class="mui-col-xs-5 card-dis">公立&nbsp;{{ gz.tuition[0] }}/年(元)</div>
+                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ gz.total[0] }}</span></div>
+                            <div class="mui-col-xs-1 mui-radio card-radio">
+                                <input type="radio" :value="gz.tuition[0]" v-model="gz.fee" @change="stage_total(0,gz.fee,'gz')">
+                            </div>
+                        </div>
+                        <div class="mui-row">
+                            <div class="mui-col-xs-5 card-dis">私立&nbsp;{{ gz.tuition[1] }}/年(元)</div>
+                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ gz.total[1] }}</span></div>
+                            <div class="mui-col-xs-1 mui-radio card-radio">
+                                <input type="radio" :value="gz.tuition[1]" v-model="gz.fee" @change="stage_total(1,gz.fee,'gz')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-card-header BL-bg-ebf5fe">
+                        <p class="BL-bold BL-ftz-48 BL-col-3b9cf5">教育阶段：<span class="BL-col-333">大学-{{ dx.school_year }}学年</span></p>
+                        <div class="member-card-tip">
+                            (包含各种学杂费、各类实践活动、假期活动等费用)
+                        </div>
+                    </div>
+                    <div class="member-card-content">
+                        <div class="mui-row">
+                            <div class="mui-col-xs-5 card-dis">国内&nbsp;{{ dx.tuition[0] }}/年(元)</div>
+                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ dx.total[0] }}</span></div>
+                            <div class="mui-col-xs-1 mui-radio card-radio">
+                                <input type="radio" :value="dx.tuition[0]" v-model="dx.fee" @change="stage_total(0,dx.fee,'dx')">
+                            </div>
+                        </div>
+                        <div class="mui-row">
+                            <div class="mui-col-xs-5 card-dis">海外&nbsp;{{ dx.tuition[1] }}/年(元)</div>
+                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ dx.total[1] }}</span></div>
+                            <div class="mui-col-xs-1 mui-radio card-radio">
+                                <input type="radio" :value="dx.tuition[1]" v-model="dx.fee" @change="stage_total(1,dx.fee,'dx')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-card-header BL-bg-ebf5fe">
+                        <p class="BL-bold BL-ftz-48 BL-col-3b9cf5">教育阶段：<span class="BL-col-333">研究生以上-{{ yj.school_year }}学年</span></p>
+                        <div class="member-card-tip">
+                            (包含各种学杂费、各类实践活动、假期活动等费用)
+                        </div>
+                    </div>
+                    <div class="member-card-content">
+                        <div class="mui-row">
+                            <div class="mui-col-xs-5 card-dis">国内&nbsp;{{ yj.tuition[0] }}/年(元)</div>
+                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ yj.total[0] }}</span></div>
+                            <div class="mui-col-xs-1 mui-radio card-radio">
+                                <input type="radio" :value="yj.tuition[0]" v-model="yj.fee" @change="stage_total(0,yj.fee,'yj')">
+                            </div>
+                        </div>
+                        <div class="mui-row">
+                            <div class="mui-col-xs-5 card-dis">海外&nbsp;{{ yj.tuition[1] }}/年(元)</div>
+                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ yj.total[1] }}</span></div>
+                            <div class="mui-col-xs-1 mui-radio card-radio">
+                                <input type="radio" :value="yj.tuition[1]" v-model="yj.fee" @change="stage_total(1,yj.fee,'yj')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer id="Js-footer" class="BL-footer BL-bg-fff">
+            <div class="BL-ub BL-ub-ac BL-ub-f1">
+                <div class="BL-ub BL-ub-f1 BL-ub-ae BL-ftz-48 BL-pad-l-1_25">
+                    合计：<b class="BL-col-ff8201">{{ sum }}</b>
+                </div>
+                <div class="BL-foot-btn-sign" id="next">
+                    下一步
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/interval-dtpicker.js" type="text/javascript"></script>
+<script src="js/mui.pullToRefresh.js"></script>
+<script src="js/mui.pullToRefresh.material.js"></script>
+<script src="js/vue.min.js"></script>
+<script type="text/javascript">
+    mui.init();
+    var educate = new Vue({
+        el: '#Js-content',
+        data: {
+            xq: {
+                tuition: [9600,32000],
+                school_year: 3,
+                total: [0,0],
+                fee: ""
+            },
+            xx: {
+                tuition: [28800,61600],
+                school_year: 6,
+                total: [0,0],
+                fee: ""
+            },
+            cz: {
+                tuition: [38400,68400],
+                school_year: 3,
+                total: [0,0],
+                fee: ""
+            },
+            gz: {
+                tuition: [67200,107200],
+                school_year: 3,
+                total: [0,0],
+                fee: ""
+            },
+            dx: {
+                tuition: [34000,198000],
+                school_year: 4,
+                total: [0,0],
+                fee: ""
+            },
+            yj: {
+                tuition: [35000,168000],
+                school_year: 2,
+                total: [0,0],
+                fee: ""
+            },
+            sum: 0.00   // 总教育金
+        },
+        methods: {
+            stage_total: function (index, fee, name) {
+                if (index == 0) {
+                    this.$set(this[name].total, index, fee* this[name].school_year);
+                    this.$set(this[name].total, 1, 0);
+                }
+                if (index == 1) {
+                    this.$set(this[name].total, index, fee * this[name].school_year);
+                    this.$set(this[name].total, 0, 0);
+                }
+                this.total()
+            },
+            total: function () {
+                this.sum = this.xq.fee * this.xq.school_year + this.xx.fee * this.xx.school_year + this.cz.fee * this.cz.school_year + this.gz.fee * this.gz.school_year + this.dx.fee * this.dx.school_year + this.yj.fee * this.yj.school_year
+            }
+        }
+    });
+
+    mui('.mui-scroll-wrapper').scroll({
+        scrollY: true, //是否竖向滚动
+        scrollX: false, //是否横向滚动
+        startX: 0, //初始化时滚动至x
+        startY: 0, //初始化时滚动至y
+        indicators: false, //是否显示滚动条
+        deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
+        bounce: true //是否启用回弹
+    });
+
+    mui.plusReady(function() {
+        statusbar();
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        var fotHeight = document.querySelector('#Js-footer').offsetHeight;
+        document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight  + 'px';
+        // 下一步
+        document.querySelector('#next').addEventListener('tap', function () {
+            //打开新窗口
+            mui.openWindow({
+                id: "requirement_educate_plan",
+                url: "requirement_educate_plan.html",
+                show: animateObj.aniDetal,
+                extras:{
+                    total: educate.sum  //扩展参数
+                }
+            });
+
+        })
+    });
+</script>
+</html>

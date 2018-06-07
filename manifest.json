@@ -3337,7 +3337,9 @@
 					"requirement_rate.html",
 					"requirement_safe.html",
 					"requirement_retire.html",
-					"member-statement.html"
+					"member-statement.html",
+					"requirement_educate.html",
+					"requirement_educate_calculate.html"
 				],
 				"priority": 0
 			},
@@ -3448,6 +3450,41 @@
 				"refer": [
 					"requirement_safe.html",
 					"requirement_retire.html"
+				],
+				"priority": 0
+			},
+			"requirement_educate.html": {
+				"resources": [
+					"js/Date.js",
+					"js/interval-dtpicker.js",
+					"css/mui.css",
+					"css/member.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"requirement_educate_plan.html": {
+				"resources": [
+					"js/mui.poppicker.js",
+					"css/mui.picker.min.css",
+					"css/form.css",
+					"css/mui.css",
+					"images/icon/ico-down.png",
+					"css/member.css"
+				],
+				"refer": [
+					"product.html"
+				],
+				"priority": 0
+			},
+			"requirement_educate_calculate.html": {
+				"resources": [
+					"css/member.css",
+					"js/interval-dtpicker.js",
+					"css/mui.css"
+				],
+				"refer": [
+					"requirement_educate_plan.html"
 				],
 				"priority": 0
 			}

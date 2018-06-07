@@ -10,7 +10,8 @@
 			id: '__MUI_PREVIEWIMAGE',
 			zoom: true,
 			header: '<span class="mui-preview-indicator"></span>',
-			footer: ''
+			footer: '',
+			download:false, // 默认隐藏下载按钮
 		}, options || {});
 		this.init();
 		this.initEvent();
@@ -24,7 +25,17 @@
 			document.body.appendChild(div.firstElementChild);
 			el = document.getElementById(this.options.id);
 		}
-
+		
+		if(options.download){
+			if(!document.getElementById('Js-ImgDownLoad')){
+				var popuDiv = document.createElement("div");
+				popuDiv.id = 'Js-ImgDownLoad';
+				popuDiv.classList.add('BL-mode-previe-download');
+				popuDiv.innerHTML = '下载';
+				document.body.appendChild(popuDiv);
+			};
+		};
+		
 		this.element = el;
 		this.scroller = this.element.querySelector($.classSelector('.slider-group'));
 		this.indicator = this.element.querySelector($.classSelector('.preview-indicator'));
@@ -165,6 +176,33 @@
 		var itemData = this.currentGroup[index];
 		var imgEl = itemEl.querySelector('img');
 		this._initImgData(itemData, imgEl);
+		var _dom = document.getElementById('Js-ImgDownLoad');
+		
+		if(window.plus && _dom){
+			_dom.addEventListener('tap', function(){
+				plus.nativeUI.showWaiting('正在下载保存手机相册', {
+			        style: 'white',
+			        width: '120px'
+			   });
+				var timestamp = Date.parse(new Date());
+				var downLoader = plus.downloader.createDownload(imgEl.src, {
+				    method: 'GET',
+				    filename: '_downloads/' + timestamp + '.jpg'
+				}, function(download, status) {
+					plus.nativeUI.closeWaiting();
+				    var fileName = download.filename;
+				    if(status == 200){
+					    plus.gallery.save(fileName, function() {
+						    mui.toast("保存成功");
+						});
+					}else{
+						mui.toast("保存失败，稍后再试");
+					}
+				});
+				downLoader.start();
+			})
+		}
+		
 		if (isOpening) {
 			var posi = this._getPosition(itemData);
 			imgEl.style.webkitTransitionDuration = '0ms';
@@ -317,6 +355,11 @@
 		this.refresh(index, this.groups[group]);
 	};
 	proto.open = function(index, group) {
+		var _dom = document.getElementById('Js-ImgDownLoad');
+		if(this.options.download && _dom){
+			_dom.style.display = 'block';
+		};
+		
 		if (this.isShown()) {
 			return;
 		}
@@ -332,6 +375,11 @@
 		}
 	};
 	proto.close = function(index, group) {
+		var _dom = document.getElementById('Js-ImgDownLoad');
+		if(this.options.download && _dom){
+			_dom.style.display = 'none';
+		};
+		
 		if (!this.isShown()) {
 			return;
 		}

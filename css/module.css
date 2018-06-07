@@ -708,3 +708,21 @@
 .BL-mod-sidemenu ul li:last-child{
 	border-bottom: 0 none;
 }
+
+/*图片预览*/
+.BL-mode-previe-download{
+    position: fixed;
+    right: 2.5rem;
+    bottom: 2.5rem;
+    color: #333;
+    font-size: 1.25rem;
+    width: 5rem;
+    height: 5rem;
+    line-height: 5rem;
+    text-align: center;
+    border-radius: 100%;
+    box-shadow: 0px 0px .2rem rgba(0,0,0,0.7);
+    background: rgba(254,254,254, 0.9);
+    z-index: 100;
+    display: none;
+}

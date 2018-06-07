@@ -2117,7 +2117,10 @@ var methods = {
 			// 恒大福享今生
 			data.level = 2 // 不知道为什么要传这个才能做计划书
 			data.flag = this.flag[safeid]
-		} else if(safeid === 'HA005') {
+		} else if(safeid === 'LE234') {
+			// 千万护航
+			data.safe_year = this.mainSafeYear == 75 ? '7500' : this.mainSafeYear
+		}  else if(safeid === 'HA005') {
 			// 恒大 尊享安康
 			data.pay_year = 1
 			data.safe_year = 1

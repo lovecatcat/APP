@@ -404,7 +404,8 @@
 					"requirement_retire.html",
 					"requirement_risk.html",
 					"requirement_risk_result.html",
-					"requirement_risk_ppt.html"
+					"requirement_risk_ppt.html",
+					"requirement.html"
 				],
 				"priority": 0
 			},
@@ -813,7 +814,8 @@
 					"member-promote.html",
 					"member-poster.html",
 					"member-requirement.html",
-					"member-clips.html"
+					"member-clips.html",
+					"requirement.html"
 				],
 				"priority": 0
 			},
@@ -3486,6 +3488,16 @@
 				"refer": [
 					"requirement_educate_plan.html"
 				],
+				"priority": 0
+			},
+			"requirement.html": {
+				"resources": [
+					"css/member.css",
+					"css/mui.css",
+					"images/member/risk-evaluation.png",
+					"css/form.css"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

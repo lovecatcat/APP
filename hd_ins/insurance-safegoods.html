@@ -187,6 +187,12 @@
                 </template>
                 <!--万年福-->
                 <template v-else-if="insurance.code==wnf">
+                    <div class="input-item ins-pd-r-0">
+                        <label class="">保证年限</label>
+                        <div class="input-wrap box-f-1 multi-btn">
+                            <button class="ins-btn xs-btn blue" disabled >20年</button>
+                        </div>
+                    </div>
                     <div class="input-item ins-pd-r-0" v-if="init&&init.nj_get_way">
                         <label class="">生存金领取方式</label>
                         <div class="input-wrap box-f-1 multi-btn">
@@ -779,6 +785,7 @@
                 console.log('setAddons' + i + 'init:' + init)
                 var vm = this
                 var tml = {
+                    name: vm.Addons[i].name,
                     safe_id: vm.Addons[i].id, //险种
                     code: i, //险种
                     safe_year: '', //保险期间
@@ -786,7 +793,6 @@
                     money: '', //基本保险金额
                     period_money: '' //年缴保费
                 }
-//                console.log(i + ', 是否初始化：' + init)
                 if (i === tbrhm) {
                     var item = {}
                     for (var j in vm.Addons[i].ratio) {
@@ -812,6 +818,11 @@
                     }
                     tml.safe_year = ''
                     tml.money = vm.insurance.period_money
+                } else if (i === cjb) {
+                    tml.safe_year = 999
+                    tml.pay_year = 1
+                    tml.money = 0
+                    tml.period_money = 100
                 } else {
                     if (vm.Addons[i].ratio.length === 1) {
                         tml.safe_year = vm.Addons[i].ratio[0].year
@@ -819,7 +830,7 @@
                     }
                     tml.money = ''
                 }
-//                console.log('设置附加险,ID:' + i)
+                console.log('设置附加险,ID:' + i)
                 vm.addonIns[i] = tml
                 console.log(JSON.stringify(tml))
                 if (init) {
@@ -832,6 +843,7 @@
                             console.log('act')
 
                             vm.addonIns[kitem.code] = {
+                                name: tml.name,
                                 safe_id: kitem.safe_id,
                                 code: kitem.code,
                                 safe_year: kitem.safe_year,
@@ -854,6 +866,8 @@
                             vm.insurance.shareDrawType = zrwnzh; //转入万能账户
                             vm.addonIns[index].period_money = 100
                             vm.addonIns[index].money = 0
+                            vm.addonIns[index].pay_year = 1
+                            vm.addonIns[index].safe_year = 999
                         } else {
                             vm.insurance.shareDrawType = ''
                         }
@@ -1119,7 +1133,7 @@
             //试算
             calMoney: function (index) {
                 document.activeElement.blur();
-                console.log('试算中');
+                console.log('试算中'+index);
                 var vm = this
                 var id = vm.insurance.code;
                 if (!vm.checkForm()) {
@@ -1161,6 +1175,8 @@
                         return false
                     }
                     if (index && vm.addonIns[index]) {
+                        console.log('========================')
+                        console.log(JSON.stringify(vm.addonIns[index]))
                         var product = {}
                         product.productId = vm.addonIns[index].safe_id
                         product.pay = vm.addonIns[index].pay_year
@@ -1385,7 +1401,7 @@
                 }
             })
             plus.storage.setItem('hengda_safegoods', JSON.stringify(insurances));
-//            console.log(JSON.stringify(plus.storage.getItem('hengda_safegoods')))
+            console.log(JSON.stringify(plus.storage.getItem('hengda_safegoods')))
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'hengda_safegoods',
                 data: 'safegoods'

@@ -53,9 +53,11 @@
                 </div>
                 <div class="BL-pad-a1">
                     <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1">
-                        <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读<a class="BL-col-3b9cf5" type="button" @tap="showStatement"><strong>《{{main_insurance.name}}保险条款》</strong></a>、和<a type="button" id="safenotice"
-                                class="BL-col-3b9cf5"><strong>《投保提示书》</strong></a>、<a type="button" id="statement"
-                                class="BL-col-3b9cf5"><strong>《自动转账授权说明》</strong></a>，并确认无误
+                        <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读
+                            <a class="BL-col-3b9cf5" type="button" disabled @tap="showStatement(item.safe_id,item.name)" v-for="(item,index) in safegoods"><strong>《{{item.name}}保险条款》</strong></a>
+                            、和<a type="button" id="safenotice" class="BL-col-3b9cf5"><strong>《投保提示书》</strong></a>、
+                            <a type="button" id="mustknow" class="BL-col-3b9cf5"><strong>《投保须知》</strong></a>、
+                            <a type="button" id="statement" class="BL-col-3b9cf5"><strong>《银行自动转账授权事项》</strong></a>，并确认无误
                             <input name="checkbox" v-model="agree" type="checkbox" style="top: 20px; left: 0px;">
                         </label>
                     </div>
@@ -144,6 +146,14 @@
         })
         return false
     })
+    mui('body').on('tap', '#mustknow', function () {
+        mui.openWindow({
+            url: 'mustknow.html',
+            id: 'mustknow',
+            show: animateObj.aniDetal
+        })
+        return false
+    })
     mui.plusReady(function () {
         popu = new ClosePopu(); // 实例化关闭窗口对象
 
@@ -158,23 +168,8 @@
         var itemName = ['hengda_applicant','hengda_assured','hengda_beneficiary','hengda_safegoods','hengda_healthinfo','hengda_bank','hengda_upload','hengda_ids'];
         var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')): ''
         var safegoods = plus.storage.getItem('hengda_safegoods') ? JSON.parse(plus.storage.getItem('hengda_safegoods')): ''
-        mui.each(safegoods, function (index, item) {
-            if(item.is_main == 1){
-                img.main_insurance = item
-                luckyAjax({
-                    data: {
-                        data: JSON.stringify({product_id: item.safe_id}),
-                        server: 'lifeProduct.getProductInfo'
-                    },
-                    success: function (data) {
-                        plus.nativeUI.closeWaiting();
-                        if (data.code === 1) {
-                            img.pdfurl = data.data.statement;
-                        }
-                    }
-                })
-            }
-        })
+        img.safegoods = safegoods
+        console.log(JSON.stringify(safegoods))
         img.assured = assured
         //赋值
         img.getSignature(1,true);
@@ -443,8 +438,7 @@
         data:function() {
             return {
                 agree: false,
-                pdfurl: '',
-                main_insurance: '',
+                safegoods: '',
                 war_id: '',
                 assured: {},
                 appl_signature: '',
@@ -458,26 +452,35 @@
         },
         methods: {
             //主险条款
-            showStatement: function () {
-                var url = this.pdfurl;
-                console.log(url)
-                if (url) {
-                    mui.openWindow({
-		                url: '../pdf-modal.html',
-		                id: 'pdf_modal',
-		                show: animateObj.aniDetal,
-		                extras: {
-			    			pdf:url,
-			    			name:this.main_insurance.name
-			    		},
-			    		waiting:{
-			    			auto:false,
-			    		}
-		            });
-                } else {
-                    mui.toast('暂无条款详情', {duration: 'short', type: 'div'});
-                    return false;
-                }
+            showStatement: function (id, name) {
+                luckyAjax({
+                    data: {
+                        data: JSON.stringify({product_id: id}),
+                        server: 'lifeProduct.getProductInfo'
+                    },
+                    success: function (data) {
+                        plus.nativeUI.closeWaiting();
+                        if (data.code === 1) {
+                            if (data.data.statement) {
+                                mui.openWindow({
+                                    url: '../pdf-modal.html',
+                                    id: 'pdf_modal',
+                                    show: animateObj.aniDetal,
+                                    extras: {
+                                        pdf: data.data.statement,
+                                        name: name
+                                    },
+                                    waiting: {
+                                        auto: false,
+                                    }
+                                });
+                            } else {
+                                mui.toast('暂无条款详情', {duration: 'short', type: 'div'});
+                                return false;
+                            }
+                        }
+                    }
+                })
             },
             //保存签名
             save_ins: function(type) {

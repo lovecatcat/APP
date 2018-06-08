@@ -24,10 +24,10 @@
                 <button class="ins-btn sm-btn blue" id="saveHealthinfo">保存</button>
             </div>
         </div>
-        <div class="form-content margin-t-6_125 BL-pad-b-2">
+        <div class="form-content margin-t-6_125 BL-pad-b-2" v-cloak>
             <div class="form-wrap">
                 <!--投保人-->
-                <div class="table-wrap" v-if="showAppl&&matters" v-cloak>
+                <div class="table-wrap" v-if="showAppl&&matters">
                     <div class="item">
                         <ul class="flex table-title">
                             <li class="flex-1" style="line-height:3.125rem;">投保人健康告知</li>
@@ -62,7 +62,7 @@
                 </div>
                 <!--投保人-->
                 <!--被保人-->
-                <div class="table-wrap" v-if="matters" v-cloak>
+                <div class="table-wrap" v-if="matters">
                     <div class="item">
                         <ul class="flex table-title">
                             <li class="flex-1" style="line-height:3.125rem;">被保人健康告知</li>
@@ -876,14 +876,10 @@
             popu.closepop();
         });
         //
-        var safegoods = plus.storage.getItem('hengda_safegoods') ? JSON.parse(plus.storage.getItem('hengda_safegoods')) : '';
-        if (safegoods) {
-            mui.each(safegoods, function (index, item) {
-                if (item.safe_id === tbrhm) {
-                    health.showAppl = true
-                    health.appfolder = false
-                }
-            })
+        var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')) : '';
+        if (assured && assured.rel_insured_holder !== ISASSURED) {
+            health.showAppl = true
+            health.appfolder = false
         }
         //赋值
         console.log(plus.storage.getItem('hengda_healthinfo'));
@@ -953,8 +949,8 @@
                     insured_fields = assured.insured_salary_avg + '|' + assured.insured_salary_from
                 } else if (item.id === 173) {
                     //投被保人是否有社保
-                    holder_answer = '1'
-                    insured_answer = '1'
+                    holder_answer = applicant.holder_has_SSID ? '1' : '0'
+                    insured_answer = assured.insured_has_SSID ? '1' : '0'
                     holder_fields = applicant.holder_has_SSID ? '有社保' : '无社保'
                     insured_fields = assured.insured_has_SSID ? '有社保' : '无社保'
                 }

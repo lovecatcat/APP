@@ -211,6 +211,7 @@
                                 appl_data.holder_contact_province = da.insData.holder_contact_province//通讯地址【省】
                                 appl_data.holder_contact_city = da.insData.holder_contact_city//通讯地址【市】
                                 appl_data.holder_contact_district = da.insData.holder_contact_district//通讯地址【区】
+                                appl_data.holder_contact_district_name = da.insData.holder_contact_district_text//通讯地址【区】
                                 appl_data.holder_contact_address = da.insData.holder_contact_address //通讯地址【地址详情】
                                 appl_data.holder_contact_zip = da.insData.holder_contact_zip//通讯地址【邮编】
 
@@ -515,6 +516,7 @@
                 mui.back();
             }
         })
+
         //重置
         document.querySelector('#resetData').addEventListener('tap', function () {
             index.$nextTick(function () {
@@ -522,12 +524,13 @@
             })
         })
         //提交
+        var i = 0;
         document.querySelector('#ins-save').addEventListener('click', function () {
             var war_id = index.ids ? Number(index.ids.policy_id) : ''
+            i = 0;
             setPushData(war_id);
 
         });
-        var i = 0;
         var pushdata = {};
 
         //核保数据整理
@@ -701,6 +704,7 @@
                     if (res.code) {
                         console.log('删除成功')
                         i++;
+                        console.log(i)
                         if (i === 3) {
                             save_ins(pushdata);
                         }
@@ -716,6 +720,7 @@
 
         //保存保单
         function save_ins(data) {
+            console.log('saving---')
             luckyAjax({
                 data: {data: JSON.stringify(data), server: 'PolicyIns.save'},
                 closeWaiting: true,

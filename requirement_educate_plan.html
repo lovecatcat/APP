@@ -185,7 +185,7 @@
         document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight  + 'px';
 
         educate.allTotal = plus.webview.currentWebview().total;
-        //收益率假设选择
+        // 收益率假设选择
         var select_yields = new mui.PopPicker();
         select_yields.setData(educate.select_yields);
         document.querySelector('#select_yields').addEventListener('tap', function () {
@@ -196,7 +196,7 @@
             })
         })
 
-        //投资年限选择
+        // 投资年限选择
         var invest_years = new mui.PopPicker();
         invest_years.setData(educate.invest_years);
         document.querySelector('#invest_years').addEventListener('tap', function () {
@@ -207,10 +207,24 @@
             })
         })
 
-        // 下一步
-        //跳转养老年金
+        // 下一步跳转养老年金
         mui('#Js-footer').on('tap', 'a', function(){
             document.activeElement.blur();
+            // 校验
+            if(!educate.checkAge()) {
+                return false
+            }
+
+            if (educate.invest_years_value == ''){
+                mui.toast('请选择投资年限', {duration: 'short', type: 'div'});
+                return false;
+            }
+
+            if (educate.select_years_value == '') {
+                mui.toast('请选择收益率假设', {duration: 'short', type: 'div'});
+                return false;
+            }
+
             var extras = null;
             var href = this.getAttribute('href');
             var id = this.getAttribute("data-wid");

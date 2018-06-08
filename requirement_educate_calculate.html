@@ -224,7 +224,7 @@
                 total: [0,0],
                 fee: ""
             },
-            sum: 0.00   // 总教育金
+            sum: "0.00"   // 总教育金
         },
         methods: {
             stage_total: function (index, fee, name) {
@@ -239,7 +239,8 @@
                 this.total()
             },
             total: function () {
-                this.sum = this.xq.fee * this.xq.school_year + this.xx.fee * this.xx.school_year + this.cz.fee * this.cz.school_year + this.gz.fee * this.gz.school_year + this.dx.fee * this.dx.school_year + this.yj.fee * this.yj.school_year
+                var sum = this.xq.fee * this.xq.school_year + this.xx.fee * this.xx.school_year + this.cz.fee * this.cz.school_year + this.gz.fee * this.gz.school_year + this.dx.fee * this.dx.school_year + this.yj.fee * this.yj.school_year
+                this.sum = sum.toFixed(2)
             }
         }
     });
@@ -262,6 +263,10 @@
         document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight  + 'px';
         // 下一步
         document.querySelector('#next').addEventListener('tap', function () {
+            if (educate.sum == '0.00') {
+                mui.toast('请至少测算其中一项，按步骤进行操作得出总需教育金', {duration: 'short', type: 'div'});
+                return false
+            }
             //打开新窗口
             mui.openWindow({
                 id: "requirement_educate_plan",

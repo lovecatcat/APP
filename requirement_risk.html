@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>风险评测</title>
+    <link href="css/mui.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/module.css" rel="stylesheet" />
+    <link href="css/form.css" rel="stylesheet" />
+    <link href="css/member.css" rel="stylesheet" />
+    <script src="js/config.js" type="text/javascript"></script>
+</head>
+
+<body class="BL-bg-f2f">
+    <header id="Js-header" class="BL-bg-fff">
+        <div class="BL-mod-headbar BL-mod-headbar-pos">
+            <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+            <h1 class="BL-title">需求分析</h1>
+        </div>
+    </header>
+    <div id="Js-content" class="mui-content BL-rel BL-bg-fff BL-overFlow-autoY">
+        <div class="member-risk-banner BL-bimg-contain"></div>
+        <div class="member-risk-body">
+            <div class="member-risk-form">
+                <p class="BL-ftz-46 BL-col-999 BL-text-indent" style="line-height: 2.25rem; margin-bottom: 0rem">
+                    为了便于您了解自身的风险承受能力，选择合适的投资产品和服务，请您填写以下风险承受能力评估问卷。
+                </p>
+                <p class="BL-ftz-46 BL-col-999 BL-text-indent" style="line-height: 2.25rem; margin-bottom: 0rem">
+                    下列问题可协助评估您对投资产品和服务的风险承受能力，请您根据自身情况认真选择。评估结果仅供参考，不构成投资建议。为了及时了解您的风险承受能力，我们建议您持续做好动态评估。我们承诺对您的所有个人资料保密。
+                </p>
+                <div class="BL-mar-t-2">
+                    <p class="BL-col-666 BL-ftz-46">请填写个人基本信息：</p>
+                    <div class="BL-ub BL-ub-pc BL-ub-ac BL-ftz-46 BL-mar-t-1">
+                        <label class="BL-pad-r-2">姓&nbsp;&nbsp;&nbsp;名</label>
+                        <div class="BL-ub-f1">
+                            <input type="text" class="member-risk-input" v-model.lazy="name" @change="checkName(name)">
+                        </div>
+                    </div>
+                    <div class="BL-ub BL-ub-pc BL-ub-ac BL-ftz-46 BL-mar-t-1">
+                        <label class="BL-pad-r-2">性&nbsp;&nbsp;&nbsp;别</label>
+                        <div class="BL-ub-f1">
+                            <button class="risk-form-btn" value="male" @tap="sex='male',toblur()"
+                                    :class="{'blue':sex==='male'}">
+                                男
+                            </button>
+                            <button class="risk-form-btn" value="female" @tap="sex='female',toblur()"
+                                    :class="{'blue':sex==='female'}">
+                                女
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-button-group BL-mar-t-1">
+                <div class="form-btn">开始测试</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/vue.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var risk = new Vue({
+        el: '#Js-content',
+        data: {
+            name: "",    // 姓名
+            sex: ""     // 性别
+        },
+        methods: {
+            toblur:function(){
+                document.activeElement.blur();
+            },
+            //校验姓名
+            checkName: function (name) {
+                var toast_text = null
+                var strLength = 0
+                if (name) {
+                    for (var i = 0; i < name.length; i++) {
+                        if ((name.charCodeAt(i) < 0) || (name.charCodeAt(i) > 255)) {
+                            strLength = strLength + 3
+                        } else {
+                            strLength = strLength + 1
+                        }
+                    }
+                }
+                if (!name) {
+                    toast_text = '姓名不能为空';
+                } else if (strLength > 200) {
+                    toast_text = '姓名长度不能超过200字符';
+                } else if (/[a-z]/i.test(name)) { // 英文
+                    if (name.replace(/\s/, '').length < 3) {
+                        toast_text = '姓名不小于3个字符';
+                    } else if (!/^[a-z]+[a-z\s]*[a-z]+$/i.test(name) || /(\s)\1/.test(name)) {
+                        toast_text = '姓名填写有误';
+                    }
+                } else if (/[\u4e00-\u9fa5·]/i.test(name)) { // 中文
+                    if (name.length < 2) {
+                        toast_text = '姓名不小于2个汉字';
+                    } else if (!/^[\u4e00-\u9fa5]+[\u4e00-\u9fa5·]*[\u4e00-\u9fa5]+$/i.test(name) || /(·)\1/.test(name)) {
+                        toast_text = '姓名填写有误';
+                    }
+                } else if (!/^[a-z]+[\sa-z]*[a-z]+$/i.test(name) && !/^[\u4e00-\u9fa5]+[\u4e00-\u9fa5·]*[\u4e00-\u9fa5]+$/i.test(name)) { //中英文
+                    toast_text = '姓名填写有误';
+                }
+
+                if (toast_text) {
+                    mui.toast(toast_text, {duration: 'short', type: 'div'});
+                    return false;
+                }
+                return true
+            }
+        }
+    });
+
+    mui.init();
+    mui.plusReady(function() {
+        statusbar();
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+
+        // 开始测试
+        document.querySelector('.form-btn').addEventListener('tap', function () {
+            document.activeElement.blur();
+            if (!risk.checkName(risk.name)) {
+                return false
+            } else if (risk.sex == '') {
+                mui.toast('请选择性别', {duration: 'short', type: 'div'});
+                return false;
+            }
+
+            //打开新窗口
+            mui.openWindow({
+                id: "requirement_risk_question",
+                url: "requirement_risk_question.html",
+                show: animateObj.aniDetal
+//                extras:{
+//                    policy_id: id  //扩展参数
+//                }
+            });
+
+        })
+    })
+</script>
+
+</html>

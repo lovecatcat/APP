@@ -401,7 +401,10 @@
 					"rank.html",
 					"requirement_safe1.html",
 					"requirement_safe.html",
-					"requirement_retire.html"
+					"requirement_retire.html",
+					"requirement_risk.html",
+					"requirement_risk_result.html",
+					"requirement_risk_ppt.html"
 				],
 				"priority": 0
 			},
@@ -480,7 +483,9 @@
 					"images/icon/ico-filter.png",
 					"images/icon/ico-eye.png",
 					"images/icon/ico-hide.png",
-					"js/config.js"
+					"js/config.js",
+					"images/icon/ico-search-blue.png",
+					"js/vue.min.js"
 				],
 				"refer": [
 					"product-detail.html",
@@ -2690,7 +2695,12 @@
 			},
 			"shop.html": {
 				"resources": [
-					"css/mui.css"
+					"css/mui.css",
+					"css/module.css",
+					"js/mui.min.js",
+					"css/common.css",
+					"fonts/mui.ttf",
+					"js/config.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2982,7 +2992,12 @@
 					"images/icon/ico-filter-active.png",
 					"js/pdf.js",
 					"js/pdf.worker.js",
-					"images/a.pdf"
+					"images/a.pdf",
+					"images/icon/ico-search-blue.png",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"js/mui.min.js",
+					"js/config.js"
 				],
 				"refer": [
 					"quickly-filter.html",
@@ -3262,7 +3277,15 @@
 					"js/mui.poppicker.js",
 					"css/mui.css",
 					"css/form.css",
-					"css/mui.picker.min.css"
+					"css/mui.picker.min.css",
+					"css/module.css",
+					"js/mui.picker.js",
+					"js/mui.min.js",
+					"css/common.css",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"js/mui.dtpicker.js",
+					"js/config.js"
 				],
 				"refer": [
 					"product.html"
@@ -3274,7 +3297,15 @@
 					"js/mui.poppicker.js",
 					"css/mui.picker.min.css",
 					"css/form.css",
-					"css/mui.css"
+					"css/mui.css",
+					"css/module.css",
+					"js/mui.picker.js",
+					"js/mui.min.js",
+					"css/common.css",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"js/mui.dtpicker.js",
+					"js/config.js"
 				],
 				"refer": [
 					"product.html"
@@ -3292,14 +3323,23 @@
 					"css/mui.css",
 					"images/member/clips_4.png",
 					"images/member/clips_8.png",
-					"images/member/clips_9.png"
+					"images/member/clips_9.png",
+					"images/icon/ico-search-blue.png",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"css/module.css",
+					"js/mui.min.js",
+					"css/common.css",
+					"js/config.js"
 				],
 				"refer": [
 					"member-promote.html",
 					"requirement_rate.html",
 					"requirement_safe.html",
 					"requirement_retire.html",
-					"member-statement.html"
+					"member-statement.html",
+					"requirement_educate.html",
+					"requirement_educate_calculate.html"
 				],
 				"priority": 0
 			},
@@ -3308,7 +3348,15 @@
 					"js/mui.poppicker.js",
 					"css/mui.picker.min.css",
 					"css/form.css",
-					"css/mui.css"
+					"css/mui.css",
+					"css/module.css",
+					"js/mui.picker.js",
+					"js/mui.min.js",
+					"css/common.css",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"js/mui.dtpicker.js",
+					"js/config.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -3343,6 +3391,101 @@
 					"js/pdf.worker.js"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"requirement_risk.html": {
+				"resources": [
+					"css/mui.css",
+					"css/member.css",
+					"images/member/risk-evaluation.png",
+					"css/module.css",
+					"css/common.css",
+					"css/form.css"
+				],
+				"refer": [
+					"requirement_risk_question.html"
+				],
+				"priority": 0
+			},
+			"requirement_risk_question.html": {
+				"resources": [
+					"js/mui.poppicker.js",
+					"css/mui.picker.min.css",
+					"css/mui.css",
+					"css/member.css",
+					"css/form.css"
+				],
+				"refer": [
+					"requirement_risk_result.html"
+				],
+				"priority": 0
+			},
+			"requirement_risk_result.html": {
+				"resources": [
+					"css/sns.css",
+					"js/Date.js",
+					"css/mui.css",
+					"js/interval-dtpicker.js",
+					"css/member.css",
+					"images/member/pingheng.png",
+					"images/member/pinghengxing.jpg",
+					"images/member/jinquxing.jpg"
+				],
+				"refer": [
+					"requirement_risk_ppt.html"
+				],
+				"priority": 0
+			},
+			"requirement_risk_ppt.html": {
+				"resources": [
+					"images/member/req-bg.jpg",
+					"css/member.css",
+					"js/interval-dtpicker.js",
+					"css/mui.css",
+					"images/member/risk-education.png",
+					"images/member/risk-medical.png",
+					"images/member/req-bg.png",
+					"images/member/risk-pension.png"
+				],
+				"refer": [
+					"requirement_safe.html",
+					"requirement_retire.html"
+				],
+				"priority": 0
+			},
+			"requirement_educate.html": {
+				"resources": [
+					"js/Date.js",
+					"js/interval-dtpicker.js",
+					"css/mui.css",
+					"css/member.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"requirement_educate_plan.html": {
+				"resources": [
+					"js/mui.poppicker.js",
+					"css/mui.picker.min.css",
+					"css/form.css",
+					"css/mui.css",
+					"images/icon/ico-down.png",
+					"css/member.css"
+				],
+				"refer": [
+					"product.html"
+				],
+				"priority": 0
+			},
+			"requirement_educate_calculate.html": {
+				"resources": [
+					"css/member.css",
+					"js/interval-dtpicker.js",
+					"css/mui.css"
+				],
+				"refer": [
+					"requirement_educate_plan.html"
+				],
 				"priority": 0
 			}
 		},

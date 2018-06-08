@@ -338,7 +338,9 @@ i {
 .BL-pad-a1_25 {
 	padding: 1.25rem;
 }
-
+.BL-pad-a1_5 {
+	padding: 1.5rem;
+}
 .BL-pad-a2 {
 	padding: 2rem;
 }
@@ -349,6 +351,12 @@ i {
 
 .BL-pad-l-1 {
 	padding-left: 1rem;
+}
+.BL-pad-l-1_25 {
+	padding-left: 1.25rem;
+}
+.BL-pad-l-1_5 {
+	padding-left: 1.5rem;
 }
 
 .BL-pad-l-2 {
@@ -391,7 +399,12 @@ i {
 .BL-pad-r-1 {
 	padding-right: 1rem;
 }
-
+.BL-pad-r-1_25 {
+	padding-right: 1.25rem;
+}
+.BL-pad-r-1_5 {
+	padding-right: 1.5rem;
+}
 .BL-pad-r-2 {
 	padding-right: 2rem;
 }
@@ -616,10 +629,15 @@ input[type='color']{
 .BL-ftz-46{
 	font-size: 1.4375rem;
 }
+.BL-ftz-48{
+	font-size: 1.5rem;
+}
 .BL-ftz-52{
 	font-size: 1.625rem;
 }
-
+.BL-bold {
+	font-weight: bold;
+}
 /* h5提示框 */
 .mui-toast-container{bottom: 10%;}
 .mui-toast-message{font-size: 1.4375rem;line-height:2rem;}

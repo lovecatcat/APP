@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>风险测评</title>
+    <link href="css/mui.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/module.css" rel="stylesheet" />
+    <link href="css/form.css" rel="stylesheet" />
+    <link href="css/member.css" rel="stylesheet" />
+    <script src="js/config.js" type="text/javascript"></script>
+</head>
+
+<body class="BL-bg-f2f">
+	<header id="Js-header" class="BL-bg-fff">
+	    <div class="BL-mod-headbar BL-mod-headbar-pos">
+	        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+	        <a id="Js-closePage" class="BL-ctrl-close">关闭</a>
+	        <h1 class="BL-title">测试题<span id="Js-index"></span></h1>
+	    </div>
+	</header>
+    <div id="Js-progressbar" class="BL-rel">
+        <div id="progressbar" class="mui-progressbar">
+            <span></span>
+        </div>
+    </div>
+    <div id="Js-content" class="BL-bg-fff">
+        <div id="slider" class="mui-slider">
+            <div class="mui-slider-group" id="Js-slider-group" v-cloak>
+                <!--第一个测试题-->
+                <div id="item1" class="mui-slider-item mui-control-content mui-active">
+                    <div class="BL-pad-tb-3 BL-pad-lr-3">
+                        <p class="BL-col-333 BL-ftz-48 BL-bold">1、您的年龄在以下哪个范围内？</p>
+                        <ol class="risk_list">
+                            <li class="mui-radio">
+                                <label>29岁以下</label>
+                                <input type="radio" value="10" v-model="question[0].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>30-39岁</label>
+                                <input type="radio" value="8" v-model="question[0].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>40-49岁</label>
+                                <input type="radio" value="5" v-model="question[0].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>50-59岁</label>
+                                <input type="radio" value="3" v-model="question[0].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>60岁以上</label>
+                                <input type="radio" value="0" v-model="question[0].score">
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!--第二个测试题-->
+                <div id="item2" class="mui-slider-item mui-control-content">
+                    <div class="BL-pad-tb-3 BL-pad-lr-3">
+                        <p class="BL-col-333 BL-ftz-48 BL-bold">2、您有过几年的投资经验？</p>
+                        <ol class="risk_list">
+                            <li class="mui-radio">
+                                <label>10年以上</label>
+                                <input type="radio" value="10" v-model="question[1].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>6-10年</label>
+                                <input type="radio" value="8" v-model="question[1].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>3-5年</label>
+                                <input type="radio" value="5" v-model="question[1].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>1-2年</label>
+                                <input type="radio" value="3" v-model="question[1].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>1年以下</label>
+                                <input type="radio" value="0" v-model="question[1].score">
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!--第三个测试题-->
+                <div id="item3" class="mui-slider-item mui-control-content">
+                    <div class="BL-pad-tb-3 BL-pad-lr-3">
+                        <p class="BL-col-333 BL-ftz-48 BL-bold">3、您是否有过投资经验？</p>
+                        <ol class="risk_list">
+                            <li class="mui-radio">
+                                <label>有投资贵金属、外汇、期货、期权等高风险衍生品经验</label>
+                                <input type="radio" value="10" v-model="question[2].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>有投资股票、股票型基金的经验</label>
+                                <input type="radio" value="8" v-model="question[2].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>有购买过银行的理财产品、债券基金、信托类、P2P类产品</label>
+                                <input type="radio" value="5" v-model="question[2].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>有购买过保本基金、货币基金（如余额宝）、 保险等低风险产品</label>
+                                <input type="radio" value="3" v-model="question[2].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>从未有过投资经历，只存银行的定期或活期</label>
+                                <input type="radio" value="0" v-model="question[2].score">
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!--第四个测试题-->
+                <div id="item4" class="mui-slider-item mui-control-content">
+                    <div class="BL-pad-tb-3 BL-pad-lr-3">
+                        <p class="BL-col-333 BL-ftz-48 BL-bold">4、您的家庭目前全年收入状况如何？</p>
+                        <ol class="risk_list">
+                            <li class="mui-radio">
+                                <label>50万元以上</label>
+                                <input type="radio" value="10" v-model="question[3].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>30-50万元</label>
+                                <input type="radio" value="8" v-model="question[3].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>15-30万元</label>
+                                <input type="radio" value="5" v-model="question[3].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>5-15万元</label>
+                                <input type="radio" value="3" v-model="question[3].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>5万元以下</label>
+                                <input type="radio" value="0" v-model="question[3].score">
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!--第五个测试题-->
+                <div id="item5" class="mui-slider-item mui-control-content">
+                    <div class="BL-pad-tb-3 BL-pad-lr-3">
+                        <p class="BL-col-333 BL-ftz-48 BL-bold">5、您投资的主要目的是什么？选择最符合您的一个描述：</p>
+                        <ol class="risk_list">
+                            <li class="mui-radio">
+                                <label>关心长期的高回报，能够接受短期的资产价值波动。</label>
+                                <input type="radio" value="10" v-model="question[4].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>倾向长期的成长，较少关心短期的回报以及波动。</label>
+                                <input type="radio" value="8" v-model="question[4].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>希望投资能获得一定的增值，同时获得波动适度的年回报。</label>
+                                <input type="radio" value="5" v-model="question[4].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>只想确保资产的安全性，同时希望能够得到固定的收益。</label>
+                                <input type="radio" value="3" v-model="question[4].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>希望利用投资以及投资所获得的收益在短期内用于大额的购买计划。</label>
+                                <input type="radio" value="0" v-model="question[4].score">
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!--第六个测试题-->
+                <div id="item6" class="mui-slider-item mui-control-content">
+                    <div class="BL-pad-tb-3 BL-pad-lr-3">
+                        <p class="BL-col-333 BL-ftz-48 BL-bold">6、当您进行投资时（例如基金、股票），您能接受一年内损失多少？</p>
+                        <ol class="risk_list">
+                            <li class="mui-radio">
+                                <label>我能承受25％以上亏损。</label>
+                                <input type="radio" value="10" v-model="question[5].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>我能承受10-20％的亏损。</label>
+                                <input type="radio" value="8" v-model="question[5].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>我最多只能承受5-10%的亏损。</label>
+                                <input type="radio" value="5" v-model="question[5].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>我最多只能承受5%以下的亏损。</label>
+                                <input type="radio" value="3" v-model="question[5].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>我几乎不能承受任何亏损。</label>
+                                <input type="radio" value="0" v-model="question[5].score">
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!--第七个测试题-->
+                <div id="item7" class="mui-slider-item mui-control-content">
+                    <div class="BL-pad-tb-3 BL-pad-lr-3">
+                        <p class="BL-col-333 BL-ftz-48 BL-bold">7、目前您的投资主要是哪一品种？</p>
+                        <ol class="risk_list">
+                            <li class="mui-radio">
+                                <label>外汇、期货、现货贵金属 等超高风险资产。</label>
+                                <input type="radio" value="10" v-model="question[6].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>股票、股票基金、私募股权基金 等高风险资产。</label>
+                                <input type="radio" value="8" v-model="question[6].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>混合基金、指数基金、结构类产品 等较高风险资产。</label>
+                                <input type="radio" value="5" v-model="question[6].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>银行理财产品、信托、固定收益类基金（有限合伙基金）、货币基金(如余额宝）。</label>
+                                <input type="radio" value="3" v-model="question[6].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>活期、定期存款、国债、保险。</label>
+                                <input type="radio" value="0" v-model="question[6].score">
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!--第八个测试题-->
+                <div id="item8" class="mui-slider-item mui-control-content">
+                    <div class="BL-pad-tb-3 BL-pad-lr-3">
+                        <p class="BL-col-333 BL-ftz-48 BL-bold">8、如果您拥有50万用来建立资产组合，您会选择下面哪一个组合？</p>
+                        <ol class="risk_list">
+                            <li class="mui-radio">
+                                <label>低风险投资、一般风险投资、高风险投资的比重分别为 5  ：15 ：80</label>
+                                <input type="radio" value="10" v-model="question[7].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>低风险投资、一般风险投资、高风险投资的比重分别为 10 ：30 ：60</label>
+                                <input type="radio" value="8" v-model="question[7].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>低风险投资、一般风险投资、高风险投资的比重分别为 30 ：40 ：30</label>
+                                <input type="radio" value="5" v-model="question[7].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>低风险投资、一般风险投资、高风险投资的比重分别为 60 ：30 ：10</label>
+                                <input type="radio" value="3" v-model="question[7].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>低风险投资、一般风险投资、高风险投资的比重分别为 80 ：15 ：5</label>
+                                <input type="radio" value="0" v-model="question[7].score">
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!--第九个测试题-->
+                <div id="item9" class="mui-slider-item mui-control-content">
+                    <div class="BL-pad-tb-3 BL-pad-lr-3">
+                        <p class="BL-col-333 BL-ftz-48 BL-bold">9、长期风险承受水平：下面哪一种描述最符合您可接受的价值波动程度？</p>
+                        <ol class="risk_list">
+                            <li class="mui-radio">
+                                <label>希望赚取最高回报潜力，能接受3年以上的负面波动，包括损失本金。</label>
+                                <input type="radio" value="10" v-model="question[8].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>希望赚取较高回报潜力，能接受3年以上的负面波动。</label>
+                                <input type="radio" value="8" v-model="question[8].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>寻求资金较高收益，可接受3年内负面波动，使回报显著高于定期存款。</label>
+                                <input type="radio" value="5" v-model="question[8].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>保守投资，但愿意在2年内接受少许负面波动，使回报高于定期存款</label>
+                                <input type="radio" value="3" v-model="question[8].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>不希望投资本金承担风险。我愿意接受的回报大约与定期存款一样。</label>
+                                <input type="radio" value="0" v-model="question[8].score">
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!--第十个测试题-->
+                <div id="item10" class="mui-slider-item mui-control-content">
+                    <div class="BL-pad-tb-3 BL-pad-lr-3">
+                        <p class="BL-col-333 BL-ftz-48 BL-bold">10、假设现有以下几个投资品种，那您会选择哪一个？</p>
+                        <ol class="risk_list">
+                            <li class="mui-radio">
+                                <label>收益率在30%以上，同时本金也有可能亏损20%以上。</label>
+                                <input type="radio" value="10" v-model="question[9].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>本金不保证，收益率在20%以内，同时本金也有可能亏损10%以内。</label>
+                                <input type="radio" value="8" v-model="question[9].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>本息保证，长期复利收益率在4-6%左右。</label>
+                                <input type="radio" value="5" v-model="question[9].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>本息保证，短期单利收益率在3%以内。</label>
+                                <input type="radio" value="3" v-model="question[9].score">
+                            </li>
+                            <li class="mui-radio">
+                                <label>银行定期存款，收益率为银行同期公布利率。</label>
+                                <input type="radio" value="0" v-model="question[9].score">
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-button-group BL-mar-t-1 mui-row" style="width: 100%;position: absolute;bottom: 5rem">
+            <div class="mui-col-xs-6" v-show="question[0].finish">
+                <button class="form-btn back-btn" id="back-btn" :disabled="index==0">上一题</button>
+            </div>
+            <div class="mui-col-xs-6" v-show="question[0].finish">
+                <button class="form-btn submit-btn" :disabled="question[sum-1].score ==''" id="submit-btn">提交</button>
+            </div>
+        </div>
+	</div>
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/vue.min.js" type="text/javascript"></script>
+<script src="js/mui.picker.js" type="text/javascript"></script>
+<script src="js/mui.poppicker.js" type="text/javascript"></script>
+<script src="js/mui.dtpicker.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mui.init();
+    var risk = new Vue({
+        el: '#Js-content',
+        data: function () {
+            return {
+                index: 0,   // 测试题索引
+                sum: 10,    // 测试题总数
+                question: [
+                    {
+                        'score':"",
+                        'finish': false
+                    },
+                    {
+                        'score':"",
+                        'finish': false
+                    },
+                    {
+                        'score':"",
+                        'finish': false
+                    },
+                    {
+                        'score':"",
+                        'finish': false
+                    },
+                    {
+                        'score':"",
+                        'finish': false
+                    },
+                    {
+                        'score':"",
+                        'finish': false
+                    },
+                    {
+                        'score':"",
+                        'finish': false
+                    },
+                    {
+                        'score':"",
+                        'finish': false
+                    },
+                    {
+                        'score':"",
+                        'finish': false
+                    },
+                    {
+                        'score':"",
+                        'finish': false
+                    }
+                ]
+            }
+        }
+    })
+
+    mui.plusReady(function() {
+        statusbar();
+        var winH = window.innerHeight;
+        var topHeight = document.getElementById('Js-header').offsetHeight;
+        var progressbarHeight = document.getElementById('Js-progressbar').offsetHeight;
+        document.querySelector('#Js-content').style.height = winH - topHeight - progressbarHeight + 'px';
+        
+        var progressbar = mui("#progressbar");
+        var gallery = mui('.mui-slider');
+        // 
+        document.querySelector('#Js-index').innerHTML = (risk.index + 1) + '/' + risk.sum
+        progressbar.progressbar({progress:((risk.index+1)/risk.sum)*100}).show();
+        // 禁止滑动
+        gallery.slider().stopped = true;
+        
+        mui('input[type="radio"]').each(function (i, d) {
+            d.addEventListener('click', function () {
+                risk.$nextTick(function(){
+                    risk.question[risk.index].finish = true
+                    console.log(risk.index + "...." + risk.question[risk.index].finish)
+                    setTimeout(function(){
+                        if (risk.index != (risk.sum-1)) {
+                            risk.index ++
+                        }
+                        gallery.slider().gotoItem(risk.index);
+                        progressbar.progressbar({progress:((risk.index+1)/risk.sum)*100}).show();
+                        document.querySelector('#Js-index').innerHTML = (risk.index + 1) + '/' + risk.sum
+                    },100)
+                })
+            }, false);
+        });
+
+        // 上一题
+        document.querySelector('#back-btn').addEventListener('tap', function () {
+            setTimeout(function(){
+                risk.index = risk.index - 1
+                gallery.slider().gotoItem(risk.index)
+                progressbar.progressbar({progress:((risk.index+1)/risk.sum)*100}).show();
+                document.querySelector('#Js-index').innerHTML = (risk.index+1) + '/' + risk.sum
+            },200)
+        },false);
+        
+        // 提交
+        document.querySelector('#submit-btn').addEventListener('tap', function () {
+            var total = 0;
+            for(var i = 0; i < risk.question.length; i++) {
+                if (risk.question[i].score == "") {
+                    risk.index = i
+                    progressbar.progressbar({progress:((risk.index+1)/risk.sum)*100}).show();
+                    document.querySelector('#Js-index').innerHTML = (risk.index + 1) + '/' + risk.sum
+                    mui.toast('请您填写该测试题', {duration: 'short', type: 'div'});
+                    return false
+                } else {
+                    total += parseInt(risk.question[i].score)
+                }
+            }
+
+            setTimeout(function(){
+                //打开新窗口
+                mui.openWindow({
+                    id: "requirement_risk_result",
+                    url: "requirement_risk_result.html",
+                    show: animateObj.aniDetal,
+                    extras:{
+                        total: total  //扩展参数
+                    }
+                });
+            },500)
+        },false);
+        
+        // 自定义关闭事件
+        document.querySelector('#Js-closePage').addEventListener('tap', function(){
+            plus.webview.currentWebview().opener().close()
+            setTimeout(function(){
+                plus.webview.currentWebview().close();
+            },500);
+        }, false);
+    });
+</script>
+
+</html>

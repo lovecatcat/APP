@@ -342,8 +342,6 @@ var checkAppl = function (appl) {
         return false
     } else if (!appl.temp_holder_job_code) {
         toast_text = '投保人职业不能为空'
-    } else if (!checkOccupation('投保人',appl)) {
-        return false
     } else if (!appl.holder_company) {
         toast_text = '请填写投保人工作单位'
     } else if (!checkEarnings(1, appl.holder_salary_avg)) {
@@ -420,8 +418,6 @@ var checkAssured = function (assu) {
         return false
     } else if (!assu.temp_insured_job_code) {
         toast_text = '被保人职业不能为空'
-    } else if (!checkOccupation('被保人',assu)) {
-        return false
     } else if (!checkEarnings(2, assu.insured_salary_avg)) {
         return false
     } else if (!assu.insured_marriage) {
@@ -448,41 +444,6 @@ var checkAssured = function (assu) {
     return true
 };
 
-//职业限制
-var checkOccupation = function(owner,e) {
-    var toast_text = null
-    var age = null
-    var occu = null
-    var sex = null
-    if (owner === '投保人') {
-        age = getAge(e.holder_birthday)
-        occu = e.temp_holder_job_code
-        sex = e.holder_gender
-    } else if (owner === '被保人') {
-        age = getAge(e.insured_birthday)
-        occu = e.temp_insured_job_code
-        sex = e.insured_gender
-    }
-    console.log('职业：' + owner + 'age:' + age + ';occu:' + occu + ';sex:' + sex)
-    if (sex === MALE && occu === 'LAE0968') {
-        //家庭主妇
-        toast_text = owner + '职业类别与性别不符'
-    } else if (age < 16 && occu !== 'LAE0646' && occu !== 'LAE0969' && occu !== 'LAE0966' && occu !== 'LAE0807') {
-        //军警校除外(17周岁以下) | 学龄前儿童 | 无业人员 | 警校学生
-        toast_text = owner + '职业类别与年龄不符'
-    } else if (age >= 18 && (occu === 'LAE0646' || occu === 'LAE0969')) {
-        // 军警校除外(17周岁以下) | 学龄前儿童
-        toast_text = owner + '职业类别与年龄不符'
-    } else if (age < 45 && occu === 'LAE0965') {
-        //离退休人员
-        toast_text = owner + '职业类别与年龄不符'
-    }
-    if (toast_text) {
-        mui.toast(toast_text, {duration: 'short', type: 'div'});
-        return false
-    }
-    return true
-};
 //出生证、户口本 长期有效
 var astypeChange = function (owner) {
     if (owner === '投保人') {

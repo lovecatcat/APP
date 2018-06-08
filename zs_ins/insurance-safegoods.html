@@ -252,11 +252,13 @@
                         </div>
                     </div>
                     <div class="input-item">
-                        <label class="">基本保额(元)</label>
+                        <label class="">基本保额(元/天)</label>
                         <div class="input-wrap box-f-1">
                             <input type="number" placeholder="请输入" v-model.number.lazy="addonIns[index].money"
                                    @change="addonIns[index].period_money=''">
                         </div>
+                    </div>
+                    <div class="input-item ins-font-xs BL-col-999">保额范围是<span class="BL-col-ff8201">30~500</span>（元/天）
                     </div>
                     <div class="input-item">
                         <label class="">年缴保费(元)</label>
@@ -286,7 +288,7 @@
                     <div class="input-item">
                         <label class="">基本保额(元)</label>
                         <div class="input-wrap box-f-1">
-                            <input type="number" placeholder="请输入" v-model.number.lazy="addonIns[index].money"
+                            <input type="number" placeholder="5千起" v-model.number.lazy="addonIns[index].money"
                                    @change="addonIns[index].period_money=''">
                         </div>
                     </div>

@@ -1542,6 +1542,7 @@ input[type='text'].member-risk-input{
 }
 .card-input input {
 	text-align: left;
+	height: 100%;
 }
 .card-total span {
 	padding-left: .8rem;

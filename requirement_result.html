@@ -200,8 +200,8 @@
         // 自定义关闭事件
         document.querySelector('#Js-closePage').addEventListener('tap', function(){
 //            plus.webview.currentWebview().opener().close()
-            plus.webview.close('requirement_risk_question');
-            plus.webview.close('requirement_risk');
+            plus.webview.close('requirement_question');
+            plus.webview.close('requirement');
             setTimeout(function(){
                 plus.webview.currentWebview().close();
             },500);

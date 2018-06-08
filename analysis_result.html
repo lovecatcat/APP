@@ -15,7 +15,7 @@
             <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
             <a id="Js-closePage" class="BL-ctrl-close">关闭</a>
             <h1 class="BL-title">需求分析</h1>
-            <div class="control" href="requirement_ppt.html" data-wid="requirement_ppt">
+            <div class="control" href="analysis_ppt.html" data-wid="analysis_ppt">
                 <a>下一步</a>
             </div>
         </div>
@@ -200,8 +200,8 @@
         // 自定义关闭事件
         document.querySelector('#Js-closePage').addEventListener('tap', function(){
 //            plus.webview.currentWebview().opener().close()
-            plus.webview.close('requirement_question');
-            plus.webview.close('requirement');
+            plus.webview.close('analysis_question');
+            plus.webview.close('analysis');
             setTimeout(function(){
                 plus.webview.currentWebview().close();
             },500);

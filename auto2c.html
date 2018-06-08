@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>基本信息</title>
 		<link href="css/mui.css" rel="stylesheet" />
 		<link href="css/common.css" rel="stylesheet" />
 		<link href="css/module.css" rel="stylesheet" />
@@ -39,7 +39,7 @@
 					</div>
 					<div class="BL-ub BL-ub-f2">
 						<div class="form-list-control">
-							<input type="text" class="BL-txt-l" placeholder="请输入车牌号" :readonly="isNew" v-model="cityNo" @change="checkLicense(cityNo)"/>
+							<input type="text" class="BL-txt-l" placeholder="请输入车牌号" :readonly="isNew" v-model="cityNo" @change="checkLicense(isNew,cityNo)"/>
 						</div>
 						<div class="form-list-icon BL-pad-r-1" v-show="cityNo!=''&& !isNew">
 							<span class="mui-icon mui-icon-clear" @click="cityNo=''"></span>
@@ -128,34 +128,29 @@
                 }
 			}
 		})
-		mui.plusReady(function() {
+		mui.ready(function() {
 			statusbar();
 			var winH = window.innerHeight;
         	var titHeight = document.querySelector('#Js-header').offsetHeight;
         	document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
-		})
 
-		// 下一步
-        document.querySelector('#next').addEventListener('click', function () {
-            if (!auto.checkForm()) {
-                return false
-			}
-            auto.licenseNo = auto.isNew ? '新车': this.cityAbbr + this.cityNo
-			if (auto.isNew && auto.licenseNo == '新车') {
-                // 进入补充信息
-//                mui.openWindow({
-//                    url: 'pa-pay.html',
-//                    id: 'pa_pay',
-//                    show: animateObj.aniDetal,
-//                    extras: {
-//                        policy_id: pae.war_id,
-//                        order_no: order_no,
-//                        fee: pae.insurance.fee
-//                    }
-//                });
-			} else {
-                // 开始查询车辆信息
-			}
-        })
+            // 下一步
+            document.querySelector('#next').addEventListener('click', function () {
+                if (!auto.checkForm()) {
+                    return false
+                }
+                auto.licenseNo = auto.isNew ? '新车': this.cityAbbr + this.cityNo
+                if (auto.isNew && auto.licenseNo == '新车') {
+                    // 进入补充信息
+                    mui.openWindow({
+                        url: 'auto2-supplement.html',
+                        id: 'auto2-supplement',
+                        show: animateObj.aniDetal
+                    });
+                } else {
+                    // 开始查询车辆信息
+                }
+            })
+		})
 	</script>
 </html>

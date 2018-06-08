@@ -405,7 +405,8 @@
 					"requirement_risk.html",
 					"requirement_risk_result.html",
 					"requirement_risk_ppt.html",
-					"requirement.html"
+					"requirement.html",
+					"analysis.html"
 				],
 				"priority": 0
 			},
@@ -3528,6 +3529,56 @@
 				"priority": 0
 			},
 			"requirement_ppt.html": {
+				"resources": [
+					"images/member/risk-education.png",
+					"images/member/risk-medical.png",
+					"images/member/req-bg.png",
+					"images/member/risk-pension.png"
+				],
+				"refer": [
+					"requirement_safe.html",
+					"requirement_educate_calculate.html",
+					"requirement_retire.html"
+				],
+				"priority": 0
+			},
+			"analysis_question.html": {
+				"resources": [
+					"js/mui.poppicker.js",
+					"css/member.css",
+					"css/mui.css",
+					"css/form.css"
+				],
+				"refer": [
+					"analysis_result.html"
+				],
+				"priority": 0
+			},
+			"analysis.html": {
+				"resources": [
+					"css/member.css",
+					"css/mui.css",
+					"images/member/risk-evaluation.png",
+					"css/form.css"
+				],
+				"refer": [
+					"analysis_question.html"
+				],
+				"priority": 0
+			},
+			"analysis_result.html": {
+				"resources": [
+					"images/member/jinquxing.jpg",
+					"css/mui.css",
+					"js/interval-dtpicker.js",
+					"images/member/pinghengxing.jpg"
+				],
+				"refer": [
+					"analysis_ppt.html"
+				],
+				"priority": 0
+			},
+			"analysis_ppt.html": {
 				"resources": [
 					"images/member/risk-education.png",
 					"images/member/risk-medical.png",

@@ -1,16 +1,19 @@
 // 校验车牌号
-var checkLicense = function (cityNo) {
+var checkLicense = function (isNew, cityNo) {
     var toast_text = null
-    if (!cityNo) {
-        toast_text = '车牌号码不能为空';
-    }else if (/^[a-zA-Z]{1}[a-zA-Z0-9]{5,8}$/.test(cityNo) === false) {
-        toast_text = '请输入正确的车牌号码';
+    if (!isNew) {
+        if (!cityNo) {
+            toast_text = '车牌号码不能为空';
+        }else if (/^[a-zA-Z]{1}[a-zA-Z0-9]{5,8}$/.test(cityNo) === false) {
+            toast_text = '请输入正确的车牌号码';
+        }
+
+        if (toast_text) {
+            mui.toast(toast_text, {duration: 'short', type: 'div'});
+            return false;
+        }
     }
 
-    if (toast_text) {
-        mui.toast(toast_text, {duration: 'short', type: 'div'});
-        return false;
-    }
     return true
 }
 //校验姓名

@@ -129,7 +129,7 @@
                     mui.toast('年龄输入错误，请重新输入', {duration: 'short', type: 'div'});
                     return false;
                 }else{
-                    if(this.age > 18){
+                    if(this.age >= 18){
                         mui.toast('输入年龄不能大于18岁', {duration: 'short', type: 'div'});
                         return false;
                     } else {

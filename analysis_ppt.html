@@ -73,9 +73,9 @@
         // 自定义关闭事件
         document.querySelector('#Js-closePage').addEventListener('tap', function(){
 //            plus.webview.currentWebview().opener().close()
-            plus.webview.close('requirement_result');
-            plus.webview.close('requirement_question');
-            plus.webview.close('requirement');
+            plus.webview.close('analysis_result');
+            plus.webview.close('analysis_question');
+            plus.webview.close('analysis');
             setTimeout(function(){
                 plus.webview.currentWebview().close();
             },500);

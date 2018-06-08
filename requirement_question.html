@@ -398,27 +398,32 @@
             d.addEventListener('click', function () {
                 risk.$nextTick(function(){
                     risk.question[risk.index].finish = true
-                    console.log(risk.index + "...." + risk.question[risk.index].finish)
-                    setTimeout(function(){
-                        if (risk.index != (risk.sum-1)) {
-                            risk.index ++
-                        }
-                        gallery.slider().gotoItem(risk.index);
-                        progressbar.progressbar({progress:((risk.index+1)/risk.sum)*100}).show();
-                        document.querySelector('#Js-index').innerHTML = (risk.index + 1) + '/' + risk.sum
-                    },100)
+                    console.log(risk.index + "...." + risk.question[risk.index].score)
+					if (risk.question[risk.index].score !="") {
+						setTimeout(function(){
+	                        if (risk.index != (risk.sum-1)) {
+	                            risk.index ++
+	                        }
+	                        gallery.slider().gotoItem(risk.index);
+	                        progressbar.progressbar({progress:((risk.index+1)/risk.sum)*100}).show();
+	                        document.querySelector('#Js-index').innerHTML = (risk.index + 1) + '/' + risk.sum
+	                    },100)
+					}
+                    
                 })
             }, false);
         });
 
         // 上一题
         document.querySelector('#back-btn').addEventListener('tap', function () {
-            setTimeout(function(){
+            risk.$nextTick(function() {
                 risk.index = risk.index - 1
-                gallery.slider().gotoItem(risk.index)
-                progressbar.progressbar({progress:((risk.index+1)/risk.sum)*100}).show();
-                document.querySelector('#Js-index').innerHTML = (risk.index+1) + '/' + risk.sum
-            },200)
+                setTimeout(function(){
+                    gallery.slider().gotoItem(risk.index)
+                    progressbar.progressbar({progress: ((risk.index + 1) / risk.sum) * 100}).show();
+                    document.querySelector('#Js-index').innerHTML = (risk.index + 1) + '/' + risk.sum
+                },200)
+            })
         },false);
         
         // 提交
@@ -426,10 +431,13 @@
             var total = 0;
             for(var i = 0; i < risk.question.length; i++) {
                 if (risk.question[i].score == "") {
-                    risk.index = i
-                    progressbar.progressbar({progress:((risk.index+1)/risk.sum)*100}).show();
-                    document.querySelector('#Js-index').innerHTML = (risk.index + 1) + '/' + risk.sum
-                    mui.toast('请您填写该测试题', {duration: 'short', type: 'div'});
+                    risk.$nextTick(function() {
+                        risk.index = i
+                        gallery.slider().gotoItem(risk.index);
+                        progressbar.progressbar({progress: ((risk.index + 1) / risk.sum) * 100}).show();
+                        document.querySelector('#Js-index').innerHTML = (risk.index + 1) + '/' + risk.sum
+                        mui.toast('请您填写该测试题', {duration: 'short', type: 'div'});
+                    })
                     return false
                 } else {
                     total += parseInt(risk.question[i].score)

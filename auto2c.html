@@ -23,21 +23,29 @@
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label">投保城市</label>
 					<div class="form-list-control">
-						<input type="text" placeholder="请选择">
+						<div class="BL-ub-f1 BL-txt-r">{{ city }}</div>
 					</div>
-					<div class="form-list-icon">
-						<div class="mui-icon mui-icon-arrowright"></div>
-					</div>
+					<!--<div class="form-list-icon">-->
+						<!--<div class="mui-icon mui-icon-arrowright"></div>-->
+					<!--</div>-->
 				</li>
 				<li class="fItem BL-ub BL-ub-f1">
 					<div class="form-list-label">
 						车牌号
-						<label class="BL-mar-l-3 form-float-right" @click="showCitys=true">粤<span class="mui-icon mui-icon mui-icon-arrowdown BL-ftz-52"></span></label>
+						<label class="form-float-right" @click="showCitys=true">
+							{{ cityAbbr }}
+							<span class="mui-icon mui-icon-arrowdown BL-ftz-52" style="padding: 0 .4rem 0 .2rem; font-size: 2rem"></span>
+						</label>
 					</div>
-					<div class="BL-ub-f2">
-						<input type="text" class="BL-txt-l" placeholder="请输入" value="A"/>
+					<div class="BL-ub BL-ub-f2">
+						<div class="form-list-control">
+							<input type="text" class="BL-txt-l" placeholder="请输入车牌号" :readonly="isNew" v-model="cityNo" @change="checkLicense(cityNo)"/>
+						</div>
+						<div class="form-list-icon BL-pad-r-1" v-show="cityNo!=''&& !isNew">
+							<span class="mui-icon mui-icon-clear" @click="cityNo=''"></span>
+						</div>
 					</div>
-				    <button class="form-btn-newcar active">新车</button>
+				    <button class="form-btn-newcar" :class="{'active': isNew}" @tap="isNew=!isNew">新车</button>
 				</li>
 			</ul>
 			<div class="form-notice BL-pad-t-1">车主信息</div>
@@ -45,33 +53,33 @@
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label">姓名</label>
 					<div class="form-list-control">
-						<input type="text" placeholder="请输入">
+						<input type="text" placeholder="请输入" v-model.trim.lazy="name" @change="checkName('车主',name)">
 					</div>
-					<div class="form-list-icon">
-						<span class="mui-icon mui-icon-clear"></span>
+					<div class="form-list-icon" v-show="name!=''">
+						<span class="mui-icon mui-icon-clear" @click="name=''"></span>
 					</div>
 				</li>
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label">手机号</label>
 					<div class="form-list-control">
-						<input type="text" placeholder="请输入">
+						<input type="text" placeholder="请输入" v-model.trim.lazy="mobile" @change="checkPhone('车主',mobile)">
 					</div>
-					<div class="form-list-icon">
-						<span class="mui-icon mui-icon-clear"></span>
+					<div class="form-list-icon" v-show="mobile!=''">
+						<span class="mui-icon mui-icon-clear" @click="mobile=''"></span>
 					</div>
 				</li>
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label">身份证号</label>
 					<div class="form-list-control">
-						<input type="text" placeholder="请输入">
+						<input type="text" placeholder="请输入" v-model.trim.lazy="Idno" @change="IDValidate('车主',Idno)">
 					</div>
-					<div class="form-list-icon">
-						<span class="mui-icon mui-icon-clear"></span>
+					<div class="form-list-icon" v-show="Idno!=''">
+						<span class="mui-icon mui-icon-clear" @click="mobile=''"></span>
 					</div>
 				</li>
 			</ul>
 			<div class="form-button-group">
-				<a type="button" class="form-btn" href="auto2c-content.html" data-wid="auto2c_content">下一步</a>
+				<a type="button" class="form-btn" id="next">下一步</a>
 			</div>
 		</div>
 	</body>
@@ -81,35 +89,73 @@
 	<script src="js/mui.poppicker.js"></script>
 	<script src="js/vue.min.js"></script>
 	<script src="js/city.data-3.js"></script>
+	<script src="js/IDValidator.min.js"></script>
+	<!-- auto2.js 专用js-->
+	<script src="js/auto2.js"></script>
 	<script type="text/javascript">
 		mui.init();
 		var auto = new Vue({
 			el: '#Js-content',
 			data: {
+			    city: "深圳市",  // 投保城市
+                cityNo: "",
+                licenseNo: "",  // 车牌号
+			    name: "",   // 姓名
+				mobile: "",  // 手机号码
+				Idno: "",    // 身份证号码
+				isNew: false,   // 是否新车
 				showCitys: false,    // 展示城市简称
+                cityAbbr: '粤',   // 城市简称
 				cities: ['粤', '川', '鄂', '甘', '贵', '桂', '黑', '沪', '吉', '冀', '津', '晋', '京', '辽', '鲁', '蒙', '闽', '宁', '青', '琼', '陕', '苏', '皖', '湘', '新', '渝', '豫', '云', '藏', '赣', '浙']
+			},
+			watch: {
+                isNew: function (val) {
+                    this.cityNo = val ? '新车' : ''
+                }
+			},
+			methods: {
+			    checkForm: function () {
+					if (!checkLicense(this.cityNo)) {
+                        return false
+					}else if (!checkName('车主',this.name)){
+                        return false
+					} else if (!checkPhone('车主', this.mobile)) {
+                        return false
+					} else if (!checkPhone('车主', this.Idno)) {
+                        return false
+					}
+                    return true
+                }
 			}
 		})
 		mui.plusReady(function() {
 			statusbar();
-			
 			var winH = window.innerHeight;
         	var titHeight = document.querySelector('#Js-header').offsetHeight;
         	document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
 		})
-		
-		mui('body').on('tap', 'a', function() {
-			var href = this.getAttribute('href');
-			var id = this.getAttribute("data-wid");
-			
-			if(href && ~href.indexOf('.html')) {
-				//打开新窗口
-				mui.openWindow({
-					url:href,
-					id:id,
-					show:animateObj.aniDetal
-				});
+
+		// 下一步
+        document.querySelector('#next').addEventListener('click', function () {
+            if (!auto.checkForm()) {
+                return false
 			}
-		});
+            auto.licenseNo = auto.isNew ? '新车': this.cityAbbr + this.cityNo
+			if (auto.isNew && auto.licenseNo == '新车') {
+                // 进入补充信息
+//                mui.openWindow({
+//                    url: 'pa-pay.html',
+//                    id: 'pa_pay',
+//                    show: animateObj.aniDetal,
+//                    extras: {
+//                        policy_id: pae.war_id,
+//                        order_no: order_no,
+//                        fee: pae.insurance.fee
+//                    }
+//                });
+			} else {
+                // 开始查询车辆信息
+			}
+        })
 	</script>
 </html>

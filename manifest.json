@@ -2157,7 +2157,8 @@
 					"images/plans/plansManage/332.png",
 					"images/plans/plansManage/16213.png",
 					"images/plans/plansManage/16139.png",
-					"images/plans/plansManage/16208.png"
+					"images/plans/plansManage/16208.png",
+					"images/plans/plansManage/16220.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -3497,7 +3498,47 @@
 					"images/member/risk-evaluation.png",
 					"css/form.css"
 				],
-				"refer": [],
+				"refer": [
+					"requirement_question.html"
+				],
+				"priority": 0
+			},
+			"requirement_question.html": {
+				"resources": [
+					"js/mui.poppicker.js",
+					"css/mui.css",
+					"css/member.css",
+					"css/form.css"
+				],
+				"refer": [
+					"requirement_result.html"
+				],
+				"priority": 0
+			},
+			"requirement_result.html": {
+				"resources": [
+					"images/member/jijinxing.jpg",
+					"css/mui.css",
+					"js/interval-dtpicker.js",
+					"css/member.css"
+				],
+				"refer": [
+					"requirement_ppt.html"
+				],
+				"priority": 0
+			},
+			"requirement_ppt.html": {
+				"resources": [
+					"images/member/risk-education.png",
+					"images/member/risk-medical.png",
+					"images/member/req-bg.png",
+					"images/member/risk-pension.png"
+				],
+				"refer": [
+					"requirement_safe.html",
+					"requirement_educate_calculate.html",
+					"requirement_retire.html"
+				],
 				"priority": 0
 			}
 		},

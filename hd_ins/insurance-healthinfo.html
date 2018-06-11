@@ -280,6 +280,11 @@
             type: 'textarea',
             value: ''
         }],
+        '173': [{
+            type: 'textarea',
+            value: '',
+            must: false
+        }],
         '174': [{
             type: 'textarea',
             value: ''
@@ -539,6 +544,11 @@
             type: 'textarea',
             value: ''
         }],
+        '173': [{
+            type: 'textarea',
+            value: '',
+            must: false
+        }],
         '174': [{
             type: 'textarea',
             value: ''
@@ -712,6 +722,9 @@
                     status: true,
                     msg: ''
                 }
+                if (item.must === false) {
+                    return ret
+                }
                 var msg = ''
                 if (item.reg && item.msg && !item.reg.test(item.value)) { // 正则
                     mui.toast(item.msg, {duration: 'short', type: 'div'});
@@ -740,7 +753,7 @@
                 return ret
             },
             isShow:function(i, type) {
-                if (i === 0 || i === 12 || i === 14) {
+                if (i === 0 || i === 12) {
                     return false
                 }
                 if (i === 10 && type === 1 && !this.isApplWm ) {
@@ -869,13 +882,25 @@
         });
         //
         var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')) : '';
+        var applicant = plus.storage.getItem('hengda_applicant') ? JSON.parse(plus.storage.getItem('hengda_applicant')) : '';
+        var hinfo = plus.storage.getItem('hengda_healthinfo') ? JSON.parse(plus.storage.getItem('hengda_healthinfo')) : ''
+        health.assuAge = getAge(assured.insured_birthday)
+        health.isApplWm = applicant.holder_gender === FEMALE ? true : false
+        health.isAssuWm = assured.insured_gender === FEMALE ? true : false
+
         if (assured && assured.rel_insured_holder !== ISASSURED) {
+            if (assured.insured_has_SSID) {
+                health.clientvalue.ass_amswer[173] = true
+            }
+            if (applicant && applicant.holder_has_SSID) {
+                health.clientvalue.app_amswer[173] = true
+            }
             health.showAppl = true
             health.appfolder = false
         }
+
         //赋值
         console.log(plus.storage.getItem('hengda_healthinfo'));
-        var hinfo = plus.storage.getItem('hengda_healthinfo') ? JSON.parse(plus.storage.getItem('hengda_healthinfo')) : ''
         hinfo && setHealth(hinfo)
 
         function setHealth(data) {
@@ -906,15 +931,17 @@
                 }
             })
         }
-        //
-        var applicant = JSON.parse(plus.storage.getItem('hengda_applicant'));
-        var assured = JSON.parse(plus.storage.getItem('hengda_assured'));
-        health.assuAge = getAge(assured.insured_birthday)
-        health.isApplWm = applicant.holder_gender === FEMALE ? true : false
-        health.isAssuWm = assured.insured_gender === FEMALE ? true : false
         //保存
         document.querySelector('#saveHealthinfo').addEventListener('tap', function () {
             if (!health.checkForm()) {
+                return false
+            }
+            console.log(health.clientvalue.app_amswer[173]+';'+health.clientvalue.ass_amswer[173]+';'+applicant.holder_has_SSID+';'+assured.insured_has_SSID)
+            if (health.showAppl && ((health.clientvalue.app_amswer[173] && !applicant.holder_has_SSID) || (applicant.holder_has_SSID && !health.clientvalue.app_amswer[173]))) {
+                mui.toast('投保人14题社保情况与实际不符', {duration: 'short', type: 'div'});
+                return false
+            } else if ((health.clientvalue.ass_amswer[173] && !assured.insured_has_SSID) || (!health.clientvalue.ass_amswer[173] && assured.insured_has_SSID)) {
+                mui.toast('被保人14题社保情况与实际不符', {duration: 'short', type: 'div'});
                 return false
             }
             //
@@ -943,8 +970,6 @@
                     //投被保人是否有社保
                     holder_answer = applicant.holder_has_SSID ? '1' : '0'
                     insured_answer = assured.insured_has_SSID ? '1' : '0'
-                    holder_fields = applicant.holder_has_SSID ? '有社保' : '无社保'
-                    insured_fields = assured.insured_has_SSID ? '有社保' : '无社保'
                 }
                 //168: 2岁及以下
                 //164: 女性补充告知
@@ -978,8 +1003,6 @@
                 })
             }
             //
-            console.log('------')
-            console.log(JSON.stringify(appitems))
             plus.storage.setItem('hengda_healthinfo', JSON.stringify(appitems));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'hengda_healthinfo',

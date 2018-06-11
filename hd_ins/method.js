@@ -21,6 +21,7 @@ var cjb = 'LA073'; //传家宝
 var ylnj = 'LA078'; //养老年金
 
 var zrwnzh = 'LBD0001' //转入万能账户
+var njbznx = 'LBB0001' //年金保障年限20年
 
 var typename = {'LAA0001': '身份证', 'LAA0002': '户口本', 'LAA0005': '出生证'}
 var ISASSURED = 'LAC0001'; //被保人是本人

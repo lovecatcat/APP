@@ -623,7 +623,7 @@
             var content = []
 
             var totalfee = 0
-            mui.each(index.safegoods, function (index, item) {
+            mui.each(index.safegoods, function (ind, item) {
                 var safeitem = {}
                 safeitem.is_main = item.is_main ? '1' : '0' //是主险
                 safeitem.product_id = item.safe_id
@@ -645,6 +645,10 @@
                 }
                 if (item.code === fxjs) {
                     safeitem.extend_items.shareDrawType = item.shareDrawType
+                }
+                if ([fxjs, wnf].indexOf(item.code) > -1) {
+                    safeitem.extend_items.guarantee_term = njbznx
+                    safeitem.extend_items.draw_age = index.assured.insured_gender === MALE ? 60 : 55
                 }
                 content.push(safeitem)
             })

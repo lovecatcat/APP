@@ -52,7 +52,20 @@
                     <div class="item-title">信息确认</div>
                 </div>
                 <div class="BL-pad-a1">
-                    <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1">
+                    <div v-if="newproduct">
+                        <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1" >
+                            <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读保险条款、产品说明书和投保提示书，了解本产品的特点和保单利益的不确定性。
+                                <input name="checkbox" v-model="agree" type="checkbox" style="top: 20px; left: 0px;"></label>
+                        </div>
+                        <div class="mui-input-row BL-ftz-42 BL-pad-lr-1_25" style="line-height: 2rem;">
+                            <a class="BL-col-3b9cf5" type="button" disabled @tap="showStatement(item.safe_id,item.name)" v-for="(item,index) in safegoods" v-show="item.name"><strong>《{{item.name}}保险条款》</strong></a>
+                            、<a type="button" id="safenotice" class="BL-col-3b9cf5"><strong>《人身保险投保提示书》</strong></a>、
+                            <a type="button" id="mustknow" class="BL-col-3b9cf5"><strong>《投保须知》</strong></a>、
+                            <a type="button" id="statement" class="BL-col-3b9cf5"><strong>《银行自动转账授权事项》</strong></a>、
+                            <a type="button" id="signstatement" class="BL-col-3b9cf5"><strong>《声明授权与签名》</strong></a>
+                        </div>
+                    </div>
+                    <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1" v-else>
                         <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读
                             <a class="BL-col-3b9cf5" type="button" disabled @tap="showStatement(item.safe_id,item.name)" v-for="(item,index) in safegoods" v-show="item.name"><strong>《{{item.name}}保险条款》</strong></a>
                             、和<a type="button" id="safenotice" class="BL-col-3b9cf5"><strong>《人身保险投保提示书》</strong></a>、
@@ -180,6 +193,11 @@
         var safegoods = plus.storage.getItem('hengda_safegoods') ? JSON.parse(plus.storage.getItem('hengda_safegoods')): ''
         img.safegoods = safegoods
         console.log(JSON.stringify(safegoods))
+        mui.each(safegoods, function (index, item) {
+            if (item.code === cjb || item.code === fxjs) {
+                img.newproduct = true
+            }
+        })
         img.assured = assured
         //赋值
         img.getSignature(1,true);
@@ -457,6 +475,7 @@
             return {
                 agree: false,
                 safegoods: '',
+                newproduct: false, //是否含新型产品（福享金生、传家宝）
                 war_id: '',
                 assured: {},
                 appl_signature: '',

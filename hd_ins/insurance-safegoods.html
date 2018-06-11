@@ -108,15 +108,10 @@
                 </template>
                 <!--福享金生-->
                 <template v-else-if="insurance.code==fxjs">
-                    <div class="input-item ins-pd-r-0" v-if="init&&init.nj_safe_year">
+                    <div class="input-item ins-pd-r-0">
                         <label class="">年金保障年限</label>
-                        <div class="input-wrap box-f-1">
-                            <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.guarantee_term}"
-                                    :disabled="item.value===insurance.guarantee_term"
-                                    v-for="(item,index) in init.nj_safe_year"
-                                    @tap="insurance.guarantee_term=item.value,toblur()">
-                                {{item.text}}
-                            </button>
+                        <div class="input-wrap box-f-1 multi-btn">
+                            <button class="ins-btn xs-btn blue" disabled >20年</button>
                         </div>
                     </div>
                     <div class="input-item ins-pd-r-0" v-if="init&&init.nj_get_type">
@@ -188,7 +183,7 @@
                 <!--万年福-->
                 <template v-else-if="insurance.code==wnf">
                     <div class="input-item ins-pd-r-0">
-                        <label class="">保证年限</label>
+                        <label class="">年金保障年限</label>
                         <div class="input-wrap box-f-1 multi-btn">
                             <button class="ins-btn xs-btn blue" disabled >20年</button>
                         </div>
@@ -553,7 +548,7 @@
                     pay_year: '',
                     money: '', // 基本保险金额
                     period_money: '', // 年交保费
-                    guarantee_term: '',//年金保障年限  20 30
+                    guarantee_term: '',//年金保障年限  20
                     draw_freq: '',//年金领取方式 年领 月领
                     draw_age: '',//年金领取年龄
                     shareDrawType: '',//生存金领取方式 累计生息 转入万能账户 现金领取
@@ -681,6 +676,14 @@
                 } else {
                     // 清除附加险
                     vm.resetMoney()
+                }
+            },
+            //计算标保
+            bbcal: function (pay_year, money) {
+                if (Number(pay_year) < 10) {
+                    return Number(pay_year) * Number(money) / 10
+                } else {
+                    return money
                 }
             },
             //主险change
@@ -1074,9 +1077,7 @@
                 } else if ([hjjk, wnq, qwhh].indexOf(id) > -1 && !vm.insurance.money) { //保额
                     toast_text = '请填写基本保险金额'
                 } else if (id === fxjs) { // 福享金生
-                    if (!vm.insurance.guarantee_term) {
-                        toast_text = '请选择年金保障年限'
-                    } else if (!vm.insurance.period_money) {
+                    if (!vm.insurance.period_money) {
                         toast_text = '请填写年缴保费'
                     } else if (!vm.insurance.shareDrawType) {
                         toast_text = '请选择生存金领取方式'
@@ -1163,9 +1164,11 @@
                 } else if (id === qwhh) { //千万
                     main.quantity = (vm.insurance.money / 50000).toString()
                 }
-                if (id === fxjs || id === wnh || id === wnf) { // 福享金生、万年红、万年福（保费算保额）
+                if ([fxjs, wnf].indexOf(id) > -1) {
+                    main.guarantee_term = njbznx
+                }
+                if ([fxjs, wnh, wnf].indexOf(id) > -1) {
                     main.premium = vm.insurance.period_money.toString()
-                    main.guarantee_term = vm.insurance.guarantee_term
                 }
                 basedata.productInfo.push(main)
                 console.log(JSON.stringify(basedata))
@@ -1300,6 +1303,13 @@
                             toast_text = '最高保额' + (this.assu_age > 17 ? '200' : '100') + '元/天'
                         } else if (money % 10 !== 0) {
                             toast_text = '保额需为10的整数倍'
+                        }
+                        break
+                    case hjax: //恒久安心
+                        var biaob = this.bbcal(this.insurance.pay_year, this.insurance.period_money)
+                        console.log('标保：' + biaob)
+                        if (biaob < 5000) {
+                            toast_text = '主险标保大于等于5000元方可附加'
                         }
                         break
                     default:

@@ -121,14 +121,14 @@
                         return false
 					} else if (!checkPhone('车主', this.mobile)) {
                         return false
-					} else if (!checkPhone('车主', this.Idno)) {
+					} else if (!IDValidate('车主', this.Idno)) {
                         return false
 					}
                     return true
                 }
 			}
 		})
-		mui.ready(function() {
+		mui.plusReady(function() {
 			statusbar();
 			var winH = window.innerHeight;
         	var titHeight = document.querySelector('#Js-header').offsetHeight;
@@ -143,8 +143,8 @@
                 if (auto.isNew && auto.licenseNo == '新车') {
                     // 进入补充信息
                     mui.openWindow({
-                        url: 'auto2-supplement.html',
-                        id: 'auto2-supplement',
+                        url: 'auto2c-supplement.html',
+                        id: 'auto2c_supplement',
                         show: animateObj.aniDetal
                     });
                 } else {

@@ -455,10 +455,15 @@ i {
 .BL-pad-b-1 {
 	padding-bottom: 1rem;
 }
+.BL-pad-b-1_5 {
+	padding-bottom: 1.5rem;
+}
 .BL-pad-b-2 {
 	padding-bottom: 2rem;
 }
-
+.BL-pad-b-2_5 {
+	padding-bottom: 2.5rem;
+}
 .BL-pad-b-3 {
 	padding-bottom: 3rem;
 }
@@ -602,7 +607,7 @@ input[type='color']{
 	height: auto !important;
 }
 .BL-text-indent {
-	text-indent: 2.5rem;
+	text-indent: 3rem;
 }
 
 /* 元素中的文本的水平对齐方式  = BL-txt-[c(居中), l-(左), r-(右)*/

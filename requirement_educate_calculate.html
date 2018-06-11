@@ -29,14 +29,14 @@
                     <div class="member-card-content">
                         <div class="mui-row">
                             <div class="mui-col-xs-5 card-dis">公立&nbsp;{{ xq.tuition[0] }}/年(元)</div>
-                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ xq.total[0] }}</span></div>
+                            <div class="mui-col-xs-6 card-total">合计<span :class="{'BL-col-333 BL-bold': xq.total[0]!=0 }">{{ xq.total[0] }}</span></div>
                             <div class="mui-col-xs-1 mui-radio card-radio">
                                 <input type="radio" :value="xq.tuition[0]" v-model="xq.fee" @change="stage_total(0,xq.fee,'xq')">
                             </div>
                         </div>
                         <div class="mui-row">
                             <div class="mui-col-xs-5 card-dis">私立&nbsp;{{ xq.tuition[1] }}/年(元)</div>
-                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ xq.total[1] }}</span></div>
+                            <div class="mui-col-xs-6 card-total">合计<span :class="{'BL-col-333 BL-bold': xq.total[1]!=0 }">{{ xq.total[1] }}</span></div>
                             <div class="mui-col-xs-1 mui-radio card-radio">
                                 <input type="radio" :value="xq.tuition[1]" v-model="xq.fee" @change="stage_total(1,xq.fee,'xq')">
                             </div>
@@ -53,14 +53,14 @@
                     <div class="member-card-content">
                         <div class="mui-row">
                             <div class="mui-col-xs-5 card-dis">公立&nbsp;{{ xx.tuition[0] }}/年(元)</div>
-                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ xx.total[0] }}</span></div>
+                            <div class="mui-col-xs-6 card-total">合计<span :class="{'BL-col-333 BL-bold': xx.total[0]!=0 }">{{ xx.total[0] }}</span></div>
                             <div class="mui-col-xs-1 mui-radio card-radio">
                                 <input type="radio" :value="xx.tuition[0]" v-model="xx.fee" @change="stage_total(0,xx.fee,'xx')">
                             </div>
                         </div>
                         <div class="mui-row">
                             <div class="mui-col-xs-5 card-dis">私立&nbsp;{{ xx.tuition[1] }}/年(元)</div>
-                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ xx.total[1] }}</span></div>
+                            <div class="mui-col-xs-6 card-total">合计<span :class="{'BL-col-333 BL-bold': xx.total[1]!=0 }">{{ xx.total[1] }}</span></div>
                             <div class="mui-col-xs-1 mui-radio card-radio">
                                 <input type="radio" :value="xx.tuition[1]" v-model="xx.fee" @change="stage_total(1,xx.fee,'xx')">
                             </div>
@@ -77,14 +77,14 @@
                     <div class="member-card-content">
                         <div class="mui-row">
                             <div class="mui-col-xs-5 card-dis">公立&nbsp;{{ cz.tuition[0] }}/年(元)</div>
-                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ cz.total[0] }}</span></div>
+                            <div class="mui-col-xs-6 card-total">合计<span :class="{'BL-col-333 BL-bold': cz.total[0]!=0 }">{{ cz.total[0] }}</span></div>
                             <div class="mui-col-xs-1 mui-radio card-radio">
                                 <input type="radio" :value="cz.tuition[0]" v-model="cz.fee" @change="stage_total(0,cz.fee,'cz')">
                             </div>
                         </div>
                         <div class="mui-row">
                             <div class="mui-col-xs-5 card-dis">私立&nbsp;{{ cz.tuition[1] }}/年(元)</div>
-                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ cz.total[1] }}</span></div>
+                            <div class="mui-col-xs-6 card-total">合计<span :class="{'BL-col-333 BL-bold': cz.total[1]!=0 }">{{ cz.total[1] }}</span></div>
                             <div class="mui-col-xs-1 mui-radio card-radio">
                                 <input type="radio" :value="cz.tuition[1]" v-model="cz.fee" @change="stage_total(1,cz.fee,'cz')">
                             </div>
@@ -101,14 +101,14 @@
                     <div class="member-card-content">
                         <div class="mui-row">
                             <div class="mui-col-xs-5 card-dis">公立&nbsp;{{ gz.tuition[0] }}/年(元)</div>
-                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ gz.total[0] }}</span></div>
+                            <div class="mui-col-xs-6 card-total">合计<span :class="{'BL-col-333 BL-bold': gz.total[0]!=0 }">{{ gz.total[0] }}</span></div>
                             <div class="mui-col-xs-1 mui-radio card-radio">
                                 <input type="radio" :value="gz.tuition[0]" v-model="gz.fee" @change="stage_total(0,gz.fee,'gz')">
                             </div>
                         </div>
                         <div class="mui-row">
                             <div class="mui-col-xs-5 card-dis">私立&nbsp;{{ gz.tuition[1] }}/年(元)</div>
-                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ gz.total[1] }}</span></div>
+                            <div class="mui-col-xs-6 card-total">合计<span :class="{'BL-col-333 BL-bold': gz.total[1]!=0 }">{{ gz.total[1] }}</span></div>
                             <div class="mui-col-xs-1 mui-radio card-radio">
                                 <input type="radio" :value="gz.tuition[1]" v-model="gz.fee" @change="stage_total(1,gz.fee,'gz')">
                             </div>
@@ -125,14 +125,14 @@
                     <div class="member-card-content">
                         <div class="mui-row">
                             <div class="mui-col-xs-5 card-dis">国内&nbsp;{{ dx.tuition[0] }}/年(元)</div>
-                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ dx.total[0] }}</span></div>
+                            <div class="mui-col-xs-6 card-total">合计<span :class="{'BL-col-333 BL-bold': dx.total[0]!=0 }">{{ dx.total[0] }}</span></div>
                             <div class="mui-col-xs-1 mui-radio card-radio">
                                 <input type="radio" :value="dx.tuition[0]" v-model="dx.fee" @change="stage_total(0,dx.fee,'dx')">
                             </div>
                         </div>
                         <div class="mui-row">
                             <div class="mui-col-xs-5 card-dis">海外&nbsp;{{ dx.tuition[1] }}/年(元)</div>
-                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ dx.total[1] }}</span></div>
+                            <div class="mui-col-xs-6 card-total">合计<span :class="{'BL-col-333 BL-bold': dx.total[1]!=0 }">{{ dx.total[1] }}</span></div>
                             <div class="mui-col-xs-1 mui-radio card-radio">
                                 <input type="radio" :value="dx.tuition[1]" v-model="dx.fee" @change="stage_total(1,dx.fee,'dx')">
                             </div>
@@ -149,14 +149,14 @@
                     <div class="member-card-content">
                         <div class="mui-row">
                             <div class="mui-col-xs-5 card-dis">国内&nbsp;{{ yj.tuition[0] }}/年(元)</div>
-                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ yj.total[0] }}</span></div>
+                            <div class="mui-col-xs-6 card-total">合计<span :class="{'BL-col-333 BL-bold': yj.total[0]!=0 }">{{ yj.total[0] }}</span></div>
                             <div class="mui-col-xs-1 mui-radio card-radio">
                                 <input type="radio" :value="yj.tuition[0]" v-model="yj.fee" @change="stage_total(0,yj.fee,'yj')">
                             </div>
                         </div>
                         <div class="mui-row">
                             <div class="mui-col-xs-5 card-dis">海外&nbsp;{{ yj.tuition[1] }}/年(元)</div>
-                            <div class="mui-col-xs-6 card-total">合计<span class="BL-col-333 BL-bold">{{ yj.total[1] }}</span></div>
+                            <div class="mui-col-xs-6 card-total">合计<span :class="{'BL-col-333 BL-bold': yj.total[1]!=0 }">{{ yj.total[1] }}</span></div>
                             <div class="mui-col-xs-1 mui-radio card-radio">
                                 <input type="radio" :value="yj.tuition[1]" v-model="yj.fee" @change="stage_total(1,yj.fee,'yj')">
                             </div>

@@ -13,7 +13,6 @@ var checkLicense = function (isNew, cityNo) {
             return false;
         }
     }
-
     return true
 }
 //校验姓名

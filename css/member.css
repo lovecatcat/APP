@@ -1329,7 +1329,7 @@ input[type='number'].member-tax-input{
 .member-risk-form {
 	background: #ffffff;
 	width: 88%;
-	padding: 2.875rem;
+	padding: 2.875rem 2rem 2.875rem 2.875rem;
 	margin: 0 auto;
 	box-shadow: 0 0 2rem rgba(2,111,208,0.3);
 	-webkit-box-shadow: 0 0 2rem rgba(2,111,208,0.3);
@@ -1353,6 +1353,7 @@ input[type='text'].member-risk-input{
 	line-height: 3.125rem;
 	background-color: transparent;
 	padding: 0 2rem;
+	margin-right: 1rem;
 }
 .risk-form-btn.blue{
 	background-color: #3b9cf5;color: #fff;

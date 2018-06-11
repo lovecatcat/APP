@@ -209,25 +209,25 @@
 	                            		<template v-else-if="formID == '16201'">
 	                            			<!--国华少儿无忧-->
 	                            			<td v-if="index <= pay_year">
-		                            			{{item[0] , children[index][1] | capitalize}}
+		                            			{{item[1] , children[index][1] | capitalize}}
 		                            		</td>
 	                            			<td v-else="index > pay_year">
 		                            			0
 		                            		</td>
 	                            			<td>
-		                            			{{item[1] , children[index][5] | capitalize}}
+		                            			{{item[2] , children[index][3] | capitalize}}
 		                            		</td>
 		                            		<td>
-		                            			{{item[4] | ToFixed}}
+		                            			{{item[3] | ToFixed}}
 		                            		</td>
 		                            		<td>
-		                            			{{item[3] , children[index][7] | capitalize}}
+		                            			{{item[4] , children[index][6] | capitalize}}
+		                            		</td>
+	                            			<td>
+		                            			{{children[index][5] | ToFixed}}
 		                            		</td>
 	                            			<td>
 		                            			{{children[index][2] | ToFixed}}
-		                            		</td>
-	                            			<td>
-		                            			{{children[index][3] | ToFixed}}
 		                            		</td>
 	                            			<td>
 		                            			{{children[index][4] | ToFixed}}

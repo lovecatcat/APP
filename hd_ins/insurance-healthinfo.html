@@ -280,10 +280,6 @@
             type: 'textarea',
             value: ''
         }],
-        '173': [{
-            type: 'textarea',
-            value: ''
-        }],
         '174': [{
             type: 'textarea',
             value: ''
@@ -543,10 +539,6 @@
             type: 'textarea',
             value: ''
         }],
-        '173': [{
-            type: 'textarea',
-            value: ''
-        }],
         '174': [{
             type: 'textarea',
             value: ''
@@ -748,7 +740,7 @@
                 return ret
             },
             isShow:function(i, type) {
-                if (i === 0 || i === 12) {
+                if (i === 0 || i === 12 || i === 14) {
                     return false
                 }
                 if (i === 10 && type === 1 && !this.isApplWm ) {
@@ -933,8 +925,8 @@
                 if (item.id === 168 && health.assuAge <= 2){
                     insured_answer = '1'
                 }
-                var insured_fields = health.clientvalue.fields[item.id]?health.clientvalue.fields[item.id]:''
-                var holder_fields = health.clientvalue.app_fields[item.id]?health.clientvalue.app_fields[item.id]:''
+                var insured_fields = health.clientvalue.fields[item.id] ? health.clientvalue.fields[item.id] : ''
+                var holder_fields = health.clientvalue.app_fields[item.id] ? health.clientvalue.app_fields[item.id] : ''
                 if (item.id === 46) {
                     //投被保人身高、体重
                     holder_answer = '1'
@@ -977,6 +969,16 @@
                 }
                 //
             })
+            //被保人为本人
+            if (!health.showAppl) {
+                mui.each(appitems, function (index, item) {
+                    item.holder_fields = item.insured_fields
+                    item.holder_answer = item.insured_answer
+                    console.log(item.mv_id + ';' + item.insured_fields + ';' + item.insured_answer + ';' + item.holder_fields + ';' + item.holder_answer)
+                })
+            }
+            //
+            console.log('------')
             console.log(JSON.stringify(appitems))
             plus.storage.setItem('hengda_healthinfo', JSON.stringify(appitems));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {

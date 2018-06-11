@@ -120,7 +120,7 @@
                         </div>
                     </div>
                     <div class="input-item ins-pd-r-0" v-if="init&&init.nj_get_type">
-                        <label class="">分红领取方式</label>
+                        <label class="">生存金领取方式</label>
                         <div class="input-wrap box-f-1 multi-btn">
                             <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.shareDrawType}"
                                     v-for="(item,index) in init.nj_get_type"
@@ -151,7 +151,7 @@
                 <!--万年红-->
                 <template v-else-if="insurance.code==wnh">
                     <div class="input-item ins-pd-r-0" v-if="init&&init.nj_get_way">
-                        <label class="">生存金领取方式</label>
+                        <label class="">年金领取方式</label>
                         <div class="input-wrap box-f-1 multi-btn">
                             <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.draw_freq}"
                                     v-for="(item,index) in init.nj_get_way"
@@ -194,7 +194,7 @@
                         </div>
                     </div>
                     <div class="input-item ins-pd-r-0" v-if="init&&init.nj_get_way">
-                        <label class="">生存金领取方式</label>
+                        <label class="">年金领取方式</label>
                         <div class="input-wrap box-f-1 multi-btn">
                             <button class="ins-btn xs-btn" :class="{'blue':item.value===insurance.draw_freq}"
                                     v-for="(item,index) in init.nj_get_way"
@@ -205,7 +205,7 @@
                         </div>
                     </div>
                     <div class="input-item ins-pd-r-0" v-if="addonsSelected[cjb]">
-                        <label class="">分红领取方式</label>
+                        <label class="">生存金领取方式</label>
                         <div class="input-wrap box-f-1 multi-btn">
                             <button class="ins-btn xs-btn blue" disabled>转入万能账户</button>
                         </div>
@@ -554,9 +554,9 @@
                     money: '', // 基本保险金额
                     period_money: '', // 年交保费
                     guarantee_term: '',//年金保障年限  20 30
-                    draw_freq: '',//生存金领取方式 年领 月领
+                    draw_freq: '',//年金领取方式 年领 月领
                     draw_age: '',//年金领取年龄
-                    shareDrawType: '',//分红领取方式 累计生息 转入万能账户 现金领取
+                    shareDrawType: '',//生存金领取方式 累计生息 转入万能账户 现金领取
                     autoApl: false //是否自动垫交
                 }
             }
@@ -612,9 +612,9 @@
                     money: '', // 基本保险金额
                     period_money: '', // 年交保费
                     guarantee_term: '',//年金保障年限
-                    draw_freq: '',//生存金领取方式
+                    draw_freq: '',//年金领取方式
                     draw_age: '',//年金领取年龄
-                    shareDrawType: '',//分红领取方式
+                    shareDrawType: '',//生存金领取方式
                     autoApl: false //是否自动垫交
                 }
             },
@@ -1079,13 +1079,13 @@
                     } else if (!vm.insurance.period_money) {
                         toast_text = '请填写年缴保费'
                     } else if (!vm.insurance.shareDrawType) {
-                        toast_text = '请选择分红领取方式'
+                        toast_text = '请选择生存金领取方式'
                     }
                 } else if (id === wnh || id === wnf) { // 万年红、万年福
                     if (!vm.insurance.period_money) {
                         toast_text = '请填写年缴保费'
                     } else if (!vm.insurance.draw_freq) {
-                        toast_text = '请选择生存金领取方式'
+                        toast_text = '请选择年金领取方式'
                     }
                 }
                 if (toast_text) {

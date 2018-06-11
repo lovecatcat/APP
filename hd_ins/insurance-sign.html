@@ -54,10 +54,12 @@
                 <div class="BL-pad-a1">
                     <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1">
                         <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读
-                            <a class="BL-col-3b9cf5" type="button" disabled @tap="showStatement(item.safe_id,item.name)" v-for="(item,index) in safegoods"><strong>《{{item.name}}保险条款》</strong></a>
-                            、和<a type="button" id="safenotice" class="BL-col-3b9cf5"><strong>《投保提示书》</strong></a>、
+                            <a class="BL-col-3b9cf5" type="button" disabled @tap="showStatement(item.safe_id,item.name)" v-for="(item,index) in safegoods" v-show="item.name"><strong>《{{item.name}}保险条款》</strong></a>
+                            、和<a type="button" id="safenotice" class="BL-col-3b9cf5"><strong>《人身保险投保提示书》</strong></a>、
                             <a type="button" id="mustknow" class="BL-col-3b9cf5"><strong>《投保须知》</strong></a>、
-                            <a type="button" id="statement" class="BL-col-3b9cf5"><strong>《银行自动转账授权事项》</strong></a>，并确认无误
+                            <a type="button" id="statement" class="BL-col-3b9cf5"><strong>《银行自动转账授权事项》</strong></a>、
+                            <a type="button" id="signstatement" class="BL-col-3b9cf5"><strong>《声明授权与签名》</strong></a>
+                            ，并确认无误
                             <input name="checkbox" v-model="agree" type="checkbox" style="top: 20px; left: 0px;">
                         </label>
                     </div>
@@ -150,6 +152,14 @@
         mui.openWindow({
             url: 'mustknow.html',
             id: 'mustknow',
+            show: animateObj.aniDetal
+        })
+        return false
+    })
+    mui('body').on('tap', '#signstatement', function () {
+        mui.openWindow({
+            url: 'sign-statement.html',
+            id: 'sign_statement',
             show: animateObj.aniDetal
         })
         return false
@@ -302,7 +312,42 @@
                 }
             });
         };
-        //
+        //承保接口调完后
+        function afterPay(clear, e) {
+            if (clear) {
+                //清除本地缓存
+                for (var i = 0; i < itemName.length; i++) {
+                    plus.storage.removeItem(itemName[i])
+                }
+            }
+            if (e) { //承保成功
+                setTimeout(function () {
+                    mui.openWindow({
+                        url: '../member-warranty-manage.html',
+                        id: 'member_warranty_manage',
+                        show: animateObj.aniDetal
+                    })
+                    plus.webview.close('member_life_order');
+                    setTimeout(function () {
+                        plus.webview.close('hd-insurance-sign');
+                        plus.webview.close('hd_insurance-index');
+                    }, 200)
+                }, 3000)
+            } else {
+                setTimeout(function () {
+                    mui.openWindow({
+                        url: '../member-life-order.html',
+                        id: 'member_life_order',
+                        show: animateObj.aniDetal
+                    })
+                    setTimeout(function () {
+                        plus.webview.close('hd-insurance-sign');
+                        plus.webview.close('hd_insurance-index');
+                        mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
+                    }, 200)
+                }, 3000)
+            }
+        }
         //承保
         function ins_pay(id) {
             luckyAjax({
@@ -320,47 +365,20 @@
                     if (res.code) {
                         if (res.data.resultCode === '00') {
                             mui.toast('承保成功', {duration: 'long', type: 'div'});
-                            //清除本地缓存
-                            for (var i = 0; i < itemName.length; i++) {
-                                plus.storage.removeItem(itemName[i])
-                            }
-                            //
-                            setTimeout(function () {
-                                mui.openWindow({
-                                    url: '../member-warranty-manage.html',
-                                    id: 'member_warranty_manage',
-                                    show: animateObj.aniDetal
-                                })
-                            }, 4500)
+                            afterPay(true, true)
                         } else if (res.data.resultCode === '02') {
                             mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
-                            //清除本地缓存
-                            for (var i = 0; i < itemName.length; i++) {
-                                plus.storage.removeItem(itemName[i])
-                            }
-                            //
-                            setTimeout(function () {
-                                mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
-                                plus.webview.close('hd_insurance-index');
-                                popu.closepop();
-                                mui.back();
-                            }, 4500)
+                            afterPay(true)
                         } else {
-                            mui.toast(res.data && res.data.resultMsg ? res.data.resultMsg : '网络出错，请稍后再试', {duration: 'long', type: 'div'})
-                            setTimeout(function () {
-                                mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
-                                plus.webview.close('hd_insurance-index');
-                                popu.closepop();
-                                mui.back();
-                            }, 4500)
+                            mui.toast(res.data && res.data.resultMsg ? res.data.resultMsg : '承保失败', {
+                                duration: 'long',
+                                type: 'div'
+                            })
+                            afterPay()
                         }
                     } else {
-                        mui.toast('承保失败', {duration: 'long', type: 'div'})
-                        setTimeout(function () {
-                            plus.webview.close('hd_insurance-index');
-                            popu.closepop();
-                            mui.back();
-                        }, 3500)
+                        mui.toast('网络出错，请稍后再试', {duration: 'long', type: 'div'})
+                        return false
                     }
                 }
             });

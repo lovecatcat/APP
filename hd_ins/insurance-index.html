@@ -207,13 +207,15 @@
                                     appl_data.holder_home_zip = da.insData.holder_home_zip//现在住址【邮编】
                                 }
                                 appl_data.holder_home_address = da.insData.holder_home_address //现在住址【地址详情】
-                                appl_data.mail_addr_type =  true//（通讯地址）同现在住址
-                                appl_data.holder_contact_province = da.insData.holder_contact_province//通讯地址【省】
-                                appl_data.holder_contact_city = da.insData.holder_contact_city//通讯地址【市】
-                                appl_data.holder_contact_district = da.insData.holder_contact_district//通讯地址【区】
-                                appl_data.holder_contact_district_name = da.insData.holder_contact_district_text//通讯地址【区】
+                                appl_data.mail_addr_type =  da.insData.extend_items.mail_addr_type//（通讯地址）是否同现在住址
+                                appl_data.holder_contact_province = '20'//通讯地址【省】
+                                appl_data.holder_contact_city = '323'//通讯地址【市】
+                                if (da.insData.holder_contact_city === '323') {
+                                    appl_data.holder_contact_district = da.insData.holder_contact_district//通讯地址【区】
+                                    appl_data.holder_contact_district_name = da.insData.holder_contact_district_text//通讯地址【区】名称
+                                    appl_data.holder_contact_zip = da.insData.holder_contact_zip//通讯地址【邮编】
+                                }
                                 appl_data.holder_contact_address = da.insData.holder_contact_address //通讯地址【地址详情】
-                                appl_data.holder_contact_zip = da.insData.holder_contact_zip//通讯地址【邮编】
 
                                 appl_data.holder_has_SSID = da.insData.holder_has_SSID === has_social_security ? true : false//是否有社保
                                 appl_data.holder_marriage = da.insData.holder_marriage//婚姻状况
@@ -308,6 +310,7 @@
                                         console.log(JSON.stringify(sitem))
                                         var pdata = {}
                                         pdata = {
+                                            name: sitem.product_name,
                                             is_main: sitem.is_main,
                                             safe_id: sitem.product_id,
                                             code: sitem.code,
@@ -317,7 +320,6 @@
                                             period_money: sitem.fee // 年交保费
                                         }
                                         if (sitem.is_main) {
-                                            pdata.name = da.insData.product_name
                                             pdata.guarantee_term = sitem.extend_items.guarantee_term//年金保障年限  20 30
                                             pdata.draw_freq = sitem.extend_items.draw_freq//生存金领取方式 年领 月领
                                             pdata.draw_age = sitem.extend_items.draw_age//年金领取年龄

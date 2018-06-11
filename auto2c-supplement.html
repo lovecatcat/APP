@@ -24,25 +24,25 @@
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label">车架号</label>
 					<div class="form-list-control">
-						<input type="text" placeholder="请输入">
+						<input type="text" placeholder="请输入" v-model.lazy="frameNo">
 					</div>
-					<div class="form-list-icon">
-						<span class="mui-icon mui-icon-clear"></span>
+					<div class="form-list-icon" v-show="frameNo!=''">
+						<span class="mui-icon mui-icon-clear" @click="frameNo=''"></span>
 					</div>
 				</li>
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label">发动机号</label>
 					<div class="form-list-control">
-						<input type="text" placeholder="请输入">
+						<input type="text" placeholder="请输入" v-model.lazy="engineNo">
 					</div>
-					<div class="form-list-icon">
-						<span class="mui-icon mui-icon-clear"></span>
+					<div class="form-list-icon" v-show="engineNo!=''">
+						<span class="mui-icon mui-icon-clear" @click="engineNo=''"></span>
 					</div>
 				</li>
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label">初登日期</label>
 					<div class="form-list-control">
-						<input type="text" class="date" data-options='{"type":"date"}' placeholder="请选择">
+						<input type="text" class="date" data-options='{"type":"date"}' v-model="registerDate" placeholder="请选择" readonly>
 					</div>
 					<div class="form-list-icon">
 						<div class="mui-icon mui-icon-arrowright"></div>
@@ -51,16 +51,16 @@
 			</ul>
 			<ul class="mui-table-view form-list-cell">
 				<li class="fItem BL-ub BL-ub-f1">
-					<a class="BL-ub-f3 form-list-label" href="auto2c-choosebrand.html"  data-wid="auto2c_choosebrand">
+					<a class="BL-ub-f3 form-list-label" @click="openBrands">
 						品牌型号
 					</a>
 					<div class="form-list-icon">
 						<div class="mui-icon mui-icon-arrowright"></div>
 					</div>
 				</li>
-				<li class="fItem BL-ub BL-ub-f1">
+				<li class="fItem BL-ub BL-ub-f1" v-if="modelName">
 					<div class="BL-ub-f3 form-list-label BL-txt-r">
-						吉利JL7152B1HU轿车 吉利 2008款 舒适型
+						{{ modelName }}
 					</div>
 				</li>
 			</ul>
@@ -70,15 +70,16 @@
 						是否过户车
 					</div>
 					<div class="form-list-control">
-						<div class="mui-switch mui-switch-mini">
-							<div class="mui-switch-handle"></div>
+						<div class="input-switch">
+							<input type="checkbox" class="switch" v-model="isTrans"/>
+							<label></label>
 						</div>
 					</div>
 				</li>
-				<li class="fItem BL-ub BL-ub-f1">
+				<li class="fItem BL-ub BL-ub-f1" :class="{'BL-hide': !isTrans}">
 					<label class="form-list-label">过户日期</label>
 					<div class="form-list-control">
-						<input type="text" class="date" data-options='{"type":"date"}' placeholder="请选择">
+						<input type="text" class="date" data-options='{"type":"date"}' v-model="transDate" placeholder="请选择">
 					</div>
 					<div class="form-list-icon">
 						<div class="mui-icon mui-icon-arrowright"></div>
@@ -87,10 +88,10 @@
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label">核定载客数</label>
 					<div class="form-list-control">
-						<input type="text" placeholder="请输入">
+						<input type="number" placeholder="请输入" v-model.lazy="seatCount">
 					</div>
-					<div class="form-list-icon">
-						<span class="mui-icon mui-icon-clear"></span>
+					<div class="form-list-icon" v-show="seatCount!=''">
+						<span class="mui-icon mui-icon-clear" @click="seatCount=''"></span>
 					</div>
 				</li>
 				<li class="fItem BL-ub BL-ub-f1">
@@ -98,8 +99,9 @@
 						是否贷款车
 					</div>
 					<div class="form-list-control">
-						<div class="mui-switch mui-switch-mini">
-							<div class="mui-switch-handle"></div>
+						<div class="input-switch">
+							<input type="checkbox" class="switch" v-model="isLoanCar"/>
+							<label></label>
 						</div>
 					</div>
 				</li>
@@ -113,45 +115,100 @@
 	<script src="js/mui.picker.js"></script>
 	<script src="js/mui.dtpicker.js"></script>
 	<script src="js/vue.min.js"></script>
+	<!-- auto2.js 专用js-->
+	<script src="js/auto2.js"></script>
 	<script type="text/javascript">
 		mui.init();
-		(function($){
-			$.plusReady(function() {
-				statusbar();
-			
-				var winH = window.innerHeight;
-				var titHeight = document.querySelector('#Js-header').offsetHeight;
-        		document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
-				
-				// 日期选择插件
-				var dates = $('.date');
-				dates.each(function(i, d) {
-					d.addEventListener('tap', function() {
-						var optionsJson = this.getAttribute('data-options') || '{}';
-						var options = JSON.parse(optionsJson);
-						var _this = this
-						var picker = new $.DtPicker(options);
-						picker.show(function(rs) {
-							_this.value = rs.text;
-							picker.dispose();
-						});
-					}, false);
-				});
-			})
-		}(mui));
-		
-		mui('body').on('tap', 'a', function() {
-			var href = this.getAttribute('href');
-			var id = this.getAttribute("data-wid");
-			
-			if(href && ~href.indexOf('.html')) {
-				//打开新窗口
-				mui.openWindow({
-					url:href,
-					id:id,
-					show:animateObj.aniDetal
-				});
+        var auto = new Vue({
+            el: '#Js-content',
+            data: {
+                frameNo: "",  // 车架号
+                engineNo: "",  // 发动机号
+                registerDate: "",  // 初登日期
+                transDate: "",  // 过户日期
+                seatCount: "",   // 核定载客人
+                isTrans: false,     // 是否过户车
+                isLoanCar: false,    // 是否贷款车
+                modelName: ''        // 品牌名称
+			},
+			watch: {
+                frameNo: function (val) {
+                    // 校验
+					if (val.length !== 17) {
+                        mui.toast('请输入17位正确的车架号', {duration: 'short', type: 'div'});
+                        return
+					}
+					// 根据车架号查询车辆信息
+//                  mui.toast('正在查询车辆信息', {duration: 'short', type: 'div'});
+                    plus.nativeUI.showWaiting('正在查询车辆信息', {
+                        style: 'white',
+                        width: '140px'
+                    })
+                    luckyAjax({
+                        data: {
+                            server: 'carIns.vehicleInfoByFrameNo',
+							view: true,
+                            data: JSON.stringify({frameNo: this.frameNo})
+                        },
+                        success:function(data){
+                            console.log(JSON.stringify(data))
+                            if(data.code == 1){
+                            	if(data.data == '') {
+                            		plus.nativeUI.closeWaiting();
+                            		mui.toast('没有找到车辆信息，请继续填写', {duration: 'long', type: 'div'});
+                            	} else {
+                            		// 根据车架号、车牌号、响应码查询车型信息
+
+                            	}
+                            } else {
+                            	plus.nativeUI.closeWaiting();
+                            	mui.toast(data.msg, {duration: 'long', type: 'div'});
+                            }
+                        }
+                    });
+                }
+			},
+			methods: {
+                openBrands: function () {
+                    //打开新窗口
+                    mui.openWindow({
+                        id: "auto2c_brand",
+                        url: "auto2c-brand.html",
+                        show: animateObj.aniDetal,
+                    });
+                },
+				checkForm: function () {
+                }
 			}
-		});
+        })
+		mui.plusReady(function() {
+			statusbar();
+			var winH = window.innerHeight;
+			var titHeight = document.querySelector('#Js-header').offsetHeight;
+			document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+
+            //日期选择
+            mui('.date').each(function (i, d) {
+                d.addEventListener('tap', function () {
+                    document.activeElement.blur();
+                    var optionsJson = this.getAttribute('data-options') || '{}';
+                    var options = JSON.parse(optionsJson);
+                    var picker = new mui.DtPicker(options);
+                    picker.show(function (rs) {
+                        if (i === 0) {
+                            auto.registerDate = rs.text;
+                        } else if (i === 1) {
+                            auto.transDate = rs.text;
+                        }
+                        picker.dispose();
+                    });
+                }, false);
+            });
+		})
+        window.addEventListener('selectBrand', function (e) {
+            var brand = e.detail.brand
+			auto.seatCount = brand.seat
+            auto.modelName = ([brand.brandName,brand.vehicleFgwName,brand.parentVehName].join(' ')).trim() //品牌名称
+        });
 	</script>
 </html>

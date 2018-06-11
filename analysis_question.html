@@ -398,7 +398,6 @@
             d.addEventListener('click', function () {
                 risk.$nextTick(function(){
                     risk.question[risk.index].finish = true
-                    console.log(risk.index + "...." + risk.question[risk.index].score)
 					if (risk.question[risk.index].score !="") {
 						setTimeout(function(){
 	                        if (risk.index != (risk.sum-1)) {

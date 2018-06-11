@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/module.css" rel="stylesheet" />
+		<link href="css/form.css" rel="stylesheet" />
+		<script src="js/config.js" type="text/javascript"></script>
+	</head>
+	<body class="BL-bg-f2f">
+		<div id="Js-main">
+			<header id="Js-header" class="BL-bg-fff">
+				<div class="BL-mod-headbar">
+					<div class="BL-ub BL-ub-ac headbar-search">
+						<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+						<div class="search search-pro BL-ub BL-ub-ac BL-ub-f1">
+							<input type="search" placeholder="请输入品牌型号（如：吉利美日）" class="BL-ub BL-ub-f1" v-model="keyword" @keyup.enter="queryBrand" />
+							<div class="button" @click="queryBrand">
+								<span class="BL-bimg-contain">&nbsp;</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+		
+			<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY" :class="{'BL-bg-fff': brands }">
+				<div v-if="brands" class="BL-pad-lr-1_5">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell BL-pad-tb-1" @click="selectBrand(item)" v-for="item in brands">
+							<div class="BL-ftz-48">{{item.standardName}} {{item.engineDesc}} {{item.parentVehName}} {{item.familyName}} {{item.seat}}座</div>
+							<div class="BL-mar-t-1 BL-ftz-48">市场参考价：<span class="BL-col-red">￥{{item.price}}元</span></div>
+						</li>
+					</ul>
+				</div>
+				<div v-else>
+					<div class="form-notice BL-col-999">示例：</div>
+					<div class="BL-pad-lr-1_5 BL-pad-tb-1">
+						<img src="images/icon/pic-auto-examples.png" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script src="js/vue.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+        mui.init();
+        var auto = new Vue({
+            el: '#Js-main',
+			data: {
+                keyword: "",    // 关键字
+                brands: null
+			},
+			methods: {
+                queryBrand: function () {
+                    if (!this.keyword) {
+                        mui.toast('关键词不能为空', {duration: 'short', type: 'div'});
+                        return
+					}
+					// 模糊匹配品牌型号信息
+                    luckyAjax({
+                        data: {
+                            server: 'carIns.modelMistiness',
+                            view: true,
+                            data: JSON.stringify({
+                                brandName: this.keyword,
+								page: 1,
+								row: 10
+                            })
+                        },
+                        success:function(res){
+                            if (res.code == 1) {
+                                auto.$nextTick(function () {
+                                    this.brands = res.data
+									if (this.brands=="") {
+                                        mui.toast("没有找到车型信息", {duration: 'short', type: 'div'});
+									}
+                                })
+							} else {
+                                mui.toast(res.msg, {duration: 'short', type: 'div'});
+							}
+                        }
+                    });
+                },
+                selectBrand: function (obj) {
+                    mui.fire(plus.webview.getWebviewById('auto2c_supplement'),'selectBrand',{
+                        brand: obj
+                    });
+                    // 查询保险起期
+                    setTimeout(function () {
+                        plus.webview.currentWebview().close();
+                    },200)
+                }
+			}
+		})
+		mui.plusReady(function() {
+			statusbar();
+			var winH = window.innerHeight;
+			var titHeight = document.querySelector('#Js-header').offsetHeight;
+			document.querySelector('#Js-content').style.height = (winH - titHeight) +'px';	
+		})
+	</script>
+</html>

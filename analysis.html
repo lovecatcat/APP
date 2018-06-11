@@ -32,13 +32,13 @@
                 <div class="BL-mar-t-2">
                     <p class="BL-col-666 BL-ftz-46">请填写个人基本信息：</p>
                     <div class="BL-ub BL-ub-pc BL-ub-ac BL-ftz-46 BL-mar-t-1">
-                        <label class="BL-pad-r-2">姓&nbsp;&nbsp;&nbsp;名</label>
+                        <label class="BL-pad-r-2">姓名</label>
                         <div class="BL-ub-f1">
                             <input type="text" class="member-risk-input" v-model.lazy="name" @change="checkName(name)">
                         </div>
                     </div>
                     <div class="BL-ub BL-ub-pc BL-ub-ac BL-ftz-46 BL-mar-t-1">
-                        <label class="BL-pad-r-2">性&nbsp;&nbsp;&nbsp;别</label>
+                        <label class="BL-pad-r-2">性别</label>
                         <div class="BL-ub-f1">
                             <button class="risk-form-btn" value="male" @tap="sex='male',toblur()"
                                     :class="{'blue':sex==='male'}">
@@ -135,9 +135,6 @@
                 id: "analysis_question",
                 url: "analysis_question.html",
                 show: animateObj.aniDetal
-//                extras:{
-//                    policy_id: id  //扩展参数
-//                }
             });
 
         })

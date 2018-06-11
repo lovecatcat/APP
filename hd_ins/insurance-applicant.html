@@ -218,7 +218,7 @@
                         <div class="input flex">
                             <div class="flex-1 BL-col-999">广东</div>
                             <div class="flex-1 BL-col-999">深圳</div>
-                            <div class="flex-1" id="appl-district0">{{applicant.holder_home_district_name}}</div>
+                            <div class="flex-1" id="applDistrict0">{{applicant.holder_home_district_name}}</div>
                         </div>
                         <div class="ins-down-icon"></div>
                     </div>
@@ -252,14 +252,14 @@
                         <label></label>
                     </div>
                 </div>
-                <div v-if="!applicant.mail_addr_type">
+                <div v-show="!applicant.mail_addr_type">
                     <div class="input-item">
                         <label class="">通讯地区</label>
                         <div class="input-wrap box-f-1">
                             <div class="input flex">
                                 <div class="flex-1 BL-col-999">广东</div>
                                 <div class="flex-1 BL-col-999">深圳</div>
-                                <div class="flex-1" id="appl-district1">{{applicant.holder_contact_district_name}}</div>
+                                <div class="flex-1" id="applDistrict1">{{applicant.holder_contact_district_name}}</div>
                             </div>
                             <div class="ins-down-icon"></div>
                         </div>
@@ -321,8 +321,8 @@
             extras:{
                 pageid: 'hd-insurance-applicant',
                 tid: 1,
-				flag: 'onlineIns'
-			}
+                flag: 'onlineIns'
+            }
         })
     })
 
@@ -432,6 +432,7 @@
         //收入来源选择
         var annual = new mui.PopPicker();
         annual.setData(init.annual_source);
+
         document.querySelector('#annual_source').addEventListener('tap', function () {
             document.activeElement.blur();
             annual.show(function (items) {
@@ -442,7 +443,12 @@
         //深圳投保地区
         var district0 = new mui.PopPicker();
         var district1 = new mui.PopPicker();
-        document.querySelector('#appl-district0').addEventListener('tap', function () {
+        //深圳区获取
+        getCityArea('323', function (e) {
+            district0.setData(e)
+            district1.setData(e)
+        })
+        document.querySelector('#applDistrict0').addEventListener('tap', function () {
             document.activeElement.blur();
             district0.show(function (items) {
                 appl.applicant.holder_home_district = items[0].value;
@@ -451,7 +457,7 @@
 
             })
         })
-        document.querySelector('#appl-district1').addEventListener('tap', function () {
+        document.querySelector('#applDistrict1').addEventListener('tap', function () {
             document.activeElement.blur();
             district1.show(function (items) {
                 appl.applicant.holder_contact_district = items[0].value;
@@ -477,23 +483,19 @@
                 });
             }, false);
         });
-        //深圳区获取
-        getCityArea(appl.applicant.holder_home_city, function (e) {
-            district0.setData(e)
-            district1.setData(e)
-        })
+
         //职业
-		var arrOccu = [];
+        var arrOccu = [];
         for (var i = 0; i < 4; i++) {
             arrOccu.push(new mui.PopPicker());
         }
-		mui.each(arrOccu, function(index, item){
-			item.cancel.addEventListener('tap', function(event) {
-				appl.applicant.holder_job_name = '';
+        mui.each(arrOccu, function(index, item){
+            item.cancel.addEventListener('tap', function(event) {
+                appl.applicant.holder_job_name = '';
                 appl.applicant.holder_job_code = {};
                 appl.applicant.temp_holder_job_code = '';
-			}, false);
-		})
+            }, false);
+        })
         arrOccu[0].setData(init.occupation);
         document.querySelector('#occu-first').addEventListener('tap', function () {
             document.activeElement.blur();
@@ -564,6 +566,7 @@
                 plus.storage.setItem('hengda_assured', JSON.stringify(assured));
             }
             saveTemp(appl.applicant)
+            console.log(JSON.stringify(appl.applicant))
             plus.storage.setItem('hengda_applicant',JSON.stringify(appl.applicant));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'hengda_applicant',
@@ -581,7 +584,7 @@
         });
         //
         window.addEventListener('getMemberId', function (event) {
-	        var memberid = event.detail.id
+            var memberid = event.detail.id
             luckyAjax({
                 data: {
                     server: 'team.getContactsInfo',
@@ -617,7 +620,7 @@
                 }
             });
 
-	    })
+        })
     });
 </script>
 </html>

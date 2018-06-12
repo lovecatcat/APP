@@ -282,8 +282,7 @@
         }],
         '173': [{
             type: 'textarea',
-            value: '',
-            must: false
+            value: ''
         }],
         '174': [{
             type: 'textarea',
@@ -546,8 +545,7 @@
         }],
         '173': [{
             type: 'textarea',
-            value: '',
-            must: false
+            value: ''
         }],
         '174': [{
             type: 'textarea',
@@ -887,11 +885,10 @@
         health.assuAge = getAge(assured.insured_birthday)
         health.isApplWm = applicant.holder_gender === FEMALE ? true : false
         health.isAssuWm = assured.insured_gender === FEMALE ? true : false
-
+        if (assured && assured.insured_has_SSID) {
+            health.clientvalue.ass_amswer[173] = true
+        }
         if (assured && assured.rel_insured_holder !== ISASSURED) {
-            if (assured.insured_has_SSID) {
-                health.clientvalue.ass_amswer[173] = true
-            }
             if (applicant && applicant.holder_has_SSID) {
                 health.clientvalue.app_amswer[173] = true
             }

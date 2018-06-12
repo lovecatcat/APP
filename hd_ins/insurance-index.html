@@ -164,6 +164,7 @@
                 },
                 //编辑保单数据赋值
                 getWarranty: function (pid) {
+                    console.log('getWarranty')
                     const vm = this
                     var appl_data = {}
                     var assu_data = {}
@@ -179,6 +180,7 @@
                         },
                         success: function (res) {
                             if (res.code) {
+                                console.log('44444')
                                 var da = res.data
                                 //投保人
                                 appl_data.holder_name = da.insData.holder_name
@@ -224,6 +226,7 @@
                                 appl_data.holder_job_name = da.insData.holder_job_code_text//职业名称
                                 appl_data.holder_isTaxResidents = TAXTYPE //税收标识
                                 appl_data.resident_type = da.insData.extend_items.resident_type //居民类型
+                                console.log('aa')
                                 //被保人
                                 assu_data.rel_insured_holder = da.insured.rel_insured_holder
                                 assu_data.addr_type = da.insData.extend_items.addr_type
@@ -356,6 +359,7 @@
                                 for (var i in da.insData.img_json) {
                                     upload_data[i] = config.domain + da.insData.img_json[i]
                                 }
+                                console.log('a')
                                 //存
                                 plus.storage.setItem('hengda_applicant',JSON.stringify(appl_data));
                                 plus.storage.setItem('hengda_assured',JSON.stringify(assu_data));

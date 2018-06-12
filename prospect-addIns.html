@@ -1549,7 +1549,7 @@
 						<!--中英-->
 						<!--复星-->
 						<!-- 附加康乐一生投保人豁免保费重大疾病保险 -->
-						<template v-if="item.code === 'FXKLYSFJ' && addonRes[item.code]">
+						<template v-if="(item.code === 'FXKLYSFJ' || item.code === 'FXLHFJHMSJ') && addonRes[item.code]">
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs" v-if="addonRes['FJKLYSQZ']">
@@ -1564,7 +1564,7 @@
 								</div>
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs">
-										保险期间(年)&nbsp;<span class="BL-col-ff8201">{{mainSafeYear === 70 ? '至70周岁' : '终身'}}</span>
+										保险期间(年)&nbsp;<span class="BL-col-ff8201">{{mainSafeYear === 999 ? '终身' : '至'+mainSafeYear+'周岁'}}</span>
 									</li>
 								</div>
 								<div class="mui-col-sm-6">
@@ -1582,7 +1582,7 @@
 						</template>
 						<!-- 附加康乐一生投保人豁免保费重大疾病保险 -->
 						<!--  附加康乐一生轻症保险 -->
-						<template v-if="item.code === 'FJKLYSQZ' && addonRes[item.code]">
+						<template v-if="(item.code === 'FJKLYSQZ' || item.code === 'FXLHQZSJ') && addonRes[item.code]">
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs">
@@ -1818,7 +1818,9 @@
 		const mustSelected = ['291', '177', '11', 'RSD', 'RSC', '349', '8111', '1002'] // 必须附加的附加险
 		//		const noNeedCal = ['291', '11', '349', '12E20010', 'LA073', 'DAR'] // 不需要计算的险种
 		const noNeedCal = ['291', '11', '349'] // 不需要计算的险种
-		const directNeedCal = ['RH7B', 'WPJP', 'HB024', 'RSD', '1161', '1168', '1165', '116502', '116503', '404', 'JCR', 'HI', 'ACIWP', 'NWPD', '33F00030', 'JER', 'FXKLYSFJ', 'FJKLYSQZ', 'LA073', 'WRGP', '1002', '1011', '1012'] // 直接 计算的险种
+		const directNeedCal = ['RH7B', 'WPJP', 'HB024', 'RSD', '1161', '1168', '1165',
+		'116502', '116503', '404', 'JCR', 'HI', 'ACIWP', 'NWPD', '33F00030', 'JER',
+		'FXKLYSFJ', 'FJKLYSQZ', 'FXLHQZSJ','FXLHFJHMSJ', 'LA073', 'WRGP', '1002', '1011', '1012'] // 直接 计算的险种
 		var user_id;
 		var pushData;
 		var parent_self;
@@ -1915,7 +1917,7 @@
 					} else if(value == 10000 && safeid == '3188') {
 						return '至100岁';
 					} else if(value > 50 && value !== '999' && value !== 999) {
-						return '至' + value + '岁';
+						return '至' + value + '周岁';
 					} else if(value < 50 && value > 0) {
 						return value + '年';
 					} else {

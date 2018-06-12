@@ -595,6 +595,13 @@ var methods = {
 					toastText = '被保人年龄不能大于49周岁'
 				}
 				break
+			case 'FXLSKLYSBSJ': // 复星联合康乐一生重大疾病保险(B款升级款)
+				if(assuAge > 50) {
+					toastText = '被保人年龄不能大于50周岁'
+				} else if(assuAge > 40 && mainSafeYear == 70 && mainPayYear == 30) {
+					toastText = '保障期间为70年时被保人不能大于40岁'
+				}
+				break
 				//安联
 			case 'CCPAAP1': // 安联-出行无忧
 				if(assuAge < 18) {
@@ -831,6 +838,17 @@ var methods = {
 				if(!this.flag[safeid]) {
 					toastText = '请先选择有无社保'
 				}
+				break
+			case 'FXLSKLYSBSJ': // 复星联合康乐一生重大疾病保险(B款升级款)
+				if(money > 300000 && assuAge > 0 && assuAge < 18) {
+					toastText = '0周岁‐17周岁，投保限额为30万！'
+				} else if(money > 500000 && assuAge > 17 && assuAge < 41) {
+					toastText = '18周岁‐40周岁，投保限额为50万！'
+				} else if(money > 400000 && assuAge > 40 && assuAge < 46) {
+					toastText = '41周岁‐45周岁，投保限额为40万！'
+				} else if(money > 300000 && assuAge > 45 && assuAge < 51) {
+					toastText = '45周岁‐51周岁，投保限额为30万！'
+				}  
 				break
 				//招商仁和
 			case '1001': // 招商仁和爱倍护重大疾病保险
@@ -1124,12 +1142,12 @@ var methods = {
 						}
 						break
 						//复星
-					case 'FJKLYSQZ': // 附加康乐一生轻症保险
-						this.addonsSelected['FXKLYSFJ'] = false
-						this.addonRes['FXKLYSFJ'] = ''
+					case 'FXLHQZSJ': // 附加康乐一生轻症保险(升级款)
+						this.addonsSelected['FXLHFJHMSJ'] = false
+						this.addonRes['FXLHFJHMSJ'] = ''
 						this.$forceUpdate()
 						break
-					case 'FXKLYSFJ': // 附加康乐一生投保人豁免保费重大疾病保险
+					case 'FXLHFJHMSJ': // 附加康乐一生投保人豁免保费重大疾病保险(升级款)
 						if(this.samePerson) {
 							toastText = '投被保人为同人时不可附加该险种'
 						} else if(this.mainPayYear === 1) {
@@ -1516,12 +1534,14 @@ var methods = {
 				}
 				break
 				//复星
-			case 'FXKLYSFJ': // 附加康乐一生投保人豁免保费重大疾病保险
+			case 'FXLHFJHMSJ': // 附加康乐一生投保人豁免保费重大疾病保险(升级款)
 				if(applAge > 50) {
 					toastText = '投保人年龄不能大于50周岁'
+				} else if(mainPayYear + applAge > 70) {
+					toastText = '缴费期加投保人年龄大于70岁，不可附加该险种'
 				}
 				break
-			case 'FJKLYSQZ': //
+			case 'FXLHQZSJ': //
 				if(mainPayYear === 20 && mainSafeYear === 70) {
 					toastText = '保障期间为70年，缴费为20年交时，不可附加该险种'
 				}
@@ -2392,19 +2412,19 @@ var methods = {
 		} else if(safeid === 'FXKLYSB') { //复星
 			//  b款
 			data.safe_year = this.mainSafeYear === 999 ? 0 : 7000
-		} else if(safeid === 'FXKLYSFJ') { //复星
-			//  附加康乐一生投保人豁免保费重大疾病保险
+		} else if(safeid === 'FXKLYSFJ' || safeid === 'FXLHFJHMSJ') { //复星
+			//  附加康乐一生投保人豁免保费重大疾病保险(升级款)
 			data.pay_year = py
-			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
-			if(this.addonRes['FJKLYSQZ']) {
-				data.base_money = Number(periodMoney) + Number(this.addonRes['FJKLYSQZ'].年缴保费)
+			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear + '00'
+			if(this.addonRes['FXLHQZSJ']) {
+				data.base_money = Number(periodMoney) + Number(this.addonRes['FXLHQZSJ'].年缴保费)
 			} else {
 				data.base_money = periodMoney
 			}
-		} else if(safeid === 'FJKLYSQZ') {
-			//  附加康乐一生轻症保险
+		} else if(safeid === 'FXLHQZSJ') {
+			//  附加康乐一生轻症保险(升级款)
 			data.pay_year = this.mainPayYear
-			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
+			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear + '00'
 			data.base_money = money * 0.2
 		} else if(safeid === 'FXLJYS') {
 			//  复星乐健一生住院
@@ -2423,6 +2443,8 @@ var methods = {
 			data.mzptcmp = this.fxljysFXLJYS.mzptcmp // 门诊普通次免赔
 			data.mztxcimp = this.fxljysFXLJYS.mztxcimp // 门诊特需次免赔
 
+		} else if(safeid === 'FXLSKLYSBSJ') { //复星联合康乐一生重大疾病保险(B款升级款)
+			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear + '00'
 		} else if(safeid === '1001') { //  招商仁和
 			//招商仁和爱倍护重大疾病保险
 			data.pay_year = this.mainPayYear === 60 ? 6000 : this.mainPayYear

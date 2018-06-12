@@ -401,6 +401,7 @@
 
         //已填信息赋值
         var applicant = plus.storage.getItem('zhaos_applicant') ? JSON.parse(plus.storage.getItem('zhaos_applicant')) : ''
+        console.log(JSON.stringify(applicant))
         if(applicant) {
             appl.applicant = deepClone(applicant)
             appl.longTerm = applicant.holder_ID_expire_end === '9999-12-31' ? true : false

@@ -172,6 +172,7 @@
                 },
                 //编辑保单数据赋值
                 getWarranty: function (pid) {
+                    console.log('赋值')
                     const vm = this
                     var appl_data = {}
                     var assu_data = {}
@@ -208,20 +209,27 @@
                                 appl_data.holder_salary_from_name = da.insData.holder_salary_from_text//收入来源名
                                 appl_data.holder_salary_avg = parseInt(da.insData.holder_salary_avg)//年收入
 
-                                appl_data.holder_home_province = '20'//现在住址【省】
-                                appl_data.holder_home_city = '323'//现在住址【市】
-                                if (da.insData.holder_home_city === '323') {
-                                    appl_data.holder_home_district = da.insData.holder_home_district//现在住址【区】
-                                    appl_data.holder_home_district_name = da.insData.holder_home_district_text//现在住址【区】名称
-                                    appl_data.holder_home_zip = da.insData.holder_home_zip//现在住址【邮编】
-                                }
+                                appl_data.holder_home_province = da.insData.holder_home_province//现在住址【省】
+                                appl_data.holder_home_province_name = da.insData.holder_home_province_text//现在住址【省】
+                                appl_data.holder_home_city = da.insData.holder_home_city//现在住址【市】
+                                appl_data.holder_home_city_name = da.insData.holder_home_city_text//现在住址【市】
+                                appl_data.holder_home_district = da.insData.holder_home_district//现在住址【区】
+                                appl_data.holder_home_district_name = da.insData.holder_home_district_text//现在住址【区】名称
+                                appl_data.holder_home_zip = da.insData.holder_home_zip//现在住址【邮编】
                                 appl_data.holder_home_address = da.insData.holder_home_address //现在住址【地址详情】
-                                appl_data.mail_addr_type =  true//（通讯地址）同现在住址
+                                appl_data.holder_home_ssq_name = da.insData.holder_home_province_text + ' ' + da.insData.holder_home_city_text + ' ' + da.insData.holder_home_district_text //现在住址【地址详情】
+
+                                appl_data.mail_addr_type =  da.insData.extend_items.mail_addr_type//（通讯地址）是否同现在住址
+
                                 appl_data.holder_contact_province = da.insData.holder_contact_province//通讯地址【省】
+                                appl_data.holder_contact_province_name = da.insData.holder_contact_province_text//通讯地址【省】
                                 appl_data.holder_contact_city = da.insData.holder_contact_city//通讯地址【市】
+                                appl_data.holder_contact_city_name = da.insData.holder_contact_city_text//通讯地址【市】
                                 appl_data.holder_contact_district = da.insData.holder_contact_district//通讯地址【区】
-                                appl_data.holder_contact_address = da.insData.holder_contact_address //通讯地址【地址详情】
+                                appl_data.holder_contact_district_name = da.insData.holder_contact_district_text//通讯地址【区】名称
                                 appl_data.holder_contact_zip = da.insData.holder_contact_zip//通讯地址【邮编】
+                                appl_data.holder_contact_address = da.insData.holder_contact_address //通讯地址【地址详情】
+                                appl_data.holder_contact_ssq_name = da.insData.holder_contact_province_text + ' ' + da.insData.holder_contact_city_text + ' ' + da.insData.holder_contact_district_text //通讯地址【地址详情】
 
                                 appl_data.holder_has_SSID = da.insData.holder_has_SSID === has_social_security ? true : false//是否有社保
                                 appl_data.holder_marriage = da.insData.holder_marriage//婚姻状况
@@ -230,6 +238,8 @@
                                 appl_data.holder_job_name = da.insData.holder_job_code_text//职业名称
                                 appl_data.holder_isTaxResidents = TAXTYPE //税收标识
                                 appl_data.resident_type = da.insData.extend_items.resident_type //居民类型
+                                console.log('111')
+                                console.log(JSON.stringify(appl_data))
                                 //被保人
                                 assu_data.rel_holder_insured = da.insured.rel_holder_insured
                                 assu_data.addr_type = da.insData.extend_items.addr_type
@@ -254,12 +264,26 @@
                                     assu_data.insured_salary_from_name = da.insured.insured_salary_from_text//收入来源名
                                     assu_data.insured_salary_avg = parseInt(da.insured.insured_salary_avg)//年收入
 
-                                    assu_data.insured_home_province = '20'//现在住址【省】
-                                    assu_data.insured_home_city = '323'//现在住址【市】
+                                    assu_data.insured_home_province = da.insured.insured_home_province//现在住址【省】
+                                    assu_data.insured_home_province_name = da.insured.insured_home_province_text//现在住址【省】
+                                    assu_data.insured_home_city = da.insured.insured_home_city//现在住址【市】
+                                    assu_data.insured_home_city_name = da.insured.insured_home_city_text//现在住址【市】
                                     assu_data.insured_home_district = da.insured.insured_home_district//现在住址【区】
                                     assu_data.insured_home_district_name = da.insured.insured_home_district_text//现在住址【区】名称
                                     assu_data.insured_home_address = da.insured.insured_home_address //现在住址【地址详情】
                                     assu_data.insured_home_zip = da.insured.insured_home_zip//现在住址【邮编】
+                                    assu_data.insured_home_ssq_name = da.insured.insured_home_province_text + ' ' + da.insured.insured_home_city_text + ' ' + da.insured.insured_home_district_text//现在住址【邮编】
+
+                                    assu_data.insured_contact_province = da.insured.insured_contact_province//通讯地址【省】
+                                    assu_data.insured_contact_province_name = da.insured.insured_contact_province_text//通讯地址【省】
+                                    assu_data.insured_contact_city = da.insured.insured_contact_city//通讯地址【市】
+                                    assu_data.insured_contact_city_name = da.insured.insured_contact_city_text//通讯地址【市】
+                                    assu_data.insured_contact_district = da.insured.insured_contact_district//通讯地址【区】
+                                    assu_data.insured_contact_district_name = da.insured.insured_contact_district_text//通讯地址【区】名称
+                                    assu_data.insured_contact_address = da.insured.insured_contact_address //通讯地址【地址详情】
+                                    assu_data.insured_contact_zip = da.insured.insured_contact_zip//通讯地址【邮编】
+                                    assu_data.insured_contact_ssq_name = da.insured.insured_contact_province_text + ' ' + da.insured.insured_contact_city_text + ' ' + da.insured.insured_contact_district_text//通讯地址【邮编】
+
 
                                     assu_data.insured_has_SSID = da.insured.has_insured_SSID === has_social_security ? true : false//是否有社保
                                     assu_data.insured_marriage = da.insured.insured_marriage//婚姻状况
@@ -290,17 +314,10 @@
                                                 ID_expire_end: bitem.ID_expire_end,//证件有效期
                                                 gender: bitem.gender,//性别
                                                 birthday: bitem.birthday,//出生日期
-                                                zip: bitem.zip,//邮编
                                                 sort_order: bitem.sort_order,//受益顺序
                                                 rate: bitem.rate,//受益比例
                                                 type: SY_TYPE,//受益类型：身故
-                                                addr_type: bitem.addr_type,//地址类型 1同投保人 2同被保人 3否
-                                                province: bitem.province,
-                                                city: bitem.city,
-                                                district: bitem.district,
-                                                address: bitem.address,//详细地址
-                                                ID_type_name: typename[bitem.ID_type],//证件类型名称
-                                                address_select: bitem.province_text + ' ' + bitem.city_text + ' ' + bitem.district_text
+                                                ID_type_name: typename[bitem.ID_type]//证件类型名称
                                             })
                                         }
                                     }
@@ -322,19 +339,18 @@
                                             safe_year: sitem.period_guanantee,
                                             pay_year: sitem.period_payment,
                                             money: sitem.amount, // 基本保险金额
-                                            period_money: sitem.fee // 年交保费
+                                            period_money: sitem.fee, // 年交保费
+                                            name: sitem.product_name
                                         }
                                         if (sitem.is_main) {
-                                            pdata.name = da.insData.product_name
-                                            pdata.guarantee_term = sitem.extend_items.guarantee_term//年金保障年限  20 30
-                                            pdata.draw_freq = sitem.extend_items.draw_freq//生存金领取方式 年领 月领
-                                            pdata.draw_age = sitem.extend_items.draw_age//年金领取年龄
-                                            pdata.shareDrawType = sitem.extend_items.shareDrawType//分红领取方式 累计生息 转入万能账户 现金领取
+                                            pdata.bcestype = da.insData.extend_items.bcestype//生存金领取方式 累计生息 现金领取
+                                            pdata.BonusGetMode = sitem.extend_items.BonusGetMode//分红领取方式 累计生息 保额分红 现金领取
                                             pdata.autoApl = sitem.extend_items.autoApl === '1' ? true : false //是否自动垫交
                                         }
                                         safe_data.push(pdata)
                                     }
                                 }
+                                console.log()
                                 //健康告知
                                 if (!da.matterList.length) {
                                     health_data = ''
@@ -362,6 +378,19 @@
                                 for (var i in da.insData.img_json) {
                                     upload_data[i] = config.domain + da.insData.img_json[i]
                                 }
+                                //代理人告知
+                                agent_data.applyProcessCode =  da.insData.extend_items.applyProcessCode
+                                agent_data.process_name =  '请选择'
+                                agent_data.durationType =  da.insData.extend_items.durationType //投保目的
+                                agent_data.duration_name =  '请选择'
+                                agent_data.insuredBadHabits =  da.insData.extend_items.insuredBadHabits === 'Y' ? true : false
+                                agent_data.insuredPartTime =  da.insData.extend_items.insuredPartTime === 'Y' ? true : false
+                                agent_data.insuredBodyAbnormity =  da.insData.extend_items.insuredBodyAbnormity === 'Y' ? true : false
+                                agent_data.insuredBodyAbnormityDesc =  da.insData.extend_items.insuredBodyAbnormityDesc
+                                agent_data.insuredSpecialAffinity =  da.insData.extend_items.insuredSpecialAffinity === 'Y' ? true : false
+                                agent_data.otherRisk =  da.insData.extend_items.otherRisk === 'Y' ? true : false
+                                agent_data.otherRiskDesc =  da.insData.extend_items.otherRiskDesc
+                                agent_data.reasons =  da.insData.extend_items.reasons === 'Y' ? true : false
                                 //存
                                 plus.storage.setItem('zhaos_applicant',JSON.stringify(appl_data));
                                 plus.storage.setItem('zhaos_assured',JSON.stringify(assu_data));
@@ -374,6 +403,7 @@
                                 health_data && plus.storage.setItem('zhaos_healthinfo', JSON.stringify(health_data));
                                 plus.storage.setItem('zhaos_bank', JSON.stringify(bank_data));
                                 plus.storage.setItem('zhaos_upload', JSON.stringify(upload_data));
+                                plus.storage.setItem('zhaos_agent', JSON.stringify(agent_data));
                                 console.log('edit-over')
                                 vm.getReadyItem();
                             }
@@ -730,6 +760,7 @@
                     if (res.code) {
                         console.log('删除成功')
                         i++;
+                        console.log('i:'+i)
                         if (i === 3) {
                             save_ins(pushdata);
                         }

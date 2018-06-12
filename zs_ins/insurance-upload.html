@@ -73,7 +73,7 @@
         el: '#Js-content',
         data: {
             assured: {},
-            previewImg: [],           //上传图片
+            previewImg: [], //上传图片
             appl_img: '',   // 投保人
             assu_img: '',   // 被保人
             bank_img: '' //银行卡
@@ -118,19 +118,23 @@
             '1181': 'assu_img',
             '1219': 'bank_img'
         }
+        var index = {
+            '1180': 0,
+            '1181': 1,
+            '1219': 2
+        }
         if (assured.rel_holder_insured!==ISASSURED) {
             tempName['1181'] = 'assu_img'
         }
-//        for (var i in tempName) {
-//            var j = i === '08' ? 6 : Number(i)
-//            if (upload && upload[i]) {
-//                img[tempName[i]] = upload[i]
-//                console.log(img[tempName[i]])
-//                img.$set(img.previewImg, j, {
-//                    'backgroundImage': 'url(' + upload[i] + ')'
-//                })
-//            }
-//        }
+        for (var i in tempName) {
+            if (upload && upload[i]) {
+                img[tempName[i]] = upload[i]
+                console.log(img[tempName[i]])
+                img.$set(img.previewImg, index[i], {
+                    'backgroundImage': 'url(' + upload[i] + ')'
+                })
+            }
+        }
 
         //安卓监听返回事件
         plus.key.addEventListener("backbutton",function(){

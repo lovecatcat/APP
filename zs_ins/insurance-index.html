@@ -369,20 +369,28 @@
                                     }
                                 }
                                 //银行信息
-                                bank_data.agree = false
+                                bank_data.agree = true
                                 bank_data.bank_holder = da.insData.holder_name //户名
                                 bank_data.bank_name = da.insData.bank_name //开户行
                                 bank_data.temp_bank_name = da.insData.bank_name_text //开户行名称
+                                bank_data.bank_type = da.insData.bank_type //账户类型
+                                bank_data.temp_bank_type = da.insData.bank_type_text //账户类型名称
                                 bank_data.bank_no = da.insData.bank_no//卡号
+                                bank_data.bank_province = da.insData.bank_province
+                                bank_data.bank_province_name = da.insData.bank_province_text
+                                bank_data.bank_area = da.insData.bank_area
+                                bank_data.bank_area_name = da.insData.bank_area_text
+                                bank_data.bank_ss_name = da.insData.bank_province_text + ' ' + da.insData.bank_area_text
+                                console.log(JSON.stringify(bank_data))
                                 //证件照
                                 for (var i in da.insData.img_json) {
                                     upload_data[i] = config.domain + da.insData.img_json[i]
                                 }
                                 //代理人告知
                                 agent_data.applyProcessCode =  da.insData.extend_items.applyProcessCode
-                                agent_data.process_name =  '请选择'
+                                agent_data.process_name =  da.insData.apply_process_code_text
                                 agent_data.durationType =  da.insData.extend_items.durationType //投保目的
-                                agent_data.duration_name =  '请选择'
+                                agent_data.duration_name =  da.insData.duration_type_text
                                 agent_data.insuredBadHabits =  da.insData.extend_items.insuredBadHabits === 'Y' ? true : false
                                 agent_data.insuredPartTime =  da.insData.extend_items.insuredPartTime === 'Y' ? true : false
                                 agent_data.insuredBodyAbnormity =  da.insData.extend_items.insuredBodyAbnormity === 'Y' ? true : false

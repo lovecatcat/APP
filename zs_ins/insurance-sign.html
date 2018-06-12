@@ -74,22 +74,7 @@
                         <div class="input-wrap BL-ub-f1">
                             <input type="number" class="BL-col-ff8201" v-model.number.lazy="smscode">
                         </div>
-                        <div class="right-btn orange" @click="sendsms()">获取</div>
-                    </div>
-                </div>
-                <div class="BL-pad-a1">
-                    <div class="BL-ub BL-ub-ac BL-ub-pc">
-                        <button class="form-btn ins-btn sm-btn" @click="getSignature">查看签名状态</button>
-                    </div>
-                </div>
-                <div class="BL-pad-a1">
-                    <div class="BL-ub BL-ub-ac BL-ub-pc">
-                        <button class="form-btn ins-btn sm-btn" onclick="pay()">单笔支付</button>
-                    </div>
-                </div>
-                <div class="BL-pad-a1">
-                    <div class="BL-ub BL-ub-ac BL-ub-pc">
-                        <button class="form-btn ins-btn sm-btn" onclick="ins_pay()">单笔实时承保</button>
+                        <div class="right-btn orange" @click="getSignature">获取</div>
                     </div>
                 </div>
             </div>
@@ -158,10 +143,11 @@
                 mui.toast("请确认阅读相关条款声明并同意转账授权与声明", {duration: 'short', type: 'div'})
                 return false;
             }
-            if (!img.signflag) {
-                mui.toast("请查看签名是否完成", {duration: 'short', type: 'div'})
+            if (!img.smscode) {
+                mui.toast("请填写验证码", {duration: 'short', type: 'div'})
                 return false
             }
+            checksms()
 
         })
         //
@@ -179,7 +165,7 @@
         });
         //
 
-        //承保
+        //06承保
         function ins_pay() {
             luckyAjax({
                 data: {
@@ -234,7 +220,7 @@
             });
         };
         //
-        //验证码验证
+        //05验证码验证
         function checksms() {
             luckyAjax({
                 data: {
@@ -250,6 +236,7 @@
                 success: function (res) {
                     if (res.data.flag === 'Y') {
                         mui.toast(res.msg, {duration: 'long', type: 'div'})
+                        ins_pay()
                     } else if (res.data.flag === 'N') {
                         mui.toast('接口调用失败', {duration: 'long', type: 'div'})
                     } else {
@@ -314,6 +301,7 @@
                     }
                 })
             },
+            //07发送验证码
             sendsms: function () {
                 luckyAjax({
                     data: {
@@ -341,7 +329,7 @@
                     }
                 });
             },
-            // 查看签名状态
+            // 03查看签名状态
             getSignature: function () {
                 luckyAjax({
                     data: {
@@ -359,6 +347,7 @@
                             if (res.data.isSignFinish === 'Y') {
                                 img.signflag = true
                                 mui.toast('签名已完成', {duration: 'long', type: 'div'})
+                                img.sendsms()
                             } else {
                                 mui.toast(res.data.signStatusDesc, {duration: 'long', type: 'div'})
                             }

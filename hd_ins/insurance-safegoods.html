@@ -688,18 +688,9 @@
                 }
 //                console.log(i + ', 是否初始化：' + init)
                 if (i === tbrhm) {
-                    var item = {}
-                    for (var j in vm.Addons[i].ratio) {
-                        item = vm.Addons[i].ratio[j]
-                        if (vm.insurance.pay_year - 1 === +item.pay_year) {
-                            tml.pay_year = item.pay_year
-                            break
-                        }
-                    }
+                    tml.pay_year = Number(vm.insurance.pay_year) - 1
+                    tml.safe_year = 999
                     vm.Addons[i].attr2 = unique(vm.Addons[i].ratio, 'safe_year')
-                    if (vm.Addons[i].attr2.length === 1) {
-                        tml.safe_year = item.year
-                    }
                     tml.money = vm.insurance.period_money
                 } else {
                     if (vm.Addons[i].ratio.length === 1) {

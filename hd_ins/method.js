@@ -237,8 +237,8 @@ var checkAddress = function (val, owner) {
     var m = val.match(/[\u4e00-\u9fa5]{1}/g)
     if (!val) {
         toast_text = '请录入' + owner + '详细地址'
-    } else if (!m || m.length < 12) {
-        toast_text = owner + '详细地址填写有误,请确认至少有12个汉字'
+    } else if (!m || m.length < 6) {
+        toast_text = owner + '详细地址填写有误,请确认至少有6个汉字'
     }
     if (toast_text) {
         mui.toast(toast_text, {duration: 'short', type: 'div'});

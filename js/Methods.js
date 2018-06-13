@@ -221,17 +221,17 @@ var methods = {
 		if(fx !== 'fxmz') { // 如果是复星门诊不清空
 			this.isBaseMoney ? this.insurance.period_money = '' : this.insurance.money = ''
 		} else {
-			this.fxljysFXLJYS.mzmoney = ''
+			this.fxljys110020.mzmoney = ''
 		}
 		if(fx === 'fxsb') { // 切换社保，2个都重置
-			this.fxljysFXLJYS.zymoney = ''
-			this.fxljysFXLJYS.mzmoney = ''
+			this.fxljys110020.zymoney = ''
+			this.fxljys110020.mzmoney = ''
 		}
 		if(this.fuBaseMoney) { // 如果是乐行天下
 			this.insurance.period_money = ''
 			this.insurance.money = ''
 		}
-		if(this.insurance.safe_id !== 'FXLJYS') { // 复星乐健一生不重置附加险
+		if(this.insurance.safe_id !== '110020') { // 复星乐健一生不重置附加险
 			this.resetAddon()
 		}
 	},
@@ -255,9 +255,9 @@ var methods = {
 			toastText = '请选择主险生存金方式'
 		} else if(this.prospectus_types.length > 0 && !this.prospectus_type) {
 			toastText = '请选择主险基本保额'
-		} else if(this.isBaseMoney && !this.insurance.money && !this.fuBaseMoney && this.insurance.safe_id !== 'FXLJYS') {
+		} else if(this.isBaseMoney && !this.insurance.money && !this.fuBaseMoney && this.insurance.safe_id !== '110020') {
 			toastText = '请输入主险基本保额'
-		} else if(this.isBaseMoney && exp.test(this.insurance.money) === false && !this.fuBaseMoney && this.insurance.safe_id !== 'FXLJYS') {
+		} else if(this.isBaseMoney && exp.test(this.insurance.money) === false && !this.fuBaseMoney && this.insurance.safe_id !== '110020') {
 			toastText = '数字格式不规范，请重新输入'
 		} else if(!this.isBaseMoney && !this.insurance.period_money && !this.fuBaseMoney) {
 			toastText = '请输入主险年缴保费'
@@ -265,9 +265,9 @@ var methods = {
 			toastText = '请先完善附加乐行天下意外伤害保险'
 		} else if(this.isBaseMoney && !this.insurance.period_money && this.fuBaseMoney && this.cache.pay_moneyRSD === '') {
 			toastText = '请先完善附加乐行天下意外住院津贴医疗保险'
-		} else if(this.insurance.safe_id === 'FXLJYS' && this.fxljysFXLJYS.zytc === '0') {
+		} else if(this.insurance.safe_id === '110020' && this.fxljys110020.zytc === '0') {
 			toastText = '请选择乐健一生住院套餐'
-		} else if(this.insurance.safe_id === 'FXLJYS' && this.fxljysFXLJYS.zynmp === '0') {
+		} else if(this.insurance.safe_id === '110020' && this.fxljys110020.zynmp === '0') {
 			toastText = '请选择乐健一生住院免赔额'
 		}
 		if(toastText) {
@@ -568,13 +568,13 @@ var methods = {
 				}
 				break
 				// 复星
-			case 'FXLJYS': // 复星乐健一生
+			case '110020': // 复星乐健一生
 				if(assuAge > 64) {
 					toastText = '被保人年龄不能大于64周岁'
 				}
 				break
 			case 'FXKLYSA': // 康乐一生重大疾病保险A款
-			case 'FXKLYSB': // 康乐一生重大疾病保险B款
+			case '110032': // 康乐一生重大疾病保险B款
 				if(mainPayYear === 1 && applAge > 70) {
 					toastText = '投保人年龄不能大于70周岁'
 				} else if(mainPayYear === 5 && applAge > 65) {
@@ -590,12 +590,12 @@ var methods = {
 					toastText = '保障期间为70年时不能20年交'
 				}
 				break
-			case 'LXYS': // 复星乐健一生
+			case '110029': // 复星乐享一生
 				if(assuAge > 49) {
 					toastText = '被保人年龄不能大于49周岁'
 				}
 				break
-			case 'FXLSKLYSBSJ': // 复星联合康乐一生重大疾病保险(B款升级款)
+			case '120011': // 复星联合康乐一生重大疾病保险(B款升级款)
 				if(assuAge > 50) {
 					toastText = '被保人年龄不能大于50周岁'
 				} else if(assuAge > 40 && mainSafeYear == 70 && mainPayYear == 30) {
@@ -825,7 +825,7 @@ var methods = {
 			
 				//复星
 			case 'FXKLYSA': // 康乐一生重大疾病保险A款
-			case 'FXKLYSB': // 康乐一生重大疾病保险B款
+			case '110032': // 康乐一生重大疾病保险B款
 				if(money > 200000 && assuAge < 2) {
 					toastText = '未满2周岁，投保限额为20万！'
 				} else if(money > 500000 && assuAge > 2 && assuAge < 19) {
@@ -834,12 +834,12 @@ var methods = {
 					toastText = '最低保额5万元！'
 				}
 				break
-			case 'LXYS': // 乐享一生
+			case '110029': // 乐享一生
 				if(!this.flag[safeid]) {
 					toastText = '请先选择有无社保'
 				}
 				break
-			case 'FXLSKLYSBSJ': // 复星联合康乐一生重大疾病保险(B款升级款)
+			case '120011': // 复星联合康乐一生重大疾病保险(B款升级款)
 				if(money > 300000 && assuAge > 0 && assuAge < 18) {
 					toastText = '0周岁‐17周岁，投保限额为30万！'
 				} else if(money > 500000 && assuAge > 17 && assuAge < 41) {
@@ -1065,10 +1065,16 @@ var methods = {
 					case '1167':
 						this.addonsSelected['1165'] = false
 						this.addonRes['1165'] = ''
+						this.$delete(this.addonInsData, '1165')
+						this.$delete(this.planList, '1165')
 						this.addonsSelected['116502'] = false
 						this.addonRes['116502'] = ''
+						this.$delete(this.addonInsData, '116502')
+						this.$delete(this.planList, '116502')
 						this.addonsSelected['116503'] = false
 						this.addonRes['116503'] = ''
+						this.$delete(this.addonInsData, '116503')
+						this.$delete(this.planList, '116503')
 						this.$forceUpdate()
 						break
 					case '116502': // 国华康运金生附加豁免轻症疾病豁免保险费
@@ -1119,11 +1125,15 @@ var methods = {
 					case 'PFR': //  附加交通意外伤害保险
 						this.addonsSelected['JER'] = false
 						this.addonRes['JER'] = ''
+						this.$delete(this.addonInsData, 'JER')
+						this.$delete(this.planList, 'JER')
 						this.$forceUpdate()
 						break
 					case 'CKRA': //   附加额外给付重大疾病保险（B款）
 						this.addonsSelected['JER'] = false
 						this.addonRes['JER'] = ''
+						this.$delete(this.addonInsData, 'JER')
+						this.$delete(this.planList, 'JER')
 						this.$forceUpdate()
 						break
 					case 'JER': //  附加投保人保费豁免重大疾病保险(和PFR，CKRA有关）
@@ -1142,19 +1152,21 @@ var methods = {
 						}
 						break
 						//复星
-					case 'FXLHQZSJ': // 附加康乐一生轻症保险(升级款)
-						this.addonsSelected['FXLHFJHMSJ'] = false
-						this.addonRes['FXLHFJHMSJ'] = ''
+					case '120012': // 附加康乐一生轻症保险(升级款)
+						this.addonsSelected['120011'] = false
+						this.$delete(this.addonInsData, '120011')
+						this.$delete(this.addonRes, '120011')
+						this.$delete(this.planList, '120011')
 						this.$forceUpdate()
 						break
-					case 'FXLHFJHMSJ': // 附加康乐一生投保人豁免保费重大疾病保险(升级款)
+					case '120011': // 附加康乐一生投保人豁免保费重大疾病保险(升级款)
 						if(this.samePerson) {
 							toastText = '投被保人为同人时不可附加该险种'
 						} else if(this.mainPayYear === 1) {
 							toastText = '主险趸交不可附加该险种'
 						}
 						break
-					case 'LJYSMZ': //
+					case '110020-1': //
 						if(this.assu.age > 54) {
 							toastText = '被保人年龄不能大于54周岁'
 						}
@@ -1176,16 +1188,24 @@ var methods = {
 					case '1003':
 						this.addonsSelected['1002'] = false
 						this.addonRes['1002'] = ''
+						this.$delete(this.addonInsData, '1002')
+						this.$delete(this.planList, '1002')
 						this.addonsSelected['1011'] = false
 						this.addonRes['1011'] = ''
+						this.$delete(this.addonInsData, '1011')
+						this.$delete(this.planList, '1011')
 						this.addonsSelected['1012'] = false
 						this.addonRes['1012'] = ''
+						this.$delete(this.addonInsData, '1012')
+						this.$delete(this.planList, '1012')
 						this.$forceUpdate()
 						break
 						//恒大养老年金
 					case 'LA078':
 						this.addonsSelected['HB024'] = false
 						this.addonRes['HB024'] = ''
+						this.$delete(this.addonInsData, 'HB024')
+						this.$delete(this.planList, 'HB024')
 						this.$forceUpdate()
 						break
 
@@ -1209,20 +1229,25 @@ var methods = {
 					this.addonInsData = {}
 					this.addonRes = {}
 					this.addonsSelected = {}
+					this.$delete(this.planList, index)
 				} else if(index === '1167') {
 					this.flag[index] = ''
 					this.addonInsData = {}
 					this.addonRes = {}
 					this.addonsSelected = {}
+					this.$delete(this.planList, index)
 				} else if(index === '1165') {
 					this.flag[index] = ''
 					this.$delete(this.addonInsData, index)
 					this.$delete(this.addonRes, index)
+					this.$delete(this.planList, index)
 					this.$delete(this.addonInsData, '116502')
 					this.$delete(this.addonRes, '116502')
+					this.$delete(this.planList, '116502')
 					this.addonsSelected['116502'] = false
 					this.$delete(this.addonInsData, '116503')
 					this.$delete(this.addonRes, '116503')
+					this.$delete(this.planList, '116503')
 					this.addonsSelected['116503'] = false
 				} else if(index === 'PFR') {
 					this.flag[index] = ''
@@ -1230,33 +1255,51 @@ var methods = {
 					this.cache.base_moneyPFR = ''
 					this.$delete(this.addonInsData, index)
 					this.$delete(this.addonRes, index)
+					this.$delete(this.planList, index)
 					this.$delete(this.addonInsData, 'JER')
 					this.$delete(this.addonRes, 'JER')
+					this.$delete(this.planList, 'JER')
 					this.addonsSelected['JER'] = false
 				} else if(index === 'CKRA') {
 					this.$delete(this.addonInsData, index)
 					this.$delete(this.addonRes, index)
+					this.$delete(this.planList, index)
 					this.$delete(this.addonInsData, 'JER')
 					this.$delete(this.addonRes, 'JER')
+					this.$delete(this.planList, 'JER')
 					this.addonsSelected['JER'] = false
 				} else if(index === '1003') {
 					this.$delete(this.addonInsData, index)
 					this.$delete(this.addonRes, index)
+					this.$delete(this.planList, index)
 					this.$delete(this.addonInsData, '1002')
 					this.$delete(this.addonRes, '1002')
+					this.$delete(this.planList, '1002')
 					this.addonsSelected['1002'] = false
 					this.$delete(this.addonInsData, '1011')
 					this.$delete(this.addonRes, '1011')
+					this.$delete(this.planList, '1011')
 					this.addonsSelected['1011'] = false
 					this.$delete(this.addonInsData, '1012')
 					this.$delete(this.addonRes, '1012')
+					this.$delete(this.planList, '1012')
 					this.addonsSelected['1012'] = false
 				} else if(index === 'LA078') {
 					this.$delete(this.addonInsData, index)
 					this.$delete(this.addonRes, index)
+					this.$delete(this.planList, index)
 					this.$delete(this.addonInsData, 'HB024')
 					this.$delete(this.addonRes, 'HB024')
+					this.$delete(this.planList, 'HB024')
 					this.addonsSelected['HB024'] = false
+				} else if(index === '120012') {
+					this.$delete(this.addonInsData, index)
+					this.$delete(this.addonRes, index)
+					this.$delete(this.planList, index)
+					this.$delete(this.addonInsData, '120011')
+					this.$delete(this.addonRes, '120011')
+					this.$delete(this.planList, '120011')
+					this.addonsSelected['120011'] = false
 				} else {
 					//            取消时 清除缓存的提交数据
 					this.flag[index] = ''
@@ -1534,23 +1577,23 @@ var methods = {
 				}
 				break
 				//复星
-			case 'FXLHFJHMSJ': // 附加康乐一生投保人豁免保费重大疾病保险(升级款)
+			case '120011': // 附加康乐一生投保人豁免保费重大疾病保险(升级款)
 				if(applAge > 50) {
 					toastText = '投保人年龄不能大于50周岁'
 				} else if(mainPayYear + applAge > 70) {
 					toastText = '缴费期加投保人年龄大于70岁，不可附加该险种'
 				}
 				break
-			case 'FXLHQZSJ': //
+			case '120012': //
 				if(mainPayYear === 20 && mainSafeYear === 70) {
 					toastText = '保障期间为70年，缴费为20年交时，不可附加该险种'
 				}
 				break
-			case 'LJYSMZ': // 复星乐健一生门诊保险（主险）
+			case '110020-1': // 复星乐健一生门诊保险（主险）
 				if(toastText) break
-				if(this.fxljysFXLJYS.mztc === '0') {
+				if(this.fxljys110020.mztc === '0') {
 					toastText = '请选择门急诊医疗保险套餐'
-				} else if(this.fxljysFXLJYS.mznmp === '0') {
+				} else if(this.fxljys110020.mznmp === '0') {
 					toastText = '请选择门急诊医疗保险免赔额'
 				}
 				break
@@ -2409,41 +2452,41 @@ var methods = {
 			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
 			data.base_money = this.cache.base_moneyCKRA
 			data.flag = 0
-		} else if(safeid === 'FXKLYSB') { //复星
+		} else if(safeid === '110032') { //复星
 			//  b款
 			data.safe_year = this.mainSafeYear === 999 ? 0 : 7000
-		} else if(safeid === 'FXKLYSFJ' || safeid === 'FXLHFJHMSJ') { //复星
+		} else if(safeid === '120011') { //复星
 			//  附加康乐一生投保人豁免保费重大疾病保险(升级款)
 			data.pay_year = py
 			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear + '00'
-			if(this.addonRes['FXLHQZSJ']) {
-				data.base_money = Number(periodMoney) + Number(this.addonRes['FXLHQZSJ'].年缴保费)
+			if(this.addonRes['120012']) {
+				data.base_money = Number(periodMoney) + Number(this.addonRes['120012'].年缴保费)
 			} else {
 				data.base_money = periodMoney
 			}
-		} else if(safeid === 'FXLHQZSJ') {
+		} else if(safeid === '120012') {
 			//  附加康乐一生轻症保险(升级款)
 			data.pay_year = this.mainPayYear
 			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear + '00'
 			data.base_money = money * 0.2
-		} else if(safeid === 'FXLJYS') {
+		} else if(safeid === '110020') {
 			//  复星乐健一生住院
-			data.flag = this.fxljysFXLJYS.shebao + this.fxljysFXLJYS.zytc
-			data.zynmp = this.fxljysFXLJYS.zynmp // 住院年免赔
+			data.flag = this.fxljys110020.shebao + this.fxljys110020.zytc
+			data.zynmp = this.fxljys110020.zynmp // 住院年免赔
 			data.zfbl = 1 // 自负比例
-			data.mznmp = this.fxljysFXLJYS.mznmp // 门诊年免赔
-			data.mzptcmp = this.fxljysFXLJYS.mzptcmp // 门诊普通次免赔
-			data.mztxcimp = this.fxljysFXLJYS.mztxcimp // 门诊特需次免赔
-		} else if(safeid === 'LJYSMZ') {
+			data.mznmp = this.fxljys110020.mznmp // 门诊年免赔
+			data.mzptcmp = this.fxljys110020.mzptcmp // 门诊普通次免赔
+			data.mztxcimp = this.fxljys110020.mztxcimp // 门诊特需次免赔
+		} else if(safeid === '110020-1') {
 			//  复星乐健一生门诊
-			data.flag = this.fxljysFXLJYS.shebao + this.fxljysFXLJYS.mztc
-			data.zynmp = this.fxljysFXLJYS.zynmp // 住院年免赔
+			data.flag = this.fxljys110020.shebao + this.fxljys110020.mztc
+			data.zynmp = this.fxljys110020.zynmp // 住院年免赔
 			data.zfbl = 1 // 自负比例
-			data.mznmp = this.fxljysFXLJYS.mznmp // 门诊年免赔
-			data.mzptcmp = this.fxljysFXLJYS.mzptcmp // 门诊普通次免赔
-			data.mztxcimp = this.fxljysFXLJYS.mztxcimp // 门诊特需次免赔
+			data.mznmp = this.fxljys110020.mznmp // 门诊年免赔
+			data.mzptcmp = this.fxljys110020.mzptcmp // 门诊普通次免赔
+			data.mztxcimp = this.fxljys110020.mztxcimp // 门诊特需次免赔
 
-		} else if(safeid === 'FXLSKLYSBSJ') { //复星联合康乐一生重大疾病保险(B款升级款)
+		} else if(safeid === '120011') { //复星联合康乐一生重大疾病保险(B款升级款)
 			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear + '00'
 		} else if(safeid === '1001') { //  招商仁和
 			//招商仁和爱倍护重大疾病保险
@@ -2509,7 +2552,7 @@ var methods = {
 		} else if(safeid === '1016') {
 			// 招商仁和仁医保费用补偿医疗保险
 			data.flag = this.flag[safeid]
-		} else if(safeid === 'NHFA' || safeid === 'NHGA' || safeid === 'LXYS') {
+		} else if(safeid === 'NHFA' || safeid === 'NHGA' || safeid === '110029') {
 //			爱心保智选医疗保险
 //			爱心保卓越医疗保险
 //复星联合乐享一生医疗保险
@@ -2548,7 +2591,7 @@ var methods = {
 					var j = 0;
 					var ret = ret.data.data[0][genre].main
 					mui.each(ret.describes, function(index, item) {
-						if(ret.describes[index].title == '住院总保费' && safeid === 'FXLJYS') {
+						if(ret.describes[index].title == '住院总保费' && safeid === '110020') {
 							i = index
 						} else if(ret.describes[index].title == '年缴保费') {
 							i = index
@@ -2567,7 +2610,7 @@ var methods = {
 					} else {
 						vm.insurance.money = data[j]
 					}
-					if(safeid !== 'A66' && safeid !== 'FXLJYS') {
+					if(safeid !== 'A66' && safeid !== '110020') {
 						vm.resetAddon()
 					}
 					vm.checkMainFee(safeid)
@@ -2605,8 +2648,8 @@ var methods = {
 						vm.cache.pay_moneyRSC = vm.addonRes[safeid]['年缴保费'] || vm.addonRes[safeid]['年缴保费(元)']
 					} else if(safeid === 'RSD') {
 						vm.cache.pay_moneyRSD = vm.addonRes[safeid]['年缴保费'] || vm.addonRes[safeid]['年缴保费(元)']
-					} else if(safeid === 'LJYSMZ') {
-						vm.fxljysFXLJYS.mzmoney = vm.addonRes[safeid]['门诊总保费']
+					} else if(safeid === '110020-1') {
+						vm.fxljys110020.mzmoney = vm.addonRes[safeid]['门诊总保费']
 					}
 					vm.$forceUpdate()
 

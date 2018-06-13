@@ -51,7 +51,7 @@
 				        </button>
 					</app-select>
 					<!-- 输入保额算保费 -->
-					<template v-if="isBaseMoney&&!fuBaseMoney&&insurance.safe_id !== 'FXLJYS'">
+					<template v-if="isBaseMoney&&!fuBaseMoney&&insurance.safe_id !== '110020'">
 						<app-input label="基本保额" v-if="insurance.safe_id !== 'CCPAAP1' 
 								&& insurance.safe_id !== 'P005'
 								&& insurance.safe_id !== '8111' 
@@ -60,13 +60,13 @@
 								&& insurance.safe_id !== '1013'
 								&& insurance.safe_id !== 'NHFA'
 								&& insurance.safe_id !== 'NHGA' 
-								&& insurance.safe_id !== 'LXYS'">
+								&& insurance.safe_id !== '110029'">
 							<input slot="input" v-model.number.lazy="insurance.money" type="number" placeholder="请填写基本保险金额（元）" @change="resetFee()">
 							<div slot="icon" @click="insurance.money = ''" v-show="insurance.money != ''" class="form-clear-icon">
 								<span class="mui-icon mui-icon-clear"></span>
 							</div>
 						</app-input>
-						<template v-else-if="insurance.safe_id == '1016' || insurance.safe_id == 'NHFA' || insurance.safe_id == 'NHGA' || insurance.safe_id == 'LXYS'">
+						<template v-else-if="insurance.safe_id == '1016' || insurance.safe_id == 'NHFA' || insurance.safe_id == 'NHGA' || insurance.safe_id == '110029'">
 							<!--招商仁和仁医保费用补偿医疗保险-->
 							<app-select label="有无社保">
 								<button slot="button" v-for="num in ['1', '2']" class="ins-btn xs-btn" 
@@ -179,14 +179,14 @@
 						</div>
 					</template>
 					<!-- 泰康乐行天下 -->
-					<!-- 复星乐健一生FXLJYS-->
-					<template v-else-if="isBaseMoney && !fuBaseMoney && insurance.safe_id === 'FXLJYS'">
+					<!-- 复星乐健一生110020-->
+					<template v-else-if="isBaseMoney && !fuBaseMoney && insurance.safe_id === '110020'">
 						<div class="input-item">
 							<label>有无社保</label>
-							<button slot="button" class="ins-btn xs-btn" :class="{'blue': fxljysFXLJYS.shebao == 'B'}" :disabled="fxljysFXLJYS.shebao == 'B'" @click="fxljysFXLJYS.shebao = 'B', resetFee('fxsb')">
+							<button slot="button" class="ins-btn xs-btn" :class="{'blue': fxljys110020.shebao == 'B'}" :disabled="fxljys110020.shebao == 'B'" @click="fxljys110020.shebao = 'B', resetFee('fxsb')">
 					             	有社保
 					        </button>
-							<button slot="button" class="ins-btn xs-btn" :class="{'blue': fxljysFXLJYS.shebao == 'A'}" :disabled="fxljysFXLJYS.shebao == 'A'" @click="fxljysFXLJYS.shebao = 'A', resetFee('fxsb')">
+							<button slot="button" class="ins-btn xs-btn" :class="{'blue': fxljys110020.shebao == 'A'}" :disabled="fxljys110020.shebao == 'A'" @click="fxljys110020.shebao = 'A', resetFee('fxsb')">
 					             	无社保
 					        </button>
 						</div>
@@ -197,19 +197,19 @@
 							</div>
 						</div>
 						<app-select label="套餐">
-							<button slot="button" v-for="num in ['住院套餐一', '住院套餐二', '住院套餐三', '住院套餐六']" class="ins-btn xs-btn" :class="{'blue': num == fxljysFXLJYS.zytc}" :disabled="num == fxljysFXLJYS.zytc" @click="fxljysFXLJYS.zytc = num, resetFee()">
+							<button slot="button" v-for="num in ['住院套餐一', '住院套餐二', '住院套餐三', '住院套餐六']" class="ins-btn xs-btn" :class="{'blue': num == fxljys110020.zytc}" :disabled="num == fxljys110020.zytc" @click="fxljys110020.zytc = num, resetFee()">
 					             	{{num}}
 					        </button>
 
 						</app-select>
 						<app-select label="住院免赔额">
-							<button slot="button" class="ins-btn xs-btn" :class="{'blue': '1' === fxljysFXLJYS.zynmp}" :disabled="'1' == fxljysFXLJYS.zynmp" @click="fxljysFXLJYS.zynmp = '1', resetFee()">
+							<button slot="button" class="ins-btn xs-btn" :class="{'blue': '1' === fxljys110020.zynmp}" :disabled="'1' == fxljys110020.zynmp" @click="fxljys110020.zynmp = '1', resetFee()">
 					             	0免赔
 					        </button>
-							<button slot="button" class="ins-btn xs-btn" :class="{'blue': '0.6' === fxljysFXLJYS.zynmp}" :disabled="'0.6' == fxljysFXLJYS.zynmp" @click="fxljysFXLJYS.zynmp = '0.6', resetFee()">
+							<button slot="button" class="ins-btn xs-btn" :class="{'blue': '0.6' === fxljys110020.zynmp}" :disabled="'0.6' == fxljys110020.zynmp" @click="fxljys110020.zynmp = '0.6', resetFee()">
 					             	一万免赔
 					        </button>
-							<button slot="button" class="ins-btn xs-btn" :class="{'blue': '0.5' === fxljysFXLJYS.zynmp}" :disabled="'0.5' == fxljysFXLJYS.zynmp" @click="fxljysFXLJYS.zynmp = '0.5', resetFee()">
+							<button slot="button" class="ins-btn xs-btn" :class="{'blue': '0.5' === fxljys110020.zynmp}" :disabled="'0.5' == fxljys110020.zynmp" @click="fxljys110020.zynmp = '0.5', resetFee()">
 					             	二万免赔
 					        </button>
 						</app-select>
@@ -224,7 +224,7 @@
 							</div>
 						</div>
 					</template>
-					<!-- 复星乐健一生FXLJYS-->
+					<!-- 复星乐健一生110020-->
 				</template>
 			</div>
 			<!--<附加险-->
@@ -232,7 +232,7 @@
 				<template v-for="item in Addons" :key="item.code" v-show="showAll">
 					<div class="BL-bg-fff BL-mar-t-1 BL-pad-tb-1">
 						<template>
-							<div class="input-item box-f-1" style="height: 2.8125rem;line-height: 2.8125rem;">
+							<div class="input-item box-f-1" style="line-height: 2.6rem;">
 								<div class="box-f-3 ins-font-sm">{{item.name}}</div>
 								<div class="form-switch-note ">投保</div>
 								<div class="input-switch">
@@ -1549,11 +1549,11 @@
 						<!--中英-->
 						<!--复星-->
 						<!-- 附加康乐一生投保人豁免保费重大疾病保险 -->
-						<template v-if="(item.code === 'FXKLYSFJ' || item.code === 'FXLHFJHMSJ') && addonRes[item.code]">
+						<template v-if="item.code === '120011' && addonRes[item.code]">
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
-									<li class="ins-font-xs" v-if="addonRes['FXLHQZSJ']">
-										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{(Number(insurance.period_money) + Number(addonRes['FXLHQZSJ']['年缴保费'])).toFixed(2)}}</span>
+									<li class="ins-font-xs" v-if="addonRes['120012']">
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{(Number(insurance.period_money) + Number(addonRes['120012']['年缴保费'])).toFixed(2)}}</span>
 										<div class="am-ft-orange"></div>
 									</li>
 									<li class="ins-font-xs" v-else>
@@ -1582,7 +1582,7 @@
 						</template>
 						<!-- 附加康乐一生投保人豁免保费重大疾病保险 -->
 						<!--  附加康乐一生轻症保险 -->
-						<template v-if="(item.code === 'FJKLYSQZ' || item.code === 'FXLHQZSJ') && addonRes[item.code]">
+						<template v-if="item.code === '120012' && addonRes[item.code]">
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs">
@@ -1610,15 +1610,15 @@
 						</template>
 						<!--  附加康乐一生轻症保险 -->
 						<!--  乐健一生门急诊医疗保险 -->
-						<template v-if="item.code === 'LJYSMZ' && addonsSelected[item.code]">
+						<template v-if="item.code === '110020-1' && addonsSelected[item.code]">
 							<div class="form-wrap form-bgc-eee">
 								<app-select label="套餐">
-									<button slot="button" v-for="num in ['门急诊套餐一', '门急诊套餐二']" class="ins-btn xs-btn" :class="{'blue': num == fxljysFXLJYS.mztc}" :disabled="num == fxljysFXLJYS.mztc" @click="fxljysFXLJYS.mztc = num">
+									<button slot="button" v-for="num in ['门急诊套餐一', '门急诊套餐二']" class="ins-btn xs-btn" :class="{'blue': num == fxljys110020.mztc}" :disabled="num == fxljys110020.mztc" @click="fxljys110020.mztc = num">
 						             	{{num}}
 						        </button>
 								</app-select>
 								<app-select label="门急诊免赔额">
-									<button slot="button" v-for="num in ['1', '0.92']" class="ins-btn xs-btn" :class="{'blue': num == fxljysFXLJYS.mznmp}" :disabled="num == fxljysFXLJYS.mznmp" @click="fxljysFXLJYS.mznmp = num">
+									<button slot="button" v-for="num in ['1', '0.92']" class="ins-btn xs-btn" :class="{'blue': num == fxljys110020.mznmp}" :disabled="num == fxljys110020.mznmp" @click="fxljys110020.mznmp = num">
 						             	{{num == '1' ? '0免赔' : '500元'}}
 						        </button>
 								</app-select>
@@ -1820,7 +1820,7 @@
 		const noNeedCal = ['291', '11', '349'] // 不需要计算的险种
 		const directNeedCal = ['RH7B', 'WPJP', 'HB024', 'RSD', '1161', '1168', '1165',
 		'116502', '116503', '404', 'JCR', 'HI', 'ACIWP', 'NWPD', '33F00030', 'JER',
-		'FXKLYSFJ', 'FJKLYSQZ', 'FXLHQZSJ','FXLHFJHMSJ', 'LA073', 'WRGP', '1002', '1011', '1012'] // 直接 计算的险种
+		'120012','120011', 'LA073', 'WRGP', '1002', '1011', '1012'] // 直接 计算的险种
 		var user_id;
 		var pushData;
 		var parent_self;
@@ -1895,7 +1895,7 @@
 				addonFilter: 'addonFilter', // 附加险过滤
 				addonRes: {}, // 附加险返回信息
 
-				fxljysFXLJYS: { // 复星乐健一生
+				fxljys110020: { // 复星乐健一生
 					shebao: 'B', //B为有社保
 					zytc: '0', // 住院套餐
 					zynmp: '0', // 住院年免赔

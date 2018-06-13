@@ -77,6 +77,10 @@
     <div class="BL-mar-t-3 BL-pad-lr-1_5">
         <a type="button" id="ins-save" class="form-btn blue">提交</a>
     </div>
+    <br><br>
+    <div class="BL-mar-t-3 BL-pad-lr-1_5">
+        <a type="button" id="temppop" class="form-btn blue">签名</a>
+    </div>
 </div>
 <script src="../js/mui.min.js" type="text/javascript"></script>
 <script src="../js/vue.min.js" type="text/javascript"></script>
@@ -571,14 +575,16 @@
             })
         })
         //提交
+        var i = 0;
+        var pushdata = {};
         document.querySelector('#ins-save').addEventListener('click', function () {
-            console.log(1)
+            i = 0;
+            index.loading = false;
             var war_id = index.ids ? Number(index.ids.policy_id) : ''
             setPushData(war_id);
 
         });
-        var i = 0;
-        var pushdata = {};
+
 
         //核保数据整理
         function setPushData(war_id) {
@@ -803,6 +809,7 @@
         };
         //核保
         function online_ins(war_id) {
+            console.log('核保')
             luckyAjax({
                 data: {
                     data: JSON.stringify({
@@ -814,26 +821,25 @@
                     server: 'PolicyIns.onlineInsured',
                     device: 'mobile'
                 },
-                timeout: 10000,
+                timeout: 20000,
                 success: function (res) {
-                    if (res.code) {
-                        if (res.data.flag === 'Y') {
+                    console.log(1)
+                    if (res.data.flag === 'Y') {
+                        if(res.data.isRulePass === 'Y'){
                             mui.toast('自核通过，影像上传中', {duration: 'long', type: 'div'})
                             upload_img(war_id)
-                        } else if (res.data.flag === 'N') {
-                            plus.nativeUI.closeWaiting();
-                            index.loading = false;
-                            mui.toast(res.data.message, {duration: 'long', type: 'div'})
                         } else {
-                            plus.nativeUI.closeWaiting();
-                            index.loading = false;
-                            mui.toast(res.data && res.data.message ? res.data.message : '网络出错，请稍后再试', {
-                                duration: 'long',
-                                type: 'div'
-                            })
+                            mui.toast(JSON.stringify(res.data.uwNotPassProblem), {duration: 'long', type: 'div'})
                             return false
                         }
+                    } else if (res.data.flag === 'N') {
+                        console.log('aaa')
+                        plus.nativeUI.closeWaiting();
+                        index.loading = false;
+                        mui.toast(res.data.message, {duration: 'long', type: 'div'})
+                        return false
                     } else {
+                        console.log('bbbb')
                         plus.nativeUI.closeWaiting();
                         index.loading = false;
                         mui.toast(res.data && res.data.message ? res.data.message : '网络出错，请稍后再试', {
@@ -859,18 +865,21 @@
                 },
                 timeout: 10000,
                 success: function (res) {
-                    if (res.code) {
-                        if (res.data.flag === 'Y') {
-                            mui.toast(res.msg, {duration: 'short', type: 'div'})
+                    if (res.data.flag === 'Y') {
+                        if(res.data.isUWPass === 'Y'){
+                            mui.toast('影像上传成功', {duration: 'short', type: 'div'})
                             showPopu('insurance-sign.html', 'zs-insurance-sign', "bottom", {
                                 id: id,
                                 appSignAddress: res.data.appSignAddress,
                                 insuredSignAddress: res.data.insuredSignAddress
                             });
                         } else {
-                            mui.toast(res.data && res.data.message ? res.data.message : '网络出错，请稍后再试', {duration: 'long', type: 'div'})
+                            mui.toast(res.data.message, {duration: 'long', type: 'div'})
                             return false
                         }
+                    } else if (res.data.flag === 'N') {
+                        mui.toast(res.data.message, {duration: 'long', type: 'div'})
+                        return false
                     } else {
                         mui.toast(res.data.message, {duration: 'long', type: 'div'})
                         return false
@@ -878,6 +887,15 @@
                 }
             });
         };
+        //
+        document.querySelector('#temppop').addEventListener('click', function () {
+            var war_id = index.ids ? Number(index.ids.policy_id) : ''
+            showPopu('insurance-sign.html', 'zs-insurance-sign', "bottom", {
+                id: war_id,
+                appSignAddress: '',
+                insuredSignAddress: ''
+            });
+        })
         //
         //安卓监听返回事件
         plus.key.addEventListener("backbutton",function(){

@@ -13,7 +13,7 @@
 
 <body>
 
-<div id="Js-content" class="mui-content BL-rel">
+<div id="Js-content" class="mui-content BL-rel" v-cloak>
     <!--弹窗 begin-->
     <div class="ins-dialog lg">
         <div class="dialog-header">
@@ -141,12 +141,12 @@
                 <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==tbrhmds" v-show="addonsSelected[index]">
                     <div class="mui-col-sm-6">
                         <li class="ins-font-xs">
-                            保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money}}</span>
+                            保险金额(元)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].money}}</span>
                         </li>
                     </div>
                     <div class="mui-col-sm-6">
                         <li class="ins-font-xs">
-                            保障期间(年)&nbsp;<span class="BL-col-ff8201">终身</span>
+                            保障期间(年)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].safe_year | safeYearFilter}}</span>
                         </li>
                     </div>
                     <div class="mui-col-sm-6">
@@ -164,7 +164,7 @@
                 <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==tbrhmzj" v-show="addonsSelected[index]">
                     <div class="mui-col-sm-6">
                         <li class="ins-font-xs">
-                            保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money}}</span>
+                            保险金额(元)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].money}}</span>
                         </li>
                     </div>
                     <div class="mui-col-sm-6">
@@ -187,7 +187,7 @@
                 <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==ylnj" v-show="addonsSelected[index]">
                     <div class="mui-col-sm-6">
                         <li class="ins-font-xs">
-                            保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money}}</span>
+                            保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.money}}</span>
                         </li>
                     </div>
                     <div class="mui-col-sm-6">
@@ -394,17 +394,15 @@
             resetMainIns: function () {
                 this.insurance = {
                     is_main: 1,
+                    name: '请选择',//主险名称
                     safe_id: '',//险种id
                     code: '', //险种代码
                     safe_year: '',
                     pay_year: '',
                     money: '', // 基本保险金额
                     period_money: '', // 年交保费
-                    guarantee_term: '',//年金保障年限
-                    draw_freq: '',//生存金领取方式
-                    draw_age: '',//年金领取年龄
-                    shareDrawType: '',//分红领取方式
-                    autoApl: false //是否自动垫交
+                    bcestype: '',//生存金领取方式 累计生息 现金领取
+                    BonusGetMode: ''//分红领取方式 累计生息 保额分红 现金领取
                 }
             },
             insChanged:function(init) {
@@ -847,7 +845,9 @@
                     basedata.flag = vm.assured.insured_job_cate
                 } else if (hmx.indexOf(index) > -1) {
                     if (vm.addonsSelected[ylnj]) {
-                        basedata.base_money = this.insurance.period_money + Number(vm.addonIns[ylnj].money)
+                        console.log(this.insurance.period_money+';'+vm.addonIns[ylnj].period_money)
+                        basedata.base_money = this.insurance.period_money + Number(vm.addonIns[ylnj].period_money)
+                        vm.addonIns[index].money = basedata.base_money
                     }
                     if (index === tbrhmds) {
                         basedata.safe_year = this.insurance.pay_year
@@ -1056,6 +1056,7 @@
                     var name = safe.Addons[k].name
                     countAddon += 1
                     if (safe.checkAddonsForm(k)) {
+                        safe.addonIns[k].name = name
                         if (!safe.addonIns[k].period_money) {
                             mui.toast('请计算【' + name + '】的年缴保费', {duration: 'short', type: 'div'});
                             return false

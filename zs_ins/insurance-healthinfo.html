@@ -900,6 +900,9 @@
         });
         //
         var safegoods = plus.storage.getItem('zhaos_safegoods') ? JSON.parse(plus.storage.getItem('zhaos_safegoods')) : '';
+        var applicant = plus.storage.getItem('zhaos_applicant') ? JSON.parse(plus.storage.getItem('zhaos_applicant')) : '';
+        var assured = plus.storage.getItem('zhaos_assured') ? JSON.parse(plus.storage.getItem('zhaos_assured')) : '';
+
         if (safegoods) {
             mui.each(safegoods, function (index, item) {
                 if ([tbrhmds, tbrhmzj].indexOf(item.safe_id) > -1) {
@@ -908,6 +911,7 @@
                 }
             })
         }
+
         //赋值
         console.log(plus.storage.getItem('zhaos_healthinfo'));
         var hinfo = plus.storage.getItem('zhaos_healthinfo') ? JSON.parse(plus.storage.getItem('zhaos_healthinfo')) : ''
@@ -953,8 +957,7 @@
             console.log(JSON.stringify(arr))
         }
         //
-        var applicant = JSON.parse(plus.storage.getItem('zhaos_applicant'));
-        var assured = JSON.parse(plus.storage.getItem('zhaos_assured'));
+
         health.assuAge = getAge(assured.insured_birthday)
         health.isApplWm = applicant.holder_gender === FEMALE ? true : false
         health.isAssuWm = assured.insured_gender === FEMALE ? true : false
@@ -974,6 +977,20 @@
                 }
                 var insured_fields = health.clientvalue.fields[item.id]?health.clientvalue.fields[item.id]:''
                 var holder_fields = health.clientvalue.app_fields[item.id]?health.clientvalue.app_fields[item.id]:''
+                //社保
+                if (item.id === 271) {
+                    holder_answer = applicant.holder_has_SSID ? '1' : '0'
+                    insured_answer = assured.insured_has_SSID ? '1' : '0'
+                    holder_fields = ''
+                    insured_fields = ''
+                }
+                //个人税收居民身份声明
+                if (item.id === 272) {
+                    holder_answer ='1'
+                    insured_answer = '1'
+                    holder_fields = TAXTYPE
+                    insured_fields = TAXTYPE
+                }
                 //168: 2岁及以下
                 //164: 女性补充告知
                 if ((item.id === 245 && health.assuAge <= 2) || (item.id === 235 && ((health.showAppl && health.isApplWm) || health.isAssuWm)) || (item.id !== 245 && item.id !== 235)) {
@@ -995,9 +1012,7 @@
                         })
                     })
                 }
-                //
             })
-            console.log(JSON.stringify(appitems))
             plus.storage.setItem('zhaos_healthinfo', JSON.stringify(appitems));
             mui.fire(plus.webview.getWebviewById('zs_insurance-index'), 'saveFlag', {
                 item: 'zhaos_healthinfo',

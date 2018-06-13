@@ -588,7 +588,14 @@
         //保存
         document.querySelector('#saveAssu').addEventListener('tap', function () {
             document.activeElement.blur();
-            if(!RSChanged(assu.assured,assu.applicant)){return false;}
+            console.log(assu.assu_age)
+            if (assu.assu_age < 8 && assu.assured.rel_holder_insured !== PARENTS) {
+                mui.toast('被保人小于8周岁，投保人应为其父母', {duration: 'short', type: 'div'});
+                return false;
+            }
+            if (!RSChanged(assu.assured, assu.applicant)) {
+                return false;
+            }
             if (!checkAssured(assu.assured)) {
                 return false
             }

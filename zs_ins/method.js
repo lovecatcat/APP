@@ -20,6 +20,7 @@ var hmx = ['1002','1011','1012'] //豁免险种
 var typename = {'LAA004A': '身份证', 'LAA004B': '户口簿', 'LAA004D': '军人身份证','LAA004E':'士兵证','LAA004G':'中国护照','LAA004I':'港澳通行证','LAA004J':'台湾通行证','LAA004L':'出生证'}
 var ISASSURED = 'LAC001C'; //被保人是本人
 var COUPLE = 'LAC001D';//投被保人为配偶
+var PARENTS = 'LAC001E';//投保人为被保人父母
 var BCOUPLE = 'LAN003H';//受益人与被保人为配偶
 var IDNO = ['LAA004A', 'LAA004B']; //身份证、户口本
 var BOOKLET = 'LAA004B'; //户口本

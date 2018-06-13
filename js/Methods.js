@@ -1257,6 +1257,12 @@ var methods = {
 					this.$delete(this.addonInsData, 'HB024')
 					this.$delete(this.addonRes, 'HB024')
 					this.addonsSelected['HB024'] = false
+				} else if(index === 'FXLHQZSJ') {
+					this.$delete(this.addonInsData, index)
+					this.$delete(this.addonRes, index)
+					this.$delete(this.addonInsData, 'FXLHFJHMSJ')
+					this.$delete(this.addonRes, 'FXLHFJHMSJ')
+					this.addonsSelected['FXLHFJHMSJ'] = false
 				} else {
 					//            取消时 清除缓存的提交数据
 					this.flag[index] = ''

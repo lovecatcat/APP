@@ -208,13 +208,13 @@
 							break;
 
 						case '16222': //复星联合附加康乐一生轻症保险(升级款)
-							children_base_money = base_money;
+							children_base_money = base_money * 0.2;
 							children_safe_year = content.safe_year == 0 ? '终身' : '至'+content.safe_year.substring(0,2)+'周岁';
 							children_pay_year = pay_year;
 							break;
 						case '16223': //复星联合附加康乐一生投保人豁免保费重大疾病保险(升级款)
 							if(children[16222]) {
-								children_base_money = year_fee + children[16222].list[1][1];
+								children_base_money = Number(year_fee) + Number(children[16222].list[1][1]);
 							} else {
 								children_base_money = year_fee;
 							}

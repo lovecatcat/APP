@@ -59,7 +59,8 @@
                         </div>
                         <div class="mui-input-row BL-ftz-42 BL-pad-lr-1_25" style="line-height: 2rem;">
                             <a class="BL-col-3b9cf5" type="button" disabled @tap="showStatement(item.safe_id,item.name)" v-for="(item,index) in safegoods" v-show="item.name"><strong>《{{item.name}}保险条款》</strong></a>
-                            、<a type="button" id="safenotice" class="BL-col-3b9cf5"><strong>《人身保险投保提示书》</strong></a>、
+                            、<a type="button" @tap="cjbdesc" class="BL-col-3b9cf5"><strong>《恒大传家宝年金保险（万能型）产品说明书 》</strong></a>、
+                            <a type="button" id="safenotice" class="BL-col-3b9cf5"><strong>《人身保险投保提示书》</strong></a>、
                             <a type="button" id="mustknow" class="BL-col-3b9cf5"><strong>《投保须知》</strong></a>、
                             <a type="button" id="statement" class="BL-col-3b9cf5"><strong>《银行自动转账授权事项》</strong></a>、
                             <a type="button" id="signstatement" class="BL-col-3b9cf5"><strong>《声明授权与签名》</strong></a>
@@ -488,6 +489,20 @@
             }
         },
         methods: {
+            cjbdesc: function () {
+                mui.openWindow({
+                    url: '../pdf-modal.html',
+                    id: 'pdf_modal',
+                    show: animateObj.aniDetal,
+                    extras: {
+                        pdf: 'cjb.pdf',
+                        name: '恒大传家宝年金保险（万能型）产品说明书'
+                    },
+                    waiting: {
+                        auto: false,
+                    }
+                });
+            },
             //主险条款
             showStatement: function (id, name) {
                 luckyAjax({

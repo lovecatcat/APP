@@ -209,7 +209,7 @@
                                     appl_data.holder_home_zip = da.insData.holder_home_zip//现在住址【邮编】
                                 }
                                 appl_data.holder_home_address = da.insData.holder_home_address //现在住址【地址详情】
-                                appl_data.mail_addr_type =  da.insData.extend_items.mail_addr_type//（通讯地址）是否同现在住址
+                                appl_data.mail_addr_type = da.insData.extend_items.mail_addr_type === '0' ? false : true//（通讯地址）是否同现在住址
                                 appl_data.holder_contact_province = '20'//通讯地址【省】
                                 appl_data.holder_contact_city = '323'//通讯地址【市】
                                 if (da.insData.holder_contact_city === '323') {
@@ -229,7 +229,7 @@
                                 console.log('aa')
                                 //被保人
                                 assu_data.rel_insured_holder = da.insured.rel_insured_holder
-                                assu_data.addr_type = da.insData.extend_items.addr_type
+                                assu_data.addr_type = da.insData.extend_items.addr_type === '0' ? false : true
                                 if (da.insured.rel_insured_holder === ISASSURED) {//被保人为本人
                                     RSChanged(assu_data, appl_data)
                                 } else {

@@ -22,6 +22,7 @@ var ylnj = 'LA078'; //养老年金
 
 var zrwnzh = 'LBD0001' //转入万能账户
 var njbznx = 'LBB0001' //年金保障年限20年
+var njlqfs = 'LBC0001' //年金领取方式 年领
 
 var typename = {'LAA0001': '身份证', 'LAA0002': '户口本', 'LAA0005': '出生证'}
 var ISASSURED = 'LAC0001'; //被保人是本人
@@ -411,10 +412,10 @@ var getDays = function(str) {
 var checkIDtype = function (birthday, idtype, owner) {
     var toast_text = null
     var age = getAge(birthday)
-    if (age > 2 && idtype === BORNid) {
-        toast_text = owner + '大于2周岁不能选择出生证';
-    } else if ((age < 2 || age > 16) && idtype === BOOKLET) {
-        toast_text = owner + '2周岁至16周岁才能选择户口本';
+    if (age > 3 && idtype === BORNid) {
+        toast_text = owner + '大于3周岁不能选择出生证';
+    } else if (age >= 16 && idtype === BOOKLET) {
+        toast_text = owner + '小于16周岁才能选择户口本';
     } else if (getDays(birthday) < 30) {
         toast_text = '被保人0周岁需出生满30天';
     }

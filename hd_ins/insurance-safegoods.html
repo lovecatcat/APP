@@ -419,6 +419,12 @@
                         </div>
                     </div>
                     <div class="input-item ins-pd-r-0">
+                        <label class="">年金领取方式</label>
+                        <div class="input-wrap box-f-1 multi-btn">
+                            <button class="ins-btn xs-btn blue" disabled>年领</button>
+                        </div>
+                    </div>
+                    <div class="input-item ins-pd-r-0">
                         <label class="">年金领取年龄</label>
                         <div class="input-wrap box-f-1">
                             <button class="ins-btn xs-btn" :class="{'blue':addonIns[index].draw_age==ind}"
@@ -1390,6 +1396,7 @@
             for (var k in safe.addonsSelected) {
                 if (safe.addonsSelected[k] === true) {
                     var name = safe.Addons[k].name
+                    safe.addonIns[k].name = name
                     countAddon += 1
                     if (safe.checkAddonsForm(k)) {
                         if (!safe.addonIns[k].period_money) {

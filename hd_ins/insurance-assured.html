@@ -381,10 +381,10 @@
                 if (this.assu_age < 46 && type === IDcard && this.assured.insured_ID_expire_end === '9999-12-31') {
                     this.assured.insured_ID_expire_end = ''
                 }
-                if (this.assu_age > 2 && type === BORNid) {
-                    toast_text = '小于2周岁才能选择出生证';
-                } else if ((this.assu_age < 2 || this.assu_age > 16) && type === BOOKLET) {
-                    toast_text = '2-16周岁才能选择户口本';
+                if (this.assu_age > 3 && type === BORNid) {
+                    toast_text = '小于3周岁才能选择出生证';
+                } else if ((this.assu_age >= 16) && type === BOOKLET) {
+                    toast_text = '小于16周岁才能选择户口本';
                 }
                 if (toast_text) {
                     mui.toast(toast_text, {duration: 'short', type: 'div'});

@@ -383,7 +383,7 @@
                 }
                 if (this.assu_age > 3 && type === BORNid) {
                     toast_text = '小于3周岁才能选择出生证';
-                } else if ((this.assu_age >= 16) && type === BOOKLET) {
+                } else if (this.assu_age >= 16 && type === BOOKLET) {
                     toast_text = '小于16周岁才能选择户口本';
                 }
                 if (toast_text) {

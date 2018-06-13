@@ -665,12 +665,6 @@
                     var insurance = vm.insurances[0]
                     console.log(JSON.stringify(vm.insurance))
                     if (safecode === insurance.code) {
-//                        var tml = {
-//                            safe_year: insurance.safe_year,
-//                            pay_year: insurance.pay_year,
-//                            money: insurance.money
-//                        }
-//                        vm.insurance = deepClone(tml)
                         vm.$nextTick(function(){
                             if (vm.insurances.length === 1) {
                                 vm.calMoney()

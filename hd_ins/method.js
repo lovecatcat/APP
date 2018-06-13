@@ -237,8 +237,8 @@ var checkAddress = function (val, owner) {
     var m = val.match(/[\u4e00-\u9fa5]{1}/g)
     if (!val) {
         toast_text = '请录入' + owner + '详细地址'
-    } else if (!m || m.length < 12) {
-        toast_text = owner + '详细地址填写有误,请确认至少有12个汉字'
+    } else if (!m || m.length < 6) {
+        toast_text = owner + '详细地址填写有误,请确认至少有6个汉字'
     }
     if (toast_text) {
         mui.toast(toast_text, {duration: 'short', type: 'div'});
@@ -398,10 +398,10 @@ var getDays = function(str) {
 var checkIDtype = function (birthday, idtype, owner) {
     var toast_text = null
     var age = getAge(birthday)
-    if (age > 2 && idtype === BORNid) {
-        toast_text = owner + '大于2周岁不能选择出生证';
-    } else if ((age < 2 || age > 16) && idtype === BOOKLET) {
-        toast_text = owner + '2周岁至16周岁才能选择户口本';
+    if (age > 3 && idtype === BORNid) {
+        toast_text = owner + '大于3周岁不能选择出生证';
+    } else if (age >= 16 && idtype === BOOKLET) {
+        toast_text = owner + '小于16周岁才能选择户口本';
     } else if (getDays(birthday) < 30) {
         toast_text = '被保人0周岁需出生满30天';
     }

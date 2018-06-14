@@ -374,6 +374,8 @@ var checkAppl = function (appl) {
         toast_text = '投保人投保地区住址【省级】不能为空'
     } else if (!appl.holder_home_city) {
         toast_text = '投保人投保地区【市级】不能为空'
+    } else if (!appl.holder_home_district) {
+        toast_text = '投保人投保地区【区级】不能为空'
     } else if (!checkHomeDistrict(appl.holder_home_district, '投保人居住')) {
         return false
     } else if (!checkAddress(appl.holder_home_address, '投保人')) {
@@ -386,6 +388,8 @@ var checkAppl = function (appl) {
         toast_text = '投保人通讯地区【省级】不能为空'
     } else if (!appl.mail_addr_type && !appl.holder_contact_city) {
         toast_text = '投保人现在住址【市级】不能为空'
+    } else if (!appl.mail_addr_type && !appl.holder_contact_district) {
+        toast_text = '投保人现在住址【区级】不能为空'
     } else if (!appl.mail_addr_type && !checkHomeDistrict(appl.holder_contact_district, '投保人通讯')) {
         return false
     } else if (!appl.mail_addr_type && !checkAddress(appl.holder_contact_address, '投保人')) {
@@ -468,6 +472,8 @@ var checkAssured = function (assu) {
         toast_text = '被保人现在住址【省级】不能为空'
     } else if (!assu.insured_home_city) {
         toast_text = '被保人现在住址【市级】不能为空'
+    } else if (!assu.insured_home_district) {
+        toast_text = '被保人现在住址【区级】不能为空'
     } else if (!checkHomeDistrict(assu.insured_home_district, '被保人居住')) {
         return false
     } else if (!checkAddress(assu.insured_home_address, '被保人')) {

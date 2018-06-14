@@ -85,7 +85,7 @@
 									   :data-index="index"
 									   v-if="item.ins_state_name=='待核保' || item.ins_state_name=='待支付'">取消订单
 									</a>
-									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.ins_state_name=='待核保'&&item.supplier_id==19" :data-supplier="item.supplier_id" :data-policyid="item.policy_id">继续录入</a>
+									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="(item.ins_state_name=='待核保'||item.ins_state_name=='待支付')&&item.supplier_id==19" :data-supplier="item.supplier_id" :data-policyid="item.policy_id">继续录入</a>
 									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.ins_state_name=='待支付'&&item.supplier_id==8" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-policyno="item.policy_no" :data-fee="item.total">去支付</a>
 								</div>
 							</div>

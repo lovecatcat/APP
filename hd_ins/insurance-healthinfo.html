@@ -789,6 +789,20 @@
                 }
                 return -1
             },
+            kuohaoFilter: function (val) {
+                val = val.toString()
+                if (!val) return ''
+                var len = val.length
+                var leftk = val.indexOf('(')
+                var rightk = val.indexOf(')')
+                if (leftk !== 0) {
+                    val = '(' + val
+                }
+                if (rightk !== (len - 1)) {
+                    val = val + ')'
+                }
+                return val
+            },
             checkForm:function() {
                 var toast_text = null
                 var input = null
@@ -813,7 +827,7 @@
                                         break
                                     }
                                 }
-                                val.push(input.type !== 'textarea' ? input.value : input.value)
+                                val.push(input.type !== 'textarea' ? input.value : this.kuohaoFilter(input.value))
                             }
                             this.clientvalue.fields[i] = val.reverse().join('|')
                         }
@@ -849,7 +863,7 @@
                                         }
                                     }
 
-                                    jval.push(input.type !== 'textarea' ? input.value : input.value)
+                                    jval.push(input.type !== 'textarea' ? input.value : this.kuohaoFilter(input.value))
                                 }
                                 this.clientvalue.app_fields[j] = jval.reverse().join('|')
                             }
@@ -996,7 +1010,6 @@
                 mui.each(appitems, function (index, item) {
                     item.holder_fields = item.insured_fields
                     item.holder_answer = item.insured_answer
-                    console.log(item.mv_id + ';' + item.insured_fields + ';' + item.insured_answer + ';' + item.holder_fields + ';' + item.holder_answer)
                 })
             }
             //

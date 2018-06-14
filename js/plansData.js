@@ -27,18 +27,29 @@
 		})
 		describes[0] = describes1
 //		alert(JSON.stringify(listMain))
-		if(parent_id == 349) {
-			safe_year = '至100周岁'
-		} else if(parent_id == 16197) {
-			safe_year = '至105周岁'
-		} else if(parent_id == 16201) {
-			safe_year = '至25周岁'
-		} else if(parent_id == 336 || parent_id == 335) {
-			safe_year = content.safe_year == 0 ? '终身' : '至70周岁';
-		} else if(parent_id == 16221) {
-			safe_year = content.safe_year == 0 ? '终身' : '至'+String(content.safe_year).substring(0,2)+'周岁';
-		} else {
-			safe_year = content.safe_year == 0 ? '终身' : content.safe_year;
+//		if(parent_id == 349) {
+//			safe_year = '至100周岁'
+//		} else if(parent_id == 16197) {
+//			safe_year = '至105周岁'
+//		} else if(parent_id == 16201) {
+//			safe_year = '至25周岁'
+//		} else if(parent_id == 336 || parent_id == 335) {
+//			safe_year = content.safe_year == 0 ? '终身' : '至70周岁';
+//		} else if(parent_id == 16221) {
+//			safe_year = content.safe_year == 0 ? '终身' : '至'+String(content.safe_year).substring(0,2)+'周岁';
+//		} else {
+//			safe_year = content.safe_year == 0 ? '终身' : content.safe_year;
+//		}
+		console.log(content.safe_year)
+		if(content.safe_year == 0) {
+			safe_year = '终身'
+		}else if(content.safe_year != 0 && content.safe_year < 50) {
+			safe_year = content.safe_year
+		}else if(content.safe_year > 100) {
+			safe_year = '至'+String(content.safe_year).substr(0,String(content.safe_year).length-2)+'周岁';
+			console.log(safe_year)
+		}else if(content.safe_year == 80 && parent_id == 301) {
+			safe_year = '至'+content.safe_year+'周岁';
 		}
 		if(parent_id == 16113) { //招商仁和爱倍护重大疾病保险
 			pay_year = content.pay_year == 6000 ? '至60周岁' : content.pay_year

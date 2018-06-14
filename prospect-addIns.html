@@ -1447,8 +1447,7 @@
 									<div class="input-item">
 										<label class="">保险期间(年)</label>
 										<div class="input-wrap box-f-1">
-											<button slot="button" class="ins-btn xs-btn blue" v-if="flag[item.code] === 6500">至65周岁</button>
-											<button slot="button" class="ins-btn xs-btn blue" v-else-if="flag[item.code] === 7500">至75周岁</button>
+											<button slot="button" class="ins-btn xs-btn blue" v-if="flag[item.code] === '1800'">至18周岁</button>
 											<button slot="button" class="ins-btn xs-btn blue" v-else>{{flag[item.code]+'年'}}</button>
 										</div>
 									</div>
@@ -1523,12 +1522,16 @@
 						             	{{num < 100 ? num + '年' : '至' + num.substring(0,2) + '岁'}}
 						        </button>
 								</app-select>
-								<div class="input-item">
-									<label class="">保险期间(年)</label>
-									<div class="input-wrap box-f-1">
-										<button slot="button" class="ins-btn xs-btn blue">{{mainSafeYear === 999 ? '终身' : mainSafeYear+'年'}}</button>
+								<template v-if="addonRes[item.code]">
+									<div class="input-item">
+										<label class="">保险期间(年)</label>
+										<div class="input-wrap box-f-1">
+											<button slot="button" class="ins-btn xs-btn blue" v-if="flag[item.code] === '6500'">至65周岁</button>
+											<button slot="button" class="ins-btn xs-btn blue" v-else-if="flag[item.code] === '7500'">至75周岁</button>
+											<button slot="button" class="ins-btn xs-btn blue" v-else>{{flag[item.code]+'年'}}</button>
+										</div>
 									</div>
-								</div>
+								</template>
 
 								<div class="input-item">
 									<label class="">年缴保费(元)</label>

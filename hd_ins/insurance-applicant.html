@@ -218,7 +218,7 @@
                         <div class="input flex">
                             <div class="flex-1 BL-col-999">广东</div>
                             <div class="flex-1 BL-col-999">深圳</div>
-                            <div class="flex-1" id="appl-district">{{applicant.holder_home_district_name}}</div>
+                            <div class="flex-1" id="applDistrict0">{{applicant.holder_home_district_name}}</div>
                         </div>
                         <div class="ins-down-icon"></div>
                     </div>
@@ -227,7 +227,7 @@
                     <label class="">详细地址</label>
                     <div class="input-wrap box-f-1">
                         <input type="text" v-model="applicant.holder_home_address"
-                               @change="checkAddress(applicant.holder_home_address,'投保人')" placeholder="请输入">
+                               @change="checkAddress(applicant.holder_home_address,'投保人居住')" placeholder="请输入">
                         <div class="form-clear-icon" v-show="applicant.holder_home_address!=''"
                              @click="applicant.holder_home_address=''">
                             <span class="mui-icon mui-icon-clear"></span>
@@ -242,6 +242,48 @@
                         <div class="form-clear-icon" v-show="applicant.holder_home_zip!=''"
                              @click="applicant.holder_home_zip=''">
                             <span class="mui-icon mui-icon-clear"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-item box-f-1">
+                    <div class="box-f-3 ins-font-sm">通讯地址是否同投保地址？</div>
+                    <div class="input-switch">
+                        <input type="checkbox" class="switch" v-model="applicant.mail_addr_type"/>
+                        <label></label>
+                    </div>
+                </div>
+                <div v-show="!applicant.mail_addr_type">
+                    <div class="input-item">
+                        <label class="">通讯地区</label>
+                        <div class="input-wrap box-f-1">
+                            <div class="input flex">
+                                <div class="flex-1 BL-col-999">广东</div>
+                                <div class="flex-1 BL-col-999">深圳</div>
+                                <div class="flex-1" id="applDistrict1">{{applicant.holder_contact_district_name}}</div>
+                            </div>
+                            <div class="ins-down-icon"></div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">详细地址</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" v-model="applicant.holder_contact_address"
+                                   @change="checkAddress(applicant.holder_contact_address,'投保人通讯')" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="applicant.holder_contact_address!=''"
+                                 @click="applicant.holder_contact_address=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">邮编</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" v-model.lazy="applicant.holder_contact_zip"
+                                   @change="checkZipcode(applicant.holder_contact_zip,'投保人')" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="applicant.holder_contact_zip!=''"
+                                 @click="applicant.holder_contact_zip=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -279,8 +321,8 @@
             extras:{
                 pageid: 'hd-insurance-applicant',
                 tid: 1,
-				flag: 'onlineIns'
-			}
+                flag: 'onlineIns'
+            }
         })
     })
 
@@ -317,10 +359,11 @@
                     holder_home_district_name: '请选择',//现在住址【区】名称
                     holder_home_address: '', //现在住址【地址详情】
                     holder_home_zip: '',//现在住址【邮编】
-                    mail_addr_type: true,//（通讯地址）同现在住址
-                    holder_contact_province: '',//通讯地址【省】
-                    holder_contact_city: '',//通讯地址【市】
+                    mail_addr_type: false,//（通讯地址）同现在住址
+                    holder_contact_province: '20',//通讯地址【省】
+                    holder_contact_city: '323',//通讯地址【市】
                     holder_contact_district: '',//通讯地址【区】
+                    holder_contact_district_name: '请选择',//通讯地址【区】
                     holder_contact_address: '', //通讯地址【地址详情】
                     holder_contact_zip: '',//通讯地址【邮编】
 
@@ -392,6 +435,7 @@
         //收入来源选择
         var annual = new mui.PopPicker();
         annual.setData(init.annual_source);
+
         document.querySelector('#annual_source').addEventListener('tap', function () {
             document.activeElement.blur();
             annual.show(function (items) {
@@ -400,13 +444,28 @@
             })
         })
         //深圳投保地区
-        var district = new mui.PopPicker();
-        document.querySelector('#appl-district').addEventListener('tap', function () {
+        var district0 = new mui.PopPicker();
+        var district1 = new mui.PopPicker();
+        //深圳区获取
+        getCityArea('323', function (e) {
+            district0.setData(e)
+            district1.setData(e)
+        })
+        document.querySelector('#applDistrict0').addEventListener('tap', function () {
             document.activeElement.blur();
-            district.show(function (items) {
+            district0.show(function (items) {
                 appl.applicant.holder_home_district = items[0].value;
                 appl.applicant.holder_home_district_name = items[0].text;
                 appl.applicant.holder_home_zip = items[0].zip;
+
+            })
+        })
+        document.querySelector('#applDistrict1').addEventListener('tap', function () {
+            document.activeElement.blur();
+            district1.show(function (items) {
+                appl.applicant.holder_contact_district = items[0].value;
+                appl.applicant.holder_contact_district_name = items[0].text;
+                appl.applicant.holder_contact_zip = items[0].zip;
 
             })
         })
@@ -427,22 +486,19 @@
                 });
             }, false);
         });
-        //深圳区获取
-        getCityArea(appl.applicant.holder_home_city, function (e) {
-            district.setData(e)
-        })
+
         //职业
-		var arrOccu = [];
+        var arrOccu = [];
         for (var i = 0; i < 4; i++) {
             arrOccu.push(new mui.PopPicker());
         }
-		mui.each(arrOccu, function(index, item){
-			item.cancel.addEventListener('tap', function(event) {
-				appl.applicant.holder_job_name = '';
+        mui.each(arrOccu, function(index, item){
+            item.cancel.addEventListener('tap', function(event) {
+                appl.applicant.holder_job_name = '';
                 appl.applicant.holder_job_code = {};
                 appl.applicant.temp_holder_job_code = '';
-			}, false);
-		})
+            }, false);
+        })
         arrOccu[0].setData(init.occupation);
         document.querySelector('#occu-first').addEventListener('tap', function () {
             document.activeElement.blur();
@@ -513,6 +569,7 @@
                 plus.storage.setItem('hengda_assured', JSON.stringify(assured));
             }
             saveTemp(appl.applicant)
+            console.log(JSON.stringify(appl.applicant))
             plus.storage.setItem('hengda_applicant',JSON.stringify(appl.applicant));
             mui.fire(plus.webview.getWebviewById('hd_insurance-index'), 'saveFlag', {
                 item: 'hengda_applicant',
@@ -530,7 +587,7 @@
         });
         //
         window.addEventListener('getMemberId', function (event) {
-	        var memberid = event.detail.id
+            var memberid = event.detail.id
             luckyAjax({
                 data: {
                     server: 'team.getContactsInfo',
@@ -552,14 +609,13 @@
                             appl.applicant.holder_home_district_name = info.home_district_text;
                             appl.applicant.holder_home_address = info.home_address;
                             appl.applicant.holder_home_zip = info.home_zip;
-                        } else {
-                            if (info.contact_city == '323') {
-                                appl.applicant.holder_home_province = info.contact_province;
-                                appl.applicant.holder_home_city = info.contact_city;
-                                appl.applicant.holder_home_district = info.contact_district;
-                                appl.applicant.holder_home_address = info.contact_address;
-                                appl.applicant.holder_home_zip = info.contact_zip;
-                            }
+                        }
+                        if (info.contact_city == '323') {
+                            appl.applicant.holder_contact_province = info.contact_province;
+                            appl.applicant.holder_contact_city = info.contact_city;
+                            appl.applicant.holder_contact_district = info.contact_district;
+                            appl.applicant.holder_contact_address = info.contact_address;
+                            appl.applicant.holder_contact_zip = info.contact_zip;
                         }
                         appl.applicant.holder_weight = parseInt(info.weight) ? Number(info.weight).toFixed(2) : appl.applicant.holder_weight;
                         appl.applicant.holder_height = parseInt(info.height) ? parseInt(info.height) : appl.applicant.holder_height;
@@ -567,7 +623,7 @@
                 }
             });
 
-	    })
+        })
     });
 </script>
 </html>

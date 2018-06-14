@@ -250,7 +250,7 @@
                             <label class="">详细地址</label>
                             <div class="input-wrap box-f-1">
                                 <input type="text" v-model="assured.insured_home_address"
-                                       @change="checkAddress(assured.insured_home_address,'被保人')" placeholder="请输入">
+                                       @change="checkAddress(assured.insured_home_address,'被保人投保')" placeholder="请输入">
                                 <div class="form-clear-icon" v-show="assured.insured_home_address!=''"
                                      @click="assured.insured_home_address=''">
                                     <span class="mui-icon mui-icon-clear"></span>
@@ -383,7 +383,7 @@
                 }
                 if (this.assu_age > 3 && type === BORNid) {
                     toast_text = '小于3周岁才能选择出生证';
-                } else if ((this.assu_age >= 16) && type === BOOKLET) {
+                } else if (this.assu_age >= 16 && type === BOOKLET) {
                     toast_text = '小于16周岁才能选择户口本';
                 }
                 if (toast_text) {
@@ -568,7 +568,7 @@
                         assu.assured.insured_salary_avg = parseInt(info.salary_avg) ? parseInt(info.salary_avg) : assu.assured.insured_salary_avg;
                         assu.assured.insured_mobile = info.tel;
                         assu.assured.insured_email = info.email !== '0' ? info.email : '';
-                        if (!assu.assuredaddr_type && info.home_city == '323') { //深圳
+                        if (!assu.assured.addr_type && info.home_city == '323') { //深圳
                             assu.assured.insured_home_province = info.home_province;
                             assu.assured.insured_home_city = info.home_city;
                             assu.assured.insured_home_district = info.home_district;

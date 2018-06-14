@@ -166,6 +166,7 @@
                 },
                 //编辑保单数据赋值
                 getWarranty: function (pid) {
+                    console.log('getWarranty')
                     const vm = this
                     var appl_data = {}
                     var assu_data = {}
@@ -181,6 +182,7 @@
                         },
                         success: function (res) {
                             if (res.code) {
+                                console.log('44444')
                                 var da = res.data
                                 //投保人
                                 appl_data.holder_name = da.insData.holder_name
@@ -209,12 +211,15 @@
                                     appl_data.holder_home_zip = da.insData.holder_home_zip//现在住址【邮编】
                                 }
                                 appl_data.holder_home_address = da.insData.holder_home_address //现在住址【地址详情】
-                                appl_data.mail_addr_type =  true//（通讯地址）同现在住址
-                                appl_data.holder_contact_province = da.insData.holder_contact_province//通讯地址【省】
-                                appl_data.holder_contact_city = da.insData.holder_contact_city//通讯地址【市】
-                                appl_data.holder_contact_district = da.insData.holder_contact_district//通讯地址【区】
+                                appl_data.mail_addr_type = da.insData.extend_items.mail_addr_type === '0' ? false : true//（通讯地址）是否同现在住址
+                                appl_data.holder_contact_province = '20'//通讯地址【省】
+                                appl_data.holder_contact_city = '323'//通讯地址【市】
+                                if (da.insData.holder_contact_city === '323') {
+                                    appl_data.holder_contact_district = da.insData.holder_contact_district//通讯地址【区】
+                                    appl_data.holder_contact_district_name = da.insData.holder_contact_district_text//通讯地址【区】名称
+                                    appl_data.holder_contact_zip = da.insData.holder_contact_zip//通讯地址【邮编】
+                                }
                                 appl_data.holder_contact_address = da.insData.holder_contact_address //通讯地址【地址详情】
-                                appl_data.holder_contact_zip = da.insData.holder_contact_zip//通讯地址【邮编】
 
                                 appl_data.holder_has_SSID = da.insData.holder_has_SSID === has_social_security ? true : false//是否有社保
                                 appl_data.holder_marriage = da.insData.holder_marriage//婚姻状况
@@ -223,9 +228,10 @@
                                 appl_data.holder_job_name = da.insData.holder_job_code_text//职业名称
                                 appl_data.holder_isTaxResidents = TAXTYPE //税收标识
                                 appl_data.resident_type = da.insData.extend_items.resident_type //居民类型
+                                console.log('aa')
                                 //被保人
                                 assu_data.rel_insured_holder = da.insured.rel_insured_holder
-                                assu_data.addr_type = da.insData.extend_items.addr_type
+                                assu_data.addr_type = da.insData.extend_items.addr_type === '0' ? false : true
                                 if (da.insured.rel_insured_holder === ISASSURED) {//被保人为本人
                                     RSChanged(assu_data, appl_data)
                                 } else {
@@ -309,6 +315,7 @@
                                         console.log(JSON.stringify(sitem))
                                         var pdata = {}
                                         pdata = {
+                                            name: sitem.product_name,
                                             is_main: sitem.is_main,
                                             safe_id: sitem.product_id,
                                             code: sitem.code,
@@ -318,7 +325,6 @@
                                             period_money: sitem.fee // 年交保费
                                         }
                                         if (sitem.is_main) {
-                                            pdata.name = da.insData.product_name
                                             pdata.guarantee_term = sitem.extend_items.guarantee_term//年金保障年限  20 30
                                             pdata.draw_freq = sitem.extend_items.draw_freq//生存金领取方式 年领 月领
                                             pdata.draw_age = sitem.extend_items.draw_age//年金领取年龄
@@ -355,6 +361,7 @@
                                 for (var i in da.insData.img_json) {
                                     upload_data[i] = config.domain + da.insData.img_json[i]
                                 }
+                                console.log('a')
                                 //存
                                 plus.storage.setItem('hengda_applicant',JSON.stringify(appl_data));
                                 plus.storage.setItem('hengda_assured',JSON.stringify(assu_data));
@@ -517,6 +524,7 @@
                 mui.back();
             }
         })
+
         //重置
         document.querySelector('#resetData').addEventListener('tap', function () {
             index.$nextTick(function () {
@@ -524,12 +532,13 @@
             })
         })
         //提交
+        var i = 0;
         document.querySelector('#ins-save').addEventListener('click', function () {
             var war_id = index.ids ? Number(index.ids.policy_id) : ''
+            i = 0;
             setPushData(war_id);
 
         });
-        var i = 0;
         var pushdata = {};
 
         //核保数据整理
@@ -620,7 +629,7 @@
             var content = []
 
             var totalfee = 0
-            mui.each(index.safegoods, function (index, item) {
+            mui.each(index.safegoods, function (ind, item) {
                 var safeitem = {}
                 safeitem.is_main = item.is_main ? '1' : '0' //是主险
                 safeitem.product_id = item.safe_id
@@ -642,6 +651,13 @@
                 }
                 if (item.code === fxjs) {
                     safeitem.extend_items.shareDrawType = item.shareDrawType
+                }
+                if (item.code === ylnj) {
+                    safeitem.extend_items.draw_freq = njlqfs
+                }
+                if ([fxjs, wnf].indexOf(item.code) > -1) {
+                    safeitem.extend_items.guarantee_term = njbznx
+                    safeitem.extend_items.draw_age = index.assured.insured_gender === MALE ? 60 : 55
                 }
                 content.push(safeitem)
             })
@@ -703,6 +719,7 @@
                     if (res.code) {
                         console.log('删除成功')
                         i++;
+                        console.log(i)
                         if (i === 3) {
                             save_ins(pushdata);
                         }
@@ -718,6 +735,7 @@
 
         //保存保单
         function save_ins(data) {
+            console.log('saving---')
             luckyAjax({
                 data: {data: JSON.stringify(data), server: 'PolicyIns.save'},
                 closeWaiting: true,

@@ -352,6 +352,8 @@
                             return false
                         } else if (!item.beneficiary.birthday) {
                             toastText = owner + '出生日期不能为空'
+                        } else if (age < 0) {
+                            toastText = '请输入' + owner + '正确的出生日期'
                         } else if (age >= 16 && type === BOOKLET) {
                             toastText = owner + '小于16周岁才能选择户口本'
                         } else if (age > 3 && type === BORNid) {

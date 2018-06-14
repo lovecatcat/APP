@@ -26,6 +26,11 @@ var IDNO = ['LAA004A', 'LAA004B']; //身份证、户口本
 var BOOKLET = 'LAA004B'; //户口本
 var IDcard = 'LAA004A'; //身份证
 var BORNid = 'LAA004L'; //出生证
+var HK = 'LAA004I';//港澳通行证
+var TW = 'LAA004J';//台湾通行证
+var SOLDIER = 'LAA004E';//士兵证
+var SOLDIERID = 'LAA004D';//军人身份证
+var PASSPORT = 'LAA004G';//中国护照
 var MALE = 'LAB0017'; //男
 var FEMALE = 'LAB0018'; //女
 var TAXTYPE = 'LAH0007'; //仅为中国税收居民
@@ -50,6 +55,7 @@ var IDValidate = function (type, id, owner,data) {
         switch (type) {
             case BOOKLET: // 户口簿
             case IDcard: // 身份证
+            case SOLDIERID: // 军人身份证
                 // 0为女，1为男
                 var sexCode = [FEMALE, MALE];
 
@@ -77,6 +83,26 @@ var IDValidate = function (type, id, owner,data) {
             case BORNid: //出生证
                 if (id.length < 3) {
                     toast_text = owner + '出生证号码不能少于3位';
+                }
+                break;
+            case HK://港澳通行证
+                if (!(/^.[A-Za-z0-9()（）]{8,20}$/).test(id)) {
+                    toast_text = '请输入' + owner + '至少8位且有效的港澳通行证号码'
+                }
+                break;
+            case TW://台湾通行证
+                if (!( /^[0-9]{8,10}$/).test(id)) {
+                    toast_text = '请输入' + owner + '正确格式的台湾通行证号码'
+                }
+                break;
+            case SOLDIER:// 士兵证
+                if (!(/^.*字第(\d{6,8})$/).test(id)) {
+                    toast_text = '请输入' + owner + '正确格式的军人证号码'
+                }
+                break;
+            case PASSPORT:// 护照
+                if (!(/^.[A-Za-z0-9]{4,20}$/).test(id)) {
+                    toast_text = '请输入' + owner + '3位以上有效的证件号码'
                 }
                 break;
         }

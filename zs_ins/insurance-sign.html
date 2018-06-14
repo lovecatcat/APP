@@ -54,7 +54,7 @@
                 <div class="BL-pad-a1">
                     <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1">
                         <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读
-                            <a class="BL-col-3b9cf5" type="button" disabled @tap="showStatement(item.safe_id,item.name)" v-for="(item,index) in safegoods" v-show="item.name"><strong>《{{item.name}}保险条款》</strong></a>
+                            <a class="BL-col-3b9cf5" type="button" disabled @tap="showStatement(item.safe_id,item.name)" v-for="(item,index) in safegoods" v-show="item.name"><strong>《{{item.name}}条款》</strong></a>
                             、和<a type="button" id="safenotice"
                                 class="BL-col-3b9cf5"><strong>《客户声明与授权》</strong></a>、<a type="button" id="statement"
                                 class="BL-col-3b9cf5"><strong>《自动转账授权说明》</strong></a>，并确认无误
@@ -355,10 +355,12 @@
                                 mui.toast('签名已完成', {duration: 'long', type: 'div'})
                                 img.sendsms()
                             } else {
-                                mui.toast(res.data.signStatusDesc, {duration: 'long', type: 'div'})
+                                mui.toast(res.msg, {duration: 'long', type: 'div'})
+                                return false
                             }
                         } else if (res.data.flag === 'N') {
                             mui.toast('接口调用失败', {duration: 'long', type: 'div'})
+                            return false
                         } else {
                             mui.toast('网络出错，请稍后再试', {
                                 duration: 'long',

@@ -38,7 +38,7 @@
 					<div class="input-wrap input-wrap-planName box-f-1">
 						<input v-model.trim="alias" type="text" placeholder="请输入(选填)"  @focus="hideKeyboard" @blur="showKeyboard">
 						<div class="form-clear-icon" v-show="alias != ''">
-							<span class="mui-icon mui-icon-clear" @click="alias = '' "></span>
+							<span class="mui-icon mui-icon-clear" @tap="alias = '' "></span>
 						</div>
 					</div>
 				</div>

@@ -915,13 +915,10 @@
         hinfo && setHealth(hinfo)
 
         function setHealth(data) {
-            alert(JSON.stringify(data))
             console.log('赋值健康告知')
             mui.each(data, function (index, item) {
-                console.log(item.mv_id)
                 var aitem = assforms[item.mv_id]
                 if (item.insured_answer === '1') {
-//                    console.log(item.mv_id +';' + item.insured_fields)
                     health.clientvalue.ass_amswer[item.mv_id] = true
                     if (aitem && aitem.length === 1) {
                         aitem[0]['value'] = item.insured_fields
@@ -935,10 +932,8 @@
 
                 if (health.showAppl && item.holder_answer === '1') {
                     var bitem = appforms[item.mv_id]
-                    console.log(item.mv_id +';' + item.insured_fields)
                     health.clientvalue.app_amswer[item.mv_id] = true
                     if (bitem && bitem.length === 1) {
-                        console.log('1111')
                         bitem[0]['value'] = item.holder_fields
                     } else if (bitem && bitem.length > 1) {
                         var arr = item.holder_fields.split("|")

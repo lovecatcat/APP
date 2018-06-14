@@ -296,10 +296,6 @@
                             toastText = owner + '出生日期不能为空'
                         } else if (age < 0) {
                             toastText = '请输入' + owner + '正确的出生日期'
-                        } else if ((age < 2 || age > 16) && type === BOOKLET) {
-                            toastText = owner + '2周岁至16周岁才能选择户口本'
-                        } else if (age > 2 && type === BORNid) {
-                            toastText = owner + '大于2周岁不能选择出生证'
                         } else if (!item.beneficiary.beneficiary_is_insured) {
                             toastText = '请选择' + owner + '与被保人关系'
                         } else if (item.beneficiary.beneficiary_is_insured === BCOUPLE && this.assured.insured_gender === item.beneficiary.gender) {

@@ -35,7 +35,7 @@
                     <div class="BL-ftz-46 BL-pad-l-2_5">
                         1. 点击下方按钮，复制链接<br>
                         2. 切换到微信或QQ，选择好友并粘贴发送<br>
-                        3. 待客户（投被保人）完成签名后，可在下方查看签名状态<br>
+                        3. 待客户（投被保人）完成签名后，请在下方点击获取手机验证码<br>
                     </div>
                     <div class="BL-ub BL-ub-ac BL-ub-pc BL-pad-t-1">
                         <button class="form-btn ins-btn sm-btn btn-copy" :data-url="appSignAddress">复制投保人签名链接
@@ -56,7 +56,7 @@
                         <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读
                             <a class="BL-col-3b9cf5" type="button" disabled @tap="showStatement(item.safe_id,item.name)" v-for="(item,index) in safegoods" v-show="item.name"><strong>《{{item.name}}保险条款》</strong></a>
                             、和<a type="button" id="safenotice"
-                                class="BL-col-3b9cf5"><strong>《投保提示书》</strong></a>、<a type="button" id="statement"
+                                class="BL-col-3b9cf5"><strong>《客户声明与授权》</strong></a>、<a type="button" id="statement"
                                 class="BL-col-3b9cf5"><strong>《自动转账授权说明》</strong></a>，并确认无误
                             <input name="checkbox" v-model="agree" type="checkbox" style="top: 20px; left: 0px;">
                         </label>

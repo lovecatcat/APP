@@ -1777,7 +1777,8 @@
 					"product-company.html",
 					"hd_ins/insurance-index.html",
 					"prospect-product.html",
-					"pdf-modal.html"
+					"pdf-modal.html",
+					"zs_ins/insurance-index.html"
 				],
 				"priority": 4
 			},
@@ -2952,7 +2953,8 @@
 				"refer": [
 					"member-warranty-manageLife-detail.html",
 					"hd_ins/insurance-index.html",
-					"paehis/pa-pay.html"
+					"paehis/pa-pay.html",
+					"zs_ins/insurance-index.html"
 				],
 				"priority": 0
 			},
@@ -3233,6 +3235,36 @@
 					"paehis/method.js"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"zs_ins/insurance-index.html": {
+				"resources": [],
+				"refer": [
+					"zs_ins/insurance-agent.html",
+					"zs_ins/insurance-upload.html",
+					"zs_ins/insurance-assured.html",
+					"zs_ins/insurance-applicant.html",
+					"zs_ins/insurance-beneficiary.html",
+					"zs_ins/insurance-safegoods.html",
+					"zs_ins/insurance-healthinfo.html",
+					"zs_ins/insurance-bank.html",
+					"zs_ins/insurance-sign.html"
+				],
+				"priority": 0
+			},
+			"zs_ins/insurance-upload.html": {
+				"resources": [],
+				"refer": [
+					"zs_ins/upload-img.html"
+				],
+				"priority": 0
+			},
+			"zs_ins/insurance-sign.html": {
+				"resources": [],
+				"refer": [
+					"zs_ins/safe-notice.html",
+					"zs_ins/pay-statement.html"
+				],
 				"priority": 0
 			}
 		},

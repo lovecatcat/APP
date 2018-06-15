@@ -159,8 +159,8 @@ var checkName = function (owner, name) {
     // console.log('校验名字' + owner + name + strLength);
     if (!name) {
         toast_text = owner + '姓名不能为空';
-    } else if (strLength > 200) {
-        toast_text = owner + '姓名长度不能超过200字符';
+    } else if (strLength > 20) {
+        toast_text = owner + '姓名长度不能超过20字符';
     } else if (/[a-z]/i.test(name)) { // 英文
         if (name.replace(/\s/, '').length < 3) {
             toast_text = owner + '姓名不小于3个字符';

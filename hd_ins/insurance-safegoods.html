@@ -747,7 +747,7 @@
                         break
                     case wnh: //万年红终身年金保险
                         tempdata[cjb] = true //传家宝
-                        tempdata[zxak] = true //尊享安康
+                        tempdata[zxak] = period_money >= 10000 //尊享安康
                         tempdata[hs] = true //恒顺意外
                         tempdata[hx] = true //恒祥住院
                         tempdata[hjax] = period_money >= 5000 //恒久安心
@@ -755,7 +755,7 @@
                         break
                     case wnf: //万年福年金保险
                         tempdata[cjb] = true //传家宝
-                        tempdata[zxak] = true //尊享安康
+                        tempdata[zxak] = period_money >= 10000 //尊享安康
                         tempdata[hs] = true //恒顺意外
                         tempdata[hx] = true //恒祥住院
                         tempdata[hjax] = period_money >= 5000 //恒久安心
@@ -881,10 +881,7 @@
                             vm.healthinfoOk = false
                             break
                         case zxak: // 附加尊享安康费用补偿医疗保险
-                            if ((safe_id === fxjs || safe_id === wnh || safe_id === wnf) && vm.insurance.period_money < 10000) {
-                                toast_text = '主险期交保费1万元（含）以上方可附加' + name
-                                vm.addonsSelected[index] = false
-                            } else if ((safe_id === wnh || safe_id === wnf) && vm.insurance.pay_year === 1) {
+                            if ((safe_id === wnh || safe_id === wnf) && vm.insurance.pay_year === 1) {
                                 toast_text = '主险【' + vm.insurance.name + '】趸交不可' + name
                                 vm.addonsSelected[index] = false
                             }

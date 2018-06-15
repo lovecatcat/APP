@@ -121,10 +121,10 @@
                 console.log('index-created')
                 //编辑保单
                 var openerId = plus.webview.currentWebview().opener().id
-//                if (openerId !== 'quickly' && openerId !== 'member_life_order') {
-//                    console.log('begin-clear')
-//                    this.clearItem()
-//                }
+                if (openerId !== 'quickly' && openerId !== 'member_life_order') {
+                    console.log('begin-clear')
+                    this.clearItem()
+                }
                 var pid = plus.webview.currentWebview().policy_id;
                 console.log(pid)
                 if (pid) {
@@ -133,6 +133,9 @@
                     plus.storage.setItem('zhaos_ids', JSON.stringify({policy_id: pid}));
                     checkStatus(pid)
                 } else {
+                    if (plus.storage.getItem('zhaos_ids')) {
+                        this.clearItem()
+                    }
                     this.getReadyItem();
                 }
                 //
@@ -585,7 +588,7 @@
 
         });
 
-
+        var totalfee = 0
         //核保数据整理
         function setPushData(war_id) {
             console.log(JSON.stringify(index.applicant))
@@ -689,7 +692,7 @@
             }
             //险种信息
             var content = []
-            var totalfee = 0
+            totalfee = 0
             mui.each(index.safegoods, function (index, item) {
                 var safeitem = {}
                 safeitem.is_main = item.is_main ? '1' : '0' //是主险
@@ -807,7 +810,7 @@
                 }
             });
         };
-        //核保
+        //01核保
         function online_ins(war_id) {
             console.log('核保')
             luckyAjax({
@@ -823,23 +826,26 @@
                 },
                 timeout: 20000,
                 success: function (res) {
-                    console.log(1)
                     if (res.data.flag === 'Y') {
                         if(res.data.isRulePass === 'Y'){
-                            mui.toast('自核通过，影像上传中', {duration: 'long', type: 'div'})
-                            upload_img(war_id)
+                            var sumPrem = res.data.sumPrem
+                            if (Number(sumPrem) !== Math.round(totalfee)) {
+                                mui.toast('保费不一致！', {duration: 'long', type: 'div'})
+                                return false
+                            } else {
+                                mui.toast('保存成功，影像上传中', {duration: 'long', type: 'div'})
+//                                upload_img(war_id)
+                            }
                         } else {
                             mui.toast(JSON.stringify(res.data.uwNotPassProblem), {duration: 'long', type: 'div'})
                             return false
                         }
                     } else if (res.data.flag === 'N') {
-                        console.log('aaa')
                         plus.nativeUI.closeWaiting();
                         index.loading = false;
                         mui.toast(res.data.message, {duration: 'long', type: 'div'})
                         return false
                     } else {
-                        console.log('bbbb')
                         plus.nativeUI.closeWaiting();
                         index.loading = false;
                         mui.toast(res.data && res.data.message ? res.data.message : '网络出错，请稍后再试', {
@@ -851,7 +857,7 @@
                 }
             });
         };
-        //上传影像
+        //02上传影像
         function upload_img(id) {
             luckyAjax({
                 data: {
@@ -866,15 +872,15 @@
                 timeout: 10000,
                 success: function (res) {
                     if (res.data.flag === 'Y') {
-                        if(res.data.isUWPass === 'Y'){
-                            mui.toast('影像上传成功', {duration: 'short', type: 'div'})
+                        if (res.data.isUWPass === 'Y') {
+                            mui.toast('自核通过', {duration: 'short', type: 'div'})
                             showPopu('insurance-sign.html', 'zs-insurance-sign', "bottom", {
                                 id: id,
                                 appSignAddress: res.data.appSignAddress,
                                 insuredSignAddress: res.data.insuredSignAddress
                             });
-                        } else {
-                            mui.toast(res.data.message, {duration: 'long', type: 'div'})
+                        } else if (res.data.isUWPass === 'N') {
+                            mui.toast('进入人工核保', {duration: 'long', type: 'div'})
                             return false
                         }
                     } else if (res.data.flag === 'N') {

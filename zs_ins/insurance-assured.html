@@ -584,7 +584,7 @@
         document.querySelector('#saveAssu').addEventListener('tap', function () {
             document.activeElement.blur();
             console.log(assu.assu_age)
-            if (assu.assu_age < 8 && assu.assured.rel_holder_insured !== PARENTS) {
+            if (assu.assu_age < 8 && assu.assured.rel_holder_insured !== PARENTS && assu.assured.rel_holder_insured !== ISASSURED) {
                 mui.toast('被保人小于8周岁，投保人应为其父母', {duration: 'short', type: 'div'});
                 return false;
             }

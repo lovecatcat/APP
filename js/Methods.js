@@ -383,15 +383,15 @@ var methods = {
 				//工银
 			case 'BRMCCI1': // 御享人生重大疾病保险
 				if(mainPayYear === 5 && assuAge > 60) {
-					toastText = '被保人年龄不能大于60周岁'
+					toastText = '5年交被保人年龄不能大于60周岁'
 				} else if(mainPayYear === 10 && assuAge > 55) {
-					toastText = '被保人年龄不能大于55周岁'
+					toastText = '10年交被保人年龄不能大于55周岁'
 				} else if(mainPayYear === 15 && assuAge > 50) {
-					toastText = '被保人年龄不能大于50周岁'
+					toastText = '15年交被保人年龄不能大于50周岁'
 				} else if(mainPayYear === 20 && assuAge > 50) {
-					toastText = '被保人年龄不能大于50周岁'
+					toastText = '20年交被保人年龄不能大于50周岁'
 				} else if(mainPayYear === 30 && assuAge > 35) {
-					toastText = '被保人年龄不能大于35周岁'
+					toastText = '30年交被保人年龄不能大于35周岁'
 				}
 				break
 			case 'ANIA': // 工银安盛鑫丰盈
@@ -463,7 +463,7 @@ var methods = {
 				if(assuAge > 50 && mainPayYear > 10) {
 					toastText = '被保人年龄不能大于50周岁'
 				} else if(assuAge > 55 && mainPayYear === 10) {
-					toastText = '被保人年龄不能大于55周岁'
+					toastText = '10年交被保人年龄不能大于55周岁'
 				} else if(assuAge > 60 && mainPayYear < 10) {
 					toastText = '被保人年龄不能大于60周岁'
 				}
@@ -573,29 +573,7 @@ var methods = {
 					toastText = '被保人年龄不能大于64周岁'
 				}
 				break
-			case 'FXKLYSA': // 康乐一生重大疾病保险A款
-			case '110032': // 康乐一生重大疾病保险B款
-				if(mainPayYear === 1 && applAge > 70) {
-					toastText = '投保人年龄不能大于70周岁'
-				} else if(mainPayYear === 5 && applAge > 65) {
-					toastText = '5年交投保人年龄不能大于65周岁'
-				} else if(mainPayYear === 10 && applAge > 60) {
-					toastText = '10年交投保人年龄不能大于60周岁'
-				} else if(mainPayYear === 20 && applAge > 50) {
-					toastText = '20年交投保人年龄不能大于50周岁'
-				} else if(assuAge > 50) {
-					toastText = '被保人年龄不能大于50周岁'
-				}
-				if(mainPayYear === 20 && mainSafeYear === 70) {
-					toastText = '保障期间为70年时不能20年交'
-				}
-				break
-			case '110029': // 复星乐享一生
-				if(assuAge > 49) {
-					toastText = '被保人年龄不能大于49周岁'
-				}
-				break
-			case '120011': // 复星联合康乐一生重大疾病保险(B款升级款)
+			case '110032': // 复星联合康乐一生重大疾病保险(B款升级款)
 				if(assuAge > 50) {
 					toastText = '被保人年龄不能大于50周岁'
 				} else if(assuAge > 40 && mainSafeYear == 70 && mainPayYear == 30) {
@@ -824,22 +802,12 @@ var methods = {
 				break
 			
 				//复星
-			case 'FXKLYSA': // 康乐一生重大疾病保险A款
-			case '110032': // 康乐一生重大疾病保险B款
-				if(money > 200000 && assuAge < 2) {
-					toastText = '未满2周岁，投保限额为20万！'
-				} else if(money > 500000 && assuAge > 2 && assuAge < 19) {
-					toastText = '2 周岁‐18 周岁，投保限额为50万！'
-				} else if(money < 50000) {
-					toastText = '最低保额5万元！'
-				}
-				break
 			case '110029': // 乐享一生
 				if(!this.flag[safeid]) {
 					toastText = '请先选择有无社保'
 				}
 				break
-			case '120011': // 复星联合康乐一生重大疾病保险(B款升级款)
+			case '110032': // 复星联合康乐一生重大疾病保险(B款升级款)
 				if(money > 300000 && assuAge > 0 && assuAge < 18) {
 					toastText = '0周岁‐17周岁，投保限额为30万！'
 				} else if(money > 500000 && assuAge > 17 && assuAge < 41) {
@@ -1055,7 +1023,13 @@ var methods = {
 							toastText = '主险趸交不可附加该险种'
 						}
 						break
-
+					case 'RSC':
+					case 'RSD':
+						if(!this.insurance.pay_year) {
+							toastText = '请先选择主险缴费期间'
+						} else if(!this.insurance.safe_year) {
+							toastText = '请先选择主险保险期间'
+						}
 						//国华
 					case '1168': // 国华康运金生附加养老年金
 						if(this.mainPayYear === 30) {
@@ -2322,8 +2296,7 @@ var methods = {
 			// 附加住院费用医疗保险  附加意外伤害医疗B
 			data.pay_year = 1
 			data.safe_year = 1
-			data.base_money = money
-			data.year_fee = periodMoney
+			data.base_money = this.flag[safeid]
 			data.flag = this.flag[safeid]
 		} else if(safeid === 'NADD') { // 附加综合意外伤害保险
 			data.pay_year = 1
@@ -2386,7 +2359,7 @@ var methods = {
 			data.base_money = periodMoney
 		} else if(safeid === '12E20010') { // 附加金掌柜年金保险
 			data.pay_year = 1
-			data.safe_year = 1
+			data.safe_year = 0
 			data.derate_money = this.cache.derate_money12E20010
 			data.flag = this.cache.derate_money12E20010
 			data.year_fee = this.cache.derate_money12E20010
@@ -2452,9 +2425,6 @@ var methods = {
 			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
 			data.base_money = this.cache.base_moneyCKRA
 			data.flag = 0
-		} else if(safeid === '110032') { //复星
-			//  b款
-			data.safe_year = this.mainSafeYear === 999 ? 0 : 7000
 		} else if(safeid === '120011') { //复星
 			//  附加康乐一生投保人豁免保费重大疾病保险(升级款)
 			data.pay_year = py
@@ -2486,7 +2456,7 @@ var methods = {
 			data.mzptcmp = this.fxljys110020.mzptcmp // 门诊普通次免赔
 			data.mztxcimp = this.fxljys110020.mztxcimp // 门诊特需次免赔
 
-		} else if(safeid === '120011') { //复星联合康乐一生重大疾病保险(B款升级款)
+		} else if(safeid === '110032') { //复星联合康乐一生重大疾病保险(B款升级款)
 			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear + '00'
 		} else if(safeid === '1001') { //  招商仁和
 			//招商仁和爱倍护重大疾病保险
@@ -2666,6 +2636,7 @@ var methods = {
 					if(list.period_money == 0) {
 						mui.toast('超出费率表计算范围，无法投保')
 						vm.addonRes[safeid] = ''
+						vm.addonInsData[safeid] = ''
 						vm.addonsSelected[safeid] = false
 						vm.$forceUpdate()
 						return false

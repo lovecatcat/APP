@@ -325,6 +325,7 @@ var ApplSameHomeAddress = function (appl) {
     appl.holder_contact_province = appl.holder_home_province
     appl.holder_contact_city = appl.holder_home_city
     appl.holder_contact_district = appl.holder_home_district
+    appl.holder_contact_district_name = appl.holder_home_district_name
     appl.holder_contact_address = appl.holder_home_address
     appl.holder_contact_zip = appl.holder_home_zip
 };

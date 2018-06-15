@@ -300,7 +300,7 @@ var checkEarnings = function (owner, value) {
 //校验身高
 var checkHeight = function (owner, val) {
     if (!val) {
-        this.$toast.open('请录入' + owner + '身高')
+    	mui.toast('请录入' + owner + '身高', {duration: 'short', type: 'div'});
         return false
     } else if (!/^\d+$/g.test(val)) {
         mui.toast(owner + '身高请保留整数', {duration: 'short', type: 'div'});

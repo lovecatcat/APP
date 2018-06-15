@@ -243,8 +243,8 @@
 							//中英
 						case '170':
 							children_base_money = list["基本保额"];
-							children_safe_year = list["保险期间"];
-							children_pay_year = list["缴费期间"];
+							children_safe_year = list["保险期间"] < 100 ? list["保险期间"] : '至'+ String(list["保险期间"]).substring(0,2)+'周岁';
+							children_pay_year = list["缴费期间"] < 100 ? list["缴费期间"] : '至'+ String(list["缴费期间"]).substring(0,2)+'周岁';
 							break;
 						case '175':
 							children_base_money = year_fee;
@@ -261,23 +261,13 @@
 							children_base_money = list["基本保额"];
 							break;
 						case '261':
-							var flag;
-							if(list["缴费期间"] == 5500) {
-								flag = '至55周岁'
-							} else if(list["缴费期间"] == 6000) {
-								flag = '至60周岁'
-							} else if(list["缴费期间"] == 6500) {
-								flag = '至65周岁'
-							} else {
-								flag = list["缴费期间"]
-							}
 							children_base_money = list["基本保额"];
-							children_safe_year = flag;
-							children_pay_year = flag;
+							children_safe_year = list["缴费期间"] < 100 ? list["缴费期间"] : '至'+ String(list["缴费期间"]).substring(0,2)+'周岁';;
+							children_pay_year = list["缴费期间"] < 100 ? list["缴费期间"] : '至'+ String(list["缴费期间"]).substring(0,2)+'周岁';;
 							break;
 						case '265':
 							children_base_money = year_fee;
-							children_safe_year = pay_year;
+							children_safe_year = content.safe_year == 0 ? '终身' : content.safe_year;
 							children_pay_year = pay_year;
 							break;
 						case '353':
@@ -292,23 +282,14 @@
 							children_base_money = tml.flag + '份';
 							break;
 						case '4304':
-							var flag;
-							if(list["缴费期间"] == 6500) {
-								flag = '至65周岁'
-							} else if(list["缴费期间"] == 7500) {
-								flag = '至75周岁'
-							} else {
-								flag = list["缴费期间"]
-							}
 							children_base_money = list["基本保额"];
-							children_safe_year = flag;
-							children_pay_year = flag;
+							children_safe_year = list["缴费期间"] < 100 ? list["缴费期间"] : '至'+ String(list["缴费期间"]).substring(0,2)+'周岁';;
+							children_pay_year = list["缴费期间"] < 100 ? list["缴费期间"] : '至'+ String(list["缴费期间"]).substring(0,2)+'周岁';;
 							break;
 							//工银
 						case '177': //xia
 							children_base_money = content.base_money;
 							break;
-
 						case '136':
 							children_base_money = tml.flag;
 							children_safe_year = list["保险期间"];
@@ -350,7 +331,7 @@
 							children_year_fee = 0;
 							break;
 						case '87':
-							children_base_money = parseInt(listMain["年缴保费"]) * parseInt(pay_year);
+							children_base_money = Number(listMain["年缴保费"]) * Number(pay_year);
 							children_safe_year = "至85岁";
 							children_pay_year = pay_year;
 							break;

@@ -61,7 +61,7 @@
 								&& insurance.safe_id !== 'NHFA'
 								&& insurance.safe_id !== 'NHGA' 
 								&& insurance.safe_id !== '110029'">
-							<input slot="input" v-model.number.lazy="insurance.money" type="number" placeholder="请填写基本保险金额（元）" @change="resetFee()">
+							<input slot="input" v-model.number="insurance.money" type="number" placeholder="请填写基本保险金额（元）" @change="resetFee()">
 							<div slot="icon" @tap="insurance.money = ''" v-show="insurance.money != ''" class="form-clear-icon">
 								<span class="mui-icon mui-icon-clear"></span>
 							</div>
@@ -147,7 +147,7 @@
 					        </button>
 						</app-select>
 						<app-input label="年缴保费">
-							<input slot="input" v-model.number.lazy="insurance.period_money" type="number" placeholder="请填写年缴保费（元）" @change="resetFee()">
+							<input slot="input" v-model.number="insurance.period_money" type="number" placeholder="请填写年缴保费（元）" @change="resetFee()">
 							<div slot="icon" v-show="insurance.period_money != ''" @tap="insurance.period_money = ''" class="form-clear-icon">
 								<span class="mui-icon mui-icon-clear"></span>
 							</div>

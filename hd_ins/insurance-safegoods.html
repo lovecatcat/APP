@@ -1299,8 +1299,8 @@
                     case hjax: //恒久安心
                         var biaob = this.bbcal(this.insurance.pay_year, this.insurance.period_money)
                         console.log('标保：' + biaob)
-                        if (biaob < 5000) {
-                            toast_text = '主险标保大于等于5000元方可附加'
+                        if ((this.insurance.code === fxjs || this.insurance.code === wnh) && biaob < 5000) {
+                            toast_text = '此主险标保大于等于5000元方可附加'
                         }
                         break
                     default:

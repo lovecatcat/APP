@@ -790,6 +790,10 @@
                 console.log('again')
                 return false;
             }
+            setTimeout(function () {
+                plus.nativeUI.closeWaiting();
+                pae.loading = false;
+            }, 15000)
             if (!pae.checkForm()) {
                 return false
             }

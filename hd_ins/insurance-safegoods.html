@@ -266,7 +266,7 @@
                 <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==tbrhm" v-show="addonsSelected[index]">
                     <div class="mui-col-sm-6">
                         <li class="ins-font-xs">
-                            保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money}}</span>
+                            保险金额(元)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].money}}</span>
                         </li>
                     </div>
                     <div class="mui-col-sm-6">
@@ -895,13 +895,14 @@
                         return false
                     } else {
                         if (vm.addonsSelected[index]) {
+                            console.log(index + vm.addonIns[index].period_money)
                             if (!vm.addonIns[index].period_money) {
                                 vm.calMoney(index)
                             } else {
                                 if (index === ylnj) {
                                     console.log('aaaa')
                                     vm.addonIns[tbrhm].money = Number(vm.insurance.period_money) + Number(vm.addonIns[index].period_money)
-                                    vm.addonsSelected[index] = false
+                                    vm.addonsSelected[tbrhm] = false
                                 }
                             }
                         }
@@ -1166,6 +1167,7 @@
                 if ([fxjs, wnh, wnf].indexOf(id) > -1) {
                     main.premium = vm.insurance.period_money.toString()
                 }
+
                 basedata.productInfo.push(main)
                 console.log(JSON.stringify(basedata))
                 //是附加险
@@ -1174,7 +1176,10 @@
                         return false
                     }
                     if (index && vm.addonIns[index]) {
-                        console.log('========================')
+                        if (index === tbrhm && vm.addonsSelected[ylnj]) {
+                            vm.addonIns[index].money = Number(vm.insurance.period_money) + Number(vm.addonIns[ylnj].period_money)
+                            vm.$forceUpdate()
+                        }
                         console.log(JSON.stringify(vm.addonIns[index]))
                         var product = {}
                         product.productId = vm.addonIns[index].safe_id
@@ -1182,6 +1187,7 @@
                         product.insure = vm.addonIns[index].safe_year
                         product.amount = vm.addonIns[index].money.toString()
                         product.premium = vm.addonIns[index].period_money.toString()
+                        console.log(JSON.stringify(product))
                         if (index === zxak || index === hjax) { //尊享安康、恒久安心
                             basedata.insurant.social_security = vm.assured.insured_has_SSID ? has_social_security : no_social_security
                         } else if (index === hs) { //恒顺
@@ -1216,7 +1222,9 @@
                                     if (index === ylnj && vm.addonsSelected[ylnj]) {
                                         console.log('bbbb')
                                         vm.addonsSelected[tbrhm] = false
+                                        vm.addonIns[tbrhm].period_money = ''
                                         vm.addonIns[tbrhm].money = Number(vm.addonIns[index].period_money) + Number(vm.insurance.period_money)
+                                        vm.$forceUpdate()
                                     }
                                     vm.$forceUpdate()
                                 } else {

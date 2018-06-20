@@ -843,7 +843,8 @@
                                 safe_year: kitem.safe_year,
                                 pay_year: kitem.pay_year,
                                 money: parseInt(kitem.money),
-                                period_money: kitem.period_money
+                                period_money: kitem.period_money,
+                                draw_age: kitem.draw_age
                             }
                             vm.calMoney(i)
                         }
@@ -900,9 +901,8 @@
                                 vm.calMoney(index)
                             } else {
                                 if (index === ylnj) {
-                                    console.log('aaaa')
                                     vm.addonIns[tbrhm].money = Number(vm.insurance.period_money) + Number(vm.addonIns[index].period_money)
-                                    vm.addonsSelected[tbrhm] = false
+                                    vm.calMoney(tbrhm)
                                 }
                             }
                         }
@@ -1178,7 +1178,6 @@
                     if (index && vm.addonIns[index]) {
                         if (index === tbrhm && vm.addonsSelected[ylnj]) {
                             vm.addonIns[index].money = Number(vm.insurance.period_money) + Number(vm.addonIns[ylnj].period_money)
-                            vm.$forceUpdate()
                         }
                         console.log(JSON.stringify(vm.addonIns[index]))
                         var product = {}
@@ -1194,6 +1193,15 @@
                             basedata.insurant.occupationCode = vm.assured.insured_job_code
                         }
                         basedata.productInfo.push(product)
+                        if (index === tbrhm && vm.addonsSelected[ylnj]) {
+                            basedata.productInfo.push({
+                                productId :vm.addonIns[ylnj].safe_id,
+                                pay :vm.addonIns[ylnj].pay_year,
+                                insure :vm.addonIns[ylnj].safe_year,
+                                amount :vm.addonIns[ylnj].money.toString(),
+                                premium :vm.addonIns[ylnj].period_money.toString()
+                            })
+                        }
                     }
                 }
                 console.log(JSON.stringify(basedata))
@@ -1220,11 +1228,10 @@
                                     vm.addonIns[index].period_money = data.data.product[1].premium;
                                     console.log(typeof index + ';' + typeof vm.addonsSelected[ylnj])
                                     if (index === ylnj && vm.addonsSelected[ylnj]) {
-                                        console.log('bbbb')
-                                        vm.addonsSelected[tbrhm] = false
                                         vm.addonIns[tbrhm].period_money = ''
                                         vm.addonIns[tbrhm].money = Number(vm.addonIns[index].period_money) + Number(vm.insurance.period_money)
                                         vm.$forceUpdate()
+                                        vm.calMoney(tbrhm)
                                     }
                                     vm.$forceUpdate()
                                 } else {

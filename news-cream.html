@@ -20,8 +20,7 @@
 					<!--活动中，数据列表-->
 					<ul class="mui-table-view news-list-cell" v-if="newsList_data != ''">
 						<li class="nItem" v-for="item in newsList_data">
-							<a :data-id="item.id" :data-type="item.type"  :data-wid="item.mark === 2 ? 'news_tv_detail' : 'news_detail'" 
-								:href="item.mark === 2 ? 'news-tv-detail.html' : 'news-detail.html'" class="BL-ub BL-ub-f1">
+							<a :data-id="item.id" :data-type="item.type" :data-wid="item.mark === 2 ? 'news_tv_detail' : 'news_detail'" :href="item.mark === 2 ? 'news-tv-detail.html' : 'news-detail.html'" class="BL-ub BL-ub-f1">
 								<div class="img">
 									<img :src="item.image" />
 								</div>
@@ -53,10 +52,10 @@
 				newsList_data: [] // 列表数据
 			}
 		});
-		
+
 		mui.init();
-		
-		(function($){
+
+		(function($) {
 			//阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
 			$('#Js-newsList .mui-scroll-wrapper').scroll({
@@ -64,7 +63,7 @@
 				indicators: false, //是否显示滚动条
 				deceleration: deceleration
 			});
-			
+
 			$.plusReady(function() {
 				var winH = window.innerHeight;
 				document.querySelector('#Js-newsList').style.height = winH + 'px';
@@ -73,44 +72,63 @@
 				var i = 0;
 				//循环初始化所有下拉刷新，上拉加载。
 				$('#Js-newsList .mui-scroll').pullToRefresh({
-						up: { // 上拉加载更多
-							auto: true, // 自动上拉一次
-							callback: function() {
-								i++;
-								var self = this;
-								setTimeout(function() {
-									luckyAjax({
-										data: {
-								            server: 'Information.queue',
-								            device: 'mobile',
-								            view:false,
-								            data: JSON.stringify({
-								            		user_id: user_id,
-								              		amount: 15, //每页显示的条数
-													page: i, //请求的页码
-													type: 'BAA0007' //精英榜
-								            })
-								        },
-								        success:function(res){
-								        		if(res.code == 1 && i <= res.data.pageCount) {
-												newsList.newsList_data = newsList.newsList_data.concat(res.data.queue)
-												self.endPullUpToRefresh();
-											}else{
-												console.log(res.msg)
-												self.endPullUpToRefresh(true);
-											}
-								        }
-									});
+					up: { // 上拉加载更多
+						auto: true, // 自动上拉一次
+						callback: function() {
+							i++;
+							self = this;
+							getAjax();
+						}
+					},
+					down: {
+						callback: function() {
+							i = 1;
+							self = this;
+							getAjax(true);
+						}
+					}
+				});
 
-								}, 1000);
+				function getAjax(e) {
+					luckyAjax({
+						closeWaiting: e === true ? true : false,
+						data: {
+							server: 'Information.queue',
+							device: 'mobile',
+							view: false,
+							data: JSON.stringify({
+								user_id: user_id,
+								amount: 15, //每页显示的条数
+								page: i, //请求的页码
+								type: 'BAA0007' //精英榜
+							})
+						},
+						success: function(res) {
+							if(res.code == 1 && i <= res.data.pageCount) {
+
+								if(e) {
+									newsList.newsList_data = res.data.queue
+									mui.toast('更新完成', {
+										duration: 'short',
+										type: 'div'
+									});
+									self.endPullDownToRefresh();
+								} else {
+									newsList.newsList_data = newsList.newsList_data.concat(res.data.queue)
+									self.endPullUpToRefresh();
+								}
+							} else {
+								console.log(res.msg)
+								self.endPullUpToRefresh(true);
 							}
 						}
-				});
-				
-			});	
-		
+					});
+				}
+
+			});
+
 		}(mui));
-		
+
 		//主列表点击事件
 		var detailPage = null;
 		mui('body').on('tap', 'a', function() {
@@ -125,7 +143,7 @@
 				return;
 			};
 
-			if(id == 'news_detail'){
+			if(id == 'news_detail') {
 				if(pid) {
 					//获得详情页面
 					if(!detailPage) {
@@ -138,39 +156,40 @@
 					});
 					//打开新窗口
 					mui.openWindow({
-						id:id,
-						show:animateObj.aniDetal
+						id: id,
+						show: animateObj.aniDetal
 					});
 				};
-			}else{
+			} else {
 				luckyAjax({
 					data: {
-			            server: 'Information.content',
-			            device: 'mobile',
-			            view: true,
-			            data: JSON.stringify({id: pid})
-			        },
-			        success:function(res){
-			        	if(res.code == 1) {
+						server: 'Information.content',
+						device: 'mobile',
+						view: true,
+						data: JSON.stringify({
+							id: pid
+						})
+					},
+					success: function(res) {
+						if(res.code == 1) {
 							mui.openWindow({
 								id: 'news_tv_video',
 								url: 'news-tv-video.html',
 								show: animateObj.aniDetal,
-								extras:{
-									video_url:  res.data.link,
-									title:  res.data.title
+								extras: {
+									video_url: res.data.link,
+									title: res.data.title
 								}
 							});
-						}else{
+						} else {
 							console.log(res.msg)
 						}
-			        }
+					}
 				});
-//				
+				//				
 			}
 
 		});
-
 	</script>
 
 </html>

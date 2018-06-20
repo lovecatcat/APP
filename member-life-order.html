@@ -73,6 +73,9 @@
 										<span>保费(元)：<i>{{ item.total }}</i></span>
 									</div>
 									<div class="team-per-ins BL-pad-b-1 clearfloat">
+										<span>投保单号：<i>{{ item.policy_no}}</i></span>
+									</div>
+									<div class="team-per-ins BL-pad-b-1 clearfloat">
 										<span>提交时间：<i>{{ item.create_time}}</i></span>
 									</div>
 								</a>
@@ -82,7 +85,7 @@
 									   :data-index="index"
 									   v-if="item.ins_state_name=='待核保' || item.ins_state_name=='待支付'">取消订单
 									</a>
-									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.ins_state_name=='待核保'&&item.supplier_id==19" :data-supplier="item.supplier_id" :data-policyid="item.policy_id">继续录入</a>
+									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="(item.ins_state_name=='待核保'||item.ins_state_name=='待支付')&&item.supplier_id==19" :data-supplier="item.supplier_id" :data-policyid="item.policy_id">继续录入</a>
 									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.ins_state_name=='待支付'&&item.supplier_id==8" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-policyno="item.policy_no" :data-fee="item.total">去支付</a>
 								</div>
 							</div>

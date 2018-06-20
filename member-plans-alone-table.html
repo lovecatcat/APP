@@ -17,7 +17,7 @@
 			<div id="modal-bottom" class=" BL-modal-bottom-2 clearfloat" style="height: 80% !important;">
 				<header id="Js-header" class="BL-bg-fff">
 					<div class="BL-title">利益演示表
-						<div class="form-clear-icon " @click="close" >
+						<div class="form-clear-icon " @tap="close" >
 							<span class="mui-icon mui-icon-clear BL-abs" style="top: 0;right: .1rem;"></span>
 						</div>
 					</div>
@@ -87,6 +87,9 @@
 	                            	</template>
                             		<template v-else-if="(formID == '272' || formID == '340') && status">
                             			<th style="min-width: 300px;">养老年金</th>
+	                            	</template>
+                            		<template v-else-if="formID == '16221'  && status">
+                            			<th style="min-width: 300px;">轻症保险金</th>
 	                            	</template>
 	                            </tr>
                             </thead>
@@ -162,6 +165,9 @@
 	                            		<template v-else-if="(formID == '272' || formID == '340') && status">
 	                            			<td class="table-td-hide" >养老年金</td>
 		                            	</template>
+		                            	<template v-else-if="formID == '16221'  && status">
+	                            			<td class="table-td-hide" >轻症保险金</td>
+		                            	</template>
 		                            </tr>
 	                            
 	                            		<tr v-for="(item, index) in main" :key="index" v-if="index <= len">
@@ -184,26 +190,27 @@
 	                            		</template>
 	                            		<template v-else-if="formID == '354'">
 	                            			<!--国华康运金身-->
-	                            			<td>
-		                            			{{item[1] | ToFixed}}
-		                            		</td>
+	                            			
 	                            			<td v-if="index <= pay_year">
-		                            			{{item[2] , children[index][2] | capitalize}}
+		                            			{{item[1] , children[index][2] | capitalize}}
 		                            		</td>
 	                            			<td v-else="index > pay_year">
 		                            			0
 		                            		</td>
-	                            			<td>
-		                            			{{item[3] , children[index][3] | capitalize}}
+		                            		<td>
+		                            			{{item[2] , children[index][3] | capitalize}}
 		                            		</td>
 	                            			<td>
-		                            			{{item[4] , children[index][4] | capitalize}}
+		                            			{{item[3] | ToFixed}}
 		                            		</td>
 	                            			<td>
-		                            			{{item[5] , children[index][1] | capitalize}}
+		                            			{{item[4] , children[index][5] | capitalize}}
 		                            		</td>
 	                            			<td>
-		                            			{{children[index][5] | ToFixed}}
+		                            			{{item[5] | ToFixed}}
+		                            		</td>
+	                            			<td>
+		                            			{{children[index][6] | ToFixed}}
 		                            		</td>
 	                            		</template>
 	                            		<template v-else-if="formID == '16201'">
@@ -215,7 +222,7 @@
 		                            			0
 		                            		</td>
 	                            			<td>
-		                            			{{item[2] , children[index][3] | capitalize}}
+		                            			{{item[2] , children[index][2] | capitalize}}
 		                            		</td>
 		                            		<td>
 		                            			{{item[3] | ToFixed}}
@@ -378,6 +385,27 @@
 		                            			{{children[index][4] | ToFixed}}
 		                            		</td>
 	                            		</template>
+	                            		<template v-else-if="formID == '16221'">
+	                            			<!--复星康乐B-->
+	                            			<td v-for="(data, i) in item" v-if="i != nl && i != 5">
+		                            			<template v-if="i != njbf">
+		                            				{{data | ToFixed}}
+		                            			</template>
+		                            			<template v-else-if="i == njbf && index <= pay_year">
+		                            				{{data | ToFixed}}
+		                            			</template>
+		                            			<template v-else-if="i == njbf && index > pay_year">
+		                            				0
+		                            			</template>
+		                            		</td>
+		                            		<td>
+		                            			{{item[5] , children[index][4] | capitalize}}
+		                            		</td>
+		                            		<td>
+		                            			{{children[index][2] | ToFixed}}
+		                            		</td>
+		                            		 
+	                            		</template>
 	                            	</tr>
 	                            
 	                            </tbody>
@@ -474,10 +502,10 @@
 				levelNum : '',
 				indeLv: '',
 				behalfLevelNum: [348, 370, 16217], //有中高低
-				behalfTable: [256, 354, 16201, 16197, 370, 347, 272, 340, 16217], //主险利益演示表和附加险有关系的
-				//国华康运一生a,国华康运金生,国华少儿,鑫丰盈年金保险，万年红,信泰千万人生，恒久健康，万年青，万年福
-				behalfChildren: [87, 355, 16202, 16198, 373, 404, 367, 16216], //主险利益演示表和附加险有关系的
-				//国华康运一生附加年金，国华康运金生养老年金  ,国华少儿年金,鑫丰盈养老年金，万年红,信泰千万人生，恒大养老年金
+				behalfTable: [256, 354, 16201, 16197, 370, 347, 272, 340, 16217, 16221], //主险利益演示表和附加险有关系的
+				//国华康运一生a,国华康运金生,国华少儿,鑫丰盈年金保险，万年红,信泰千万人生，恒久健康，万年青，万年福,复星联合康乐B
+				behalfChildren: [87, 355, 16202, 16198, 373, 404, 367, 16216, 16222], //主险利益演示表和附加险有关系的
+				//国华康运一生附加年金，国华康运金生养老年金  ,国华少儿年金,鑫丰盈养老年金，万年红,信泰千万人生，恒大养老年金，复星联合康乐B轻症
 				status: false,//和附加险有没有关系
 				nl : null, //年龄index
 				njbf: null, //保费index

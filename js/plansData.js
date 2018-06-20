@@ -27,16 +27,29 @@
 		})
 		describes[0] = describes1
 //		alert(JSON.stringify(listMain))
-		if(parent_id == 349) {
-			safe_year = '至100周岁'
-		} else if(parent_id == 16197) {
-			safe_year = '至105周岁'
-		} else if(parent_id == 16201) {
-			safe_year = '至25周岁'
-		} else if(parent_id == 336 || parent_id == 335) {
-			safe_year = content.safe_year == 0 ? '终身' : '至70周岁';
-		} else {
-			safe_year = content.safe_year == 0 ? '终身' : content.safe_year;
+//		if(parent_id == 349) {
+//			safe_year = '至100周岁'
+//		} else if(parent_id == 16197) {
+//			safe_year = '至105周岁'
+//		} else if(parent_id == 16201) {
+//			safe_year = '至25周岁'
+//		} else if(parent_id == 336 || parent_id == 335) {
+//			safe_year = content.safe_year == 0 ? '终身' : '至70周岁';
+//		} else if(parent_id == 16221) {
+//			safe_year = content.safe_year == 0 ? '终身' : '至'+String(content.safe_year).substring(0,2)+'周岁';
+//		} else {
+//			safe_year = content.safe_year == 0 ? '终身' : content.safe_year;
+//		}
+		console.log(content.safe_year)
+		if(content.safe_year == 0) {
+			safe_year = '终身'
+		}else if(content.safe_year != 0 && content.safe_year < 50) {
+			safe_year = content.safe_year
+		}else if(content.safe_year > 100) {
+			safe_year = '至'+String(content.safe_year).substr(0,String(content.safe_year).length-2)+'周岁';
+			console.log(safe_year)
+		}else if(content.safe_year == 80 && parent_id == 301) {
+			safe_year = '至'+content.safe_year+'周岁';
 		}
 		if(parent_id == 16113) { //招商仁和爱倍护重大疾病保险
 			pay_year = content.pay_year == 6000 ? '至60周岁' : content.pay_year
@@ -205,18 +218,18 @@
 							children_year_fee = list["门诊总保费"];
 							break;
 
-						case '339': //复星联合附加康乐一生轻症保险
-							children_base_money = base_money;
-							children_safe_year = content.safe_year == 0 ? '终身' : '至70周岁';
+						case '16222': //复星联合附加康乐一生轻症保险(升级款)
+							children_base_money = base_money * 0.2;
+							children_safe_year = content.safe_year == 0 ? '终身' : '至'+String(content.safe_year).substring(0,2)+'周岁';
 							children_pay_year = pay_year;
 							break;
-						case '338': //复星联合附加康乐一生投保人豁免保费重大疾病保险
-							if(children[339]) {
-								children_base_money = year_fee + children[339].list[1][1];
+						case '16223': //复星联合附加康乐一生投保人豁免保费重大疾病保险(升级款)
+							if(children[16222]) {
+								children_base_money = (Number(year_fee) + Number(children[16222].list[1][1])).toFixed(2);
 							} else {
 								children_base_money = year_fee;
 							}
-							children_safe_year = content.safe_year == 0 ? '终身' : '至70周岁';
+							children_safe_year = content.safe_year == 0 ? '终身' : '至'+String(content.safe_year).substring(0,2)+'周岁';
 							children_pay_year = pay_year - 1;
 							break;
 
@@ -230,8 +243,8 @@
 							//中英
 						case '170':
 							children_base_money = list["基本保额"];
-							children_safe_year = list["保险期间"];
-							children_pay_year = list["缴费期间"];
+							children_safe_year = list["保险期间"] < 100 ? list["保险期间"] : '至'+ String(list["保险期间"]).substring(0,2)+'周岁';
+							children_pay_year = list["缴费期间"] < 100 ? list["缴费期间"] : '至'+ String(list["缴费期间"]).substring(0,2)+'周岁';
 							break;
 						case '175':
 							children_base_money = year_fee;
@@ -248,23 +261,21 @@
 							children_base_money = list["基本保额"];
 							break;
 						case '261':
-							var flag;
-							if(list["缴费期间"] == 5500) {
-								flag = '至55周岁'
-							} else if(list["缴费期间"] == 6000) {
-								flag = '至60周岁'
-							} else if(list["缴费期间"] == 6500) {
-								flag = '至65周岁'
-							} else {
-								flag = list["缴费期间"]
-							}
 							children_base_money = list["基本保额"];
-							children_safe_year = flag;
-							children_pay_year = flag;
+							children_safe_year = list["缴费期间"] < 100 ? list["缴费期间"] : '至'+ String(list["缴费期间"]).substring(0,2)+'周岁';;
+							children_pay_year = list["缴费期间"] < 100 ? list["缴费期间"] : '至'+ String(list["缴费期间"]).substring(0,2)+'周岁';;
 							break;
 						case '265':
-							children_base_money = year_fee;
-							children_safe_year = pay_year;
+							if(children[170] && children[353]){
+								children_base_money = (year_fee + Number(children[170].list[1][1]) + Number(children[353].list[1][1])).toFixed(2);
+							}else if(children[170]) {
+								children_base_money = (year_fee + Number(children[170].list[1][1])).toFixed(2);
+							}else if(children[353]){
+								children_base_money = (year_fee + Number(children[353].list[1][1])).toFixed(2);
+							}else{
+								children_base_money = year_fee
+							}
+							children_safe_year = content.safe_year == 0 ? '终身' : content.safe_year;
 							children_pay_year = pay_year;
 							break;
 						case '353':
@@ -279,23 +290,14 @@
 							children_base_money = tml.flag + '份';
 							break;
 						case '4304':
-							var flag;
-							if(list["缴费期间"] == 6500) {
-								flag = '至65周岁'
-							} else if(list["缴费期间"] == 7500) {
-								flag = '至75周岁'
-							} else {
-								flag = list["缴费期间"]
-							}
 							children_base_money = list["基本保额"];
-							children_safe_year = flag;
-							children_pay_year = flag;
+							children_safe_year = list["缴费期间"] < 100 ? list["缴费期间"] : '至'+ String(list["缴费期间"]).substring(0,2)+'周岁';;
+							children_pay_year = list["缴费期间"] < 100 ? list["缴费期间"] : '至'+ String(list["缴费期间"]).substring(0,2)+'周岁';;
 							break;
 							//工银
 						case '177': //xia
 							children_base_money = content.base_money;
 							break;
-
 						case '136':
 							children_base_money = tml.flag;
 							children_safe_year = list["保险期间"];
@@ -337,7 +339,7 @@
 							children_year_fee = 0;
 							break;
 						case '87':
-							children_base_money = parseInt(listMain["年缴保费"]) * parseInt(pay_year);
+							children_base_money = Number(listMain["年缴保费"]) * Number(pay_year);
 							children_safe_year = "至85岁";
 							children_pay_year = pay_year;
 							break;
@@ -410,7 +412,7 @@
 							} else {
 								children_base_money = year_fee ;
 							}
-							children_safe_year = pay_year - 1;
+							children_safe_year = '终身';
 							children_pay_year = pay_year - 1;
 							break;
 						case '291': //xia

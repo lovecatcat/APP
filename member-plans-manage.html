@@ -33,10 +33,10 @@
 			<!------------条件筛选 begin------------->
 			<div id="Js-planFilter" class="plan-filter">
 				<!--时间筛选 begin-->
-				<button type="button" :class="{'BL-btn-blue': timeButton === 1, 'BL-btn-gray': timeButton !==  1}" @click="changeTime('')">全部</button>
-				<button type="button" :class="{'BL-btn-blue': timeButton === 3, 'BL-btn-gray': timeButton !== 3}" @click="changeTime('-3 days')">近三天</button>
-				<button type="button" :class="{'BL-btn-blue': timeButton === 7, 'BL-btn-gray': timeButton !== 7}" @click="changeTime('-7 days')">近七天</button>
-				<button type="button" :class="{'BL-btn-blue': timeButton === 30, 'BL-btn-gray': timeButton !== 30}" @click="changeTime('-1 month')">近一月</button>
+				<button type="button" :class="{'BL-btn-blue': timeButton === 1, 'BL-btn-gray': timeButton !==  1}" @tap="changeTime('')">全部</button>
+				<button type="button" :class="{'BL-btn-blue': timeButton === 3, 'BL-btn-gray': timeButton !== 3}" @tap="changeTime('-3 days')">近三天</button>
+				<button type="button" :class="{'BL-btn-blue': timeButton === 7, 'BL-btn-gray': timeButton !== 7}" @tap="changeTime('-7 days')">近七天</button>
+				<button type="button" :class="{'BL-btn-blue': timeButton === 30, 'BL-btn-gray': timeButton !== 30}" @tap="changeTime('-1 month')">近一月</button>
 				<!--时间筛选 end -->
 			</div>
 			<!------------条件筛选 end  ------------->
@@ -47,7 +47,7 @@
 					<div class="mui-scroll">
 						<!--活动中，数据列表-->
 						<ul  v-if="manage_list.length>0" class="mui-table-view plan-list-cell">
-							<li class="BL-ub BL-ub-ac cItem" v-for="(item, index) in manage_list" :key="index" :class="{'cItem-active': checkModel.indexOf(item.id) > -1}" @click="goPLandetail(item.id, index)">
+							<li class="BL-ub BL-ub-ac cItem" v-for="(item, index) in manage_list" :key="index" :class="{'cItem-active': checkModel.indexOf(item.id) > -1}" @tap="goPLandetail(item.id, index)">
 								<div class="selected" v-show="editShow">
 									<div class="mui-icon mui-icon-checkmarkempty"></div>
 								</div>
@@ -79,7 +79,7 @@
 			<!------------产品列表 end  ------------->
 			<footer id="Js-footer" class="BL-footer BL-bg-fff" v-show="editShow">
 				<div class="BL-ub BL-ub-ac BL-ub-f1">
-					<div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll" :class="{'cItem-active': checkedAll}" @click="changeChecked">
+					<div id="" class="BL-ub BL-ub-f1 BL-ub-ac BL-foot-selectAll" :class="{'cItem-active': checkedAll}" @tap="changeChecked">
 						<div class="selected">
 							<div class="mui-icon mui-icon-checkmarkempty"></div>
 						</div>
@@ -87,7 +87,7 @@
 							全选择
 						</div>
 					</div>
-					<a class="BL-foot-btn-sign BL-foot-btn-det" href="javascript:;" @click="Del">
+					<a class="BL-foot-btn-sign BL-foot-btn-det" href="javascript:;" @tap="Del">
 						删除
 					</a>
 				</div>
@@ -220,8 +220,9 @@
 				user_id = JSON.parse(plus.storage.getItem("userinfo")).id;
 				var self;
 				//循环初始化所有下拉刷新，上拉加载。
-				var pullAjax = function() {
+				var pullAjax = function(e) {
 					luckyAjax({
+						closeWaiting: e === true ? true : false,
 						data: {
 							server: 'Proposal.log',
 							view: false,
@@ -234,8 +235,17 @@
 						},
 						success: function(res) {
 							if(res.code == 1 && i <= res.data.totalPage) {
-								plansManage.manage_list = plansManage.manage_list.concat(res.data.list)
-								self.endPullUpToRefresh(false)
+								if(e){
+									plansManage.manage_list = res.data.list
+									mui.toast('更新完成', {
+										duration: 'short',
+										type: 'div'
+									});
+									self.endPullDownToRefresh();
+								}else{
+									plansManage.manage_list = plansManage.manage_list.concat(res.data.list)
+									self.endPullUpToRefresh(false)
+								}
 							} else {
 								self.endPullUpToRefresh(true)
 							}
@@ -247,9 +257,15 @@
 						auto: true, // 自动上拉一次
 						callback: function() {
 							i++;
-
 							self = this;
 							pullAjax()
+						}
+					},
+					down: {
+						callback: function() {
+							i = 1;
+							self = this;
+							pullAjax(true);
 						}
 					}
 				});

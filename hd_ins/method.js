@@ -1,7 +1,7 @@
 var SCID = '19';
 
-var onlineIns = ['HB023', 'LE234', 'HB030', 'LA063', 'LA075']; // 上线的主险id
-//               恒久       护航      青     福享金生    红
+var onlineIns = ['HB023', 'LE234', 'HB030', 'LA063', 'LA075', 'LA080']; // 上线的主险id
+//               恒久       护航      青     福享金生    红     万年福
 
 //主险
 var qwhh = 'LE234'; //千万护航
@@ -9,6 +9,7 @@ var hjjk = 'HB023'; //恒久健康
 var fxjs = 'LA063'; //福享金生
 var wnh = 'LA075'; //万年红
 var wnq = 'HB030'; //万年青
+var wnf = 'LA080'; //万年福
 
 //附加险
 var tbrhm = 'HB024'; //投保人豁免重疾2017版
@@ -17,8 +18,11 @@ var hs = 'HA006'; //恒顺
 var zxak = 'HA005'; //尊享安康
 var hjax = 'HA014'; //恒久安心住院
 var cjb = 'LA073'; //传家宝
+var ylnj = 'LA078'; //养老年金
 
 var zrwnzh = 'LBD0001' //转入万能账户
+var njbznx = 'LBB0001' //年金保障年限20年
+var njlqfs = 'LBC0001' //年金领取方式 年领
 
 var typename = {'LAA0001': '身份证', 'LAA0002': '户口本', 'LAA0005': '出生证'}
 var ISASSURED = 'LAC0001'; //被保人是本人
@@ -37,7 +41,7 @@ var SY_TYPE = 'LAP0001'; //受益类型：身故
 var has_social_security = 'LAG0001'; //有社保
 var no_social_security = 'LAG0002';//无社保
 var invalid_districts = ['7036','7037','7042','7044'] //不支持的投保地区
-
+//                        龙华   坪山   光明    大鹏
 //证件号校验
 var IDValidate = function (type, id, owner,data) {
     console.log('IDValidate'+type+';'+ id+';'+ owner)
@@ -155,8 +159,8 @@ var checkName = function (owner, name) {
     // console.log('校验名字' + owner + name + strLength);
     if (!name) {
         toast_text = owner + '姓名不能为空';
-    } else if (strLength > 200) {
-        toast_text = owner + '姓名长度不能超过200字符';
+    } else if (strLength > 20) {
+        toast_text = owner + '姓名长度不能超过20字符';
     } else if (/[a-z]/i.test(name)) { // 英文
         if (name.replace(/\s/, '').length < 3) {
             toast_text = owner + '姓名不小于3个字符';
@@ -237,8 +241,8 @@ var checkAddress = function (val, owner) {
     var m = val.match(/[\u4e00-\u9fa5]{1}/g)
     if (!val) {
         toast_text = '请录入' + owner + '详细地址'
-    } else if (!m || m.length < 12) {
-        toast_text = owner + '详细地址填写有误,请确认至少有12个汉字'
+    } else if (!m || m.length < 6) {
+        toast_text = owner + '详细地址填写有误,请确认至少有6个汉字'
     }
     if (toast_text) {
         mui.toast(toast_text, {duration: 'short', type: 'div'});
@@ -247,10 +251,10 @@ var checkAddress = function (val, owner) {
     return true
 };
 //投保地区校验
-var checkHomeDistrict = function (val,owner) {
+var checkHomeDistrict = function (val, owner) {
     console.log(owner + 'checkHomeDistrict:' + val)
     if (invalid_districts.indexOf(val.toString()) > -1) {
-        mui.toast(owner + '所选投保地区暂不支持投保', {duration: 'short', type: 'div'});
+        mui.toast('所选' + owner + '地区暂不支持投保', {duration: 'short', type: 'div'});
         return false
     }
     return true
@@ -296,7 +300,7 @@ var checkEarnings = function (owner, value) {
 //校验身高
 var checkHeight = function (owner, val) {
     if (!val) {
-        this.$toast.open('请录入' + owner + '身高')
+    	mui.toast('请录入' + owner + '身高', {duration: 'short', type: 'div'});
         return false
     } else if (!/^\d+$/g.test(val)) {
         mui.toast(owner + '身高请保留整数', {duration: 'short', type: 'div'});
@@ -321,6 +325,7 @@ var ApplSameHomeAddress = function (appl) {
     appl.holder_contact_province = appl.holder_home_province
     appl.holder_contact_city = appl.holder_home_city
     appl.holder_contact_district = appl.holder_home_district
+    appl.holder_contact_district_name = appl.holder_home_district_name
     appl.holder_contact_address = appl.holder_home_address
     appl.holder_contact_zip = appl.holder_home_zip
 };
@@ -367,17 +372,31 @@ var checkAppl = function (appl) {
     } else if (!appl.resident_type) {
         toast_text = '投保人居民类型不能为空'
     } else if (!appl.holder_home_province) {
-        toast_text = '投保人现在住址【省级】不能为空'
+        toast_text = '投保人投保地区住址【省级】不能为空'
     } else if (!appl.holder_home_city) {
-        toast_text = '投保人现在住址【市级】不能为空'
-    } else if (!checkHomeDistrict(appl.holder_home_district, '投保人')) {
+        toast_text = '投保人投保地区【市级】不能为空'
+    } else if (!appl.holder_home_district) {
+        toast_text = '投保人投保地区【区级】不能为空'
+    } else if (!checkHomeDistrict(appl.holder_home_district, '投保人居住')) {
         return false
     } else if (!checkAddress(appl.holder_home_address, '投保人')) {
         return false
     } else if (!checkZipcode(appl.holder_home_zip, '投保人')) {
         return false
-    } else if (appl.mail_addr_type ) {
+    } else if (appl.mail_addr_type) {
         ApplSameHomeAddress(appl)
+    } else if (!appl.mail_addr_type && !appl.holder_contact_province) {
+        toast_text = '投保人通讯地区【省级】不能为空'
+    } else if (!appl.mail_addr_type && !appl.holder_contact_city) {
+        toast_text = '投保人现在住址【市级】不能为空'
+    } else if (!appl.mail_addr_type && !appl.holder_contact_district) {
+        toast_text = '投保人现在住址【区级】不能为空'
+    } else if (!appl.mail_addr_type && !checkHomeDistrict(appl.holder_contact_district, '投保人通讯')) {
+        return false
+    } else if (!appl.mail_addr_type && !checkAddress(appl.holder_contact_address, '投保人')) {
+        return false
+    } else if (!appl.mail_addr_type && !checkZipcode(appl.holder_contact_zip, '投保人')) {
+        return false
     }
 
     if (toast_text) {
@@ -398,10 +417,10 @@ var getDays = function(str) {
 var checkIDtype = function (birthday, idtype, owner) {
     var toast_text = null
     var age = getAge(birthday)
-    if (age > 2 && idtype === BORNid) {
-        toast_text = owner + '大于2周岁不能选择出生证';
-    } else if ((age < 2 || age > 16) && idtype === BOOKLET) {
-        toast_text = owner + '2周岁至16周岁才能选择户口本';
+    if (age > 3 && idtype === BORNid) {
+        toast_text = owner + '大于3周岁不能选择出生证';
+    } else if (age >= 16 && idtype === BOOKLET) {
+        toast_text = owner + '小于16周岁才能选择户口本';
     } else if (getDays(birthday) < 30) {
         toast_text = '被保人0周岁需出生满30天';
     }
@@ -454,7 +473,9 @@ var checkAssured = function (assu) {
         toast_text = '被保人现在住址【省级】不能为空'
     } else if (!assu.insured_home_city) {
         toast_text = '被保人现在住址【市级】不能为空'
-    } else if (!checkHomeDistrict(assu.insured_home_district, '被保人')) {
+    } else if (!assu.insured_home_district) {
+        toast_text = '被保人现在住址【区级】不能为空'
+    } else if (!checkHomeDistrict(assu.insured_home_district, '被保人居住')) {
         return false
     } else if (!checkAddress(assu.insured_home_address, '被保人')) {
         return false
@@ -467,15 +488,7 @@ var checkAssured = function (assu) {
     }
     return true
 };
-//被保人体质指数
-// var checkHeightWeight = function (h, w) {
-//     var flag = (w / (h * h) * 10000.00).toFixed(2)
-//     if (flag < 18 || flag > 28) {
-//         mui.toast('被保人体质指数' + flag + '不在18~28之间', {duration: 'short', type: 'div'});
-//         return false
-//     }
-//     return true
-// };
+
 //职业限制
 var checkOccupation = function(owner,e) {
     var toast_text = null

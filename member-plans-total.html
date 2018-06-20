@@ -27,12 +27,12 @@
 					<div class="BL-ub plans-total-content BL-pad-b-1">
 						<div class="BL-ub-f4">
 							<span class="plans-total-font BL-ftz-46">{{content.mainList.name}}</span>
-							<!--<span class="BL-col-3b9cf5 plans-total-font BL-ftz-46 BL-pad-l-1" @click="detailLink(index)">详情</span>-->
+							<!--<span class="BL-col-3b9cf5 plans-total-font BL-ftz-46 BL-pad-l-1" @tap="detailLink(index)">详情</span>-->
 						</div>
 						<div class="BL-ub-f1 BL-txt-r">
 							<button class="BL-btn-white BL-ftz-42" v-if="index !== 0" 
-								@click="delIns(content.mainList.pl_id, content.mainList.genre, index, index, false)">删除</button>
-							<button class="BL-btn-blue BL-ftz-42" @click="edit(content.mainList)">编辑</button>
+								@tap="delIns(content.mainList.pl_id, content.mainList.genre, index, index, false)">删除</button>
+							<button class="BL-btn-blue BL-ftz-42" @tap="edit(content.mainList)">编辑</button>
 						</div>
 					</div>
 					<ul class="BL-ul BL-col-999 BL-col-999 BL-ftz-42">
@@ -64,7 +64,7 @@
 						</div>
 						<!--必须附加的附加险不能删除-->
 						<div class="BL-ub-f1 BL-txt-r" v-if="mustSelected.indexOf(child.genre) < 0">
-							<button class="BL-btn-white BL-ftz-42" @click="delIns(content.mainList.pl_id, child.genre, String(index) + i , index, true)">删除</button>
+							<button class="BL-btn-white BL-ftz-42" @tap="delIns(content.mainList.pl_id, child.genre, String(index) + i , index, true)">删除</button>
 						</div>
 					</div>
 					<ul class="BL-ul BL-col-999 BL-ftz-42">

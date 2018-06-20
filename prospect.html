@@ -38,7 +38,7 @@
 					<div class="input-wrap input-wrap-planName box-f-1">
 						<input v-model.trim="alias" type="text" placeholder="请输入(选填)"  @focus="hideKeyboard" @blur="showKeyboard">
 						<div class="form-clear-icon" v-show="alias != ''">
-							<span class="mui-icon mui-icon-clear" @click="alias = '' "></span>
+							<span class="mui-icon mui-icon-clear" @tap="alias = '' "></span>
 						</div>
 					</div>
 				</div>
@@ -156,7 +156,7 @@
 										<span>首年保费</span>
 									</li>
 									<li>
-										<span v-if="item.money && item.safe_id !== 'DAR' && item.safe_id !== 'HI' && item.safe_id !== 'RP8P' && item.safe_id !== 'P005'">{{Number(item.money).toFixed(0)}}</span>
+										<span v-if="item.money && item.safe_id !== 'DAR' && item.safe_id !== 'HI' && item.safe_id !== 'RP8P' && item.safe_id !== 'P005' && item.safe_id !== 'HIA'">{{Number(item.money).toFixed(0)}}</span>
 										<span v-else-if="item.safe_id == 'P005'">
 											{{String(item.money).length > 3 ? '无社保'+String(item.money).substring(1, String(item.money).length) : '有社保' + item.money}}万
 										</span>
@@ -282,6 +282,9 @@
 			},
 			filters: {
 				safeYearFilter: function(value, safeid) {
+					if(safeid == 'HB024') {
+						return '终身';
+					}
 					if(value > 999) {
 						var i = String(value).substring(0, String(value).length - 2)
 						return '至' + i + '周岁';
@@ -294,6 +297,7 @@
 					} else {
 						return '终身';
 					}
+					
 				},
 				payYearFilter: function(value) {
 					if(value === 1) {

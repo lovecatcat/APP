@@ -21,7 +21,7 @@
 							<div class="input-wrap input-wrap-planName box-f-1">
 			                    <input type="text" placeholder="请输入" v-model="use">
 			                    <div class="form-clear-icon" v-show="use != ''">
-			                        <span class="mui-icon mui-icon-clear" @click="use = '' "></span>
+			                        <span class="mui-icon mui-icon-clear" @tap="use = '' "></span>
 			                    </div>
 			                </div>
 						</div>
@@ -30,7 +30,7 @@
 							<div class="input-wrap input-wrap-planName box-f-1">
 			                    <input type="number" placeholder="请输入" v-model.number="startAge">
 			                    <div class="form-clear-icon" v-show="startAge != ''">
-			                        <span class="mui-icon mui-icon-clear" @click="startAge = '' "></span>
+			                        <span class="mui-icon mui-icon-clear" @tap="startAge = '' "></span>
 			                    </div>
 			                </div>
 						</div>
@@ -39,7 +39,7 @@
 							<div class="input-wrap input-wrap-planName box-f-1">
 			                    <input type="number" placeholder="请输入" v-model.number="endAge">
 			                    <div class="form-clear-icon" v-show="endAge != ''">
-			                        <span class="mui-icon mui-icon-clear" @click="endAge = '' "></span>
+			                        <span class="mui-icon mui-icon-clear" @tap="endAge = '' "></span>
 			                    </div>
 			                </div>
 						</div>
@@ -48,41 +48,41 @@
 							<div class="input-wrap input-wrap-planName box-f-1">
 			                    <input type="number" placeholder="请输入" v-model="money">
 			                    <div class="form-clear-icon" v-show="money != ''">
-			                        <span class="mui-icon mui-icon-clear" @click="money = '' "></span>
+			                        <span class="mui-icon mui-icon-clear" @tap="money = '' "></span>
 			                    </div>
 			                </div>
 						</div>
 						<div class="BL-ub BL-rel input-item">
 							<label>选择配图</label>
 							<div class="input-wrap input-wrap-planName box-f-1">
-			                    <button class="BL-btn-blue BL-ftz-42" style="float: right;" @click="changeShow()">选择</button>
+			                    <button class="BL-btn-blue BL-ftz-42" style="float: right;" @tap="changeShow()">选择</button>
 			                </div>
 						</div>
 					</div>
 					<div v-if="Img">
 						<div class="BL-segmented-control modal-form-nav">
-							<div class="plans-nav" :class="{'mui-active': nav === 1}" @click="changeNav(1)">
+							<div class="plans-nav" :class="{'mui-active': nav === 1}" @tap="changeNav(1)">
 								<span>教育成长</span>
 							</div>
-							<div class="plans-nav" :class="{'mui-active': nav === 2}" @click="changeNav(2)">
+							<div class="plans-nav" :class="{'mui-active': nav === 2}" @tap="changeNav(2)">
 								<span >美好生活</span>
 							</div>
-							<div class="plans-nav" :class="{'mui-active': nav === 3}" @click="changeNav(3)">
+							<div class="plans-nav" :class="{'mui-active': nav === 3}" @tap="changeNav(3)">
 								<span >幸福养老</span>
 							</div>
-							<div class="plans-nav" :class="{'mui-active': nav === 4}"v @click="changeNav(4)">
+							<div class="plans-nav" :class="{'mui-active': nav === 4}"v @tap="changeNav(4)">
 								<span >财富传承</span>
 							</div>
 						</div>
 						<div class="BL-pad-lr-1 BL-mar-b-1 modal-form-img clearfloat">
 							<div class="BL-mar-t-1" v-for="(item, index) in imageData" :key="index">
-								<img :src="item.picture" :class="{'active': changeImgIndex == index}" @click="changeImg(index, item.picture)"></img>
+								<img :src="item.picture" :class="{'active': changeImgIndex == index}" @tap="changeImg(index, item.picture)"></img>
 							</div>
 						</div>
 					</div>	
 					<div class="BL-modal-content-button">
-						<button type="button" @click="cancel">取消</button>
-						<button type="button" @click="sure">确认</button>
+						<button type="button" @tap="cancel">取消</button>
+						<button type="button" @tap="sure">确认</button>
 					</div>
 				<div>
 					

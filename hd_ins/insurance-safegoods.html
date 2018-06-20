@@ -894,8 +894,16 @@
                         vm.addonsSelected[index] = false
                         return false
                     } else {
-                        if (vm.addonsSelected[index] && !vm.addonIns[index].period_money) {
-                            vm.calMoney(index)
+                        if (vm.addonsSelected[index]) {
+                            if (!vm.addonIns[index].period_money) {
+                                vm.calMoney(index)
+                            } else {
+                                if (index === ylnj) {
+                                    console.log('aaaa')
+                                    vm.addonIns[tbrhm].money = Number(vm.insurance.period_money) + Number(vm.addonIns[index].period_money)
+                                    vm.addonsSelected[index] = false
+                                }
+                            }
                         }
                     }
                     vm.countFee()
@@ -1204,6 +1212,12 @@
                                       console.log('试算附加险' + index + '成功')
                                     //试算附加险成功
                                     vm.addonIns[index].period_money = data.data.product[1].premium;
+                                    console.log(typeof index + ';' + typeof vm.addonsSelected[ylnj])
+                                    if (index === ylnj && vm.addonsSelected[ylnj]) {
+                                        console.log('bbbb')
+                                        vm.addonsSelected[tbrhm] = false
+                                        vm.addonIns[tbrhm].money = Number(vm.addonIns[index].period_money) + Number(vm.insurance.period_money)
+                                    }
                                     vm.$forceUpdate()
                                 } else {
                                       console.log('试算主险' + index + '成功')

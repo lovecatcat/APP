@@ -10,13 +10,13 @@
 		<script src="js/config.js" type="text/javascript"></script>
 		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
 	</head>
-	
+
 	<body class="BL-bg-f2f">
 		<header id="Js-header" class="BL-bg-fff">
 			<div class="BL-mod-headbar BL-mod-headbar-pos">
 				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
 				<h1 class="BL-title">商业险</h1>
-				<div class="control">
+				<div class="control" id="save">
 		            <a>保存</a>
 		        </div>
 			</div>
@@ -28,158 +28,612 @@
 						商业险
 					</div>
 					<div class="form-list-control">
-						<div class="mui-switch mui-switch-mini">
-							<div class="mui-switch-handle"></div>
+						<div class="input-switch">
+							<input type="checkbox" class="switch" v-model="commercial"/>
+							<label></label>
 						</div>
 					</div>
 				</li>
-				<li class="fItem BL-ub BL-ub-f1">
+				<li class="fItem BL-ub BL-ub-f1" v-if="commercial">
 					<label class="form-list-label">商业险起保日期</label>
 					<div class="form-list-control">
-						<input type="text" class="has" id="document_term" data-options='{"type":"date"}' placeholder="请选择">
-					</div>
-					<div class="form-list-icon">
-						<div class="mui-icon mui-icon-arrowright"></div>
-					</div>
-				</li>
-				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">车上人员责任保险（驾驶员驾驶员驾驶员驾驶员）</label>
-					<div class="form-list-control">
-						<select>
-							<option>投保</option>
-							<option>不投保</option>
-						</select>
-					</div>
-					<div class="form-list-icon">
-						<div class="mui-icon mui-icon-arrowright"></div>
-					</div>
-				</li>
-				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">机动车损失险无法找到第三方特约险</label>
-					<div class="form-list-control">
-						<select>
-							<option>投保</option>
-							<option>不投保</option>
-						</select>
-					</div>
-					<div class="form-list-icon">
-						<div class="mui-icon mui-icon-arrowright"></div>
-					</div>
-				</li>
-				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">玻璃单独破碎险</label>
-					<div class="form-list-control">
-						<select>
-							<option>国产</option>
-							<option>进口</option>
-						</select>
+						<input type="text" class="date" data-options='{"type":"date"}' v-model="biBeginDate" placeholder="请选择" readonly>
 					</div>
 					<div class="form-list-icon">
 						<div class="mui-icon mui-icon-arrowright"></div>
 					</div>
 				</li>
 			</ul>
-			<ul class="mui-table-view form-list-cell">
-				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">不计免赔险 <i>（车上人员责任保险（驾驶员））</i></label>
-					<div class="form-list-control">
-						<select>
-							<option>投保</option>
-							<option>不投保</option>
-						</select>
-					</div>
-					<div class="form-list-icon">
-						<div class="mui-icon mui-icon-arrowright"></div>
-					</div>
-				</li>
-				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">不计免赔险（车上人员责任保险（乘客））</i></label>
-					<div class="form-list-control">
-						<select>
-							<option>投保</option>
-							<option>不投保</option>
-						</select>
-					</div>
-					<div class="form-list-icon">
-						<div class="mui-icon mui-icon-arrowright"></div>
-					</div>
-				</li>
-				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">不计免赔险 <i>（车上人员责任保险（驾驶员））</i></label>
-					<div class="form-list-control">
-						<select>
-							<option>投保</option>
-							<option>不投保</option>
-						</select>
-					</div>
-					<div class="form-list-icon">
-						<div class="mui-icon mui-icon-arrowright"></div>
-					</div>
-				</li>
-				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">不计免赔险（车上人员责任保险（乘客））</i></label>
-					<div class="form-list-control">
-						<select>
-							<option>投保</option>
-							<option>不投保</option>
-						</select>
-					</div>
-					<div class="form-list-icon">
-						<div class="mui-icon mui-icon-arrowright"></div>
-					</div>
-				</li>
-				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">不计免赔险 <i>（车上人员责任保险（驾驶员））</i></label>
-					<div class="form-list-control">
-						<select>
-							<option>投保</option>
-							<option>不投保</option>
-						</select>
-					</div>
-					<div class="form-list-icon">
-						<div class="mui-icon mui-icon-arrowright"></div>
-					</div>
-				</li>
-				<li class="fItem BL-ub BL-ub-f1">
-					<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">不计免赔险（车上人员责任保险（乘客））</i></label>
-					<div class="form-list-control">
-						<select>
-							<option>投保</option>
-							<option>不投保</option>
-						</select>
-					</div>
-					<div class="form-list-icon">
-						<div class="mui-icon mui-icon-arrowright"></div>
-					</div>
-				</li>
+			<ul class="mui-table-view form-list-cell" v-if="commercial">
+				<template v-for="item,index in biCoverageList">
+					<li class="fItem BL-ub BL-ub-f1" v-if="item.coverageCode === 'A'" :class="{'BL-hide': !show.A}">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="Y">投保</option>
+								<option value="N">不投保</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'B'" :class="{'BL-hide': !show.B}">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="N">不投保</option>
+								<template v-if="item.Amount">
+									<option :value="citem" v-for="citem in item.Amount.split(',')">{{citem/10000+'万元'}}</option>
+								</template>
+								<option v-else :value="item.insuredAmount">{{item.insuredAmount/10000+'万元'}}</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'G1'" :class="{'BL-hide': !show.G1}">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="Y">投保</option>
+								<option value="N">不投保</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'D3'" :class="{'BL-hide': !show.D3}">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="N">不投保</option>
+								<template v-if="item.Amount">
+									<option :value="citem" v-for="citem in item.Amount.split(',')">{{citem/10000+'万元'}}</option>
+								</template>
+								<option v-else :value="item.insuredAmount">{{item.insuredAmount/10000+'万元'}}</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'D4'" :class="{'BL-hide': !show.D4}">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="N">不投保</option>
+								<template v-if="item.Amount">
+									<option :value="citem" v-for="citem in item.Amount.split(',')">{{citem/10000+'万元'}}</option>
+								</template>
+								<option v-else :value="item.insuredAmount">{{item.insuredAmount/10000+'万元'}}</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<li class="fItem BL-ub BL-ub-f1"  v-else-if="item.coverageCode === 'Q3'" :class="{'BL-hide': !show.Q3}">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="Y">投保</option>
+								<option value="N">不投保</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<li class="fItem BL-ub BL-ub-f1"  v-else-if="item.coverageCode === 'Z'" :class="{'BL-hide': !show.Z}">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="Y">投保</option>
+								<option value="N">不投保</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<template v-else-if="item.coverageCode === 'F'">
+						<li class="fItem BL-ub BL-ub-f1" :class="{'BL-hide': !show.F}">
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+							<div class="form-list-control">
+								<select v-model="item.insuredAmount" @change="selectRisk(item)">
+									<option value="Y">投保</option>
+									<option value="N">不投保</option>
+								</select>
+							</div>
+							<div class="form-list-icon">
+								<div class="mui-icon mui-icon-arrowright"></div>
+							</div>
+						</li>
+						<li class="fItem BL-ub BL-ub-f1" :class="{'BL-hide': item.insuredAmount == 'N'}">
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">└─ 玻璃类型</label>
+							<div class="form-list-control">
+								<select v-model="item.flag" @change="selectRisk(item)">
+									<option value="1">国产</option>
+									<option value="2">进口</option>
+								</select>
+							</div>
+							<div class="form-list-icon">
+								<div class="mui-icon mui-icon-arrowright"></div>
+							</div>
+						</li>
+					</template>
+					<li class="fItem BL-ub BL-ub-f1"  v-else-if="item.coverageCode === 'L'" :class="{'BL-hide': !show.L }">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="N">不投保</option>
+								<template v-if="item.Amount">
+									<option :value="citem" v-for="citem in item.Amount.split(',')">{{citem/10000+'万元'}}</option>
+								</template>
+								<option v-else :value="item.insuredAmount">{{item.insuredAmount/10000+'万元'}}</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'X1'" :class="{'BL-hide': !show.X1 }">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="Y">投保</option>
+								<option value="N">不投保</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'R'" :class="{'BL-hide': !show.R }">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="N">不投保</option>
+								<template v-if="item.Amount">
+									<option :value="citem" v-for="citem in item.Amount.split(',')">{{citem/10000+'万元'}}</option>
+								</template>
+								<option v-else :value="item.insuredAmount">{{item.insuredAmount/10000+'万元'}}</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<template v-else-if="item.coverageCode === 'Z2'">
+						<li class="fItem BL-ub BL-ub-f1" :class="{'BL-hide': !show.Z2 }">
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+							<div class="form-list-control">
+								<select v-model="item.insuredAmount" @change="selectRisk(item)">
+									<option value="Y">投保</option>
+									<option value="N">不投保</option>
+								</select>
+							</div>
+							<div class="form-list-icon">
+								<div class="mui-icon mui-icon-arrowright"></div>
+							</div>
+						</li>
+						<li class="fItem BL-ub BL-ub-f1" :class="{'BL-hide': item.insuredAmount == 'N' || !show.Z2 }">
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">└─ 选择天数（1-90天）</label>
+							<div class="form-list-control">
+								<select v-model="item.flag1" @change="selectRisk(item)">
+									<option :value="n" v-for="n in 90">{{n}}天</option>
+								</select>
+							</div>
+							<div class="form-list-icon">
+								<div class="mui-icon mui-icon-arrowright"></div>
+							</div>
+						</li>
+						<li class="fItem BL-ub BL-ub-f1" :class="{'BL-hide': item.insuredAmount == 'N' || !show.Z2 }">
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">└─ 补偿费用（50-500元）</label>
+							<div class="form-list-control" style="width: 30%">
+								<input type="text" placeholder="必填">
+							</div>
+							<div class="form-list-icon">
+								<span class="mui-icon mui-icon-clear"></span>
+							</div>
+						</li>
+					</template>
+					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'Z3'" :class="{'BL-hide': !show.Z3 }">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="Y">投保</option>
+								<option value="N">不投保</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+				</template>
+			</ul>
+			<ul class="mui-table-view form-list-cell" v-if="commercial">
+				<template v-for="item,index in biCoverageList">
+					<li class="fItem BL-ub BL-ub-f1" v-if="item.coverageCode === 'MA'" :class="{'BL-hide': !show.MA}">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="Y">投保</option>
+								<option value="N">不投保</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MB'" :class="{'BL-hide': !show.MB}">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="Y">投保</option>
+								<option value="N">不投保</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MD3'" :class="{'BL-hide': !show.MD3}">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="Y">投保</option>
+								<option value="N">不投保</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MD4'" :class="{'BL-hide': !show.MD4}">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="Y">投保</option>
+								<option value="N">不投保</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MZ'" :class="{'BL-hide': !show.MZ}">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="Y">投保</option>
+								<option value="N">不投保</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MG1'" :class="{'BL-hide': !show.MG1}">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="Y">投保</option>
+								<option value="N">不投保</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'ML'" :class="{'BL-hide': !show.ML}">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="Y">投保</option>
+								<option value="N">不投保</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MX1'" :class="{'BL-hide': !show.MX1}">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="Y">投保</option>
+								<option value="N">不投保</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MR'" :class="{'BL-hide': !show.MR}">
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<div class="form-list-control">
+							<select v-model="item.insuredAmount" @change="selectRisk(item)">
+								<option value="Y">投保</option>
+								<option value="N">不投保</option>
+							</select>
+						</div>
+						<div class="form-list-icon">
+							<div class="mui-icon mui-icon-arrowright"></div>
+						</div>
+					</li>
+				</template>
 			</ul>
 		</div>
 	</body>
 	<script src="js/mui.min.js" type="text/javascript"></script>
-	<script src="js/mui.picker.min.js"></script>
-	<script src="js/mui.poppicker.js"></script>
+	<script src="js/mui.picker.js"></script>
+	<script src="js/mui.dtpicker.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/Date.js"></script>
+	<script src="js/auto2.js"></script>
 	<script type="text/javascript">
 		mui.init();
-		mui.plusReady(function() {
+		mui.plusReady(function(){
 			statusbar();
-			
 			var winH = window.innerHeight;
         	var titHeight = document.querySelector('#Js-header').offsetHeight;
         	document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+
+            var auto = new Vue({
+                el: "#Js-content",
+                data: {
+                    business_no: "", // 业务单号
+                    isSaved: false,  // 险种信息是否保存过
+                    commercial: false,  // 商业险
+                    biBeginDate: new Date().addDays(1).Format('yyyy-MM-dd'),  // 商业险起期
+                    biCoverageList: biCoverageList,
+                    oldCoverageList: null,
+                    show: {}, //不计免赔险
+					del: {}  // 是否删除过
+                },
+                methods: {
+                    setRisk: function () {
+                        var vm = this
+                        if (!vm.biCoverageList || !vm.oldCoverageList) {
+                            return false
+                        }
+                        if (!vm.commercial) return false //如果商业险未选中，
+                        for (var i = 0, l = vm.biCoverageList.length; i < l; i++) {
+                            var item = vm.biCoverageList[i]
+                            item.insuredAmount = 'N'
+                            for (var j = 0, length = vm.oldCoverageList.length; j < length; j++) {
+                                var olditem = vm.oldCoverageList[j]
+                                if (olditem.coverageCode === item.coverageCode) {
+                                    item.insuredAmount = olditem.insuredAmount
+                                    if (item.coverageCode === 'F') {
+                                        vm.$set(item, 'flag', olditem.flag)
+                                    } else if (item.coverageCode === 'Z2') {
+                                        if (olditem.flag) {
+                                            var flag = olditem.flag.split(',')
+                                            vm.$set(item, 'flag1', flag[0])
+                                            vm.$set(item, 'flag2', flag[1])
+                                        }
+                                    }
+                                }
+                            }
+                            if (MI.indexOf(item.coverageCode) > -1) {
+                                vm.$set(vm.show, 'M' + item.coverageCode, item.insuredAmount !== 'N')
+                            }
+                        }
+                    },
+                    one2n: function(val) { // 一对多
+                        var vm = this
+                        vm.biCoverageList.forEach(function (item) {
+                            if (List1.indexOf(item.coverageCode) > -1) {
+                                if (val === 'N') {
+                                    vm.$set(vm.show, item.coverageCode, false)
+                                    vm.delHideIns(item.coverageCode)
+                                } else {
+                                    vm.$set(vm.show, item.coverageCode, true)
+                                }
+                            }
+                        })
+                    },
+                    delHideIns: function(code) { // 删除或隐藏主险和附加险
+                        var vm = this
+
+                        // 主险
+                        if (vm.isSaved && !vm.del[code]) {
+							vm.delCarPlan(vm.business_no,code)
+//							Api.delCarPlan(vm.thpBizID, code, res => {
+//								vm.$set(vm.del, code, true)
+//								console.info(res.data > 0 ? '删除成功' : '删除失败')
+//							})
+                        }
+
+                        // 附加险
+                        if (MI.indexOf(code) > -1) {
+                            var addonCode = 'M' + code
+                            vm.$set(vm.show, addonCode, false) //隐藏
+							if (vm.isSaved && !vm.del[addonCode]) {
+                                vm.delCarPlan(vm.business_no,code)
+//                                vm.$set(vm.del, addonCode, true)
+//								Api.delCarPlan(vm.thpBizID, addonCode, res => {
+//									vm.$set(vm.del, addonCode, true)
+//									console.info(res.data > 0 ? '删除成功' : '删除失败')
+//								})
+							}
+                        }
+                    },
+					// 删除险种计划
+                    delCarPlan: function (thpBizID, addonCode) {
+                        var vm = this
+                        luckyAjax({
+                            data: {
+                                server: 'carIns.delCarPlan',
+                                view: true,
+                                data: JSON.stringify({
+                                    business_no: thpBizID,
+                                    product: addonCode
+								})
+                            },
+                            success: function (res) {
+                                alert(JSON.stringify(res))
+                                if (res.code == 1) {
+                                    vm.$set(vm.del, addonCode, true)
+                                    alert("删除成功")
+                                } else {
+                                    alert("删除失败")
+								}
+                            }
+                        })
+                    },
+                    selectRisk: function(data) { // 选择事件，重点是删除关联险种
+                        var vm = this
+                        // 车损险（关联）
+                        if (data.coverageCode === 'A') {
+                            vm.one2n(data.insuredAmount)
+                        }
+
+                        // 责任险（关联）
+                        if (List2.indexOf(data.coverageCode) > -1) {
+                            vm.n2one()
+                        }
+
+                        // 是否删除 (0,N) 为 删除
+                        if (data.insuredAmount === 'N') {
+                            vm.delHideIns(data.coverageCode)
+                        } else if (MI.indexOf(data.coverageCode) > -1) {
+                            vm.$set(vm.show, 'M' + data.coverageCode, true)
+                        }
+                    },
+                }
+            })
+
+			// 获取选择险种页面的已选险种信息
+            auto.commercial = plus.webview.currentWebview().commercial;
+            auto.oldCoverageList = plus.webview.currentWebview().biCoverageList;
+
+            // 获取本地存储的业务信息
+            var bus =  JSON.parse(plus.storage.getItem('bus'))
+			auto.isSaved = bus.isSaved
+			auto.business_no = bus.business_no
+
+			// 获取险别信息
+			luckyAjax({
+				data: {
+					server: 'carIns.risks',
+					view: true
+				},
+				success:function(res) {
+					var coverageList = res.data
+					// 遍历险别信息
+					coverageList.forEach(function (item) {
+						if ((item.coverageCode).indexOf('M') === -1) {
+							auto.$set(auto.show, item.coverageCode, true)
+						}
+						if (item.insuredAmount !== 'Y') { // Number
+							item.Amount = item.insuredAmount // 转移选择数据
+							item.insuredAmount = 'N' // 设置不投保
+
+							// 设置默认投保
+							if (item.coverageCode === 'B') {
+								item.insuredAmount = 1000000
+							} else if (item.coverageCode === 'D3') {
+								item.insuredAmount = 50000
+							} else if (item.coverageCode === 'D4') {
+								item.insuredAmount = 50000
+							}
+						} else { // Bool
+							// 不计免赔不投保
+							if (MI2.indexOf(item.coverageCode) === -1) {
+								item.insuredAmount = 'N'
+							}
+							// 不计免赔默认投保
+							if (DI.indexOf(item.coverageCode) > -1) {
+								item.insuredAmount = 'Y'
+							}
+							// 特殊险种
+							if (item.coverageCode === 'F') {
+								item.flag = 1
+							} else if (item.coverageCode === 'Z2') {
+								item.flag1 = 30
+								item.flag2 = 50
+							}
+						}
+
+						// 显示默认的不计免赔
+						if (DI.indexOf(item.coverageCode) > -1 && MI.indexOf(item.coverageCode) > -1) {
+                            auto.$set(auto.show, 'M' + item.coverageCode, true)
+						}
+					})
+					auto.biCoverageList = coverageList
+					auto.setRisk()
+				}
+			})
+
+            // 保存
+            document.querySelector('#save').addEventListener('click', function () {
+                var coverageList = [] // 险种列表
+                for (var i = 0, vl = auto.biCoverageList.length; i < vl; ++i) {
+                    var item = auto.biCoverageList[i]
+                    var tml = item
+                    if (!tml.flag) {
+                        tml.flag = ''
+                    }
+                    tml.insuredPremium = ''
+                    if (auto.commercial) {
+                        // 判断是否投保
+                        if (tml.insuredAmount === 'N' || !auto.show[tml.coverageCode]) {
+                            continue
+                        }
+
+                        // 判断不计免赔险是否投保
+                        if (tml.coverageCode.indexOf('M') === 0 && auto.show[tml.coverageCode] !== true) {
+                            continue
+                        }
+
+                        // 特殊险种
+                        if (tml.coverageCode === 'Z2') {
+                            tml.flag = tml.flag1 + ',' + tml.flag2
+                            if (!auto.checkNumber(tml.flag2)) {
+                                return false
+                            }
+                            delete tml.flag1
+                            delete tml.flag2
+                        }
+                        if (tml.Amount) {
+                            delete tml.Amount
+                        }
+                        coverageList.push(tml)
+                    }
+                }
+
+                // 通知事件
+                mui.fire(plus.webview.getWebviewById('auto2c_choose'),'updatebiCoverageList',{
+                    commercial: auto.commercial,
+                    biCoverageList: coverageList
+                });
+                // 查询保险起期
+                setTimeout(function () {
+                    plus.webview.currentWebview().close();
+                },200)
+            })
+
+            //日期选择
+            mui('.date').each(function (i, d) {
+                d.addEventListener('tap', function () {
+                    document.activeElement.blur();
+                    var optionsJson = this.getAttribute('data-options') || '{}';
+                    var options = JSON.parse(optionsJson);
+                    var picker = new mui.DtPicker(options);
+                    picker.show(function (rs) {
+                        if (i === 0) {
+                            auto.biBeginDate = rs.text;
+                        }
+                        picker.dispose();
+                    });
+                }, false);
+            });
 		})
-		
-		mui('body').on('tap', 'a', function() {
-			var href = this.getAttribute('href');
-			var id = this.getAttribute("data-wid");
-			
-			if(href && ~href.indexOf('.html')) {
-				//打开新窗口
-				mui.openWindow({
-					url:href,
-					id:id,
-					show:animateObj.aniDetal
-				});
-			}
-		});
 	</script>
 </html>

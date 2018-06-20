@@ -66,6 +66,8 @@ var IDValidate = function (type, id, owner,data) {
                     toast_text = owner + '不符合身份证号码18位校验规则';
                 } else if (!Validator.isValid(id, 18)) {
                     toast_text = owner + '身份证号码不符合公安部校验规则，请确认!';
+                } else if (id.indexOf('x') > -1) {
+                    toast_text = '身份证号码最后一位如果是字母X，必须大写'
                 } else {
                     const idInfo = Validator.getInfo(id);
                     if (owner === '投保人') {
@@ -81,8 +83,8 @@ var IDValidate = function (type, id, owner,data) {
                 }
                 break;
             case BORNid: //出生证
-                if (id.length < 3) {
-                    toast_text = owner + '出生证号码不能少于3位';
+                if (!/^[A-Z]{1}\d{9}$/.test(id)) {
+                    toast_text = owner + '出生证号码首字母大写加9位数字';
                 }
                 break;
             case HK://港澳通行证
@@ -262,8 +264,8 @@ var checkAddress = function (val, owner) {
     var m = val.match(/[\u4e00-\u9fa5]{1}/g)
     if (!val) {
         toast_text = '请录入' + owner + '详细地址'
-    } else if (!m || m.length < 4) {
-        toast_text = owner + '详细地址填写有误,请确认至少有4个汉字'
+    } else if (!m || m.length < 6) {
+        toast_text = owner + '详细地址填写有误,请确认至少有6个汉字且包含数字'
     } else if (!m || m.length > 50) {
         toast_text = owner + '详细地址不能超过50个汉字'
     }
@@ -411,8 +413,12 @@ var checkIDtype = function (birthday, idtype, owner) {
     var age = getAge(birthday)
     if (getDays(birthday) < 28) {
         toast_text = '被保人0周岁需出生满28天';
-    }if (age > 60) {
+    } else if (age > 60) {
         toast_text = '被保人不能大于60周岁';
+    } else if (age >= 16 && idtype === BOOKLET) {
+        toast_text = '被保人已满16周岁不可选择户口本';
+    } else if (age >= 1 && idtype === BORNid) {
+        toast_text = '被保人已满1周岁不可选择出生证';
     }
     if (toast_text) {
         mui.toast(toast_text, {duration: 'short', type: 'div'});
@@ -450,7 +456,7 @@ var checkAssured = function (assu) {
     } else if (!assu.insured_marriage) {
         toast_text = '被保人婚姻状况不能为空'
     } else if (!assu.insured_company) {
-        toast_text = '请填写被保人工作单位，无工作单位请填写‘无’'
+        toast_text = '请填写被保人工作单位，无工作单位请填写‘没有’'
     } else if (!checkHeight('被保人', assu.insured_height)) {
         return false
     } else if (!checkWeight('被保人', assu.insured_weight)) {
@@ -475,7 +481,7 @@ var checkAssured = function (assu) {
 var astypeChange = function (owner) {
     if (owner === '投保人') {
         appl.applicant.holder_ID_no = ''
-        if (appl.applicant.holder_ID_type === BOOKLET || appl.applicant.holder_ID_type === BORNid) {
+        if (appl.applicant.holder_ID_type === BOOKLET) {
             appl.applicant.holder_ID_expire_end = '9999-12-31'
             appl.longTerm = true
         } else {
@@ -484,7 +490,7 @@ var astypeChange = function (owner) {
         }
     } else if (owner === '被保人') {
         assu.assured.insured_ID_no = ''
-        if (assu.assured.insured_ID_type === BOOKLET || assu.assured.insured_ID_type === BORNid) {
+        if (assu.assured.insured_ID_type === BOOKLET) {
             assu.assured.insured_ID_expire_end = '9999-12-31'
             assu.longTerm = true
         } else {

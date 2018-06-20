@@ -901,7 +901,7 @@
                                 vm.calMoney(index)
                             } else {
                                 if (index === ylnj) {
-                                    vm.addonIns[tbrhm].money = Number(vm.insurance.period_money) + Number(vm.addonIns[index].period_money)
+                                    vm.addonIns[tbrhm].money = (Number(vm.insurance.period_money) + Number(vm.addonIns[index].period_money)).toFixed(2)
                                     vm.calMoney(tbrhm)
                                 }
                             }
@@ -1182,7 +1182,7 @@
                     }
                     if (index && vm.addonIns[index]) {
                         if (index === tbrhm && vm.addonsSelected[ylnj]) {
-                            vm.addonIns[index].money = Number(vm.insurance.period_money) + Number(vm.addonIns[ylnj].period_money)
+                            vm.addonIns[index].money = (Number(vm.insurance.period_money) + Number(vm.addonIns[ylnj].period_money)).toFixed(2)
                         }
                         console.log(JSON.stringify(vm.addonIns[index]))
                         var product = {}

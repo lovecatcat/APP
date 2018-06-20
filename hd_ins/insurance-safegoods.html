@@ -905,6 +905,11 @@
                                     vm.calMoney(tbrhm)
                                 }
                             }
+                        } else {
+                            if (index === ylnj) {
+                                vm.addonIns[tbrhm].money = vm.insurance.period_money
+                                vm.calMoney(tbrhm)
+                            }
                         }
                     }
                     vm.countFee()

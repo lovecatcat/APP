@@ -22,6 +22,10 @@ var methods = {
 	parseVueObj: function(Obj) {
 		return JSON.parse(JSON.stringify(Obj))
 	},
+	toblur: function() {
+		document.activeElement.blur();
+		this.JsFooter = true
+	},
 	payYearFilter: function(value) {
 		var mainSafeYear = this.insurance.safe_year
 		if(this.insurance.safe_id === 'NAF') {
@@ -1147,6 +1151,7 @@ var methods = {
 						break
 						//招商仁和
 					case '1002': // 附加豁免保险费重大疾病保险
+					case '1012': // 招商仁和附加豁免保险费重大疾病保险
 						if(this.mainPayYear === 1) {
 							toastText = '主险趸交不可附加该险种'
 						}
@@ -2028,6 +2033,7 @@ var methods = {
 		setTimeout(function() {
 			vm.uploading = false
 		}, 1000)
+		this.toblur()
 		const safeid = isMain ? this.insurance.safe_id : addonSafeid
 		if(!safeid) {
 			mui.toast('险种ID不正确')

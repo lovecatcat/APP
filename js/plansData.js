@@ -266,7 +266,15 @@
 							children_pay_year = list["缴费期间"] < 100 ? list["缴费期间"] : '至'+ String(list["缴费期间"]).substring(0,2)+'周岁';;
 							break;
 						case '265':
-							children_base_money = year_fee;
+							if(children[170] && children[353]){
+								children_base_money = (year_fee + Number(children[170].list[1][1]) + Number(children[353].list[1][1])).toFixed(2);
+							}else if(children[170]) {
+								children_base_money = (year_fee + Number(children[170].list[1][1])).toFixed(2);
+							}else if(children[353]){
+								children_base_money = (year_fee + Number(children[353].list[1][1])).toFixed(2);
+							}else{
+								children_base_money = year_fee
+							}
 							children_safe_year = content.safe_year == 0 ? '终身' : content.safe_year;
 							children_pay_year = pay_year;
 							break;
@@ -404,7 +412,7 @@
 							} else {
 								children_base_money = year_fee ;
 							}
-							children_safe_year = pay_year - 1;
+							children_safe_year = '终身';
 							children_pay_year = pay_year - 1;
 							break;
 						case '291': //xia

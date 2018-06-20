@@ -1443,15 +1443,12 @@
 						             	{{num < 100 ? num + '年' : '至' + num.substring(0,2) + '岁'}}
 						        </button>
 								</app-select>
-								<template v-if="addonRes[item.code]">
-									<div class="input-item">
-										<label class="">保险期间(年)</label>
-										<div class="input-wrap box-f-1">
-											<button slot="button" class="ins-btn xs-btn blue" v-if="flag[item.code] === '1800'">至18周岁</button>
-											<button slot="button" class="ins-btn xs-btn blue" v-else>{{flag[item.code]+'年'}}</button>
-										</div>
+								<div class="input-item">
+									<label class="">缴费年限(年)</label>
+									<div class="input-wrap box-f-1">
+										<button slot="button" class="ins-btn xs-btn blue">{{mainSafeYear< 100 ? mainSafeYear+'年' :  '至'+mainSafeYear +'周岁'}}</button>
 									</div>
-								</template>
+								</div>
 								<div class="input-item">
 									<label class="">年缴保费(元)</label>
 									<div class="BL-ub BL-ub-pj BL-ub-f1">

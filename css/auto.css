@@ -19,7 +19,8 @@
     border-radius: .3rem;
 }
  .mui-table-view-chevron .mui-table-view-cell > div:not(.mui-btn) {
-     padding: 1.5rem;
+     padding-left: 1.5rem;
+     padding-right: 1.5rem;
  }
 .member-warranty-detail-item table tr>td:first-child {
     background: transparent;
@@ -27,4 +28,65 @@
 .member-warranty-detail-item table tr>td {
     padding-left: 0rem;
     text-align: center;
+}
+.input-item {
+    margin: 1.5rem 0;
+}
+.input-item label{
+    display: block;
+    width: 30%;
+    line-height: 2.9375rem;
+    font-size: 1.4375rem;
+}
+.input-wrap {
+    position: relative;
+    width: 70%;
+}
+.box-f-1 {
+    -moz-box-flex: 1.0;
+    -webkit-box-flex: 1.0;
+    -ms-flex: 1.0;
+    box-flex: 1.0;
+}
+.ins-down-icon {
+    background: url(../images/icon/ico-down.png) center no-repeat;
+    background-size: 1rem;
+    position: absolute;
+    right: .5rem;
+    top: 0;
+    width: 2rem;
+    height: 100%;
+}
+.input-wrap input {
+    height: 2.9375rem;
+    border: 1px solid #c8c8c8;
+    border-radius: .3125rem;
+    text-align: left;
+    padding-left: 1rem;
+    font-size: 1.4375rem;
+}
+.form-clear-icon {
+    position: absolute;
+    right: .5rem;
+    top: 0;
+}
+.form-clear-icon .mui-icon {
+    font-size: 1.9rem;
+    color: #bfbfbf;
+    line-height: 2.9375rem;
+}
+.input-wrap .input, .input-wrap input {
+    border: 1px solid #c8c8c8;
+    border-radius: .3125rem;
+    font-size: 1.4375rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.input-item .input {
+    text-align: left;
+    padding-left: 1rem;
+    height: 2.9375rem;
+    line-height: 2.9375rem;
 }

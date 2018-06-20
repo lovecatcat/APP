@@ -406,11 +406,7 @@
 					"requirement_risk_result.html",
 					"requirement_risk_ppt.html",
 					"requirement.html",
-					"analysis.html",
-					"auto2c-supplement.html",
-					"auto2c-business.html",
-					"auto2c-choose.html",
-					"auto2c-quotes.html"
+					"analysis.html"
 				],
 				"priority": 0
 			},
@@ -1457,9 +1453,9 @@
 					"js/mui.poppicker.js",
 					"js/city.data-3.js",
 					"js/IDValidator.min.js",
+					"js/Date.js",
 					"js/auto2.js",
-					"css/auto.css",
-					"js/Date.js"
+					"css/auto.css"
 				],
 				"refer": [
 					"auto2c-choose.html",
@@ -1566,10 +1562,7 @@
 					"css/mui.picker.min.css",
 					"js/mui.poppicker.js",
 					"js/mui.picker.min.js",
-					"auto2c-business.html",
-					"auto2c-supplement.html",
-					"js/Date.js",
-					"js/auto2.js"
+					"auto2c-business.html"
 				],
 				"priority": 3,
 				"refer": [
@@ -2968,13 +2961,7 @@
 			"auto2c-business.html": {
 				"resources": [
 					"auto2c-choose.html",
-					"css/mui.css",
-					"js/Date.js",
-					"js/auto2.js",
-					"css/form.css",
-					"css/mui.picker.min.css",
-					"css/module.css",
-					"css/common.css"
+					"css/mui.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -3614,15 +3601,12 @@
 			},
 			"auto2c-supplement.html": {
 				"resources": [
-					"js/auto2.js",
-					"css/form.css",
-					"auto2c-choose.html",
 					"css/mui.css",
-					"css/mui.picker.min.css",
-					"css/module.css",
-					"css/common.css"
+					"css/form.css",
+					"css/mui.picker.min.css"
 				],
 				"refer": [
+					"auto2c-choose.html",
 					"auto2c-brand.html"
 				],
 				"priority": 0
@@ -3631,26 +3615,21 @@
 				"resources": [
 					"images/icon/pic-auto-examples.png",
 					"css/mui.css",
-					"css/form.css",
-					"js/mui.poppicker.js",
-					"css/module.css",
-					"css/common.css"
+					"css/form.css"
 				],
 				"refer": [],
 				"priority": 0
 			},
 			"auto2c-quotes.html": {
 				"resources": [
-					"css/form.css",
-					"css/mui.css",
-					"css/module.css",
-					"css/common.css",
-					"css/mui.picker.min.css",
 					"images/auto/TAIC.png",
 					"images/auto/UTIC.png",
 					"images/auto/CPIC.png",
 					"images/auto/TPIC.png",
-					"images/auto/ASTP.png"
+					"images/auto/ASTP.png",
+					"css/mui.css",
+					"css/mui.picker.min.css",
+					"css/form.css"
 				],
 				"refer": [
 					"auto2c-order.html"
@@ -3661,6 +3640,9 @@
 				"resources": [
 					"css/member.css",
 					"css/mui.css",
+					"css/auto.css",
+					"css/plans.css",
+					"images/icon/ico-down.png",
 					"css/mui.picker.min.css"
 				],
 				"refer": [],

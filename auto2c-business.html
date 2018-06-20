@@ -395,7 +395,33 @@
                     show: {}, //不计免赔险
 					del: {}  // 是否删除过
                 },
+                created: function () {
+                    var vm = this
+                    vm.$watch('commercial', function (val) {
+                        if (val) {
+                            vm.$nextTick(function () {
+                                vm.setDate()
+                            })
+                        }
+                    });
+                },
                 methods: {
+                    setDate: function () {
+                        mui('.date').each(function (i, d) {
+                            d.addEventListener('tap', function () {
+                                document.activeElement.blur();
+                                var optionsJson = this.getAttribute('data-options') || '{}';
+                                var options = JSON.parse(optionsJson);
+                                var picker = new mui.DtPicker(options);
+                                picker.show(function (rs) {
+                                    if (i === 0) {
+                                        auto.biBeginDate = rs.text;
+                                    }
+                                    picker.dispose();
+                                });
+                            }, false);
+                        });
+                    },
                     setRisk: function () {
                         var vm = this
                         if (!vm.biCoverageList || !vm.oldCoverageList) {
@@ -571,6 +597,9 @@
 				}
 			})
 
+            // 初始化日期
+            auto.setDate()
+
             // 保存
             document.querySelector('#save').addEventListener('click', function () {
                 var coverageList = [] // 险种列表
@@ -611,6 +640,7 @@
                 // 通知事件
                 mui.fire(plus.webview.getWebviewById('auto2c_choose'),'updatebiCoverageList',{
                     commercial: auto.commercial,
+                    biBeginDate: auto.biBeginDate,
                     biCoverageList: coverageList
                 });
                 // 查询保险起期
@@ -618,22 +648,6 @@
                     plus.webview.currentWebview().close();
                 },200)
             })
-
-            //日期选择
-            mui('.date').each(function (i, d) {
-                d.addEventListener('tap', function () {
-                    document.activeElement.blur();
-                    var optionsJson = this.getAttribute('data-options') || '{}';
-                    var options = JSON.parse(optionsJson);
-                    var picker = new mui.DtPicker(options);
-                    picker.show(function (rs) {
-                        if (i === 0) {
-                            auto.biBeginDate = rs.text;
-                        }
-                        picker.dispose();
-                    });
-                }, false);
-            });
 		})
 	</script>
 </html>

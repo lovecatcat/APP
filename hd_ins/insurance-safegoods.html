@@ -266,7 +266,7 @@
                 <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==tbrhm" v-show="addonsSelected[index]">
                     <div class="mui-col-sm-6">
                         <li class="ins-font-xs">
-                            保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.period_money}}</span>
+                            保险金额(元)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].money}}</span>
                         </li>
                     </div>
                     <div class="mui-col-sm-6">
@@ -843,7 +843,8 @@
                                 safe_year: kitem.safe_year,
                                 pay_year: kitem.pay_year,
                                 money: parseInt(kitem.money),
-                                period_money: kitem.period_money
+                                period_money: kitem.period_money,
+                                draw_age: kitem.draw_age
                             }
                             vm.calMoney(i)
                         }
@@ -894,8 +895,16 @@
                         vm.addonsSelected[index] = false
                         return false
                     } else {
-                        if (vm.addonsSelected[index] && !vm.addonIns[index].period_money) {
-                            vm.calMoney(index)
+                        if (vm.addonsSelected[index]) {
+                            console.log(index + vm.addonIns[index].period_money)
+                            if (!vm.addonIns[index].period_money) {
+                                vm.calMoney(index)
+                            } else {
+                                if (index === ylnj) {
+                                    vm.addonIns[tbrhm].money = Number(vm.insurance.period_money) + Number(vm.addonIns[index].period_money)
+                                    vm.calMoney(tbrhm)
+                                }
+                            }
                         }
                     }
                     vm.countFee()
@@ -1158,6 +1167,7 @@
                 if ([fxjs, wnh, wnf].indexOf(id) > -1) {
                     main.premium = vm.insurance.period_money.toString()
                 }
+
                 basedata.productInfo.push(main)
                 console.log(JSON.stringify(basedata))
                 //是附加险
@@ -1166,7 +1176,9 @@
                         return false
                     }
                     if (index && vm.addonIns[index]) {
-                        console.log('========================')
+                        if (index === tbrhm && vm.addonsSelected[ylnj]) {
+                            vm.addonIns[index].money = Number(vm.insurance.period_money) + Number(vm.addonIns[ylnj].period_money)
+                        }
                         console.log(JSON.stringify(vm.addonIns[index]))
                         var product = {}
                         product.productId = vm.addonIns[index].safe_id
@@ -1174,12 +1186,22 @@
                         product.insure = vm.addonIns[index].safe_year
                         product.amount = vm.addonIns[index].money.toString()
                         product.premium = vm.addonIns[index].period_money.toString()
+                        console.log(JSON.stringify(product))
                         if (index === zxak || index === hjax) { //尊享安康、恒久安心
                             basedata.insurant.social_security = vm.assured.insured_has_SSID ? has_social_security : no_social_security
                         } else if (index === hs) { //恒顺
                             basedata.insurant.occupationCode = vm.assured.insured_job_code
                         }
                         basedata.productInfo.push(product)
+                        if (index === tbrhm && vm.addonsSelected[ylnj]) {
+                            basedata.productInfo.push({
+                                productId :vm.addonIns[ylnj].safe_id,
+                                pay :vm.addonIns[ylnj].pay_year,
+                                insure :vm.addonIns[ylnj].safe_year,
+                                amount :vm.addonIns[ylnj].money.toString(),
+                                premium :vm.addonIns[ylnj].period_money.toString()
+                            })
+                        }
                     }
                 }
                 console.log(JSON.stringify(basedata))
@@ -1204,6 +1226,13 @@
                                       console.log('试算附加险' + index + '成功')
                                     //试算附加险成功
                                     vm.addonIns[index].period_money = data.data.product[1].premium;
+                                    console.log(typeof index + ';' + typeof vm.addonsSelected[ylnj])
+                                    if (index === ylnj && vm.addonsSelected[ylnj]) {
+                                        vm.addonIns[tbrhm].period_money = ''
+                                        vm.addonIns[tbrhm].money = Number(vm.addonIns[index].period_money) + Number(vm.insurance.period_money)
+                                        vm.$forceUpdate()
+                                        vm.calMoney(tbrhm)
+                                    }
                                     vm.$forceUpdate()
                                 } else {
                                       console.log('试算主险' + index + '成功')

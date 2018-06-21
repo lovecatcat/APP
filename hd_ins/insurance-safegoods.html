@@ -1232,9 +1232,9 @@
                                     //试算附加险成功
                                     vm.addonIns[index].period_money = data.data.product[1].premium;
                                     console.log(typeof index + ';' + typeof vm.addonsSelected[ylnj])
-                                    if (index === ylnj && vm.addonsSelected[ylnj]) {
+                                    if (index === ylnj && vm.addonsSelected[ylnj] && vm.addonIns[tbrhm]) {
                                         vm.addonIns[tbrhm].period_money = ''
-                                        vm.addonIns[tbrhm].money = Number(vm.addonIns[index].period_money) + Number(vm.insurance.period_money)
+                                        vm.addonIns[tbrhm].money = (Number(vm.addonIns[index].period_money) + Number(vm.insurance.period_money)).toFixed(2)
                                         vm.$forceUpdate()
                                         vm.calMoney(tbrhm)
                                     }

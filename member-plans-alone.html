@@ -33,6 +33,7 @@
 					<div v-else-if="al.indexOf(Number(list.genre)) > -1" @tap="company(list.genre)">安联财险</div>
 					<div v-else-if="fx.indexOf(Number(list.genre)) > -1" @tap="company(list.genre)">复星联合</div>
 					<div v-else-if="zs.indexOf(Number(list.genre)) > -1" @tap="company(list.genre)">招商仁和</div>
+					<div v-else-if="cc.indexOf(Number(list.genre)) > -1" @tap="company(list.genre)">长城人寿</div>
 					<div @tap="clause">条款详情</div>
 					<div @tap="company_green(list.genre)" v-if="green_server">绿通服务</div>
 				</div>

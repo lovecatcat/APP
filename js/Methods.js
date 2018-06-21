@@ -621,6 +621,34 @@ var methods = {
 					toastText = '被保人年龄在18周岁到65周岁之间'
 				}
 				break	
+			//长城
+			case '00108': //长城康健人生两全保险
+				if(!this.flag[safeid]) {
+					toastText = '请先选择领取年龄'
+				} else if(mainPayYear === 1 && assuAge > 55 && this.flag['00108'] === '1') {
+					toastText = '70岁领取趸交被保人年龄不能大于55周岁'
+				} else if(mainPayYear === 5 && assuAge > 50 && this.flag['00108'] === '1') {
+					toastText = '70岁领取5年交被保人年龄不能大于50周岁'
+				} else if(mainPayYear === 10 && assuAge > 45 && this.flag['00108'] === '1') {
+					toastText = '70岁领取10年交被保人年龄不能大于45周岁'
+				} else if(mainPayYear === 15 && assuAge > 45 && this.flag['00108'] === '1') {
+					toastText = '70岁领取15年交被保人年龄不能大于45周岁'
+				} else if(mainPayYear === 20 && assuAge > 40 && this.flag['00108'] === '1') {
+					toastText = '70岁领取20年交被保人年龄不能大于40周岁'
+				} else if([1, 5, 10].indexOf(mainPayYear) > -1 && assuAge > 55 && this.flag['00108'] === '2') {
+					toastText = '75岁领取'+mainPayYear+'年交被保人年龄不能大于55周岁'
+				} else if(mainPayYear === 15 && assuAge > 50 && this.flag['00108'] === '2') {
+					toastText = '75岁领取15年交被保人年龄不能大于50周岁'
+				} else if(mainPayYear === 20 && assuAge > 45 && this.flag['00108'] === '2') {
+					toastText = '75岁领取20年交被保人年龄不能大于45周岁'
+				} else if([1, 5, 10].indexOf(mainPayYear) > -1 && assuAge > 60 && this.flag['00108'] === '3') {
+					toastText = '79岁领取'+mainPayYear+'年交被保人年龄不能大于60周岁'
+				} else if(mainPayYear === 15 && assuAge > 55 && this.flag['00108'] === '3') {
+					toastText = '79岁领取15年交被保人年龄不能大于55周岁'
+				} else if(mainPayYear === 20 && assuAge > 50 && this.flag['00108'] === '3') {
+					toastText = '79岁领取20年交被保人年龄不能大于50周岁'
+				}
+				break
 		}
 
 		if(toastText) {
@@ -849,6 +877,16 @@ var methods = {
 					toastText = '保费需为1千元整数倍'
 				} else if(!this.flag[safeid]) {
 					toastText = '请先选择职业分类'
+				}
+				break
+			//长城
+			case '00108': //长城康健人生两全保险	
+				if(money < 100000 && assuAge < 40) {
+					toastText = '被保险人小于40周岁，最低保额为10万元'
+				} else if(money < 50000 && assuAge >= 40) {
+					toastText = '被保险人大于等于40周岁，最低保额为5万元'
+				} else if(money % 10000 !== 0) {
+					toastText = '保费需为1万元整数倍'
 				}
 				break
 
@@ -2528,11 +2566,19 @@ var methods = {
 		} else if(safeid === '1016') {
 			// 招商仁和仁医保费用补偿医疗保险
 			data.flag = this.flag[safeid]
-		} else if(safeid === 'NHFA' || safeid === 'NHGA' || safeid === '110029') {
+		} else if(safeid === 'NHFA' || safeid === 'NHGA' || safeid === '110029' ) {
 //			爱心保智选医疗保险
 //			爱心保卓越医疗保险
 //复星联合乐享一生医疗保险
+
+		} else if (safeid === '00108') {
+			//长城人寿康健人生两全
 			data.flag = this.flag[safeid]
+			data.zsj = 0
+		} else if (safeid === '10522') {
+			//附加康健人生提前给付重大疾病保险
+			data.flag = this.flag['00108']
+			data.zsj = this.insurance.period_money * this.mainPayYear
 		}
 
 		if(isMain) {
@@ -2710,3 +2756,4 @@ var methods = {
 		old_back()
 	}
 }
+

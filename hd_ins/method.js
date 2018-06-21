@@ -311,11 +311,15 @@ var checkHeight = function (owner, val) {
 //校验体重
 var checkWeight = function (owner, val) {
     // console.log('校验' + owner + '体重:' + val)
+    var str = val.toString()
     if (!val) {
         mui.toast('请录入' + owner + '体重', {duration: 'short', type: 'div'});
         return false;
-    } else if (!/^\d{1,3}(.\d{0,2})?$/g.test(val)) {
-        mui.toast(owner + '体重请保留2位小数，整数部分不超过3位', {duration: 'short', type: 'div'});
+    } else if (str.indexOf('.') > -1 &&!/^[0-9]+(\.[0-9]{2})?$/.test(val)) {
+        mui.toast(owner + '体重请保留2位小数', {duration: 'short', type: 'div'});
+        return false;
+    } else if (str.length > 3 && str.indexOf('.') === -1) {
+        mui.toast(owner + '体重超出范围', {duration: 'short', type: 'div'});
         return false;
     }
     return true;

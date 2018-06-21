@@ -597,7 +597,12 @@
                 console.log('again')
                 return false;
             }
-
+            setTimeout(function () {
+                plus.nativeUI.closeWaiting();
+                index.loading = false;
+                i = 0;
+                index.getItem('zhaos_ids', 'ids');
+            }, 15000)
             var toast_text = null
             if (!war_id) {
                 war_id = ''

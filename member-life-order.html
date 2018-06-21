@@ -75,6 +75,12 @@
 									<div class="team-per-ins BL-pad-b-1 clearfloat">
 										<span>提交时间：<i>{{ item.create_time}}</i></span>
 									</div>
+									<div class="team-per-ins BL-pad-b-1 clearfloat" v-if="item.supplier_id==85">
+										<span>签名状态：<i class="BL-col-3b9cf5">{{ item.extend_items.pay_status==='1'?'已完成':'未完成'}}</i></span>
+									</div>
+									<div class="team-per-ins BL-pad-b-1 clearfloat" v-if="item.supplier_id==85">
+										<span>支付状态：<i class="BL-col-3b9cf5">{{ item.extend_items.signature_status==='1'?'已完成':'待支付'}}</i></span>
+									</div>
 								</a>
 								<div class="BL-txt-r button">
 									<a class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 cancel"
@@ -84,6 +90,7 @@
 									</a>
 									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state==0&&(item.supplier_id==19||item.supplier_id==85)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id">继续录入</a>
 									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state==0&&item.supplier_id==8" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-policyno="item.policy_no" :data-fee="item.total">去支付</a>
+									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state!=0&&item.supplier_id==8" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-policyno="item.policy_no" :data-fee="item.total">去支付</a>
 								</div>
 							</div>
 						</li>

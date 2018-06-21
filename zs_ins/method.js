@@ -42,6 +42,7 @@ var SY_TYPE = 'LAP000C'; //受益类型：身故
 var has_social_security = 'LAG000C'; //有社保
 var no_social_security = 'LAG000D';//无社保
 
+
 //证件号校验
 var IDValidate = function (type, id, owner,data) {
     console.log('IDValidate'+type+';'+ id+';'+ owner)

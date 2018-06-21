@@ -833,8 +833,8 @@
                                 mui.toast('保费不一致！', {duration: 'long', type: 'div'})
                                 return false
                             } else {
-                                mui.toast('保存成功，影像上传中', {duration: 'long', type: 'div'})
-//                                upload_img(war_id)
+                                mui.toast('保存成功，核保中', {duration: 'long', type: 'div'})
+                                upload_img(war_id)
                             }
                         } else {
                             mui.toast(JSON.stringify(res.data.uwNotPassProblem), {duration: 'long', type: 'div'})
@@ -877,11 +877,15 @@
                             showPopu('insurance-sign.html', 'zs-insurance-sign', "bottom", {
                                 id: id,
                                 appSignAddress: res.data.appSignAddress,
-                                insuredSignAddress: res.data.insuredSignAddress
+                                insuredSignAddress: res.data.insuredSignAddress ? res.data.insuredSignAddress : ''
                             });
                         } else if (res.data.isUWPass === 'N') {
                             mui.toast('进入人工核保', {duration: 'long', type: 'div'})
-                            return false
+                            showPopu('insurance-sign.html', 'zs-insurance-sign', "bottom", {
+                                id: id,
+                                appSignAddress: res.data.appSignAddress,
+                                insuredSignAddress: res.data.insuredSignAddress ? res.data.insuredSignAddress : ''
+                            });
                         }
                     } else if (res.data.flag === 'N') {
                         mui.toast(res.data.message, {duration: 'long', type: 'div'})

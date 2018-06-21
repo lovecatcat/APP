@@ -60,7 +60,8 @@
 								&& insurance.safe_id !== '1013'
 								&& insurance.safe_id !== 'NHFA'
 								&& insurance.safe_id !== 'NHGA' 
-								&& insurance.safe_id !== '110029'">
+								&& insurance.safe_id !== '110029'
+								&& insurance.safe_id !== '00108'">
 							<input slot="input" v-model.number="insurance.money" type="number" placeholder="请填写基本保险金额（元）" @change="resetFee()">
 							<div slot="icon" @tap="insurance.money = ''" v-show="insurance.money != ''" class="form-clear-icon">
 								<span class="mui-icon mui-icon-clear"></span>
@@ -100,6 +101,29 @@
 					        </button>
 					        </app-select>
 							<app-input label="基本保额">
+								<input slot="input" v-model.number.lazy="insurance.money" type="number" placeholder="请填写基本保险金额（元）" @change="resetFee()">
+								<div slot="icon" @tap="insurance.money = ''" v-show="insurance.money != ''" class="form-clear-icon">
+									<span class="mui-icon mui-icon-clear"></span>
+								</div>
+							</app-input>
+						</template>
+						<template v-else-if="insurance.safe_id == '00108'">
+							<!--长城康健人生两全保险	-->
+							<app-select label="领取年龄">
+								<button slot="button" v-for="num in 2" 
+									class="ins-btn xs-btn" 
+									:class="{'blue': num == flag[insurance.safe_id]}" 
+									:disabled="num == flag[insurance.safe_id]" @tap="flagChanged(insurance.safe_id, num)">
+					             	{{num == '1' ? '70周岁': '75周岁'}}
+					        </button>
+					        <button slot="button"
+									class="ins-btn xs-btn" 
+									:class="{'blue': '3' == flag[insurance.safe_id]}" 
+									:disabled="'3' == flag[insurance.safe_id]" @tap="flagChanged(insurance.safe_id, '3')">
+					             	79周岁
+					        </button>
+					        </app-select>
+					        <app-input label="基本保额">
 								<input slot="input" v-model.number.lazy="insurance.money" type="number" placeholder="请填写基本保险金额（元）" @change="resetFee()">
 								<div slot="icon" @tap="insurance.money = ''" v-show="insurance.money != ''" class="form-clear-icon">
 									<span class="mui-icon mui-icon-clear"></span>
@@ -1796,6 +1820,43 @@
 						</template>
 						<!--招商仁和仁医保费用补偿医疗保险-->
 						<!--招商仁和-->
+						<!--长城人寿-->
+						<!--附加康健人生提前给付重大疾病保险-->
+						<template v-if="item.code === '10522' && addonRes[item.code]">
+							<div class="mui-row form-bgc-eee BL-pad-a1">
+								<div class="mui-col-sm-6">
+									<li class="ins-font-xs">
+										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.money}}</span>
+										<div class="am-ft-orange"></div>
+									</li>
+								</div>
+								<div class="mui-col-sm-6">
+									<li class="ins-font-xs">
+										保险期间(年)&nbsp;<span class="BL-col-ff8201">终身</span>
+									</li>
+								</div>
+								<div class="mui-col-sm-6">
+									<li class="ins-font-xs">
+										缴费年限(年)&nbsp;<span class="BL-col-ff8201">{{mainPayYear}}年</span>
+									</li>
+								</div>
+								<div class="mui-col-sm-6">
+									<li class="ins-font-xs">
+										领取年龄(年)&nbsp;
+										<span class="BL-col-ff8201" v-if="flag['00108']== '1'">70周岁</span>
+										<span class="BL-col-ff8201" v-else-if="flag['00108']== '2'">75周岁</span>
+										<span class="BL-col-ff8201" v-else-if="flag['00108']== '3'">79周岁</span>
+									</li>
+								</div>
+								<div class="mui-col-sm-6">
+									<li class="ins-font-xs">
+										年缴保费(元)&nbsp;<span class="BL-col-ff8201">{{addonRes[item.code]['年缴保费']}}</span>
+									</li>
+								</div>
+							</div>
+						</template>
+						<!--附加康健人生提前给付重大疾病保险-->
+						<!--长城人寿-->
 					</div>
 				</template>
 
@@ -1815,12 +1876,12 @@
 	<script type="text/javascript">
 		const calMoneyIns = ['3188', 'ANIA', '12D00080', 'LA075', 'LA063', 'LA080'] // 算保额的主险
 		const fuMoneyIns = ['A66'] // 通过附加算主险,只有乐行天下
-		const mustSelected = ['291', '177', '11', 'RSD', 'RSC', '349', '8111', '1002'] // 必须附加的附加险
+		const mustSelected = ['291', '177', '11', 'RSD', 'RSC', '349', '8111', '1002', '10522'] // 必须附加的附加险
 		//		const noNeedCal = ['291', '11', '349', '12E20010', 'LA073', 'DAR'] // 不需要计算的险种
 		const noNeedCal = ['291', '11', '349'] // 不需要计算的险种
 		const directNeedCal = ['RH7B', 'WPJP', 'HB024', 'RSD', '1161', '1168', '1165',
 		'116502', '116503', '404', 'JCR', 'HI', 'ACIWP', 'NWPD', '33F00030', 'JER',
-		'120012','120011', 'LA073', 'WRGP', '1002', '1011', '1012'] // 直接 计算的险种
+		'120012','120011', 'LA073', 'WRGP', '1002', '1011', '1012', '10522'] // 直接 计算的险种
 		var user_id;
 		var pushData;
 		var parent_self;

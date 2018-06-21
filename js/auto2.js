@@ -223,6 +223,22 @@ var IDValidate = function (owner, id, data) {
     }
     return true;
 };
+//校验邮箱
+var checkEmail = function (owner, email) {
+    // console.log(owner + email);
+    const reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+    var toast_text = null;
+    if (!email) {
+        toast_text = owner + '邮箱不能为空';
+    } else if (!reg.test(email)) {
+        toast_text = '请输入' + owner + '正确格式的邮箱';
+    }
+    if (toast_text) {
+        mui.toast(toast_text, {duration: 'short', type: 'div'});
+        return false;
+    }
+    return true;
+};
 var generatorID = function () {
     var n = 3 //随机位数
     var time = new Date()
@@ -242,14 +258,12 @@ var setCarinsData = function (insurerCode, quote) {
     var car = JSON.parse(plus.storage.getItem('car'))
     var brand = JSON.parse(plus.storage.getItem('brand'))
     var insList = JSON.parse(plus.storage.getItem('insList'))
-
     var coverageList = []
     if (insList.ciCoverageList.length == 0) {
         coverageList = insList.biCoverageList
     } else {
         coverageList = insList.biCoverageList.concat(insList.ciCoverageList)
     }
-    console.log(JSON.stringify(coverageList))
 
     var data = {
         sale_id: bus.user_id,
@@ -270,9 +284,9 @@ var setCarinsData = function (insurerCode, quote) {
         ass_birthday: assured.birthday,
 
         address_name: address? address.name: "",
-        address_address: address? address.address: "",
+        address_address: address? (address.location + address.detail): "",
         address_mobile: address? address.mobile: "",
-        address_mail: address? address.mail: "",
+        address_mail: address? address.email: "",
 
         vehicle_owner: owner.name,
         vehicle_tel: owner.mobile,

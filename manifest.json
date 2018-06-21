@@ -1459,7 +1459,8 @@
 				],
 				"refer": [
 					"auto2c-choose.html",
-					"auto2c-supplement.html"
+					"auto2c-supplement.html",
+					"auto2c-quotes.html"
 				],
 				"priority": 0
 			},
@@ -2961,7 +2962,8 @@
 			"auto2c-business.html": {
 				"resources": [
 					"auto2c-choose.html",
-					"css/mui.css"
+					"css/mui.css",
+					"css/mui.picker.min.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -3644,6 +3646,32 @@
 					"css/plans.css",
 					"images/icon/ico-down.png",
 					"css/mui.picker.min.css"
+				],
+				"refer": [
+					"auto2c-pay.html",
+					"auto2c-statement.html",
+					"auto2c-contract.html"
+				],
+				"priority": 0
+			},
+			"auto2c-statement.html": {
+				"resources": [
+					"css/mui.css",
+					"css/mui.picker.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"auto2c-contract.html": {
+				"resources": [
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"auto2c-pay.html": {
+				"resources": [
+					"css/mui.css"
 				],
 				"refer": [],
 				"priority": 0

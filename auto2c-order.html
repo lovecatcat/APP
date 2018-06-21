@@ -97,10 +97,6 @@
                                 </div>
                                 <div class="ins-down-icon"></div>
                             </div>
-                            <!--<div class="input-wrap">-->
-                                <!--<input id="address-select" v-model="address.localtion" type="text" placeholder="请选择" readonly>-->
-                                <!--<div class="ins-down-icon"></div>-->
-                            <!--</div>-->
                         </div>
                         <div class="BL-ub BL-rel BL-mar-t-07 input-item">
                             <label>地址详情</label>
@@ -111,11 +107,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="BL-ub BL-rel BL-mar-t-07 input-item">
+                            <label>电子邮箱</label>
+                            <div class="input-wrap">
+                                <input v-model.trim.lazy="address.email" type="text" placeholder="请输入" @change="checkEmail('收件人',address.email)">
+                                <div class="form-clear-icon" v-show="address.email!=''">
+                                    <span class="mui-icon mui-icon-clear" @click="address.email =''"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-tb-1"  v-if="quote && quote.coverageList">
                     <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l mui-navigate-right">
-                        <span class="BL-col-3b9cf5">险种详情</span>
+                        <span class="BL-col-3b9cf5">商业险险种详情</span>
                     </a>
                     <div class="BL-pad-lr-1_5 mui-table-view mui-table-view-chevron" style="padding-top: 1rem">
                         <table>
@@ -211,6 +216,11 @@
                     </div>
                 </li>
             </ul>
+            <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1 BL-ftz-48">
+                <label>本人已阅读并了解</label><a class="a-link BL-col-3b9cf5" id="protocol">《投保协议》</a>和<a
+                    class="a-link BL-col-3b9cf5" id="contract">《特约信息》</a>
+                <input name="checkbox" value="Item 1" type="checkbox" v-model="promise">
+            </div>
             <div style="height: 10rem"></div>
         </div>
     </div>
@@ -220,7 +230,7 @@
                 总保费：
                 <div class="BL-col-ff8201 BL-bold" id="sum"></div>
             </div>
-            <div class="BL-foot-btn-sign" id="">
+            <div class="BL-foot-btn-sign" id="ins-save">
                 申请核保
             </div>
         </div>
@@ -246,6 +256,7 @@
         var auto = new Vue({
             el: '#Js-content',
             data: {
+                loading: false,
                 car: null, // 车辆信息
                 brand: null, // 车型信息
                 owner: null,  // 车主信息
@@ -257,12 +268,33 @@
                     name: "",
                     mobile: "",
                     location: "请选择",  // 省市区
-                    detail: ""   // 地址详情
-                }
+                    detail: "",   // 地址详情
+                    email: "",  // 电子邮箱
+                    province: "", // 省级代码
+                    city: "",     // 市级代码
+                    county: ""    // 区级代码
+                },
+                promise: false
             },
             methods: {
                 getICName: function(index) {
                     return ICName[index]
+                },
+                checkForm: function () {
+                    if (!checkName('收件人',auto.address.name)) {
+                        return false
+                    } else if (!checkPhone('收件人',auto.address.mobile)) {
+                        return false
+                    } else if (auto.address.location == '请选择') {
+                        mui.toast('请选择收件人省市区地址信息', {duration: 'short', type: 'div'});
+                        return false
+                    }else if (!auto.address.detail) {
+                        mui.toast('请填写收件人地址详情', {duration: 'short', type: 'div'});
+                        return false
+                    } else if (!checkEmail('收件人',auto.address.email)) {
+                        return false
+                    }
+                    return true
                 }
             }
         });
@@ -296,10 +328,146 @@
             document.querySelector('#address-select').addEventListener('tap', function () {
                 document.activeElement.blur();
                 cityPicker3.show(function (items) {
-                    auto.address.location = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[0], 'text') ;
+                    // 北京1、天津2 、上海3 、重庆4直辖市特殊处理
+                    auto.address.province = items[0].value
+                    if (auto.address.province == 1 || auto.address.province == 2 || auto.address.province == 3 || auto.address.province == 4) {
+                        auto.address.city = ""
+                        auto.address.county = items[1].value
+                    } else {
+                        auto.address.city = items[1].value
+                        auto.address.county = items[2].value
+                    }
+                    auto.address.location = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text') ;
                 });
             }, false);
         })
+
+        // 申请核保
+        document.querySelector('#ins-save').addEventListener('click', function () {
+            if (auto.loading) {
+                console.log('again')
+                return false;
+            }
+            setTimeout(function () {
+                plus.nativeUI.closeWaiting();
+                auto.loading = false;
+            }, 15000)
+            if (!auto.checkForm()) {
+                return false
+            }
+            if (!auto.promise) {
+                mui.toast('请确认阅读并了解《投保协议》和《特约信息》', {duration: 'long', type: 'div'});
+                return false;
+            }
+            // 本地保存收件人信息
+            plus.storage.setItem('address',JSON.stringify(auto.address));
+            auto.loading = true;
+            // 保存保单
+            var data = setCarinsData(auto.quote.insurerCode)
+            luckyAjax({
+                data: {
+                    server: 'carIns.setCarIns',
+                    view: true,
+                    data: JSON.stringify(data)
+                },
+                success: function (res) {
+                    if (res.code == 1) {
+                        // 开始申请核保
+                        online_ins()
+                    } else {
+                        mui.toast(res.msg, {duration: 'long', type: 'div'});
+                        return false;
+                    }
+                }
+            })
+        });
+        // 获取投保协议
+        document.querySelector('#protocol').addEventListener('click', function () {
+            luckyAjax({
+                data: {
+                    server: 'carIns.statement',
+                    view: true,
+                    data: JSON.stringify({
+                        companyCode: auto.quote.insurerCode
+                    })
+                },
+                success: function (res) {
+                    if (res.code == 1) {
+                        mui.openWindow({
+                            url: 'auto2c-statement.html',
+                            id: 'auto2c_statement',
+                            show: animateObj.aniDetal,
+                            extras: {
+                                statement: res.data
+                            }
+                        });
+                    } else {
+                        mui.toast("该公司没有投保协议", {duration: 'long', type: 'div'});
+                        return false;
+                    }
+                }
+            })
+        });
+
+        // 查看特约信息
+        document.querySelector('#contract').addEventListener('click', function () {
+            mui.openWindow({
+                url: 'auto2c-contract.html',
+                id: 'auto2c_contract',
+                show: animateObj.aniDetal
+            });
+        });
+
+        // 申请核保
+        function online_ins() {
+            var data= {
+                insurerCode: auto.quote.insurerCode,
+                bizID: auto.quote.bizID,
+                channelCode: auto.quote.channelCode,
+                applicantName: auto.applicant.name,
+                applicantIdNo: auto.applicant.Idno,
+                applicantMobile: auto.applicant.mobile,
+                addresseeName: auto.address.name,
+                addresseeDetails: auto.address.detail,
+                addresseeCounty: auto.address.county,
+                addresseeCity: auto.address.city,
+                addresseeProvince: auto.address.province,
+                addresseeMobile: auto.address.mobile,
+                policyEmail: auto.address.email
+            }
+            console.log(JSON.stringify(data))
+            luckyAjax({
+                data: {
+                    server: 'carIns.applyUnderwrite',
+                    view: true,
+                    data: JSON.stringify(data)
+                },
+                success: function (res) {
+                    // 同步核保状态
+
+                    if (res.code == 1) {
+                        if (res.data.synchFlag == '1') {
+                            // 转入人工核保
+                            console.log('转入人工核保')
+                            return
+                        }
+                        // 核保成功，跳转到付款页面
+                        mui.openWindow({
+                            url: 'auto2c-pay.html',
+                            id: 'auto2c_pay',
+                            show: animateObj.aniDetal,
+                            extras: {
+                                payLink: res.data.payLink
+                            }
+                        });
+
+                    } else {
+                        mui.toast(res.msg, {duration: 'long', type: 'div'});
+                        return false
+                    }
+                }
+            })
+        }
     })
 </script>
 </html>

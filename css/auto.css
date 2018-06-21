@@ -83,10 +83,18 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-
 .input-item .input {
     text-align: left;
     padding-left: 1rem;
     height: 2.9375rem;
     line-height: 2.9375rem;
+}
+.mui-radio input[type='radio']:before, .mui-checkbox input[type='checkbox']:before {
+    font-size: 2.02rem;
+}
+.mui-radio.mui-left label, .mui-checkbox.mui-left label {
+    padding-left: 3.5rem;
+}
+.mui-radio label, .mui-checkbox label {
+    width: auto;
 }

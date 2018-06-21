@@ -198,16 +198,14 @@
                         },
                         success:function(res){
                             if(res.code == 1){
-                                if(res.data == null) {
-                                    mui.toast('没有找到车辆信息，请继续填写', {duration: 'long', type: 'div'});
-                                } else {
-                                    vm.car = res.data
-                                    plus.storage.setItem('car',JSON.stringify(vm.car));
-                                    // 根据车架号、车牌号、响应码查询车型信息
-                                    vm.queryBrand(vm.car)
-                                }
+                                vm.car = res.data
+                                plus.storage.setItem('car',JSON.stringify(vm.car));
+                                // 根据车架号、车牌号、响应码查询车型信息
+                                vm.queryBrand(vm.car)
+                            } else if (res.code == 0 && res.data == null) {
+                                mui.toast('没有找到车辆信息，请继续填写', {duration: 'long', type: 'div'});
                             } else {
-                                mui.toast(data.msg, {duration: 'long', type: 'div'});
+                                mui.toast(res.msg, {duration: 'long', type: 'div'});
                             }
                         }
                     });

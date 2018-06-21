@@ -332,40 +332,25 @@
             });
         };
         //承保接口调完后
-        function afterPay(clear, e) {
+        function afterPay(clear) {
             if (clear) {
                 //清除本地缓存
                 for (var i = 0; i < itemName.length; i++) {
                     plus.storage.removeItem(itemName[i])
                 }
             }
-            if (e) { //承保成功
+            setTimeout(function () {
+                mui.openWindow({
+                    url: '../member-life-order.html',
+                    id: 'member_life_order',
+                    show: animateObj.aniDetal
+                })
                 setTimeout(function () {
-                    mui.openWindow({
-                        url: '../member-warranty-manage.html',
-                        id: 'member_warranty_manage',
-                        show: animateObj.aniDetal
-                    })
-                    plus.webview.close('member_life_order');
-                    setTimeout(function () {
-                        plus.webview.close('hd-insurance-sign');
-                        plus.webview.close('hd_insurance-index');
-                    }, 200)
-                }, 3000)
-            } else {
-                setTimeout(function () {
-                    mui.openWindow({
-                        url: '../member-life-order.html',
-                        id: 'member_life_order',
-                        show: animateObj.aniDetal
-                    })
-                    setTimeout(function () {
-                        plus.webview.close('hd-insurance-sign');
-                        plus.webview.close('hd_insurance-index');
-                        mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
-                    }, 200)
-                }, 3000)
-            }
+                    plus.webview.close('hd-insurance-sign');
+                    plus.webview.close('hd_insurance-index');
+                    mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
+                }, 500)
+            }, 3000)
         }
         //承保
         function ins_pay(id) {
@@ -384,7 +369,7 @@
                     if (res.code) {
                         if (res.data.resultCode === '00') {
                             mui.toast('承保成功', {duration: 'long', type: 'div'});
-                            afterPay(true, true)
+                            afterPay(true)
                         } else if (res.data.resultCode === '02') {
                             mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
                             afterPay(true)

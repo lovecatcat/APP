@@ -518,30 +518,22 @@
 							break;
 						case '16139':
 							//招商仁和仁安无忧意外伤害保险
-							children_base_money = list["保险金额"];
-							children_safe_year = "1年";
-							children_pay_year = "趸交"; 
-							children_year_fee = list["年缴保费"];
-							break;
 						case '16212':
 							//附加意外门急诊医疗
-							children_base_money = list["保险金额"];
-							children_safe_year = "1年";
-							children_pay_year = "趸交"; 
-							children_year_fee = list["年缴保费"];
-							break;
 						case '16214':
-							//附加住院每日补贴医疗保险"
-							children_base_money = list["保险金额"];
-							children_safe_year = "1年";
-							children_pay_year = "趸交"; 
-							children_year_fee = list["年缴保费"];
-							break;
 						case '16215':
+							//附加住院每日补贴医疗保险"
 							//附加住院费用补偿医疗保险
 							children_base_money = list["保险金额"];
 							children_safe_year = "1年";
 							children_pay_year = "趸交"; 
+							children_year_fee = list["年缴保费"];
+							break;
+						case '1191':
+							//附加康健人生提前给付重大疾病保险
+							children_base_money = content.base_money;
+							children_safe_year = '终身';
+							children_pay_year = pay_year; 
 							children_year_fee = list["年缴保费"];
 							break;
 					}

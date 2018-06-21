@@ -302,8 +302,8 @@ var checkHeight = function (owner, val) {
     if (!val) {
     	mui.toast('请录入' + owner + '身高', {duration: 'short', type: 'div'});
         return false
-    } else if (!/^\d+$/g.test(val)) {
-        mui.toast(owner + '身高请保留整数', {duration: 'short', type: 'div'});
+    } else if (!/^\d{2,3}$/g.test(val)) {
+        mui.toast(owner + '身高请保留整数,长度2-3位', {duration: 'short', type: 'div'});
         return false
     }
     return true

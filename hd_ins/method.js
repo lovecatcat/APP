@@ -314,8 +314,8 @@ var checkWeight = function (owner, val) {
     if (!val) {
         mui.toast('请录入' + owner + '体重', {duration: 'short', type: 'div'});
         return false;
-    } else if (!/^\d+(.\d{0,2})?$/g.test(val)) {
-        mui.toast(owner + '体重请保留2位小数', {duration: 'short', type: 'div'});
+    } else if (!/^\d{1,3}(.\d{0,2})?$/g.test(val)) {
+        mui.toast(owner + '体重请保留2位小数，整数部分不超过3位', {duration: 'short', type: 'div'});
         return false;
     }
     return true;

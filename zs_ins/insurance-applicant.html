@@ -91,16 +91,20 @@
                     <label class="">性别</label>
                     <div class="input-wrap box-f-1">
                         <button class="ins-btn sm-btn"
+                                v-for="(item,index) in init.gender"
                                 :class="{'blue':applicant.holder_gender===item.value}"
-                                v-for="(item,index) in init.gender" disabled>{{item.text}}
+                                @tap="applicant.holder_gender=item.value,toblur()"
+                                :disabled="IDNO.indexOf(applicant.holder_ID_type)>-1">{{item.text}}
                         </button>
                     </div>
                 </div>
                 <div class="input-item">
                     <label class="">出生日期</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" v-model.lazy="applicant.holder_birthday" placeholder="请选择" readonly>
-                        <div class="ins-date-icon"></div>
+                    <div class="input-wrap box-f-1 search-date" data-options='{"type":"date","beginYear":1950}'>
+                        <input type="text"
+                               v-model.lazy="applicant.holder_birthday"
+                               :disabled="IDNO.indexOf(applicant.holder_ID_type)>-1" placeholder="请选择" readonly>
+                        <button class="ins-date-icon" :disabled="IDNO.indexOf(applicant.holder_ID_type)>-1"></button>
                     </div>
                 </div>
                 <div class="input-item ins-pd-r-0" v-if="init&&init.marriage">

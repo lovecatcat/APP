@@ -22,7 +22,7 @@ var ISASSURED = 'LAC001C'; //被保人是本人
 var COUPLE = 'LAC001D';//投被保人为配偶
 var PARENTS = 'LAC001E';//投保人为被保人父母
 var BCOUPLE = 'LAN003H';//受益人与被保人为配偶
-var IDNO = ['LAA004A', 'LAA004B']; //身份证、户口本
+var IDNO = ['LAA004A', 'LAA004B', 'LAA004D']; //身份证、户口本
 var BOOKLET = 'LAA004B'; //户口本
 var IDcard = 'LAA004A'; //身份证
 var BORNid = 'LAA004L'; //出生证
@@ -89,13 +89,9 @@ var IDValidate = function (type, id, owner,data) {
                 }
                 break;
             case HK://港澳通行证
-                if (!(/^.[A-Za-z0-9()（）]{8,20}$/).test(id)) {
-                    toast_text = '请输入' + owner + '至少8位且有效的港澳通行证号码'
-                }
-                break;
             case TW://台湾通行证
-                if (!( /^[0-9]{8,10}$/).test(id)) {
-                    toast_text = '请输入' + owner + '正确格式的台湾通行证号码'
+                if (!(/^.[A-Za-z0-9()（）]{8,20}$/).test(id)) {
+                    toast_text = '请输入' + owner + '至少8位且有效的证件号码'
                 }
                 break;
             case SOLDIER:// 士兵证
@@ -264,7 +260,7 @@ var checkAddress = function (val, owner) {
     var toast_text = null
     var m = val.match(/[\u4e00-\u9fa5]{1}/g)
     if (!val) {
-        toast_text = '请录入' + owner + '详细地址'
+        toast_text = owner + '详细地址不能为空'
     } else if (!m || m.length < 6) {
         toast_text = owner + '详细地址填写有误,请确认至少有6个汉字且包含数字'
     } else if (!m || m.length > 50) {
@@ -397,6 +393,14 @@ var checkAppl = function (appl) {
         return false
     } else if (!checkZipcode(appl.holder_home_zip, '投保人')) {
         return false
+    } else if (!appl.mail_addr_type && !appl.holder_contact_province) {
+        toast_text = '投保人联系地址【省级】不能为空'
+    } else if (!appl.mail_addr_type && !appl.holder_contact_city) {
+        toast_text = '投保人联系地址【市级】不能为空'
+    } else if (!checkAddress(appl.holder_contact_address, '投保人联系')) {
+        return false
+    } else if (!checkZipcode(appl.holder_contact_zip, '投保人联系')) {
+        return false
     } else if (appl.mail_addr_type ) {
         ApplSameHomeAddress(appl)
     }
@@ -470,12 +474,20 @@ var checkAssured = function (assu) {
     } else if (!checkWeight('被保人', assu.insured_weight)) {
         return false
     } else if (!assu.insured_home_province) {
-        toast_text = '被保人现在住址【省级】不能为空'
+        toast_text = '被保人居住地【省级】不能为空'
     } else if (!assu.insured_home_city) {
-        toast_text = '被保人现在住址【市级】不能为空'
+        toast_text = '被保人居住地【市级】不能为空'
     } else if (!checkAddress(assu.insured_home_address, '被保人')) {
         return false
     } else if (!checkZipcode(assu.insured_home_zip, '被保人')) {
+        return false
+    } else if (!assu.insured_contact_province) {
+        toast_text = '被保人联系地址【省级】不能为空'
+    } else if (!assu.insured_contact_city) {
+        toast_text = '被保人联系地址【市级】不能为空'
+    } else if (!checkAddress(assu.insured_contact_address, '被保人联系')) {
+        return false
+    } else if (!checkZipcode(assu.insured_contact_zip, '被保人联系')) {
         return false
     }
     if (toast_text) {

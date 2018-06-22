@@ -76,10 +76,10 @@
 										<span>提交时间：<i>{{ item.create_time}}</i></span>
 									</div>
 									<div class="team-per-ins BL-pad-b-1 clearfloat" v-if="item.supplier_id==85">
-										<span>签名状态：<i class="BL-col-3b9cf5">{{ item.extend_items.pay_status==='1'?'已完成':'未完成'}}</i></span>
+										<span>签名状态：<i class="BL-col-3b9cf5">{{ item.extend_items.signature_status==='1'?'已完成':'未完成'}}</i></span>
 									</div>
 									<div class="team-per-ins BL-pad-b-1 clearfloat" v-if="item.supplier_id==85">
-										<span>支付状态：<i class="BL-col-3b9cf5">{{ item.extend_items.signature_status==='1'?'已完成':'待支付'}}</i></span>
+										<span>支付状态：<i class="BL-col-3b9cf5">{{ item.extend_items.pay_status==='1'?'已完成':'待支付'}}</i></span>
 									</div>
 								</a>
 								<div class="BL-txt-r button">
@@ -90,7 +90,8 @@
 									</a>
 									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state==0&&(item.supplier_id==19||item.supplier_id==85)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="1">继续录入</a>
 									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state==0&&item.supplier_id==8" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-policyno="item.policy_no" :data-fee="item.total">去支付</a>
-									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state!=0&&item.supplier_id==85&&(item.extend_items.pay_status==='0'||item.extend_items.signature_status==='0')" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">继续</a>
+
+									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.supplier_id==85&&([0,5].indexOf(item.state) ===-1||(item.state===5&&item.extend_items.signature_status==='0'))" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">继续</a>
 								</div>
 							</div>
 						</li>
@@ -148,7 +149,7 @@
         //阻尼系数
         var deceleration = mui.os.ios?0.003:0.0009;
         $('.mui-scroll-wrapper').scroll({
-            bounce: true,
+            bounce: false,
             indicators: false, //是否显示滚动条
             deceleration: deceleration
         });
@@ -170,7 +171,14 @@
                     contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
                     callback: function() {
                         self = this
-                        loaddata()
+                        loaddata(1)
+                    }
+                },
+                down:{
+                    callback: function() {
+                        self = this
+                        order.page = 0;
+                        loaddata(2,true);
                     }
                 }
             });
@@ -257,7 +265,7 @@
         });
     }(mui));
     //加载险种列表
-    var loaddata = function (e) {
+    var loaddata = function (type, e) {
         order.page++;
         var basedata = {
             user_id: user_id,
@@ -269,6 +277,7 @@
         }
 
         luckyAjax({
+            closeWaiting: type == 2 ? true : false,
             data: {
                 server: 'PolicyIns.PolicyManage',
                 data: JSON.stringify(basedata)
@@ -276,9 +285,19 @@
             success: function(res){
                 if(res.code == 1) {
                     if (order.page >= res.data.totalPage) {
-                        self.endPullUpToRefresh(true);
+                        if (type === 1) {
+                            self.endPullUpToRefresh(true);
+                        } else if (type === 2) {
+                            mui.toast('更新完成', {duration: 'short', type: 'div'})
+                            self.endPullDownToRefresh(true);
+                        }
                     } else {
-                        self.endPullUpToRefresh(false);
+                        if (type === 1) {
+                            self.endPullUpToRefresh();
+                        } else if (type === 2) {
+                            mui.toast('更新完成', {duration: 'short', type: 'div'})
+                            self.endPullDownToRefresh();
+                        }
                     }
                     if (e) {
                         order.listdata = res.data.list;

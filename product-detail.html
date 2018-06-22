@@ -16,7 +16,7 @@
     <div class="BL-mod-headbar BL-mod-headbar-pos">
         <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
         <h1 class="BL-title">产品详情</h1>
-        <!--<a class="BL-icon BL-icon-share"></a>-->
+        <a id="Js-openShare" class="BL-icon BL-icon-share"></a>
     </div>
 </header>
 
@@ -25,6 +25,7 @@
         <div class="plans-detail-fixed">
             <div class="a-link" href="product-company.html" data-wid="product_company" :data-pid="info.id">保险公司</div>
             <div @click="showStatement">条款详情</div>
+            <a id="Js-openShare" class="BL-icon BL-icon-share"></a>
         </div>
         <div id="Js-content" class="mui-content mobile_details BL-overFlow-autoY" v-html="info.mobile_details"></div>
 
@@ -68,6 +69,7 @@
 <script src="js/vue.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/mui.zoom.js" ></script>
 <script type="text/javascript" src="js/mui.previewimage.js" ></script>
+<script src="js/plusShare.js"></script>
 <script type="text/javascript">
     mui.init();
 
@@ -185,7 +187,27 @@
                     }
                 }
             });
+            
         }
+        
+       document.getElementById("Js-openShare").addEventListener("tap", function() {
+			    //分享内容，开发者可自定义
+			    var message = {
+			        title: "产品详情", //名字
+			        content: "保险+ ——为保险展业创造无限可能",
+			        href: config.domain + "/share/AppShare.html?id="+pid +"#/productDetail", //分享出去后，点击跳转地址
+			        thumbs: ["_www/images/pic/logo.png"] //分享缩略图
+			    }
+			    //调起分享
+			    plusShare(message, function(res) {
+			        //分享回调函数
+			        if(res) {
+			            plus.nativeUI.toast("分享成功");
+			        } else {
+			            plus.nativeUI.toast("分享失败");
+			        }
+			    })
+			});
     })
 </script>
 

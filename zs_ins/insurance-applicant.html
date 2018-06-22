@@ -412,7 +412,7 @@
         var idtype = new mui.PopPicker();
         var appltype = []
         mui.each(init.ID_type,function (index,item) {
-            if(typename[item.value]){
+            if (typename[item.value] && item.value !== BORNid) {
                 appltype.push(item)
             }
         })

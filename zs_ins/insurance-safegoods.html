@@ -490,9 +490,9 @@
                 var tempdata = {}
                 switch (safe_id) {
                     case abh: //爱倍护
-                        tempdata[hmzj] = true //附加豁免保险费重大疾病保险
-                        tempdata[tbrhmds] = vm.noSamePerson //附加投保人豁免保险费定期寿险
-                        tempdata[tbrhmzj] = vm.noSamePerson //附加投保人豁免保险费重大疾病保险
+                        tempdata[hmzj] = pay_year > 1 //附加豁免保险费重大疾病保险
+                        tempdata[tbrhmds] = pay_year > 1 && vm.noSamePerson //附加投保人豁免保险费定期寿险
+                        tempdata[tbrhmzj] = pay_year > 1 && vm.noSamePerson //附加投保人豁免保险费重大疾病保险
                         tempdata[ylnj] = true //附加爱倍护养老年金
                         tempdata[zybc] = true //附加住院补偿
                         tempdata[zybt] = true //附加住院每日补贴
@@ -590,15 +590,14 @@
                     var toast_text = null
                     var name = vm.Addons[index].name
                     var safe_id = vm.insurance.code
+                    var pay_year = vm.insurance.pay_year
                     switch (index) {
                         case tbrhmds:
                         case tbrhmzj:
                             if (!this.noSamePerson && vm.addonsSelected[index]) {
-                                toast_text = '投保人和被保人是同一人时，不能附加' + name
+                                toast_text = '投保人和被保人是同一人时，不能附加【' + name + '】'
                                 vm.addonsSelected[index] = false
                             }
-                            vm.isExempted = vm.addonsSelected[index]
-                            vm.healthinfoOk = false
                             break
                         default:
                             break
@@ -718,7 +717,6 @@
             },
             checkMoney: function() {
                 var money = Number(this.insurance.money)
-                var period_money = Number(this.insurance.period_money)
                 var name = this.insurance.name
                 var toast_text = null
                 switch (this.insurance.code) {
@@ -878,13 +876,11 @@
                                 mui.each(res.describes, function (index, item) {
                                     data[item.title] = res.list[1][index]
                                 })
-                                if (index == ylnj) {
-                                    vm.addonsSelected[hmzj] = false
+                                if (index == ylnj && vm.addonIns[hmzj]) {
                                     vm.addonIns[hmzj].money = vm.insurance.period_money + Number(data['年缴保费'])
+                                    vm.calMoney(hmzj)
                                 }
-                                console.log(vm.addonIns[hmzj].money)
                                 vm.addonIns[index].period_money = data['年缴保费']
-                                console.log(vm.addonIns[index].period_money)
                                 vm.$forceUpdate()
                                 vm.countFee()
                             } else {
@@ -1067,7 +1063,7 @@
                     }
                 }
             }
-            if (!safe.addonsSelected[hmzj]) {
+            if (safe.insurance.pay_year!==1 && !safe.addonsSelected[hmzj]) {
                 mui.toast('招商仁和【附加豁免保险费重大疾病保险】为必选', {duration: 'long', type: 'div'});
                 return false
             }

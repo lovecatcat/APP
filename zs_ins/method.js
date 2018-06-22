@@ -317,23 +317,30 @@ var checkEarnings = function (owner, value) {
 };
 //校验身高
 var checkHeight = function (owner, val) {
+    var str = val.toString()
     if (!val) {
-        this.$toast.open('请录入' + owner + '身高')
-        return false
-    } else if (!/^\d+$/g.test(val)) {
-        mui.toast(owner + '身高请保留整数', {duration: 'short', type: 'div'});
-        return false
+        mui.toast('请录入' + owner + '身高', {duration: 'short', type: 'div'});
+        return false;
+    } else if (str.indexOf('.') > -1 &&!/^[0-9]+(\.[0-9]{2})?$/.test(val)) {
+        mui.toast(owner + '身高请保留2位小数', {duration: 'short', type: 'div'});
+        return false;
+    } else if (str.length > 3 && str.indexOf('.') === -1) {
+        mui.toast(owner + '身高超出范围', {duration: 'short', type: 'div'});
+        return false;
     }
     return true
 };
 //校验体重
 var checkWeight = function (owner, val) {
-    // console.log('校验' + owner + '体重:' + val)
+    var str = val.toString()
     if (!val) {
         mui.toast('请录入' + owner + '体重', {duration: 'short', type: 'div'});
         return false;
-    } else if (!/^\d+(.\d{0,2})?$/g.test(val)) {
+    } else if (str.indexOf('.') > -1 &&!/^[0-9]+(\.[0-9]{2})?$/.test(val)) {
         mui.toast(owner + '体重请保留2位小数', {duration: 'short', type: 'div'});
+        return false;
+    } else if (str.length > 3 && str.indexOf('.') === -1) {
+        mui.toast(owner + '体重超出范围', {duration: 'short', type: 'div'});
         return false;
     }
     return true;

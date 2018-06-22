@@ -625,27 +625,27 @@ var methods = {
 			case '00108': //长城康健人生两全保险
 				if(!this.flag[safeid]) {
 					toastText = '请先选择领取年龄'
-				} else if(mainPayYear === 1 && assuAge > 55 && this.flag['00108'] === '1') {
+				} else if(mainPayYear === 1 && assuAge > 55 && this.flag['00108'] === 1) {
 					toastText = '70岁领取趸交被保人年龄不能大于55周岁'
-				} else if(mainPayYear === 5 && assuAge > 50 && this.flag['00108'] === '1') {
+				} else if(mainPayYear === 5 && assuAge > 50 && this.flag['00108'] === 1) {
 					toastText = '70岁领取5年交被保人年龄不能大于50周岁'
-				} else if(mainPayYear === 10 && assuAge > 45 && this.flag['00108'] === '1') {
+				} else if(mainPayYear === 10 && assuAge > 45 && this.flag['00108'] === 1) {
 					toastText = '70岁领取10年交被保人年龄不能大于45周岁'
-				} else if(mainPayYear === 15 && assuAge > 45 && this.flag['00108'] === '1') {
+				} else if(mainPayYear === 15 && assuAge > 45 && this.flag['00108'] === 1) {
 					toastText = '70岁领取15年交被保人年龄不能大于45周岁'
-				} else if(mainPayYear === 20 && assuAge > 40 && this.flag['00108'] === '1') {
+				} else if(mainPayYear === 20 && assuAge > 40 && this.flag['00108'] === 1) {
 					toastText = '70岁领取20年交被保人年龄不能大于40周岁'
-				} else if([1, 5, 10].indexOf(mainPayYear) > -1 && assuAge > 55 && this.flag['00108'] === '2') {
+				} else if([1, 5, 10].indexOf(mainPayYear) > -1 && assuAge > 55 && this.flag['00108'] === 2) {
 					toastText = '75岁领取'+mainPayYear+'年交被保人年龄不能大于55周岁'
-				} else if(mainPayYear === 15 && assuAge > 50 && this.flag['00108'] === '2') {
+				} else if(mainPayYear === 15 && assuAge > 50 && this.flag['00108'] === 2) {
 					toastText = '75岁领取15年交被保人年龄不能大于50周岁'
-				} else if(mainPayYear === 20 && assuAge > 45 && this.flag['00108'] === '2') {
+				} else if(mainPayYear === 20 && assuAge > 45 && this.flag['00108'] === 2) {
 					toastText = '75岁领取20年交被保人年龄不能大于45周岁'
-				} else if([1, 5, 10].indexOf(mainPayYear) > -1 && assuAge > 60 && this.flag['00108'] === '3') {
+				} else if([1, 5, 10].indexOf(mainPayYear) > -1 && assuAge > 60 && this.flag['00108'] === 3) {
 					toastText = '79岁领取'+mainPayYear+'年交被保人年龄不能大于60周岁'
-				} else if(mainPayYear === 15 && assuAge > 55 && this.flag['00108'] === '3') {
+				} else if(mainPayYear === 15 && assuAge > 55 && this.flag['00108'] === 3) {
 					toastText = '79岁领取15年交被保人年龄不能大于55周岁'
-				} else if(mainPayYear === 20 && assuAge > 50 && this.flag['00108'] === '3') {
+				} else if(mainPayYear === 20 && assuAge > 50 && this.flag['00108'] === 3) {
 					toastText = '79岁领取20年交被保人年龄不能大于50周岁'
 				}
 				break
@@ -886,7 +886,7 @@ var methods = {
 				} else if(money < 50000 && assuAge >= 40) {
 					toastText = '被保险人大于等于40周岁，最低保额为5万元'
 				} else if(money % 10000 !== 0) {
-					toastText = '保费需为1万元整数倍'
+					toastText = '保额需为1万元整数倍'
 				}
 				break
 

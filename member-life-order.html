@@ -88,9 +88,9 @@
 									   :data-index="index"
 									   v-if="item.ins_state_name=='待投保' || item.ins_state_name=='待支付'">取消订单
 									</a>
-									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state==0&&(item.supplier_id==19||item.supplier_id==85)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id">继续录入</a>
+									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state==0&&(item.supplier_id==19||item.supplier_id==85)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="1">继续录入</a>
 									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state==0&&item.supplier_id==8" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-policyno="item.policy_no" :data-fee="item.total">去支付</a>
-									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state!=0&&item.supplier_id==8" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-policyno="item.policy_no" :data-fee="item.total">去支付</a>
+									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state!=0&&item.supplier_id==85&&(item.extend_items.pay_status==='0'||item.extend_items.signature_status==='0')" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">继续</a>
 								</div>
 							</div>
 						</li>
@@ -220,6 +220,7 @@
                 var policyid = _this.getAttribute('data-policyid')
                 var orderno = _this.getAttribute('data-policyno')
                 var fee = _this.getAttribute('data-fee')
+                var type = _this.getAttribute('data-type')
                 var url = null
                 var id = null
                 var extras = null
@@ -227,9 +228,13 @@
                     url = 'hd_ins/insurance-index.html'
                     id = 'hd_insurance-index'
                     extras = {policy_id: policyid}
-                } else if (supplier_id == 85) {
+                } else if (supplier_id == 85 && type === '1') {
                     url = 'zs_ins/insurance-index.html'
                     id = 'zs_insurance-index'
+                    extras = {policy_id: policyid}
+                } else if (supplier_id == 85 && type === '2') {
+                    url = 'zs_ins/order-to-pay.html'
+                    id = 'order_to_pay'
                     extras = {policy_id: policyid}
                 } else if (supplier_id == 8) {
                     console.log(policyid)

@@ -1483,7 +1483,7 @@ var methods = {
 					toastText = '投保人年龄不能大于65周岁'
 				} else if(mainPayYear === 15 && applAge > 60) {
 					toastText = '14年交投保人年龄不能大于60周岁'
-				} else if(mainPayYear === 19 && applAge > 55) {
+				} else if(mainPayYear === 20 && applAge > 55) {
 					toastText = '19年交投保人年龄不能大于55周岁'
 				} 
 				break
@@ -2242,6 +2242,7 @@ var methods = {
 			// 恒大附加投保人豁免保费重大疾病保险2017版
 			data.pay_year = py
 			data.safe_year = py
+			data.year_fee = 0
 			if(this.addonRes['LA078']) {
 				data.base_money = Number(periodMoney) + Number(this.addonRes['LA078']['年缴保费'])
 			} else {
@@ -2284,6 +2285,7 @@ var methods = {
 			data.pay_year = py
 			data.safe_year = py
 			data.year_fee = periodMoney
+			data.base_money = periodMoney
 		} else if(safeid === 'RSD') {
 			// 乐行天下附加
 			data.pay_year = this.mainPayYear
@@ -2570,7 +2572,7 @@ var methods = {
 //			爱心保智选医疗保险
 //			爱心保卓越医疗保险
 //复星联合乐享一生医疗保险
-
+			data.flag = this.flag[safeid]
 		} else if (safeid === '00108') {
 			//长城人寿康健人生两全
 			data.flag = this.flag[safeid]
@@ -2684,6 +2686,9 @@ var methods = {
 						period_money: vm.addonRes[safeid]['年缴保费'] || vm.addonRes[safeid]['年缴保费(元)'] || vm.addonRes[safeid]['累计保费'] || vm.addonRes[safeid]['门诊总保费'] || ret.data.data[-1][genre].year_fee || 0, // 年交保费
 						flag: ret.data.data[-1][genre].flag,
 						fj: true
+					}
+					if(safeid == 'JER') {
+						list.safe_year = vm.mainSafeYear
 					}
 					if(list.period_money == 0) {
 						mui.toast('超出费率表计算范围，无法投保')

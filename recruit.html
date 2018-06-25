@@ -15,7 +15,7 @@
 <header id="Js-header" class="req-header">
 	<a class="mui-action-back mui-icon-left-nav BL-icon req-iconLeft"></a>	
 	<div class="BL-ub BL-ub-ver BL-ub-ac bd">
-		<img src="images/member/req-hm.png" style="width: 18.6875rem;" />
+		<img id="Js-logo" src="images/member/req-hm.png" style="width: 18.6875rem;" />
 		<div class="req-context">
 			<img id="Js-avatar" src="images/icon/avatar-default.png" />
 			<p><span id="Js-name">&nbsp;</span>的专属二维码</p>
@@ -24,12 +24,12 @@
 </header>
 
 <div class="req-content">
-	<img src="images/member/req-title.png" />
+	<img id="Js-title" src="images/member/req-title.png" />
 	<div class="BL-ub BL-ub-ac BL-ub-ver">
 		<div class="req-wechat">
 			<img id="Js-cord" src="" style="width: 100%;height: 100%;" />		
 		</div>
-		<img src="images/member/req-tap.png" />
+		<img id="Js-desic" src="images/member/req-tap.png" />
 	</div>
 </div>
 
@@ -46,11 +46,19 @@
     (function ($) {
         $.plusReady(function () {
         	var userinfo = JSON.parse(plus.storage.getItem('userinfo'));
+        	var channel_id = JSON.parse(plus.storage.getItem('channel_info')).channel_id;
             statusbar();
         	
         	document.getElementById('Js-cord').setAttribute('src', config.baseUrl + '?server=user.getQrcode&device=mobile&data={"user_id":"'+ userinfo.id +'"}');
         	document.getElementById('Js-avatar').setAttribute('src', userinfo.avatar !='' ? userinfo.avatar : 'images/icon/avatar-default.png');
 	        document.getElementById('Js-name').innerText = userinfo.user_name;
+	        
+	        if(channel_id == 4){
+	        	document.getElementById('Js-logo').setAttribute('src', 'images/member/req-sc.png');
+	        	document.getElementById('Js-title').setAttribute('src', 'images/member/req-title-sc.png');	
+	        	document.getElementById('Js-desic').setAttribute('src', 'images/member/req-tap-sc.png');		
+	        };
+	        
 	        
 	        document.getElementById("Js-cord").addEventListener("longtap", function() {
 			    //分享内容，开发者可自定义

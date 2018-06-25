@@ -327,6 +327,7 @@
                     if (data.code === 1) {
                         mui.toast(data.msg, {duration: 'short', type: 'div'});
                         plus.storage.setItem('userinfo', JSON.stringify(data.data));
+                        plus.storage.setItem('channel_info', JSON.stringify({channel_id: channel_id}));
                         if (data.data.password_flag) {
                             if(!data.data.password_strong){
                                 login.flag = true

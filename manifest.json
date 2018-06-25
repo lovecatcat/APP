@@ -6,7 +6,7 @@
 	"id": "H517AA33E",
 	"name": "保险+",
 	"version": {
-		"name": "1.9.0548",
+		"name": "1.9.0623",
 		"code": "83"
 	},
 	"description": "保险plus mobile",
@@ -256,8 +256,7 @@
 			"rp": false,
 			"splash": false,
 			"push": false
-		},
-		"adid": ""
+		}
 	},
 	"dependencies": {
 		"pages": {

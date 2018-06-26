@@ -397,9 +397,9 @@ var checkAppl = function (appl) {
         toast_text = '投保人联系地址【省级】不能为空'
     } else if (!appl.mail_addr_type && !appl.holder_contact_city) {
         toast_text = '投保人联系地址【市级】不能为空'
-    } else if (!checkAddress(appl.holder_contact_address, '投保人联系')) {
+    } else if (!appl.mail_addr_type && !checkAddress(appl.holder_contact_address, '投保人联系')) {
         return false
-    } else if (!checkZipcode(appl.holder_contact_zip, '投保人联系')) {
+    } else if (!appl.mail_addr_type && !checkZipcode(appl.holder_contact_zip, '投保人联系')) {
         return false
     } else if (appl.mail_addr_type ) {
         ApplSameHomeAddress(appl)

@@ -607,7 +607,25 @@
                         vm.addonsSelected[index] = false
                         return false
                     } else {
-                        console.log('2')
+                        if (vm.addonsSelected[index]) {
+                            console.log(index + vm.addonIns[index].period_money)
+                            if (!vm.addonIns[index].period_money) {
+                                vm.calMoney(index)
+                            } else {
+                                if (index === ylnj) {
+                                    vm.recalhm(hmzj, true)
+                                    vm.recalhm(tbrhmds, true)
+                                    vm.recalhm(tbrhmzj, true)
+                                }
+                            }
+                        } else {
+                            if (index === ylnj) {
+                                vm.recalhm(hmzj,false)
+                                vm.recalhm(tbrhmds,false)
+                                vm.recalhm(tbrhmzj,false)
+                            }
+                        }
+
                         if (vm.addonsSelected[index] && !vm.addonIns[index].period_money) {
                             vm.calMoney(index)
                         }
@@ -615,6 +633,18 @@
                     vm.countFee()
                     vm.$forceUpdate()
                 })
+            },
+            recalhm: function (index, njselected) {
+                if (this.addonIns[index]) {
+                    if (njselected) {
+                        this.addonIns[index].money = (Number(this.insurance.period_money) + Number(this.addonIns[ylnj].period_money)).toFixed(2)
+                    } else {
+                        this.addonIns[index].money = this.insurance.period_money
+                    }
+                    if (this.addonsSelected[index]) {
+                        this.calMoney(index)
+                    }
+                }
             },
             countFee: function () {
                 var sum = 0
@@ -844,7 +874,7 @@
                 } else if (hmx.indexOf(index) > -1) {
                     if (vm.addonsSelected[ylnj]) {
                         console.log(this.insurance.period_money+';'+vm.addonIns[ylnj].period_money)
-                        basedata.base_money = this.insurance.period_money + Number(vm.addonIns[ylnj].period_money)
+                        basedata.base_money = (Number(this.insurance.period_money) + Number(vm.addonIns[ylnj].period_money)).toFixed(2)
                         vm.addonIns[index].money = basedata.base_money
                     }
                     if (index === tbrhmds) {
@@ -876,11 +906,13 @@
                                 mui.each(res.describes, function (index, item) {
                                     data[item.title] = res.list[1][index]
                                 })
-                                if (index == ylnj && vm.addonIns[hmzj]) {
-                                    vm.addonIns[hmzj].money = vm.insurance.period_money + Number(data['年缴保费'])
-                                    vm.calMoney(hmzj)
-                                }
                                 vm.addonIns[index].period_money = data['年缴保费']
+                                if (index == ylnj) {
+                                    vm.recalhm(hmzj, true)
+                                    vm.recalhm(tbrhmds, true)
+                                    vm.recalhm(tbrhmzj, true)
+                                }
+
                                 vm.$forceUpdate()
                                 vm.countFee()
                             } else {

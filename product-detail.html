@@ -39,15 +39,15 @@
                     </div>
                 </div>
                 <div class="BL-foot-btn-sign a-link" data-wid="hd_insurance-index" href="hd_ins/insurance-index.html"
-                     v-if="info.company_id===19">
+                     v-if="info.company_id===19&&info.online_insure">
                     我要投保
                 </div>
                 <div class="BL-foot-btn-sign a-link" data-wid="pa_insurance-index" href="paehis/pa-healthinfo.html"
-                     v-else-if="info.company_id===8">
+                     v-else-if="info.company_id===8&&info.online_insure">
                     我要投保
                 </div>
                 <div class="BL-foot-btn-sign a-link" data-wid="zs_insurance-index" href="zs_ins/insurance-index.html"
-                     v-else-if="info.company_id===85">
+                     v-else-if="info.company_id===85&&info.online_insure">
                     我要投保
                 </div>
                 <div class="BL-foot-btn-sign" @tap="toastMsg" v-else>

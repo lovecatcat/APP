@@ -104,6 +104,8 @@
                     <button class="right-btn gray" :class="{'active':longTerm}" @tap="longTerm=!longTerm,toblur()" :disabled="[BOOKLET,BORNid].indexOf(beneficiary.ID_type)>-1">长期有效</button>
                 </div>
             </div>
+            <div class="input-item ins-font-xs BL-col-999" v-show="beneficiary.ID_type===BORNid">出生证有效期应为<span class="BL-col-ff8201">出生日期+1年</span></div>
+            <div class="input-item ins-font-xs BL-col-999" v-show="beneficiary.ID_type===BOOKLET">户口本有效期应为<span class="BL-col-ff8201">出生日期+16年</span></div>
             <div class="input-item">
                 <label class="">性别</label>
                 <div class="input-wrap box-f-1">
@@ -452,10 +454,6 @@
                         vm.beneficiary.ID_no = ''
                         vm.beneficiary.ID_type = items[0].value;
                         vm.beneficiary.ID_type_name = items[0].text;
-                        if (vm.beneficiary.ID_type === BOOKLET) {
-                            vm.beneficiary.ID_expire_end = '9999-12-31'
-                            vm.longTerm = true
-                        }
                     })
                 })
                 //日期选择
@@ -494,7 +492,7 @@
         bene.init = init;
         var beneidtype = []
         mui.each(init.ID_type,function (index,item) {
-            if(typename[item.value]){
+            if(typename[item.value] && item.value !== SOLDIER){
                 beneidtype.push(item)
             }
         })

@@ -794,6 +794,7 @@
             //试算
             toCal: function (index, genre) {
                 console.log('试算中');
+                console.log(JSON.stringify(this.assured))
                 var vm = this
                 if (!vm.checkForm()) {
                     return false
@@ -869,6 +870,7 @@
                     basedata.assu_sex = 0
                     basedata.flag = ssid + vm.assured.insured_job_cate
                 } else if ([zybc, zybt].indexOf(index) > -1) {
+                    console.log('住院补偿' + vm.assured.insured_job_cate)
                     basedata.assu_sex = 0
                     basedata.flag = vm.assured.insured_job_cate
                 } else if (hmx.indexOf(index) > -1) {

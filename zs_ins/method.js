@@ -123,7 +123,7 @@ var getAge = function (str) {
         return parseInt(item);
     });
     var age = year - r[0];
-    if (r[1] > month || (r[1] === month && r[2] >= day)) { // 当月
+    if (r[1] > month || (r[1] === month && r[2] > day)) { // 当月
         age -= 1;
     }
     return age;
@@ -343,6 +343,7 @@ var checkWeight = function (owner, val) {
 };
 //投保人通讯地址同居住地址
 var ApplSameHomeAddress = function (appl) {
+    console.log('ApplSameHomeAddress')
     appl.holder_contact_province = appl.holder_home_province //居住地【省】
     appl.holder_contact_city = appl.holder_home_city //居住地【市】
     appl.holder_contact_district = appl.holder_home_district //居住地【区】
@@ -501,22 +502,12 @@ var checkAssured = function (assu) {
 var astypeChange = function (owner) {
     if (owner === '投保人') {
         appl.applicant.holder_ID_no = ''
-        if (appl.applicant.holder_ID_type === BOOKLET) {
-            appl.applicant.holder_ID_expire_end = '9999-12-31'
-            appl.longTerm = true
-        } else {
-            appl.applicant.holder_ID_expire_end = ''
-            appl.longTerm = false
-        }
+        appl.applicant.holder_ID_expire_end = ''
+        appl.longTerm = false
     } else if (owner === '被保人') {
         assu.assured.insured_ID_no = ''
-        if (assu.assured.insured_ID_type === BOOKLET) {
-            assu.assured.insured_ID_expire_end = '9999-12-31'
-            assu.longTerm = true
-        } else {
-            assu.assured.insured_ID_expire_end = ''
-            assu.longTerm = false
-        }
+        assu.assured.insured_ID_expire_end = ''
+        assu.longTerm = false
     }
 };
 //获取市/区
@@ -589,8 +580,8 @@ var AssuSameApplAddress = function (assu,appl) {
 var RSChanged = function(assu,applicant) {
     if(assu.rel_holder_insured ===ISASSURED){
         assu.insured_name= applicant.holder_name //姓名
-        assu.insured_ID_type= IDcard //证件类型
-        assu.insured_ID_type_name= '身份证' //证件类型名
+        assu.insured_ID_type= applicant.holder_ID_type //证件类型
+        assu.insured_ID_type_name= applicant.holder_ID_type_name //证件类型名
         assu.insured_ID_no= applicant.holder_ID_no //证件号码
         assu.insured_birthday= applicant.holder_birthday //出生日期
         assu.insured_ID_expire_end= applicant.holder_ID_expire_end //证件有效期
@@ -602,8 +593,6 @@ var RSChanged = function(assu,applicant) {
         assu.insured_nation= NATION//国籍
         assu.insured_nation_name= '中国'//国籍
         assu.insured_company= applicant.holder_company//工作单位
-        assu.insured_salary_from= applicant.holder_salary_from//收入来源
-        assu.insured_salary_from_name= applicant.holder_salary_from_name//收入来源名
         assu.insured_salary_avg= applicant.holder_salary_avg//年收入
         assu.addr_type= true//是否所有地址同投保人
         assu.insured_has_SSID= applicant.holder_has_SSID//是否有社保

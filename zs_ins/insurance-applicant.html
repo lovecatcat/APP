@@ -416,7 +416,7 @@
         var idtype = new mui.PopPicker();
         var appltype = []
         mui.each(init.ID_type,function (index,item) {
-            if (typename[item.value] && item.value !== BORNid) {
+            if (typename[item.value] && item.value !== BORNid && item.value !== BOOKLET && item.value !== SOLDIER) {
                 appltype.push(item)
             }
         })
@@ -564,7 +564,9 @@
             }
             var assured = plus.storage.getItem('zhaos_assured') ? JSON.parse(plus.storage.getItem('zhaos_assured')) : ''
             if (assured && assured.rel_holder_insured === ISASSURED) {
-                if(!RSChanged(assured, appl.applicant)){return false}
+                if (!RSChanged(assured, appl.applicant)) {
+                    return false
+                }
                 if (!checkAssured(assured)) {
                     return false
                 }

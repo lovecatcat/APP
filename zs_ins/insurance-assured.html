@@ -82,6 +82,8 @@
                             <button class="right-btn gray" :class="{'active':longTerm}" @tap="longTerm=!longTerm,toblur()" :disabled="[BOOKLET,BORNid].indexOf(assured.insured_ID_type)>-1">长期有效</button>
                         </div>
                     </div>
+                    <div class="input-item ins-font-xs BL-col-999" v-show="assured.insured_ID_type===BORNid">出生证有效期应为<span class="BL-col-ff8201">出生日期+1年</span></div>
+                    <div class="input-item ins-font-xs BL-col-999" v-show="assured.insured_ID_type===BOOKLET">户口本有效期应为<span class="BL-col-ff8201">出生日期+16年</span></div>
                 </div>
                 <div class="form-wrap margin-t_875">
                     <div class="border-b-e7e7e7">
@@ -485,7 +487,7 @@
         var idtype = new mui.PopPicker();
         var assutype = []
         mui.each(init.ID_type,function (index,item) {
-            if(typename[item.value]){
+            if(typename[item.value] && item.value !== SOLDIER){
                 assutype.push(item)
             }
         })
@@ -539,6 +541,7 @@
                 assu.assured.insured_job_name = items1[0].text;
                 assu.assured.insured_job_code = arr;
                 assu.assured.temp_insured_job_code = items1[0].value
+                assu.assured.insured_job_cate = items1[0].cate;
                 getOccu(items1[0].value, function (res1) {
                     if (!res1) return
                     arrOccu[1].setData(res1)

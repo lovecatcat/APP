@@ -243,9 +243,9 @@
                                 appl_data.holder_job_code = da.insData.holder_job_code//职业
                                 appl_data.temp_holder_job_code = da.insData.holder_job_code_code//职业代码
                                 appl_data.holder_job_name = da.insData.holder_job_code_text//职业名称
+                                appl_data.holder_job_cate = da.insData.holder_job_category.enum_value//职业分类
                                 appl_data.holder_isTaxResidents = TAXTYPE //税收标识
                                 appl_data.resident_type = da.insData.extend_items.resident_type //居民类型
-                                console.log('111')
                                 console.log(JSON.stringify(appl_data))
                                 //被保人
                                 assu_data.rel_holder_insured = da.insured.rel_holder_insured
@@ -297,6 +297,7 @@
                                     assu_data.insured_job_code = da.insured.insured_job_code//职业
                                     assu_data.temp_insured_job_code = da.insured.insured_job_code_code//职业代码
                                     assu_data.insured_job_name = da.insured.insured_job_code_text//职业名称
+                                    assu_data.insured_job_cate = da.insured.insured_job_category.enum_value//职业分类
                                     assu_data.insured_isTaxResidents = TAXTYPE//税收标识
                                 }
                                 console.log(JSON.stringify(assu_data))

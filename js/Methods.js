@@ -1026,6 +1026,10 @@ var methods = {
 							} else if(this.insurance.period_money < 3000) {
 								toastText = '期交保费小于3千元时不可附加该险种'
 							}
+						} else if(index === "HB024") {
+							if(this.insurance.money < 200000 && this.insurance.period_money < 3000) {
+								toastText = '主险保额小于20万元或期交保费小于3千元时不可附加该险种'
+							}
 						}
 						break
 					case 'LE234': // 千万护航

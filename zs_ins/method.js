@@ -17,7 +17,7 @@ var ywmjz = '1015';//附加意外门急诊
 
 var hmx = ['1002','1011','1012'] //豁免险种
 
-var typename = {'LAA004A': '身份证', 'LAA004B': '户口簿', 'LAA004D': '军人身份证','LAA004G':'中国护照','LAA004L':'出生证','LAA004K':'港澳台居民往来内地通行证'}
+var typename = {'LAA004A': '身份证', 'LAA004B': '户口簿', 'LAA004D': '军人身份证','LAA004G':'中国护照','LAA004L':'出生证','LAA004K':'港澳台居民往来内地通行证','LAA004M':'外国护照'}
 var ISASSURED = 'LBK002H'; //被保人是本人
 var COUPLE = 'LBK0021';//投被保人为配偶
 var PARENTS = 'LBK002J';//投保人为被保人父母
@@ -33,7 +33,6 @@ var PASSPORT = 'LAA004G';//中国护照
 var MALE = 'LAB0017'; //男
 var FEMALE = 'LAB0018'; //女
 var TAXTYPE = 'LAH0007'; //仅为中国税收居民
-var NATION = 'LAI005L'; //中国
 var unknowmarry = 'LAD001B' ;//婚姻状况未知
 var benerel = ['LAN003G','LAN003K'] ;//不支持的受益人关系
 
@@ -96,6 +95,7 @@ var IDValidate = function (type, id, owner,data) {
                     toast_text = '请输入' + owner + '正确格式的军人证号码'
                 }
                 break;
+            case FID:// 外国护照
             case PASSPORT:// 护照
                 if (!(/^.[A-Za-z0-9]{4,20}$/).test(id)) {
                     toast_text = '请输入' + owner + '3位以上有效的证件号码'
@@ -373,6 +373,8 @@ var checkAppl = function (appl) {
         return false
     } else if (!appl.temp_holder_job_code) {
         toast_text = '投保人职业不能为空'
+    } else if (!appl.holder_nation) {
+        toast_text = '请选择投保人国籍'
     } else if (!appl.holder_company) {
         toast_text = '请填写投保人工作单位'
     } else if (!checkEarnings(1, appl.holder_salary_avg)) {
@@ -467,6 +469,8 @@ var checkAssured = function (assu) {
         return false
     } else if (!assu.insured_marriage) {
         toast_text = '被保人婚姻状况不能为空'
+    } else if (!assu.insured_nation) {
+        toast_text = '请填写被保人国籍'
     } else if (!assu.insured_company) {
         toast_text = '请填写被保人工作单位，无工作单位请填写‘没有’'
     } else if (!checkHeight('被保人', assu.insured_height)) {
@@ -589,8 +593,8 @@ var RSChanged = function(assu,applicant) {
         assu.insured_email= applicant.holder_email//邮箱
         assu.insured_height= applicant.holder_height//身高
         assu.insured_weight= applicant.holder_weight//体重
-        assu.insured_nation= NATION//国籍
-        assu.insured_nation_name= '中国'//国籍
+        assu.insured_nation= applicant.holder_nation//国籍
+        assu.insured_nation_name= applicant.holder_nation_name//国籍
         assu.insured_company= applicant.holder_company//工作单位
         assu.insured_salary_avg= applicant.holder_salary_avg//年收入
         assu.addr_type= true//是否所有地址同投保人

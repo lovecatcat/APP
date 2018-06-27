@@ -212,7 +212,10 @@
                 <div class="input-item">
                     <label class="">国籍</label>
                     <div class="input-wrap box-f-1">
-                        <input type="text" class="BL-col-666" v-model.lazy="applicant.holder_nation_name" readonly>
+                        <div class="input" id="appl_nation">
+                            {{applicant.holder_nation_name}}
+                        </div>
+                        <div class="ins-down-icon"></div>
                     </div>
                 </div>
                 <div class="input-item">
@@ -326,7 +329,7 @@
                     holder_height: '',//身高
                     holder_weight: '',//体重
                     holder_nation: '',//国籍
-                    holder_nation_name: '中国',//国籍
+                    holder_nation_name: '请选择',//国籍
                     holder_company: '',//工作单位
                     holder_salary_avg: '',//年收入
 
@@ -363,7 +366,6 @@
         created: function () {
 //            字段初始化
             this.applicant.holder_gender = MALE;
-            this.applicant.holder_nation = NATION;
 
             this.$watch('applicant.holder_isTaxResidents', function (val) {
                 if (val && val !== TAXTYPE) {
@@ -428,6 +430,19 @@
                 appl.applicant.holder_ID_type = items[0].value;
                 appl.applicant.holder_ID_type_name = items[0].text;
                 astypeChange('投保人');
+            })
+        })
+        //国籍选择
+        console.log(JSON.stringify(init.nation))
+        var nationtype = new mui.PopPicker();
+        nationtype.setData(init.nation);
+        document.querySelector('#appl_nation').addEventListener('tap', function () {
+            document.activeElement.blur();
+            nationtype.show(function (items) {
+                appl.applicant.holder_nation = items[0].value;
+                appl.applicant.holder_nation_name = items[0].text;
+                console.log(appl.applicant.holder_nation +';'+appl.applicant.holder_nation_name)
+                appl.$forceUpdate()
             })
         })
         //居住、联系地区

@@ -88,7 +88,7 @@
 									   :data-index="index"
 									   v-if="item.ins_state_name=='待投保' || item.ins_state_name=='待支付'">取消订单
 									</a>
-									<a class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 continue" v-if="item.state==0&&(item.supplier_id==19||item.supplier_id==85)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="1">继续录入</a>
+									<a class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 continue" v-if="item.state==0&&(item.supplier_id==19||item.supplier_id==85)&&item.ins_state_name!='支付中'" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="1">继续录入</a>
 									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state==0&&item.supplier_id==8" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-policyno="item.policy_no" :data-fee="item.total">去支付</a>
 									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.supplier_id==85&&item.progress===1&&[5].indexOf(item.state)===-1" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">去支付</a>
 									<a class="BL-btn-white BL-pad-lr-1" v-if="item.supplier_id==85&&item.state===5&&item.extend_items.signature_status==='0'" @click="freshSign(item.policy_id)">刷新</a>

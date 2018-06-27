@@ -199,7 +199,10 @@
                     <div class="input-item">
                         <label class="">国籍</label>
                         <div class="input-wrap box-f-1">
-                            <input type="text" v-model.lazy="assured.insured_nation_name" readonly>
+                            <div class="input" id="assu_nation">
+                                {{assured.insured_nation_name}}
+                            </div>
+                            <div class="ins-down-icon"></div>
                         </div>
                     </div>
                     <div class="input-item">
@@ -357,7 +360,7 @@
                     insured_height: '',//身高
                     insured_weight: '',//体重
                     insured_nation: '',//国籍
-                    insured_nation_name: '中国',//国籍
+                    insured_nation_name: '请选择',//国籍
                     insured_company: '',//工作单位
                     insured_salary_avg: '',//年收入
 
@@ -395,7 +398,6 @@
             console.log('assured-created')
             //字段初始化
             this.assured.insured_gender = MALE;
-            this.assured.insured_nation = NATION;
             this.assured.rel_holder_insured = ISASSURED;
             this.$watch('assured.insured_ID_no', function (val) {
                 IDValidate(this.assured.insured_ID_type, val, '被保人',this.assured);
@@ -501,7 +503,17 @@
                 astypeChange('被保人');
             })
         })
-
+        //国籍选择
+        var nationtype = new mui.PopPicker();
+        nationtype.setData(init.nation);
+        document.querySelector('#assu_nation').addEventListener('tap', function () {
+            document.activeElement.blur();
+            nationtype.show(function (items) {
+                assu.assured.insured_nation = items[0].value;
+                assu.assured.insured_nation_name = items[0].text;
+                assu.$forceUpdate()
+            })
+        })
         //日期选择
         mui('.search-date').each(function (i, d) {
             d.addEventListener('tap', function () {

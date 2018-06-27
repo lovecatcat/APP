@@ -199,8 +199,8 @@
                                 var da = res.data
                                 //投保人
                                 appl_data.holder_name = da.insData.holder_name
-                                appl_data.holder_ID_type = IDcard //证件类型
-                                appl_data.holder_ID_type_name = '身份证' //证件类型名
+                                appl_data.holder_ID_type = da.insData.holder_ID_type //证件类型
+                                appl_data.holder_ID_type_name = da.insData.holder_ID_type_name //证件类型名
                                 appl_data.holder_ID_no = da.insData.holder_ID_no //证件号码
                                 appl_data.holder_birthday = da.insData.holder_birthday //出生日期
                                 appl_data.holder_ID_expire_end = da.insData.holder_ID_expire_end //证件有效期
@@ -209,8 +209,8 @@
                                 appl_data.holder_email = da.insData.holder_email//邮箱
                                 appl_data.holder_height = parseInt(da.insData.holder_height)//身高
                                 appl_data.holder_weight = da.insData.holder_weight//体重
-                                appl_data.holder_nation = NATION//国籍
-                                appl_data.holder_nation_name = '中国'//国籍
+                                appl_data.holder_nation = da.insData.holder_nation//国籍
+                                appl_data.holder_nation_name = da.insData.holder_nation_name//国籍
                                 appl_data.holder_company = da.insData.holder_company //工作单位
                                 appl_data.holder_salary_from = da.insData.holder_salary_from//收入来源
                                 appl_data.holder_salary_from_name = da.insData.holder_salary_from_text//收入来源名
@@ -264,8 +264,8 @@
                                     assu_data.insured_email = da.insured.insured_email//邮箱
                                     assu_data.insured_height = parseInt(da.insured.insured_height)//身高
                                     assu_data.insured_weight = da.insured.insured_weight//体重
-                                    assu_data.insured_nation = NATION//国籍
-                                    assu_data.insured_nation_name = '中国'//国籍
+                                    assu_data.insured_nation = da.insured.insured_nation//国籍
+                                    assu_data.insured_nation_name = da.insured.insured_nation_name//国籍
                                     assu_data.insured_company = da.insured.insured_company //工作单位
                                     assu_data.insured_salary_from = da.insured.insured_salary_from//收入来源
                                     assu_data.insured_salary_from_name = da.insured.insured_salary_from_text//收入来源名

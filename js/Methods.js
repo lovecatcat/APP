@@ -193,7 +193,7 @@ var methods = {
 						name: '20万'
 					}]
 					break
-				case '8111': //国华康运金生
+				case '8111V1': //国华康运金生
 					vm.prospectus_types = [{
 						value: 100000,
 						name: '10万'
@@ -255,7 +255,7 @@ var methods = {
 			toastText = '请选择主险交费期间'
 		} else if(safeid === 'LA063' && !this.flag[safeid]) { //恒大福享金生
 			toastText = '请选择主险保障年限'
-		} else if(safeid === '3188' && !this.flag[safeid]) { //国华盛世鑫悦
+		} else if(safeid === '3188V1' && !this.flag[safeid]) { //国华盛世鑫悦
 			toastText = '请选择主险生存金方式'
 		} else if(this.prospectus_types.length > 0 && !this.prospectus_type) {
 			toastText = '请选择主险基本保额'
@@ -312,7 +312,7 @@ var methods = {
 				break
 
 				//国华
-			case '8109': // 康运一生重大疾病保险A款
+			case '8109V1': // 康运一生重大疾病保险A款
 				if(assuAge > 60) {
 					toastText = '被保人年龄不能大于60周岁'
 				} else if(mainPayYear === 10 && assuAge > 55) {
@@ -323,54 +323,54 @@ var methods = {
 					toastText = '20年交被保人为年龄不能大于45周岁'
 				}
 				break
-			case '8110': // 华宝安行
+			case '8110V1': // 华宝安行
 				if(assuAge > 50) {
 					toastText = '被保人年龄不能大于50周岁'
 				} else if(assuAge < 18) {
 					toastText = '被保人年龄不能小于18周岁'
 				}
 				break
-			case '3188': // 国华盛世鑫悦
-				if(mainPayYear === 1 && assuAge > 60 && this.flag['3188'] === '1') {
+			case '3188V1': // 国华盛世鑫悦
+				if(mainPayYear === 1 && assuAge > 60 && this.flag['3188V1'] === '1') {
 					toastText = '生存方式一且趸交时被保人年龄为28天-60周岁（含）'
-				} else if(mainPayYear === 3 && assuAge > 57 && this.flag['3188'] === '1') {
+				} else if(mainPayYear === 3 && assuAge > 57 && this.flag['3188V1'] === '1') {
 					toastText = '生存方式一且3年交时被保人年龄为28天-57周岁（含）'
-				} else if(mainPayYear === 5 && assuAge > 55 && this.flag['3188'] === '1') {
+				} else if(mainPayYear === 5 && assuAge > 55 && this.flag['3188V1'] === '1') {
 					toastText = '生存方式一且5年交时被保人年龄为28天-55周岁（含）'
-				} else if(mainPayYear === 10 && assuAge > 50 && this.flag['3188'] === '1') {
+				} else if(mainPayYear === 10 && assuAge > 50 && this.flag['3188V1'] === '1') {
 					toastText = '生存方式一且10年交时被保人年龄为28天-50周岁（含）'
-				} else if(mainPayYear === 1 && assuAge > 45 && this.flag['3188'] === '2') {
+				} else if(mainPayYear === 1 && assuAge > 45 && this.flag['3188V1'] === '2') {
 					toastText = '生存方式二且趸交时被保人年龄为28天-45周岁（含）'
-				} else if(mainPayYear === 3 && assuAge > 42 && this.flag['3188'] === '2') {
+				} else if(mainPayYear === 3 && assuAge > 42 && this.flag['3188V1'] === '2') {
 					toastText = '生存方式二且3年交时被保人年龄为28天-42周岁（含）'
-				} else if(mainPayYear === 5 && assuAge > 40 && this.flag['3188'] === '2') {
+				} else if(mainPayYear === 5 && assuAge > 40 && this.flag['3188V1'] === '2') {
 					toastText = '生存方式二且5年交时被保人年龄为28天-40周岁（含）'
-				} else if(mainPayYear === 10 && assuAge > 35 && this.flag['3188'] === '2') {
+				} else if(mainPayYear === 10 && assuAge > 35 && this.flag['3188V1'] === '2') {
 					toastText = '生存方式二且10年交时被保人年龄为28天-35周岁（含）'
-				} else if(mainPayYear === 1 && assuAge > 45 && this.flag['3188'] === '3') {
+				} else if(mainPayYear === 1 && assuAge > 45 && this.flag['3188V1'] === '3') {
 					toastText = '生存方式三且趸交时被保人年龄为18周岁-45周岁（含）'
-				} else if(mainPayYear === 3 && assuAge > 42 && this.flag['3188'] === '3') {
+				} else if(mainPayYear === 3 && assuAge > 42 && this.flag['3188V1'] === '3') {
 					toastText = '生存方式三且3年交时被保人年龄为18周岁-42周岁（含）'
-				} else if(mainPayYear === 5 && assuAge > 40 && this.flag['3188'] === '3') {
+				} else if(mainPayYear === 5 && assuAge > 40 && this.flag['3188V1'] === '3') {
 					toastText = '生存方式三且5年交时被保人年龄为18周岁-40周岁（含）'
-				} else if(mainPayYear === 10 && assuAge > 35 && this.flag['3188'] === '3') {
+				} else if(mainPayYear === 10 && assuAge > 35 && this.flag['3188V1'] === '3') {
 					toastText = '生存方式三且10年交时被保人年龄为18周岁-35周岁（含）'
-				} else if(mainPayYear === 1 && assuAge < 18 && this.flag['3188'] === '3') {
+				} else if(mainPayYear === 1 && assuAge < 18 && this.flag['3188V1'] === '3') {
 					toastText = '生存方式三且趸交时被保人年龄为18周岁-45周岁（含）'
-				} else if(mainPayYear === 3 && assuAge < 18 && this.flag['3188'] === '3') {
+				} else if(mainPayYear === 3 && assuAge < 18 && this.flag['3188V1'] === '3') {
 					toastText = '生存方式三且3年交时被保人年龄为18周岁-42周岁（含）'
-				} else if(mainPayYear === 5 && assuAge < 18 && this.flag['3188'] === '3') {
+				} else if(mainPayYear === 5 && assuAge < 18 && this.flag['3188V1'] === '3') {
 					toastText = '生存方式三且5年交时被保人年龄为18周岁-40周岁（含）'
-				} else if(mainPayYear === 10 && assuAge < 18 && this.flag['3188'] === '3') {
+				} else if(mainPayYear === 10 && assuAge < 18 && this.flag['3188V1'] === '3') {
 					toastText = '生存方式三且10年交时被保人年龄为18周岁-35周岁（含）'
 				}
 				break
-			case '1166': // 国华成长无忧
+			case '1166V1': // 国华成长无忧
 				if(assuAge > 7 || assuAge < 0) {
 					toastText = '被保人在0周岁到7周岁之间'
 				}
 				break
-			case '8111': // 国华人寿康运金生
+			case '8111V1': // 国华人寿康运金生
 				if(mainPayYear === 5 && assuAge > 60) {
 					toastText = '5年交被保人年龄不能大于60周岁'
 				} else if(mainPayYear === 10 && assuAge > 55) {
@@ -694,19 +694,19 @@ var methods = {
 				//				}
 				//				break
 				//国华
-			case '8109': // 康运一生重大疾病保险A款
+			case '8109V1': // 康运一生重大疾病保险A款
 				if(money < 150000 || money % 10000 !== 0) {
 					toastText = '最低保额为15万元，且为1万元整数倍'
 				}
 				break
-			case '8110': // 国华华宝安行
+			case '8110V1': // 国华华宝安行
 				if(money < 50000 || money % 50000 !== 0) {
 					toastText = '最低保额为5万元，且为5万元整数倍'
 				} else if(money > 200000) {
 					toastText = '最高保额为20万元'
 				}
 				break
-			case '3188': // 国华盛世鑫悦
+			case '3188V1': // 国华盛世鑫悦
 				if(this.mainPayYear === 1 && periodMoney < 10000 && periodMoney % 10000 !== 0) {
 					toastText = '趸交时，保费不能低于1万元，以万元为递增'
 				} else if(this.mainPayYear === 1 && periodMoney % 10000 !== 0) {
@@ -718,7 +718,7 @@ var methods = {
 				}
 				break
 
-			case '1166': //国华成长无忧
+			case '1166V1': //国华成长无忧
 				if(money < 300000) {
 					toastText = '最低基本保额为30万元'
 				} else if(money % 10000 !== 0) {
@@ -924,7 +924,7 @@ var methods = {
 			toastText = this.insurance.period_money === 0 ? '超出费率表计算范围，无法投保' : '请计算主险年缴保费'
 		} else if(!this.isBaseMoney && !this.insurance.money && !this.fuBaseMoney) {
 			toastText = this.insurance.money === 0 ? '超出费率表计算范围，无法投保' : '请计算主险基本保额'
-		} // 3188和12D00080要禁止改判断不然不能计算保险金额，分别写在更改附加险和checkIns里面
+		} // 3188V1和12D00080要禁止改判断不然不能计算保险金额，分别写在更改附加险和checkIns里面
 		if(toastText) {
 			mui.toast(toastText)
 			return false
@@ -1100,33 +1100,33 @@ var methods = {
 							toastText = '请先选择主险保险期间'
 						}
 						//国华
-					case '1168': // 国华康运金生附加养老年金
+					case '1168V1': // 国华康运金生附加养老年金
 						if(this.mainPayYear === 30) {
 							toastText = '主险30年交不可附加该险种'
 						}
 						break
-					case '1167':
-						this.addonsSelected['1165'] = false
-						this.addonRes['1165'] = ''
-						this.$delete(this.addonInsData, '1165')
-						this.$delete(this.planList, '1165')
-						this.addonsSelected['116502'] = false
-						this.addonRes['116502'] = ''
-						this.$delete(this.addonInsData, '116502')
-						this.$delete(this.planList, '116502')
-						this.addonsSelected['116503'] = false
-						this.addonRes['116503'] = ''
-						this.$delete(this.addonInsData, '116503')
-						this.$delete(this.planList, '116503')
+					case '1167V1':
+						this.addonsSelected['1165V1'] = false
+						this.addonRes['1165V1'] = ''
+						this.$delete(this.addonInsData, '1165V1')
+						this.$delete(this.planList, '1165V1')
+						this.addonsSelected['116502V1'] = false
+						this.addonRes['116502V1'] = ''
+						this.$delete(this.addonInsData, '116502V1')
+						this.$delete(this.planList, '116502V1')
+						this.addonsSelected['116503V1'] = false
+						this.addonRes['116503V1'] = ''
+						this.$delete(this.addonInsData, '116503V1')
+						this.$delete(this.planList, '116503V1')
 						this.$forceUpdate()
 						break
-					case '116502': // 国华康运金生附加豁免轻症疾病豁免保险费
-					case '116503': // 国华康运金生附加豁免身故豁免保险费
-						if(!this.addonsSelected['1165']) {
+					case '116502V1': // 国华康运金生附加豁免轻症疾病豁免保险费
+					case '116503V1': // 国华康运金生附加豁免身故豁免保险费
+						if(!this.addonsSelected['1165V1']) {
 							toastText = '请先完成豁免保险费重大疾病保险（2017）'
 						}
 						break
-					case '1165': // 国华康运金生附加豁免保险费重大疾病保险（2017）
+					case '1165V1': // 国华康运金生附加豁免保险费重大疾病保险（2017）
 						if(this.samePerson) {
 							toastText = '投被保人为同人时不可附加该险种'
 						} else if(this.mainPayYear === 1) {
@@ -1268,31 +1268,31 @@ var methods = {
 					mui.toast(toastText)
 					this.addonsSelected[index] = true
 					return false;
-				} else if(index === '1168') {
+				} else if(index === '1168V1') {
 					this.flag[index] = ''
 					this.addonInsData = {}
 					this.addonRes = {}
 					this.addonsSelected = {}
 					this.$delete(this.planList, index)
-				} else if(index === '1167') {
+				} else if(index === '1167V1') {
 					this.flag[index] = ''
 					this.addonInsData = {}
 					this.addonRes = {}
 					this.addonsSelected = {}
 					this.$delete(this.planList, index)
-				} else if(index === '1165') {
+				} else if(index === '1165V1') {
 					this.flag[index] = ''
 					this.$delete(this.addonInsData, index)
 					this.$delete(this.addonRes, index)
 					this.$delete(this.planList, index)
-					this.$delete(this.addonInsData, '116502')
-					this.$delete(this.addonRes, '116502')
-					this.$delete(this.planList, '116502')
-					this.addonsSelected['116502'] = false
-					this.$delete(this.addonInsData, '116503')
-					this.$delete(this.addonRes, '116503')
-					this.$delete(this.planList, '116503')
-					this.addonsSelected['116503'] = false
+					this.$delete(this.addonInsData, '116502V1')
+					this.$delete(this.addonRes, '116502V1')
+					this.$delete(this.planList, '116502V1')
+					this.addonsSelected['116502V1'] = false
+					this.$delete(this.addonInsData, '116503V1')
+					this.$delete(this.addonRes, '116503V1')
+					this.$delete(this.planList, '116503V1')
+					this.addonsSelected['116503V1'] = false
 				} else if(index === 'PFR') {
 					this.flag[index] = ''
 					this.flag['PFR1'] = ''
@@ -1399,7 +1399,7 @@ var methods = {
 			this.cache.quotaHR = 2
 			this.flag['NADD'] = ''
 			this.cache.base_moneyNADD = ''
-		} else if(safeid === '8109') {
+		} else if(safeid === '8109V1') {
 			this.flag[273] = ''
 		} else if(safeid === 'A40' || safeid === 'IA40') {
 			this.flag['RP8P'] = ''
@@ -1413,7 +1413,7 @@ var methods = {
 		this.cache.pay_moneyRSC = ''
 		this.cache.pay_moneyRSD = ''
 		this.cache.derate_money12E20010 = ''
-		this.cache.derate_money1167 = ''
+		this.cache.derate_money1167V1 = ''
 		//		if (this.Addons) {
 		//        for (var i in this.Addons[safeid]) {
 		//          const j = this.Addons[safeid][i].safe_id
@@ -1774,8 +1774,8 @@ var methods = {
 				}
 				break
 				//国华
-			case '1167': //附加少儿成长无忧年金保险
-				if(!this.cache.base_money1167) {
+			case '1167V1': //附加少儿成长无忧年金保险
+				if(!this.cache.base_money1167V1) {
 					toastText = '请先输入保险份数'
 				}
 				break
@@ -2322,47 +2322,47 @@ var methods = {
 			// 乐行天下主险
 			data.money_one = this.cache.pay_moneyRSC
 			data.money_two = this.cache.pay_moneyRSD
-		} else if(safeid === '8111') { // 国华人寿康运金生
+		} else if(safeid === '8111V1') { // 国华人寿康运金生
 			data.flag = money / 10000
-		} else if(safeid === '1166') { // 国华少儿成长无忧重大疾病保险
+		} else if(safeid === '1166V1') { // 国华少儿成长无忧重大疾病保险
 			data.pay_year = this.mainPayYear
 			data.safe_year = 2500
 			data.base_money = money
-		} else if(safeid === '3188') { // 国华盛世鑫悦
+		} else if(safeid === '3188V1') { // 国华盛世鑫悦
 			data.flag = this.flag[safeid]
 			data.base_money = 0
 			data.safe_year = 10000
 		} else if(safeid === '1161') { //国华附加年金
 			data.base_money = periodMoney * this.mainPayYear
 			data.safe_year = 85
-		} else if(safeid === '1168') { // 国华康运金生附加养老年金
+		} else if(safeid === '1168V1') { // 国华康运金生附加养老年金
 			data.pay_year = this.mainPayYear
 			data.safe_year = '8500'
 			data.base_money = periodMoney * this.mainPayYear
 			data.flag = 0
-		} else if(safeid === '1165' || safeid === '116502' || safeid === '116503') { // 国华康运金生附加豁免保险费重大疾病保险（2017）
+		} else if(safeid === '1165V1' || safeid === '116502V1' || safeid === '116503V1') { // 国华康运金生附加豁免保险费重大疾病保险（2017）
 			data.pay_year = 1
 			data.safe_year = 1
-			if(this.addonRes['1168']) {
-				data.base_money = (periodMoney + Number(this.addonRes['1168']['年缴保费'])) * (this.mainPayYear - 1)
-			} else if(this.addonRes['1167']) {
-				data.base_money = (periodMoney + Number(this.addonRes['1167']['年缴保费'])) * (this.mainPayYear - 1)
+			if(this.addonRes['1168V1']) {
+				data.base_money = (periodMoney + Number(this.addonRes['1168V1']['年缴保费'])) * (this.mainPayYear - 1)
+			} else if(this.addonRes['1167V1']) {
+				data.base_money = (periodMoney + Number(this.addonRes['1167V1']['年缴保费'])) * (this.mainPayYear - 1)
 			} else {
 				data.base_money = periodMoney * (this.mainPayYear - 1)
 			}
 			data.flag = 0
-		} else if(safeid === '1167') { // 国华附加少儿成长无忧年金保险
-			this.addonsSelected['1165'] = false
-			this.addonRes['1165'] = ''
-			this.addonsSelected['116502'] = false
-			this.addonRes['116502'] = ''
-			this.addonsSelected['116503'] = false
-			this.addonRes['116503'] = ''
+		} else if(safeid === '1167V1') { // 国华附加少儿成长无忧年金保险
+			this.addonsSelected['1165V1'] = false
+			this.addonRes['1165V1'] = ''
+			this.addonsSelected['116502V1'] = false
+			this.addonRes['116502V1'] = ''
+			this.addonsSelected['116503V1'] = false
+			this.addonRes['116503V1'] = ''
 			this.$forceUpdate()
 			data.pay_year = 10
 			data.safe_year = 2500
-			data.base_money = this.cache.base_money1167 * periodMoney * 10
-			data.year_fee = this.cache.base_money1167
+			data.base_money = this.cache.base_money1167V1 * periodMoney * 10
+			data.year_fee = this.cache.base_money1167V1
 		} else if(safeid === 'ANIA') { //工银鑫丰盈
 			data.safe_year = 10500
 		} else if(safeid === 'HR' || safeid === 'AMRB') { //工银附加险

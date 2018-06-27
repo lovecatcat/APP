@@ -57,7 +57,7 @@
 			pay_year = content.pay_year
 		}
 
-		if(parent_id == 290 || parent_id == 360 || parent_id == 370 || parent_id == 16197) {
+		if(parent_id == 290 || parent_id == 360 || parent_id == 370 || parent_id == 16197 || parent_id == 16224) {
 			year_fee = content.year_fee;
 		} else if(parent_id == 347 || parent_id == 348 || parent_id == 16217) {
 			year_fee = listMain["累计保费"];
@@ -85,7 +85,7 @@
 			} else {
 				base_money = '计划三'
 			}
-		} else if(parent_id == 347 || parent_id == 301 || parent_id == 348 || parent_id == 349 ||parent_id == 370 || parent_id == 16197 || parent_id == 16217) {
+		} else if(parent_id == 347 || parent_id == 301 || parent_id == 348 || parent_id == 349 ||parent_id == 370 || parent_id == 16197 || parent_id == 16217 || parent_id == 16224) {
 			base_money = Number(listMain["保险金额"]).toFixed(0);
 		} else if(parent_id == 360) {
 			base_money = Number(listMain["保额"]).toFixed(0);

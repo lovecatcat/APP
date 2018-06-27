@@ -1016,7 +1016,7 @@ var methods = {
 
 				switch(this.insurance.safe_id) {
 					case 'HB023': // 恒久健康
-						if(["HA007", "HA006", "HA005"].indexOf(index) > -1) {
+						if(["HA007", "HA006"].indexOf(index) > -1) {
 							if(this.insurance.money < 200000) {
 								toastText = '主险保额小于20万元时不可附加该险种'
 							}
@@ -1026,7 +1026,7 @@ var methods = {
 							} else if(this.insurance.period_money < 3000) {
 								toastText = '期交保费小于3千元时不可附加该险种'
 							}
-						} else if(index === "HB024") {
+						} else if(index === "HA005") {
 							if(this.insurance.money < 200000 && this.insurance.period_money < 3000) {
 								toastText = '主险保额小于20万元或期交保费小于3千元时不可附加该险种'
 							}
@@ -1054,6 +1054,7 @@ var methods = {
 						break
 					case 'LA063': // 福享今生
 					case 'LA075': // 恒大万年红
+					case 'LA080': // 恒大万年福
 						if(index === "HA005" && this.insurance.period_money < 10000) {
 							toastText = '期交保费小于一万元时不可附加该险种'
 						} else if(index === "HA014" && this.insurance.period_money < 5000) {

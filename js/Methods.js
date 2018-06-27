@@ -649,6 +649,17 @@ var methods = {
 					toastText = '79岁领取20年交被保人年龄不能大于50周岁'
 				}
 				break
+			case '00320': //长城人寿金彩一生养老年金保险
+				if(assuAge > 55 && mainPayYear == 1) {
+					toastText = '趸缴被保人年龄应在不能大于55周岁'
+				} if(assuAge > 55 && mainPayYear == 3) {
+					toastText = '3年缴被保人年龄应在不能大于55周岁'
+				} else if(assuAge >55 && mainPayYear == 5) {
+					toastText = '5年缴被保人年龄应在不能大于55周岁'
+				} else if(assuAge > 50 && mainPayYear == 10) {
+					toastText = '10年缴被保人年龄应在不能大于50周岁'
+				}
+				break
 		}
 
 		if(toastText) {
@@ -855,14 +866,14 @@ var methods = {
 				if(money < 10000) {
 					toastText = '最低基本保额为1万元'
 				} else if(money % 1000 !== 0) {
-					toastText = '保费需为1千元整数倍'
+					toastText = '保额需为1千元整数倍'
 				}
 				break
 			case '1020': // 招商仁和招盈金生
 				if(money < 5000) {
 					toastText = '最低基本保额为5千元'
 				} else if(money % 1000 !== 0) {
-					toastText = '保费需为1千元整数倍'
+					toastText = '保额需为1千元整数倍'
 				}
 				break
 			case '1016': // 招商仁和仁医保费用补偿医疗保险
@@ -874,7 +885,7 @@ var methods = {
 				if(money < 100000) {
 					toastText = '最低基本保额为10万元'
 				} else if(money % 1000 !== 0) {
-					toastText = '保费需为1千元整数倍'
+					toastText = '保额需为1千元整数倍'
 				} else if(!this.flag[safeid]) {
 					toastText = '请先选择职业分类'
 				}
@@ -887,6 +898,13 @@ var methods = {
 					toastText = '被保险人大于等于40周岁，最低保额为5万元'
 				} else if(money % 10000 !== 0) {
 					toastText = '保额需为1万元整数倍'
+				}
+				break
+			case '00320': //长城人寿金彩一生养老年金保险	
+				if(periodMoney < 3000) {
+					toastText = '最低年缴保费为3千元'
+				} else if(periodMoney % 1000 !== 0) {
+					toastText = '保费需为1千元整数倍'
 				}
 				break
 
@@ -1011,9 +1029,13 @@ var methods = {
 						}
 						break
 					case 'LE234': // 千万护航
-						if(["HA007", "HA006", "HA005", "HA014"].indexOf(index) > -1) {
+						if(["HA007", "HA006", "HA014"].indexOf(index) > -1) {
 							if(this.insurance.money < 200000) {
 								toastText = '主险保额小于20万元时不可附加该险种'
+							}
+						}else if(index === "HA005") {
+							if(this.insurance.money < 100000) {
+								toastText = '主险保额小于10万元时不可附加该险种'
 							}
 						}
 						break
@@ -2581,6 +2603,12 @@ var methods = {
 			//附加康健人生提前给付重大疾病保险
 			data.flag = this.flag['00108']
 			data.zsj = this.insurance.period_money * this.mainPayYear
+		} else if (safeid === '00320') {
+			//长城人寿金彩一生养老年金保险
+			data.flag = this.mainSafeYear == '999' ? 1 : 2
+			data.year_fee = this.insurance.period_money
+			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear + '00'
+			data.zsj = 0
 		}
 
 		if(isMain) {

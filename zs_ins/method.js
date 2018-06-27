@@ -17,18 +17,17 @@ var ywmjz = '1015';//附加意外门急诊
 
 var hmx = ['1002','1011','1012'] //豁免险种
 
-var typename = {'LAA004A': '身份证', 'LAA004B': '户口簿', 'LAA004D': '军人身份证','LAA004E':'士兵证','LAA004G':'中国护照','LAA004I':'港澳通行证','LAA004J':'台湾通行证','LAA004L':'出生证','LAA004K':'港澳台居民往来内地通行证'}
-var ISASSURED = 'LAC001C'; //被保人是本人
-var COUPLE = 'LAC001D';//投被保人为配偶
-var PARENTS = 'LAC001E';//投保人为被保人父母
+var typename = {'LAA004A': '身份证', 'LAA004B': '户口簿', 'LAA004D': '军人身份证','LAA004G':'中国护照','LAA004L':'出生证','LAA004K':'港澳台居民往来内地通行证'}
+var ISASSURED = 'LBK002H'; //被保人是本人
+var COUPLE = 'LBK0021';//投被保人为配偶
+var PARENTS = 'LBK002J';//投保人为被保人父母
 var BCOUPLE = 'LAN003H';//受益人与被保人为配偶
-var IDNO = ['LAA004A', 'LAA004B', 'LAA004D']; //身份证、户口本
+var IDNO = ['LAA004A', 'LAA004B']; //身份证、户口本
 var BOOKLET = 'LAA004B'; //户口本
 var IDcard = 'LAA004A'; //身份证
 var BORNid = 'LAA004L'; //出生证
-var HK = 'LAA004I';//港澳通行证
-var TW = 'LAA004J';//台湾通行证
-var SOLDIER = 'LAA004E';//士兵证
+var HKT = 'LAA004K';//港澳台来往内地
+var FID = 'LAA004M';//外国护照
 var SOLDIERID = 'LAA004D';//军人身份证
 var PASSPORT = 'LAA004G';//中国护照
 var MALE = 'LAB0017'; //男
@@ -56,7 +55,6 @@ var IDValidate = function (type, id, owner,data) {
         switch (type) {
             case BOOKLET: // 户口簿
             case IDcard: // 身份证
-            case SOLDIERID: // 军人身份证
                 // 0为女，1为男
                 var sexCode = [FEMALE, MALE];
 
@@ -88,13 +86,12 @@ var IDValidate = function (type, id, owner,data) {
                     toast_text = owner + '出生证号码首字母大写加9位数字';
                 }
                 break;
-            case HK://港澳通行证
-            case TW://台湾通行证
-                if (!(/^.[A-Za-z0-9()（）]{8,20}$/).test(id)) {
+            case HKT: //港澳台来往内地
+                if (!(/^[A-Z0-9]{8,20}$/).test(id)) {
                     toast_text = '请输入' + owner + '至少8位且有效的证件号码'
                 }
-                break;
-            case SOLDIER:// 士兵证
+                break
+            case SOLDIERID: // 军人身份证
                 if (!(/^.*字第(\d{6,8})$/).test(id)) {
                     toast_text = '请输入' + owner + '正确格式的军人证号码'
                 }
@@ -261,7 +258,7 @@ var checkAddress = function (val, owner) {
     var m = val.match(/[\u4e00-\u9fa5]{1}/g)
     if (!val) {
         toast_text = owner + '详细地址不能为空'
-    } else if (!m || m.length < 6) {
+    } else if (!m || m.length < 6 || !(/^(?=.*\d.*\b)/.test(val))) {
         toast_text = owner + '详细地址填写有误,请确认至少有6个汉字且包含数字'
     } else if (!m || m.length > 50) {
         toast_text = owner + '详细地址不能超过50个汉字'
@@ -430,6 +427,8 @@ var checkIDtype = function (birthday, idtype, owner) {
         toast_text = '被保人不能大于60周岁';
     } else if (age >= 16 && idtype === BOOKLET) {
         toast_text = '被保人已满16周岁不可选择户口本';
+    } else if (age < 16 && idtype === SOLDIERID) {
+        toast_text = '被保人不满16周岁不可选择军人身份证';
     } else if (age >= 1 && idtype === BORNid) {
         toast_text = '被保人已满1周岁不可选择出生证';
     }

@@ -487,7 +487,7 @@
         var idtype = new mui.PopPicker();
         var assutype = []
         mui.each(init.ID_type,function (index,item) {
-            if(typename[item.value] && item.value !== SOLDIER){
+            if(typename[item.value]){
                 assutype.push(item)
             }
         })

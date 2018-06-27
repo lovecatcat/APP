@@ -302,6 +302,8 @@
                             toastText = owner + '年满1周岁不能选择出生证'
                         } else if (age >= 16 && type === BOOKLET) {
                             toastText = owner + '年满16周岁不能选择户口本'
+                        } else if (age < 16 && type === SOLDIERID) {
+                            toast_text = owner +'不满16周岁不可选择军人身份证'
                         } else if (!item.beneficiary.beneficiary_is_insured) {
                             toastText = '请选择' + owner + '与被保人关系'
                         } else if (item.beneficiary.beneficiary_is_insured === BCOUPLE && this.assured.insured_gender === item.beneficiary.gender) {
@@ -492,7 +494,7 @@
         bene.init = init;
         var beneidtype = []
         mui.each(init.ID_type,function (index,item) {
-            if(typename[item.value] && item.value !== SOLDIER){
+            if(typename[item.value]){
                 beneidtype.push(item)
             }
         })

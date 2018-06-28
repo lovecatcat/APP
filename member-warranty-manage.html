@@ -76,6 +76,11 @@
             var wid = this.getAttribute("data-wid");
             group.switchTab(wid);
         });
+
+        var wid = plus.webview.currentWebview().wid;
+        if (wid) {
+            group.switchTab(wid);
+        }
     })
 </script>
 </html>

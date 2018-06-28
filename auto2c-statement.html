@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="css/mui.css" rel="stylesheet"/>
+    <link href="css/common.css" rel="stylesheet"/>
+    <link href="css/module.css" rel="stylesheet"/>
+    <link href="css/form.css" rel="stylesheet"/>
+    <script src="js/config.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/mui.picker.min.css"/>
+    <style>
+        #statement p, #statement a {
+            font-size: 1.4375rem !important;
+        }
+        #statement table {
+            width: 100% !important;
+            font-size: 1.4375rem !important;
+        }
+        #statement table {
+            width: 100% !important;
+            font-size: 1.4375rem !important;
+            border: 1px solid #cccccc !important;
+        }
+        #statement table td, #statement table th {
+            border: 1px solid #cccccc !important;
+        }
+        #statement table td>p, #statement table td>p span,#statement table thead td>p span{
+            font-size: 1.4375rem !important;
+            text-align: left !important;
+            line-height: 2rem !important;
+            /*padding-left: .2rem !important;*/
+            /*padding-right: .2rem !important;*/
+        }
+    </style>
+</head>
+
+<body>
+
+<header id="Js-header" class="BL-bg-fff">
+    <div class="BL-mod-headbar BL-mod-headbar-pos">
+        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+        <h1 class="BL-title">投保协议</h1>
+    </div>
+</header>
+<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
+    <div class="form-clause BL-pad-a1_25 BL-mar-t-1 BL-bg-fff" id="statement">
+    </div>
+</div>
+
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mui.init();
+    mui.plusReady(function () {
+        statusbar();
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+        var statement = plus.webview.currentWebview().statement;
+        document.getElementById('statement').innerHTML = statement[0].statementContent
+    })
+</script>
+</html>

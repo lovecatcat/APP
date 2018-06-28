@@ -60,7 +60,8 @@
                 keyword: "",    // 关键字
                 brands: null,   // 品牌列表
 				page: 0,
-				row: 10
+				row: 10,
+                cityCode: ""
 			},
 			methods: {
                 toblur:function(){
@@ -77,6 +78,7 @@
                     loadBrandList()
                 },
                 selectBrand: function (obj) {
+                    var biBeginDate = '', ciBeginDate =''
                     // 获取保险起期
                     luckyAjax({
                         data: {
@@ -91,20 +93,22 @@
                               isTrans: this.car.isTrans? 1:0,
                               transDate: this.car.transDate,
                               brandCode: obj.brandCode,
-                              cityCode: 323
+                              cityCode: this.cityCode
                             })
                         },
                         success: function (res) {
                             if (res.code == 1) {
-                                // 保存保险起期待定
+                                biBeginDate = res.data.biLastEffectiveDate
+								ciBeginDate = res.data.ciLastEffectiveDate
                             }
                         }
                     })
 
                     mui.fire(plus.webview.getWebviewById('auto2c_supplement'),'selectBrand',{
-                        brand: obj
+                        brand: obj,
+                        biBeginDate: biBeginDate,
+                        ciBeginDate: ciBeginDate
                     });
-                    // 查询保险起期
                     setTimeout(function () {
                         plus.webview.currentWebview().close();
                     },200)
@@ -126,8 +130,10 @@
                 var winH = window.innerHeight;
                 var titHeight = document.querySelector('#Js-header').offsetHeight;
                 document.querySelector('#Js-content').style.height = (winH - titHeight) +'px';
+
                 // 获取车辆信息、是否过户及过户日期
                 auto.car = plus.webview.currentWebview().car;
+                auto.cityCode = plus.webview.currentWebview().cityCode;
 
                 var i = 0;
                 $('#Js-content .mui-scroll').pullToRefresh({

@@ -1,3 +1,4 @@
+var itemName = ['bus','car','brand','show','insList','owner','applicant','assured','address'];
 const CityID = {
     '323': '440301',   // 深圳
     '321': '440100',   // 广州
@@ -122,6 +123,16 @@ var ciCoverageList = [{
     'insuredPremium': "",
 
 }]
+// 返回修改车牌号
+var changeLicenseNo = function () {
+    setTimeout(function () {
+        mui.openWindow({
+            url: 'auto2c.html',
+            id: 'auto2c',
+            show: animateObj.aniDetal
+        })
+    },500)
+}
 // 校验车牌号
 var checkLicense = function (isNew, cityNo) {
     var toast_text = null
@@ -223,6 +234,22 @@ var IDValidate = function (owner, id, data) {
     }
     return true;
 };
+//校验邮箱
+var checkEmail = function (owner, email) {
+    // console.log(owner + email);
+    const reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+    var toast_text = null;
+    if (!email) {
+        toast_text = owner + '邮箱不能为空';
+    } else if (!reg.test(email)) {
+        toast_text = '请输入' + owner + '正确格式的邮箱';
+    }
+    if (toast_text) {
+        mui.toast(toast_text, {duration: 'short', type: 'div'});
+        return false;
+    }
+    return true;
+};
 var generatorID = function () {
     var n = 3 //随机位数
     var time = new Date()
@@ -234,6 +261,7 @@ var generatorID = function () {
 
 // insurerCode == 公司代码， quote == 报价信息
 var setCarinsData = function (insurerCode, quote) {
+    console.log(JSON.stringify(quote))
     var bus =  JSON.parse(plus.storage.getItem('bus'))
     var owner =  JSON.parse(plus.storage.getItem('owner'))
     var applicant = JSON.parse(plus.storage.getItem('applicant'))
@@ -242,18 +270,16 @@ var setCarinsData = function (insurerCode, quote) {
     var car = JSON.parse(plus.storage.getItem('car'))
     var brand = JSON.parse(plus.storage.getItem('brand'))
     var insList = JSON.parse(plus.storage.getItem('insList'))
-
-    var coverageList = []
-    if (insList.ciCoverageList.length == 0) {
-        coverageList = insList.biCoverageList
-    } else {
-        coverageList = insList.biCoverageList.concat(insList.ciCoverageList)
-    }
-    console.log(JSON.stringify(coverageList))
-
+//  var coverageList = []
+//  if (insList.ciCoverageList.length == 0) {
+//      coverageList = insList.biCoverageList
+//  } else {
+//      coverageList = insList.biCoverageList.concat(insList.ciCoverageList)
+//  }
     var data = {
         sale_id: bus.user_id,
         business_no: bus.business_no,
+        thp_business_no: quote? quote.bizID: "",
         company: insurerCode,
         ins_city: bus.cityCode,
         zhekou_rate: '', // 折标率
@@ -270,9 +296,9 @@ var setCarinsData = function (insurerCode, quote) {
         ass_birthday: assured.birthday,
 
         address_name: address? address.name: "",
-        address_address: address? address.address: "",
+        address_address: address? (address.location + address.detail): "",
         address_mobile: address? address.mobile: "",
-        address_mail: address? address.mail: "",
+        address_mail: address? address.email: "",
 
         vehicle_owner: owner.name,
         vehicle_tel: owner.mobile,
@@ -288,6 +314,8 @@ var setCarinsData = function (insurerCode, quote) {
         car_seats: car.seatCount,
         register_date: car.registerDate,
         car_isnew: car.car_isnew,
+        is_trans: car.isTrans ? '1' : '0',
+        trans_date: car.transDate,
 
         coverageList: quote? quote.coverageList: coverageList,
         // biBeginDate: state.Calculated.biBeginDate || state.biBeginDate,
@@ -340,8 +368,8 @@ var setCalculateData = function (insurerCode) {
             frameNo: car.frameNo,
             brandCode: brand.brandCode,
             engineNo: car.engineNo,
-            isTrans: car.isTrans ? '1' : '0',
-            transDate: car.transDate,
+            is_trans: car.isTrans ? '1' : '0',
+            trans_date: car.transDate,
             // 'sourceCertificateNo': state.sourceCertificateNo,
             firstRegisterDate: car.registerDate
         },
@@ -368,4 +396,10 @@ var deepClone = function (obj) {
             deepClone(obj[i]) : obj[i];
     }
     return newObj;
+}
+// 清除本地存储
+var clearStorage = function() {
+    for (var i = 0; i < itemName.length; i++) {
+        plus.storage.removeItem(itemName[i])
+    }
 }

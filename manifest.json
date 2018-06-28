@@ -3675,7 +3675,8 @@
 					"images/auto/TPIC.png",
 					"js/Date.js",
 					"css/module.css",
-					"css/common.css"
+					"css/common.css",
+					"images/icon/ico-save.png"
 				],
 				"refer": [
 					"auto2c-pay.html",

@@ -46,14 +46,18 @@
     (function ($) {
         $.plusReady(function () {
         	var userinfo = JSON.parse(plus.storage.getItem('userinfo'));
-        	var channel_id = JSON.parse(plus.storage.getItem('channel_info')).channel_id;
+        	var channel_info = plus.storage.getItem('channel_info');
+        	var channel_id;
+        	if(channel_info && channel_info != ''){
+        		channel_id = channel_info ? JSON.parse(channel_info).channel_id : '';
+        	}
             statusbar();
         	
         	document.getElementById('Js-cord').setAttribute('src', config.baseUrl + '?server=user.getQrcode&device=mobile&data={"user_id":"'+ userinfo.id +'"}');
         	document.getElementById('Js-avatar').setAttribute('src', userinfo.avatar !='' ? userinfo.avatar : 'images/icon/avatar-default.png');
 	        document.getElementById('Js-name').innerText = userinfo.user_name;
 	        
-	        if(channel_id == 4){
+	        if(channel_id && channel_id == 4){
 	        	document.getElementById('Js-logo').setAttribute('src', 'images/member/req-sc.png');
 	        	document.getElementById('Js-title').setAttribute('src', 'images/member/req-title-sc.png');	
 	        	document.getElementById('Js-desic').setAttribute('src', 'images/member/req-tap-sc.png');		

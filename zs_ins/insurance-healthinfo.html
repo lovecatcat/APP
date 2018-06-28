@@ -994,7 +994,7 @@
                 }
                 //168: 2岁及以下
                 //164: 女性补充告知
-                if ((item.id === 245 && health.assuAge <= 2) || (item.id === 235 && ((health.showAppl && health.isApplWm) || health.isAssuWm)) || (item.id !== 245 && item.id !== 235)) {
+//                if ((item.id === 245 && health.assuAge <= 2) || (item.id === 235 && ((health.showAppl && health.isApplWm) || health.isAssuWm)) || (item.id !== 245 && item.id !== 235)) {
                     appitems.push({
                         mv_id: item.id,
                         insured_answer: insured_answer,
@@ -1012,7 +1012,7 @@
                             holder_fields: health.clientvalue.app_fields[value.id] ? health.clientvalue.app_fields[value.id] : ''
                         })
                     })
-                }
+//                }
             })
             plus.storage.setItem('zhaos_healthinfo', JSON.stringify(appitems));
             mui.fire(plus.webview.getWebviewById('zs_insurance-index'), 'saveFlag', {

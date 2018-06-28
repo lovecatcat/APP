@@ -314,8 +314,8 @@ var setCarinsData = function (insurerCode, quote) {
         car_seats: car.seatCount,
         register_date: car.registerDate,
         car_isnew: car.car_isnew,
-        is_trans: car.isTrans ? '1' : '0',
-        trans_date: car.transDate,
+        isTrans: car.isTrans ? '1' : '0',
+        transDate: car.transDate,
 
         coverageList: quote? quote.coverageList: coverageList,
         // biBeginDate: state.Calculated.biBeginDate || state.biBeginDate,
@@ -368,8 +368,8 @@ var setCalculateData = function (insurerCode) {
             frameNo: car.frameNo,
             brandCode: brand.brandCode,
             engineNo: car.engineNo,
-            is_trans: car.isTrans ? '1' : '0',
-            trans_date: car.transDate,
+            isTrans: car.isTrans ? '1' : '0',
+            transDate: car.transDate,
             // 'sourceCertificateNo': state.sourceCertificateNo,
             firstRegisterDate: car.registerDate
         },

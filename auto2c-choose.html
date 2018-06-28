@@ -18,8 +18,8 @@
 				<h1 class="BL-title">选择车险</h1>
 			</div>
 		</header>
-		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
-			<ul class="mui-table-view form-list-cell">
+		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY" v-cloak>
+			<ul class="mui-table-view auto-list-cell BL-mar-t-1">
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label BL-ub-f1">
 						商业险
@@ -31,6 +31,17 @@
 						<div class="mui-icon mui-icon-arrowright"></div>
 					</div>
 				</li>
+				<li class="fItem BL-ub BL-ub-f1" v-if="insList.commercial">
+					<label class="form-list-label">商业险起保日期</label>
+					<div class="form-list-control">
+						<input type="text" class="date" data-options='{"type":"date"}' v-model="insList.biBeginDate" readonly>
+					</div>
+					<div class="form-list-icon">
+						<div class="mui-icon mui-icon-arrowright"></div>
+					</div>
+				</li>
+			</ul>
+			<ul class="mui-table-view auto-list-cell BL-mar-t-1">
 				<template v-show="insList.commercial && biCoverageList">
 					<li class="fItem BL-ub BL-ub-f1" v-for="item in biCoverageList">
 						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1 BL-col-999">{{item.coverageName}}</label>
@@ -43,7 +54,7 @@
 					</li>
 				</template>
 			</ul>
-			<ul class="mui-table-view form-list-cell">
+			<ul class="mui-table-view auto-list-cell BL-mar-t-1">
 				<li class="fItem BL-ub BL-ub-f1">
 					<div class="form-list-label">
 						交强险+车船税交强险
@@ -78,40 +89,65 @@
 	<script src="js/auto2.js"></script>
 	<script type="text/javascript">
 		mui.init();
-		var auto = new Vue({
-			el: "#Js-content",
-			data: {
-                biCoverageList: [],  // 商业险种信息
-				ciCoverageList: ciCoverageList,  // 交强险种信息
-				insList: {
-                    commercial: false,
-                    forcepremium: true,
-                    biBeginDate: new Date().addDays(1).Format('yyyy-MM-dd'),   // 商业险起期
-                    ciBeginDate: new Date().addDays(1).Format('yyyy-MM-dd'),
-                    biCoverageList: [],  // 商业险种信息
-                    ciCoverageList: ciCoverageList  // 交强险种信息
-				}
-			},
-			methods: {
-                openBusiness: function () {
-                    //打开商业险窗口
-                    mui.openWindow({
-                        id: "auto2c_business",
-                        url: "auto2c-business.html",
-                        show: animateObj.aniDetal,
-                        extras:{
-                            commercial: this.insList.commercial,    // 商业险
-                            biCoverageList: this.biCoverageList   // 已投保的险种信息
-                        }
-                    });
-                }
-			}
-		})
 		mui.plusReady(function() {
 			statusbar();
 			var winH = window.innerHeight;
 			var titHeight = document.querySelector('#Js-header').offsetHeight;
 			document.querySelector('#Js-content').style.height = (winH - titHeight) +'px';
+
+            var auto = new Vue({
+                el: "#Js-content",
+                data: {
+                    biCoverageList: [],  // 商业险种信息
+                    ciCoverageList: ciCoverageList,  // 交强险种信息
+                    insList: {
+                        commercial: false,
+                        forcepremium: true,
+                        biBeginDate: new Date().addDays(1).Format('yyyy-MM-dd'),   // 商业险起期
+                        ciBeginDate: new Date().addDays(1).Format('yyyy-MM-dd'),
+                        biCoverageList: [],  // 商业险种信息
+                        ciCoverageList: ciCoverageList  // 交强险种信息
+                    }
+                },
+                created: function () {
+                    var vm = this
+                    vm.$watch('insList.forcepremium', function (val) {
+                        if (val) {
+                            vm.$nextTick(function () {
+                                vm.setDate()
+                            })
+                        }
+                    });
+				},
+                methods: {
+                    openBusiness: function () {
+                        //打开商业险窗口
+                        mui.openWindow({
+                            id: "auto2c_business",
+                            url: "auto2c-business.html",
+                            show: animateObj.aniDetal,
+                            extras:{
+                                commercial: this.insList.commercial,    // 商业险
+                                biCoverageList: this.biCoverageList   // 已投保的险种信息
+                            }
+                        });
+                    },
+					setDate: function () {
+                        mui('.date').each(function (i, d) {
+                            d.addEventListener('tap', function () {
+                                document.activeElement.blur();
+                                var optionsJson = this.getAttribute('data-options') || '{}';
+                                var options = JSON.parse(optionsJson);
+                                var picker = new mui.DtPicker(options);
+                                picker.show(function (rs) {
+                                    auto.insList.ciBeginDate = rs.text;
+                                    picker.dispose();
+                                });
+                            }, false);
+                        });
+                    }
+                }
+            })
 
 			// 获取本地存储的险种信息
 			var insList = JSON.parse(plus.storage.getItem('insList'))
@@ -121,20 +157,8 @@
                 auto.insList.forcepremium = insList.forcepremium
                 auto.ciCoverageList = insList.ciCoverageList
 			}
-
-            //日期选择
-            mui('.date').each(function (i, d) {
-                d.addEventListener('tap', function () {
-                    document.activeElement.blur();
-                    var optionsJson = this.getAttribute('data-options') || '{}';
-                    var options = JSON.parse(optionsJson);
-                    var picker = new mui.DtPicker(options);
-                    picker.show(function (rs) {
-						auto.ciBeginDate = rs.text;
-                        picker.dispose();
-                    });
-                }, false);
-            });
+			// 初始化日期
+			auto.setDate()
 
             // 下一步
             document.querySelector('#next').addEventListener('click', function () {
@@ -158,10 +182,13 @@
                       show: animateObj.aniDetal
                   });
             })
+            
+            window.addEventListener('updatebiCoverageList', function (e) {
+	            auto.insList.commercial = e.detail.commercial
+				auto.insList.biBeginDate = e.detail.biBeginDate
+	            auto.biCoverageList = e.detail.biCoverageList
+	        });
 		})
-        window.addEventListener('updatebiCoverageList', function (e) {
-            auto.insList.commercial = e.detail.commercial
-            auto.biCoverageList = e.detail.biCoverageList
-        });
+        
 	</script>
 </html>

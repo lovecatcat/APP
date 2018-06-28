@@ -20,7 +20,7 @@
 			</div>
 		</header>
 		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY" v-cloak>
-			<ul class="mui-table-view form-list-cell">
+			<ul class="mui-table-view auto-list-cell BL-mar-t-1">
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label">投保城市</label>
 					<div class="form-list-control">
@@ -47,7 +47,7 @@
 				</li>
 			</ul>
 			<div class="form-notice BL-pad-t-1">车主信息</div>
-			<ul class="mui-table-view form-list-cell">
+			<ul class="mui-table-view auto-list-cell BL-mar-t-1">
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label">姓名</label>
 					<div class="form-list-control">
@@ -130,6 +130,15 @@
 					sex: "",     // 性别
                     birthday: ""   // 出生日期
 				},
+				// 险种信息（查询到车辆信息及车型信息跳转到计算保费页面）
+                insList: {
+                    commercial: false,
+                    forcepremium: true,
+                    biBeginDate: new Date().addDays(1).Format('yyyy-MM-dd'),   // 商业险起期
+                    ciBeginDate: new Date().addDays(1).Format('yyyy-MM-dd'),
+                    biCoverageList: biCoverageList,  // 商业险种信息
+                    ciCoverageList: ciCoverageList  // 交强险种信息
+                },
                 isNew: false,
 				showCitys: false,    // 展示城市简称
                 cityAbbr: '粤',   // 城市简称
@@ -145,6 +154,9 @@
                 }
 			},
 			methods: {
+                toblur: function () {
+                    document.activeElement.blur();
+                },
 			    checkForm: function () {
                     var toast_text = null;
 			        if (this.city == "") {
@@ -227,7 +239,7 @@
 								auto.car.licenseNo = res.data.licenseNo
 								auto.car.frameNo = res.data.frameNo
 								auto.car.engineNo = res.data.engineNo
-								auto.car.firstRegisterDate = res.data.firstRegisterDate
+								auto.car.registerDate = res.data.firstRegisterDate
                                 // 查询到车辆信息本地保存并继续查询车型信息
                                 plus.storage.setItem('car',JSON.stringify(auto.car));
 								luckyAjax({
@@ -243,9 +255,11 @@
                                     success:function(res){
                                         if (res.code == 1) {
                                             // 查询到车型信息本地保存并查询保险起期
-											var brand = res.data.data[0]
+											var brand = res.data[0]
+											auto.car.seatCount = brand.seat
+											// 更新载客人数重新本地保存
+                                            plus.storage.setItem('car',JSON.stringify(auto.car));
                                             plus.storage.setItem('brand',JSON.stringify(brand));
-
                                             luckyAjax({
                                                 data: {
                                                     server: 'carIns.effectiveDate',
@@ -255,12 +269,22 @@
                                                         licenseNo: auto.car.licenseNo,
                                                         frameNo: auto.car.frameNo,
                                                         engineNo: auto.car.engineNo,
-                                                        brandCode: brand.brandCode
+                                                        firstRegisterDate: auto.car.registerDate,
+                                                        brandCode: brand.brandCode,
+                                                        cityCode: auto.bus.cityCode,
+                                                        isTrans: auto.car.isTrans? 1 : 0
                                                     })
                                                 },
                                                 success: function (res) {
                                                     if (res.code == 1) {
                                                         // 保存保险起期
+														auto.insList.biBeginDate = res.data.biLastEffectiveDate
+                                                        auto.insList.ciBeginDate = res.data.ciLastEffectiveDate
+                                                        auto.insList.forcepremium = true
+														auto.insList.commercial =true
+
+														// 险种信息保存本地
+                                                        plus.storage.setItem('insList',JSON.stringify(auto.insList));
 													}
                                                     mui.openWindow({
                                                         url: 'auto2c-quotes.html',
@@ -273,7 +297,7 @@
                                             auto.car.responseNo = ""
                                             auto.car.frameNo = ""
                                             auto.car.engineNo = ""
-                                            auto.car.firstRegisterDate = ""
+                                            auto.car.registerDate = ""
                                             // 查询到车辆信息本地保存并继续查询车型信息
                                             plus.storage.setItem('car',JSON.stringify(auto.car));
                                             mui.openWindow({

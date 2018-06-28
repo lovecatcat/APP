@@ -45,39 +45,44 @@
                     </div>
                 </div>
             </div>
-            <div class="form-wrap margin-t_875">
-                <div class="border-b-e7e7e7">
-                    <div class="item-title">信息确认</div>
-                </div>
-                <div class="BL-pad-a1">
-                    <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1">
-                        <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读
-                            <a class="BL-col-3b9cf5" type="button" disabled @tap="showStatement(item.safe_id,item.name)" v-for="(item,index) in safegoods" v-show="item.name"><strong>《{{item.name}}条款》</strong></a>
-                            、和<a type="button" id="safenotice"
-                                 class="BL-col-3b9cf5"><strong>《客户声明与授权》</strong></a>、<a type="button" id="statement"
-                                                                                         class="BL-col-3b9cf5"><strong>《自动转账授权说明》</strong></a>，并确认无误
-                            <input name="checkbox" v-model="agree" type="checkbox" style="top: 10px; left: 0px;">
-                        </label>
+            <div v-show="ispass">
+                <div class="form-wrap margin-t_875">
+                    <div class="border-b-e7e7e7">
+                        <div class="item-title">信息确认</div>
                     </div>
-                </div>
-            </div>
-
-            <div class="form-wrap margin-t_875">
-                <div class="border-b-e7e7e7">
-                    <div class="item-title">身份验证</div>
-                </div>
-                <div class="input-item">
-                    <label class="">验证码</label>
-                    <div class="BL-ub BL-ub-pj BL-ub-f1">
-                        <div class="input-wrap BL-ub-f1">
-                            <input type="number" v-model="smscode">
+                    <div class="BL-pad-a1">
+                        <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1">
+                            <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读
+                                <a class="BL-col-3b9cf5" type="button" disabled @tap="showStatement(item.safe_id,item.name)" v-for="(item,index) in safegoods" v-show="item.name"><strong>《{{item.name}}条款》</strong></a>
+                                、和<a type="button" id="safenotice"
+                                     class="BL-col-3b9cf5"><strong>《客户声明与授权》</strong></a>、<a type="button" id="statement"
+                                                                                             class="BL-col-3b9cf5"><strong>《自动转账授权说明》</strong></a>，并确认无误
+                                <input name="checkbox" v-model="agree" type="checkbox" style="top: 10px; left: 0px;">
+                            </label>
                         </div>
-                        <button class="right-btn orange" @click="getSignature" :disabled="disabled">{{text}}</button>
                     </div>
                 </div>
+
+                <div class="form-wrap margin-t_875">
+                    <div class="border-b-e7e7e7">
+                        <div class="item-title">身份验证</div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">验证码</label>
+                        <div class="BL-ub BL-ub-pj BL-ub-f1">
+                            <div class="input-wrap BL-ub-f1">
+                                <input type="number" v-model="smscode">
+                            </div>
+                            <button class="right-btn orange" @click="getSignature" :disabled="disabled">{{text}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="BL-mar-t-3 BL-pad-lr-1_5">
+                    <a type="button" id="saveSign" class="form-btn blue">确认扣款</a>
+                </div>
             </div>
-            <div class="BL-mar-t-3 BL-pad-lr-1_5">
-                <a type="button" id="saveSign" class="form-btn blue">确认扣款</a>
+            <div v-show="!ispass" class="form-wrap">
+                <div class="input-item ins-font-xs BL-col-ff8201">您本次申请需要进行人工核保，完成电子签名后，公司会继续处理您的投保申请。</div>
             </div>
         </div>
     </div>
@@ -129,6 +134,7 @@
                     insuredSignAddress: '',//被保人签名链接
                     signflag: false, //签名状态
                     isinsured: false,
+                    ispass: false,//是否自核通过
                     smscode: '',
                     assured: {},
                     previewImg: [], //上传图片
@@ -275,6 +281,7 @@
                         var safe_data = []
                         pay.appSignAddress = da.insData.extend_items.appSignAddress
                         pay.insuredSignAddress = da.insData.extend_items.insuredSignAddress
+                        pay.ispass = da.insData.state === 5 ? false : true
                         if (da.insured.rel_holder_insured === 'LBK002H') {
                             pay.isinsured = true
                         }

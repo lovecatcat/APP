@@ -21,8 +21,11 @@
         <div class="dialog-header">
             <div class="mui-icon mui-icon-closeempty" id="close-ins-pop"></div>
             <p class="ins-font-md box-f-1">信息确认</p>
-            <div class="header-btn-save">
+            <div class="header-btn-save" v-show="ispass">
                 <button class="ins-btn sm-btn blue" id="saveSign">确认扣款</button>
+            </div>
+            <div class="header-btn-save" v-show="!ispass">
+                <button class="ins-btn sm-btn blue" id="closepass">完成</button>
             </div>
         </div>
         <div class="form-content margin-t-6_125 BL-pad-b-1">
@@ -47,36 +50,41 @@
                     </div>
                 </div>
             </div>
-            <div class="form-wrap margin-t_875">
-                <div class="border-b-e7e7e7">
-                    <div class="item-title">信息确认</div>
+            <div v-show="ispass">
+                <div class="form-wrap margin-t_875">
+                    <div class="border-b-e7e7e7">
+                        <div class="item-title">信息确认</div>
+                    </div>
+                    <div class="BL-pad-a1">
+                        <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1">
+                            <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读
+                                <a class="BL-col-3b9cf5" type="button" disabled @tap="showStatement(item.safe_id,item.name)" v-for="(item,index) in safegoods" v-show="item.name"><strong>《{{item.name}}条款》</strong></a>
+                                、和<a type="button" id="safenotice"
+                                    class="BL-col-3b9cf5"><strong>《客户声明与授权》</strong></a>、<a type="button" id="statement"
+                                    class="BL-col-3b9cf5"><strong>《自动转账授权说明》</strong></a>，并确认无误
+                                <input name="checkbox" v-model="agree" type="checkbox" style="top: 10px; left: 0px;">
+                            </label>
+                        </div>
+                    </div>
                 </div>
-                <div class="BL-pad-a1">
-                    <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1">
-                        <label style="padding-left: 3rem;line-height: 2rem;">本人已阅读
-                            <a class="BL-col-3b9cf5" type="button" disabled @tap="showStatement(item.safe_id,item.name)" v-for="(item,index) in safegoods" v-show="item.name"><strong>《{{item.name}}条款》</strong></a>
-                            、和<a type="button" id="safenotice"
-                                class="BL-col-3b9cf5"><strong>《客户声明与授权》</strong></a>、<a type="button" id="statement"
-                                class="BL-col-3b9cf5"><strong>《自动转账授权说明》</strong></a>，并确认无误
-                            <input name="checkbox" v-model="agree" type="checkbox" style="top: 10px; left: 0px;">
-                        </label>
+
+                <div class="form-wrap margin-t_875">
+                    <div class="border-b-e7e7e7">
+                        <div class="item-title">身份验证</div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">验证码</label>
+                        <div class="BL-ub BL-ub-pj BL-ub-f1">
+                            <div class="input-wrap BL-ub-f1">
+                                <input type="number" v-model="smscode">
+                            </div>
+                            <button class="right-btn orange" @click="getSignature" :disabled="disabled">{{text}}</button>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="form-wrap margin-t_875">
-                <div class="border-b-e7e7e7">
-                    <div class="item-title">身份验证</div>
-                </div>
-                <div class="input-item">
-                    <label class="">验证码</label>
-                    <div class="BL-ub BL-ub-pj BL-ub-f1">
-                        <div class="input-wrap BL-ub-f1">
-                            <input type="number" v-model="smscode">
-                        </div>
-                        <button class="right-btn orange" @click="getSignature" :disabled="disabled">{{text}}</button>
-                    </div>
-                </div>
+            <div v-show="!ispass" class="form-wrap">
+                <div class="input-item ins-font-xs BL-col-ff8201">您本次申请需要进行人工核保，完成电子签名后，公司会继续处理您的投保申请。</div>
             </div>
 
         </div>
@@ -117,6 +125,7 @@
         var war_id = signdata ? signdata.id : '';
         img.appSignAddress = signdata ? signdata.appSignAddress : '';
         img.insuredSignAddress = signdata ? signdata.insuredSignAddress : '';
+        img.ispass = signdata.ispass
         console.log(img.appSignAddress)
         console.log(img.insuredSignAddress)
         if (war_id) {
@@ -137,6 +146,10 @@
             popu.closepop();
             mui.fire(plus.webview.getWebviewById('zs_insurance-index'), 'resetLoading');
         });
+
+        document.querySelector('#closepass').addEventListener('tap', function () {
+            afterPay(true)
+        })
         //保存
         document.querySelector('#saveSign').addEventListener('tap', function () {
             if (!img.agree) {
@@ -224,6 +237,9 @@
                     } else if (res.data.flag === 'N') {
                         mui.toast(res.data.message, {duration: 'long', type: 'div'});
                         return false
+                    } else if (res.code === 0) {
+                        mui.toast(res.msg, {duration: 'long', type: 'div'})
+                        return false
                     } else {
                         mui.toast('网络出错，请稍后再试', {duration: 'long', type: 'div'})
                         return false
@@ -283,6 +299,7 @@
                 appSignAddress: '', //投保人签名链接
                 insuredSignAddress: '',//被保人签名链接
                 signflag: false, //签名状态
+                ispass: false, //是否自核通过
                 smscode: '',
                 assured: {},
                 previewImg: [], //上传图片
@@ -347,6 +364,9 @@
                             img.sended()
                         } else if (res.data.flag === 'N') {
                             mui.toast(res.data.message, {duration: 'long', type: 'div'})
+                        } else if (res.code === 0) {
+                            mui.toast(res.msg, {duration: 'long', type: 'div'})
+                            return false
                         } else {
                             mui.toast(res.data && res.data.message ? res.data.message : '网络出错，请稍后再试', {
                                 duration: 'long',

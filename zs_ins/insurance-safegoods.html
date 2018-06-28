@@ -866,11 +866,10 @@
                     basedata.safe_year = 8500
                     basedata.njy = this.insurance.period_money * this.insurance.pay_year
                 }
-                if (index === ywmjz) {
+                if (index === ywmjz || index === zybc) {
                     basedata.assu_sex = 0
                     basedata.flag = ssid + vm.assured.insured_job_cate
-                } else if ([zybc, zybt].indexOf(index) > -1) {
-                    console.log('住院补偿' + vm.assured.insured_job_cate)
+                } else if (index === zybt) {
                     basedata.assu_sex = 0
                     basedata.flag = vm.assured.insured_job_cate
                 } else if (hmx.indexOf(index) > -1) {

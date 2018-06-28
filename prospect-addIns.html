@@ -170,6 +170,13 @@
 					             	方式{{num}}
 					        </button>
 						</app-select>
+						<!-- 长城金彩一生 -->
+						<app-select label="领取方式" v-else-if="insurance.safe_id === '00320' && insurance.safe_year">
+							<button slot="button" class="ins-btn xs-btn blue" disabled>
+					             	{{insurance.safe_year == 999 ? '终身' : '至80周岁'}}
+					        </button>
+						</app-select>
+						
 						<app-input label="年缴保费">
 							<input slot="input" v-model.number="insurance.period_money" type="number" placeholder="请填写年缴保费（元）" @change="resetFee()">
 							<div slot="icon" v-show="insurance.period_money != ''" @tap="insurance.period_money = ''" class="form-clear-icon">

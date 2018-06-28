@@ -406,7 +406,8 @@
 					"requirement_risk_ppt.html",
 					"requirement.html",
 					"analysis.html",
-					"auto2c-business.html"
+					"auto2c-business.html",
+					"auto2c-order.html"
 				],
 				"priority": 0
 			},
@@ -3671,7 +3672,10 @@
 					"css/form.css",
 					"images/auto/TAIC.png",
 					"images/auto/CPIC.png",
-					"images/auto/TPIC.png"
+					"images/auto/TPIC.png",
+					"js/Date.js",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [
 					"auto2c-pay.html",
@@ -3712,7 +3716,9 @@
 					"css/product.css",
 					"css/member.css",
 					"css/mui.css",
-					"js/Date.js"
+					"js/Date.js",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [
 					"member-warranty-manageLife-detail.html",
@@ -3737,7 +3743,9 @@
 					"images/auto/CPIC.png",
 					"images/auto/UTIC.png",
 					"js/Date.js",
-					"images/auto/TAIC.png"
+					"images/auto/TAIC.png",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [],
 				"priority": 0

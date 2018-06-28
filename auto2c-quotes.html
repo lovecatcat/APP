@@ -317,7 +317,7 @@
                     var item = codes.shift()
                     mui.toast(vm.getICName(item) + ' 拼命算价中', {duration: 'short', type: 'div'});
                     var data =  setCalculateData(item)
-                    console.log(JSON.stringify(data))
+                    console.log("报价数据:" + JSON.stringify(data))
                     luckyAjax({
                         data: {
                             server: 'carIns.exactnessQuote',

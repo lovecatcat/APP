@@ -20,8 +20,8 @@
         </div>
     </header>
     <div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY" v-cloak>
-        <div class="form-notice BL-pad-t-1">这不是我的车？<a>修改车牌号</a></div>
-        <ul class="mui-table-view form-list-cell">
+        <div class="form-notice BL-pad-t-1">这不是我的车？<a onclick="changeLicenseNo()">修改车牌号</a></div>
+        <ul class="mui-table-view auto-list-cell BL-mar-t-1">
             <li class="fItem BL-ub BL-ub-f1" v-if="brand">
                 <div class="form-list-label BL-ub BL-ub-ver BL-ub-f1">
                     {{ ([brand.brandName,brand.vehicleFgwName,brand.parentVehName].join(' ')).trim() }}
@@ -33,7 +33,7 @@
                 </div>
             </li>
         </ul>
-        <ul class="mui-table-view form-list-cell">
+        <ul class="mui-table-view auto-list-cell BL-mar-t-1">
             <li class="fItem BL-ub BL-ub-f1">
                 <div class="form-list-label BL-ub-f3">
                     投保人信息
@@ -76,7 +76,7 @@
                 </li>
             </template>
         </ul>
-        <ul class="mui-table-view form-list-cell">
+        <ul class="mui-table-view auto-list-cell BL-mar-t-1">
             <li class="fItem BL-ub BL-ub-f1">
                 <div class="form-list-label BL-ub-f3">
                     被保人信息
@@ -119,7 +119,7 @@
                 </li>
             </template>
         </ul>
-        <div class="form-button-group" v-show="!calok">
+        <div class="form-button-group" v-show="!calok" style="padding: 1rem 1.5rem 0rem 1.5rem">
             <a type="button" class="form-btn" @click="getAllQuotes">计算</a>
         </div>
         <template v-if="quoteList">
@@ -129,7 +129,7 @@
                         <img :src="'images/auto/'+index+'.png'" :alt="index">
                         <div class="form-list-title">
                             {{ getICName(index) }}
-                            <p class="BL-ftz-46">{{ getICName(index) }}暂不支持投保</p>
+                            <p class="BL-ftz-46">{{item.msg}}</p>
                         </div>
                     </div>
                 </li>
@@ -147,7 +147,7 @@
                             <tr>
                                 <td>商业险</td>
                                 <td>交强险</td>
-                                <td>车船险</td>
+                                <td>车船税</td>
                             </tr>
                             <tr>
                                 <td>￥{{new Number(item.biPremium)}}</td>
@@ -201,7 +201,8 @@
                 isSaved: false,  // 是否已经保存过保单
                 calok: true, //是否报价
                 quoteList: {},  // 报价列表
-                codes: insurerCodes
+                codes: insurerCodes,
+                count: ""  // 报价次数
             },
             watch: {
                 app_is_owner: function (val) {
@@ -233,6 +234,23 @@
                     this.calok = false
                     this.quoteList = {}
                 },
+                // 统计报价次数
+                quoteCount: function (business_no) {
+                    luckyAjax({
+                        data: {
+                            server: 'carIns.quoteCount',
+                            view: true,
+                            data: JSON.stringify({
+                                business_no: business_no
+                            })
+                        },
+                        success: function (res) {
+                            if (res.code == 1) {
+                                auto.count = res.data.count
+                            }
+                        }
+                    })
+                },
                 // 校验投保人
                 checkApplicant: function () {
                     if (!checkName('投保人',this.applicant.name)){
@@ -261,32 +279,29 @@
                     if (!vm.checkAssured()) return false
 
                     if (!vm.isSaved) {
-                        // 发送保单信息到后台
-                        var data = setCarinsData("")
-                        luckyAjax({
-                            data: {
-                                server: 'carIns.setCarIns',
-                                view: true,
-                                data: JSON.stringify(data)
-                            },
-                            success: function (res) {
-                                if (res.code == 1) {
-                                    var bus =  JSON.parse(plus.storage.getItem('bus'))
-                                    vm.isSaved = true
-                                    bus.isSaved = true
-                                    plus.storage.setItem('bus',JSON.stringify(bus));
-                                } else {
-                                    mui.toast(res.msg, {duration: 'long', type: 'div'});
-                                    return false
-                                }
-                            }
-                        })
-                    } else {
-                        // 统计报价次数
-//                        Api.quoteCount(vm.thpBizID, res => {
-//                            vm.setParam({
-//                                count: res.data
-//                            })
+                        var bus =  JSON.parse(plus.storage.getItem('bus'))
+                        vm.isSaved = true
+                        bus.isSaved = true
+                        plus.storage.setItem('bus',JSON.stringify(bus));
+//                        // 发送保单信息到后台
+//                        var data = setCarinsData("")
+//                        luckyAjax({
+//                            data: {
+//                                server: 'carIns.setCarIns',
+//                                view: true,
+//                                data: JSON.stringify(data)
+//                            },
+//                            success: function (res) {
+//                                if (res.code == 1) {
+//                                    var bus =  JSON.parse(plus.storage.getItem('bus'))
+//                                    vm.isSaved = true
+//                                    bus.isSaved = true
+//                                    plus.storage.setItem('bus',JSON.stringify(bus));
+//                                } else {
+//                                    mui.toast(res.msg, {duration: 'long', type: 'div'});
+//                                    return false
+//                                }
+//                            }
 //                        })
                     }
                     vm.getQuote(vm.codes)
@@ -302,7 +317,7 @@
                     var item = codes.shift()
                     mui.toast(vm.getICName(item) + ' 拼命算价中', {duration: 'short', type: 'div'});
                     var data =  setCalculateData(item)
-
+                    console.log(JSON.stringify(data))
                     luckyAjax({
                         data: {
                             server: 'carIns.exactnessQuote',
@@ -310,6 +325,7 @@
                             data: JSON.stringify(data)
                         },
                         success: function (res) {
+                            console.log(JSON.stringify(res))
                             if (res.code == 1 || (res.code == 0 && res.data)) {
                                 vm.$set(vm.quoteList, item, res.data[0])
                             } else {
@@ -336,7 +352,7 @@
                     // 获取选择公司的报价信息
                     var quote = this.quoteList[index]
                     var data = setCarinsData(index, quote)
-
+                    console.log("选择公司投保保存保单数据："+ JSON.stringify(data))
                     luckyAjax({
                         data: {
                             server: 'carIns.setCarIns',
@@ -357,8 +373,12 @@
                     })
                 },
             }
-        })
-
+       })
+        
+        // 获取保单信息
+        var bus =  JSON.parse(plus.storage.getItem('bus'))
+        auto.isSaved = bus.isSaved
+        
         // 获取本地车辆信息
         auto.carInfo = JSON.parse(plus.storage.getItem('car'))
         // 获取本地车型信息
@@ -373,7 +393,7 @@
         // 被保人同车主
         auto.assured = deepClone(auto.owner)
         plus.storage.setItem('assured',JSON.stringify(auto.assured));
-
+        // 获取本地保存标志
         auto.getAllQuotes()
     })
 </script>

@@ -21,8 +21,8 @@
 		        </div>
 			</div>
 		</header>
-		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
-			<ul class="mui-table-view form-list-cell">
+		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY" v-cloak>
+			<ul class="mui-table-view auto-list-cell BL-mar-t-1">
 				<li class="fItem BL-ub BL-ub-f1">
 					<div class="form-list-label">
 						商业险
@@ -44,10 +44,10 @@
 					</div>
 				</li>
 			</ul>
-			<ul class="mui-table-view form-list-cell" v-if="commercial">
+			<ul class="mui-table-view auto-list-cell BL-mar-t-1" v-if="commercial">
 				<template v-for="item,index in biCoverageList">
 					<li class="fItem BL-ub BL-ub-f1" v-if="item.coverageCode === 'A'" :class="{'BL-hide': !show.A}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -59,7 +59,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'B'" :class="{'BL-hide': !show.B}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="N">不投保</option>
@@ -74,7 +74,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'G1'" :class="{'BL-hide': !show.G1}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -86,7 +86,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'D3'" :class="{'BL-hide': !show.D3}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="N">不投保</option>
@@ -101,7 +101,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'D4'" :class="{'BL-hide': !show.D4}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName  + item.coverageCode }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="N">不投保</option>
@@ -116,7 +116,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1"  v-else-if="item.coverageCode === 'Q3'" :class="{'BL-hide': !show.Q3}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -128,7 +128,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1"  v-else-if="item.coverageCode === 'Z'" :class="{'BL-hide': !show.Z}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -141,7 +141,7 @@
 					</li>
 					<template v-else-if="item.coverageCode === 'F'">
 						<li class="fItem BL-ub BL-ub-f1" :class="{'BL-hide': !show.F}">
-							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
 							<div class="form-list-control">
 								<select v-model="item.insuredAmount" @change="selectRisk(item)">
 									<option value="Y">投保</option>
@@ -152,7 +152,7 @@
 								<div class="mui-icon mui-icon-arrowright"></div>
 							</div>
 						</li>
-						<li class="fItem BL-ub BL-ub-f1" :class="{'BL-hide': item.insuredAmount == 'N'}">
+						<li class="fItem BL-ub BL-ub-f1" :class="{'BL-hide': item.insuredAmount == 'N'|| !show.F}">
 							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">└─ 玻璃类型</label>
 							<div class="form-list-control">
 								<select v-model="item.flag" @change="selectRisk(item)">
@@ -166,7 +166,7 @@
 						</li>
 					</template>
 					<li class="fItem BL-ub BL-ub-f1"  v-else-if="item.coverageCode === 'L'" :class="{'BL-hide': !show.L }">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="N">不投保</option>
@@ -181,7 +181,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'X1'" :class="{'BL-hide': !show.X1 }">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -193,7 +193,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'R'" :class="{'BL-hide': !show.R }">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode  }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="N">不投保</option>
@@ -209,7 +209,7 @@
 					</li>
 					<template v-else-if="item.coverageCode === 'Z2'">
 						<li class="fItem BL-ub BL-ub-f1" :class="{'BL-hide': !show.Z2 }">
-							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
 							<div class="form-list-control">
 								<select v-model="item.insuredAmount" @change="selectRisk(item)">
 									<option value="Y">投保</option>
@@ -234,15 +234,15 @@
 						<li class="fItem BL-ub BL-ub-f1" :class="{'BL-hide': item.insuredAmount == 'N' || !show.Z2 }">
 							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">└─ 补偿费用（50-500元）</label>
 							<div class="form-list-control" style="width: 30%">
-								<input type="text" placeholder="必填">
+								<input type="text" placeholder="必填" v-model.number="item.flag2" @change="checkNumber(item)">
 							</div>
-							<div class="form-list-icon">
-								<span class="mui-icon mui-icon-clear"></span>
+							<div class="form-list-icon" v-show="item.flag2!=''">
+								<span class="mui-icon mui-icon-clear" @click="item.flag2=''"></span>
 							</div>
 						</li>
 					</template>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'Z3'" :class="{'BL-hide': !show.Z3 }">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -255,10 +255,10 @@
 					</li>
 				</template>
 			</ul>
-			<ul class="mui-table-view form-list-cell" v-if="commercial">
+			<ul class="mui-table-view auto-list-cell BL-mar-t-1" v-if="commercial">
 				<template v-for="item,index in biCoverageList">
 					<li class="fItem BL-ub BL-ub-f1" v-if="item.coverageCode === 'MA'" :class="{'BL-hide': !show.MA}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -270,7 +270,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MB'" :class="{'BL-hide': !show.MB}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -282,7 +282,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MD3'" :class="{'BL-hide': !show.MD3}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -294,7 +294,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MD4'" :class="{'BL-hide': !show.MD4}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -306,7 +306,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MZ'" :class="{'BL-hide': !show.MZ}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -318,7 +318,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MG1'" :class="{'BL-hide': !show.MG1}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -330,7 +330,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'ML'" :class="{'BL-hide': !show.ML}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -342,7 +342,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MX1'" :class="{'BL-hide': !show.MX1}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -354,7 +354,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MR'" :class="{'BL-hide': !show.MR}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode  }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -395,7 +395,47 @@
                     show: {}, //不计免赔险
 					del: {}  // 是否删除过
                 },
+                created: function () {
+                    var vm = this
+                    vm.$watch('commercial', function (val) {
+                        if (val) {
+                            vm.$nextTick(function () {
+                                vm.setDate()
+                            })
+                        }
+                    });
+                },
                 methods: {
+                    checkNumber: function(item) {
+                        var val = item.flag2 || item
+                        var toast_text = null
+                        if (!val) {
+                            toast_text = '修理期间补偿费用不能为空'
+                        } else if (val < 50 || val > 500) {
+                            toast_text = '修理期间补偿费用范围是50~500元'
+                        }
+                        if (toast_text) {
+                            mui.toast(toast_text, {duration: 'short', type: 'div'});
+                            return false
+                        }
+                        return true
+                    },
+                    setDate: function () {
+                        mui('.date').each(function (i, d) {
+                            d.addEventListener('tap', function () {
+                                document.activeElement.blur();
+                                var optionsJson = this.getAttribute('data-options') || '{}';
+                                var options = JSON.parse(optionsJson);
+                                var picker = new mui.DtPicker(options);
+                                picker.show(function (rs) {
+                                    if (i === 0) {
+                                        auto.biBeginDate = rs.text;
+                                    }
+                                    picker.dispose();
+                                });
+                            }, false);
+                        });
+                    },
                     setRisk: function () {
                         var vm = this
                         if (!vm.biCoverageList || !vm.oldCoverageList) {
@@ -434,16 +474,41 @@
                                     vm.delHideIns(item.coverageCode)
                                 } else {
                                     vm.$set(vm.show, item.coverageCode, true)
+                                    if (item.coverageCode == 'F') {
+                                        item.insuredAmount = 'Y'
+									}
+                                }
+                            }
+                            if(MI2.indexOf(item.coverageCode) > -1) {
+                                if (val === 'Y') {
+                                    if (item.coverageCode == 'MA') {
+                                        item.insuredAmount = 'Y'
+                                    }
                                 }
                             }
                         })
+                    },
+                    n2one: function () { // 多对一
+                        var vm = this
+                        var bool = false
+                        vm.biCoverageList.forEach(function (item) {
+                            if (List2.indexOf(item.coverageCode) > -1) {
+								var val = item.insuredAmount
+								if (val !== 'N') {
+									bool = true
+								}
+                        	}
+                    	})
+                        vm.$set(vm.show, 'R', bool)
+                        !bool && vm.delHideIns('R')
                     },
                     delHideIns: function(code) { // 删除或隐藏主险和附加险
                         var vm = this
 
                         // 主险
                         if (vm.isSaved && !vm.del[code]) {
-							vm.delCarPlan(vm.business_no,code)
+                            vm.$set(vm.del, code, true)
+//							vm.delCarPlan(vm.business_no,code)
 //							Api.delCarPlan(vm.thpBizID, code, res => {
 //								vm.$set(vm.del, code, true)
 //								console.info(res.data > 0 ? '删除成功' : '删除失败')
@@ -455,7 +520,8 @@
                             var addonCode = 'M' + code
                             vm.$set(vm.show, addonCode, false) //隐藏
 							if (vm.isSaved && !vm.del[addonCode]) {
-                                vm.delCarPlan(vm.business_no,code)
+//                                vm.delCarPlan(vm.business_no,code)
+								vm.$set(vm.del, addonCode, true)
 //                                vm.$set(vm.del, addonCode, true)
 //								Api.delCarPlan(vm.thpBizID, addonCode, res => {
 //									vm.$set(vm.del, addonCode, true)
@@ -477,12 +543,11 @@
 								})
                             },
                             success: function (res) {
-                                alert(JSON.stringify(res))
                                 if (res.code == 1) {
-                                    vm.$set(vm.del, addonCode, true)
-                                    alert("删除成功")
+                                    console.log("删除关联险成功");
                                 } else {
-                                    alert("删除失败")
+                                    mui.toast("删除关联险失败", {duration: 'long', type: 'div'});
+                                    return
 								}
                             }
                         })
@@ -513,6 +578,11 @@
             auto.commercial = plus.webview.currentWebview().commercial;
             auto.oldCoverageList = plus.webview.currentWebview().biCoverageList;
 
+            // 获取本地缓存险别
+			var show = {}
+			if (plus.storage.getItem('show')){
+                show = JSON.parse(plus.storage.getItem('show'))
+			}
             // 获取本地存储的业务信息
             var bus =  JSON.parse(plus.storage.getItem('bus'))
 			auto.isSaved = bus.isSaved
@@ -563,7 +633,11 @@
 
 						// 显示默认的不计免赔
 						if (DI.indexOf(item.coverageCode) > -1 && MI.indexOf(item.coverageCode) > -1) {
-                            auto.$set(auto.show, 'M' + item.coverageCode, true)
+							auto.$set(auto.show, 'M' + item.coverageCode, true)
+						}
+						// 是否显示
+						if (JSON.stringify(show) != "{}") {
+                            auto.$set(auto.show, item.coverageCode, show[item.coverageCode])
 						}
 					})
 					auto.biCoverageList = coverageList
@@ -571,8 +645,16 @@
 				}
 			})
 
+            // 初始化日期
+            auto.setDate()
+
             // 保存
             document.querySelector('#save').addEventListener('click', function () {
+                // 删除险种
+                for(var j in auto.del) {
+                    auto.delCarPlan(auto.business_no,auto.del[j])
+                }
+
                 var coverageList = [] // 险种列表
                 for (var i = 0, vl = auto.biCoverageList.length; i < vl; ++i) {
                     var item = auto.biCoverageList[i]
@@ -607,33 +689,18 @@
                         coverageList.push(tml)
                     }
                 }
-
+                plus.storage.setItem('show',JSON.stringify(auto.show));
                 // 通知事件
                 mui.fire(plus.webview.getWebviewById('auto2c_choose'),'updatebiCoverageList',{
                     commercial: auto.commercial,
-                    biCoverageList: coverageList
+                    biBeginDate: auto.biBeginDate,
+                    biCoverageList: coverageList,
                 });
                 // 查询保险起期
                 setTimeout(function () {
                     plus.webview.currentWebview().close();
                 },200)
             })
-
-            //日期选择
-            mui('.date').each(function (i, d) {
-                d.addEventListener('tap', function () {
-                    document.activeElement.blur();
-                    var optionsJson = this.getAttribute('data-options') || '{}';
-                    var options = JSON.parse(optionsJson);
-                    var picker = new mui.DtPicker(options);
-                    picker.show(function (rs) {
-                        if (i === 0) {
-                            auto.biBeginDate = rs.text;
-                        }
-                        picker.dispose();
-                    });
-                }, false);
-            });
 		})
 	</script>
 </html>

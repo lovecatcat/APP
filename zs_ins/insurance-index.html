@@ -78,7 +78,7 @@
         <a type="button" id="ins-save" class="form-btn blue">核保</a>
     </div>
     <br><br>
-    <div class="BL-mar-t-3 BL-pad-lr-1_5">
+    <div class="BL-mar-t-3 BL-pad-lr-1_5" style="display: none">
         <a type="button" id="temppop" class="form-btn blue">签名</a>
     </div>
 </div>
@@ -835,7 +835,7 @@
                     if (res.data.flag === 'Y') {
                         if(res.data.isRulePass === 'Y'){
                             var sumPrem = res.data.sumPrem
-                            if (Number(sumPrem) !== Math.round(totalfee)) {
+                            if (parseInt(sumPrem) !== parseInt(totalfee)) {
                                 mui.toast('保费不一致！', {duration: 'long', type: 'div'})
                                 return false
                             } else {

@@ -916,18 +916,6 @@
                     vm.$forceUpdate()
                 })
             },
-            countFee: function () {
-                var sum = 0
-                if (this.insurance.period_money) {
-                    sum += Number(this.insurance.period_money)
-                }
-                for (var i in this.addonsSelected) {
-                    if (this.addonsSelected[i]) {
-                        sum += Number(this.addonIns[i].period_money)
-                    }
-                }
-                this.count = sum
-            },
             resetMoney: function (i) {
                 i = (i || this.insurance.code).toString()
 //                console.log('重置【' + i + '】附加险')

@@ -20,6 +20,7 @@
 </header>
 </body>
 <script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/auto2.js"></script>
 <script type="text/javascript">
     mui.init();
     (function ($) {
@@ -27,76 +28,130 @@
             statusbar();
             var topHeight = document.getElementById('Js-header').offsetHeight / sizeObj.dpl;
 
+            var business_no = plus.webview.currentWebview().business_no
             var payLink = plus.webview.currentWebview().payLink;
-            console.log(payLink)
             var embed = plus.webview.create(payLink, '', {top: topHeight + 'px', bottom: '0px'});
             plus.webview.currentWebview().append(embed);
 
             // 自定义返回事件
             mui.oldBack = mui.back;
             mui.back = function () {
-                embed.canBack(function (e) {
-                    if (e.canBack) {
-                        embed.back();
-                    } else {
-                        mui.oldBack();
+                luckyAjax({
+                    data: {
+                        server: 'carIns.payResult',
+                        view: true,
+                        data: JSON.stringify({
+                            businessNo: business_no
+                        })
+                    },
+                    timeout: 10000,
+                    success: function (res) {
+                        plus.nativeUI.showWaiting();
+                        console.log(JSON.stringify(res))
+                        var url = null
+                        var id = null
+                        var extras = null
+                        if (res.code == 1) {
+                            // 清除localhostStorage
+                            clearStorage()
+                            plus.nativeUI.showWaiting();
+                            if (res.data.state == 1) {
+                                console.log('支付成功')
+                                url = 'member-warranty-manage.html'
+                                id = 'member_warranty_manage'
+                                extras = {
+                                    wid: 'member_warranty_manageCar',    // 车险
+                                }
+                            } else if (res.data.state == 0) {
+                                console.log('未支付')
+                                mui.confirm('确定要放弃支付？', '提示', ['确定', '取消'], function (e) {
+                                    if (e.index == 0) {
+                                        url = 'member-auto-order.html'
+                                        id = 'member_auto_order'
+                                    }
+                                })
+                            } else if (res.data.state == 2) {
+                                console.log('未支付')
+                                url = 'member-auto-order.html'
+                                id = 'member_auto_order'
+                            }
+                        } else {
+                            mui.toast(res.msg, {duration: 'short', type: 'div'})
+                            return
+                        }
+
+                        setTimeout(function () {
+                            plus.nativeUI.closeWaiting();
+                            mui.openWindow({
+                                url: url,
+                                id: id,
+                                show: animateObj.aniDetal,
+                                extras: extras
+                            })
+                            setTimeout(function () {
+                                plus.webview.close('auto2c_pay');
+                            }, 500)
+                        }, 3000)
                     }
                 })
             };
-//
-//            document.querySelector('#Js-closePage').addEventListener('tap', function () {
-//
-//                luckyAjax({
-//                    data: {
-//                        data: JSON.stringify({
-//                            msg: {policy_id: plus.webview.currentWebview().policy_id},
-//                            company_code: 'PingAn',
-//                            method: 'pay'
-//                        }),
-//                        server: 'PolicyIns.onlineInsured',
-//                        device: 'mobile'
-//                    },
-//                    timeout: 10000,
-//                    success: function (res) {
-//                        plus.nativeUI.showWaiting();
-//                        console.log(JSON.stringify(res))
-//                        if (res.code) {
-//                            console.log('支付成功')
-//                            setTimeout(function () {
-//                                plus.nativeUI.closeWaiting();
-//                                mui.openWindow({
-//                                    url: '../member-warranty-manage.html',
-//                                    id: 'member_warranty_manage',
-//                                    show: animateObj.aniDetal
-//                                })
-//                                plus.webview.close('member_life_order');
-//                                setTimeout(function () {
-//                                    plus.webview.close('pa_pay');
-//                                    plus.webview.close('pa_toinsure');
-//                                    plus.webview.close('pa_question');
-//                                    plus.webview.close('pa_insurance-index');
-//                                }, 500)
-//                            }, 3000)
-//                        } else {
-//                            console.log('支付失败')
-//                            setTimeout(function () {
-//                                plus.nativeUI.closeWaiting();
-//                                mui.openWindow({
-//                                    url: '../member-life-order.html',
-//                                    id: 'member_life_order',
-//                                    show: animateObj.aniDetal
-//                                })
-//                                setTimeout(function () {
-//                                    plus.webview.close('pa_pay');
-//                                    plus.webview.close('pa_toinsure');
-//                                    plus.webview.close('pa_question');
-//                                    plus.webview.close('pa_insurance-index');
-//                                }, 500)
-//                            }, 3000)
-//                        }
-//                    }
-//                })
-//            }, false);
+            // 关闭事件
+            document.querySelector('#Js-closePage').addEventListener('tap', function () {
+                luckyAjax({
+                    data: {
+                        server: 'carIns.payResult',
+                        view: true,
+                        data: JSON.stringify({
+                            businessNo: business_no
+                        })
+                    },
+                    timeout: 10000,
+                    success: function (res) {
+                        plus.nativeUI.showWaiting();
+                        console.log(JSON.stringify(res))
+                        if (res.code == 1) {
+                        	// 清除localhostStorage
+                            clearStorage()
+                            plus.nativeUI.showWaiting();
+                            if (res.data.state == 1) {
+                                console.log('支付成功')
+                                setTimeout(function () {
+                                    plus.nativeUI.closeWaiting();
+                                    mui.openWindow({
+                                        url: 'member-warranty-manage.html',
+                                        id: 'member_warranty_manage',
+                                        show: animateObj.aniDetal,
+                                        extras:{
+                                            wid: 'member_warranty_manageCar',    // 车险
+                                        }
+                                    })
+                                    plus.webview.getWebviewById('member_auto_order') && mui.fire(plus.webview.getWebviewById('member_auto_order'), 'auto_reload');
+                                    setTimeout(function () {
+                                          plus.webview.close('auto2c_pay');
+                                    }, 500)
+                                }, 3000)
+                            } else if (res.data.state == 0) {
+                                console.log('支付失败')
+                                setTimeout(function () {
+                                    plus.nativeUI.closeWaiting();
+                                    mui.openWindow({
+                                        url: 'member-auto-order.html',
+                                        id: 'member_auto_order',
+                                        show: animateObj.aniDetal
+                                    })
+                                    plus.webview.getWebviewById('member_auto_order') && mui.fire(plus.webview.getWebviewById('member_auto_order'), 'auto_reload');
+                                    setTimeout(function () {
+                                        plus.webview.close('auto2c_pay');
+                                    }, 500)
+                                }, 3000)
+                            }
+                        } else {
+                        	mui.toast(res.msg, {duration: 'short', type: 'div'})
+                        	return
+                        }
+                    }
+                })
+            }, false);
         });
     })(mui);
 </script>

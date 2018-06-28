@@ -4,7 +4,7 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'],i
     height: 5.3rem;
 }
 .form-list-cell{margin-top: .7rem!important;}
-.form-list-cell .fItem {
+.auto-list-cell .fItem, .form-list-cell .fItem {
     position: relative;
     display: -webkit-box;
     display: -webkit-flex;
@@ -13,7 +13,7 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'],i
     padding: 0 1.5rem;
 }
 
-.form-list-cell .fItem:after {
+.auto-list-cell .fItem:after ,.form-list-cell .fItem:after {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -25,7 +25,7 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'],i
     background-color: #c8c7cc;
 }
 
-.form-list-cell .fItem:last-child:after,.fItem.no-line:after {
+.auto-list-cell .fItem:last-child:after,.form-list-cell .fItem:last-child:after,.fItem.no-line:after {
     height: 0;
 }
 
@@ -41,12 +41,12 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'],i
 	font-size: 1.4375rem;
 	font-style: normal;
 }
-.form-list-cell .fItem .mui-spinner {
+.auto-list-cell .fItem .mui-spinner,.form-list-cell .fItem .mui-spinner {
 	display: none;
 	width: 2rem;
 	height: 2rem;
 }
-.form-list-cell .fItem.mui-active .mui-spinner {
+.auto-list-cell .fItem.mui-active .mui-spinner,.form-list-cell .fItem.mui-active .mui-spinner {
 	display: inline-block;
 }
 

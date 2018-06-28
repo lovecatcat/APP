@@ -19,8 +19,8 @@
 			</div>
 		</header>
 		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY" v-cloak>
-			<div class="form-notice BL-pad-t-1">这不是我的车？<a>修改车牌号</a></div>
-			<ul class="mui-table-view form-list-cell">
+			<div class="form-notice BL-pad-t-1">这不是我的车？<a onclick="changeLicenseNo()">修改车牌号</a></div>
+			<ul class="mui-table-view auto-list-cell BL-mar-t-1">
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label">车架号</label>
 					<div class="form-list-control">
@@ -49,7 +49,7 @@
 					</div>
 				</li>
 			</ul>
-			<ul class="mui-table-view form-list-cell">
+			<ul class="mui-table-view auto-list-cell BL-mar-t-1">
 				<li class="fItem BL-ub BL-ub-f1">
 					<a class="BL-ub-f3 form-list-label" @click="openBrands">
 						品牌型号
@@ -64,7 +64,7 @@
 					</div>
 				</li>
 			</ul>
-			<ul class="mui-table-view form-list-cell">
+			<ul class="mui-table-view auto-list-cell BL-mar-t-1">
 				<li class="fItem BL-ub BL-ub-f1">
 					<div class="BL-ub-f3 form-list-label">
 						是否过户车
@@ -122,6 +122,8 @@
         var auto = new Vue({
             el: '#Js-content',
             data: {
+                // 保单信息
+				bus: null,
                 // 车辆信息
                 car: {
                     car_isnew: 2,   // 默认非新车
@@ -156,7 +158,8 @@
                         url: "auto2c-brand.html",
                         show: animateObj.aniDetal,
                         extras:{
-							car: this.car
+							car: this.car,
+                            cityCode: this.bus.cityCode
                         }
                     });
                 },
@@ -242,6 +245,8 @@
 			document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
 			// 获取本地的车辆信息
             auto.car = JSON.parse(plus.storage.getItem('car'))
+            // 获取本地的保单信息
+            auto.bus = JSON.parse(plus.storage.getItem('bus'))
 
             //日期选择
             mui('.date').each(function (i, d) {

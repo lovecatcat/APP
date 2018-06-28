@@ -18,8 +18,8 @@
 				<h1 class="BL-title">选择车险</h1>
 			</div>
 		</header>
-		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
-			<ul class="mui-table-view form-list-cell">
+		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY" v-cloak>
+			<ul class="mui-table-view auto-list-cell BL-mar-t-1">
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label BL-ub-f1">
 						商业险
@@ -41,7 +41,7 @@
 					</div>
 				</li>
 			</ul>
-			<ul class="mui-table-view form-list-cell">
+			<ul class="mui-table-view auto-list-cell BL-mar-t-1">
 				<template v-show="insList.commercial && biCoverageList">
 					<li class="fItem BL-ub BL-ub-f1" v-for="item in biCoverageList">
 						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1 BL-col-999">{{item.coverageName}}</label>
@@ -54,7 +54,7 @@
 					</li>
 				</template>
 			</ul>
-			<ul class="mui-table-view form-list-cell">
+			<ul class="mui-table-view auto-list-cell BL-mar-t-1">
 				<li class="fItem BL-ub BL-ub-f1">
 					<div class="form-list-label">
 						交强险+车船税交强险

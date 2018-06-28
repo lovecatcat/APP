@@ -406,7 +406,8 @@
 					"requirement_risk_result.html",
 					"requirement_risk_ppt.html",
 					"requirement.html",
-					"analysis.html"
+					"analysis.html",
+					"auto2c-business.html"
 				],
 				"priority": 0
 			},
@@ -816,7 +817,8 @@
 					"member-poster.html",
 					"member-requirement.html",
 					"member-clips.html",
-					"requirement.html"
+					"requirement.html",
+					"member-auto-order.html"
 				],
 				"priority": 0
 			},
@@ -2963,7 +2965,10 @@
 				"resources": [
 					"auto2c-choose.html",
 					"css/mui.css",
-					"css/mui.picker.min.css"
+					"css/mui.picker.min.css",
+					"js/Date.js",
+					"js/auto2.js",
+					"css/form.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -3065,9 +3070,15 @@
 				"resources": [
 					"css/mui.css",
 					"css/mui.picker.min.css",
-					"css/member.css"
+					"css/member.css",
+					"js/mui.poppicker.js",
+					"images/icon/ico-down.png"
 				],
-				"refer": [],
+				"refer": [
+					"member-warranty-manageLife-insreceipt.html",
+					"member-warranty-manageLife-detail.html",
+					"member-warranty-manageAuto-detail.html"
+				],
 				"priority": 0
 			},
 			"member-plans-alone-modal.html": {
@@ -3127,7 +3138,8 @@
 			},
 			"member-warranty-manageLife-insreceipt.html": {
 				"resources": [
-					"css/mui.css"
+					"css/mui.css",
+					"css/news.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -3271,7 +3283,9 @@
 					"css/mui.css",
 					"paehis/method.js"
 				],
-				"refer": [],
+				"refer": [
+					"member-life-order.html"
+				],
 				"priority": 0
 			},
 			"requirement_safe1.html": {
@@ -3605,7 +3619,9 @@
 				"resources": [
 					"css/mui.css",
 					"css/form.css",
-					"css/mui.picker.min.css"
+					"css/mui.picker.min.css",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [
 					"auto2c-choose.html",
@@ -3617,7 +3633,9 @@
 				"resources": [
 					"images/icon/pic-auto-examples.png",
 					"css/mui.css",
-					"css/form.css"
+					"css/form.css",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -3645,7 +3663,16 @@
 					"css/auto.css",
 					"css/plans.css",
 					"images/icon/ico-down.png",
-					"css/mui.picker.min.css"
+					"css/mui.picker.min.css",
+					"js/html2canvas.js",
+					"js/IDValidator.min.js",
+					"js/mui.poppicker.js",
+					"js/city.data-3.js",
+					"js/auto2.js",
+					"css/form.css",
+					"images/auto/TAIC.png",
+					"images/auto/CPIC.png",
+					"images/auto/TPIC.png"
 				],
 				"refer": [
 					"auto2c-pay.html",
@@ -3671,7 +3698,47 @@
 			},
 			"auto2c-pay.html": {
 				"resources": [
-					"css/mui.css"
+					"css/mui.css",
+					"js/auto2.js"
+				],
+				"refer": [
+					"member-auto-order.html",
+					"member-warranty-manageCar.html",
+					"member-warranty-manage.html"
+				],
+				"priority": 0
+			},
+			"member-auto-order.html": {
+				"resources": [
+					"css/product.css",
+					"css/member.css",
+					"css/mui.css",
+					"js/Date.js"
+				],
+				"refer": [
+					"member-warranty-manageLife-detail.html",
+					"member-warranty-manageAuto-detail.html",
+					"auto2c-pay.html",
+					"auto2c-order.html"
+				],
+				"priority": 0
+			},
+			"member-warranty-manageAuto-detail.html": {
+				"resources": [
+					"js/IDValidator.min.js",
+					"js/mui.poppicker.js",
+					"css/mui.picker.min.css",
+					"css/member.css",
+					"css/mui.css",
+					"js/city.data-3.js",
+					"js/auto2.js",
+					"css/auto.css",
+					"css/form.css",
+					"images/auto/TPIC.png",
+					"images/auto/CPIC.png",
+					"images/auto/UTIC.png",
+					"js/Date.js",
+					"images/auto/TAIC.png"
 				],
 				"refer": [],
 				"priority": 0

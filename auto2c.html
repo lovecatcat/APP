@@ -20,7 +20,7 @@
 			</div>
 		</header>
 		<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY" v-cloak>
-			<ul class="mui-table-view form-list-cell">
+			<ul class="mui-table-view auto-list-cell BL-mar-t-1">
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label">投保城市</label>
 					<div class="form-list-control">
@@ -47,7 +47,7 @@
 				</li>
 			</ul>
 			<div class="form-notice BL-pad-t-1">车主信息</div>
-			<ul class="mui-table-view form-list-cell">
+			<ul class="mui-table-view auto-list-cell BL-mar-t-1">
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label">姓名</label>
 					<div class="form-list-control">
@@ -154,6 +154,9 @@
                 }
 			},
 			methods: {
+                toblur: function () {
+                    document.activeElement.blur();
+                },
 			    checkForm: function () {
                     var toast_text = null;
 			        if (this.city == "") {
@@ -277,7 +280,6 @@
                                                         // 保存保险起期
 														auto.insList.biBeginDate = res.data.biLastEffectiveDate
                                                         auto.insList.ciBeginDate = res.data.ciLastEffectiveDate
-
                                                         auto.insList.forcepremium = true
 														auto.insList.commercial =true
 
@@ -295,7 +297,7 @@
                                             auto.car.responseNo = ""
                                             auto.car.frameNo = ""
                                             auto.car.engineNo = ""
-                                            auto.car.firstRegisterDate = ""
+                                            auto.car.registerDate = ""
                                             // 查询到车辆信息本地保存并继续查询车型信息
                                             plus.storage.setItem('car',JSON.stringify(auto.car));
                                             mui.openWindow({

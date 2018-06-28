@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="css/mui.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/module.css" rel="stylesheet" />
+    <link href="css/form.css" rel="stylesheet" />
+    <link href="css/member.css" rel="stylesheet" />
+    <script src="js/config.js" type="text/javascript"></script>
+    <script src="js/auto2.js"></script>
+    <link href="css/auto.css" rel="stylesheet" />
+</head>
+
+<body class="BL-bg-f2f">
+    <header id="Js-header" class="BL-bg-fff">
+        <div class="BL-mod-headbar BL-mod-headbar-pos">
+            <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+            <h1 class="BL-title">订单详情</h1>
+        </div>
+    </header>
+    <div id="Js-content" class="mui-content BL-overFlow-autoY" v-cloak>
+        <div class="BL-bg-fff BL-mar-t-1">
+            <ul class="mui-table-view mui-table-view-chevron warranty-mui-table-view" v-if="content">
+                <li class="mui-table-view-cell member-warranty-detail-item">
+                    <div class="form-list-thumb BL-ub BL-ub-ac" style="padding: 1rem 1.7rem 0rem 1.7rem">
+                        <img :src="'images/auto/'+content.company+'.png'">
+                        <div class="form-list-title">
+                            {{ content.company_name }}
+                        </div>
+                        <div class="BL-ub-f1 BL-txt-r">
+                            合计：<i class="BL-col-ff8201">￥{{(Number(content.business_total)+Number(content.compulsory_total) + Number(content.vehicle_tax_total)).toFixed(2)}}</i>
+                        </div>
+                    </div>
+                    <div class="BL-pad-lr-1_5 mui-table-view mui-table-view-chevron" style="padding-top: 1rem">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td class="BL-bg-f2f">险种</td>
+                                    <td class="BL-bg-f2f">保费（元）</td>
+                                    <td class="BL-bg-f2f">起保日期</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>商业险</td>
+                                    <td>{{ content.business_total }}</td>
+                                    <td>{{ content.business_start_date }}</td>
+                                </tr>
+                                <tr>
+                                    <td>交强险</td>
+                                    <td>{{ content.compulsory_total }}</td>
+                                    <td>{{ content.compulsory_start_date }}</td>
+                                </tr>
+                                <tr>
+                                    <td>车船税</td>
+                                    <td>{{ content.vehicle_tax_total }}</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-b-1">
+                    <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l mui-navigate-right">
+                        <span class="BL-col-3b9cf5">险种详情</span>
+                    </a>
+                    <div class="BL-pad-lr-1_5 mui-table-view mui-table-view-chevron" style="padding-top: 1rem">
+                        <table width="100%">
+                            <thead>
+                                <tr>
+                                    <td class="BL-bg-f2f">险种</td>
+                                    <td class="BL-bg-f2f">保额（元）</td>
+                                    <td class="BL-bg-f2f">保费（元）</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in content.plan">
+                                    <td width="50%">{{ item.product_name }} </td>
+                                    <td width="25%">{{ item.pay_limit != '0.00' ? (/\./.test(Number(item.pay_limit)) ? Number((+item.pay_limit).toFixed(2)) : Number(item.pay_limit) / 10000 + '万') : '投保' }}</td>
+                                    <td width="25%">{{ Number(item.amount) }} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-tb-1">
+                    <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l mui-navigate-right">
+                        <span class="BL-col-3b9cf5">车辆信息</span>
+                    </a>
+                    <div class=" BL-pad-lr-1_5 mui-table-view mui-table-view-chevron"  style="overflow: hidden;padding-top: 1rem">
+                        <ul style="width: 40%;float: left;" class="BL-bg-f2f">
+                            <li>车牌号</li>
+                            <li>车架号</li>
+                            <li>发动机号</li>
+                            <li>品牌型号</li>
+                            <li>初登日期</li>
+                            <li>是否过户车</li>
+                        </ul>
+                        <ul style="width: 60%;float: left;border-left: none;">
+                            <li>{{ content.vehicle_no }}</li>
+                            <li>{{ content.vin_code }}</li>
+                            <li>{{ content.engine_no }}</li>
+                            <li>{{ content.vehicle_model }}</li>
+                            <li>{{ content.register_date }}</li>
+                            <li>{{ content.isTrans? "是": "否" }}</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-tb-1">
+                    <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l mui-navigate-right">
+                        <span class="BL-col-3b9cf5">车主信息</span>
+                    </a>
+                    <div class="BL-pad-lr-1_5 mui-table-view mui-table-view-chevron"  style="overflow: hidden;padding-top: 1rem">
+                        <ul style="width: 40%;float: left;" class="BL-bg-f2f">
+                            <li>姓名</li>
+                            <li>手机号码</li>
+                            <li>证件号码</li>
+                        </ul>
+                        <ul style="width: 60%;float: left;border-left: none;">
+                            <li>{{ content.vehicle_owner }}</li>
+                            <li>{{ content.vehicle_tel }}</li>
+                            <li>{{ content.vehicle_idcard }}</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-tb-1">
+                    <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l mui-navigate-right">
+                        <span class="BL-col-3b9cf5">投保人信息</span>
+                    </a>
+                    <div class="BL-pad-lr-1_5 mui-table-view mui-table-view-chevron"  style="overflow: hidden;padding-top: 1rem">
+                        <ul style="width: 40%;float: left;" class="BL-bg-f2f">
+                            <li>姓名</li>
+                            <li>手机号码</li>
+                            <li>证件号码</li>
+                        </ul>
+                        <ul style="width: 60%;float: left;border-left: none;">
+                            <li>{{ content.app_name }}</li>
+                            <li>{{ content.app_tel }}</li>
+                            <li>{{ content.app_cardno}}</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-tb-1">
+                    <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l mui-navigate-right">
+                        <span class="BL-col-3b9cf5">被保人信息</span>
+                    </a>
+                    <div class="BL-pad-lr-1_5 mui-table-view mui-table-view-chevron"  style="overflow: hidden;padding-top: 1rem">
+                        <ul style="width: 40%;float: left;" class="BL-bg-f2f">
+                            <li>姓名</li>
+                            <li>手机号码</li>
+                            <li>证件号码</li>
+                        </ul>
+                        <ul style="width: 60%;float: left;border-left: none;">
+                            <li>{{ content.ass_name }}</li>
+                            <li>{{ content.ass_tel }}</li>
+                            <li>{{ content.ass_cardno }}</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-tb-1">
+                    <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l mui-navigate-right">
+                        <span class="BL-col-3b9cf5">配送信息</span>
+                    </a>
+                    <div class="BL-pad-lr-1_5 mui-table-view mui-table-view-chevron"  style="overflow: hidden;padding-top: 1rem">
+                        <ul style="width: 40%;float: left;" class="BL-bg-f2f">
+                            <li>收件人</li>
+                            <li>手机号码</li>
+                            <li>地址</li>
+                            <li>电子邮箱</li>
+                        </ul>
+                        <ul style="width: 60%;float: left;border-left: none;">
+                            <li>{{ content.address_name }}</li>
+                            <li>{{ content.address_mobile }}</li>
+                            <li>{{ content.address_address }}</li>
+                            <li>{{ content.address_mail}}</li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/vue.min.js"></script>
+<script src="js/mui.picker.js"></script>
+<script src="js/mui.poppicker.js"></script>
+<script src="js/mui.dtpicker.js"></script>
+<script src="js/Date.js"></script>
+<script type="text/javascript">
+    mui.init();
+    mui.plusReady(function() {
+        statusbar();
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        document.querySelector('#Js-content').style.height = (winH - titHeight) +'px';
+        var auto = new Vue({
+            el: '#Js-content',
+            data: {
+                content: null
+            }
+        });
+
+        var business_no = plus.webview.currentWebview().business_no;
+        luckyAjax({
+            data: {
+                server: 'carIns.getInsDetails',
+                view: true,
+                data: JSON.stringify({
+                    businessNo: business_no
+                }),
+            },
+            success:function(res){
+                if (res.code == 1) {
+                    auto.content = res.data
+                    console.log(JSON.stringify(auto.content))
+                } else {
+                    mui.toast('获取订单详情失败', {duration: 'long', type: 'div'})
+                }
+            }
+        });
+    })
+</script>
+</html>

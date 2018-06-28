@@ -22,12 +22,12 @@
         </div>
     </header>
     <div id="Js-content" class="mui-content BL-overFlow-autoY BL-bg-fff" v-cloak>
-        <div class="BL-bg-fff">
+        <div class="BL-bg-fff" id="html2img">
             <ul class="mui-table-view mui-table-view-chevron warranty-mui-table-view">
-                <li class="mui-table-view-cell member-warranty-detail-item" v-if="quote && insList">
-                    <div class="form-button-group">
-                        <a type="button" class="form-btn BL-col-3b9cf5 BL-mar-t-1 BL-bg-f2f" id="saveImg">保存报价信息为图片</a>
-                    </div>
+                <li class="member-warranty-detail-item" v-if="quote && insList">
+                    <!--<div class="form-button-group">-->
+                        <!--<a class="form-btn BL-col-3b9cf5 BL-mar-t-1 BL-bg-f2f" @click="saveImg">保存报价信息为图片</a>-->
+                    <!--</div>-->
                     <div class="form-list-thumb BL-ub BL-ub-ac" style="padding: 1rem 1.7rem 0rem 1.7rem">
                         <img :src="'images/auto/'+quote.insurerCode+'.png'" :alt="quote.insurerCode">
                         <div class="form-list-title">
@@ -60,7 +60,7 @@
                                 <tr v-if="quote.carshipTax > 0">
                                     <td>车船税</td>
                                     <td>{{ quote.carshipTax }}</td>
-                                    <td>{{ insList.ciBeginDate }}</td>
+                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -120,7 +120,7 @@
                 </li>
                 <li class="mui-table-view-cell mui-collapse member-warranty-detail-item BL-mar-tb-1"  v-if="quote && quote.coverageList">
                     <a class="BL-title BL-pad-lr-1_5 BL-bg-ebf5fe BL-ftz-52 BL-txt-l mui-navigate-right">
-                        <span class="BL-col-3b9cf5">商业险险种详情</span>
+                        <span class="BL-col-3b9cf5">险种详情</span>
                     </a>
                     <div class="BL-pad-lr-1_5 mui-table-view mui-table-view-chevron" style="padding-top: 1rem">
                         <table>
@@ -132,7 +132,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="item in quote.coverageList" v-if="quote.coverageList.length > 1 && item.coverageCode != 'FORCEPREMIUM'">
+                                <tr v-for="item in quote.coverageList" v-if="quote.coverageList.length > 1">
                                     <td>{{item.coverageName}}</td>
                                     <td>{{item.amount ? (/\./.test(item.amount) ? Number((+item.amount).toFixed(2)) : Number(item.amount) / 10000 + '万') : '投保'}}</td>
                                     <td>{{Number(item.insuredPremium)}}</td>
@@ -244,6 +244,7 @@
 <script src="js/city.data-3.js"></script>
 <script src="js/Date.js"></script>
 <script src="js/IDValidator.min.js"></script>
+<script src="js/html2canvas.js"></script>
 <script type="text/javascript">
     mui.init();
     mui.plusReady(function() {
@@ -252,17 +253,18 @@
         var titHeight = document.querySelector('#Js-header').offsetHeight;
         document.querySelector('#Js-content').style.height = (winH - titHeight) +'px';
 
-
         var auto = new Vue({
             el: '#Js-content',
             data: {
                 loading: false,
-                car: null, // 车辆信息
-                brand: null, // 车型信息
-                owner: null,  // 车主信息
-                applicant: null,// 投保人信息
-                assured: null, //被保人信息
-                quote: null,
+                car: {}, // 车辆信息
+                brand: {}, // 车型信息
+                owner: {},  // 车主信息
+                applicant: {},// 投保人信息
+                assured: {}, //被保人信息
+                quote: {},
+                bus:{},
+                insList: {},
                 // 收件人信息
                 address: {
                     name: "",
@@ -296,51 +298,159 @@
                     }
                     return true
                 }
+            },
+            created: function () {
+                // 获取从订单列表传过来的业务单号
+                var vm = this
+                var business_no = plus.webview.currentWebview().business_no;
+                if (business_no) {
+                    // 获取保单数据进行组装
+                    luckyAjax({
+                        data: {
+                            server: 'carIns.getInsDetails',
+                            view: true,
+                            data: JSON.stringify({
+                                businessNo: business_no
+                            }),
+                        },
+                        success:function(res){
+                            if (res.code == 1) {
+                                var data = res.data
+                                var quote = {}
+
+                                // 业务信息
+                                vm.bus.user_id = data.user_id
+                                vm.bus.business_no = data.business_no
+                                vm.bus.cityCode = data.ins_city_id
+                                vm.bus.isSaved = true
+                                // 车辆信息
+                                vm.car.licenseNo = data.vehicle_no
+                                vm.car.frameNo = data.vin_code
+                                vm.car.engineNo = data.engine_no
+                                vm.car.registerDate = data.register_date
+                                vm.car.car_isnew = data.car_isnew
+                                vm.car.seatCount = data.car_seats
+                                vm.car.isTrans = data.is_trans
+                                vm.car.transDate = data.trans_date
+                                // 品型信息
+                                var model= data.vehicle_model.split(' ')
+                                vm.brand.brandCode = data.vehicle_model_no
+                                vm.brand.brandName = model[0]
+                                vm.brand.vehicleFgwName = model[1]
+                                vm.brand.parentVehName = model[2]
+                                // 车主
+                                vm.owner.name = data.vehicle_owner
+                                vm.owner.mobile = data.vehicle_tel
+                                vm.owner.Idno = data.vehicle_idcard
+                                // 投保人
+                                vm.applicant.name = data.app_name
+                                vm.applicant.mobile = data.app_tel
+                                vm.applicant.Idno = data.app_cardno
+                                vm.applicant.sex = data.app_sex_code
+                                vm.applicant.birthday = data.app_birthday
+                                // 被保人
+                                vm.assured.name = data.ass_name
+                                vm.assured.mobile = data.ass_tel
+                                vm.assured.Idno = data.ass_cardno
+                                vm.assured.sex = data.ass_sex
+                                vm.assured.birthday = data.ass_birthday
+                                // 收件人
+                                vm.address.name = data.address_name
+                                vm.address.mobile = data.address_mobile
+                                vm.address.email = data.address_mail
+                                vm.address.location = "请选择"
+                                vm.address.detail = ""
+                                vm.address.province = "" // 省级代码
+                                vm.address.city = ""     // 市级代码
+                                vm.address.county = ""    // 区级代码
+                                // 险种信息
+                                vm.insList.commercial = data.business_exist == 1 ? true: false
+                                vm.insList.forcepremium = data.compulsory_exist == 1 ? true: false
+                                vm.insList.biBeginDate = data.business_start_date
+                                vm.insList.ciBeginDate = data.compulsory_start_date
+                                // 险种报价信息
+                                quote.insurerCode = data.company
+                                quote.bizID = data.thp_business_no
+                                quote.channelCode = 'HUIMENG_PROXY_INSURE'
+                                quote.biPremium = data.business_total
+                                quote.ciPremium = data.compulsory_total
+                                quote.carshipTax = data.vehicle_tax_total
+                                quote.coverageList = []
+                                for (var i = 0; i < data.plan.length; i++) {
+                                    var item = {}
+                                    var arrItem = data.plan[i]
+                                    item.coverageCode = arrItem.code
+                                    item.coverageName = arrItem.product_name
+                                    item.insuredPremium = arrItem.amount
+                                    item.flag = arrItem.flag
+                                    item.amount = arrItem.pay_limit == '0.00' ? '': arrItem.pay_limit
+                                    item.insuredAmount = 'Y'
+
+                                    quote.coverageList.push(item)
+                                }
+                                // 本地存
+                                plus.storage.setItem('bus',JSON.stringify(vm.bus));
+                                plus.storage.setItem('car',JSON.stringify(vm.car));
+                                plus.storage.setItem('brand',JSON.stringify(vm.brand));
+                                plus.storage.setItem('owner',JSON.stringify(vm.owner));
+                                plus.storage.setItem('applicant',JSON.stringify(vm.applicant));
+                                plus.storage.setItem('assured',JSON.stringify(vm.assured));
+                                plus.storage.setItem('address',JSON.stringify(vm.address));
+                                plus.storage.setItem('insList',JSON.stringify(vm.insList));
+                                
+                                auto.quote = quote
+                                alert(JSON.stringify(quote))
+                                document.getElementById('sum').innerHTML = (Number(auto.quote.biPremium)+Number(auto.quote.ciPremium)+Number(auto.quote.carshipTax)).toFixed(2)
+                            } else {
+                                mui.toast('获取订单详情失败', {duration: 'long', type: 'div'})
+                            }
+                        }
+                    });
+                }else {
+                    // 获取本地车辆信息
+                    vm.car = JSON.parse(plus.storage.getItem('car'))
+                    // 获取本地车型信息
+                    vm.brand = JSON.parse(plus.storage.getItem('brand'))
+                    // 获取本地车主信息
+                    vm.owner = JSON.parse(plus.storage.getItem('owner'))
+                    // 投保人
+                    vm.applicant = JSON.parse(plus.storage.getItem('applicant'))
+                    // 被保人
+                    vm.assured = JSON.parse(plus.storage.getItem('assured'))
+                    // 保单险种信息
+                    vm.insList = JSON.parse(plus.storage.getItem('insList'))
+
+                    vm.quote = plus.webview.currentWebview().quote;
+
+                    document.getElementById('sum').innerHTML = (Number(vm.quote.biPremium)+Number(vm.quote.ciPremium)+Number(vm.quote.carshipTax)).toFixed(2)
+                }
+
+                vm.$nextTick(function () {
+                    var _getParam = function (obj, param) {
+                        return obj[param] || '';
+                    };
+                    var cityPicker3 = new mui.PopPicker({
+                        layer: 3
+                    });
+                    cityPicker3.setData(cityData3);
+                    document.querySelector('#address-select').addEventListener('tap', function () {
+                        document.activeElement.blur();
+                        cityPicker3.show(function (items) {
+                            // 北京1、天津2 、上海3 、重庆4直辖市特殊处理
+                            vm.address.province = items[0].value
+                            if (vm.address.province == 1 || vm.address.province == 2 || vm.address.province == 3 || vm.address.province == 4) {
+                                vm.address.city = ""
+                                vm.address.county = items[1].value
+                            } else {
+                                vm.address.city = items[1].value
+                                vm.address.county = items[2].value
+                            }
+                            vm.address.location = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text') ;
+                        });
+                    }, false);
+                })
             }
         });
-
-        // 获取本地车辆信息
-        auto.car = JSON.parse(plus.storage.getItem('car'))
-        // 获取本地车型信息
-        auto.brand = JSON.parse(plus.storage.getItem('brand'))
-        // 获取本地车主信息
-        auto.owner = JSON.parse(plus.storage.getItem('owner'))
-        // 投保人同车主
-        auto.applicant = JSON.parse(plus.storage.getItem('applicant'))
-        // 被保人同车主
-        auto.assured = JSON.parse(plus.storage.getItem('assured'))
-        // 保单险种信息
-        auto.insList = JSON.parse(plus.storage.getItem('insList'))
-
-        auto.quote = plus.webview.currentWebview().quote;
-        document.getElementById('sum').innerHTML = (Number(auto.quote.biPremium)+Number(auto.quote.ciPremium)+Number(auto.quote.carshipTax)).toFixed(2)
-
-        //投保地区
-        auto.$nextTick(function () {
-            var _getParam = function (obj, param) {
-                return obj[param] || '';
-            };
-            var cityPicker3 = new mui.PopPicker({
-                layer: 3
-            });
-            cityPicker3.setData(cityData3);
-
-            document.querySelector('#address-select').addEventListener('tap', function () {
-                document.activeElement.blur();
-                cityPicker3.show(function (items) {
-                    // 北京1、天津2 、上海3 、重庆4直辖市特殊处理
-                    auto.address.province = items[0].value
-                    if (auto.address.province == 1 || auto.address.province == 2 || auto.address.province == 3 || auto.address.province == 4) {
-                        auto.address.city = ""
-                        auto.address.county = items[1].value
-                    } else {
-                        auto.address.city = items[1].value
-                        auto.address.county = items[2].value
-                    }
-                    auto.address.location = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text') ;
-                });
-            }, false);
-        })
 
         // 申请核保
         document.querySelector('#ins-save').addEventListener('click', function () {
@@ -363,7 +473,8 @@
             plus.storage.setItem('address',JSON.stringify(auto.address));
             auto.loading = true;
             // 保存保单
-            var data = setCarinsData(auto.quote.insurerCode)
+            var data = setCarinsData(auto.quote.insurerCode,auto.quote)
+            console.log("核保前保存保单："+ JSON.stringify(data))
             luckyAjax({
                 data: {
                     server: 'carIns.setCarIns',
@@ -417,7 +528,6 @@
                 show: animateObj.aniDetal
             });
         });
-
         // 申请核保
         function online_ins() {
             var data= {
@@ -435,7 +545,7 @@
                 addresseeMobile: auto.address.mobile,
                 policyEmail: auto.address.email
             }
-            console.log(JSON.stringify(data))
+            console.log("核保数据："+ JSON.stringify(data))
             luckyAjax({
                 data: {
                     server: 'carIns.applyUnderwrite',
@@ -443,24 +553,36 @@
                     data: JSON.stringify(data)
                 },
                 success: function (res) {
-                    // 同步核保状态
-
                     if (res.code == 1) {
                         if (res.data.synchFlag == '1') {
                             // 转入人工核保
-                            console.log('转入人工核保')
-                            return
+                            mui.toast('转入人工核保', {duration: 'long', type: 'div'})
+                            mui.openWindow({
+	                            url: 'member-auto-order.html',
+	                            id: 'member_auto_order',
+	                            show: animateObj.aniDetal
+	                        });
+                            return false
                         }
                         // 核保成功，跳转到付款页面
+                        mui.toast('核保成功,正在跳转支付...', {duration: 'long', type: 'div'})
                         mui.openWindow({
                             url: 'auto2c-pay.html',
                             id: 'auto2c_pay',
                             show: animateObj.aniDetal,
                             extras: {
-                                payLink: res.data.payLink
+                                payLink: res.data.payLink,
+                                business_no: JSON.parse(plus.storage.getItem('bus')).business_no
                             }
                         });
-
+                        setTimeout(function () {
+                            plus.webview.close('auto2c');
+                            plus.webview.close('auto2c_supplement');
+                            plus.webview.close('auto2c_choose');
+                            plus.webview.close('auto2c_business');
+                            plus.webview.close('auto2c_quotes');
+                            plus.webview.close('auto2c_order');
+                        }, 1000)
                     } else {
                         mui.toast(res.msg, {duration: 'long', type: 'div'});
                         return false

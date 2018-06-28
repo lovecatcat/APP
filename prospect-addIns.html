@@ -54,7 +54,7 @@
 					<template v-if="isBaseMoney&&!fuBaseMoney&&insurance.safe_id !== '110020'">
 						<app-input label="基本保额" v-if="insurance.safe_id !== 'CCPAAP1' 
 								&& insurance.safe_id !== 'P005'
-								&& insurance.safe_id !== '8111' 
+								&& insurance.safe_id !== '8111V1' 
 								&& insurance.safe_id !== 'LE234'
 								&& insurance.safe_id !== '1016'
 								&& insurance.safe_id !== '1013'
@@ -131,7 +131,7 @@
 							</app-input>
 						</template>
 						<template v-else>
-							<!--千万护航LE234，康运金生8111，e生保P005，安联-->
+							<!--千万护航LE234，康运金生8111V1，e生保P005，安联-->
 							<app-select label="基本保额" v-if="prospectus_types.length > 0">
 								<button slot="button" class="ins-btn xs-btn" 
 									:class="{'blue':item.value===prospectus_type}" 
@@ -165,7 +165,7 @@
 					        </button>
 						</app-select>
 						<!-- 国华盛世鑫悦 -->
-						<app-select label="生存金方式" v-else-if="insurance.safe_id === '3188'">
+						<app-select label="生存金方式" v-else-if="insurance.safe_id === '3188V1'">
 							<button slot="button" v-for="num in ['1', '2', '3']" class="ins-btn xs-btn" :class="{'blue': num == flag[insurance.safe_id]}" :disabled="num == flag[insurance.safe_id]" @tap="flagChanged(insurance.safe_id, num), insurance.money=num, resetFee()">
 					             	方式{{num}}
 					        </button>
@@ -528,7 +528,7 @@
 						</template>
 						<!-- 国华附加年金保险 -->
 						<!-- 国华康运金生附加养老年金 -->
-						<template v-if="item.code === '1168' && addonRes[item.code]">
+						<template v-if="item.code === '1168V1' && addonRes[item.code]">
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs">
@@ -554,19 +554,19 @@
 						</template>
 						<!-- 国华康运金生附加养老年金 -->
 						<!-- 国华康运金生身故豁免保险费 -->
-						<template v-if="['116503', '116502', '1165'].indexOf(item.code) > -1 && addonRes[item.code]">
+						<template v-if="['116503V1', '116502V1', '1165V1'].indexOf(item.code) > -1 && addonRes[item.code]">
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
-									<li class="ins-font-xs" v-if="addonRes['1168']">
+									<li class="ins-font-xs" v-if="addonRes['1168V1']">
 										保险金额(元)&nbsp;
 										<span class="BL-col-ff8201">
-									{{(Number(insurance.period_money) + Number(addonRes['1168']['年缴保费']))*(mainPayYear-1) | moneyFilter}}
+									{{(Number(insurance.period_money) + Number(addonRes['1168V1']['年缴保费']))*(mainPayYear-1) | moneyFilter}}
 								</span>
 									</li>
-									<li class="ins-font-xs" v-else-if="addonRes['1167']">
+									<li class="ins-font-xs" v-else-if="addonRes['1167V1']">
 										保险金额(元)&nbsp;
 										<span class="BL-col-ff8201">
-									{{(Number(insurance.period_money) + Number(addonRes['1167']['年缴保费']))*(mainPayYear-1) | moneyFilter}}
+									{{(Number(insurance.period_money) + Number(addonRes['1167V1']['年缴保费']))*(mainPayYear-1) | moneyFilter}}
 								</span>
 									</li>
 									<li class="ins-font-xs" v-else>
@@ -601,12 +601,12 @@
 
 						<!-- 国华康运金生豁免保险费重大疾病保险（2017） -->
 						<!-- 国华 附加少儿成长无忧年金保险 -->
-						<template v-if="item.code==='1167' && addonsSelected[item.code]">
+						<template v-if="item.code==='1167V1' && addonsSelected[item.code]">
 							<div class="form-wrap form-bgc-eee">
 								<app-input label="保险份数">
 
-									<input slot="input" type="number" placeholder="请输入份数" v-model.number="cache.base_money1167" @change="flagChanged(item.code)" />
-									<div slot="icon" v-show="cache.base_money1167  != ''" @tap="cache.base_money1167  = '' ,flagChanged(item.code)" class="form-clear-icon">
+									<input slot="input" type="number" placeholder="请输入份数" v-model.number="cache.base_money1167V1" @change="flagChanged(item.code)" />
+									<div slot="icon" v-show="cache.base_money1167V1  != ''" @tap="cache.base_money1167V1  = '' ,flagChanged(item.code)" class="form-clear-icon">
 										<span class="mui-icon mui-icon-clear"></span>
 									</div>
 
@@ -627,7 +627,7 @@
 									<div class="input-item">
 										<label class="">保险金额(元)</label>
 										<div class="input-wrap box-f-1">
-											<div class="input BL-bg-fff">{{10*insurance.period_money*cache.base_money1167 | moneyFilter}}</div>
+											<div class="input BL-bg-fff">{{10*insurance.period_money*cache.base_money1167V1 | moneyFilter}}</div>
 										</div>
 									</div>
 								</template>
@@ -1756,6 +1756,13 @@
 									<div class="input-item  BL-col-ff8201" >
 										基本保额最低5千元最高5万元
 									</div>
+									<app-select label="有无社保">
+										<button slot="button" class="ins-btn xs-btn" :class="{'blue': '1' == flag['10181']}" :disabled="'1' == flag['10181']" @tap="flagChanged('10181', '1')">
+							             	有社保
+							        	</button>
+										<button slot="button" class="ins-btn xs-btn" :class="{'blue': '2' == flag['10181']}" :disabled="'2' == flag['10181']" @tap="flagChanged('10181', '2')">
+							             	无社保
+							        </button>
 								</template>
 								<template v-else-if="item.code === '1017'">
 									<app-input label="保险金额">
@@ -1874,13 +1881,13 @@
 	<script src="js/Components.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="js/Methods.js"></script>
 	<script type="text/javascript">
-		const calMoneyIns = ['3188', 'ANIA', '12D00080', 'LA075', 'LA063', 'LA080', '00320'] // 算保额的主险
+		const calMoneyIns = ['3188V1', 'ANIA', '12D00080', 'LA075', 'LA063', 'LA080', '00320'] // 算保额的主险
 		const fuMoneyIns = ['A66'] // 通过附加算主险,只有乐行天下
-		const mustSelected = ['291', '177', '11', 'RSD', 'RSC', '349', '8111', '1002', '10522'] // 必须附加的附加险
+		const mustSelected = ['291', '177', '11', 'RSD', 'RSC', '349', '8111V1', '1002', '10522'] // 必须附加的附加险
 		//		const noNeedCal = ['291', '11', '349', '12E20010', 'LA073', 'DAR'] // 不需要计算的险种
 		const noNeedCal = ['291', '11', '349'] // 不需要计算的险种
-		const directNeedCal = ['RH7B', 'WPJP', 'HB024', 'RSD', '1161', '1168', '1165',
-		'116502', '116503', '404', 'JCR', 'HI', 'ACIWP', 'NWPD', '33F00030', 'JER',
+		const directNeedCal = ['RH7B', 'WPJP', 'HB024', 'RSD', '1161', '1168V1', '1165V1',
+		'116502V1', '116503V1', '404', 'JCR', 'HI', 'ACIWP', 'NWPD', '33F00030', 'JER',
 		'120012','120011', 'LA073', 'WRGP', '1002', '1011', '1012', '10522'] // 直接 计算的险种
 		var user_id;
 		var pushData;
@@ -1928,13 +1935,13 @@
 					quotaHR: '',
 					derate_money291: '',
 					derate_money349: '',
-					derate_money8111: '',
+					derate_money8111V1: '',
 					pay_moneyRSC: '',
 					pay_moneyRSD: '',
 					base_moneyCKRA: '',
 					base_moneyPFR: '',
 					base_money12E20010: '',
-					base_money1167: '',
+					base_money1167V1: '',
 					base_moneyCBR: '',
 					base_moneyPGR: '',
 					base_moneyAMR: '',
@@ -1975,7 +1982,7 @@
 				safeYearFilter: function(value, safeid) {
 					if(value == 25 && safeid == '1166') {
 						return '至25岁';
-					} else if(value == 10000 && safeid == '3188') {
+					} else if(value == 10000 && safeid == '3188V1') {
 						return '至100岁';
 					} else if(value > 50 && value !== '999' && value !== 999) {
 						return '至' + value + '周岁';
@@ -2101,7 +2108,7 @@
 							name: '20万'
 						}]
 						break
-					case '8111': //国华康运金生
+					case '8111V1': //国华康运金生
 						ins.prospectus_types = [{
 							value: 100000,
 							name: '10万'

@@ -2061,6 +2061,8 @@ var methods = {
 					toastText = '最高基本保额为5万元'
 				} else if(!flag) {
 					toastText = '请先选择职业分类'
+				} else if(!this.flag['10181']) {
+					toastText = '请先选择有无社保'
 				}
 				break
 
@@ -2590,7 +2592,7 @@ var methods = {
 			data.assu_sex = 0
 			data.pay_year = 1
 			data.safe_year = 1
-			data.flag = this.flag[safeid]
+			data.flag = this.flag['10181'] + this.flag[safeid]
 			data.base_money = this.cache.base_money1018
 		} else if(safeid === '1016') {
 			// 招商仁和仁医保费用补偿医疗保险

@@ -222,6 +222,13 @@ var methods = {
 	},
 	// 重置主险费用及附加险
 	resetFee: function(fx) {
+		this.addonRes = {}; //附加险清空
+		this.mainInsData = {}; // 主险提交信息
+		this.addonInsData = {};// 附加险提交信息
+		this.planList = {} //列表信息清空
+		this.flag = {}
+		this.addonRes = {}
+		this.addonsSelected = {}
 		if(fx !== 'fxmz') { // 如果是复星门诊不清空
 			this.isBaseMoney ? this.insurance.period_money = '' : this.insurance.money = ''
 		} else {

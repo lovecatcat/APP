@@ -353,6 +353,8 @@
 						case '358':
 							if(children[355]) {
 								children_base_money = ((year_fee + Number(children[355].list[1][1])) * (pay_year - 1)).toFixed(0);
+							}else if(children[16202]) {
+								children_base_money = ((Number(year_fee) + Number(children[16202].list[1][1])) * (pay_year - 1)).toFixed(0);
 							} else {
 								children_base_money = (year_fee * (pay_year - 1)).toFixed(0);
 							}

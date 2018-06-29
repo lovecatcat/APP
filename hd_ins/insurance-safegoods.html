@@ -713,7 +713,7 @@
                 switch (safe_id) {
                     case hjjk: //恒久健康
                         tempdata[tbrhm] = vm.noSamePerson //投保人豁免
-                        tempdata[zxak] = money >= 200000 //尊享安康
+                        tempdata[zxak] = money >= 200000 || period_money > 3000//尊享安康
                         tempdata[hs] = money >= 200000 //恒顺意外
                         tempdata[hx] = money >= 200000 //恒祥住院
                         tempdata[hjax] = money >= 50000 && period_money >= 3000 //恒久安心
@@ -722,7 +722,7 @@
                         break
                     case qwhh: // 千万护航
                         tempdata[tbrhm] = false, //投保人豁免
-                        tempdata[zxak] = money >= 200000 //尊享安康
+                        tempdata[zxak] = money >= 100000 //尊享安康
                         tempdata[hs] = money >= 200000 //恒顺意外
                         tempdata[hx] = money >= 200000 //恒祥住院
                         tempdata[hjax] = money >= 200000 //恒久安心
@@ -915,18 +915,6 @@
                     vm.countFee()
                     vm.$forceUpdate()
                 })
-            },
-            countFee: function () {
-                var sum = 0
-                if (this.insurance.period_money) {
-                    sum += Number(this.insurance.period_money)
-                }
-                for (var i in this.addonsSelected) {
-                    if (this.addonsSelected[i]) {
-                        sum += Number(this.addonIns[i].period_money)
-                    }
-                }
-                this.count = sum
             },
             resetMoney: function (i) {
                 i = (i || this.insurance.code).toString()

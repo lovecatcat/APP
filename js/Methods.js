@@ -226,7 +226,6 @@ var methods = {
 		this.mainInsData = {}; // 主险提交信息
 		this.addonInsData = {};// 附加险提交信息
 		this.planList = {} //列表信息清空
-		this.flag = {}
 		this.addonRes = {}
 		this.addonsSelected = {}
 		if(fx !== 'fxmz') { // 如果是复星门诊不清空
@@ -2345,6 +2344,13 @@ var methods = {
 			data.base_money = periodMoney * this.mainPayYear
 			data.safe_year = 85
 		} else if(safeid === '1168V1') { // 国华康运金生附加养老年金
+			this.addonsSelected['1165V1'] = false
+			this.addonRes['1165V1'] = ''
+			this.addonsSelected['116502V1'] = false
+			this.addonRes['116502V1'] = ''
+			this.addonsSelected['116503V1'] = false
+			this.addonRes['116503V1'] = ''
+			this.$forceUpdate()
 			data.pay_year = this.mainPayYear
 			data.safe_year = '8500'
 			data.base_money = periodMoney * this.mainPayYear

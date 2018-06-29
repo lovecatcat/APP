@@ -691,7 +691,6 @@
                             toast_text = '交费期满年龄不能大于60周岁'
                         }
                         break
-                    case hmzj: // 附加豁免保险费重大疾病保险
                     case tbrhmzj: // 附加投保人豁免保险费重大疾病保险
                         if (applAge > 60) {
                             toast_text = '投保人年龄大于60周岁不能附加【' + name + '】'
@@ -730,7 +729,7 @@
                     toast_text = '请选择交费期间'
                 } else if (!vm.insurance.safe_year) {
                     toast_text = '请选择保险期间'
-                } else if (!vm.checkAge(0)) {
+                } else if (!vm.checkAge(abh)) {
                     return false
                 } else if (!vm.insurance.money) { //保额
                     toast_text = '请填写基本保险金额'

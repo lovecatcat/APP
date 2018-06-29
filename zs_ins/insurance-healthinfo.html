@@ -260,8 +260,6 @@
             id: 246,
             title: 'A. 出生体重',
             type: 'number',
-            msg: '请输入正确的出生体重，保留2位小数',
-            reg: /^\d+$/,
             value: ''
         }],
         '247': [{
@@ -532,8 +530,6 @@
             id: 246,
             title: 'A. 出生体重',
             type: 'number',
-            msg: '请输入正确的出生体重，保留2位小数',
-            reg: /^\d+$/,
             value: ''
         }],
         '247': [{
@@ -709,6 +705,7 @@
             },
             change:function(item, auto) {
                 console.log('change')
+
                 var ret = {
                     status: true,
                     msg: ''
@@ -734,7 +731,6 @@
                 }
                 if (auto) {
                     if (msg) {
-                        console.log('aaaaa')
                         mui.toast(msg, {duration: 'short', type: 'div'});
                         return false
                     }
@@ -801,7 +797,6 @@
                 var title = ''
                 var msg = ''
 
-                console.log(JSON.stringify(this.clientvalue.ass_amswer))
                 for (var i in this.clientvalue.ass_amswer) {
                     if (this.clientvalue.ass_amswer[i]) {
                         var item = this.assforms[i]
@@ -880,7 +875,7 @@
                         mui.toast('请填写被保人 26 题', {duration: 'short', type: 'div'});
                         return false
                     } else {
-                        this.clientvalue.fields[245] = Number(this.assforms['245'][0].value).toFixed(2)
+                        this.clientvalue.fields[246] = Number(this.assforms['245'][0].value).toFixed(2)
                     }
                 }
                 this.$forceUpdate()
@@ -926,12 +921,10 @@
                 var aitem = assforms[item.mv_id]
                 if (item.insured_answer === '1') {
                     health.clientvalue.ass_amswer[item.mv_id] = true
-                    console.log(item.mv_id +';'+item.insured_fields)
                     if (aitem && aitem.length === 1) {
                         if (aitem[0]['id']) {
                             aitem[0]['value'] = arr[aitem[0]['id']].insured_fields
                         } else {
-                            console.log(item.mv_id )
                             aitem[0]['value'] = item.insured_fields
                         }
                     } else if (aitem && aitem.length > 1) {
@@ -955,7 +948,6 @@
                     }
                 }
             })
-            console.log(JSON.stringify(arr))
         }
         //
 
@@ -973,11 +965,11 @@
             mui.each(health.matters, function (index, item) {
                 var insured_answer = health.clientvalue.ass_amswer[item.id] ? '1' : '0'
                 var holder_answer = health.clientvalue.app_amswer[item.id] ? '1' : '0'
-                if (item.id === 245 && health.assuAge <= 2){
+                if ((item.id === 245 || item.id === 246) && health.assuAge <= 2) {
                     insured_answer = '1'
                 }
-                var insured_fields = health.clientvalue.fields[item.id]?health.clientvalue.fields[item.id]:''
-                var holder_fields = health.clientvalue.app_fields[item.id]?health.clientvalue.app_fields[item.id]:''
+                var insured_fields = health.clientvalue.fields[item.id] ? health.clientvalue.fields[item.id] : ''
+                var holder_fields = health.clientvalue.app_fields[item.id] ? health.clientvalue.app_fields[item.id] : ''
                 //社保
                 if (item.id === 271) {
                     holder_answer = applicant.holder_has_SSID ? '1' : '0'

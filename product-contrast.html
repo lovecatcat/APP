@@ -37,7 +37,7 @@
                         </div>
                         <div class="BL-ub BL-ub-ac item" :class="{'item-active':item.checked}"
                              @click="item.checked=!item.checked" v-for="(item,index) in listdata"
-                             v-if="(item.id!=product_id&&flag===2&&item.compare)||(flag===1&&item.compare)">
+                             v-if="(item.product_all_id!=product_id&&flag===2&&item.compare)||(flag===1&&item.compare)">
                             <div class="selected">
                                 <div class="mui-icon mui-icon-checkmarkempty">{{item.checked}}</div>
                             </div>
@@ -92,7 +92,7 @@
                     var j = this.flag === 1 ? '' : this.product_id
                     mui.each(val, function (index, item) {
                         if (item.checked) {
-                            j += ',' + item.id;
+                            j += ',' + item.product_all_id;
                             i++;
                         }
                     });
@@ -128,7 +128,7 @@
                 var info = plus.webview.currentWebview().list;
                 contrast.info = info;
                 contrast.type = info.ins_type;
-                contrast.product_id = info.id;
+                contrast.product_id = info.product_all_id;
             }
 
             console.log(contrast.product_id)

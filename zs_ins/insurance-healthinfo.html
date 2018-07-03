@@ -798,11 +798,13 @@
                 var msg = ''
 
                 for (var i in this.clientvalue.ass_amswer) {
+                    console.log(i)
                     if (this.clientvalue.ass_amswer[i]) {
                         var item = this.assforms[i]
                         if (item && item.length) {
                             for (var k = 0; k <= item.length - 1; k++) {
                                 input = item[k]
+                                console.log(JSON.stringify(input))
                                 title = input.title ? input.title : ''
                                 var who = this.showAppl ? '被保人' : ''
                                 msg = '问题'+ this.getIndex(Number(i), Number(input.chief)) + who + ', '
@@ -814,12 +816,15 @@
                                         break
                                     }
                                 }
-                                if (item.length>1) {
+                                console.log(JSON.stringify(input))
+                                if (item.length > 1) {
                                     this.clientvalue.fields[input.id] = input.value
                                 } else {
                                     if (input.id) {
+                                        console.log(input.id)
                                         this.clientvalue.fields[input.id] = input.value
                                     } else {
+                                        console.log(i)
                                         this.clientvalue.fields[i] = input.value
                                     }
                                 }
@@ -919,6 +924,7 @@
             })
             mui.each(data, function (index, item) {
                 var aitem = assforms[item.mv_id]
+                console.log(JSON.stringify(aitem))
                 if (item.insured_answer === '1') {
                     health.clientvalue.ass_amswer[item.mv_id] = true
                     if (aitem && aitem.length === 1) {
@@ -1024,7 +1030,11 @@
         })
         //获取健康告知题目
         luckyAjax({
-            data: {data: JSON.stringify({'supplier_id': SCID, 'version': '1'}), server: 'PolicyIns.getMatterList'},
+            data: {
+                data: JSON.stringify({'supplier_id': SCID, 'version': '1'}),
+                server: 'PolicyIns.getMatterList'
+            },
+            timeout: 50000,
             success: function (res) {
                 if (res.code) {
                     health.matters = res.data;

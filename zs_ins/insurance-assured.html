@@ -29,7 +29,7 @@
                     <label class="">投保人是被保人的</label>
                     <div class="input-wrap box-f-1 multi-btn">
                         <button class="ins-btn xs-btn" :class="{'blue':item.value===assured.rel_holder_insured}" :disabled="item.value===assured.rel_holder_insured"
-                                v-for="(item,index) in init.is_assured" @click="assured.rel_holder_insured=item.value">
+                                v-for="(item,index) in init.is_assured" v-show="benerel.indexOf(item.value)<0" @tap="assured.rel_holder_insured=item.value">
                             {{item.text}}
                         </button>
                     </div>

@@ -34,7 +34,7 @@ var MALE = 'LAB0017'; //男
 var FEMALE = 'LAB0018'; //女
 var TAXTYPE = 'LAH0007'; //仅为中国税收居民
 var unknowmarry = 'LAD001B' ;//婚姻状况未知
-var benerel = ['LAN003G','LAN003K'] ;//不支持的受益人关系
+var benerel = ['LAN003G','LAN003K', 'LBK002L'] ;//不支持的关系
 
 var SY_TYPE = 'LAP000C'; //受益类型：身故
 var has_social_security = 'LAG000C'; //有社保

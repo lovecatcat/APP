@@ -812,19 +812,18 @@
                                     var ret = this.change(input)
                                     if (!ret.status) {
                                         toast_text = msg + ret.msg
-                                        console.log(toast_text)
+                                        console.log(toast_text+'toast_text')
                                         break
                                     }
                                 }
-                                console.log(JSON.stringify(input))
                                 if (item.length > 1) {
                                     this.clientvalue.fields[input.id] = input.value
                                 } else {
                                     if (input.id) {
-                                        console.log(input.id)
+                                        console.log(input.id +'input.id')
                                         this.clientvalue.fields[input.id] = input.value
                                     } else {
-                                        console.log(i)
+                                        console.log(i+'i')
                                         this.clientvalue.fields[i] = input.value
                                     }
                                 }
@@ -913,7 +912,7 @@
         }
 
         //赋值
-        console.log(plus.storage.getItem('zhaos_healthinfo'));
+//        console.log(plus.storage.getItem('zhaos_healthinfo'));
         var hinfo = plus.storage.getItem('zhaos_healthinfo') ? JSON.parse(plus.storage.getItem('zhaos_healthinfo')) : ''
         hinfo && setHealth(hinfo)
 
@@ -923,9 +922,8 @@
                 arr[item.mv_id] = item
             })
             mui.each(data, function (index, item) {
-                var aitem = assforms[item.mv_id]
-                console.log(JSON.stringify(aitem))
-                if (item.insured_answer === '1') {
+                var aitem = assforms.hasOwnProperty(item.mv_id) ? assforms[item.mv_id] : ''
+                if (item.insured_answer === '1' && aitem) {
                     health.clientvalue.ass_amswer[item.mv_id] = true
                     if (aitem && aitem.length === 1) {
                         if (aitem[0]['id']) {
@@ -939,17 +937,17 @@
                         }
                     }
                 }
-                if (health.showAppl && item.holder_answer === '1') {
-                    var bitem = appforms[item.mv_id]
+                var bitem = appforms.hasOwnProperty(item.mv_id) ? appforms[item.mv_id] : ''
+                if (health.showAppl && item.holder_answer === '1' && bitem) {
                     health.clientvalue.app_amswer[item.mv_id] = true
-                    if (bitem && bitem.length === 1) {
+                    if (bitem.length === 1) {
                         bitem[0]['value'] = item.holder_fields
                         if(bitem[0]['id']){
-                            bitem[0]['value'] = health.clientvalue.holder_fields[bitem[0]['id']]
+                            bitem[0]['value'] = arr[bitem[0]['id']].holder_fields
                         }
                     } else if (bitem && bitem.length > 1) {
                         for (var i in bitem) {
-                            bitem[i]['value'] = health.clientvalue.holder_fields[bitem[i]['id']]
+                            bitem[i]['value'] = arr[bitem[i]['id']].holder_fields
                         }
                     }
                 }

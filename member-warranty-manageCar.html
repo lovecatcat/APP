@@ -147,7 +147,6 @@
             luckyAjax({
                 data: {
                     server: 'carIns.getCompanyList',
-                    view: true
                 },
                 success: function(res){
                     if(res.code == 1) {
@@ -170,7 +169,6 @@
                 luckyAjax({
                     data: {
                         server: 'carIns.getPaidPolicyList',
-                        view: true,
                         data: JSON.stringify({
                             userId: user_id,
                             company: manageAuto.company_type.value, // 保单类型

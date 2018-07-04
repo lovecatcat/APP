@@ -129,7 +129,10 @@ var changeLicenseNo = function () {
         mui.openWindow({
             url: 'auto2c.html',
             id: 'auto2c',
-            show: animateObj.aniDetal
+            show: animateObj.aniDetal,
+            extras:{
+                business_no: JSON.parse(plus.storage.getItem('bus')).business_no
+            }
         })
     },500)
 }
@@ -320,8 +323,8 @@ var setCarinsData = function (insurerCode, quote) {
         coverageList: quote? quote.coverageList: coverageList,
         // biBeginDate: state.Calculated.biBeginDate || state.biBeginDate,
         // ciBeginDate: state.Calculated.ciBeginDate || state.ciBeginDate,
-        biBeginDate: insList.biBeginDate,
-        ciBeginDate: insList.ciBeginDate,
+        biBeginDate: insList.commercial? insList.biBeginDate: "",
+        ciBeginDate: insList.forcepremium? insList.ciBeginDate: "",
         commercial: insList.commercial,
         forcepremium: insList.forcepremium,
         vehicle_tax: quote? quote.carshipTax: 0,

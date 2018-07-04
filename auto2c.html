@@ -79,7 +79,7 @@
 			<div class="form-button-group">
 				<a type="button" class="form-btn" id="next">下一步</a>
 			</div>
-			<div class="auto-modal-bg" v-show="showCitys">
+			<div class="BL-modal-bg" v-show="showCitys">
 				<div class="auto-modal-bottom">
 					<button class="citybtn" v-for="item in cities" @click="setCityAbbr(item),showCitys = false">{{ item }}</button>
 				</div>
@@ -98,101 +98,110 @@
 	<script src="js/auto2.js"></script>
 	<script type="text/javascript">
 		mui.init();
-		var auto = new Vue({
-			el: '#Js-content',
-			data: {
-			    city: "",  // 投保城市
-                cityNo: "",
-				// 业务信息
-				bus: {
-			        user_id: "",   // 业务员ID
-                    business_no: "",   // 业务单号
-                    cityCode: "",    // 投保城市ID
-					isSaved: false   // 险种信息是否保存过
-				},
-				car: {
-                    car_isnew: 2,   // 默认非新车
-                    licenseNo: "",  // 车牌号
-                    frameNo: "",  // 车架号
-                    engineNo: "",  // 发动机号
-                    registerDate: "",  // 初登日期
-                    isTrans: false,     // 是否过户车
-                    transDate: "",  // 过户日期
-                    seatCount: "",   // 核定载客人
-                    isLoanCar: false,    // 是否贷款车
-                    responseNo: ""   // 响应码
-				},
-				// 车主信息
-                owner: {
-                    name: "",   // 姓名
-                    mobile: "",  // 手机号码
-                    Idno: "",    // 身份证号码
-					sex: "",     // 性别
-                    birthday: ""   // 出生日期
-				},
-				// 险种信息（查询到车辆信息及车型信息跳转到计算保费页面）
-                insList: {
-                    commercial: false,
-                    forcepremium: true,
-                    biBeginDate: new Date().addDays(1).Format('yyyy-MM-dd'),   // 商业险起期
-                    ciBeginDate: new Date().addDays(1).Format('yyyy-MM-dd'),
-                    biCoverageList: biCoverageList,  // 商业险种信息
-                    ciCoverageList: ciCoverageList  // 交强险种信息
-                },
-                isNew: false,
-				showCitys: false,    // 展示城市简称
-                cityAbbr: '粤',   // 城市简称
-				cities: ['粤', '川', '鄂', '甘', '贵', '桂', '黑', '沪', '吉', '冀', '津', '晋', '京', '辽', '鲁', '蒙', '闽', '宁', '青', '琼', '陕', '苏', '皖', '湘', '新', '渝', '豫', '云', '藏', '赣', '浙']
-			},
-			created: function () {
-			    this.bus.business_no = generatorID()
-            },
-			watch: {
-                isNew: function (val) {
-                    this.cityNo = val ? '新车' : ''
-					this.car.car_isnew = val ? "1": "2"
-                }
-			},
-			methods: {
-                toblur: function () {
-                    document.activeElement.blur();
-                },
-			    checkForm: function () {
-                    var toast_text = null;
-			        if (this.city == "") {
-                        toast_text = "无法获取到投保城市，请联系互联网支持中心";
-					} else if (!checkLicense(this.cityNo)) {
-                        return false
-					}else if (!checkName('车主',this.owner.name)){
-                        return false
-					} else if (!checkPhone('车主', this.owner.mobile)) {
-                        return false
-					} else if (!IDValidate('车主', this.owner.Idno,this.owner)) {
-                        return false
-					}
-                    if (toast_text) {
-                        mui.toast(toast_text, {duration: 'long', type: 'div'});
-                        return false;
-                    }
-                    return true
-                },
-                setCityAbbr: function (val) {
-					this.cityAbbr = val
-                }
-			}
-		})
 		mui.plusReady(function() {
 			statusbar();
 			var winH = window.innerHeight;
         	var titHeight = document.querySelector('#Js-header').offsetHeight;
         	document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
 
+            var auto = new Vue({
+                el: '#Js-content',
+                data: {
+                    city: "",  // 投保城市
+                    cityNo: "",
+                    // 业务信息
+                    bus: {
+                        user_id: "",   // 业务员ID
+                        business_no: "",   // 业务单号
+                        cityCode: "",    // 投保城市ID
+                        isSaved: false   // 险种信息是否保存过
+                    },
+                    car: {
+                        car_isnew: 2,   // 默认非新车
+                        licenseNo: "",  // 车牌号
+                        frameNo: "",  // 车架号
+                        engineNo: "",  // 发动机号
+                        registerDate: "",  // 初登日期
+                        isTrans: false,     // 是否过户车
+                        transDate: "",  // 过户日期
+                        seatCount: "",   // 核定载客人
+                        isLoanCar: false,    // 是否贷款车
+                        responseNo: ""   // 响应码
+                    },
+                    // 车主信息
+                    owner: {
+                        name: "",   // 姓名
+                        mobile: "",  // 手机号码
+                        Idno: "",    // 身份证号码
+                        sex: "",     // 性别
+                        birthday: ""   // 出生日期
+                    },
+                    // 险种信息（查询到车辆信息及车型信息跳转到计算保费页面）
+                    insList: {
+                        commercial: false,
+                        forcepremium: true,
+                        biBeginDate: new Date().addDays(1).Format('yyyy-MM-dd'),   // 商业险起期
+                        ciBeginDate: new Date().addDays(1).Format('yyyy-MM-dd'),
+                        biCoverageList: biCoverageList,  // 商业险种信息
+                        ciCoverageList: ciCoverageList  // 交强险种信息
+                    },
+                    isNew: false,
+                    showCitys: false,    // 展示城市简称
+                    cityAbbr: '粤',   // 城市简称
+                    cities: ['粤', '川', '鄂', '甘', '贵', '桂', '黑', '沪', '吉', '冀', '津', '晋', '京', '辽', '鲁', '蒙', '闽', '宁', '青', '琼', '陕', '苏', '皖', '湘', '新', '渝', '豫', '云', '藏', '赣', '浙']
+                },
+//                created: function () {
+//
+//                },
+                watch: {
+                    isNew: function (val) {
+                        this.cityNo = val ? '新车' : ''
+                        this.car.car_isnew = val ? "1": "2"
+                    }
+                },
+                methods: {
+                    toblur: function () {
+                        document.activeElement.blur();
+                    },
+                    checkForm: function () {
+                        var toast_text = null;
+                        if (this.city == "") {
+                            toast_text = "无法获取到投保城市，请联系互联网支持中心";
+                        } else if (!checkLicense(this.isNew,this.cityNo)) {
+                            return false
+                        }else if (!checkName('车主',this.owner.name)){
+                            return false
+                        } else if (!checkPhone('车主', this.owner.mobile)) {
+                            return false
+                        } else if (!IDValidate('车主', this.owner.Idno,this.owner)) {
+                            return false
+                        }
+                        if (toast_text) {
+                            mui.toast(toast_text, {duration: 'long', type: 'div'});
+                            return false;
+                        }
+                        return true
+                    },
+                    setCityAbbr: function (val) {
+                        this.cityAbbr = val
+                    }
+                }
+            })
+
+            // 清除本地
+            var business_no = plus.webview.currentWebview().business_no;
+            if (business_no) {
+                auto.bus.business_no = business_no
+            } else {
+                // 清除本地
+                clearStorage()
+                auto.bus.business_no = generatorID()
+            }
             // 根据代理人ID获取投保城市
             auto.bus.user_id = JSON.parse(plus.storage.getItem("userinfo")).id
             luckyAjax({
                 data: {
                     server: 'carIns.getCityByUserId',
-                    view: true,
                     data: JSON.stringify({userId: auto.bus.user_id})
                 },
                 success:function(res){
@@ -229,7 +238,6 @@
                     luckyAjax({
                         data: {
                             server: 'carIns.vehicleInfoByLicenseNo',
-                            view: true,
                             data: JSON.stringify({licenseNo: auto.car.licenseNo})
                         },
                         success:function(res){
@@ -245,7 +253,6 @@
 								luckyAjax({
                                     data: {
                                         server: 'carIns.modelExactness',
-                                        view: true,
                                         data: JSON.stringify({
                                             responseNo: auto.car.responseNo,
 											licenseNo: auto.car.licenseNo,
@@ -263,7 +270,6 @@
                                             luckyAjax({
                                                 data: {
                                                     server: 'carIns.effectiveDate',
-                                                    view: true,
                                                     data: JSON.stringify({
                                                         responseNo: auto.car.responseNo,
                                                         licenseNo: auto.car.licenseNo,

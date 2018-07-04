@@ -1,193 +1,193 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<link href="css/mui.css" rel="stylesheet" />
-		<link href="css/common.css" rel="stylesheet" />
-		<link href="css/module.css" rel="stylesheet" />
-		<link href="css/form.css"  rel="stylesheet" />
-		<link href="css/member.css" rel="stylesheet" />
-		<script src="js/config.js" type="text/javascript"></script>
-	</head>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="css/mui.css" rel="stylesheet" />
+	<link href="css/common.css" rel="stylesheet" />
+	<link href="css/module.css" rel="stylesheet" />
+	<link href="css/form.css"  rel="stylesheet" />
+	<link href="css/member.css" rel="stylesheet" />
+	<script src="js/config.js" type="text/javascript"></script>
+</head>
 
-	<body class="BL-bg-f2f">
-		<header id="Js-header" class="BL-bg-fff">
-			<div class="BL-mod-headbar BL-mod-headbar-pos">
-				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
-				<h1 class="BL-title">佣金提取</h1>
-			</div>
-		</header>
-		
-		<div id="Js-content" class="mui-content BL-rel">
-			<div class="mui-scroll-wrapper">
-				<div class="mui-scroll">
-					<ul v-if="account" class="mui-table-view form-list-cell">
-						<li class="fItem BL-ub BL-ub-f1">
-							<label class="form-list-label">可提取</label>
-							<div class="form-list-control BL-txt-r">{{ account.canPay_format }}</div>
-						</li>
-						<li class="fItem BL-ub BL-ub-f1">
-							<label class="form-list-label">当月累提</label>
-							<div class="form-list-control BL-txt-r">{{ account.payTotal_format}}</div>
-						</li>
-						<li class="fItem BL-ub BL-ub-f1">
-							<label class="form-list-label">金额（元）</label>
-							<div class="form-list-control BL-txt-r">
-								<input v-model.lazy="amount" type="number" placeholder="请输入">
-							</div>
-							<div class="form-list-icon" v-show="amount != ''">
-								<span class="mui-icon mui-icon-clear" @click="amount = ''"></span>
-							</div>
-						</li>
-						<!--<li class="fItem BL-ub BL-ub-f1">
-							<label class="form-list-label">实发（元）</label>
-							<div class="form-list-control BL-txt-r">{{ actual }}</div>
-						</li>
-						<li class="fItem BL-ub BL-ub-f1">
-							<label class="form-list-label">预留（元）</label>
-							<div class="form-list-control BL-txt-r">{{ reserve }}</div>
-						</li>-->
-					</ul>
-					<div class="form-button-group">
-						<a href="javascript:;" class="form-btn" @click="apply">提交</a>
+<body class="BL-bg-f2f">
+<header id="Js-header" class="BL-bg-fff">
+	<div class="BL-mod-headbar BL-mod-headbar-pos">
+		<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+		<h1 class="BL-title">佣金提取</h1>
+	</div>
+</header>
+
+<div id="Js-content" class="mui-content BL-rel">
+	<div class="mui-scroll-wrapper">
+		<div class="mui-scroll">
+			<ul v-if="account" class="mui-table-view form-list-cell">
+				<li class="fItem BL-ub BL-ub-f1">
+					<label class="form-list-label">可提取</label>
+					<div class="form-list-control BL-txt-r">{{ account.canPay_format }}</div>
+				</li>
+				<li class="fItem BL-ub BL-ub-f1">
+					<label class="form-list-label">当月累提</label>
+					<div class="form-list-control BL-txt-r">{{ account.payTotal_format}}</div>
+				</li>
+				<li class="fItem BL-ub BL-ub-f1">
+					<label class="form-list-label">金额（元）</label>
+					<div class="form-list-control BL-txt-r">
+						<input v-model.lazy="amount" type="number" placeholder="请输入">
 					</div>
-				</div> 
-			</div> 	
-		</div> 
-	</body>
-	<script src="js/mui.min.js" type="text/javascript"></script>
-	<script src="js/mui.pullToRefresh.js"></script>
-	<script src="js/mui.pullToRefresh.material.js"></script>
-	<script src="js/vue.min.js"></script>
-	<script type="text/javascript">
-		mui.init();
-		var extract = new Vue({
-			el: "#Js-content",
-			data: {
-				account: null,
-		        amount: '',
+					<div class="form-list-icon" v-show="amount != ''">
+						<span class="mui-icon mui-icon-clear" @click="amount = ''"></span>
+					</div>
+				</li>
+				<!--<li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">实发（元）</label>
+                    <div class="form-list-control BL-txt-r">{{ actual }}</div>
+                </li>
+                <li class="fItem BL-ub BL-ub-f1">
+                    <label class="form-list-label">预留（元）</label>
+                    <div class="form-list-control BL-txt-r">{{ reserve }}</div>
+                </li>-->
+			</ul>
+			<div class="form-button-group">
+				<a href="javascript:;" class="form-btn" @click="apply">提交</a>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/mui.pullToRefresh.js"></script>
+<script src="js/mui.pullToRefresh.material.js"></script>
+<script src="js/vue.min.js"></script>
+<script type="text/javascript">
+    mui.init();
+    var extract = new Vue({
+        el: "#Js-content",
+        data: {
+            account: null,
+            amount: '',
 //		        actual: '',  // 实发金额
 //		        reserve: '', // 预留金额
-		        uploading: false  //是否提交标志
-			},
-			methods: {
-				getOtherMoney: function (amount, canPay, payTotal) {
-					var vm = this
-			        if(!vm.checkAmount(amount, canPay)) {
-			          return false
-			        }
+            uploading: false  //是否提交标志
+        },
+        methods: {
+            getOtherMoney: function (amount, canPay, payTotal) {
+                var vm = this
+                if(!vm.checkAmount(amount, canPay)) {
+                    return false
+                }
 //			        // 计算实发金额
 //			        vm.actual = (parseFloat(amount)*0.7).toFixed(2)
 //			        // 计算预留金额
 //			        vm.reserve = (parseFloat(amount)*0.3).toFixed(2)
-			    },
-			    checkAmount: function (amount,canPay) {
-			    	var toast_text = null
-			        var reg =/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
-			        if (!amount) {
-			          toast_text = "请输入金额"
-			        } else if (!reg.test(amount)) {
-			        	if (amount.toString().split(".")[0].length > 0 && amount.toString().split(".")[1].length > 2) {
-			        		toast_text = "金额小数部分最多可输入两位，请重新输入"
-			        	} else {
-			        		toast_text = "金额输入错误，请重新输入"
-			        	}
-			        } else if (amount > parseFloat(canPay)) {
-			          toast_text = "金额大于可提取金额，请重新输入"
-			        }
-			        if (toast_text) {
-			          mui.toast(toast_text, {duration: 'short', type: 'div'})
-			          return false
-			        }
-			        return true
-			    },
-			    apply: function () {
-			    	var vm = this
-			        // 避免重复提交
-			        if (vm.uploading) {
-			          mui.toast('请勿重复提交', {duration: 'short', type: 'div'})
-			          return false
-			        }
-			        
-			        vm.uploading = true
-			        setTimeout(function(){
-			          vm.uploading = false
-			        }, 1000)
-			        
-			        // 校验金额
-			        if(!vm.checkAmount(vm.amount, vm.account.canPay)) {
-			          return false
-			        }
-			        
-			        // 提交数据
-			        vm.uploading = true
-			        mui.toast('正在提交...', {duration: 'short', type: 'div'})
-			        
-			        luckyAjax({
-						data: {
-				            server: 'commission.Apply',
-				            data: JSON.stringify({
-								amount: vm.amount
-							})
-				        },
-				        success: function (ret) {
-							//打开新窗口
-							mui.openWindow({
-								id:"member_commission_result",
-								url:"member-commission-result.html",
-								show:animateObj.aniDetal,
-								extras:{
-									code: ret.code,  // 提交是否成功标志
-									msg: ret.msg
-								}
-							});
-						}
-					});
-			    }
-			},
-			watch: {
-		        'amount': function (val) {
-		        	if (!val) return false
-		        	this.getOtherMoney(val, this.account.canPay, this.account.payTotal)
-				}
-		    }
-		});
-		
-		(function($){
-			//阻尼系数
-			var deceleration = mui.os.ios ? 0.003 : 0.0009;
-			$('#Js-content .mui-scroll-wrapper').scroll({
-				bounce: true,
-				indicators: false, //是否显示滚动条
-				deceleration: deceleration
-			});
-			$.plusReady(function() {
-				statusbar();
-				var winH = window.innerHeight;
-				var titHeight = document.querySelector('#Js-header').offsetHeight;
-				document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
-				// 获取账户信息
-				getAccount()
-			});
-		}(mui));
-		
-		// 获取账户信息
-		function getAccount() {
-			luckyAjax({
-				data: {
-		            server: 'commission.Account',
-		        },
-		        success: function (ret) {
-					if (ret.code == 1) {
-	                	extract.account = ret.data
-	                } else {
-	                	mui.toast(ret.msg, {duration: 'short', type: 'div'})
-	                }
-				}
-			});
-		};
-		
-	</script>
+            },
+            checkAmount: function (amount,canPay) {
+                var toast_text = null
+                var reg =/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+                if (!amount) {
+                    toast_text = "请输入金额"
+                } else if (!reg.test(amount)) {
+                    if (amount.toString().split(".")[0].length > 0 && amount.toString().split(".")[1].length > 2) {
+                        toast_text = "金额小数部分最多可输入两位，请重新输入"
+                    } else {
+                        toast_text = "金额输入错误，请重新输入"
+                    }
+                } else if (amount > parseFloat(canPay)) {
+                    toast_text = "金额大于可提取金额，请重新输入"
+                }
+                if (toast_text) {
+                    mui.toast(toast_text, {duration: 'short', type: 'div'})
+                    return false
+                }
+                return true
+            },
+            apply: function () {
+                var vm = this
+                // 避免重复提交
+                if (vm.uploading) {
+                    mui.toast('请勿重复提交', {duration: 'short', type: 'div'})
+                    return false
+                }
+
+                vm.uploading = true
+                setTimeout(function(){
+                    vm.uploading = false
+                }, 1000)
+
+                // 校验金额
+                if(!vm.checkAmount(vm.amount, vm.account.canPay)) {
+                    return false
+                }
+
+                // 提交数据
+                vm.uploading = true
+                mui.toast('正在提交...', {duration: 'short', type: 'div'})
+
+                luckyAjax({
+                    data: {
+                        server: 'commission.Apply',
+                        data: JSON.stringify({
+                            amount: vm.amount
+                        })
+                    },
+                    success: function (ret) {
+                        //打开新窗口
+                        mui.openWindow({
+                            id:"member_commission_result",
+                            url:"member-commission-result.html",
+                            show:animateObj.aniDetal,
+                            extras:{
+                                code: ret.code,  // 提交是否成功标志
+                                msg: ret.msg
+                            }
+                        });
+                    }
+                });
+            }
+        },
+        watch: {
+            'amount': function (val) {
+                if (!val) return false
+                this.getOtherMoney(val, this.account.canPay, this.account.payTotal)
+            }
+        }
+    });
+
+    (function($){
+        //阻尼系数
+        var deceleration = mui.os.ios ? 0.003 : 0.0009;
+        $('#Js-content .mui-scroll-wrapper').scroll({
+            bounce: true,
+            indicators: false, //是否显示滚动条
+            deceleration: deceleration
+        });
+        $.plusReady(function() {
+            statusbar();
+            var winH = window.innerHeight;
+            var titHeight = document.querySelector('#Js-header').offsetHeight;
+            document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+            // 获取账户信息
+            getAccount()
+        });
+    }(mui));
+
+    // 获取账户信息
+    function getAccount() {
+        luckyAjax({
+            data: {
+                server: 'commission.Account',
+            },
+            success: function (ret) {
+                if (ret.code == 1) {
+                    extract.account = ret.data
+                } else {
+                    mui.toast(ret.msg, {duration: 'short', type: 'div'})
+                }
+            }
+        });
+    };
+
+</script>
 </html>

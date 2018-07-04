@@ -43,17 +43,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr v-if="content.business_exist == 1">
                                     <td>商业险</td>
                                     <td>{{ content.business_total }}</td>
                                     <td>{{ content.business_start_date }}</td>
                                 </tr>
-                                <tr>
+                                <tr v-if="content.compulsory_exist == 1">
                                     <td>交强险</td>
                                     <td>{{ content.compulsory_total }}</td>
                                     <td>{{ content.compulsory_start_date }}</td>
                                 </tr>
-                                <tr>
+                                <tr v-if="content.compulsory_exist == 1">
                                     <td>车船税</td>
                                     <td>{{ content.vehicle_tax_total }}</td>
                                     <td></td>
@@ -104,7 +104,7 @@
                             <li>{{ content.engine_no }}</li>
                             <li>{{ content.vehicle_model }}</li>
                             <li>{{ content.register_date }}</li>
-                            <li>{{ content.isTrans? "是": "否" }}</li>
+                            <li>{{ content.is_trans == 1 ? "是": "否" }}</li>
                         </ul>
                     </div>
                 </li>
@@ -203,10 +203,10 @@
         });
 
         var business_no = plus.webview.currentWebview().business_no;
+        console.log(business_no)
         luckyAjax({
             data: {
                 server: 'carIns.getInsDetails',
-                view: true,
                 data: JSON.stringify({
                     businessNo: business_no
                 }),

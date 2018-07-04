@@ -536,7 +536,6 @@
                         luckyAjax({
                             data: {
                                 server: 'carIns.delCarPlan',
-                                view: true,
                                 data: JSON.stringify({
                                     business_no: thpBizID,
                                     product: addonCode
@@ -591,8 +590,7 @@
 			// 获取险别信息
 			luckyAjax({
 				data: {
-					server: 'carIns.risks',
-					view: true
+					server: 'carIns.risks'
 				},
 				success:function(res) {
 					var coverageList = res.data

@@ -239,7 +239,6 @@
                     luckyAjax({
                         data: {
                             server: 'carIns.quoteCount',
-                            view: true,
                             data: JSON.stringify({
                                 business_no: business_no
                             })
@@ -278,31 +277,16 @@
                     if (!vm.checkApplicant()) return false
                     if (!vm.checkAssured()) return false
 
+                    // 投保人同车主
+                    plus.storage.setItem('applicant',JSON.stringify(auto.applicant));
+                    // 被保人同车主
+                    plus.storage.setItem('assured',JSON.stringify(auto.assured));
+
                     if (!vm.isSaved) {
                         var bus =  JSON.parse(plus.storage.getItem('bus'))
                         vm.isSaved = true
                         bus.isSaved = true
                         plus.storage.setItem('bus',JSON.stringify(bus));
-//                        // 发送保单信息到后台
-//                        var data = setCarinsData("")
-//                        luckyAjax({
-//                            data: {
-//                                server: 'carIns.setCarIns',
-//                                view: true,
-//                                data: JSON.stringify(data)
-//                            },
-//                            success: function (res) {
-//                                if (res.code == 1) {
-//                                    var bus =  JSON.parse(plus.storage.getItem('bus'))
-//                                    vm.isSaved = true
-//                                    bus.isSaved = true
-//                                    plus.storage.setItem('bus',JSON.stringify(bus));
-//                                } else {
-//                                    mui.toast(res.msg, {duration: 'long', type: 'div'});
-//                                    return false
-//                                }
-//                            }
-//                        })
                     }
                     vm.getQuote(vm.codes)
                 },
@@ -321,7 +305,6 @@
                     luckyAjax({
                         data: {
                             server: 'carIns.exactnessQuote',
-                            view: true,
                             data: JSON.stringify(data)
                         },
                         success: function (res) {
@@ -356,7 +339,6 @@
                     luckyAjax({
                         data: {
                             server: 'carIns.setCarIns',
-                            view: true,
                             data: JSON.stringify(data)
                         },
                         success: function (res) {
@@ -389,10 +371,8 @@
         auto.coverageList = JSON.parse(plus.storage.getItem('coverageList'))
         // 投保人同车主
         auto.applicant = deepClone(auto.owner)
-        plus.storage.setItem('applicant',JSON.stringify(auto.applicant));
         // 被保人同车主
         auto.assured = deepClone(auto.owner)
-        plus.storage.setItem('assured',JSON.stringify(auto.assured));
         // 获取本地保存标志
         auto.getAllQuotes()
     })

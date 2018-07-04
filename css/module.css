@@ -525,6 +525,14 @@
 
 
 /*弹框样式全屏*/
+.BL-modal-bg {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: rgba(14, 14, 14, 0.5);
+	top: 0;
+	left: 0;
+}
 .BL-modal {
 	background: #fff;
 	position: fixed;

@@ -231,7 +231,7 @@
             </div>
         </div>
         <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1">
-            <label>本人已阅读并了解<a class="a-link" href="pa-statement.html" data-wid="pa_statement">《保险条款》</a>和<a
+            <label>本人已阅读并了解<a type="button" disabled @tap="showStatement">《保险条款》</a>和<a
                     class="a-link" href="pa-clause.html" data-wid="pa_clause">《重要声明》</a></label>
             <input name="checkbox" value="Item 1" type="checkbox" v-model="promise">
         </div>
@@ -256,6 +256,7 @@
 <script src="../js/mui.dtpicker.js"></script>
 <script src="../js/city.data-3.js"></script>
 <script src="../js/IDValidator.min.js"></script>
+<script src="../js/pdf.js" type="text/javascript"></script>
 <script src="method.js"></script>
 <script type="text/javascript">
     mui.init();
@@ -376,6 +377,38 @@
                 });
             },
             methods: {
+                //主险条款
+                showStatement: function () {
+                    const vm = this
+                    luckyAjax({
+                        data: {
+                            data: JSON.stringify({product_id: vm.insurance.product_id}),
+                            server: 'lifeProduct.getProductInfo'
+                        },
+                        success: function (data) {
+                            plus.nativeUI.closeWaiting();
+                            if (data.code === 1) {
+                                if (data.data.statement) {
+                                    mui.openWindow({
+                                        url: '../pdf-modal.html',
+                                        id: 'pdf_modal',
+                                        show: animateObj.aniDetal,
+                                        extras: {
+                                            pdf: data.data.statement,
+                                            name: '平安e生保医疗保险（2017版）'
+                                        },
+                                        waiting: {
+                                            auto: false,
+                                        }
+                                    });
+                                } else {
+                                    mui.toast('暂无条款详情', {duration: 'short', type: 'div'});
+                                    return false;
+                                }
+                            }
+                        }
+                    })
+                },
                 openList: function (e) {
                     mui.openWindow({
                         url: '../communic.html',

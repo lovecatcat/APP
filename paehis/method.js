@@ -180,8 +180,8 @@ var changeBirthday = function(owner,val) {
     }else if (owner === '投保人' && age < 16) {
         mui.toast('投保人不能小于16周岁', {duration: 'long', type: 'div'});
         return false
-    } else if (owner === '被保人' && age > 60) {
-        mui.toast('被保人不能大于60周岁', {duration: 'long', type: 'div'});
+    } else if (owner === '被保人' && age > 65) {
+        mui.toast('被保人不能大于65周岁', {duration: 'long', type: 'div'});
         return false
     } else if (owner === '被保人' && getDays(val) < 28) {
         mui.toast('被保人不能小于28天', {duration: 'long', type: 'div'});

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="../css/mui.css" rel="stylesheet"/>
+    <link href="../css/common.css" rel="stylesheet"/>
+    <link href="../css/module.css" rel="stylesheet"/>
+    <link href="../css/form.css" rel="stylesheet"/>
+    <script src="../js/config.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css"/>
+</head>
+
+<body class="BL-bg-f2f">
+<header id="Js-header" class="BL-bg-fff">
+    <div class="BL-mod-headbar BL-mod-headbar-pos">
+        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+        <h1 class="BL-title">投保须知</h1>
+    </div>
+</header>
+<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY BL-bg-fff">
+    <div class="BL-pad-a1_25">
+        <div class="form-clause">
+            <p>尊敬的客户，为了维护您的权益，请您在投保前详细阅读以下内容：</p>
+            <p>1、请您及被保险人如实填写投保单，并由本人电子签名确认。</p>
+            <p>2、请详细了解您所投保的内容，请向销售人员或本公司索取保险条款、产品说明书（如有）、
+                人身保险投保提示书并认真阅读，请注意理解<strong>保险责任、责任免除、犹豫期、退保、费用扣除、理赔、现金价值</strong>
+                等关键内容；任何与本投保单及保险条款内容不符的说明、承诺及解释均属无效。
+            </p>
+            <p>3、请全面理解所要投保的产品并选择合适的保险金额与保险期间；若您选择分期支付保险
+                费的，无法持续支付保险费可能将导致保险合同效力中止或保险合同解除。
+            </p>
+            <p>4、<strong>如实告知义务：根据《中华人民共和国保险法》第十六条规定，投保人应当对保险人的
+                有关询问以书面形式如实告知，否则保险人有权解除保险合同，并对保险合同解除前发
+                生的保险事故不承担保险责任。</strong>
+            </p>
+            <p>5、根据中国保险监督管理委员会的规定，对于父母为其未成年子女投保的人身保险，在被
+                保险人成年之前，未成年人死亡给付的保险金额总和、死亡时各保险公司实际给付的保
+                险金总和限额如下：（1）对于被保险人不满 10 周岁的，不得超过人民币 <strong>20 万元</strong>；（2）
+                对于被保险人已满 10 周岁但未满 18 周岁的，不得超过人民币 <strong>50 万元</strong>。请如实告知其
+                在其他保险公司已经承保的身故保险金额，如因未如实告知导致身故保险金额超过前述
+                限额的，超出部分本公司不承担给付保险金的责任。
+            </p>
+            <p>6、保险合同自投保人提出投保申请，本公司同意承保后成立。保险合同生效日以保险单所
+                载日期为准。在本公司对您的投保申请作出审核同意决定之前，如您已预支付保险费，
+                且您及被保险人已履行如实告知义务并符合本公司的承保条件，则本公司对本保险合同
+                依保险法的规定应负的保险责任，将追溯至您预支付保险费次日零时开始生效。
+            </p>
+            <p>7、对于您的投保申请，须经本公司审核以决定是否承保。审核中，可能会要求被保险人进
+                行体检，或要求补充其他资料，并根据具体情况可能会要求附条件承保或拒绝您的投保
+                申请，但是否要求体检或做出何种核保决定，由本公司自主决定。<strong>体检不代替您的如实
+                    告知义务</strong>。
+            </p>
+            <p>8、您在保险合同订立时对被保险人应当具有保险利益；以死亡为保险金给付条件的保险合
+                同，未经被保险人同意并认可保险金额的，保险合同自始无效，但父母为其未成年子女
+                投保的人身保险不受此限制。
+            </p>
+            <p>9、<strong>责任免除条款关系到您和其他保险合同权利人的切身利益，在保险条款中有具体明确的
+                规定。您及被保险人应仔细阅读并完全理解保险条款中有关免除本公司责任的条款，并
+                可以要求销售人员做出明确说明</strong>。
+            </p>
+            <p>10、本公司需要采集的客户信息包括身份信息、联系电话和联系地址及其他有关信息，前
+                述信息将用于包括但不限于计算保费、核保、寄送保单和客户回访等保单服务，请务必
+                如实填写。如您未提供真实、完整的信息，可能会造成保险合同无效、被解除、终止，
+                或承担其他责任。未经您同意，本公司不会将客户信息用于人身保险公司和第三方机构
+                的销售活动。</p>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="../js/mui.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    mui.init();
+    mui.plusReady(function () {
+        statusbar();
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+        //安卓监听返回事件
+        plus.key.addEventListener("backbutton", function () {
+            popu.closepop();
+        });
+    })
+</script>
+
+</html>

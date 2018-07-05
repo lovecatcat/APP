@@ -25,7 +25,6 @@
         <div class="plans-detail-fixed">
             <div class="a-link" href="product-company.html" data-wid="product_company" :data-pid="info.id">保险公司</div>
             <div @click="showStatement">条款详情</div>
-            <a id="Js-openShare" class="BL-icon BL-icon-share"></a>
         </div>
         <div id="Js-content" class="mui-content mobile_details BL-overFlow-autoY" v-html="info.mobile_details"></div>
 
@@ -57,7 +56,7 @@
             <a class="popu-IconMenu a-link" data-wid="prospect_product" :data-pid="info.id"
                href="prospect-product.html"><img src="images/product/menu-prospect.png" alt="计划书"/></a>
             <a class="popu-IconMenu a-link" data-wid="product_contrast" href="product-contrast.html" :data-cid="1"
-               v-show="info.compare"><img src="images/product/menu-pk.png" alt="产品对比"/></a>
+               v-show="info.compare&&userinfo.channel_id!=18"><img src="images/product/menu-pk.png" alt="产品对比"/></a>
         </div>
         <!------------悬浮控制按钮 end --------------->
 
@@ -111,7 +110,8 @@
         var detail = new Vue({
             el: '#content',
             data: {
-                info: ''
+                info: '',
+                userinfo: ''
             },
             //过滤器
             filters: {
@@ -150,6 +150,8 @@
                 }
             }
         });
+        var userinfo = plus.storage.getItem('userinfo') ? JSON.parse(plus.storage.getItem('userinfo')) : '';
+        detail.userinfo = userinfo;
         getData(pid);
 
         //获取产品详情

@@ -37,7 +37,7 @@
                         <tr>
                             <td>{{policyInfo.state}}</td>
                             <td>{{policyInfo.present_date}}</td>
-                            <td>{{policyInfo.underwrite_date | dateFilter}}</td>
+                            <td>{{policyInfo.val_date | dateFilter}}</td>
                         </tr>
                     	</thead>
                     </table>
@@ -67,7 +67,7 @@
                     		<li>{{item.period_guanantee == '999' ? '终身' : item.period_guanantee }}</li>
                     		<li>{{item.fee}}</li>
                     		<li>{{item.fee}}</li>
-                    		<li>{{item.underwrite_date | dateFilter}}</li>
+                    		<li>{{item.val_date | dateFilter}}</li>
                     	</ul>
                     </div>
                 </div>

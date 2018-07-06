@@ -333,6 +333,7 @@ var setCarinsData = function (insurerCode, quote) {
         // 'bitotal': state.Calculated.biPremium || 0,
         citotal: quote? quote.ciPremium: 0,
         // 'citotal': state.Calculated.ciPremium || 0,
+        channel_code: quote? quote.channelCode: "",
         image: []
         // 'image': state.images || []
     }

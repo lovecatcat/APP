@@ -77,9 +77,9 @@
                             </thead>
                             <tbody>
                                 <tr v-for="item in content.plan">
-                                    <td width="50%">{{ item.product_name }} </td>
-                                    <td width="25%">{{ item.pay_limit != '0.00' ? (/\./.test(Number(item.pay_limit)) ? Number((+item.pay_limit).toFixed(2)) : Number(item.pay_limit) / 10000 + '万') : '投保' }}</td>
-                                    <td width="25%">{{ Number(item.amount) }} </td>
+                                    <td style="white-space: normal;">{{ item.product_name }} </td>
+                                    <td>{{ item.pay_limit != '0.00' ? (/\./.test(Number(item.pay_limit)) ? Number((+item.pay_limit).toFixed(2)) : Number(item.pay_limit) / 10000 + '万') : '投保' }}</td>
+                                    <td>{{ Number(item.amount) }} </td>
                                 </tr>
                             </tbody>
                         </table>

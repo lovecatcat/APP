@@ -137,7 +137,7 @@
                             </thead>
                             <tbody>
                                 <tr v-for="item in quote.coverageList">
-                                    <td>{{item.coverageName}}</td>
+                                    <td style="white-space: normal;">{{item.coverageName}}</td>
                                     <td>{{item.amount ? (/\./.test(item.amount) ? Number((+item.amount).toFixed(2)) : Number(item.amount) / 10000 + '万') : '投保'}}</td>
                                     <td>{{Number(item.insuredPremium)}}</td>
                                 </tr>
@@ -432,7 +432,7 @@
                                 // 险种报价信息
                                 quote.insurerCode = data.company
                                 quote.bizID = data.thp_business_no
-                                quote.channelCode = 'HUIMENG_PROXY_INSURE'
+                                quote.channelCode = data.channel_code
                                 quote.biPremium = data.business_total
                                 quote.ciPremium = data.compulsory_total
                                 quote.carshipTax = data.vehicle_tax_total
@@ -624,6 +624,7 @@
 	                            id: 'member_auto_order',
 	                            show: animateObj.aniDetal
 	                        });
+                            plus.webview.getWebviewById('member_auto_order') && mui.fire(plus.webview.getWebviewById('member_auto_order'), 'auto_reload');
                             setTimeout(function () {
                                 plus.webview.close('auto2c');
                                 plus.webview.close('auto2c_supplement');

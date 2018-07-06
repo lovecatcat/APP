@@ -121,7 +121,7 @@
                 src="images/product/menu-prospect.png" alt="计划书"/></a>
         <a data-wid="product_contrast" href="product-contrast.html" :data-tid="current_instype"
            class="popu-IconMenu a-link"><img
-                src="images/product/menu-pk.png" alt="产品对比" v-show="current_instype"/></a>
+                src="images/product/menu-pk.png" alt="产品对比" v-show="current_instype&&userinfo.channel_id!=18"/></a>
     </div>
 </div>
 <!------------悬浮控制按钮 end --------------->
@@ -142,7 +142,8 @@
             page: 0,
             companyId: '',
             listdata: [],
-            instype: []
+            instype: [],
+            userinfo: ''
         },
         //过滤器
         filters: {
@@ -184,7 +185,9 @@
             //接收首页传来的险种类别id
             var from_type = plus.webview.currentWebview().instype_id;
             product.current_instype = from_type ? from_type : 0;
-
+            var userinfo = plus.storage.getItem('userinfo') ? JSON.parse(plus.storage.getItem('userinfo')) : '';
+            console.log(JSON.stringify(userinfo))
+            product.userinfo = userinfo;
             var winH = window.innerHeight;
             var titHeight = document.querySelector('#Js-header').offsetHeight;
             var divHeight = document.querySelector('#Js-productFilter').offsetHeight;

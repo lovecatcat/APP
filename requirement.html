@@ -155,6 +155,10 @@
                                             vm.newsList_data = arr
                                         })
                                         mui.toast('删除成功', {duration: 'short', type: 'div'})
+
+                                        vm.editShow = false
+                                        document.querySelector('.control a').innerHTML = '编辑'
+
                                     } else {
                                         mui.toast('删除失败', {duration: 'short', type: 'div'})
                                     }
@@ -241,6 +245,10 @@
 
             //点击编辑
             document.querySelector('.control a').addEventListener('tap', function() {
+                if (!newsList.editShow && newsList.newsList_data.length == 0) {
+                    mui.toast("无收藏项可编辑", {duration: 'short', type: 'div'})
+                    return false
+                }
                 newsList.editShow = !newsList.editShow
                 this.innerText = this.innerText == '编辑' ? '完成' : '编辑'
             }, false);
@@ -298,7 +306,8 @@
                             url: 'news-tv-video.html',
                             show: animateObj.aniDetal,
                             extras: {
-                                id: res.data.id,
+                                parent_id: 'requirement',
+                                new_id: res.data.id,
                                 video_url: res.data.link,
                                 title: res.data.title,
                                 read_num: res.data.read_num,

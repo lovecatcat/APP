@@ -79,7 +79,8 @@
 		var newsDetail = new Vue({
 			el: '#Js-content',
 			data: {
-				newsDetail_data: {} // 列表数据
+				newsDetail_data: {}, // 列表数据
+                operate: false
 			}
 		});
 
@@ -177,6 +178,7 @@
                     },
                     success:function(res){
                         if(res.code == 1) {
+                            newsDetail.operate = !newsDetail.operate
                             enshrine == '1' ? newsDetail.newsDetail_data.is_enshrine = '0' : newsDetail.newsDetail_data.is_enshrine = '1'
                             mui.toast(res.msg, {duration: 'short', type: 'div'})
                         } else{
@@ -190,8 +192,9 @@
             oldBack = mui.back;
 
             mui.back = function () {
-                if (parent_id == 'requirement') {
+                if (parent_id == 'requirement' && newsDetail.operate) {
                     mui.fire(plus.webview.getWebviewById('requirement'), 'reload');
+                    newsDetail.operate = !newsDetail.operate
 
                     setTimeout(function(){
                         plus.webview.currentWebview().hide();
@@ -199,6 +202,7 @@
 				} else {
                     oldBack()
 				}
+
             }
 
 			document.getElementById("Js-openShare").addEventListener("tap", function() {

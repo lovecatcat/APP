@@ -62,6 +62,25 @@
         var content = plus.webview.currentWebview().content;
         document.getElementById('title').innerHTML = name
         document.getElementById('content').innerHTML = content
+
+        // 链接点击事件处理
+        mui('body').on('tap', 'a', function () {
+            var extras = null;
+            var href = this.getAttribute('href');
+            var name = this.innerHTML
+
+            if (href) {
+                mui.openWindow({
+                    url: 'insurance-law-link.html',
+                    id: 'insurance_law_link',
+                    show: animateObj.aniDetal,
+                    extras: {
+                        url: href,
+                        name: name
+                    }
+                });
+            }
+        });
     })
 </script>
 </html>

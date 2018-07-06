@@ -20,10 +20,10 @@
         <h1 class="BL-title">信息确认</h1>
     </div>
 </header>
-<div id="Js-content" class="mui-content BL-rel" v-cloak="">
+<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY" v-cloak="">
     <!--弹窗 begin-->
-    <div class="BL-mar-t-1">
-        <div class="form-content BL-pad-b-1">
+    <div class="BL-mar-tb-1">
+        <div class="form-content">
             <div class="form-wrap">
                 <div class="input-item">
                     <label class="BL-col-999">签名提示</label>
@@ -83,15 +83,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="BL-mar-t-3 BL-pad-lr-1_5">
-                    <a type="button" id="saveSign" class="form-btn blue">确认扣款</a>
-                </div>
+
             </div>
             <div v-show="!ispass" class="form-wrap">
                 <div class="input-item ins-font-xs BL-col-ff8201">您本次申请需要进行人工核保，完成电子签名后，公司会继续处理您的投保申请。</div>
             </div>
         </div>
+        <div class="BL-mar-t-1 BL-pad-lr-1_5" v-show="ispass">
+            <a type="button" id="saveSign" class="form-btn blue">确认扣款</a>
+        </div>
     </div>
+    <br>
+    <br>
 
 </div>
 <!--弹窗 end-->

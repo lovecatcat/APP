@@ -95,6 +95,7 @@
 									<a class="BL-btn-white BL-pad-lr-1 continue" v-show="btnShow(2,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">去支付</a>
 									<a class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 continue" v-show="btnShow(3,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">去签名</a>
 									<a class="BL-btn-white BL-pad-lr-1" @tap="freshSign(item.policy_id)" v-show="item.supplier_id==85&&item.state===5&&item.extend_items.signature_status === '0'">刷新</a>
+									<a class="BL-btn-white BL-pad-lr-1" @tap="queryPay(item.policy_id)" v-show="item.supplier_id==85&&item.extend_items.pay_status === '2'">查询</a>
 								</div>
 							</div>
 						</li>
@@ -140,7 +141,7 @@
                         }
 						break
 					case 2: //去支付 招商
-                        if (item.supplier_id === 85 && item.progress === 1 && item.state !== 5 && item.extend_items.update_img === '1' && (!item.pay_status || item.pay_status === '0')) {
+                        if (item.supplier_id === 85 && item.progress === 1 && item.state !== 5 && item.extend_items.update_img === '1' && item.extend_items.pay_status !== '1' && item.extend_items.pay_status !== '2') {
                             return true
                         }
 					    break
@@ -158,6 +159,43 @@
                     show: animateObj.aniDetal,
                     extras:{
                         policy_id: policy_id  //扩展参数
+                    }
+                });
+            },
+            queryPay: function (policy_id) {
+                luckyAjax({
+                    data: {
+                        data: JSON.stringify({
+                            msg: {policy_id: policy_id},
+                            company_code: 'ZhaoShang',
+                            method: 'payStatus'
+                        }),
+                        server: 'PolicyIns.onlineInsured',
+                        device: 'mobile'
+                    },
+                    timeout: 30000,
+                    success: function (res) {
+                        if (res.data.flag === 'Y') {
+                            if (res.data.state === '700001') {
+                                mui.toast('支付中', {duration: 'long', type: 'div'})
+                            } else if (res.data.state === 'E8001') {
+                                mui.toast('支付失败，请重新支付', {duration: 'long', type: 'div'})
+                            } else if (res.data.state === 'S0000') {
+                                mui.toast('支付成功', {duration: 'long', type: 'div'})
+                            } else {
+                                mui.toast(res.msg, {duration: 'long', type: 'div'})
+                                return false
+                            }
+                        } else if (res.data.flag === 'N') {
+                            mui.toast('接口调用失败', {duration: 'long', type: 'div'})
+                            return false
+                        } else {
+                            mui.toast('网络出错，请稍后再试', {
+                                duration: 'long',
+                                type: 'div'
+                            })
+                            return false
+                        }
                     }
                 });
             },

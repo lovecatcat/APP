@@ -556,6 +556,9 @@ i {
 .BL-noBorder-b{
 	border-bottom: 0 none !important;
 }
+.BL-noBorder-l{
+	border-left: 0 none !important;
+}
 
 /* 容器：内容超出竖向可以滚动 */
 .BL-overFlow-autoY{
@@ -639,6 +642,9 @@ input[type='color']{
 }
 .BL-ftz-52{
 	font-size: 1.625rem;
+}
+.BL-ftz-2{
+	font-size: 2rem;
 }
 .BL-bold {
 	font-weight: bold;

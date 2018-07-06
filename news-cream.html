@@ -176,10 +176,13 @@
 								id: 'news_tv_video',
 								url: 'news-tv-video.html',
 								show: animateObj.aniDetal,
-								extras: {
-									video_url: res.data.link,
-									title: res.data.title
-								}
+                                extras: {
+                                    new_id: res.data.id,
+                                    video_url: res.data.link,
+                                    title: res.data.title,
+                                    read_num: res.data.read_num,
+                                    is_enshrine: res.data.is_enshrine
+                                }
 							});
 						} else {
 							console.log(res.msg)

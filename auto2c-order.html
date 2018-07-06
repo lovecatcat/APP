@@ -51,17 +51,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr v-if="insList.commercial">
                                     <td>商业险</td>
                                     <td>{{ quote.biPremium }}</td>
                                     <td>{{ insList.biBeginDate }}</td>
                                 </tr>
-                                <tr v-if="quote.ciPremium > 0">
+                                <tr v-if="insList.forcepremium">
                                     <td>交强险</td>
                                     <td>{{ quote.ciPremium }}</td>
                                     <td>{{ insList.ciBeginDate }}</td>
                                 </tr>
-                                <tr v-if="quote.carshipTax > 0">
+                                <tr v-if="insList.forcepremium">
                                     <td>车船税</td>
                                     <td>{{ quote.carshipTax }}</td>
                                     <td></td>
@@ -136,8 +136,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="item in quote.coverageList" v-if="quote.coverageList.length > 1">
-                                    <td>{{item.coverageName}}</td>
+                                <tr v-for="item in quote.coverageList">
+                                    <td style="white-space: normal;">{{item.coverageName}}</td>
                                     <td>{{item.amount ? (/\./.test(item.amount) ? Number((+item.amount).toFixed(2)) : Number(item.amount) / 10000 + '万') : '投保'}}</td>
                                     <td>{{Number(item.insuredPremium)}}</td>
                                 </tr>
@@ -245,7 +245,7 @@
 <script src="js/mui.picker.js"></script>
 <script src="js/mui.poppicker.js"></script>
 <script src="js/mui.dtpicker.js"></script>
-<script src="js/city.data-3.js"></script>
+<script src="js/region.js"></script>
 <script src="js/Date.js"></script>
 <script src="js/IDValidator.min.js"></script>
 <script src="js/html2canvas.js"></script>
@@ -370,7 +370,6 @@
                     luckyAjax({
                         data: {
                             server: 'carIns.getInsDetails',
-                            view: true,
                             data: JSON.stringify({
                                 businessNo: business_no
                             }),
@@ -433,7 +432,7 @@
                                 // 险种报价信息
                                 quote.insurerCode = data.company
                                 quote.bizID = data.thp_business_no
-                                quote.channelCode = 'HUIMENG_PROXY_INSURE'
+                                quote.channelCode = data.channel_code
                                 quote.biPremium = data.business_total
                                 quote.ciPremium = data.compulsory_total
                                 quote.carshipTax = data.vehicle_tax_total
@@ -497,15 +496,19 @@
                     document.querySelector('#address-select').addEventListener('tap', function () {
                         document.activeElement.blur();
                         cityPicker3.show(function (items) {
-                            // 北京1、天津2 、上海3 、重庆4直辖市特殊处理
+                            // 先清空
+                            vm.address.province = ""
+                            vm.address.city = ""
+                            vm.address.county = ""
+                            // 再赋值
                             vm.address.province = items[0].value
-                            if (vm.address.province == 1 || vm.address.province == 2 || vm.address.province == 3 || vm.address.province == 4) {
-                                vm.address.city = ""
-                                vm.address.county = items[1].value
-                            } else {
+                            if (items[1].value) {
                                 vm.address.city = items[1].value
+                            }
+                            if (items[2].value) {
                                 vm.address.county = items[2].value
                             }
+
                             vm.address.location = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text') ;
                         });
                     }, false);
@@ -539,7 +542,6 @@
             luckyAjax({
                 data: {
                     server: 'carIns.setCarIns',
-                    view: true,
                     data: JSON.stringify(data)
                 },
                 success: function (res) {
@@ -558,7 +560,6 @@
             luckyAjax({
                 data: {
                     server: 'carIns.statement',
-                    view: true,
                     data: JSON.stringify({
                         companyCode: auto.quote.insurerCode
                     })
@@ -610,10 +611,10 @@
             luckyAjax({
                 data: {
                     server: 'carIns.applyUnderwrite',
-                    view: true,
                     data: JSON.stringify(data)
                 },
                 success: function (res) {
+                    console.log(JSON.stringify(res))
                     if (res.code == 1) {
                         if (res.data.synchFlag == '1') {
                             // 转入人工核保
@@ -623,6 +624,15 @@
 	                            id: 'member_auto_order',
 	                            show: animateObj.aniDetal
 	                        });
+                            plus.webview.getWebviewById('member_auto_order') && mui.fire(plus.webview.getWebviewById('member_auto_order'), 'auto_reload');
+                            setTimeout(function () {
+                                plus.webview.close('auto2c');
+                                plus.webview.close('auto2c_supplement');
+                                plus.webview.close('auto2c_choose');
+                                plus.webview.close('auto2c_business');
+                                plus.webview.close('auto2c_quotes');
+                                plus.webview.close('auto2c_order');
+                            }, 1000)
                             return false
                         }
                         // 核保成功，跳转到付款页面

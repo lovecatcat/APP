@@ -39,7 +39,6 @@
                 luckyAjax({
                     data: {
                         server: 'carIns.payResult',
-                        view: true,
                         data: JSON.stringify({
                             businessNo: business_no
                         })
@@ -47,7 +46,6 @@
                     timeout: 10000,
                     success: function (res) {
                         plus.nativeUI.showWaiting();
-                        console.log(JSON.stringify(res))
                         var url = null
                         var id = null
                         var extras = null
@@ -100,7 +98,6 @@
                 luckyAjax({
                     data: {
                         server: 'carIns.payResult',
-                        view: true,
                         data: JSON.stringify({
                             businessNo: business_no
                         })
@@ -125,7 +122,7 @@
                                             wid: 'member_warranty_manageCar',    // 车险
                                         }
                                     })
-                                    plus.webview.getWebviewById('member_auto_order') && mui.fire(plus.webview.getWebviewById('member_auto_order'), 'auto_reload');
+                                    plus.webview.close('member_auto_order');
                                     setTimeout(function () {
                                           plus.webview.close('auto2c_pay');
                                     }, 500)
@@ -147,7 +144,7 @@
                             }
                         } else {
                         	mui.toast(res.msg, {duration: 'short', type: 'div'})
-                        	return
+                        	return false
                         }
                     }
                 })

@@ -51,7 +51,6 @@
             <!--分类栏目 end -->
         </div>
         <!------------条件筛选 end  ------------->
-
         <!------------产品列表 begin------------->
         <div id="Js-orderList" class="BL-rel">
             <div class="mui-content mui-scroll-wrapper BL-mar-t-07">
@@ -205,7 +204,6 @@
                     luckyAjax({
                         data: {
                             server: 'carIns.payLink',
-                            view: true,
                             data: JSON.stringify({
                                 id: id
                             })
@@ -249,7 +247,6 @@
         luckyAjax({
             data: {
                 server: 'carIns.getPolicyList',
-                view: true,
                 data: JSON.stringify(basedata)
             },
             success: function(res){

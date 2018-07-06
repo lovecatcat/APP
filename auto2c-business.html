@@ -47,7 +47,7 @@
 			<ul class="mui-table-view auto-list-cell BL-mar-t-1" v-if="commercial">
 				<template v-for="item,index in biCoverageList">
 					<li class="fItem BL-ub BL-ub-f1" v-if="item.coverageCode === 'A'" :class="{'BL-hide': !show.A}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -59,7 +59,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'B'" :class="{'BL-hide': !show.B}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="N">不投保</option>
@@ -74,7 +74,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'G1'" :class="{'BL-hide': !show.G1}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -86,7 +86,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'D3'" :class="{'BL-hide': !show.D3}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="N">不投保</option>
@@ -101,7 +101,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'D4'" :class="{'BL-hide': !show.D4}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName  + item.coverageCode }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="N">不投保</option>
@@ -116,7 +116,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1"  v-else-if="item.coverageCode === 'Q3'" :class="{'BL-hide': !show.Q3}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -128,7 +128,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1"  v-else-if="item.coverageCode === 'Z'" :class="{'BL-hide': !show.Z}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -141,7 +141,7 @@
 					</li>
 					<template v-else-if="item.coverageCode === 'F'">
 						<li class="fItem BL-ub BL-ub-f1" :class="{'BL-hide': !show.F}">
-							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
 							<div class="form-list-control">
 								<select v-model="item.insuredAmount" @change="selectRisk(item)">
 									<option value="Y">投保</option>
@@ -166,7 +166,7 @@
 						</li>
 					</template>
 					<li class="fItem BL-ub BL-ub-f1"  v-else-if="item.coverageCode === 'L'" :class="{'BL-hide': !show.L }">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="N">不投保</option>
@@ -181,7 +181,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'X1'" :class="{'BL-hide': !show.X1 }">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -193,7 +193,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'R'" :class="{'BL-hide': !show.R }">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode  }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="N">不投保</option>
@@ -209,7 +209,7 @@
 					</li>
 					<template v-else-if="item.coverageCode === 'Z2'">
 						<li class="fItem BL-ub BL-ub-f1" :class="{'BL-hide': !show.Z2 }">
-							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
+							<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
 							<div class="form-list-control">
 								<select v-model="item.insuredAmount" @change="selectRisk(item)">
 									<option value="Y">投保</option>
@@ -242,7 +242,7 @@
 						</li>
 					</template>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'Z3'" :class="{'BL-hide': !show.Z3 }">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -258,7 +258,7 @@
 			<ul class="mui-table-view auto-list-cell BL-mar-t-1" v-if="commercial">
 				<template v-for="item,index in biCoverageList">
 					<li class="fItem BL-ub BL-ub-f1" v-if="item.coverageCode === 'MA'" :class="{'BL-hide': !show.MA}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -270,7 +270,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MB'" :class="{'BL-hide': !show.MB}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -282,7 +282,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MD3'" :class="{'BL-hide': !show.MD3}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -294,7 +294,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MD4'" :class="{'BL-hide': !show.MD4}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -306,7 +306,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MZ'" :class="{'BL-hide': !show.MZ}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -318,7 +318,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MG1'" :class="{'BL-hide': !show.MG1}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -330,7 +330,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'ML'" :class="{'BL-hide': !show.ML}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -342,7 +342,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MX1'" :class="{'BL-hide': !show.MX1}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -354,7 +354,7 @@
 						</div>
 					</li>
 					<li class="fItem BL-ub BL-ub-f1" v-else-if="item.coverageCode === 'MR'" :class="{'BL-hide': !show.MR}">
-						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName + item.coverageCode  }}</i></label>
+						<label class="form-list-label BL-ub BL-ub-ver BL-ub-f1">{{ item.coverageName }}</i></label>
 						<div class="form-list-control">
 							<select v-model="item.insuredAmount" @change="selectRisk(item)">
 								<option value="Y">投保</option>
@@ -536,7 +536,6 @@
                         luckyAjax({
                             data: {
                                 server: 'carIns.delCarPlan',
-                                view: true,
                                 data: JSON.stringify({
                                     business_no: thpBizID,
                                     product: addonCode
@@ -591,8 +590,7 @@
 			// 获取险别信息
 			luckyAjax({
 				data: {
-					server: 'carIns.risks',
-					view: true
+					server: 'carIns.risks'
 				},
 				success:function(res) {
 					var coverageList = res.data

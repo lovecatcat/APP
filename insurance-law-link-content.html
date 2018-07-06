@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="target-densitydpi=device-dpi, initial-scale=0.3, minimum-scale=0.3, maximum-scale=5, user-scalable=yes">
+    <link href="css/mui.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/module.css" rel="stylesheet" />
+</head>
+
+<body class="BL-bg-f2f">
+
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mui.init();
+
+    (function($) {
+        // 设置内容区域
+        $.plusReady(function() {
+            var url = plus.webview.currentWebview().url
+
+            var embed = plus.webview.create(url, '', {
+                top: '0px',
+                bottom: '0px',
+                scalable:true
+            });
+            plus.webview.currentWebview().append(embed);
+
+            plus.key.addEventListener("backbutton", function() {
+                plus.webview.currentWebview().close();
+                plus.webview.getWebviewById('insurance_law_link').close();
+            });
+
+        });
+    }(mui));
+</script>
+
+</html>

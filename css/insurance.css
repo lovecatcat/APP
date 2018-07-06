@@ -65,6 +65,7 @@
 .mui-checkbox label.label-transfer{padding-left: 3.5rem; display: inline; line-height: 2.5rem; padding-right: 0;}
 .item-title{height: 4.0625rem;line-height: 4.0625rem;color: #3b9cf5;padding: 0 1rem;font-size: 1.4375rem;}
 .item-title.orange{color: #ff9212;}
+.item-title.gray{color: #999999;}
 
 .input-item{display:-moz-box; display:-webkit-box; display:-ms-flexbox; padding: 0 1rem;margin: 1.28rem 0;position: relative}
 .input-item-title { margin: .5rem 0; }

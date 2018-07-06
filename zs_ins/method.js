@@ -548,7 +548,7 @@ var getOccu = function (id, cb) {
                     arr.push({
                         text: ite.name,
                         value: ite.id,
-                        cate: ite.enum_value
+                        cate: ite.extend.life_insurance
                     });
                 });
                 cb(arr)

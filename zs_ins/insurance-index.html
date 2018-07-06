@@ -243,7 +243,7 @@
                                 appl_data.holder_job_code = da.insData.holder_job_code//职业
                                 appl_data.temp_holder_job_code = da.insData.holder_job_code_code//职业代码
                                 appl_data.holder_job_name = da.insData.holder_job_code_text//职业名称
-                                appl_data.holder_job_cate = da.insData.holder_job_category.enum_value//职业分类
+                                appl_data.holder_job_cate = da.insData.holder_job_category.extend.life_insurance//职业分类
                                 appl_data.holder_isTaxResidents = TAXTYPE //税收标识
                                 appl_data.resident_type = da.insData.extend_items.resident_type //居民类型
                                 console.log(JSON.stringify(appl_data))
@@ -297,7 +297,7 @@
                                     assu_data.insured_job_code = da.insured.insured_job_code//职业
                                     assu_data.temp_insured_job_code = da.insured.insured_job_code_code//职业代码
                                     assu_data.insured_job_name = da.insured.insured_job_code_text//职业名称
-                                    assu_data.insured_job_cate = da.insured.insured_job_category.enum_value//职业分类
+                                    assu_data.insured_job_cate = da.insured.insured_job_category.extend.life_insurance//职业分类
                                     assu_data.insured_isTaxResidents = TAXTYPE//税收标识
                                 }
                                 console.log(JSON.stringify(assu_data))
@@ -835,14 +835,12 @@
                     if (res.data.flag === 'Y') {
                         if(res.data.isRulePass === 'Y'){
                             var sumPrem = res.data.sumPrem
-                            alert(parseInt(sumPrem))
-                            alert(parseInt(totalfee))
                             if (parseInt(sumPrem) != parseInt(totalfee)) {
                                 mui.toast('保费不一致！', {duration: 'long', type: 'div'})
                                 return false
                             } else {
                                 mui.toast('保存成功，核保中', {duration: 'long', type: 'div'})
-//                                upload_img(war_id)
+                                upload_img(war_id)
                             }
                         } else {
                             mui.toast(JSON.stringify(res.data.uwNotPassProblem), {duration: 'long', type: 'div'})
@@ -851,7 +849,7 @@
                     } else if (res.data.flag === 'N') {
                         plus.nativeUI.closeWaiting();
                         index.loading = false;
-                        mui.toast(res.data.message, {duration: 'long', type: 'div'})
+                        mui.toast(JSON.stringify(res.data.message), {duration: 'long', type: 'div'})
                         return false
                     } else {
                         plus.nativeUI.closeWaiting();

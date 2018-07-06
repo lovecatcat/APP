@@ -634,7 +634,9 @@
 					"images/icon/sign-active.png",
 					"js/config.js",
 					"js/plusShare.js",
-					"js/vue.min.js"
+					"js/vue.min.js",
+					"images/icon/ico-collect-active.png",
+					"images/icon/ico-collect.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -1457,7 +1459,10 @@
 					"js/IDValidator.min.js",
 					"js/Date.js",
 					"js/auto2.js",
-					"css/auto.css"
+					"css/auto.css",
+					"js/mui.picker.js",
+					"js/vue.min.js",
+					"js/mui.dtpicker.js"
 				],
 				"refer": [
 					"auto2c-choose.html",
@@ -2008,7 +2013,10 @@
 					"images/plans/prospectus/16201.jpg",
 					"images/plans/prospectus/16213.jpg",
 					"images/plans/prospectus/16203.jpg",
-					"images/plans/plansIcon/icon-plans10.png"
+					"images/plans/plansIcon/icon-plans10.png",
+					"images/plans/prospectus/370.jpg",
+					"images/plans/plansIcon/icon-plans210.png",
+					"images/plans/prospectus/16217.jpg"
 				],
 				"priority": 2,
 				"refer": [
@@ -2169,7 +2177,8 @@
 					"images/plans/plansManage/16213.png",
 					"images/plans/plansManage/16139.png",
 					"images/plans/plansManage/16208.png",
-					"images/plans/plansManage/16220.png"
+					"images/plans/plansManage/16220.png",
+					"images/plans/plansManage/16221.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -3091,7 +3100,8 @@
 			"news-tv-video.html": {
 				"resources": [
 					"css/mui.css",
-					"css/news.css"
+					"css/news.css",
+					"images/icon/ico-collect-active.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -3366,7 +3376,10 @@
 					"requirement_retire.html",
 					"member-statement.html",
 					"requirement_educate.html",
-					"requirement_educate_calculate.html"
+					"requirement_educate_calculate.html",
+					"occupation-classify.html",
+					"insurance-law.html",
+					"invalidism.html"
 				],
 				"priority": 0
 			},
@@ -3520,10 +3533,33 @@
 					"css/member.css",
 					"css/mui.css",
 					"images/member/risk-evaluation.png",
-					"css/form.css"
+					"css/form.css",
+					"css/plans.css",
+					"images/plans/plansManage/370.png",
+					"images/plans/plansManage/16220.png",
+					"images/plans/plansManage/276.png",
+					"images/plans/plansManage/121.png",
+					"images/plans/plansManage/340.png",
+					"images/plans/plansManage/348.png",
+					"images/plans/plansManage/337.png",
+					"images/plans/plansManage/16221.png",
+					"images/plans/plansManage/272.png",
+					"images/plans/plansManage/347.png",
+					"images/plans/plansManage/352.png",
+					"images/plans/plansManage/16211.png",
+					"images/plans/plansManage/332.png",
+					"images/plans/plansManage/267.png",
+					"images/plans/plansManage/256.png",
+					"css/news.css",
+					"images/index/guide_1.jpg",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [
-					"requirement_question.html"
+					"requirement_question.html",
+					"member-plans-detail.html",
+					"popup-content.html",
+					"news-tv-video.html"
 				],
 				"priority": 0
 			},
@@ -3676,12 +3712,15 @@
 					"js/Date.js",
 					"css/module.css",
 					"css/common.css",
-					"images/icon/ico-save.png"
+					"images/icon/ico-save.png",
+					"images/auto/UTIC.png",
+					"js/region.js"
 				],
 				"refer": [
 					"auto2c-pay.html",
 					"auto2c-statement.html",
-					"auto2c-contract.html"
+					"auto2c-contract.html",
+					"member-auto-order.html"
 				],
 				"priority": 0
 			},
@@ -3747,6 +3786,90 @@
 					"images/auto/TAIC.png",
 					"css/module.css",
 					"css/common.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"occupation-classify.html": {
+				"resources": [
+					"css/mui.css",
+					"js/interval-dtpicker.js",
+					"css/news.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"insurance-law.html": {
+				"resources": [
+					"css/form.css",
+					"css/mui.css",
+					"css/member.css",
+					"js/interval-dtpicker.js",
+					"js/insuranceLaw.js"
+				],
+				"refer": [
+					"insurance-law-detail.html"
+				],
+				"priority": 0
+			},
+			"insurance-law-detail.html": {
+				"resources": [
+					"css/mui.picker.min.css",
+					"css/mui.css",
+					"css/form.css"
+				],
+				"refer": [
+					"insurance-law-link.html"
+				],
+				"priority": 0
+			},
+			"invalidism.html": {
+				"resources": [
+					"css/member.css",
+					"css/mui.css",
+					"js/interval-dtpicker.js",
+					"css/form.css",
+					"js/pdf.js"
+				],
+				"refer": [
+					"invalidism-new.html",
+					"invalidism-old.html",
+					"pdf-modal.html"
+				],
+				"priority": 0
+			},
+			"invalidism-new.html": {
+				"resources": [
+					"css/mui.picker.min.css",
+					"css/mui.css",
+					"css/form.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"invalidism-old.html": {
+				"resources": [
+					"css/mui.picker.min.css",
+					"css/mui.css",
+					"css/form.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"insurance-law-link.html": {
+				"resources": [
+					"css/mui.css"
+				],
+				"refer": [
+					"insurance-law-link-content.html"
+				],
+				"priority": 0
+			},
+			"insurance-law-link-content.html": {
+				"resources": [
+					"js/pdf.js",
+					"css/member.css",
+					"css/mui.css"
 				],
 				"refer": [],
 				"priority": 0

@@ -142,7 +142,11 @@
 	height: 4.0625rem;
 	border-top: 1px solid #aaaaaa;
 }
-.BL-footer .reads, .BL-footer .goods{
+.footer-collect{
+	height: 5.625rem;
+	border-top: 1px solid #aaaaaa;
+}
+.BL-footer .reads, .BL-footer .goods,.BL-footer .collect{
 	font-size: 1.4375rem;
 	color: #666666;
 	height: 4.0625rem;
@@ -150,10 +154,10 @@
 	position: relative;
 	padding-left: 3rem;
 }
-.BL-footer .goods{
+.BL-footer .goods,.BL-footer .collect{
 	padding-left: 2.6rem;
 }
-.BL-footer .reads:before, .BL-footer .goods:before{
+.BL-footer .reads:before, .BL-footer .goods:before,.BL-footer .collect:before{
 	content: '';
 	width: 2.4375rem;
 	height: 2.4375rem;
@@ -171,10 +175,47 @@
 .BL-footer .goods:before{
 	background-image: url(../images/icon/ico-good.png);
 }
+.BL-footer .collect:before{
+	background-image: url(../images/icon/ico-collect.png);
+}
+.BL-footer .collect.active:before{
+	background-image: url(../images/icon/ico-collect-active.png);
+}
 .news-tv-list{
 	background: none;
 }
 .news-tv-list .news-list-cell{
 	margin: 0;
     list-style: none;
+}
+.mui-navigate-right:after{
+	font-size: 1.9rem;
+	top: 1.25rem;
+	right: 0;
+}
+
+.selected{
+	border-radius: 100%;
+	border: 2px solid #e7e7e7;
+	width: 2.25rem;
+	height: 2.25rem;
+	margin-right: 1.25rem;
+}
+.mui-icon-checkmarkempty{
+	color: #ffffff;
+	font-size: 2.25rem;
+	line-height: 2.25rem;
+}
+.nItem-active  .selected{
+	border: 2px solid #3b9cf5;
+	background-color: #3b9cf5;
+}
+.mui-icon-checkmarkempty{
+	color: #ffffff;
+}
+.BL-foot-selectAll{
+	padding-left: 1.25rem;
+}
+.BL-foot-selectAll .context{
+	font-size: 1.625rem;
 }

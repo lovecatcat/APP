@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="css/mui.css" rel="stylesheet"/>
+    <link href="css/common.css" rel="stylesheet"/>
+    <link href="css/module.css" rel="stylesheet"/>
+    <link href="css/form.css" rel="stylesheet"/>
+    <script src="js/config.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/mui.picker.min.css"/>
+    <style>
+        .line-m{padding:1rem 3.6rem;line-height:2rem;}
+        .line-m span{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;color: #333}
+        .line-m span span{-webkit-box-flex:1;-webkit-flex-grow:1;-moz-box-flex:1;-ms-flex-positive:1;flex-grow:1;font-size: 1.4375rem;}
+        .line-m span span:before,
+        .line-m span span:after{content:'';display:block;height:1px;width:1%;-webkit-box-flex:1;-webkit-flex-grow:1;-moz-box-flex:1;-ms-flex-positive:1;flex-grow:1;background-color:#ddd;margin-top:1rem;}
+        .line-m span span:before{margin-right:1rem;}
+        .line-m span span:after{margin-left:1rem;}
+        .form-clause p {
+            padding: .5rem 0rem;
+            margin-bottom: 0;
+        }
+        .tab td{
+            vertical-align:middle;
+            padding: .5rem .1rem;
+			text-align: center
+        }
+        .tab td p {
+            font-size: 1.3125rem;
+            line-height: 2.3rem;
+            padding: .5rem .1rem;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<header id="Js-header" class="BL-bg-fff">
+    <div class="BL-mod-headbar BL-mod-headbar-pos">
+        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+        <h1 class="BL-title" id="title">人身险伤残表（旧）</h1>
+    </div>
+</header>
+<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY">
+    <div class="form-clause BL-pad-a1_25 BL-bg-fff" id="content">
+        <p class="BL-bold BL-txt-c BL-ftz-52" style="padding-bottom: 1rem">人身保险残疾程度与保险金给付比例表</p>
+        <table class="tab" border="1" style="border: none" width="100%">
+            <tbody>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-width: 1px;border-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span class="BL-bold">等级</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top-width: 1px;border-right-width: 1px;border-bottom-width: 1px;border-top-color: windowtext;border-right-color: windowtext;border-bottom-color: windowtext;border-left: none;padding: 0 7px">
+                    <p>
+                        <span class="BL-bold">项目</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top-width: 1px;border-right-width: 1px;border-bottom-width: 1px;border-top-color: windowtext;border-right-color: windowtext;border-bottom-color: windowtext;border-left: none;padding: 0 7px">
+                    <p>
+                        <span class="BL-bold">残疾程度</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top-width: 1px;border-right-width: 1px;border-bottom-width: 1px;border-top-color: windowtext;border-right-color: windowtext;border-bottom-color: windowtext;border-left: none;padding: 0 7px">
+                    <p>
+                        <span class="BL-bold">给付比例</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" rowspan="8" valign="top" style="width: 142px;border-right-width: 1px;border-bottom-width: 1px;border-left-width: 1px;border-right-color: windowtext;border-bottom-color: windowtext;border-left-color: windowtext;border-top: none;padding: 0 7px">
+                    <p>
+                        <span >第一级</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>1</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >双目永久完全失明的（注</span><span>1</span><span >）</span>
+                    </p>
+                </td>
+                <td width="142" rowspan="8" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>100%</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>2</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >两上肢腕关节以上或两下肢踝关节以上缺失的</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>3</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一上肢腕关节以上及一下肢踝关节以上缺失的</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>4</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一目永久完全失明及一上肢腕关节以上缺失的</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>5</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一目永久完全失明及一下肢踝关节以上缺失的</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>6</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >四肢关节机能永久完全丧失的（注</span><span>2</span><span >）</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>7</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >咀嚼、吞咽机能永久完全丧失的（注</span><span>3</span><span >）中枢神经系统机能或胸、腹部脏器机能极度障碍，终身不能从事任</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>8</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >中枢神经系统机能或胸、腹部脏器机能极度障碍，终身不能从事任</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" rowspan="2" valign="top" style="width: 142px;border-right-width: 1px;border-bottom-width: 1px;border-left-width: 1px;border-right-color: windowtext;border-bottom-color: windowtext;border-left-color: windowtext;border-top: none;padding: 0 7px">
+                    <p>
+                        <span >第二级</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>9</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >或两下肢、或一上肢及一下肢，各有三大关节中的两个关节以上机能永久完全丧失的（注</span><span>5)</span>
+                    </p>
+                </td>
+                <td width="142" rowspan="2" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>75%</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>10</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >十手指缺失的（注</span><span>6)</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" rowspan="5" valign="top" style="width: 142px;border-right-width: 1px;border-bottom-width: 1px;border-left-width: 1px;border-right-color: windowtext;border-bottom-color: windowtext;border-left-color: windowtext;border-top: none;padding: 0 7px">
+                    <p>
+                        <span >第三级</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>11</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一上肢腕关节以上缺失或一上肢的三大关节全部机能永久完全丧失的</span>
+                    </p>
+                </td>
+                <td width="142" rowspan="5" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>50%</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>12</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一下肢踝关节以上缺失或一下肢的三大关节全部机能永久完全丧失的</span>
+                    </p>
+                    <p>
+                        <span>&nbsp;</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>13</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >双耳听觉机能永久完全丧失的（注</span><span>7)</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>14</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >十手指机能永久完全丧失的（注</span><span>8)</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>15</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >十足趾缺失的（注</span><span>9)</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" rowspan="7" valign="top" style="width: 142px;border-right-width: 1px;border-bottom-width: 1px;border-left-width: 1px;border-right-color: windowtext;border-bottom-color: windowtext;border-left-color: windowtext;border-top: none;padding: 0 7px">
+                    <p>
+                        <span >第四级</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>16</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一目永久完全失明的</span>
+                    </p>
+                </td>
+                <td width="142" rowspan="7" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>30%</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>17</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一上肢三大关节中，有二关节之机能永久完全丧失的</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>18</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一下肢三大关节中，有二关节之机能永久完全丧失的</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>19</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一手含拇指及食指，有四手指以上缺失的</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>20</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一下肢永久缩短</span><span>5</span><span >公分以上的</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>21</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >语言机能永久完全丧失的（注</span><span>10</span><span >）</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>22</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >十足趾机能永久完全丧失的</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" rowspan="7" valign="top" style="width: 142px;border-right-width: 1px;border-bottom-width: 1px;border-left-width: 1px;border-right-color: windowtext;border-bottom-color: windowtext;border-left-color: windowtext;border-top: none;padding: 0 7px">
+                    <p>
+                        <span >第五级</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>23</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一上肢三大关节中，有一关节之机能永久完全丧失的</span>
+                    </p>
+                </td>
+                <td width="142" rowspan="7" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>20%</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>24</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一下肢三大关节中，有一关节之机能永久完全丧失的</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>25</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >两手拇指缺失的</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>26</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一足五趾缺失的</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>27</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >两眼眼睑显著缺损的（注</span><span>11</span><span >）</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>28</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一耳听觉机能永久完全丧失的</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>29</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >鼻部缺损且嗅觉机能遗存显著障碍的（注</span><span>12</span><span >）</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" rowspan="3" valign="top" style="width: 142px;border-right-width: 1px;border-bottom-width: 1px;border-left-width: 1px;border-right-color: windowtext;border-bottom-color: windowtext;border-left-color: windowtext;border-top: none;padding: 0 7px">
+                    <p>
+                        <span >第六级</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>30</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一手拇指及食指缺失，或含拇指或食指有三个或三个以上手指缺失的</span>
+                    </p>
+                </td>
+                <td width="142" rowspan="3" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>15%</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>31</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一手含拇指或食指有三个或三个以上手指机能永久完全丧失的</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>32</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一足五趾机能永久完全丧失的</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" rowspan="2" valign="top" style="width: 142px;border-right-width: 1px;border-bottom-width: 1px;border-left-width: 1px;border-right-color: windowtext;border-bottom-color: windowtext;border-left-color: windowtext;border-top: none;padding: 0 7px">
+                    <p>
+                        <span >第七级</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>33</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一手拇指或食指缺失，或中指、无名指和小指中有二个或二个以上手指缺失的</span>
+                    </p>
+                </td>
+                <td width="142" rowspan="2" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>10%</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span>34</span>
+                    </p>
+                </td>
+                <td width="142" valign="top" style="width: 142px;border-top: none;border-left: none;border-bottom-width: 1px;border-bottom-color: windowtext;border-right-width: 1px;border-right-color: windowtext;padding: 0 7px">
+                    <p>
+                        <span >一手拇指及食指机能永久完全（注</span><span>13</span><span >）丧失的</span>
+                    </p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p>
+            <span >注</span><span>:</span>
+        </p>
+        <p>
+            <span>(1) </span><span >失明包括眼球缺失或摘除、或不能辨别明暗、或仅能辨别眼前手动者，最佳矫正视力</span> <span >低于国际标准视力表</span><span>0.02,</span><span style="font-family: 宋体">或视野半径小于</span><span>5</span><span >度，并由本公司指定有资格的眼科医师出具医疗</span> <span >诊断证明。</span>
+        </p>
+        <p>
+            <span>(2) </span><span >关节机能的丧失系指关节永久完全僵硬、或麻痹、或关节不能随意识活动。</span>
+        </p>
+        <p>
+            <span>(3) </span><span >咀嚼、吞咽机能的丧失系指由于牙齿以外的原因引起器质障碍或机能障碍，以致不能作</span> <span >咀嚼、吞咽运动，除流质食物外不能摄取或吞咽的状态。</span>
+        </p>
+        <p>
+            <span>(4) </span><span >为维持生命必要之日常生活活动，全需他人扶助系指食物摄取、大小便始末、穿脱衣服、</span> <span >起居、步行、入浴等，皆不能自己为之，需要他人帮助。</span>
+        </p>
+        <p>
+            <span>(5) </span><span >上肢三大关节系指肩关节、肘关节和腕关节；下肢三大关节系指髋关节、膝关节和踝关</span> <span >节。</span>
+        </p>
+        <p>
+            <span>(6) </span><span >手指缺失系指近位指节间关节（拇指则为指节间关节）以上完全切断。</span>
+        </p>
+        <p>
+            <span>(7) </span><span >听觉机能的丧失系指语言频率平均听力损失大于</span><span>90</span><span >分贝，语言频率为</span><span>500</span><span >、</span><span>1000</span><span >、</span><span>2000</span><span >赫兹。</span>
+        </p>
+        <p>
+            <span>(8 )</span><span >手指机能的丧失系指自远位指节间关节切断，或自近位指节间关节僵硬或关节不能随意</span> <span >识活动。</span>
+        </p>
+        <p>
+            <span>(9) </span><span >足趾缺失系指自趾关节以上完全切断。</span>
+        </p>
+        <p>
+            <span>(10) </span><span >语言机能的丧失系指构成语言的口唇音、齿舌音、口盖音和喉头音的四种语言机能中，</span> <span >有三种以上不能构声、或声带全部切除，或因大脑语言中枢受伤害而患失语症，并须有资格的</span> <span >五官科（耳、鼻、喉）医师出具医疗诊断证明，但不包括任何心理障碍引致的失语。</span>
+        </p>
+        <p>
+            <span>(11) </span><span >两眼眼睑显著缺损系指闭眼时眼睑不能完全覆盖角膜。</span>
+        </p>
+        <p>
+            <span>(12)</span><span >鼻部缺损且嗅觉机能遗存显著障碍系指鼻软骨全部或二分之一缺损及两侧鼻孔闭塞，</span> <span >鼻呼吸困难，不能矫治或两侧嗅觉丧失。</span>
+        </p>
+        <p>
+            <span>(13)</span><span >所谓永久完全系指自意外伤害之日起经过一百八十日的治疗，机能仍然完全丧失，但</span> <span >眼球摘除等明显无法复原之情况，不在此限。</span>
+        </p>
+        <p>
+            <br/>
+        </p>
+    </div>
+</div>
+
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mui.init();
+    mui.plusReady(function () {
+        statusbar();
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+    })
+</script>
+</html>

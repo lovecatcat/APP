@@ -137,7 +137,7 @@
                     isLoanCar: false,    // 是否贷款车
                     responseNo: ""   // 响应码
 				},
-                brand: null, // 车型信息
+                brand: {}, // 车型信息
                 modelName: ''        // 品牌名称
 			},
 			created: function(){
@@ -196,12 +196,17 @@
                     luckyAjax({
                         data: {
                             server: 'carIns.vehicleInfoByFrameNo',
-                            view: true,
                             data: JSON.stringify({frameNo: this.car.frameNo})
                         },
                         success:function(res){
                             if(res.code == 1){
-                                vm.car = res.data
+                            	var data = res.data
+                            	vm.car.responseNo = data.responseNo
+                            	vm.car.engineNo = data.engineNo
+//                          	vm.car.licenseNo = data.licenseNo
+                            	vm.car.frameNo = data.frameNo
+                            	vm.car.registerDate = data.firstRegisterDate
+//                          	vm.car.car_isnew = 2
                                 plus.storage.setItem('car',JSON.stringify(vm.car));
                                 // 根据车架号、车牌号、响应码查询车型信息
                                 vm.queryBrand(vm.car)
@@ -217,7 +222,6 @@
                     luckyAjax({
                         data: {
                             server: 'carIns.modelExactness',
-                            view: true,
                             data: JSON.stringify({
                                 responseNo: car.responseNo,
                                 licenseNo: car.licenseNo,
@@ -226,10 +230,12 @@
                         },
                         success:function(res){
                             if(res.code == 1){
-                                this.brand = res.data
-                                auto.car.seatCount = auto.brand.seat
+                                auto.brand = res.data[0]
+                                if(auto.brand.seat) {
+                                	auto.car.seatCount = auto.brand.seat
+                                }
                                 auto.modelName = ([auto.brand.brandName,auto.brand.vehicleFgwName,auto.brand.parentVehName].join(' ')).trim() //品牌名称
-                                plus.storage.setItem('brand',JSON.stringify(this.brand));
+                                plus.storage.setItem('brand',JSON.stringify(auto.brand));
                             } else {
                                 mui.toast('没有找到车型信息', {duration: 'long', type: 'div'});
                             }

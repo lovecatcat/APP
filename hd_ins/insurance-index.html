@@ -536,12 +536,13 @@
         })
         //
         document.querySelector('#qianming').addEventListener('click', function () {
+            var warid = index.ids ? Number(index.ids.policy_id) : ''
             mui.openWindow({
                 url: 'insurance-sign.html',
                 id: 'insurance_sign',
                 show: animateObj.aniDetal,
                 extras:{
-                    war_id : '6587'
+                    war_id : warid
                 }
             })
         });

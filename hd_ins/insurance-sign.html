@@ -16,48 +16,287 @@
 <body class="BL-bg-f2f">
 <header id="Js-header" class="BL-bg-fff">
     <div class="BL-mod-headbar BL-mod-headbar-pos">
-        <a class="mui-icon-left-nav BL-icon BL-icon-left"></a>
+        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
         <h1 class="BL-title">信息确认</h1>
     </div>
 </header>
 <div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY" v-cloak>
         <div class="BL-mar-t-1">
-            <div class="form-wrap">
-                <div class="border-b-e7e7e7">
-                    <div class="item-title">保单信息</div>
-                </div>
+            <div class="form-wrap" v-if="orderinfo">
                 <div class="BL-bg-fff BL-mar-t-1">
                     <ul class="mui-table-view">
                         <li class="mui-table-view-cell mui-collapse">
-                            <a class="mui-navigate-right" href="#">投保人信息</a>
+                            <a class="mui-navigate-right info-collapse" href="#">投保人信息</a>
                             <div class="mui-collapse-content">
                                 <div class="form-wrap margin-t_875">
-                                    <div class="border-b-e7e7e7">
-                                        <div class="item-title">个人信息</div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">姓名</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_name}}</div>
                                     </div>
-                                    <div class="input-item">
-                                        <label class="">年缴保费(元)</label>
-                                        <div class="BL-ub BL-ub-pj BL-ub-f1">
-                                            <div class="input-wrap BL-ub-f1">
-                                                <span class="text">中中国中国中国中国中国中国中国中国中国中国中国中国国国中国中国中国中国中国中国中国中国中国中国国</span>
-                                            </div>
-                                        </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">证件类型</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_ID_type_text}}</div>
                                     </div>
-                                    <div class="input-item">
-                                        <label class="">国籍</label>
-                                        <div class="input-wrap box-f-1"></div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">证件号码</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_ID_no}}</div>
                                     </div>
-                                    <div class="input-item">
-                                        <label class="">国籍</label>
-                                        <div class="input-wrap box-f-1"><span class="text">中中国中</span></div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">证件有效期</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_ID_expire_end=='9999-12-31'?'长期有效':orderinfo.insData.holder_ID_expire_end}}</div>
                                     </div>
-                                    <div class="input-item">
-                                        <label class="">国籍</label>
-                                        <div class="input-wrap box-f-1"><span class="text">中中国中国中国中国中国中国中国中国中国中国中国中国国</span></div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">性别</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_gender == MALE?'男':'女'}}</div>
                                     </div>
-                                    <div class="input-item">
-                                        <label class="">国籍</label>
-                                        <div class="input-wrap box-f-1"><span class="text">中中国中国中国中国中国中国中国中国中国中国中国中国国</span></div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">出生日期</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_birthday}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">身高(cm)</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_height}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">体重(kg)</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_weight}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">职业</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_job_code_text}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">收入来源</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_salary_from_text}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">年收入(万元)</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_salary_avg}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">工作单位</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_company}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">投保地区</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_home_province_text}}{{orderinfo.insData.holder_home_city_text}}{{orderinfo.insData.holder_home_district_text}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">详细地址</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_home_address}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">邮编</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_home_zip}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">通讯地区</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_contact_province_text}}{{orderinfo.insData.holder_contact_city_text}}{{orderinfo.insData.holder_contact_district_text}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">通讯详细地址</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_contact_address}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">邮编</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_contact_zip}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">手机号</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_mobile}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">电子邮箱</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_email}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">是否有社保</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_has_SSID == has_social_security?'是':'否'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell mui-collapse" v-if="orderinfo.insured.rel_insured_holder != ISASSURED">
+                            <a class="mui-navigate-right info-collapse" href="#">被保人信息</a>
+                            <div class="mui-collapse-content">
+                                <div class="form-wrap margin-t_875">
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">姓名</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_name}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">证件类型</label>
+                                        <div class="flex-2 ins-font-sm">{{typename[orderinfo.insured.insured_ID_type]}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">证件号码</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_ID_no}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">证件有效期</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_ID_expire_end=='9999-12-31'?'长期有效':orderinfo.insured.insured_ID_expire_end}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">性别</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_gender == MALE?'男':'女'}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">出生日期</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_birthday}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">身高(cm)</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_height}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">体重(kgs)</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_weight}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">职业</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_job_code_text}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">收入来源</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_salary_from_text}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">年收入(万元)</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_salary_avg}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">工作单位</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_company}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">投保地区</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_home_province_text}}{{orderinfo.insured.insured_home_city_text}}{{orderinfo.insured.insured_home_district_text}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">详细地址</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_home_address}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">邮编</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_home_zip}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">手机号</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_mobile}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">电子邮箱</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_email}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">是否有社保</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_has_SSID == has_social_security?'是':'否'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell" v-else><a class="mui-navigate-right info-collapse" href="#">被保人：<span class="BL-col-333">本人</span></a></li>
+                        <li class="mui-table-view-cell mui-collapse" v-if="!orderinfo.insData.is_legal_benefic">
+                            <a class="mui-navigate-right info-collapse" href="#">受益人信息</a>
+                            <div class="mui-collapse-content" >
+                                <div class="form-wrap margin-t_875" v-for="(item,index) in orderinfo.beneficList">
+                                    <div class="ins-font-xs BL-pad-lr-1 BL-col-333" v-show="index>0">第{{index+1}}个受益人</div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">与被保人关系</label>
+                                        <div class="flex-2 ins-font-sm">{{item.beneficiary_is_insured}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">姓名</label>
+                                        <div class="flex-2 ins-font-sm">{{item.fullname}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">证件类型</label>
+                                        <div class="flex-2 ins-font-sm">{{typename[item.ID_type]}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">证件号码</label>
+                                        <div class="flex-2 ins-font-sm">{{item.ID_no}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">证件有效期</label>
+                                        <div class="flex-2 ins-font-sm">{{item.ID_expire_end=='9999-12-31'?'长期有效':item.ID_expire_end}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">性别</label>
+                                        <div class="flex-2 ins-font-sm">{{item.gender == MALE?'男':'女'}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">出生日期</label>
+                                        <div class="flex-2 ins-font-sm">{{item.birthday}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">受益顺序</label>
+                                        <div class="flex-2 ins-font-sm">{{item.sort_order}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">受益比例(%)</label>
+                                        <div class="flex-2 ins-font-sm">{{item.rate}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">通讯地区</label>
+                                        <div class="flex-2 ins-font-sm">{{item.province_text + ' ' + item.city_text + ' ' + item.district_text}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">详细地址</label>
+                                        <div class="flex-2 ins-font-sm">{{item.address}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">详细地址</label>
+                                        <div class="flex-2 ins-font-sm">{{item.zip}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell" v-else><a class="mui-navigate-right info-collapse" href="#">受益人：<span class="BL-col-333">法定</span></a></li>
+                        <li class="mui-table-view-cell mui-collapse" v-if="orderinfo.contentList">
+                            <a class="mui-navigate-right info-collapse" href="#">险种信息</a>
+                            <div class="mui-collapse-content" >
+                                <div class="form-wrap">
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm">合计保费(元)</label>
+                                        <div class="flex-2 ins-font-sm BL-col-ff8201">{{orderinfo.insData.total}}</div>
+                                    </div>
+                                </div>
+                                <div class="form-wrap margin-t_875" v-for="(item,index) in orderinfo.contentList">
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">险种名称</label>
+                                        <div class="flex-2 ins-font-sm">{{item.product_name}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">交费期间</label>
+                                        <div class="flex-2 ins-font-sm">{{item.period_payment}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">保障期间</label>
+                                        <div class="flex-2 ins-font-sm">{{item.period_guanantee==999?'终身':item.period_guanantee}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">保险金额(元)</label>
+                                        <div class="flex-2 ins-font-sm">{{item.amount}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">年缴保费(元)</label>
+                                        <div class="flex-2 ins-font-sm BL-col-ff8201">{{item.fee}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell mui-collapse">
+                            <a class="mui-navigate-right info-collapse" href="#">付款信息</a>
+                            <div class="mui-collapse-content">
+                                <div class="form-wrap margin-t_875">
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">银行卡号</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.bank_no}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">开户行</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.bank_name_text}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +351,7 @@
                             <a type="button" id="mustknow" class="BL-col-3b9cf5"><strong>《投保须知》</strong></a>、
                             <a type="button" id="statement" class="BL-col-3b9cf5"><strong>《银行自动转账授权事项》</strong></a>、
                             <a type="button" id="signstatement" class="BL-col-3b9cf5"><strong>《声明授权与签名》</strong></a>
-                            ，并确认无误
+                            ，并确认上述信息无误
                             <input name="checkbox" v-model="agree" type="checkbox" style="top: 20px; left: 0px;">
                         </label>
                     </div>
@@ -229,17 +468,6 @@
         var war_id = plus.webview.currentWebview().war_id;
         if (war_id) {
             img.war_id = war_id
-            luckyAjax({
-                data: {
-                    data: JSON.stringify({'policy_id': war_id}),
-                    server: 'PolicyIns.edit'
-                },
-                success: function (res) {
-                    if (res.code) {
-                        img.orderinfo = res.data
-                    }
-                }
-            })
         } else {
             mui.toast("保单不存在", {duration: 'long', type: 'div'})
             return false;
@@ -247,6 +475,7 @@
 
         var itemName = ['hengda_applicant','hengda_assured','hengda_beneficiary','hengda_safegoods','hengda_healthinfo','hengda_bank','hengda_upload','hengda_ids'];
         var assured = plus.storage.getItem('hengda_assured') ? JSON.parse(plus.storage.getItem('hengda_assured')): ''
+        var applicant = plus.storage.getItem('hengda_applicant') ? JSON.parse(plus.storage.getItem('hengda_applicant')): ''
         var safegoods = plus.storage.getItem('hengda_safegoods') ? JSON.parse(plus.storage.getItem('hengda_safegoods')): ''
         img.safegoods = safegoods
         console.log(JSON.stringify(safegoods))
@@ -417,19 +646,30 @@
                 timeout: 10000,
                 success: function (res) {
                     if (res.code) {
-                        if (res.data.resultCode === '00') {
-                            mui.toast('承保成功', {duration: 'long', type: 'div'});
-                            afterPay(true)
-                        } else if (res.data.resultCode === '02') {
-                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
-                            afterPay(true)
-                        } else {
-                            mui.toast(res.data && res.data.resultMsg ? res.data.resultMsg : '承保失败', {
-                                duration: 'long',
-                                type: 'div'
-                            })
-                            afterPay()
-                        }
+                        mui.openWindow({
+                            url: 'pay-status.html',
+                            id: 'pay_status',
+                            show: animateObj.aniDetal,
+                            extras: {
+                                'data': res.data,
+                                'war_id': id,
+                                'tel': applicant.holder_mobile
+                            }
+                        })
+//                        if (res.data.resultCode === '00') {
+//                            mui.toast('承保成功', {duration: 'long', type: 'div'});
+//                            afterPay(true)
+//                        } else if (res.data.resultCode === '02') {
+//                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
+//                            afterPay(true)
+//                        } else {
+//
+//                            mui.toast(res.data && res.data.resultMsg ? res.data.resultMsg : '承保失败', {
+//                                duration: 'long',
+//                                type: 'div'
+//                            })
+//                            afterPay()
+//                        }
                     } else {
                         mui.toast('网络出错，请稍后再试', {duration: 'long', type: 'div'})
                         return false
@@ -622,12 +862,13 @@
                 luckyAjax({
                     data: {
                         data: JSON.stringify({policy_id: this.war_id}),
-                        server: 'PolicyIns.policyDetails',
+                        server: 'PolicyIns.edit',
                         device: 'mobile'
                     },
                     success: function (res) {
                         if (res.code) {
-                            var image = res.data.policyInfo.img_json
+                            var image = res.data.insData.img_json
+                            vm.orderinfo = res.data
                             if ( index === 1 && image['06']) {
                                 toast_text = '成功获取投保人签名'
 	                        	vm.appl_signature = config.domain + image['06']

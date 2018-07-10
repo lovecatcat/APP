@@ -837,8 +837,8 @@ var methods = {
 				}
 				break
 			case 'LA063': // 恒大福享金生
-				if(periodMoney < 1000 || periodMoney % 1000 !== 0) {
-					toastText = '最低保费1000元，且为1000元整数倍！'
+				if(periodMoney < 1000 || periodMoney % 5000 !== 0) {
+					toastText = '最低保费5000元，且为1000元整数倍！'
 				}
 				break
 			case 'LA075': // 恒大万年红

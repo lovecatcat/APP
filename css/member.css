@@ -15,6 +15,7 @@
 	padding: 0 1.25rem;
 }
 .member-index .mheader .topic{
+	display: block;
 	width: 5.875rem;
 	height: 5.875rem;
 	border-radius: 100%;
@@ -31,6 +32,16 @@
 	font-weight: 500;
 	margin-bottom: 1rem;	
 }
+
+.name .tocative {
+	border-radius: .5rem;
+	color: #fff;
+	background-color: #ff9212;
+	padding: .45rem .8rem;
+	margin-left: 1rem;
+	font-size: 1.28125rem;
+}
+
 .member-index .mheader .context .text{
 	color: #013d75;
 	font-size: 1.4375rem;

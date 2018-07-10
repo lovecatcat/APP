@@ -369,6 +369,7 @@ input[type='text']:-ms-input-placeholder,input[type='password']:-ms-input-placeh
     color: #ffffff;
     border-radius: .625rem;
     text-align: center;
+    padding: 0rem 0rem;
 }
 .form-button-group .form-btn.gray{
     background-color: #fff;color:#3b9cf5 }
@@ -438,4 +439,99 @@ input[type='text']:-ms-input-placeholder,input[type='password']:-ms-input-placeh
 
 .switch:checked~label:before{
     background-color: #4cd964;
+}
+
+/* 信息完善 */
+.sms-btn {
+    padding: .6rem 1rem;
+    font-size: 1.3125rem;
+    border-radius: .5rem;
+    border: 1px solid #cccccc;
+    background: #e7e7e7;
+    width: 9rem;
+    color: #666666;
+}
+.sms-btn:disabled {
+    color: #ffffff;
+}
+.form-inline-block {
+    width: 48%;
+    display: inline-block;
+}
+.form-left {
+    float:  left;
+}
+.form-right {
+    float: right;
+}
+.form-upload-img-none {
+    display: none;
+}
+.form-upload-tip {
+    display: block;
+    padding-top: .7rem;
+    font-size: 1.4375rem;
+    color: #999999;
+}
+.form-button-group .form-btn-grey {
+    background: rgb(200,200,200);
+}
+
+/* 工作经历时间轴 */
+.line-time {
+    margin: 2rem 1rem;
+    /*border-left: 1px solid #cccccc;*/
+}
+.line-time li {
+    position: relative;
+    border-left: 1px solid #cccccc;
+    padding-bottom: 2rem;
+    padding-left: 2rem;
+}
+.line-time li:last-child {
+    border-left: none;
+	padding-bottom: 0rem;
+}
+.line-time li p {
+    font-size: 1.4375rem;
+    color: #999999;
+}
+.line-time li p.name {
+    color: #333333;
+    font-size: 1.625rem;
+}
+.point {
+    position: absolute;
+    left: -1rem;
+    top: -.25rem;
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    background-image: url("../images/icon/icon-circle.png")
+}
+.sign-btn{
+    border-radius: .3rem;
+    font-size: 1.3125rem;
+    height:3.125rem;
+    line-height: 3.125rem;
+    background-color: #f3f3f3;
+}
+
+/* 重写 */
+.mui-input-row label {
+    letter-spacing: 1px;
+    font-size: 1.3125rem;
+    line-height: 2rem;
+    width: auto;
+}
+.mui-checkbox.mui-left label{
+    padding-left: 0;
+    padding-right: 0;
+}
+.mui-checkbox.mui-left input[type='checkbox'] {
+    left: 1.2rem;
+    top: .7rem;
+}
+.mui-radio input[type='radio']:before, .mui-checkbox input[type='checkbox']:before {
+    font-size: 1.8rem;
 }

@@ -42,11 +42,8 @@
                 <div class="input-item">
                         <label class="">证件类型</label>
                         <div class="input-wrap box-f-1">
-                            <div class="input" id="ID_type">
-                                {{applicant.holder_ID_type_name}}
-                            </div>
-                            <div class="ins-down-icon"></div>
-                        </div>
+	                        <input type="text" v-model="applicant.holder_ID_type_name" class="BL-col-666" readonly>
+	                    </div>
                     </div>
                 <div class="input-item">
                     <label class="">证件号码</label>
@@ -88,10 +85,12 @@
                 </div>
                 <div class="input-item">
                     <label class="">出生日期</label>
-                    <div class="input-wrap box-f-1">
-                        <input type="text" v-model.lazy="applicant.holder_birthday" placeholder="请选择" readonly>
-                        <div class="ins-date-icon"></div>
-                    </div>
+                    <div class="input-wrap box-f-1 search-date" data-options='{"type":"date","beginYear":1950}'>
+	                    <input type="text"
+	                           v-model.lazy="applicant.holder_birthday"
+	                           :disabled="applicant.holder_ID_type=== IDcard" placeholder="请选择" readonly>
+	                    <button class="ins-date-icon" :disabled="applicant.holder_ID_type=== IDcard"></button>
+	                </div>
                 </div>
                 <div class="input-item">
                     <label class="">手机号码</label>
@@ -214,7 +213,7 @@
                 applicant: {
                     holder_name: '', //姓名
                     holder_ID_type: '', //证件类型
-                    holder_ID_type_name: '请选择', //证件类型名
+                    holder_ID_type_name: '身份证', //证件类型名
                     holder_ID_no: '', //证件号码
                     holder_birthday: '', //出生日期
                     holder_gender: '',//性别  1男  2女
@@ -237,7 +236,7 @@
         },
         created: function () {
 //            字段初始化
-            this.applicant.holder_ID_type = '';
+            this.applicant.holder_ID_type = IDcard;
             this.applicant.holder_gender = MALE;
 
             this.$watch('applicant.holder_isTaxResidents', function (val) {
@@ -285,8 +284,6 @@
         var applicant = plus.storage.getItem('guohua_applicant') ? JSON.parse(plus.storage.getItem('guohua_applicant')) : ''
         if(applicant) {
             appl.applicant = deepClone(applicant)
-        	appl.applicant.holder_ID_type_name = typename[applicant.holder_ID_type]
-            appl.longTerm = applicant.holder_ID_expire_end === '9999-12-31' ? true : false
             appl.appl_age = getAge(appl.applicant.holder_birthday)
             appl.$forceUpdate()
         }
@@ -300,23 +297,25 @@
             cityPicker3.show(function (items) {
                 appl.applicant.holder_contact_province = items[0].value;
                 appl.applicant.holder_contact_city = items[1].value;
-                appl.applicant.address_select = items[0].text + items[1].text;
+                var city =  items[1].text ?  items[1].text : ''
+                appl.applicant.address_select = items[0].text + city;
                 appl.applicant.holder_contact_zip = items[1].zip
             });
         }, false);
         
-        //证件类型选择
-        var idtype = new mui.PopPicker();
-        idtype.setData(init.ID_type);
-        document.querySelector('#ID_type').addEventListener('tap', function () {
-            document.activeElement.blur();
-            idtype.show(function (items) {
-                appl.applicant.holder_ID_no = ''
-                appl.applicant.holder_ID_type = items[0].value;
-                appl.applicant.holder_ID_type_name = items[0].text;
-//              astypeChange();
-            })
-        })
+        //日期选择
+        mui('.search-date').each(function (i, d) {
+            d.addEventListener('tap', function () {
+                document.activeElement.blur();
+                var optionsJson = this.getAttribute('data-options') || '{}';
+                var options = JSON.parse(optionsJson);
+                var picker = new mui.DtPicker(options);
+                picker.show(function (rs) {
+                    appl.applicant.holder_birthday = rs.text;
+                    picker.dispose();
+                });
+            }, false);
+        });
 
         //职业
         var arrOccu = [];

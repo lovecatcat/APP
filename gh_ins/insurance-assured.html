@@ -55,12 +55,9 @@
                     </div>
                     <div class="input-item">
                         <label class="">证件类型</label>
-                        <div class="input-wrap box-f-1">
-                            <div class="input" id="ID_type">
-                                {{assured.insured_ID_type_name}}
-                            </div>
-                            <div class="ins-down-icon"></div>
-                        </div>
+                         <div class="input-wrap box-f-1">
+	                        <input type="text" v-model="assured.insured_ID_type_name" class="BL-col-666" readonly>
+	                    </div>
                     </div>
                     <div class="input-item">
                         <label class="">证件号码</label>
@@ -250,7 +247,7 @@
                     rel_insured_holder: '',//是投保人的
                     insured_name: '', //姓名
                     insured_ID_type: '', //证件类型
-                    insured_ID_type_name: '请选择', //证件类型名
+                    insured_ID_type_name: '身份证', //证件类型名
                     insured_ID_no: '', //证件号码
                     insured_birthday: '', //出生日期
                     insured_gender: '', //性别  1男  2女
@@ -275,6 +272,7 @@
         created: function () {
             console.log('assured-created')
             //字段初始化
+            this.assured.insured_ID_type = IDcard;
             this.assured.insured_gender = MALE;
             this.assured.rel_insured_holder = ISASSURED;
             this.$watch('assured.insured_ID_no', function (val) {
@@ -286,21 +284,16 @@
                     return false;
                 }
             });
-            this.$watch('longTerm', function (val) {
-                this.assured.insured_ID_expire_end = val ? '9999-12-31' : ''
-            });
+//          this.$watch('longTerm', function (val) {
+//              this.assured.insured_ID_expire_end = val ? '9999-12-31' : ''
+//          });
             this.$watch('assured.insured_birthday', function (val) {
                 this.assu_age = getAge(val);
                 var toast_text = null;
                 var type = this.assured.insured_ID_type;
-                if (this.assu_age < 46 && type === IDcard && this.assured.insured_ID_expire_end === '9999-12-31') {
-                    this.assured.insured_ID_expire_end = ''
-                }
-                if (this.assu_age > 3 && type === BORNid) {
-                    toast_text = '小于3周岁才能选择出生证';
-                } else if (this.assu_age >= 16 && type === BOOKLET) {
-                    toast_text = '小于16周岁才能选择户口本';
-                }
+//              if (this.assu_age >= 16 && type === BOOKLET) {
+//                  toast_text = '小于16周岁才能选择户口本';
+//              }
                 if (toast_text) {
                     mui.toast(toast_text, {duration: 'short', type: 'div'});
                     return false;
@@ -324,10 +317,7 @@
         //已填信息赋值
         var assured = plus.storage.getItem('guohua_assured') ? JSON.parse(plus.storage.getItem('guohua_assured')) : ''
         if(assured) {
-            console.log(JSON.stringify(assured))
             assu.assured = deepClone(assured)
-            assu.assured.insured_ID_type_name = typename[assured.insured_ID_type]
-            assu.longTerm = assured.insured_ID_expire_end === '9999-12-31' ? true : false
             assu.assu_age = getAge(assu.assured.insured_birthday)
         }
         //
@@ -341,22 +331,36 @@
             cityPicker3.show(function (items) {
                 assu.assured.insured_contact_province = items[0].value;
                 assu.assured.insured_contact_city = items[1].value;
-                assu.assured.address_select = items[0].text + items[1].text;
+                var city =  items[1].text ?  items[1].text : ''
+                assu.assured.address_select = items[0].text + city;
                 assu.assured.insured_contact_zip = items[1].zip
             });
         }, false);
-        //证件类型选择
-        var idtype = new mui.PopPicker();
-        idtype.setData(init.ID_type);
-        document.querySelector('#ID_type').addEventListener('tap', function () {
-            document.activeElement.blur();
-            idtype.show(function (items) {
-                assu.assured.insured_ID_no = ''
-                assu.assured.insured_ID_type = items[0].value;
-                assu.assured.insured_ID_type_name = items[0].text;
-//              astypeChange();
-            })
-        })
+//      //证件类型选择
+//      var idtype = new mui.PopPicker();
+//      idtype.setData(init.ID_type);
+//      document.querySelector('#ID_type').addEventListener('tap', function () {
+//          document.activeElement.blur();
+//          idtype.show(function (items) {
+//              assu.assured.insured_ID_no = ''
+//              assu.assured.insured_ID_type = items[0].value;
+//              assu.assured.insured_ID_type_name = items[0].text;
+////              astypeChange();
+//          })
+//      })
+ 	//日期选择
+        mui('.search-date').each(function (i, d) {
+            d.addEventListener('tap', function () {
+                document.activeElement.blur();
+                var optionsJson = this.getAttribute('data-options') || '{}';
+                var options = JSON.parse(optionsJson);
+                var picker = new mui.DtPicker(options);
+                picker.show(function (rs) {
+                    assu.assured.insured_birthday = rs.text;
+                    picker.dispose();
+                });
+            }, false);
+        });
 
         //
         //职业

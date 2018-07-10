@@ -38,8 +38,8 @@
                         <ul class="flex">
                             <li class="flex-1">{{item.entry}}.&nbsp;{{item.content}}</li>
                             <li class="item-operate BL-mar-t-1">
-                                <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.ass_amswer[item.id]}" :disabled="clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,true),toblur()">是</button>
-                                <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.ass_amswer[item.id]}" :disabled="!clientvalue.ass_amswer[item.id]" @tap="assChange(item.id,false),toblur()">否</button>
+                                <button class="ins-btn sm-btn BL-mar-b_5" :class="{'blue':clientvalue.app_amswer[item.id]}" :disabled="clientvalue.app_amswer[item.id]" @tap="appChange(item.id,true),toblur()">是</button>
+                                <button class="ins-btn sm-btn" :class="{'blue':!clientvalue.app_amswer[item.id]}" :disabled="!clientvalue.app_amswer[item.id]" @tap="appChange(item.id,false),toblur()">否</button>
                             </li>
                         </ul>
                     </div>
@@ -96,6 +96,7 @@
                 assuAge: '',//被保人年龄
                 clientvalue: {
                     ass_amswer: {}, //被保险人勾选
+                     app_amswer: {}, //投保人勾选
                     fields: {}, //被保人用户字段
                 }
             }
@@ -105,26 +106,29 @@
                 document.activeElement.blur();
             },
             assChange:function(id,state){
-            	alert(id)
                 this.clientvalue.ass_amswer[id] = state;
                 this.$forceUpdate();
             },
-            getIndex:function(id, chief) {
-                for (var i in this.matters) {
-                    var item = this.matters[i]
-                    if (item.id === id && !chief) {
-                        return i
-                    }
-                    if (item.id === chief) {
-                        for (var j = 0; j < item.child.length; j++) {
-                            if (item.child[j].id === id) {
-                                return i + item.child[j].entry
-                            }
-                        }
-                    }
-                }
-                return -1
+            appChange:function(id,state){
+                this.clientvalue.app_amswer[id] = state;
+                this.$forceUpdate();
             },
+//          getIndex:function(id, chief) {
+//              for (var i in this.matters) {
+//                  var item = this.matters[i]
+//                  if (item.id === id && !chief) {
+//                      return i
+//                  }
+//                  if (item.id === chief) {
+//                      for (var j = 0; j < item.child.length; j++) {
+//                          if (item.child[j].id === id) {
+//                              return i + item.child[j].entry
+//                          }
+//                      }
+//                  }
+//              }
+//              return -1
+//          },
             isShow:function(i, type) {
             	i = i.trim()
                 if (i == 'E013' && type === 2 && !this.isApplWm ) {
@@ -160,6 +164,7 @@
         var applicant = plus.storage.getItem('guohua_applicant') ? JSON.parse(plus.storage.getItem('guohua_applicant')) : '';
         var hinfo = plus.storage.getItem('guohua_healthinfo') ? JSON.parse(plus.storage.getItem('guohua_healthinfo')) : ''
         var safegoods = plus.storage.getItem('guohua_safegoods') ? JSON.parse(plus.storage.getItem('guohua_safegoods')) : ''
+        
         health.assuAge = getAge(assured.insured_birthday)
 		health.isApplWm = applicant.holder_gender === FEMALE ? true : false
         health.isAssuWm = assured.insured_gender === FEMALE ? true : false
@@ -171,8 +176,19 @@
         })
         //赋值
         console.log(plus.storage.getItem('guohua_healthinfo'));
-//      hinfo && setHealth(hinfo)
+        hinfo && setHealth(hinfo)
+		 function setHealth(data) {
+            console.log('赋值健康告知')
+            mui.each(data, function (index, item) {
+                if (item.insured_answer === '1') {
+                    health.clientvalue.ass_amswer[item.mv_id] = true
+                }
 
+                if (health.showAppl && item.holder_answer === '1') {
+                    health.clientvalue.app_amswer[item.mv_id] = true
+                }
+            })
+        }
         //保存
         document.querySelector('#saveHealthinfo').addEventListener('tap', function () {
             if (!health.checkForm()) {
@@ -181,17 +197,17 @@
             //
             var appitems = []
             mui.each(health.matters, function (index, item) {
-            	
                 var insured_answer = health.clientvalue.ass_amswer[item.id] ? '1' : '0'
-//               var holder_answer = health.clientvalue.app_amswer[item.id] ? '1' : '0'
-                var insured_fields = health.clientvalue.fields[item.id] ? health.clientvalue.fields[item.id] : ''
+                 var holder_answer = health.clientvalue.app_amswer[item.id] ? '1' : '0'
+//              var insured_fields = health.clientvalue.fields[item.id] ? health.clientvalue.fields[item.id] : ''
 //            	 var holder_fields = health.clientvalue.app_fields[item.id] ? health.clientvalue.app_fields[item.id] : ''
               appitems.push({
                     mv_id: item.id,
-                    insured_answer: insured_answer,
-                    insured_fields: insured_fields
+                        insured_answer: insured_answer,
+                        holder_answer: holder_answer,
+                        insured_fields: '',
+                        holder_fields: ''
                 })
-                //
             })
             //
             plus.storage.setItem('guohua_healthinfo', JSON.stringify(appitems));

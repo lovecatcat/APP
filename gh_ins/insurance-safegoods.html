@@ -499,6 +499,7 @@
 									bcestype : kitem.bcestype
 								}
 								vm.flagylnj = kitem.bcestype
+								vm.flagsenj = Number(kitem.money)/(vm.insurance.pay_year*vm.insurance.period_money)
 								vm.calMoney(i)
 							}
 						}
@@ -766,17 +767,9 @@
 							if(vm.addonsSelected[ylnj]) {
 								basedata.productInfo.push({
 									productId: vm.Addons[ylnj].id,
-									pay: 10,
+									pay: vm.insurance.pay_year,
 									insure: 85,
 									amount: '',
-								})
-							} else if(vm.addonsSelected[senj]) {
-								basedata.productInfo.push({
-									productId: vm.Addons[senj].id,
-									pay: 10,
-									insure: 25,
-									amount: '',
-									quantity: vm.flagsenj
 								})
 							}
 						}
@@ -807,7 +800,7 @@
 												vm.addonIns[index].period_money = item.Premium;
 												vm.addonIns[index].money = item.Amt;
 												console.log(typeof index + ';' + typeof vm.addonsSelected[ylnj])
-												if(index === ylnj && vm.addonsSelected[ylnj] && vm.addonIns[zdjb] && vm.noSamePerson) {
+												if(index === ylnj && vm.addonsSelected[ylnj] && vm.addonsSelected[zdjb] && vm.addonIns[zdjb] && vm.noSamePerson) {
 													vm.addonIns[zdjb].period_money = ''
 													vm.addonIns[zdjb].money = ''
 													vm.$forceUpdate()
@@ -846,7 +839,7 @@
 									return false;
 								}
 							} else {
-								mui.toast('网络繁忙，请稍后再试', {
+								mui.toast(res.msg ? res.msg : '网络繁忙，请稍后再试', {
 									duration: 'short',
 									type: 'div'
 								});

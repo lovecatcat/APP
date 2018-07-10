@@ -452,11 +452,8 @@
                         var _this = this
                         var picker = new mui.DtPicker(options);
                         picker.show(function (rs) {
-                            if (i === 0) {
-                                vm.beneficiary.ID_expire_end = rs.text;
-                            } else if (i === 1) {
-                                vm.beneficiary.birthday = rs.text;
-                            }
+                            vm.beneficiary.birthday = rs.text;
+                            
                             _this.querySelector('input').value = rs.text;
                             picker.dispose();
                         });

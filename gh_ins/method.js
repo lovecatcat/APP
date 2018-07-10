@@ -16,7 +16,7 @@ var senj = '1167V1'; //附加少儿成长无忧年金保险
 
 var typename = {'LAA0039': '身份证', 'LAA0040': '护照', 'LAA0041': '军官证', 'LAA0042': '其他'}
 var ISASSURED = 'LAC0013'; //被保人是本人
-var COUPLE = 'LAC0002';//投被保人为配偶
+var COUPLE = 'LAC001A';//投被保人为配偶
 var BCOUPLE = 'LAN0031';//受益人与被保人为配偶
 var IDNO = ['LAA0039', 'LAA0002']; //身份证、户口本
 //var BOOKLET = 'LAA0040'; //护照
@@ -151,14 +151,10 @@ var checkName = function (owner, name) {
     // console.log('校验名字' + owner + name + strLength);
     if (!name) {
         toast_text = owner + '姓名不能为空';
-    } else if (strLength > 20) {
-        toast_text = owner + '姓名长度不能超过20字符';
+    } else if (strLength > 32) {
+        toast_text = owner + '姓名长度不能超过32汉字';
     } else if (/[a-z]/i.test(name)) { // 英文
-        if (name.replace(/\s/, '').length < 3) {
-            toast_text = owner + '姓名不小于3个字符';
-        } else if (!/^[a-z]+[a-z\s]*[a-z]+$/i.test(name) || /(\s)\1/.test(name)) {
-            toast_text = owner + '姓名填写有误';
-        }
+        toast_text = owner + '姓名只能为汉字';
     } else if (/[\u4e00-\u9fa5·]/i.test(name)) { // 中文
         if (name.length < 2) {
             toast_text = owner + '姓名不小于2个汉字';
@@ -347,10 +343,6 @@ var checkAppl = function (appl) {
         toast_text = '投保人职业不能为空'
     } else if (appl.appl_age >= 18 && (appl.holder_job_code === '7852' || appl.holder_job_code === '7853')) {
         toast_text = '客户的职业类别与年龄不符'
-    }  else if (!checkHeight('投保人', appl.holder_height)) {
-        return false
-    } else if (!checkWeight('投保人', appl.holder_weight)) {
-        return false
     } else if (!appl.holder_contact_province) {
         toast_text = '投保人投保地区住址【省级】不能为空'
     } else if (!appl.holder_contact_city) {
@@ -413,9 +405,13 @@ var checkAssured = function (assu) {
         return false
     } else if (!assu.temp_insured_job_code) {
         toast_text = '被保人职业不能为空'
-    } else if (!checkHeight('被保人', assu.insured_height)) {
+    } else if (assu.rel_insured_holder === ISASSURED && !checkHeight('投保人', assu.insured_height)) {
         return false
-    } else if (!checkWeight('被保人', assu.insured_weight)) {
+    } else if (assu.rel_insured_holder != ISASSURED &&!checkHeight('被保人', assu.insured_height)) {
+        return false
+    } else if (assu.rel_insured_holder === ISASSURED && !checkWeight('投保人', assu.insured_weight)) {
+        return false
+    } else if (assu.rel_insured_holder != ISASSURED &&!checkWeight('被保人', assu.insured_weight)) {
         return false
     } else if (!assu.insured_contact_province) {
         toast_text = '被保人现在住址【省级】不能为空'

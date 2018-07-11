@@ -784,7 +784,6 @@
 						},
 						timeout: 30000,
 						success: function(res) {
-
 							if(res.code) {
 								plus.nativeUI.closeWaiting();
 								if(res.data.UnderwriteFlag === '0') {
@@ -793,15 +792,36 @@
 										duration: 'long',
 										type: 'div'
 									})
-								} else if(res.data.UnderwriteFlag === '1') {
-									mui.toast('核保通过，支付处理中', {
+								} else if(res.data.UnderwriteFlag === '1' && res.data.PayStatus === '0') {
+									mui.toast('核保通过，支付成功！', {
 										duration: 'long',
 										type: 'div'
 									})
 									setTimeout(function() {
-										//									for(var i = 0; i < itemName.length; i++) {
-										//										plus.storage.removeItem(itemName[i])
-										//									}
+										mui.openWindow({
+											url: '../member-warranty-manageLife.html',
+											id: 'member_warranty_manageLife',
+											show: animateObj.aniDetal
+										})
+									}, 3000)
+								} else if(res.data.UnderwriteFlag === '1' && res.data.PayStatus === '1') {
+									mui.toast('核保通过，支付处理中...', {
+										duration: 'long',
+										type: 'div'
+									})
+									setTimeout(function() {
+										mui.openWindow({
+											url: '../member-life-order.html',
+											id: 'member_life_order',
+											show: animateObj.aniDetal
+										})
+									}, 3000)
+								} else if(res.data.UnderwriteFlag === '1' && res.data.PayStatus === '2') {
+									mui.toast(res.data.PayMessage ? res.data.PayMessage : '核保通过，支付失败！', {
+										duration: 'long',
+										type: 'div'
+									})
+									setTimeout(function() {
 										mui.openWindow({
 											url: '../member-life-order.html',
 											id: 'member_life_order',
@@ -816,21 +836,6 @@
 									})
 								}
 
-								setTimeout(function() {
-									//									for(var i = 0; i < itemName.length; i++) {
-									//										plus.storage.removeItem(itemName[i])
-									//									}
-									mui.openWindow({
-										url: '../member-life-order.html',
-										id: 'member_life_order',
-										show: animateObj.aniDetal
-									})
-									//									setTimeout(function() {
-									//										plus.webview.close('gh-insurance-sign');
-									//										plus.webview.close('gh_insurance-index');
-									//										mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
-									//									}, 500)
-								}, 3000)
 							} else {
 								plus.nativeUI.closeWaiting();
 								alert(JSON.stringify(res))

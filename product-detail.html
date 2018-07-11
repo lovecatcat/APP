@@ -55,8 +55,9 @@
         <div class="popuer">
             <a class="popu-IconMenu a-link" data-wid="prospect_product" :data-pid="info.id"
                href="prospect-product.html"><img src="images/product/menu-prospect.png" alt="计划书"/></a>
-            <a class="popu-IconMenu a-link" data-wid="product_contrast" href="product-contrast.html" :data-cid="1"
-               v-show="info.compare&&userinfo.channel_id!=18"><img src="images/product/menu-pk.png" alt="产品对比"/></a>
+            <a class="popu-IconMenu a-link" data-wid="product_contrast" href="product-contrast.html" :data-cid="1" v-show="info.compare">
+                <img src="images/product/menu-pk.png" alt="产品对比"/>
+            </a>
         </div>
         <!------------悬浮控制按钮 end --------------->
 

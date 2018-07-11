@@ -421,6 +421,9 @@
                 index.getItem('hengda_safegoods', 'safegoods')
                 index.getItem('hengda_healthinfo', 'healthinfo')
                 index.getItem('hengda_upload', 'upload')
+            } else if (e.detail.clearupload) {
+                plus.storage.removeItem('hengda_upload')
+                index.getItem('hengda_upload', 'upload')
             }
             index.getItem(e.detail.item,e.detail.data)
 

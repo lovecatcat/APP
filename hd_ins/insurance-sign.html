@@ -548,18 +548,10 @@
                 success: function (res) {
                     if (res.code) {
                         if (res.data.resultCode === '00') {
-                            mui.toast('自核通过，影像上传中', {duration: 'long', type: 'div'})
-                            //清除本地缓存
-                            for (var i = 0; i < itemName.length; i++) {
-                                plus.storage.removeItem(itemName[i])
-                            }
+                            mui.toast('自核通过，影像上传中', {duration: 'short', type: 'div'})
                             upload_img(img.war_id)
                         } else if (res.data.resultCode === '02') {
-                            mui.toast('进入人工核保，影像上传中', {duration: 'long', type: 'div'})
-                            //清除本地缓存
-                            for (var i = 0; i < itemName.length; i++) {
-                                plus.storage.removeItem(itemName[i])
-                            }
+                            mui.toast('进入人工核保，影像上传中', {duration: 'short', type: 'div'})
                             upload_img(img.war_id)
                         } else {
                             mui.toast(res.data && res.data.resultMsg ? res.data.resultMsg : '网络出错，请稍后再试', {

@@ -258,12 +258,12 @@
                     <div class="box-f-3 ins-font-sm">{{item.name}}</div>
                     <div class="form-switch-note">投保</div>
                     <div class="input-switch">
-                        <input type="checkbox" class="switch" v-model="addonsSelected[index]" @change="chAddonState(index)"/>
+                        <input type="checkbox" class="switch" v-model="addonsSelected[index]" @change="chAddon"/>
                         <label></label>
                     </div>
                 </div>
                 <!--附加投保人豁免2017-->
-                <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==tbrhm" v-show="addonsSelected[index]">
+                <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==tbrhm" v-show="addonsSelected[index] === true">
                     <div class="mui-col-sm-6">
                         <li class="ins-font-xs">
                             保险金额(元)&nbsp;<span class="BL-col-ff8201">{{addonIns[index].money}}</span>
@@ -286,7 +286,7 @@
                     </div>
                 </div>
                 <!--传家宝-->
-                <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==cjb" v-show="addonsSelected[index]">
+                <div class="mui-row form-bgc-eee BL-pad-a1" v-if="index==cjb" v-show="addonsSelected[index] === true">
                     <div class="mui-col-sm-6">
                         <li class="ins-font-xs">
                             交费期间(年)&nbsp;<span class="BL-col-ff8201">趸交</span>
@@ -305,7 +305,7 @@
                     </div>
                 </div>
                 <!--附加尊享安康-->
-                <template v-if="index==zxak">
+                <template v-if="index==zxak && addonsSelected[index] === true">
                     <div class="input-item ins-pd-r-0">
                         <label class="">交费期间</label>
                         <div class="input-wrap box-f-1">
@@ -339,7 +339,7 @@
                     </div>
                 </template>
                 <!--附加恒顺意外-->
-                <template v-if="index==hs">
+                <template v-if="index==hs && addonsSelected[index] === true">
                     <div class="input-item ins-pd-r-0">
                         <label class="">交费期间</label>
                         <div class="input-wrap box-f-1">
@@ -371,7 +371,7 @@
                     </div>
                 </template>
                 <!--附加恒久安心-->
-                <template v-if="index==hjax">
+                <template v-if="index==hjax && addonsSelected[index] === true">
                     <div class="input-item ins-pd-r-0">
                         <label class="">交费期间</label>
                         <div class="input-wrap box-f-1">
@@ -405,7 +405,7 @@
                     </div>
                 </template>
                 <!--附加养老年金-->
-                <template v-if="index==ylnj">
+                <template v-if="index==ylnj && addonsSelected[index] === true">
                     <div class="input-item ins-pd-r-0">
                         <label class="">交费期间</label>
                         <div class="input-wrap box-f-1">
@@ -451,7 +451,7 @@
                     </div>
                 </template>
                 <!--附加恒祥住院-->
-                <template v-if="index==hx">
+                <template v-if="index==hx && addonsSelected[index] === true">
                     <div class="input-item ins-pd-r-0">
                         <label class="">交费期间</label>
                         <div class="input-wrap box-f-1">
@@ -851,68 +851,52 @@
                     }
                 }
             },
-            chAddonState: function (index) {
-                console.log('chAddonState')
-                var vm = this
+            chAddon: function (index) {
+                const vm = this
                 if (!vm.addonIns[index]) return
-                this.$nextTick(function () {
-                    if (index === cjb) {
-                        if (vm.addonsSelected[index]) {
+                vm.$nextTick(function () {
+                    if (vm.addonsSelected[index]) {
+                        if (index === cjb) {
                             vm.insurance.shareDrawType = zrwnzh; //转入万能账户
                             vm.addonIns[index].period_money = 100
                             vm.addonIns[index].money = 0
                             vm.addonIns[index].pay_year = 1
                             vm.addonIns[index].safe_year = 999
-                        } else {
+                            vm.countFee()
+                        }
+                        var toast_text = null
+                        var name = vm.Addons[index].name
+                        var safe_id = vm.insurance.code
+                        switch (index) {
+                            case tbrhm:
+                                if (!this.noSamePerson) {
+                                    toast_text = '投保人和被保人是同一人时，不能附加' + name
+                                }
+                                vm.isExempted = vm.addonsSelected[index]
+                                vm.healthinfoOk = false
+                                break
+                            case zxak: // 附加尊享安康费用补偿医疗保险
+                                if ((safe_id === wnh || safe_id === wnf) && vm.insurance.pay_year === 1) {
+                                    toast_text = '主险【' + vm.insurance.name + '】趸交不可' + name
+                                }
+                                break
+                            default:
+                                break
+                        }
+                        if (toast_text) {
+                            mui.toast(toast_text, {duration: 'short', type: 'div'});
+                            vm.addonsSelected[index] = false
+                            return false
+                        }
+                    } else {
+                        if (index === ylnj) {
+                            vm.addonIns[tbrhm].money = vm.insurance.period_money
+//                            vm.calMoney(tbrhm)
+                        }
+                        if (index === cjb) {
                             vm.insurance.shareDrawType = ''
                         }
-                        vm.countFee()
-                        vm.$forceUpdate()
                     }
-                    var toast_text = null
-                    var name = vm.Addons[index].name
-                    var safe_id = vm.insurance.code
-                    switch (index) {
-                        case tbrhm:
-                            if (!this.noSamePerson && vm.addonsSelected[index]) {
-                                toast_text = '投保人和被保人是同一人时，不能附加' + name
-                                vm.addonsSelected[index] = false
-                            }
-                            vm.isExempted = vm.addonsSelected[index]
-                            vm.healthinfoOk = false
-                            break
-                        case zxak: // 附加尊享安康费用补偿医疗保险
-                            if ((safe_id === wnh || safe_id === wnf) && vm.insurance.pay_year === 1) {
-                                toast_text = '主险【' + vm.insurance.name + '】趸交不可' + name
-                                vm.addonsSelected[index] = false
-                            }
-                            break
-                        default:
-                            break
-                    }
-                    if (toast_text) {
-                        mui.toast(toast_text, {duration: 'short', type: 'div'});
-                        vm.addonsSelected[index] = false
-                        return false
-                    } else {
-                        if (vm.addonsSelected[index]) {
-                            console.log(index + vm.addonIns[index].period_money)
-                            if (!vm.addonIns[index].period_money) {
-                                vm.calMoney(index)
-                            } else {
-                                if (index === ylnj) {
-                                    vm.addonIns[tbrhm].money = (Number(vm.insurance.period_money) + Number(vm.addonIns[index].period_money)).toFixed(2)
-                                    vm.calMoney(tbrhm)
-                                }
-                            }
-                        } else {
-                            if (index === ylnj) {
-                                vm.addonIns[tbrhm].money = vm.insurance.period_money
-                                vm.calMoney(tbrhm)
-                            }
-                        }
-                    }
-                    vm.countFee()
                     vm.$forceUpdate()
                 })
             },
@@ -1089,6 +1073,7 @@
                 var money = Number(this.insurance.money)
                 var period_money = Number(this.insurance.period_money)
                 var name = this.insurance.name
+                var pay_year = this.insurance.pay_year
                 var toast_text = null
                 switch (this.insurance.code) {
                     case hjjk: // 恒久健康终身重大疾病保险2017
@@ -1106,10 +1091,24 @@
                         }
                         break
                     case fxjs: // 福享金生终身年金保险
-                    case wnh: // 万年红终身年金保险
-                    case wnf: // 万年福年金保险
                         if (period_money < 5000) {
                             toast_text = '【' + name + '】的最低保费为5千元'
+                        } else if (period_money % 1000 !== 0) {
+                            toast_text = '【' + name + '】的保费需为1千元整数倍'
+                        }
+                        break
+                    case wnh: // 万年红终身年金保险
+                        if (period_money < 1000) {
+                            toast_text = '【' + name + '】的最低保费为1千元'
+                        } else if (pay_year === 10 && period_money < 20000) {
+                            toast_text = '【' + name + '】10年交最低保费为2万元'
+                        } else if (period_money % 1000 !== 0) {
+                            toast_text = '【' + name + '】的保费需为1千元整数倍'
+                        }
+                        break
+                    case wnf: // 万年福年金保险
+                        if (period_money < 1000) {
+                            toast_text = '【' + name + '】的最低保费为1千元'
                         } else if (period_money % 1000 !== 0) {
                             toast_text = '【' + name + '】的保费需为1千元整数倍'
                         }
@@ -1279,7 +1278,6 @@
 
                 if (toast_text) {
                     mui.toast(toast_text, {duration: 'short', type: 'div'});
-                    this.addonsSelected[index] = false
                     return false
                 }
                 return this.checkAddonMoney(index) && this.checkAge(index)
@@ -1327,7 +1325,6 @@
                 }
                 if (toast_text) {
                     mui.toast(name + toast_text, {duration: 'short', type: 'div'});
-                    this.addonsSelected[index] = false
                     return false
                 }
                 return true

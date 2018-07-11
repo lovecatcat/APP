@@ -6,7 +6,6 @@
         <link href="css/mui.css" rel="stylesheet" />
         <link href="css/common.css" rel="stylesheet" />
         <link href="css/module.css" rel="stylesheet" />
-        <link rel="stylesheet" href="css/news.css" />
         <script src="js/config.js" type="text/javascript"></script>
         <style>
             /* 列表——导航 */
@@ -60,7 +59,7 @@
                             <div class="mui-col-xs-10 BL-ellipsis BL-ftz-48">
                                 {{ company_item.txt }}
                             </div>
-                            <div class="mui-col-xs-2">
+                            <div class="mui-col-xs-2" @click="show=true">
                                 <span class="mui-icon mui-icon-arrowdown BL-ftz-2"></span>
                             </div>
                         </div>
@@ -77,35 +76,12 @@
                 <div class="mui-slider mui-fullscreen">
                     <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
                         <div class="mui-scroll" style="left: 0;right: 0" id="classify">
-                            &nbsp;&nbsp;
+                            <a class="mui-control-item mui-active" href="#item_news1"><span>第一分类</span></a>
+                            <a class="mui-control-item" href="#item_news2"><span>第二分类</span></a>
+                            <a class="mui-control-item" href="#item_news3"><span>第三分类</span></a>
                         </div>
                     </div>
-
-                    <div class="mui-slider-group" id="group">
-                        <!--<div id="item_news1" class="news-list mui-slider-item mui-control-content mui-active">-->
-                            <!--<div class="mui-scroll-wrapper">-->
-                                <!--<div class="mui-scroll">-->
-                                    <!--1-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-
-                        <!--<div id="item_news2" class="news-list mui-slider-item mui-control-content">-->
-                            <!--<div class="mui-scroll-wrapper">-->
-                                <!--<div class="mui-scroll">-->
-                                    <!--2-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-
-                        <!--<div id="item_news3" class="news-list mui-slider-item mui-control-content">-->
-                            <!--<div class="mui-scroll-wrapper">-->
-                                <!--<div class="mui-scroll">-->
-                                    <!--3-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    </div>
+                    <div class="mui-slider-group" id="group"></div>
                 </div>
             </div>
             <div class="BL-modal-bg" style="z-index: 10;" v-show="show">
@@ -113,7 +89,7 @@
                     <p class="BL-ftz-52 BL-pad-tb-1 BL-pad-lr-1_25 BL-col-333 BL-Border-b">选择公司</p>
                     <ul v-if="company" class="mui-table-view mui-table-view-radio BL-overFlow-autoY" style="max-height: 30rem;">
                     	<li class="mui-table-view-cell BL-ftz-52" v-for="(item,index) in company" :class="{'mui-selected': item.id == company_item.id }">
-                    		<a class="BL-pad-a1 mui-navigate-right">
+                    		<a class="BL-pad-a1 mui-navigate-right" @click="setCompany(item),show = false">
                                 {{ item.short_name != "" ? item.short_name : item.company_name }}
                             </a>
                     	</li>
@@ -145,7 +121,7 @@
                 parent.appendChild(text);
             }
         };
-        mui.plusReady(function(){
+        mui.ready(function(){
             statusbar();
 			var winH = window.innerHeight;
 			var topHeight = document.querySelector('#Js-header').offsetHeight;
@@ -160,6 +136,11 @@
                     },
                     level:[],
                     show: false
+                },
+                methods: {
+				    setCompany: function (item) {
+                        getJobList(item)
+                    }
                 }
 			})
 
@@ -205,8 +186,6 @@
                                     } else if(index === 2) {
                                         temp += '<a class="mui-control-item" href="#item_news'+(index+1)+'"><span>第三分类</span></a>'
                                         divTemp += '<div class="news-list mui-slider-item mui-control-content" id="item_news'+(index+1)+'"><span>第三分类</span></div>'
-                                    } else if(index === 3) {
-                                        temp += '<a class="mui-control-item" href="#item_news'+(index+1)+'"><span>第四分类</span></a>'
                                     }
                                 });
                                 job.$nextTick(function () {

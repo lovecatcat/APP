@@ -245,10 +245,10 @@
                 <input name="checkbox" type="checkbox" v-model="agree_check" style="left: .8rem;top: 0.5rem;">
             </div>
         </div>
-        <!--<div id="signature_img" class="BL-ub BL-ub-f1 BL-ub-ac BL-ub-pc BL-hide BL-pad-lr-1_5">-->
-            <!--<label class="BL-ftz-46" style="display: flex">电子签名</label>-->
-            <!--<img src="" alt="" width="100px">-->
-        <!--</div>-->
+        <div id="signature_img" class="BL-ub BL-ub-ac BL-pad-lr-1_5" :class="{'BL-hide': image.sign=='' }">
+            <label class="BL-ftz-46 BL-pad-l-1 BL-pad-r-2" style="display: flex">您的签名：</label>
+            <img :src="image.sign" alt="" width="500px">
+        </div>
         <div class="form-button-group mui-row" style="padding: 1rem 1.5rem 2rem 1.5rem">
             <div class="mui-col-xs-6 BL-txt-c BL-pad-r-1">
                 <button href="javacript:void(0);" type="button" class="form-btn form-btn-grey" @click="openSign">手写签名（正楷）</button>
@@ -275,10 +275,6 @@
                         <button type="button" class="sign-btn save BL-pad-lr-2" @click="saveSign">保存</button>
                     </div>
                 </div>
-            </div>
-            <div id="signature_img" class="BL-ub BL-ub-f1 BL-ub-ac BL-ub-pc BL-hide BL-pad-lr-1_5">
-                <label class="BL-ftz-46" style="display: flex">电子签名</label>
-                <img src="" alt="" width="100px">
             </div>
             <!-- 为了让签名面板显示出来 onfocus="this.blur();"不显示键盘-->
             <input type="text" id="signInput" style="opacity: 0; height: 0rem" onfocus="this.blur();">
@@ -682,7 +678,7 @@
                         success: function (ret) {
                             if(ret.code == 1) {
                                 Info.image['sign'] = ret.data
-                                console.log(Info.image['sign'])
+//                                $("#signature_img img").attr('src', signaturePad.toDataURL()).parent().removeClass('BL-hide')
                             } else {
                                 mui.toast('上传签名失败', {duration: 'short', type: 'div'});
                             }
@@ -788,14 +784,27 @@
                         },
                         success: function (ret) {
                             if (ret.code == 1) {
-                                mui.toast('激活成功', {duration: 'short', type: 'div'});
-                                // 关闭当前页面
-                                setTimeout(function () {
-                                    plus.webview.currentWebview().close();
-                                },500)
+                                mui.toast('激活成功,请重新登录', {duration: 'short', type: 'div'});
+                                luckyAjax({
+                                    url: config.moduleURL + 'logout',
+                                    success: function (res) {
+                                        if (res.code) {
+                                            var index_ws = plus.webview.getLaunchWebview();
+                                            mui.fire(index_ws,'isStopTunnel',{'flag':true});
+                                            plus.storage.clear();
+
+                                            setTimeout(function(){
+                                                plus.runtime.restart();
+                                            }, 100);
+                                        } else {
+                                            mui.toast('退出失败', {duration: 'short', type: 'div'});
+                                            return false
+                                        }
+                                    }
+                                })
                             } else {
                                 Info.disabled = false
-                                mui.toast('激活失败', {duration: 'short', type: 'div'});
+                                mui.toast('激活失败，' + ret.msg, {duration: 'short', type: 'div'});
                             }
                         }
                     })

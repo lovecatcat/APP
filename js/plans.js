@@ -1,5 +1,6 @@
 mui.init();
 var user_id;
+var login_mk;
 var aloneDetail = new Vue({
 	el: '#Js-alone',
 	data: {
@@ -192,6 +193,7 @@ var aloneDetail = new Vue({
 		document.querySelector('#Js-plansDetail').style.height = fotHeight + 'px';
 //		document.querySelector('#Js-alone').style.height = winH + 'px';
 		user_id = JSON.parse(plus.storage.getItem("userinfo")).id
+		login_mk = JSON.parse(plus.storage.getItem("userinfo")).login_mk
 		var parent_self = plus.webview.getWebviewById('member_plans_detail') //父级id
 		//接收单个计划书数据alone
 		plus.nativeUI.showWaiting();
@@ -284,6 +286,25 @@ var aloneDetail = new Vue({
 
 		//在线投保按钮
 		document.querySelector('#goIns').addEventListener('tap', function() {
+					if(login_mk == -2) {
+						var data = {
+							modalID: 'modal-register',
+							formID: 'member_plans_total',
+							goIns: true
+						}
+						//打开弹框
+						showPopu("popup-content.html", "popup_content", 'center', data);
+						return false;
+					}else if (login_mk == -1) {
+						mui.toast('账号审核中，请联系管理员')
+						return false;
+					}else{
+						//打开弹框
+						mui.fire(parent_self, 'show', {
+							formID: 'member_plans_total',
+							goIns_data: plansTotal.goIns_data
+						});
+					}
 			//打开弹框
 			mui.fire(parent_self, 'show', {
 				formID: 'member_plans_alone',

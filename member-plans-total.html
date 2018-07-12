@@ -111,6 +111,7 @@
 	<script src="js/plansData.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 		var user_id;
+		var login_mk;
 		mui.init();
 		var parent_self;
 		var plansTotal = new Vue({
@@ -183,6 +184,7 @@
 				plansTotal.parent_pl_id = pl_id
 				parent_self = plus.webview.getWebviewById('member_plans_detail') //父级id
 				user_id = JSON.parse(plus.storage.getItem("userinfo")).id;
+				login_mk = JSON.parse(plus.storage.getItem("userinfo")).login_mk
 
 				//获取汇总数据
 				luckyAjax({
@@ -258,11 +260,26 @@
 				});
 				//在线投保按钮
 				document.querySelector('#goIns').addEventListener('tap', function() {
-					//打开弹框
-					mui.fire(parent_self, 'show', {
-						formID: 'member_plans_total',
-						goIns_data: plansTotal.goIns_data
-					});
+					if(login_mk == -2) {
+						var data = {
+							modalID: 'modal-register',
+							formID: 'member_plans_total',
+							goIns: true
+						}
+						//打开弹框
+						showPopu("popup-content.html", "popup_content", 'center', data);
+						return false;
+					}else if (login_mk == -1) {
+						mui.toast('账号审核中，请联系管理员')
+						return false;
+					}else{
+						//打开弹框
+						mui.fire(parent_self, 'show', {
+							formID: 'member_plans_total',
+							goIns_data: plansTotal.goIns_data
+						});
+					}
+					
 				});
 				//新增方案按钮
 				document.querySelector('#addPlan').addEventListener('tap', function() {

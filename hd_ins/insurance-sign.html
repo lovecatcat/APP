@@ -638,30 +638,29 @@
                 timeout: 10000,
                 success: function (res) {
                     if (res.code) {
-                        mui.openWindow({
-                            url: 'pay-status.html',
-                            id: 'pay_status',
-                            show: animateObj.aniDetal,
-                            extras: {
-                                'data': res.data,
-                                'war_id': id,
-                                'tel': applicant.holder_mobile
+                        if (res.data.resultCode === '00') {
+                            mui.toast('承保成功', {duration: 'long', type: 'div'});
+                            afterPay(true)
+                        } else if (res.data.resultCode === '02') {
+                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
+                            afterPay(true)
+                        } else if (res.data.resultCode === '01') {
+                            if (res.data.data && res.data.data.signed) {
+                                mui.openWindow({
+                                    url: 'pay-status.html',
+                                    id: 'pay_status',
+                                    show: animateObj.aniDetal,
+                                    extras: {
+                                        'data': res.data,
+                                        'war_id': id,
+                                        'tel': applicant.holder_mobile
+                                    }
+                                })
+                            } else {
+                                mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
+                                return false
                             }
-                        })
-//                        if (res.data.resultCode === '00') {
-//                            mui.toast('承保成功', {duration: 'long', type: 'div'});
-//                            afterPay(true)
-//                        } else if (res.data.resultCode === '02') {
-//                            mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
-//                            afterPay(true)
-//                        } else {
-//
-//                            mui.toast(res.data && res.data.resultMsg ? res.data.resultMsg : '承保失败', {
-//                                duration: 'long',
-//                                type: 'div'
-//                            })
-//                            afterPay()
-//                        }
+                        }
                     } else {
                         mui.toast('网络出错，请稍后再试', {duration: 'long', type: 'div'})
                         return false

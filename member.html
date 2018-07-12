@@ -32,7 +32,7 @@
 			<div class="context">
 				<div class="name">
 					<span>{{userinfo.user_name}}</span>
-					<a href="member-register.html" data-wid="member_register" data-ani="true" class="tocative" v-show="userinfo.login_mk==-2">立即激活</a>
+					<a href="member-register.html" data-wid="member_register.html" data-ani="true" class="tocative" v-show="userinfo.login_mk==-2">立即激活</a>
 					<span class="tocative" v-show="userinfo.login_mk==-1">待审核</span>
 				</div>
 				<div class="text"><span>{{userinfo.dept_name}}</span> &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -50,7 +50,7 @@
 			</div>
 			<div class="BL-ub BL-ub-ac BL-ub-f1">
 				<!--<a href="member-auto-order.html" data-wid="member_auto_order" class="BL-ub BL-ub-ac BL-ub-pc BL-ub-f1 myList-item">-->
-				<a class="BL-ub BL-ub-ac BL-ub-pc BL-ub-f1 myList-item" @tap="toastMsg">
+				<a class="BL-ub BL-ub-ac BL-ub-pc BL-ub-f1 myList-item" @tap="toastMsg()">
 					<div class="item item-car">
 						<div class="icon"></div>
 						<div class="name">
@@ -58,7 +58,15 @@
 						</div>
 					</div>
 				</a>
-				<a href="member-life-order.html" data-wid="member_life_order" class="BL-ub BL-ub-ac BL-ub-pc BL-ub-f1 myList-item">
+				<a @tap="toastMsg(1)" class="BL-ub BL-ub-ac BL-ub-pc BL-ub-f1 myList-item" v-if="userinfo.login_mk==-1||userinfo.login_mk==-2">
+					<div class="item item-life">
+						<div class="icon"></div>
+						<div class="name">
+							寿险订单
+						</div>
+					</div>
+				</a>
+				<a href="member-life-order.html" data-wid="member_life_order" class="BL-ub BL-ub-ac BL-ub-pc BL-ub-f1 myList-item" v-else>
 					<div class="item item-life">
 						<div class="icon"></div>
 						<div class="name">
@@ -71,7 +79,11 @@
 		<div class="section section-manage">
 			<div class="mui-row manage-group" v-if="menuitems" v-cloak>
 				<div class="mui-col-sm-3 mui-col-xs-3" v-for="item in menuitems" v-show="memberItems.indexOf(item.module_sn)>-1&&item.state">
-					<a :href="item.html" :data-wid="item.wid" class="a-link" v-if="item.is_complete">
+					<a @tap="toastMsg(1)" v-if="!item.isallow&&(userinfo.login_mk==-1||userinfo.login_mk==-2)">
+						<div class="icon" :style="'backgroundImage: url('+ item.img_url_head+')'">&nbsp;</div>
+						<div class="name">{{item.module_name}}</div>
+					</a>
+					<a :href="item.html" :data-wid="item.wid" class="a-link" v-else-if="item.is_complete">
 						<div class="icon" :style="'backgroundImage: url('+ item.img_url_head+')'">&nbsp;</div>
 						<div class="name">{{item.module_name}}</div>
 					</a>
@@ -194,9 +206,27 @@
             }
         },
         methods:{
-            toastMsg: function () {
-                mui.toast('功能开发中，敬请期待', {duration: 'short', type: 'div'})
-                return false;
+            toastMsg: function (type) {
+                if (type) {
+                    if (this.userinfo.login_mk == -2) {
+                        var btnArray = ['确定', '取消'];
+                        mui.confirm('请先完善个人信息，立即前往？', '', btnArray, function (e) {
+                            if (e.index == 0) {
+                                mui.openWindow({
+                                    url: 'member-register.html',
+                                    id: 'member_register',
+                                    show: animateObj.aniDetal
+                                })
+                            }
+                        })
+                    } else if (this.userinfo.login_mk == -1) {
+                        mui.toast('账号审核中，请联系管理员', {duration: 'short', type: 'div'})
+                        return false;
+                    }
+                } else {
+                    mui.toast('功能开发中，敬请期待', {duration: 'short', type: 'div'})
+                    return false;
+                }
             }
         }
     })

@@ -55,7 +55,11 @@
                 <div class="BL-mar-b-07 BL-bg-fff" style="padding-top: 1.25rem;width:100%;">
                     <div class="mui-row squared" v-if="items" v-cloak>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu" v-for="item in items" v-show="indexItems.indexOf(item.module_sn)>-1&&item.state">
-                            <a :href="item.module_sn+'.html'" :data-wid="item.module_sn" class="a-link" v-if="item.is_complete">
+                            <a @tap="toastMsg(1)" v-if="!item.isallow&&(userinfo.login_mk==-1||userinfo.login_mk==-2)">
+                                <div class="icon" :style="'backgroundImage: url('+ item.img_url_head+')'">&nbsp;</div>
+                                <div class="name">{{item.module_name}}</div>
+                            </a>
+                            <a :href="item.module_sn+'.html'" :data-wid="item.module_sn" class="a-link" v-else-if="item.is_complete">
                                 <div class="icon" :style="'backgroundImage: url('+ item.img_url_head+')'">&nbsp;</div>
                                 <div class="name">{{item.module_name}}</div>
                             </a>
@@ -174,7 +178,14 @@
                 <div style="background-color: #f5f5f5;" class="BL-ub BL-ub-f1 BL-ub-ver" v-if="userinfo&&userinfo.channel_id==2">
                     <div class="mui-row" style="padding-top: 2rem;">
                         <div class="mui-col-sm-4 mui-col-xm-4 BL-ub-pc">
-                            <a href="sns.html" data-wid="sns" class="a-link">
+                            <a @tap="toastMsg(1)" v-show="userinfo.login_mk==-2||userinfo.login_mk==-1">
+                                <div style="width: 3.5rem;height: 3.5rem;margin: 0 auto;"><img
+                                        src="images/index/ico-5.png"/></div>
+                                <div style="margin-top: .5rem;font-size: 1.25rem;color: #999999;text-align: center;">
+                                    SNS活动
+                                </div>
+                            </a>
+                            <a href="sns.html" data-wid="sns" class="a-link" v-show="userinfo.login_mk==1">
                                 <div style="width: 3.5rem;height: 3.5rem;margin: 0 auto;"><img
                                         src="images/index/ico-5.png"/></div>
                                 <div style="margin-top: .5rem;font-size: 1.25rem;color: #999999;text-align: center;">
@@ -183,7 +194,14 @@
                             </a>
                         </div>
                         <div class="mui-col-sm-4 mui-col-xm-4">
-                            <a href="shop.html" data-wid="shop" class="a-link">
+                            <a @tap="toastMsg(1)" v-show="userinfo.login_mk==-2||userinfo.login_mk==-1">
+                                <div style="width: 3.5rem;height: 3.5rem;margin: 0 auto;"><img
+                                        src="images/index/ico-6.png"/></div>
+                                <div style="margin-top: .5rem;font-size: 1.25rem;color: #999999;text-align: center;">
+                                    积分商城
+                                </div>
+                            </a>
+                            <a href="shop.html" data-wid="shop" class="a-link" v-show="userinfo.login_mk==1">
                                 <div style="width: 3.5rem;height: 3.5rem;margin: 0 auto;"><img
                                         src="images/index/ico-6.png"/></div>
                                 <div style="margin-top: .5rem;font-size: 1.25rem;color: #999999;text-align: center;">
@@ -216,7 +234,7 @@
     </div>
 </div>
     <!----------- 打卡按键  begin -------------->
-    <a id="Js-duty" class="BL-mod-sign a-link" v-if="items" v-for="item in items" v-show="item.module_sn==='duty'&&item.state" href="member-duty.html" data-wid="member_duty">
+    <a id="Js-duty" class="BL-mod-sign a-link" v-if="items" v-for="item in items" v-show="item.module_sn==='duty'&&item.state&&userinfo.login_mk==1" href="member-duty.html" data-wid="member_duty">
         <div class="sign BL-bimg-contain"></div>
     </a>
     <!----------- 打卡按键  end   -------------->
@@ -329,6 +347,7 @@
             data: {
                 userinfo: '',
                 indexItems:['ins2c', 'sns', 'auto2c','product','quickly','honner','analysis','shop','recruit'],
+                allownewer:['product','plans','taxcal','clips','poster','requirement'],
                 items: '',
                 banner_count: '',
                 bannerList: ['images/pic/p0.jpg'],
@@ -347,9 +366,27 @@
                 }
             },
             methods: {
-                toastMsg: function () {
-                    mui.toast('功能开发中，敬请期待', {duration: 'short', type: 'div'})
-                    return false;
+                toastMsg: function (type) {
+                    if (type) {
+                        if (this.userinfo.login_mk == -2) {
+                            var btnArray = ['确定', '取消'];
+                            mui.confirm('请先完善个人信息，立即前往？', '', btnArray, function (e) {
+                                if (e.index == 0) {
+                                    mui.openWindow({
+                                        url: 'member-register.html',
+                                        id: 'member_register',
+                                        show: animateObj.aniDetal
+                                    })
+                                }
+                            })
+                        } else if (this.userinfo.login_mk == -1) {
+                            mui.toast('账号审核中，请联系管理员', {duration: 'short', type: 'div'})
+                            return false;
+                        }
+                    } else {
+                        mui.toast('功能开发中，敬请期待', {duration: 'short', type: 'div'})
+                        return false;
+                    }
                 }
             }
         })
@@ -422,7 +459,11 @@
                             data = data.sort(function(a, b) {
                                 return a.sort_by - b.sort_by;
                             });
-                            mui.each(data, function (index, item) {
+                            mui.each(data, function (ind, item) {
+                                item.isallow = false
+                                if (index.allownewer.indexOf(item.module_sn) > -1) {
+                                    item.isallow = true
+                                }
                                 indexItem.push(item)
                                 if (item.module_sn === 'index') {
                                     mui.fire(plus.webview.getLaunchWebview(), 'homeicon', {

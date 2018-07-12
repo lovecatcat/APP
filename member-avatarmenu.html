@@ -68,6 +68,7 @@
             );
         });
 
+        var id = plus.webview.currentWebview().data.id
         //src转base64
         function imgtobase64(path) {
             var base64Img
@@ -83,8 +84,10 @@
                 canvas.height = width * (img.height / img.width)
                 drawer.drawImage(img, 0, 0, canvas.width, canvas.height)
                 base64Img = canvas.toDataURL('image/jpeg', quality)
-                mui.fire(plus.webview.getWebviewById('member_personalinfo'), 'img', {
-                    img: base64Img
+                var openerId = plus.webview.currentWebview().opener().id
+                mui.fire(plus.webview.getWebviewById(openerId), 'img', {
+                    img: base64Img,
+                    id: id
                 });
                 popu.closepop();
                 mui.back();

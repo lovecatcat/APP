@@ -411,6 +411,9 @@
                 }
             },
             methods: {
+                toblur:function(){
+                    document.activeElement.blur();
+                },
                 openSign: function () {
                     this.showSign = true
                     this.$nextTick(function () {
@@ -845,6 +848,7 @@
         cityPicker2.setData(cityData3);
         mui('.address-select-2').each(function (i, d) {
             d.addEventListener('tap', function () {
+                Info.toblur()
                 var _self = this;
                 cityPicker2.show(function (items) {
                     if (i == 0) {
@@ -864,6 +868,7 @@
         cityPicker3.setData(cityData3);
         mui('.address-select-3').each(function (i, d) {
             d.addEventListener('tap', function () {
+                Info.toblur()
                 var _self = this;
                 cityPicker3.show(function (items) {
                     Info.user.province = _getParam(items[0], 'value')
@@ -877,6 +882,7 @@
         // 民族
         var nationType = new mui.PopPicker();
         document.querySelector('#Nation').addEventListener('tap', function () {
+            Info.toblur()
             nationType.show(function (items) {
                 Info.user.nation = items[0].value;
                 Info.nation_name = items[0].text;
@@ -885,6 +891,7 @@
         // 学历
         var academicType = new mui.PopPicker();
         document.querySelector('#Academic').addEventListener('tap', function () {
+            Info.toblur()
             academicType.show(function (items) {
                 Info.user.academic = items[0].value;
                 Info.academic_name = items[0].text;
@@ -893,6 +900,7 @@
         // 政治面貌
         var politicsType = new mui.PopPicker();
         document.querySelector('#Politics').addEventListener('tap', function () {
+            Info.toblur()
             politicsType.show(function (items) {
                 Info.user.politics = items[0].value;
                 Info.politics_name = items[0].text;
@@ -901,6 +909,7 @@
         // 证件类型
         var cardType = new mui.PopPicker();
         document.querySelector('#Cardtype').addEventListener('tap', function () {
+            Info.toblur()
             cardType.show(function (items) {
                 Info.user.card_type = items[0].value;
                 Info.card_type_name = items[0].text;
@@ -909,6 +918,7 @@
         // 银行开户行
         var bankType = new mui.PopPicker();
         document.querySelector('#Banktype').addEventListener('tap', function () {
+            Info.toblur()
             bankType.show(function (items) {
                 Info.user.bank = items[0].value;
                 Info.bank_name = items[0].text;
@@ -917,6 +927,7 @@
         // 出生日期选择
         mui('.date').each(function (i, d) {
             d.addEventListener('tap', function () {
+                Info.toblur()
                 var optionsJson = this.getAttribute('data-options') || '{}';
                 var options = JSON.parse(optionsJson);
                 var _this = this

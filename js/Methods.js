@@ -837,11 +837,19 @@ var methods = {
 				}
 				break
 			case 'LA063': // 恒大福享金生
-				if(periodMoney < 1000 || periodMoney % 1000 !== 0) {
-					toastText = '最低保费1000元，且为1000元整数倍！'
+				if(periodMoney < 1000 || periodMoney % 5000 !== 0) {
+					toastText = '最低保费5000元，且为1000元整数倍！'
 				}
 				break
 			case 'LA075': // 恒大万年红
+                if(periodMoney < 1000) {
+                    toastText = '最低年缴保费为1千元'
+                } else if(periodMoney < 20000 && this.insurance.pay_year === 10) {
+                    toastText = '10年交最低年缴保费为2万元'
+				} else if(periodMoney % 1000 !== 0) {
+                    toastText = '保费需为1千元整数倍'
+                }
+                break
 			case 'LA080': // 恒大人寿万年福养老年金保险
 				if(periodMoney < 1000) {
 					toastText = '最低年缴保费为1千元'
@@ -1437,6 +1445,7 @@ var methods = {
 		var mainSafeYear = this.mainSafeYear
 		var mainPayYear = this.mainPayYear
 		var payOverage = Number(this.insurance.pay_year) - 1 + applAge // 期满年龄\
+		var assuOverage = Number(this.insurance.pay_year) - 1 + assuAge // 被保人期满年龄\
 		var name = this.Addons[safeid].name
 		var toastText = null
 
@@ -1448,10 +1457,17 @@ var methods = {
 				}
 				break
 			case 'WPJP':
-				if(applAge > 69) {
+				if(applAge > 68) {
 					toastText = '被豁免合同投保人年龄不能大于68周岁'
 				} else if (payOverage > 69){
 					toastText = '投保人交费期满年龄不能大于69周岁'
+				}
+				break
+			case 'WRGP':
+				if(applAge > 68) {
+					toastText = '被豁免合同投保人年龄不能大于68周岁'
+				} else if (payOverage > 70){
+					toastText = '投保人交费期满年龄不能大于70周岁'
 				}
 				break
 			case 'RP8P':

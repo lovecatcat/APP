@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>基本信息</title>
+    <link href="css/mui.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/module.css" rel="stylesheet" />
+    <link href="css/form.css" rel="stylesheet" />
+    <script src="js/config.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+</head>
+
+<body class="BL-bg-f2f">
+    <header id="Js-header" class="BL-bg-fff">
+        <div class="BL-mod-headbar BL-mod-headbar-pos">
+            <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+            <h1 class="BL-title">工作经历</h1>
+            <div class="control" id="save">
+                <a>保存</a>
+            </div>
+        </div>
+    </header>
+    <div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY" v-cloak>
+        <ul class="mui-table-view form-list-cell">
+            <li class="fItem BL-ub BL-ub-f1">
+                <label class="form-list-label">开始时间</label>
+                <div class="form-list-control">
+                    <div class="sel-control BL-txt-r sel-date" data-options='{"type":"date","beginYear":1950}'>{{ start }}</div>
+                </div>
+                <div class="form-list-icon">
+                    <div class="mui-icon mui-icon-arrowright"></div>
+                </div>
+            </li>
+            <li class="fItem BL-ub BL-ub-f1">
+                <label class="form-list-label">结束时间</label>
+                <div class="form-list-control">
+                    <div class="sel-control BL-txt-r sel-date" data-options='{"type":"date","beginYear":1950}'>{{ end }}</div>
+                </div>
+                <div class="form-list-icon">
+                    <div class="mui-icon mui-icon-arrowright"></div>
+                </div>
+            </li>
+            <li class="fItem BL-ub BL-ub-f1">
+                <label class="form-list-label">公司名称</label>
+                <div class="form-list-control">
+                    <input type="text" placeholder="请输入" v-model="name">
+                </div>
+                <div class="form-list-icon" v-show="name!=''">
+                    <span class="mui-icon mui-icon-clear" @click="name=''"></span>
+                </div>
+            </li>
+            <li class="fItem BL-ub BL-ub-f1">
+                <label class="form-list-label">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位</label>
+                <div class="form-list-control">
+                    <input type="text" placeholder="请输入" v-model="position">
+                </div>
+                <div class="form-list-icon" v-show="position!=''">
+                    <span class="mui-icon mui-icon-clear" @click="position=''"></span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/mui.picker.js"></script>
+<script src="js/mui.dtpicker.js"></script>
+<script src="js/mui.poppicker.js"></script>
+<script src="js/vue.min.js"></script>
+<script src="js/Date.js"></script>
+<script type="text/javascript">
+    mui.init();
+    mui.plusReady(function() {
+        statusbar();
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+
+        var info = new Vue({
+            el: '#Js-content',
+            data: {
+                index: '',
+                start: "请选择",
+                end: "请选择",
+                name: "",     // 公司名称
+                position: ""   // 职位
+            },
+            mounted: function (){
+                var vm = this;
+                // 日期选择
+                mui('.sel-date').each(function (i, d) {
+                    d.addEventListener('tap', function () {
+                        vm.toblur()
+                        var optionsJson = this.getAttribute('data-options') || '{}';
+                        var options = JSON.parse(optionsJson);
+                        var _this = this
+                        var picker = new mui.DtPicker(options);
+                        picker.show(function (rs) {
+                            if (i == 0) {
+                                vm.start = rs.text;
+                            } else {
+                                vm.end = rs.text;
+                            }
+                            picker.dispose();
+                        });
+                    }, false);
+                });
+            },
+            methods:{
+                toblur:function(){
+                    document.activeElement.blur();
+                }
+            }
+        })
+        // 保存
+        document.querySelector('#save').addEventListener('click', function () {
+            var toast_text = null
+            // 检验开始时间和结束时间
+            if (!info.start || info.start == '请选择') {
+                toast_text = '请选择开始时间'
+            } else if (!info.end || info.end == '请选择') {
+                toast_text = '请选择结束时间'
+            } else if (info.start > info.end) {
+                toast_text = '开始时间大于结束时间，请重新填写'
+            }
+
+            // 检验公司和职位
+            if (!info.name) {
+                toast_text = '请输入公司名称'
+            } else if (!info.position) {
+                toast_text = '请输入职位'
+            }
+
+            if (toast_text) {
+                mui.toast(toast_text, {duration: 'short', type: 'div'});
+                return false;
+            }
+
+            var work = {
+                start: info.start,
+                end: info.end,
+                name: info.name,
+                position: info.position
+            };
+
+            // 通知注册页面修改工作经历
+            mui.fire(plus.webview.getWebviewById('member_register'),'updateWork',{
+                work: work,
+                index: info.index
+            });
+            // 查询保险起期
+            setTimeout(function () {
+                plus.webview.currentWebview().close();
+            },200)
+        })
+        // 监听工作经历修改
+        window.addEventListener('editWork', function (e) {
+            var w_item = e.detail.w_item
+            if(w_item) {
+                info.index = w_item.index
+                info.start = w_item.start
+                info.end = w_item.end
+                info.name = w_item.name
+                info.position = w_item.position
+            }
+        });
+    })
+</script>
+</html>

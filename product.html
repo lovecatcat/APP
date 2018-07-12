@@ -117,11 +117,12 @@
 
     <!------------悬浮控制按钮 begin-------------->
     <div class="popuer" v-if="listdata">
-        <a data-wid="prospect_product" href="prospect-product.html" class="popu-IconMenu a-link"><img
-                src="images/product/menu-prospect.png" alt="计划书"/></a>
-        <a data-wid="product_contrast" href="product-contrast.html" :data-tid="current_instype"
-           class="popu-IconMenu a-link"><img
-                src="images/product/menu-pk.png" alt="产品对比" v-show="current_instype&&userinfo.channel_id!=18"/></a>
+        <a data-wid="prospect_product" href="prospect-product.html" class="popu-IconMenu a-link">
+            <img src="images/product/menu-prospect.png" alt="计划书"/>
+        </a>
+        <a data-wid="product_contrast" href="product-contrast.html" :data-tid="current_instype" class="popu-IconMenu a-link" v-show="current_instype">
+            <img src="images/product/menu-pk.png" alt="产品对比"/>
+        </a>
     </div>
 </div>
 <!------------悬浮控制按钮 end --------------->

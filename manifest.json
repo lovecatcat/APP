@@ -820,7 +820,9 @@
 					"member-requirement.html",
 					"member-clips.html",
 					"requirement.html",
-					"member-auto-order.html"
+					"member-auto-order.html",
+					"member-register.html",
+					"video.html"
 				],
 				"priority": 0
 			},
@@ -3630,7 +3632,8 @@
 					"images/member/jinquxing.jpg",
 					"css/mui.css",
 					"js/interval-dtpicker.js",
-					"images/member/pinghengxing.jpg"
+					"images/member/pinghengxing.jpg",
+					"css/member.css"
 				],
 				"refer": [
 					"analysis_ppt.html"
@@ -3794,7 +3797,11 @@
 				"resources": [
 					"css/mui.css",
 					"js/interval-dtpicker.js",
-					"css/news.css"
+					"css/news.css",
+					"js/mui.poppicker.js",
+					"css/member.css",
+					"css/form.css",
+					"js/mui.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -3870,6 +3877,59 @@
 					"js/pdf.js",
 					"css/member.css",
 					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-register.html": {
+				"resources": [
+					"images/icon/icon-upload.png",
+					"css/mui.picker.min.css",
+					"css/mui.css",
+					"css/form.css",
+					"js/IDValidator.min.js",
+					"js/mui.poppicker.js",
+					"js/city.data-3.js",
+					"images/icon/icon-circle.png",
+					"css/signature.css",
+					"js/signature/signature_pad.js"
+				],
+				"refer": [
+					"member-register-addwork.html",
+					"member-register-editwork.html",
+					"member-avatarmenu.html"
+				],
+				"priority": 0
+			},
+			"member-register-addwork.html": {
+				"resources": [
+					"css/mui.picker.min.css",
+					"js/Date.js",
+					"css/mui.css",
+					"css/form.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-register-editwork.html": {
+				"resources": [
+					"css/mui.picker.min.css",
+					"css/mui.css",
+					"css/form.css",
+					"js/Date.js",
+					"images/icon/icon-del.png"
+				],
+				"refer": [
+					"member-register-addwork.html"
+				],
+				"priority": 0
+			},
+			"video.html": {
+				"resources": [
+					"js/hls.min.js",
+					"js/html5video.js",
+					"css/mui.min.css",
+					"css/video.css"
 				],
 				"refer": [],
 				"priority": 0

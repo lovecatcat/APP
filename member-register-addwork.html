@@ -90,6 +90,7 @@
                 // 日期选择
                 mui('.sel-date').each(function (i, d) {
                     d.addEventListener('tap', function () {
+                        vm.toblur()
                         var optionsJson = this.getAttribute('data-options') || '{}';
                         var options = JSON.parse(optionsJson);
                         var _this = this
@@ -104,6 +105,11 @@
                         });
                     }, false);
                 });
+            },
+            methods:{
+                toblur:function(){
+                    document.activeElement.blur();
+                }
             }
         })
         // 保存

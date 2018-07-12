@@ -821,7 +821,8 @@
 					"member-clips.html",
 					"requirement.html",
 					"member-auto-order.html",
-					"member-register.html"
+					"member-register.html",
+					"video.html"
 				],
 				"priority": 0
 			},
@@ -3631,7 +3632,8 @@
 					"images/member/jinquxing.jpg",
 					"css/mui.css",
 					"js/interval-dtpicker.js",
-					"images/member/pinghengxing.jpg"
+					"images/member/pinghengxing.jpg",
+					"css/member.css"
 				],
 				"refer": [
 					"analysis_ppt.html"
@@ -3795,7 +3797,11 @@
 				"resources": [
 					"css/mui.css",
 					"js/interval-dtpicker.js",
-					"css/news.css"
+					"css/news.css",
+					"js/mui.poppicker.js",
+					"css/member.css",
+					"css/form.css",
+					"js/mui.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -3916,6 +3922,16 @@
 				"refer": [
 					"member-register-addwork.html"
 				],
+				"priority": 0
+			},
+			"video.html": {
+				"resources": [
+					"js/hls.min.js",
+					"js/html5video.js",
+					"css/mui.min.css",
+					"css/video.css"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

@@ -38,12 +38,15 @@
                         元起
                     </div>
                 </div>
+                <div class="BL-foot-btn-sign" @tap="toastMsg(1)" v-if="userinfo.login_mk==-1||userinfo.login_mk==-2">
+                    我要投保
+                </div>
                 <div class="BL-foot-btn-sign a-link" data-wid="hd_insurance-index" href="hd_ins/insurance-index.html"
-                     v-if="info.company_id===19&&info.online_insure">
+                     v-else-if="info.company_id===19&&info.online_insure&&userinfo.login_mk==1">
                     我要投保
                 </div>
                 <div class="BL-foot-btn-sign a-link" data-wid="pa_insurance-index" href="paehis/pa-healthinfo.html"
-                     v-else-if="info.company_id===8&&info.online_insure">
+                     v-else-if="info.company_id===8&&info.online_insure&&userinfo.login_mk==1">
                     我要投保
                 </div>
                 <div class="BL-foot-btn-sign" @tap="toastMsg" v-else>
@@ -145,9 +148,27 @@
                         return false;
                     }
                 },
-                toastMsg: function () {
-                    mui.toast('本产品暂不支持在线投保，敬请期待', {duration: 'short', type: 'div'})
-                    return false;
+                toastMsg: function (type) {
+                    if (type) {
+                        if (this.userinfo.login_mk == -2) {
+                            var btnArray = ['确定', '取消'];
+                            mui.confirm('请先完善个人信息，立即前往？', '', btnArray, function (e) {
+                                if (e.index == 0) {
+                                    mui.openWindow({
+                                        url: 'member-register.html',
+                                        id: 'member_register',
+                                        show: animateObj.aniDetal
+                                    })
+                                }
+                            })
+                        } else if (this.userinfo.login_mk == -1) {
+                            mui.toast('账号审核中，请联系管理员', {duration: 'short', type: 'div'})
+                            return false;
+                        }
+                    } else {
+                        mui.toast('本产品暂不支持在线投保，敬请期待', {duration: 'short', type: 'div'})
+                        return false;
+                    }
                 }
             }
         });

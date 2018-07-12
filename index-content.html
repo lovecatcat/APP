@@ -55,11 +55,11 @@
                 <div class="BL-mar-b-07 BL-bg-fff" style="padding-top: 1.25rem;width:100%;">
                     <div class="mui-row squared" v-if="items" v-cloak>
                         <div class="mui-col-sm-3 mui-col-xs-3 squared-menu" v-for="item in items" v-show="indexItems.indexOf(item.module_sn)>-1&&item.state">
-                            <a :href="item.module_sn+'.html'" :data-wid="item.module_sn" class="a-link" v-if="item.is_complete&&item.isallow">
+                            <a @tap="toastMsg(1)" v-if="!item.isallow&&(userinfo.login_mk==-1||userinfo.login_mk==-2)">
                                 <div class="icon" :style="'backgroundImage: url('+ item.img_url_head+')'">&nbsp;</div>
                                 <div class="name">{{item.module_name}}</div>
                             </a>
-                            <a @tap="toastMsg(1)" v-else-if="!item.isallow&&(userinfo.login_mk==-1||userinfo.login_mk==-2)">
+                            <a :href="item.module_sn+'.html'" :data-wid="item.module_sn" class="a-link" v-else-if="item.is_complete">
                                 <div class="icon" :style="'backgroundImage: url('+ item.img_url_head+')'">&nbsp;</div>
                                 <div class="name">{{item.module_name}}</div>
                             </a>
@@ -210,14 +210,7 @@
                             </a>
                         </div>
                         <div class="mui-col-sm-4 mui-col-xm-4">
-                            <a @tap="toastMsg(1)" v-show="userinfo.login_mk==-2||userinfo.login_mk==-1">
-                                <div style="width: 3.5rem;height: 3.5rem;margin: 0 auto;"><img
-                                        src="images/index/ico-7.png"/></div>
-                                <div style="margin-top: .5rem;font-size: 1.25rem;color: #999999;text-align: center;">
-                                    产品超市
-                                </div>
-                            </a>
-                            <a href="product.html" data-wid="product" class="a-link" v-show="userinfo.login_mk==1">
+                            <a href="product.html" data-wid="product" class="a-link">
                                 <div style="width: 3.5rem;height: 3.5rem;margin: 0 auto;"><img
                                         src="images/index/ico-7.png"/></div>
                                 <div style="margin-top: .5rem;font-size: 1.25rem;color: #999999;text-align: center;">
@@ -375,16 +368,21 @@
             methods: {
                 toastMsg: function (type) {
                     if (type) {
-                        var btnArray = ['确定','取消'];
-                        mui.confirm('请先完善个人信息，立即前往？', '', btnArray, function(e) {
-                            if(e.index == 0){
-                                mui.openWindow({
-                                    url: 'member-register.html',
-                                    id: 'member_register',
-                                    show: animateObj.aniDetal
-                                })
-                            }
-                        })
+                        if (this.userinfo.login_mk == -2) {
+                            var btnArray = ['确定', '取消'];
+                            mui.confirm('请先完善个人信息，立即前往？', '', btnArray, function (e) {
+                                if (e.index == 0) {
+                                    mui.openWindow({
+                                        url: 'member-register.html',
+                                        id: 'member_register',
+                                        show: animateObj.aniDetal
+                                    })
+                                }
+                            })
+                        } else if (this.userinfo.login_mk == -1) {
+                            mui.toast('账号审核中，请联系管理员', {duration: 'short', type: 'div'})
+                            return false;
+                        }
                     } else {
                         mui.toast('功能开发中，敬请期待', {duration: 'short', type: 'div'})
                         return false;

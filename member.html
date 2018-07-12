@@ -79,11 +79,11 @@
 		<div class="section section-manage">
 			<div class="mui-row manage-group" v-if="menuitems" v-cloak>
 				<div class="mui-col-sm-3 mui-col-xs-3" v-for="item in menuitems" v-show="memberItems.indexOf(item.module_sn)>-1&&item.state">
-					<a :href="item.html" :data-wid="item.wid" class="a-link" v-if="item.is_complete&&item.isallow">
+					<a @tap="toastMsg(1)" v-if="!item.isallow&&(userinfo.login_mk==-1||userinfo.login_mk==-2)">
 						<div class="icon" :style="'backgroundImage: url('+ item.img_url_head+')'">&nbsp;</div>
 						<div class="name">{{item.module_name}}</div>
 					</a>
-					<a @tap="toastMsg(1)" v-else-if="!item.isallow&&(userinfo.login_mk==-1||userinfo.login_mk==-2)">
+					<a :href="item.html" :data-wid="item.wid" class="a-link" v-else-if="item.is_complete">
 						<div class="icon" :style="'backgroundImage: url('+ item.img_url_head+')'">&nbsp;</div>
 						<div class="name">{{item.module_name}}</div>
 					</a>
@@ -208,16 +208,21 @@
         methods:{
             toastMsg: function (type) {
                 if (type) {
-                    var btnArray = ['确定','取消'];
-                    mui.confirm('请先完善个人信息，立即前往？', '', btnArray, function(e) {
-                        if(e.index == 0){
-                            mui.openWindow({
-                                url: 'member-register.html',
-                                id: 'member_register',
-                                show: animateObj.aniDetal
-                            })
-                        }
-                    })
+                    if (this.userinfo.login_mk == -2) {
+                        var btnArray = ['确定', '取消'];
+                        mui.confirm('请先完善个人信息，立即前往？', '', btnArray, function (e) {
+                            if (e.index == 0) {
+                                mui.openWindow({
+                                    url: 'member-register.html',
+                                    id: 'member_register',
+                                    show: animateObj.aniDetal
+                                })
+                            }
+                        })
+                    } else if (this.userinfo.login_mk == -1) {
+                        mui.toast('账号审核中，请联系管理员', {duration: 'short', type: 'div'})
+                        return false;
+                    }
                 } else {
                     mui.toast('功能开发中，敬请期待', {duration: 'short', type: 'div'})
                     return false;

@@ -158,6 +158,16 @@
 					</div>
 				</div>
 			</div>
+			<div id="modal-register" class="BL-modal BL-modal-w70"  :class="{'BL-hide': isHide !== 'modal-register'}">
+				<div class="BL-modal-content">
+					<div class="BL-txt-c BL-pad-t-1_5">请先完善个人信息</div>
+					<div class="BL-txt-c BL-pad-tb-1">立即前往？</div>
+					<div class="BL-modal-content-button">
+						<button type="button" @click="cancel">取消</button>
+						<button type="button" @click="sure">确认</button>
+					</div>
+				</div>
+			</div>
 			<div id="modal-rank" class="BL-modal BL-modal-w80" :class="{'BL-hide': isHide !== 'modal-rank'}">
 				<div class="BL-modal-content">
 					<div class="BL-txt-c BL-pad-tb-1_5 BL-rel">
@@ -199,8 +209,14 @@
 					}else{
 						if(this.formID == 'member_plans_manage'){
 							mui.fire(plus.webview.getWebviewById('member_plans_manage'), 'sure');
-						}else if(this.formID == 'member_plans_total'){
+						}else if(this.formID == 'member_plans_total' && !this.goIns){
 							mui.fire(plus.webview.getWebviewById('member_plans_total'), 'sure');
+						}else if(this.formID == 'member_plans_total' && this.goIns){
+							mui.openWindow({
+								url: 'member-register.html',
+								id: 'member_register',
+								show: animateObj.aniDetal
+							})
 						}else if(this.formID == 'member_plans_alone'){
 							mui.fire(plus.webview.getWebviewById('member_plans_alone'), 'sure');
 						}else if(this.formID == 'prospect'){

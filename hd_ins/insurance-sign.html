@@ -588,9 +588,8 @@
                     }
                     if (res.code) {
                         if (res.data.resultCode === '00') {
-                            mui.toast('上传成功，承保中', {duration: 'short', type: 'div'})
+//                            mui.toast('上传成功，承保中', {duration: 'short', type: 'div'})
                             ins_pay(id)
-                            return false
                         } else {
                             mui.toast(res.data && res.data.resultMsg ? res.data.resultMsg : '网络出错，请稍后再试', {duration: 'long', type: 'div'})
                             return false

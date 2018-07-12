@@ -542,7 +542,7 @@
             var warid = index.ids ? Number(index.ids.policy_id) : ''
             mui.openWindow({
                 url: 'insurance-sign.html',
-                id: 'insurance_sign',
+                id: 'hd-insurance-sign',
                 show: animateObj.aniDetal,
                 extras:{
                     war_id : warid
@@ -768,7 +768,7 @@
                         plus.storage.setItem('hengda_ids',JSON.stringify(res.data));
                         mui.openWindow({
                             url: 'insurance-sign.html',
-                            id: 'insurance_sign',
+                            id: 'hd-insurance-sign',
                             show: animateObj.aniDetal,
                             extras:{
                                 war_id : res.data.policy_id

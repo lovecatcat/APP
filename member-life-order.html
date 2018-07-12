@@ -80,18 +80,14 @@
                                     </div>
                                 </a>
                                 <div class="BL-txt-r button">
-                                    <!--<a class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 cancel"-->
-                                       <!--:data-id="item.policy_id"-->
-                                       <!--:data-index="index"-->
-                                       <!--v-if="item.ins_state_name=='待核保' || item.ins_state_name=='待支付'">取消订单-->
-                                    <!--</a>-->
-                                    <a class="BL-btn-white BL-pad-lr-1 continue"
-                                       v-if="(item.ins_state_name=='待核保'||item.ins_state_name=='待支付')&&item.supplier_id==19"
-                                       :data-supplier="item.supplier_id" :data-policyid="item.policy_id">继续录入</a>
-                                    <a class="BL-btn-white BL-pad-lr-1 continue"
-                                       v-if="item.ins_state_name=='待支付'&&item.supplier_id==8"
-                                       :data-supplier="item.supplier_id" :data-policyid="item.policy_id"
-                                       :data-policyno="item.policy_no" :data-fee="item.total">去支付</a>
+                                    <a class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 continue" v-show="btnShow(1,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="1">继续录入</a>
+                                    <a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state==0&&item.supplier_id==8" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-policyno="item.policy_no" :data-fee="item.total">去支付</a>
+                                    <a class="BL-btn-white BL-pad-lr-1 continue" v-show="btnShow(2,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">去支付</a>
+                                    <a class="BL-btn-white BL-pad-lr-1" @tap="toPay(item.policy_id,item.holder_mobile)">去支付</a>
+                                    <a class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 continue" v-show="btnShow(3,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">去签名</a>
+                                    <a class="BL-btn-white BL-pad-lr-1" @tap="freshSign(item.policy_id)" v-show="item.supplier_id==85&&item.state===5&&item.extend_items.signature_status === '0'">刷新</a>
+                                    <a class="BL-btn-white BL-pad-lr-1" @tap="queryPay(item.policy_id)" v-show="item.supplier_id==85&&item.extend_items.pay_status === '2'">查询支付状态</a>
+                                    <a class="BL-btn-white BL-pad-lr-1" @tap="chengbao(item.policy_id)" v-show="item.supplier_id==85&&item.extend_items.pay_status === '1'&&progress!==2">去承保</a>
                                 </div>
                             </div>
                         </li>
@@ -131,6 +127,63 @@
             }
         },
         methods: {
+            toPay: function (policy_id, mobile) {
+                luckyAjax({
+                    data: {
+                        data: JSON.stringify({
+                            msg: {policy_id: policy_id},
+                            company_code: 'HengDa',
+                            method: 'pay'
+                        }),
+                        server: 'PolicyIns.onlineInsured',
+                        device: 'mobile'
+                    },
+                    timeout: 10000,
+                    success: function (res) {
+                        if (res.code) {
+                            if (res.data.resultCode === '01') {
+                                if (res.data.data && res.data.data.signed) {
+                                    mui.openWindow({
+                                        url: 'hd_ins/pay-status.html',
+                                        id: 'pay_status',
+                                        show: animateObj.aniDetal,
+                                        extras: {
+                                            'data': res.data,
+                                            'war_id': policy_id,
+                                            'tel': mobile
+                                        }
+                                    })
+                                } else {
+                                    mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
+                                    return false
+                                }
+                            }
+                        } else {
+                            mui.toast('网络出错，请稍后再试', {duration: 'long', type: 'div'})
+                            return false
+                        }
+                    }
+                });
+            },
+            btnShow: function (index, item) {
+                switch (index){
+                    case 1: //继续录入 恒大 招商
+                        if ((item.supplier_id === 19 && (!item.pay_status || item.pay_status === '0')) || (item.supplier_id === 85 && (item.extend_items.update_img !== '1')) || (item.supplier_id === 2 && (item.progress < 1 || item.status == 4))) {
+                            return true
+                        }
+                        break
+                    case 2: //去支付 招商
+                        if (item.supplier_id === 85 && item.progress === 1 && item.state !== 5 && item.extend_items.update_img === '1' && item.extend_items.pay_status !== '1' && item.extend_items.pay_status !== '2') {
+                            return true
+                        }
+                        break
+                    case 3: //去签名 招商
+                        if (item.supplier_id == 85 && item.state === 5 && item.extend_items.signature_status === '0') {
+                            return true
+                        }
+                        break
+                }
+            },
             Detail: function (policy_id) {
                 mui.openWindow({
                     id: 'member_warranty_manageLife_detail',
@@ -241,12 +294,21 @@
                 var policyid = _this.getAttribute('data-policyid')
                 var orderno = _this.getAttribute('data-policyno')
                 var fee = _this.getAttribute('data-fee')
+                var type = _this.getAttribute('data-type')
                 var url = null
                 var id = null
                 var extras = null
                 if (supplier_id == 19) {
                     url = 'hd_ins/insurance-index.html'
                     id = 'hd_insurance-index'
+                    extras = {policy_id: policyid}
+                } else if (supplier_id == 85 && type === '1') {
+                    url = 'zs_ins/insurance-index.html'
+                    id = 'zs_insurance-index'
+                    extras = {policy_id: policyid}
+                } else if (supplier_id == 85 && type === '2') {
+                    url = 'zs_ins/order-to-pay.html'
+                    id = 'order_to_pay'
                     extras = {policy_id: policyid}
                 } else if (supplier_id == 8) {
                     console.log(policyid)

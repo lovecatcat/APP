@@ -85,7 +85,7 @@
                 }
             },
             created:function () {
-                console.log('created')
+                this.smscode = ''
             },
             computed: {
                 text: function () {
@@ -129,7 +129,7 @@
                         timeout: 30000,
                         success: function (res) {
                             if (res.code) {
-                                mui.toast('签约成功!支付中...', {duration: 'long', type: 'div'});
+                                mui.toast('签约成功!支付中...', {duration: 'short', type: 'div'});
                                 vm.topay()
                                 return false;
                             } else {
@@ -156,16 +156,16 @@
                             if (res.code) {
                                 if (res.data.resultCode === '00') {
                                     mui.toast('承保成功', {duration: 'long', type: 'div'});
-                                    afterPay(true)
+                                    afterPay(true,true)
                                 } else if (res.data.resultCode === '02') {
                                     mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
-                                    afterPay(true)
+                                    afterPay(true,false)
                                 } else {
                                     mui.toast(res.data && res.data.resultMsg ? res.data.resultMsg : '承保失败', {
                                         duration: 'long',
                                         type: 'div'
                                     })
-                                    afterPay()
+                                    afterPay(true,false)
                                 }
                             } else {
                                 mui.toast('网络出错，请稍后再试', {duration: 'long', type: 'div'})
@@ -248,7 +248,7 @@
         paystatus.tel = tel
 
         //承保接口调完后
-        function afterPay(clear) {
+        function afterPay(clear, ispay) {
             if (clear) {
                 //清除本地缓存
                 for (var i = 0; i < itemName.length; i++) {
@@ -256,16 +256,31 @@
                 }
             }
             setTimeout(function () {
-                mui.openWindow({
-                    url: '../member-life-order.html',
-                    id: 'member_life_order',
-                    show: animateObj.aniDetal
-                })
-                setTimeout(function () {
-                    plus.webview.close('hd-insurance-sign');
-                    plus.webview.close('hd_insurance-index');
-                    mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
-                }, 500)
+                if (ispay) {
+                    mui.openWindow({
+                        url: '../member-warranty-manage.html',
+                        id: 'member_warranty_manage',
+                        show: animateObj.aniDetal
+                    })
+                    setTimeout(function () {
+                        plus.webview.close('pay_status');
+                        plus.webview.close('hd-insurance-sign');
+                        plus.webview.close('hd_insurance-index');
+                    }, 500)
+                } else {
+                    mui.openWindow({
+                        url: '../member-life-order.html',
+                        id: 'member_life_order',
+                        show: animateObj.aniDetal
+                    })
+                    setTimeout(function () {
+                        plus.webview.close('pay_status');
+                        plus.webview.close('hd-insurance-sign');
+                        plus.webview.close('hd_insurance-index');
+                        mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
+                    }, 500)
+                }
+
             }, 3000)
         }
     })

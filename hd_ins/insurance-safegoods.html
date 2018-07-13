@@ -258,7 +258,7 @@
                     <div class="box-f-3 ins-font-sm">{{item.name}}</div>
                     <div class="form-switch-note">投保</div>
                     <div class="input-switch">
-                        <input type="checkbox" class="switch" v-model="addonsSelected[index]" @change="chAddon"/>
+                        <input type="checkbox" class="switch" v-model="addonsSelected[index]" @change="chAddon(index)"/>
                         <label></label>
                     </div>
                 </div>
@@ -567,7 +567,7 @@
             //保障期间
             safeYearFilter: function (value) {
                 if (value > 50 && value !== '999' && value !== 999) {
-                    return '至' + value + '岁';
+                    return '至' + value + '周岁';
                 } else if (value < 50 && value > 0) {
                     return value + '年';
                 } else {
@@ -581,11 +581,8 @@
                 } else if (value < 60) {
                     return value + '年交';
                 } else {
-                    return '至' + value + '岁';
+                    return '至' + value + '周岁';
                 }
-            },
-            IntFilter: function (value) {
-                return parseInt(value)
             }
         },
         methods: {
@@ -862,7 +859,6 @@
                             vm.addonIns[index].money = 0
                             vm.addonIns[index].pay_year = 1
                             vm.addonIns[index].safe_year = 999
-                            vm.countFee()
                         }
                         var toast_text = null
                         var name = vm.Addons[index].name
@@ -888,15 +884,23 @@
                             vm.addonsSelected[index] = false
                             return false
                         }
+                        console.log(index)
+                        if (index === ylnj) {
+                            vm.addonsSelected[tbrhm] = false
+                        } else if (index === tbrhm) {
+                            vm.calMoney(index)
+                        }
                     } else {
+                        vm.addonIns[index].period_money = ''
                         if (index === ylnj) {
                             vm.addonIns[tbrhm].money = vm.insurance.period_money
-//                            vm.calMoney(tbrhm)
+                            vm.addonsSelected[tbrhm] = false
                         }
                         if (index === cjb) {
                             vm.insurance.shareDrawType = ''
                         }
                     }
+                    vm.countFee()
                     vm.$forceUpdate()
                 })
             },
@@ -1168,7 +1172,7 @@
                         return false
                     }
                     if (index && vm.addonIns[index]) {
-                        if (index === tbrhm && vm.addonsSelected[ylnj]) {
+                        if (index === tbrhm && vm.addonsSelected[ylnj] && vm.addonIns[ylnj].period_money) {
                             vm.addonIns[index].money = (Number(vm.insurance.period_money) + Number(vm.addonIns[ylnj].period_money)).toFixed(2)
                         }
                         console.log(JSON.stringify(vm.addonIns[index]))
@@ -1185,7 +1189,7 @@
                             basedata.insurant.occupationCode = vm.assured.insured_job_code
                         }
                         basedata.productInfo.push(product)
-                        if (index === tbrhm && vm.addonsSelected[ylnj]) {
+                        if (index === tbrhm && vm.addonsSelected[ylnj] && vm.addonIns[ylnj].period_money) {
                             basedata.productInfo.push({
                                 productId :vm.addonIns[ylnj].safe_id,
                                 pay :vm.addonIns[ylnj].pay_year,

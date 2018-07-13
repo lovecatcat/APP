@@ -121,6 +121,10 @@
                             <div class="mui-collapse-content">
                                 <div class="form-wrap margin-t_875">
                                     <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">是投保人的</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.rel_insured_holder_text}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
                                         <label class="flex-1 ins-font-sm BL-col-999">姓名</label>
                                         <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_name}}</div>
                                     </div>
@@ -202,8 +206,8 @@
                                 <div class="form-wrap margin-t_875" v-for="(item,index) in orderinfo.beneficList">
                                     <div class="ins-font-xs BL-pad-lr-1 BL-col-333" v-show="index>0">第{{index+1}}个受益人</div>
                                     <div class="flex-n BL-pad-a1">
-                                        <label class="flex-1 ins-font-sm BL-col-999">与被保人关系</label>
-                                        <div class="flex-2 ins-font-sm">{{item.beneficiary_is_insured}}</div>
+                                        <label class="flex-1 ins-font-sm BL-col-999">是被保人的</label>
+                                        <div class="flex-2 ins-font-sm">{{benerelname[item.beneficiary_is_insured]}}</div>
                                     </div>
                                     <div class="flex-n BL-pad-a1">
                                         <label class="flex-1 ins-font-sm BL-col-999">姓名</label>
@@ -269,11 +273,11 @@
                                     </div>
                                     <div class="flex-n BL-pad-a1">
                                         <label class="flex-1 ins-font-sm BL-col-999">交费期间</label>
-                                        <div class="flex-2 ins-font-sm">{{item.period_payment}}</div>
+                                        <div class="flex-2 ins-font-sm">{{item.period_payment | payYearFilter}}</div>
                                     </div>
                                     <div class="flex-n BL-pad-a1">
                                         <label class="flex-1 ins-font-sm BL-col-999">保障期间</label>
-                                        <div class="flex-2 ins-font-sm">{{item.period_guanantee==999?'终身':item.period_guanantee}}</div>
+                                        <div class="flex-2 ins-font-sm">{{item.period_guanantee | safeYearFilter}}</div>
                                     </div>
                                     <div class="flex-n BL-pad-a1">
                                         <label class="flex-1 ins-font-sm BL-col-999">保险金额(元)</label>
@@ -588,7 +592,7 @@
                     }
                     if (res.code) {
                         if (res.data.resultCode === '00') {
-//                            mui.toast('上传成功，承保中', {duration: 'short', type: 'div'})
+                            mui.toast('上传成功，承保中', {duration: 'short', type: 'div'})
                             ins_pay(id)
                         } else {
                             mui.toast(res.data && res.data.resultMsg ? res.data.resultMsg : '网络出错，请稍后再试', {duration: 'long', type: 'div'})
@@ -602,7 +606,7 @@
             });
         };
         //承保接口调完后
-        function afterPay(clear) {
+        function afterPay(clear, ispay) {
             if (clear) {
                 //清除本地缓存
                 for (var i = 0; i < itemName.length; i++) {
@@ -610,16 +614,28 @@
                 }
             }
             setTimeout(function () {
-                mui.openWindow({
-                    url: '../member-life-order.html',
-                    id: 'member_life_order',
-                    show: animateObj.aniDetal
-                })
-                setTimeout(function () {
-                    plus.webview.close('hd-insurance-sign');
-                    plus.webview.close('hd_insurance-index');
-                    mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
-                }, 500)
+                if (ispay) {
+                    mui.openWindow({
+                        url: '../member-warranty-manage.html',
+                        id: 'member_warranty_manage',
+                        show: animateObj.aniDetal
+                    })
+                    setTimeout(function () {
+                        plus.webview.close('hd-insurance-sign');
+                        plus.webview.close('hd_insurance-index');
+                    }, 500)
+                } else {
+                    mui.openWindow({
+                        url: '../member-life-order.html',
+                        id: 'member_life_order',
+                        show: animateObj.aniDetal
+                    })
+                    setTimeout(function () {
+                        plus.webview.close('hd-insurance-sign');
+                        plus.webview.close('hd_insurance-index');
+                        mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
+                    }, 500)
+                }
             }, 3000)
         }
         //承保
@@ -639,10 +655,10 @@
                     if (res.code) {
                         if (res.data.resultCode === '00') {
                             mui.toast('承保成功', {duration: 'long', type: 'div'});
-                            afterPay(true)
+                            afterPay(true,true)
                         } else if (res.data.resultCode === '02') {
                             mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
-                            afterPay(true)
+                            afterPay(true,false)
                         } else if (res.data.resultCode === '01') {
                             if (res.data.data && res.data.data.signed) {
                                 mui.openWindow({
@@ -752,6 +768,29 @@
                 },
                 previewImg: [], //上传图片
                 orderinfo: '' //保单详情
+            }
+        },
+        //过滤器
+        filters: {
+            //保障期间
+            safeYearFilter: function (value) {
+                if (value > 50 && value !== '999' && value !== 999) {
+                    return '至' + value + '周岁';
+                } else if (value < 50 && value > 0) {
+                    return value + '年';
+                } else {
+                    return '终身';
+                }
+            },
+            //交费期间
+            payYearFilter: function (value) {
+                if (value === 1) {
+                    return '趸交';
+                } else if (value < 60) {
+                    return value + '年交';
+                } else {
+                    return '至' + value + '周岁';
+                }
             }
         },
         methods: {

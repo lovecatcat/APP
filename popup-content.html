@@ -214,9 +214,9 @@
 						}else if(this.formID == 'member_plans_total' && this.goIns){
 							mui.openWindow({
 								url: 'member-register.html',
-								id: 'member_register',
-								show: animateObj.aniDetal
+								id: 'member_register'
 							})
+							return false;
 						}else if(this.formID == 'member_plans_alone'){
 							mui.fire(plus.webview.getWebviewById('member_plans_alone'), 'sure');
 						}else if(this.formID == 'prospect'){
@@ -331,6 +331,9 @@
 	        });
 	        
 	        plus.key.addEventListener("backbutton",function(){
+				popu.closepop();
+			});
+			window.addEventListener("closePop",function(){
 				popu.closepop();
 			});
 		});

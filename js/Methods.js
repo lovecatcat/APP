@@ -1784,7 +1784,7 @@ var methods = {
 						toastText = mainSafeYear +'周岁领取'+ mainPayYear + '年交被保人年龄不能大于60周岁'
 					} else if(mainPayYear === 5 && assuAge > 55) {
 						toastText = mainSafeYear +'周岁领取5年交被保人年龄不能大于55周岁'
-					} else if(10, 15].indexOf(mainPayYear)> -1 && assuAge > 50) {
+					} else if([10, 15].indexOf(mainPayYear)> -1 && assuAge > 50) {
 						toastText = mainSafeYear +'周岁领取'+ mainPayYear + '年交被保人年龄不能大于50周岁'
 					} else if(mainPayYear === 20 && assuAge > 45) {
 						toastText = mainSafeYear +'周岁领取20年交被保人年龄不能大于45周岁'
@@ -1794,9 +1794,9 @@ var methods = {
             	} else if (mainSafeYear === 88) {
             		if([1, 3].indexOf(mainPayYear)> -1 && assuAge > 60) {
 						toastText = mainSafeYear +'周岁领取'+ mainPayYear + '年交被保人年龄不能大于60周岁'
-					} else if(5, 10].indexOf(mainPayYear)> -1 && assuAge > 55) {
+					} else if([5, 10].indexOf(mainPayYear)> -1 && assuAge > 55) {
 						toastText = mainSafeYear +'周岁领取'+ mainPayYear + '年交被保人年龄不能大于55周岁'
-					} else if(15, 20].indexOf(mainPayYear)> -1 && assuAge > 50) {
+					} else if([15, 20].indexOf(mainPayYear)> -1 && assuAge > 50) {
 						toastText = mainSafeYear +'周岁领取'+ mainPayYear + '年交被保人年龄不能大于50周岁'
 					} else if(mainPayYear === 30 && assuAge > 40) {
 						toastText = mainSafeYear +'周岁领取30年交被保人年龄不能大于40周岁'

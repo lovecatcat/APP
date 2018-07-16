@@ -1836,25 +1836,28 @@
 						<!--招商仁和-->
 						<!--长城人寿-->
 						<!--附加康健人生提前给付重大疾病保险-->
-						<template v-if="item.code === '10522' && addonRes[item.code]">
+						<template v-if="(item.code === '10522' || item.code === '10523') && addonRes[item.code]">
 							<div class="mui-row form-bgc-eee BL-pad-a1">
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs">
-										保险金额(元)&nbsp;<span class="BL-col-ff8201">{{insurance.money}}</span>
-										<div class="am-ft-orange"></div>
+										保险金额(元)&nbsp;
+										<span class="BL-col-ff8201" v-if="item.code === '10522'">{{insurance.money}}</span>
+										<span class="BL-col-ff8201" v-else-if="item.code === '10523'">{{insurance.period_money * (mainPayYear - 1)}}</span>
 									</li>
 								</div>
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs">
-										保险期间(年)&nbsp;<span class="BL-col-ff8201">终身</span>
+										保险期间(年)&nbsp;<span class="BL-col-ff8201">{{mainSafeYear === 999 ? '终身' : mainSafeYear + '年'}}</span>
 									</li>
 								</div>
 								<div class="mui-col-sm-6">
 									<li class="ins-font-xs">
-										缴费年限(年)&nbsp;<span class="BL-col-ff8201">{{mainPayYear}}年</span>
+										缴费年限(年)&nbsp;
+										<span class="BL-col-ff8201" v-if="item.code === '10522'">{{mainPayYear}}年</span>
+										<span class="BL-col-ff8201" v-else-if="item.code === '10523'">{{mainPayYear-1}}年</span>
 									</li>
 								</div>
-								<div class="mui-col-sm-6">
+								<div class="mui-col-sm-6" v-if="item.code === '10522'">
 									<li class="ins-font-xs">
 										领取年龄(年)&nbsp;
 										<span class="BL-col-ff8201" v-if="flag['00108']== '1'">70周岁</span>
@@ -1870,6 +1873,84 @@
 							</div>
 						</template>
 						<!--附加康健人生提前给付重大疾病保险-->
+						<!--长城附加意外伤害保险-->
+						<template v-if="(item.code === '60609' || item.code === '60703' || item.code === '60602' || item.code === '10101') && addonsSelected[item.code]">
+							<div class="form-wrap form-bgc-eee">
+								<app-input label="保险金额" v-if="item.code === '60609'">
+									<input slot="input" v-model.number="cache.base_money60609" type="number" placeholder="请填写保险金额（元）" @change="flagChanged(item.code)">
+									<div slot="icon" @tap="cache.base_money60609 = '', flagChanged(item.code)" v-show="cache.base_money60609 != ''" class="form-clear-icon">
+										<span class="mui-icon mui-icon-clear"></span>
+									</div>
+								</app-input>
+								<app-input label="保险金额" v-else-if="item.code === '60703'">
+									<input slot="input" v-model.number="cache.base_money60703" type="number" placeholder="请填写保险金额（元）" @change="flagChanged(item.code)">
+									<div slot="icon" @tap="cache.base_money60703 = '', flagChanged(item.code)" v-show="cache.base_money60703 != ''" class="form-clear-icon">
+										<span class="mui-icon mui-icon-clear"></span>
+									</div>
+								</app-input>
+								<app-input label="保险金额" v-else-if="item.code === '60602'">
+									<input slot="input" v-model.number="cache.base_money60602" type="number" placeholder="请填写保险金额（元）" @change="flagChanged(item.code)">
+									<div slot="icon" @tap="cache.base_money60602 = '', flagChanged(item.code)" v-show="cache.base_money60602 != ''" class="form-clear-icon">
+										<span class="mui-icon mui-icon-clear"></span>
+									</div>
+								</app-input>
+								<app-input label="保险金额" v-else-if="item.code === '10101'">
+									<button slot="button" class="ins-btn xs-btn blue" disabled>
+						             	{{insurance.money}}
+						        	</button>
+								</app-input>
+								<app-select label="职业分类" v-if="item.code === '60609' || item.code === '60602'">
+									<button slot="button" v-for="num in 6" class="ins-btn xs-btn" :class="{'blue': num == flag[item.code]}" :disabled="num == flag[item.code]" @tap="flagChanged(item.code, num)">
+										{{num}}类
+									</button>
+								</app-select>
+								<app-select label="领取年龄(年)" v-if="item.code === '10101' && mainSafeYear === 999">
+									<button slot="button" v-for="num in ['55','66', '77', '88']"
+										 class="ins-btn xs-btn" :class="{'blue': num == flag[item.code]}"
+										 :disabled="num == flag[item.code]" @tap="flagChanged(item.code, num)"
+										 >
+						             	{{num}}周岁
+						        	</button>
+
+								</app-select>
+								<app-select label="领取年龄(年)" v-else-if="item.code === '10101' && mainSafeYear !== 999">
+									<button slot="button" class="ins-btn xs-btn blue" disabled>
+						             	{{mainSafeYear}}周岁
+						        	</button>
+								</app-select>
+								<app-select label="缴费年限(年)">
+									<button slot="button" class="ins-btn xs-btn blue" v-if="item.code === '10101'">
+										{{mainPayYear}}年
+									</button>
+									<button slot="button" class="ins-btn xs-btn blue" v-else>
+										1年
+									</button>
+								</app-select>
+								<app-select label="保险期间(年)">
+									<button slot="button" class="ins-btn xs-btn blue" v-if="item.code === '10101'">
+										{{mainSafeYear === 999 ? '终身' : '至'+mainSafeYear+'周岁'}}
+									</button>
+									<button slot="button" class="ins-btn xs-btn blue" v-else>
+										1年
+									</button>
+								</app-select>
+
+								<div class="input-item">
+									<label class="">年缴保费(元)</label>
+									<div class="BL-ub BL-ub-pj BL-ub-f1">
+										<div class="input-wrap BL-ub-f1">
+											<div class="input BL-bg-fff">
+												<span v-if="addonRes[item.code]">
+							{{addonRes[item.code]['年缴保费']}}
+						</span>&nbsp;
+											</div>
+										</div>
+										<div class="right-btn orange" @tap="calMoney(false, item.code)">点击计算</div>
+									</div>
+								</div>
+							</div>
+						</template>
+						<!--长城附加意外伤害保险-->
 						<!--长城人寿-->
 					</div>
 				</template>
@@ -1895,7 +1976,7 @@
 		const noNeedCal = ['291', '11', '349'] // 不需要计算的险种
 		const directNeedCal = ['RH7B', 'WPJP', 'HB024', 'RSD', '1161', '1168V1', '1165V1',
 		'116502V1', '116503V1', '404', 'JCR', 'HI', 'ACIWP', 'NWPD', '33F00030', 'JER',
-		'120012','120011', 'LA073', 'WRGP', '1002', '1011', '1012', '10522'] // 直接 计算的险种
+		'120012','120011', 'LA073', 'WRGP', '1002', '1011', '1012', '10522', '10523'] // 直接 计算的险种
 		var user_id;
 		var pushData;
 		var parent_self;
@@ -1956,6 +2037,10 @@
 					base_money1003: '',
 					base_money1015: '',
 					base_money1017: '',
+					base_money60609: '',
+					base_money60703: '',
+					base_money60602: '',
+					base_money10101: '',
 				},
 				mainPayYear: '',
 				mainSafeYear: '',

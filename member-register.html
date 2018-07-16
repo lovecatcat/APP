@@ -298,6 +298,7 @@
         var winH = window.innerHeight;
         var titHeight = document.querySelector('#Js-header').offsetHeight;
         document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+		mui.fire(plus.webview.getWebviewById('popup_content'), 'closePop');
 
         Vue.component('sign', {
             template: '#sign',

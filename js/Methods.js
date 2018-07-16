@@ -312,7 +312,13 @@ var methods = {
 			case 'IA40': // 泰康乐安心
 				if(assuAge > 60) {
 					toastText = '被保人年龄不能大于60周岁'
-				} else if(payOverage > 70) {
+				} else if(mainPayYear === 10 && assuAge > 55) {
+                    toastText = '10年交时被保人为年龄不能大于55周岁'
+                } else if(mainPayYear === 15 && assuAge > 50) {
+                    toastText = '15年交被保人为年龄不能大于50周岁'
+                } else if(mainPayYear === 20 && assuAge > 50) {
+                    toastText = '20年交被保人为年龄不能大于50周岁'
+                } else if(payOverage > 70) {
 					toastText = '缴费期满年龄不能大于70周岁'
 				}
 				break
@@ -666,6 +672,35 @@ var methods = {
 					toastText = '10年缴被保人年龄应在不能大于50周岁'
 				}
 				break
+			case '00520': //长城吉康人生重大疾病保险
+				if(mainPayYear === 1 && assuAge > 60) {
+					toastText = '趸交被保人年龄不能大于60周岁'
+				} else if(mainPayYear === 3 && assuAge > 60) {
+					toastText = '3年交被保人年龄不能大于60周岁'
+				} else if(mainPayYear === 5 && assuAge > 55) {
+					toastText = '5年交被保人年龄不能大于55周岁'
+				} else if(mainPayYear === 10 && assuAge > 50 && (mainSafeYear === 70 || mainSafeYear === 80)) {
+					toastText = '保至'+ mainSafeYear +'周岁10年交被保人年龄不能大于50周岁'
+				} else if(mainPayYear === 10 && assuAge > 55 && mainSafeYear === 88) {
+					toastText = '保至88周岁10年交被保人年龄不能大于55周岁'
+				} else if(mainPayYear === 10 && assuAge > 55 && mainSafeYear === 999) {
+					toastText = '保至终身10年交被保人年龄不能大于55周岁'
+				} else if(mainPayYear === 15 && assuAge > 50) {
+					toastText = '15年交被保人年龄不能大于50周岁'
+				} else if(mainPayYear === 20 && assuAge > 45 && (mainSafeYear === 70 || mainSafeYear === 80)) {
+					toastText = '保至'+ mainSafeYear +'周岁20年交被保人年龄不能大于45周岁'
+				} else if(mainPayYear === 20 && assuAge > 50 && mainSafeYear === 88) {
+					toastText = '保至88周岁20年交被保人年龄不能大于50周岁'
+				} else if(mainPayYear === 20 && assuAge > 50 && mainSafeYear === 999) {
+					toastText = '保至终身20年交被保人年龄不能大于50周岁'
+				} else if(mainPayYear === 30 && assuAge > 35 && (mainSafeYear === 70 || mainSafeYear === 80)) {
+					toastText = '保至'+ mainSafeYear +'周岁30年交被保人年龄不能大于35周岁'
+				} else if(mainPayYear === 30 && assuAge > 40 && mainSafeYear === 88) {
+					toastText = '保至88周岁30年交被保人年龄不能大于40周岁'
+				} else if(mainPayYear === 30 && assuAge > 40 && mainSafeYear === 999) {
+					toastText = '保至终身30年交被保人年龄不能大于40周岁'
+				} 
+				break	
 		}
 
 		if(toastText) {
@@ -919,6 +954,13 @@ var methods = {
 					toastText = '最低年缴保费为3千元'
 				} else if(periodMoney % 1000 !== 0) {
 					toastText = '保费需为1千元整数倍'
+				}
+				break
+			case '00520': //长城吉康人生重大疾病保险
+				if(money < 10000) {
+					toastText = '最低基本保额为1万元'
+				} else if(money % 10000 !== 0) {
+					toastText = '保额需为1万元整数倍'
 				}
 				break
 
@@ -1237,6 +1279,7 @@ var methods = {
 						break
 					case '1011': // 招商仁和附加投保人豁免保险费定期寿险
 					case '1011': // 招商仁和附加豁免保险费重大疾病保险
+					case '10523': // 长城附加投保人豁免保险费重大疾病保险
 						if(this.samePerson) {
 							toastText = '投被保人为同人时不可附加该险种'
 						} else if(this.mainPayYear === 1) {
@@ -1266,6 +1309,13 @@ var methods = {
 						this.$delete(this.planList, 'HB024')
 						this.$forceUpdate()
 						break
+					//长城	
+					case '60609': //长城附加意外伤害保险
+		            case '60602': //长城附加意外伤害医疗保险
+		            	if(this.assu.age > 60 || this.assu.age < 18) {
+							toastText = '被保人年龄在18到60周岁之间'
+						}
+						break		
 
 				}
 
@@ -1447,6 +1497,7 @@ var methods = {
 		var payOverage = Number(this.insurance.pay_year) - 1 + applAge // 期满年龄\
 		var assuOverage = Number(this.insurance.pay_year) - 1 + assuAge // 被保人期满年龄\
 		var name = this.Addons[safeid].name
+		var flag = Number(this.flag[safeid])
 		var toastText = null
 
 		switch(safeid) {
@@ -1685,11 +1736,87 @@ var methods = {
 			case '1015': // 附加意外门急诊医疗保险
 			case '1017': // 附加住院每日补贴医疗保险
 			case '1018': // 招商仁和仁医保费用补偿医疗保险
+            case '60703': //长城附加住院医疗保险
 				if(assuAge > 60) {
 					toastText = '被保人年龄不能大于60周岁'
 				}
 				break
-
+            //长城
+            case '10523': // 长城附加投保人豁免保险费重大疾病保险
+				if(mainPayYear === 3 && applAge > 60) {
+					toastText = '3年交投保人年龄不能大于60周岁'
+				} else if(mainPayYear === 5 && applAge > 60) {
+					toastText = '5年交投保人年龄不能大于60周岁'
+				} else if(mainPayYear === 10 && applAge > 60) {
+					toastText = '10年交投保人年龄不能大于60周岁'
+				} else if(mainPayYear === 15 && applAge > 55) {
+					toastText = '15年交投保人年龄不能大于55周岁'
+				} else if(mainPayYear === 20 && applAge > 50) {
+					toastText = '20年交投保人年龄不能大于50周岁'
+				}else if(mainPayYear === 30) {
+					toastText = '30年交不可附加'
+				}
+				break
+            case '10101': // 长城附加吉康人生两全保险投保
+            	if(flag === 55 && mainSafeYear === 999) {
+            		if([1, 3, 5].indexOf(mainPayYear)> -1 && assuAge > 30) {
+						toastText = '55周岁领取'+ mainPayYear + '年交被保人年龄不能大于30周岁'
+					} else if(mainPayYear === 10 && assuAge > 25) {
+						toastText = '55周岁领取10年交被保人年龄不能大于25周岁'
+					} else if(mainPayYear === 15 && assuAge > 25) {
+						toastText = '55周岁领取15年交被保人年龄不能大于25周岁'
+					} else if(mainPayYear === 20 && assuAge > 20) {
+						toastText = '55周岁领取20年交被保人年龄不能大于20周岁'
+					} else if(mainPayYear === 30 && assuAge > 15) {
+						toastText = '55周岁领取30年交被保人年龄不能大于15周岁'
+					}
+            	} else if(flag === 66 && mainSafeYear === 999) {
+            		if(mainPayYear === 1 && assuAge > 45) {
+						toastText = '66周岁领取1年交被保人年龄不能大于45周岁'
+					} else if([3, 5, 10].indexOf(mainPayYear)> -1 && assuAge > 40) {
+						toastText = '66周岁领取'+ mainPayYear + '年交被保人年龄不能大于40周岁'
+					} else if(mainPayYear === 15 && assuAge > 35) {
+						toastText = '66周岁领取15年交被保人年龄不能大于35周岁'
+					} else if(mainPayYear === 20 && assuAge > 35) {
+						toastText = '66周岁领取20年交被保人年龄不能大于35周岁'
+					} else if(mainPayYear === 30 && assuAge > 30) {
+						toastText = '66周岁领取30年交被保人年龄不能大于30周岁'
+					}
+            	} else if((flag === 77 || flag === 88 ) && mainSafeYear === 999) {
+            		if([1, 3].indexOf(mainPayYear)> -1 && assuAge > 60) {
+						toastText = '77周岁领取'+ mainPayYear + '年交被保人年龄不能大于60周岁'
+					} else if([5, 10].indexOf(mainPayYear)> -1 && assuAge > 55) {
+						toastText = '77周岁领取'+ mainPayYear + '年交被保人年龄不能大于55周岁'
+					} else if([15, 20].indexOf(mainPayYear)> -1 && assuAge > 50) {
+						toastText = '77周岁领取'+ mainPayYear + '年交被保人年龄不能大于50周岁'
+					} else if(mainPayYear === 30 && assuAge > 40) {
+						toastText = '77周岁领取30年交被保人年龄不能大于40周岁'
+					}
+            	}else if (mainSafeYear === 70 || mainSafeYear === 80) {
+            		if([1, 3].indexOf(mainPayYear)> -1 && assuAge > 60) {
+						toastText = mainSafeYear +'周岁领取'+ mainPayYear + '年交被保人年龄不能大于60周岁'
+					} else if(mainPayYear === 5 && assuAge > 55) {
+						toastText = mainSafeYear +'周岁领取5年交被保人年龄不能大于55周岁'
+					} else if([10, 15].indexOf(mainPayYear)> -1 && assuAge > 50) {
+						toastText = mainSafeYear +'周岁领取'+ mainPayYear + '年交被保人年龄不能大于50周岁'
+					} else if(mainPayYear === 20 && assuAge > 45) {
+						toastText = mainSafeYear +'周岁领取20年交被保人年龄不能大于45周岁'
+					} else if(mainPayYear === 30 && assuAge > 35) {
+						toastText = mainSafeYear +'周岁领取30年交被保人年龄不能大于35周岁'
+					}
+            	} else if (mainSafeYear === 88) {
+            		if([1, 3].indexOf(mainPayYear)> -1 && assuAge > 60) {
+						toastText = mainSafeYear +'周岁领取'+ mainPayYear + '年交被保人年龄不能大于60周岁'
+					} else if([5, 10].indexOf(mainPayYear)> -1 && assuAge > 55) {
+						toastText = mainSafeYear +'周岁领取'+ mainPayYear + '年交被保人年龄不能大于55周岁'
+					} else if([15, 20].indexOf(mainPayYear)> -1 && assuAge > 50) {
+						toastText = mainSafeYear +'周岁领取'+ mainPayYear + '年交被保人年龄不能大于50周岁'
+					} else if(mainPayYear === 30 && assuAge > 40) {
+						toastText = mainSafeYear +'周岁领取30年交被保人年龄不能大于40周岁'
+					}
+            	}
+				
+				break
 		}
 
 		if(toastText) {
@@ -2087,6 +2214,46 @@ var methods = {
 					toastText = '请先选择有无社保'
 				}
 				break
+			case '60609': // 长城附加意外伤害保险
+				if(!this.cache.base_money60609) {
+					toastText = '请先输入保险金额'
+				} else if(this.cache.base_money60609 <10000) {
+					toastText = '最低基本保额为1万元'
+				} else if(this.cache.base_money60609 % 1000 !== 0) {
+                    toastText = '保额以 1000 元为单位递增'
+                } else if(!flag) {
+                    toastText = '请先选择职业分类'
+                }
+                break
+			case '60602': // 长城附加意外伤害医疗保险
+				if(!this.cache.base_money60602) {
+					toastText = '请先输入保险金额'
+				} else if(this.cache.base_money60602 < 5000) {
+					toastText = '最低基本保额为5千元'
+				}  else if(this.cache.base_money60602 > 200000) {
+					toastText = '最高基本保额为20万元'
+				}else if(this.cache.base_money60602 % 1000 !== 0) {
+                    toastText = '保额以 1000 元为单位递增'
+                } else if(!flag) {
+                    toastText = '请先选择职业分类'
+                }
+                break
+			case '60703': // 长城附加住院医疗保险
+				if(!this.cache.base_money60703) {
+					toastText = '请先输入保险金额'
+				} else if(this.cache.base_money60703 < 5000) {
+					toastText = '最低基本保额为5千元'
+				}  else if(this.cache.base_money60703 > 50000) {
+					toastText = '最高基本保额为5万元'
+				} else if(this.cache.base_money60703 % 1000 !== 0) {
+                    toastText = '保额以 1000 元为单位递增'
+                }
+                break
+			case '10101': // 长城附加吉康两全保险
+				if(!flag && mainSafeYear === 999) {
+                    toastText = '请先选择领取年龄'
+                }
+                break
 
 		}
 		if(toastText) {
@@ -2645,7 +2812,52 @@ var methods = {
 			data.year_fee = this.insurance.period_money
 			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear + '00'
 			data.zsj = 0
-		}
+		} else if(safeid === '60609') { //长城附加意外伤害保险
+            data.assu_sex = 0
+            data.pay_year = 1
+            data.safe_year = 1
+            data.flag = this.flag[safeid]
+            data.base_money = this.cache.base_money60609
+        } else if(safeid === '60602') { //长城附加意外伤害医疗保险
+            data.assu_sex = 0
+            data.pay_year = 1
+            data.safe_year = 1
+            data.flag = this.flag[safeid]
+            data.base_money = this.cache.base_money60602
+        } else if(safeid === '60703') { //长城附加住院医疗保险
+            data.assu_sex = 0
+            data.pay_year = 1
+            data.safe_year = 1
+            data.base_money = this.cache.base_money60703
+        } else if(safeid === '10523') { //长城附加投保人豁免保险费重大疾病保险
+           	data.pay_year = py
+			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear + '00'
+			data.base_money = periodMoney * py
+        } else if (safeid === '00520') {
+			//长城吉康人生重大疾病保险
+			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear + '00'
+		} else if (safeid === '10101') {
+			//长城附加吉康人生两全保险
+			data.pay_year = this.mainPayYear
+			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear + '00'
+			data.base_money = money
+			data.tbnj = periodMoney
+			if(this.mainSafeYear === 999 && this.flag[safeid] == '55'){
+				data.flag = 4
+			}else if(this.mainSafeYear === 999 && this.flag[safeid] == '66'){
+				data.flag = 5
+			}else if(this.mainSafeYear === 999 && this.flag[safeid] == '77'){
+				data.flag = 6
+			}else if(this.mainSafeYear === 999 && this.flag[safeid] == '88'){
+				data.flag = 7
+			}else if(this.mainSafeYear === 70){
+				data.flag = 1
+			}else if(this.mainSafeYear === 80){
+				data.flag = 2
+			}else if(this.mainSafeYear === 88){
+				data.flag = 3
+			}
+		} 
 
 		if(isMain) {
 			this.mainInsData = data

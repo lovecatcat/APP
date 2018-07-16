@@ -538,6 +538,28 @@
 							children_pay_year = pay_year; 
 							children_year_fee = list["年缴保费"];
 							break;
+						case '1192':
+							//长城附加投保人豁免保险费重大疾病保险投保
+							children_base_money = year_fee * (pay_year - 1);
+							children_safe_year = content.safe_year == 0 ? '终身' : '至'+String(content.safe_year).substring(0,2)+'周岁';
+							children_pay_year = pay_year - 1; 
+							children_year_fee = list["年缴保费"];
+							break;
+						case '1146':
+						case '1111':
+						case '1134':
+							children_base_money = list["保险金额"];
+							children_safe_year = "1年";
+							children_pay_year = "趸交"; 
+							children_year_fee = list["年缴保费"];
+							break;
+						case '16229': //长城附加吉康人生两全保险
+							children_base_money = content.base_money;
+							children_safe_year = content.safe_year == 0 ? '终身' : '至'+String(content.safe_year).substring(0,2)+'周岁';
+							children_pay_year = pay_year; 
+							children_year_fee = list["年缴保费"];
+							break;
+							
 					}
 
 					if(zs.indexOf(Number(index)) > -1) {

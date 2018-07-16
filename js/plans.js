@@ -20,7 +20,7 @@ var aloneDetail = new Vue({
 		al: [309],
 		fx: [335, 336, 337, 16220, 16221],
 		zs: [16211, 16113, 16213, 16139],
-		cc: [311, 16224],
+		cc: [311, 16224, 16228],
 		behalfTable: [256, 347, 354, 370, 16197, 16201, 272, 340, 16217, 16221, 311], //主险利益演示表和附加险有关系的
 		haveDesign: [348, 370, 347, 16197, 16217],
 		haveDesign16197: false,
@@ -33,15 +33,15 @@ var aloneDetail = new Vue({
 		sub_treasury_id: '',
 		green_server: false, //是不是有绿通服务
 	},
-	computed: {  
-        total: function () {  
-           var total = 0;
-            for(var i in this.children){
-            	total += Number(this.children[i].year_fee)
-            }
-            total = total + Number(this.main.year_fee)
-           return total.toFixed(2)
-        }  
+	computed: {
+		total: function() {
+			var total = 0;
+			for(var i in this.children) {
+				total += Number(this.children[i].year_fee)
+			}
+			total = total + Number(this.main.year_fee)
+			return total.toFixed(2)
+		}
 	},
 	methods: {
 		detail: function(id, name) {
@@ -55,7 +55,7 @@ var aloneDetail = new Vue({
 
 		},
 		company: function(genre) {
-//			公司简介
+			//			公司简介
 			mui.openWindow({
 				id: 'product_company',
 				url: 'product-company.html',
@@ -69,7 +69,7 @@ var aloneDetail = new Vue({
 
 		},
 		company_green: function(genre) {
-//			绿通
+			//			绿通
 			mui.openWindow({
 				id: 'product_company',
 				url: 'product-company.html',
@@ -83,7 +83,7 @@ var aloneDetail = new Vue({
 
 		},
 		clause: function(id) {
-//			条款
+			//			条款
 			var data = {
 				modalID: 'modal-list',
 				formID: "member_plans_alone",
@@ -185,20 +185,20 @@ var aloneDetail = new Vue({
 (function($) {
 	$.plusReady(function() {
 		var winH = window.innerHeight;
-		if(winH == 0){
+		if(winH == 0) {
 			winH = localStorage.getItem('winH')
 		}
-		
+
 		var fotHeight = document.querySelector('#Js-footer').offsetHeight;
 		document.querySelector('#Js-plansDetail').style.height = fotHeight + 'px';
-//		document.querySelector('#Js-alone').style.height = winH + 'px';
+		//		document.querySelector('#Js-alone').style.height = winH + 'px';
 		user_id = JSON.parse(plus.storage.getItem("userinfo")).id
 		login_mk = JSON.parse(plus.storage.getItem("userinfo")).login_mk
 		var parent_self = plus.webview.getWebviewById('member_plans_detail') //父级id
 		//接收单个计划书数据alone
 		plus.nativeUI.showWaiting();
 		mui.fire(parent_self, 'alones');
-		
+
 		window.addEventListener('alone', function(event) {
 			var data = event.detail.data
 			aloneDetail.list = data
@@ -231,7 +231,7 @@ var aloneDetail = new Vue({
 					}
 				});
 			}
-			
+
 			//通过总库id获取分库id
 			luckyAjax({
 				data: {
@@ -241,13 +241,13 @@ var aloneDetail = new Vue({
 					data: JSON.stringify({
 						code: '',
 						id: aloneDetail.list.genre
-						
+
 					})
 				},
 				success: function(res) {
 					if(res.code == 1) {
 						aloneDetail.sub_treasury_id = res.data.child_id
-//						alert(res.data.child_id)
+						//						alert(res.data.child_id)
 					} else {
 						mui.toast('加载失败')
 					}
@@ -265,10 +265,10 @@ var aloneDetail = new Vue({
 				success: function(res) {
 					plus.nativeUI.closeWaiting();
 					if(res.code == 1) {
-//						alert(JSON.stringify(res.data))
+						//						alert(JSON.stringify(res.data))
 						aloneDetail.imageDescribe = res.data['LBG0009'].describe || res.data['LBG0002'].describe
-						aloneDetail.green_server =  res.data.green_server.describe
-						
+						aloneDetail.green_server = res.data.green_server.describe
+
 					} else {
 						mui.toast('加载失败')
 					}
@@ -276,7 +276,6 @@ var aloneDetail = new Vue({
 			});
 		});
 
-		
 		window.addEventListener('design', function(event) {
 			var data = event.detail.data
 			aloneDetail.manual_content[aloneDetail.pl_id][aloneDetail.levelNum[aloneDetail.pl_id]] = aloneDetail.manual_content[aloneDetail.pl_id][aloneDetail.levelNum[aloneDetail.pl_id]] ? aloneDetail.manual_content[aloneDetail.pl_id][aloneDetail.levelNum[aloneDetail.pl_id]] : []
@@ -286,31 +285,26 @@ var aloneDetail = new Vue({
 
 		//在线投保按钮
 		document.querySelector('#goIns').addEventListener('tap', function() {
-					if(login_mk == -2) {
-						var data = {
-							modalID: 'modal-register',
-							formID: 'member_plans_total',
-							goIns: true
-						}
-						//打开弹框
-						showPopu("popup-content.html", "popup_content", 'center', data);
-						return false;
-					}else if (login_mk == -1) {
-						mui.toast('账号审核中，请联系管理员')
-						return false;
-					}else{
-						//打开弹框
-						mui.fire(parent_self, 'show', {
-							formID: 'member_plans_total',
-							goIns_data: plansTotal.goIns_data
-						});
-					}
-			//打开弹框
-			mui.fire(parent_self, 'show', {
-				formID: 'member_plans_alone',
-				goIns_data: aloneDetail.goIns_data
-			});
+			if(login_mk == -2) {
+				var data = {
+					modalID: 'modal-register',
+					formID: 'member_plans_total',
+					goIns: true
+				}
+				//打开弹框
+				showPopu("popup-content.html", "popup_content", 'center', data);
+				return false;
+			} else if(login_mk == -1) {
+				mui.toast('账号审核中，请联系管理员')
+				return false;
+			} else {
+				//打开弹框
+				mui.fire(parent_self, 'show', {
+					formID: 'member_plans_total',
+					goIns_data: plansTotal.goIns_data
+				});
+			}
 		});
-		
+
 	})
 }(mui));

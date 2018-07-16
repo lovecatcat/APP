@@ -29,11 +29,11 @@ var methods = {
 	payYearFilter: function(value) {
 		var mainSafeYear = this.insurance.safe_year
 		if(this.insurance.safe_id === 'NAF') {
-			if(mainSafeYear === 10 && ['10', '15', '20'].indexOf(value) > -1) {
+			if(mainSafeYear === 10 && [10, 15, 20].indexOf(value) > -1) {
 				return false
-			} else if(mainSafeYear === 15 && ['15', '20'].indexOf(value) > -1) {
+			} else if(mainSafeYear === 15 && [15, 20].indexOf(value) > -1) {
 				return false
-			} else if(mainSafeYear === 20 && ['20'].indexOf(value) > -1) {
+			} else if(mainSafeYear === 20 && [20].indexOf(value) > -1) {
 				return false
 			} else {
 				return true

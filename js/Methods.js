@@ -312,7 +312,13 @@ var methods = {
 			case 'IA40': // 泰康乐安心
 				if(assuAge > 60) {
 					toastText = '被保人年龄不能大于60周岁'
-				} else if(payOverage > 70) {
+				} else if(mainPayYear === 10 && assuAge > 55) {
+                    toastText = '10年交时被保人为年龄不能大于55周岁'
+                } else if(mainPayYear === 15 && assuAge > 50) {
+                    toastText = '15年交被保人为年龄不能大于50周岁'
+                } else if(mainPayYear === 20 && assuAge > 50) {
+                    toastText = '20年交被保人为年龄不能大于50周岁'
+                } else if(payOverage > 70) {
 					toastText = '缴费期满年龄不能大于70周岁'
 				}
 				break

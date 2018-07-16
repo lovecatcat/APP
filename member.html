@@ -49,7 +49,15 @@
 				<!--<a class="mui-icon mui-icon-arrowright"></a>-->
 			</div>
 			<div class="BL-ub BL-ub-ac BL-ub-f1">
-				<a href="member-auto-order.html" data-wid="member_auto_order" class="BL-ub BL-ub-ac BL-ub-pc BL-ub-f1 myList-item">
+				<a @tap="toastMsg(1)" class="BL-ub BL-ub-ac BL-ub-pc BL-ub-f1 myList-item" v-if="userinfo.login_mk==-1||userinfo.login_mk==-2">
+					<div class="item item-car">
+						<div class="icon"></div>
+						<div class="name">
+							车险订单
+						</div>
+					</div>
+				</a>
+				<a href="member-auto-order.html" data-wid="member_auto_order" class="BL-ub BL-ub-ac BL-ub-pc BL-ub-f1 myList-item" v-else>
 					<div class="item item-car">
 						<div class="icon"></div>
 						<div class="name">

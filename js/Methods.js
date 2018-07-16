@@ -1303,6 +1303,13 @@ var methods = {
 						this.$delete(this.planList, 'HB024')
 						this.$forceUpdate()
 						break
+					//长城	
+					case '60609': //长城附加意外伤害保险
+		            case '60602': //长城附加意外伤害医疗保险
+		            	if(this.assu.age > 60 || this.assu.age < 18) {
+							toastText = '被保人年龄在18到60周岁之间'
+						}
+						break		
 
 				}
 
@@ -1723,8 +1730,6 @@ var methods = {
 			case '1015': // 附加意外门急诊医疗保险
 			case '1017': // 附加住院每日补贴医疗保险
 			case '1018': // 招商仁和仁医保费用补偿医疗保险
-            case '60609': //长城附加意外伤害保险
-            case '60602': //长城附加意外伤害医疗保险
             case '60703': //长城附加住院医疗保险
 				if(assuAge > 60) {
 					toastText = '被保人年龄不能大于60周岁'
@@ -1742,6 +1747,8 @@ var methods = {
 					toastText = '15年交投保人年龄不能大于55周岁'
 				} else if(mainPayYear === 20 && applAge > 50) {
 					toastText = '20年交投保人年龄不能大于50周岁'
+				}else if(mainPayYear === 30) {
+					toastText = '30年交不可附加'
 				}
 				break
             case '10101': // 长城附加吉康人生两全保险投保
@@ -2234,6 +2241,11 @@ var methods = {
 					toastText = '最高基本保额为5万元'
 				} else if(this.cache.base_money60703 % 1000 !== 0) {
                     toastText = '保额以 1000 元为单位递增'
+                }
+                break
+			case '10101': // 长城附加吉康两全保险
+				if(!flag && mainSafeYear === 999) {
+                    toastText = '请先选择领取年龄'
                 }
                 break
 
@@ -2813,7 +2825,7 @@ var methods = {
             data.base_money = this.cache.base_money60703
         } else if(safeid === '10523') { //长城附加投保人豁免保险费重大疾病保险
            	data.pay_year = py
-			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear
+			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear + '00'
 			data.base_money = periodMoney * py
         } else if (safeid === '00520') {
 			//长城吉康人生重大疾病保险

@@ -300,8 +300,8 @@ var aloneDetail = new Vue({
 			} else {
 				//打开弹框
 				mui.fire(parent_self, 'show', {
-					formID: 'member_plans_total',
-					goIns_data: plansTotal.goIns_data
+					formID: 'member_plans_alone',
+					goIns_data: aloneDetail.goIns_data
 				});
 			}
 		});

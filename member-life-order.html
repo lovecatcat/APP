@@ -360,7 +360,9 @@
                         });
                     }
                 } else {
-                    order.listdata = []
+                	if(e){
+                		order.listdata = []
+                	}
                     self.endPullUpToRefresh(true)
                 }
             }

@@ -45,7 +45,7 @@
 
 		mui.plusReady(function() {
 			var nums = 0;
-            var userinfo = plus.storage.getItem('userinfo');
+            var userinfo = plus.storage.getItem('userinfo') ? JSON.parse(plus.storage.getItem('userinfo')) : '';
             var locationd = null, type=0;
             
             //读取本地存储，检查是否为首次启动
@@ -134,12 +134,12 @@
             })
             
             
-            window.addEventListener('isStopTunnel', function(data){
+            /*window.addEventListener('isStopTunnel', function(data){
                 if(Tunnel._webSocket && data.flag){
                     Tunnel._isStop = false;
                     Tunnel._webSocket.close();
                 };
-            }, false);
+            }, false);*/
  
 		    plus.geolocation.watchPosition(function(p){
 		    	locationd = p;	
@@ -150,7 +150,7 @@
 				enableHighAccuracy: true,
 			})
 		     
-		    Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
+		    /*Tunnel.Create(JSON.parse(userinfo).id, plus.device.uuid, function (event) {
 			        //console.log('Message:' + Tunnel._webSocket.readyState);
 			        console.log(event.data);
 			        //如果获取到消息，心跳检测重置
@@ -199,7 +199,7 @@
 					if(_tips != ''){
 						mui.alert(_tips, '温馨提示', '确定');
 					}
-		    });
+		    });*/
 		    
             
             // 运行环境切换到后台，开始倒数20分钟，重启应用
@@ -218,7 +218,29 @@
 	            	}, 20*60000)	
             	}
             }, false);*/
-            
+
+            updateUserinfo()
+            // 运行环境切换到前台
+            document.addEventListener("resume", function () {
+                updateUserinfo()
+            }, false);
+
+            function updateUserinfo() {
+                luckyAjax({
+                    data: {
+                        data: JSON.stringify({user_id: userinfo.id}),
+                        server: 'user.getUserInfo',
+                        device: 'mobile'
+                    },
+                    timeout: 30000,
+                    success: function (res) {
+                        if (res.code) {
+                            console.log(JSON.stringify(res.data.data))
+                            plus.storage.setItem('userinfo', JSON.stringify(res.data.data));
+                        }
+                    }
+                })
+            }
 			/**
 			 * 当前窗口对象，即父窗口；
 			 */

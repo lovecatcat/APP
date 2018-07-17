@@ -1,0 +1,482 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="../css/mui.css" rel="stylesheet"/>
+    <link href="../css/common.css" rel="stylesheet"/>
+    <link href="../css/module.css" rel="stylesheet"/>
+    <link href="../css/insurance.css" rel="stylesheet"/>
+    <script src="../js/config.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css"/>
+</head>
+
+<body>
+
+<div id="Js-content" class="mui-content BL-rel">
+    <!--弹窗 begin-->
+    <div class="ins-dialog lg">
+        <div class="dialog-header">
+            <div class="mui-icon mui-icon-closeempty" id="close-ins-pop"></div>
+            <p class="ins-font-md box-f-1">被保人信息</p>
+            <div class="header-btn-save">
+                <button class="ins-btn sm-btn blue" id="saveAssu">保存</button>
+            </div>
+        </div>
+        <div class="form-content margin-t-6_125 BL-pad-b-2" v-cloak>
+            <div class="form-wrap" v-if="init&&init.is_assured">
+                <div class="input-item ins-pd-r-0">
+                    <label class="">是投保人的</label>
+                    <div class="input-wrap box-f-1 multi-btn">
+                        <button class="ins-btn xs-btn" :class="{'blue':item.value===assured.rel_insured_holder}" :disabled="item.value===assured.rel_insured_holder"
+                                v-for="(item,index) in init.is_assured" @click="assured.rel_insured_holder=item.value">
+                            {{item.text}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div v-show="!(assured.rel_insured_holder===ISASSURED)">
+                <div class="form-wrap margin-t_875" v-if="init&&init.tax_type">
+                    <div class="border-b-e7e7e7">
+                        <div class="item-title">被保人声明</div>
+                    </div>
+                    <form class="mui-input-group BL-pad-b-1">
+                        <div class="mui-input-row mui-radio mui-left ins-radio-left"
+                             v-for="(item,index) in init.tax_type">
+                            <label class="ins-font-sm">{{item.text}}</label>
+                            <input name="radio" type="radio" :value="item.value"
+                                   v-model="assured.insured_isTaxResidents">
+                        </div>
+                    </form>
+                </div>
+                <div class="form-wrap margin-t_875">
+                    <div class="border-b-e7e7e7">
+                        <div class="item-title">证件信息</div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">证件类型</label>
+                         <div class="input-wrap box-f-1">
+	                        <input type="text" v-model="assured.insured_ID_type_name" class="BL-col-666" readonly>
+	                    </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">证件号码</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="text" placeholder="请输入" v-model.trim.lazy="assured.insured_ID_no">
+                            <div class="form-clear-icon" v-show="assured.insured_ID_no!=''"
+                                 @click="assured.insured_ID_no=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-wrap margin-t_875">
+                    <div class="border-b-e7e7e7">
+                        <div class="item-title">个人信息</div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">姓名</label>
+                        <div class="BL-ub BL-ub-pj BL-ub-f1">
+                            <div class="input-wrap BL-ub-f1">
+                                <input type="text" v-model.trim.lazy="assured.insured_name"
+                                       @change="checkName('被保人',assured.insured_name)" placeholder="请输入">
+                                <div class="form-clear-icon" v-show="assured.insured_name!=''"
+                                     @click="assured.insured_name=''">
+                                    <span class="mui-icon mui-icon-clear"></span>
+                                </div>
+                            </div>
+                            <!--<div class="right-btn right-icon search-icon"></div>-->
+                            <div class="right-btn right-icon address-icon orange"></div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">性别</label>
+                        <div class="input-wrap box-f-1">
+                            <button class="ins-btn sm-btn"
+                                    v-for="(item,index) in init.gender"
+                                    :class="{'blue':assured.insured_gender===item.value}"
+                                    @tap="assured.insured_gender=item.value,toblur()"
+                                    :disabled="IDNO.indexOf(assured.insured_ID_type)>-1">{{item.text}}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">出生日期</label>
+                        <div class="input-wrap box-f-1 search-date" data-options='{"type":"date","beginYear":1950}'>
+                            <input type="text"
+                                   v-model.lazy="assured.insured_birthday"
+                                   :disabled="IDNO.indexOf(assured.insured_ID_type)>-1" placeholder="请选择" readonly>
+                            <button class="ins-date-icon" :disabled="IDNO.indexOf(assured.insured_ID_type)>-1"></button>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">手机号码</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" v-model="assured.insured_mobile"
+                                   @change="checkPhone('被保人',assured.insured_mobile)" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.insured_mobile!=''"
+                                 @click="assured.insured_mobile=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">职业</label>
+                        <div class="input-wrap box-f-1" id="occu-first">
+                            <input type="text" placeholder="请选择" readonly v-model="assured.insured_job_name" readonly>
+                            <div class="ins-down-icon"></div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">身高(cm)</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" v-model.number.lazy="assured.insured_height"
+                                   @change="checkHeight('被保人',assured.insured_height)" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.insured_height!=''"
+                                 @click="assured.insured_height=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label class="">体重(kg)</label>
+                        <div class="input-wrap box-f-1">
+                            <input type="number" v-model.number.lazy="assured.insured_weight"
+                                   @change="checkWeight('被保人',assured.insured_weight)" placeholder="请输入">
+                            <div class="form-clear-icon" v-show="assured.insured_weight!=''"
+                                 @click="assured.insured_weight=''">
+                                <span class="mui-icon mui-icon-clear"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-wrap margin-t_875">
+                    <div class="border-b-e7e7e7">
+                        <div class="item-title">地址信息</div>
+                    </div>
+                    <div class="input-item box-f-1 box-align-center">
+                        <div class="box-f-1 ins-font-sm BL-col-999">是否与投保人同地址？</div>
+                        <div class="box-f-2">
+                            <button class="ins-btn xs-btn BL-mar-r-1" :class="{'blue':assured.addr_type}" :disabled="assured.addr_type"
+                                    @tap="assured.addr_type=!assured.addr_type,toblur()">是
+                            </button>
+                            <button class="ins-btn xs-btn" :class="{'blue':!assured.addr_type}" :disabled="!assured.addr_type"
+                                    @tap="assured.addr_type=!assured.addr_type,toblur()">否
+                            </button>
+                        </div>
+                    </div>
+                    <div v-show="!assured.addr_type">
+                        <div class="input-item">
+                            <label class="">常驻城市</label>
+                            <div class="input-wrap box-f-1">
+			                    <div class="input" id="address-province">
+			                        {{assured.address_select}}
+			                    </div>
+			                    <div class="ins-down-icon"></div>
+			                </div>
+                        </div>
+                        <div class="input-item">
+                            <label class="">详细地址</label>
+                            <div class="input-wrap box-f-1">
+                                <input type="text" v-model="assured.insured_contact_address"
+                                       @change="checkAddress(assured.insured_contact_address,'被保人投保')" placeholder="请输入">
+                                <div class="form-clear-icon" v-show="assured.insured_contact_address!=''"
+                                     @click="assured.insured_contact_address=''">
+                                    <span class="mui-icon mui-icon-clear"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-item">
+                            <label class="">邮编</label>
+                            <div class="input-wrap box-f-1">
+                                <input type="number" v-model.lazy="assured.insured_contact_zip"
+                                       @change="checkZipcode(assured.insured_contact_zip,'被保人')" placeholder="请输入">
+                                <div class="form-clear-icon" v-show="assured.insured_contact_zip!=''"
+                                     @click="assured.insured_contact_zip=''">
+                                    <span class="mui-icon mui-icon-clear"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--弹窗 end-->
+
+</div>
+</body>
+<style>
+    .mui-input-group:after{background-color: #fff!important;}
+</style>
+<script src="../js/mui.js" type="text/javascript"></script>
+<script src="../js/vue.min.js" type="text/javascript"></script>
+<script src="../js/mui.picker.js"></script>
+<script src="../js/mui.poppicker.js"></script>
+<script src="../js/mui.dtpicker.js"></script>
+<script src="../js/IDValidator.min.js"></script>
+<script src="../js/city.data-3.js"></script>
+<script src="method.js"></script>
+<script type="text/javascript">
+    mui.init();
+
+    //通讯录
+    mui('body').on('tap', '.address-icon', function () {
+        mui.openWindow({
+            url: '../communic.html',
+            id: 'communic',
+            show: animateObj.aniDetal,
+            extras:{
+                pageid: 'gh-insurance-assured',
+                tid: 1,
+				flag: 'onlineIns'
+			}
+        })
+    })
+
+    var assu = new Vue({
+        el: '#Js-content',
+        data: function() {
+            return {
+                init: {},
+                applicant: {},
+                longTerm: false,
+                assu_age: '',//被保人年龄
+                
+                assured: {
+                    rel_insured_holder: '',//是投保人的
+                    insured_name: '', //姓名
+                    insured_ID_type: '', //证件类型
+                    insured_ID_type_name: '身份证', //证件类型名
+                    insured_ID_no: '', //证件号码
+                    insured_birthday: '', //出生日期
+                    insured_gender: '', //性别  1男  2女
+                    insured_mobile: '',//手机号
+                    insured_height: '',//身高
+                    insured_weight: '',//体重
+
+                    addr_type: false,//是否所有地址同投保人,
+                    insured_contact_province: '',//现在住址【省】
+                    insured_contact_city: '',//现在住址【市】
+                    address_select: '请选择',
+                    insured_contact_address: '', //现在住址【地址详情】
+                    insured_contact_zip: '',//现在住址【邮编】
+
+                    insured_job_code: {},//职业
+                    temp_insured_job_code: '',//职业代码
+                    insured_job_name: '',//职业名称
+                    insured_isTaxResidents: '' //税收标识
+                }
+            }
+        },
+        created: function () {
+            console.log('assured-created')
+            //字段初始化
+            this.assured.insured_ID_type = IDcard;
+            this.assured.insured_gender = MALE;
+            this.assured.rel_insured_holder = ISASSURED;
+            this.$watch('assured.insured_ID_no', function (val) {
+                IDValidate(this.assured.insured_ID_type, val, '被保人',this.assured);
+            });
+            this.$watch('assured.insured_isTaxResidents', function (val) {
+                if (val && val !== TAXTYPE) {
+                    mui.toast('根据您声明的内容，请选择线下投保并提交相关资料', {duration: 'short', type: 'div'});
+                    return false;
+                }
+            });
+//          this.$watch('longTerm', function (val) {
+//              this.assured.insured_ID_expire_end = val ? '9999-12-31' : ''
+//          });
+            this.$watch('assured.insured_birthday', function (val) {
+                this.assu_age = getAge(val);
+                var toast_text = null;
+                var type = this.assured.insured_ID_type;
+//              if (this.assu_age >= 16 && type === BOOKLET) {
+//                  toast_text = '小于16周岁才能选择户口本';
+//              }
+                if (toast_text) {
+                    mui.toast(toast_text, {duration: 'short', type: 'div'});
+                    return false;
+                }
+            })
+        },
+        methods:{
+            toblur: function () {
+                document.activeElement.blur();
+            }
+        }
+    });
+
+    mui.plusReady(function () {
+        console.log('plus-ready')
+        var init = plus.webview.currentWebview().data;
+        assu.init = init;
+        var applicant = JSON.parse(plus.storage.getItem('guohua_applicant'))
+        console.log(JSON.stringify(applicant))
+        assu.applicant = applicant
+        //已填信息赋值
+        var assured = plus.storage.getItem('guohua_assured') ? JSON.parse(plus.storage.getItem('guohua_assured')) : ''
+        if(assured) {
+            assu.assured = deepClone(assured)
+            assu.assu_age = getAge(assu.assured.insured_birthday)
+        }
+        //
+        //投保地区
+       var cityPicker3 = new mui.PopPicker({
+            layer: 2
+        });
+        cityPicker3.setData(cityData3);
+        document.querySelector('#address-province').addEventListener('tap', function () {
+            document.activeElement.blur();
+            cityPicker3.show(function (items) {
+                assu.assured.insured_contact_province = items[0].value;
+                assu.assured.insured_contact_city = items[1].value;
+                var city =  items[1].text ?  items[1].text : ''
+                assu.assured.address_select = items[0].text + city;
+                assu.assured.insured_contact_zip = items[1].zip
+            });
+        }, false);
+//      //证件类型选择
+//      var idtype = new mui.PopPicker();
+//      idtype.setData(init.ID_type);
+//      document.querySelector('#ID_type').addEventListener('tap', function () {
+//          document.activeElement.blur();
+//          idtype.show(function (items) {
+//              assu.assured.insured_ID_no = ''
+//              assu.assured.insured_ID_type = items[0].value;
+//              assu.assured.insured_ID_type_name = items[0].text;
+////              astypeChange();
+//          })
+//      })
+ 	//日期选择
+        mui('.search-date').each(function (i, d) {
+            d.addEventListener('tap', function () {
+                document.activeElement.blur();
+                var optionsJson = this.getAttribute('data-options') || '{}';
+                var options = JSON.parse(optionsJson);
+                var picker = new mui.DtPicker(options);
+                picker.show(function (rs) {
+                    assu.assured.insured_birthday = rs.text;
+                    picker.dispose();
+                });
+            }, false);
+        });
+
+        //
+        //职业
+        var arrOccu = [];
+        for (var i = 0; i < 4; i++) {
+            arrOccu.push(new mui.PopPicker());
+        }
+        mui.each(arrOccu, function(index, item){
+            item.cancel.addEventListener('tap', function(event) {
+                assu.assured.insured_job_name = '';
+                assu.assured.insured_job_code = {};
+                assu.assured.temp_insured_job_code = '';
+            }, false);
+        })
+        arrOccu[0].setData(init.occupation);
+        document.querySelector('#occu-first').addEventListener('tap', function () {
+            document.activeElement.blur();
+            var arr = {}
+            arrOccu[0].show(function (items1) {
+                arr[1] = items1[0].value
+                assu.assured.insured_job_name = items1[0].text;
+                assu.assured.insured_job_code = arr;
+                assu.assured.temp_insured_job_code = items1[0].value
+                getOccu(items1[0].value, function (res1) {
+                    if (!res1) return
+                    arrOccu[1].setData(res1)
+                    arrOccu[1].show(function (items2) {
+                        arr[2] = items2[0].value
+                        assu.assured.insured_job_name = items2[0].text;
+                        assu.assured.insured_job_code = arr;
+                        assu.assured.temp_insured_job_code = items2[0].value
+                        getOccu(items2[0].value, function (res2) {
+                            if (!res2) return
+                            arrOccu[2].setData(res2)
+                            arrOccu[2].show(function (items3) {
+                                arr[3] = items3[0].value
+                                assu.assured.insured_job_name = items3[0].text;
+                                assu.assured.insured_job_code = arr;
+                                assu.assured.temp_insured_job_code = items3[0].value
+                                getOccu(items3[0].value, function (res3) {
+                                    if (!res3) return
+                                    arrOccu[4].setData(res3)
+                                    arrOccu[4].show(function (items4) {
+                                        arr[4] = items4[0].value
+                                        assu.assured.insured_job_name = items4[0].text;
+                                        assu.assured.insured_job_code = arr;
+                                        assu.assured.temp_insured_job_code = items4[0].value
+                                    });
+                                })
+                            });
+                        })
+                    });
+                })
+            });
+        });
+        //
+        var popu = new ClosePopu(); // 实例化关闭窗口对象
+        //安卓监听返回事件
+        plus.key.addEventListener("backbutton",function(){
+            popu.closepop();
+        });
+        //保存
+        document.querySelector('#saveAssu').addEventListener('tap', function () {
+            document.activeElement.blur();
+            if(!RSChanged(assu.assured,assu.applicant)){return false;}
+//            console.log(JSON.stringify(assu.assured))
+            if (!checkAssured(assu.assured)) {
+                return false
+            }
+            if (assu.assured.rel_insured_holder === COUPLE && assu.assured.insured_gender === assu.applicant.holder_gender) {
+                mui.toast('投被保人性别与关系不符', {duration: 'short', type: 'div'});
+                return false;
+            }
+            plus.storage.setItem('guohua_assured',JSON.stringify(assu.assured));
+            mui.fire(plus.webview.getWebviewById('gh_insurance-index'), 'saveFlag', {
+                item: 'guohua_assured',
+                data: 'assured',
+                clear: true
+            });
+            popu.closepop();
+            mui.back();
+        })
+        //通讯录返回
+        window.addEventListener('getMemberId', function (event) {
+	        var memberid = event.detail.id
+            luckyAjax({
+                data: {
+                    server: 'team.getContactsInfo',
+                    data: JSON.stringify({card_no: memberid})
+                },
+                success: function (data) {
+                    if (data.code) {
+                        console.log(JSON.stringify(data.data));
+                        var info = data.data;
+                        assu.assured.insured_name = info.user_name;
+                        assu.assured.insured_ID_no = info.card_no;
+                        assu.assured.insured_mobile = info.tel;
+                        if (!assu.assured.addr_type && info.home_city) { //
+                            assu.assured.insured_contact_province = info.home_province;
+                            assu.assured.insured_contact_city = info.home_city;
+                            assu.assured.address_select = info.home_province_text  + info.home_city_text
+                            assu.assured.insured_contact_address = info.home_address;
+                            assu.assured.insured_contact_zip = info.home_zip;
+                        }
+                        assu.assured.insured_weight = parseInt(info.weight) ? Number(info.weight).toFixed(2) : assu.assured.insured_weight;
+                        assu.assured.insured_height = parseInt(info.height) ? parseInt(info.height) : assu.assured.insured_height;
+                    }
+                }
+            });
+	    });
+        //
+        mui('body').on('tap', '#close-ins-pop', function () {
+            // 关闭遮罩层，弹框
+            popu.closepop();
+        });
+
+    });
+</script>
+</html>

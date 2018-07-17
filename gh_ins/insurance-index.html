@@ -803,6 +803,9 @@
 											id: 'member_warranty_manageLife',
 											show: animateObj.aniDetal
 										})
+										setTimeout(function () {
+						                    plus.webview.close('gh_insurance-index');
+						                }, 500)
 									}, 3000)
 								} else if(res.data.UnderwriteFlag === '1' && res.data.PayStatus === '1') {
 									mui.toast('核保通过，支付处理中...', {
@@ -815,6 +818,10 @@
 											id: 'member_life_order',
 											show: animateObj.aniDetal
 										})
+										 setTimeout(function () {
+						                    plus.webview.close('gh_insurance-index');
+						                    mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
+						                }, 500)
 									}, 3000)
 								} else if(res.data.UnderwriteFlag === '1' && res.data.PayStatus === '2') {
 									mui.toast(res.data.PayMessage ? res.data.PayMessage : '核保通过，支付失败！', {
@@ -827,6 +834,10 @@
 											id: 'member_life_order',
 											show: animateObj.aniDetal
 										})
+										setTimeout(function () {
+						                    plus.webview.close('gh_insurance-index');
+						                    mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
+						                }, 500)
 									}, 3000)
 								} else if(res.data.UnderwriteFlag === '2') {
 									//2：人工核保
@@ -838,7 +849,6 @@
 
 							} else {
 								plus.nativeUI.closeWaiting();
-								alert(JSON.stringify(res))
 								mui.toast(res.msg, {
 									duration: 'long',
 									type: 'div'

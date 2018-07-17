@@ -151,7 +151,7 @@
                         }
 						break
 					case 4: //去支付 国华
-                        if (item.supplier_id == 2 && (!item.extend_items.pay_status || item.extend_items.pay_status === '0') && item.ins_state_name == '待支付' ) {
+                        if (item.supplier_id == 2 && item.extend_items.pay_status === '3' ) {
                             return true
                         }
 						break
@@ -277,23 +277,26 @@
                     id = 'gh_insurance-index'
                     extras = {policy_id: policyid}
                 } else if (supplier_id == 2 && type === '2') { //国华去支付
-                   luckyAjax({
-			            data: {
-			                server: 'PolicyIns.onlineInsured',
-			                data: JSON.stringify({
-			                	msg: { policy_id: policyid},
-			                	company_code: 'GuoHua',
-			                	method: 'pay'
-			                })
-			            },
-			            success: function(res){
-			                if(res.code == 1) {
-			                    mui.toast(res.msg, {duration: 'long', type: 'div'})
-			                } else {
-			                   mui.toast(res.msg, {duration: 'long', type: 'div'})
-			                }
-			            }
-			        });
+                	url = 'gh_ins/gh-pay.html'
+                    id = 'gh_pay'
+                    extras = {policy_id: policyid}
+//                 luckyAjax({
+//			            data: {
+//			                server: 'PolicyIns.onlineInsured',
+//			                data: JSON.stringify({
+//			                	msg: { policy_id: policyid},
+//			                	company_code: 'GuoHua',
+//			                	method: 'pay'
+//			                })
+//			            },
+//			            success: function(res){
+//			                if(res.code == 1) {
+//			                    mui.toast(res.msg, {duration: 'long', type: 'div'})
+//			                } else {
+//			                   mui.toast(res.msg, {duration: 'long', type: 'div'})
+//			                }
+//			            }
+//			        });
                 } else if (supplier_id == 8) {
                     console.log(policyid)
                     url = 'paehis/pa-pay.html'

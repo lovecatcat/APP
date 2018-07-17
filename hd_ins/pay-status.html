@@ -13,7 +13,7 @@
 <body class="BL-bg-f2f">
 <header id="Js-header" class="BL-bg-fff">
     <div class="BL-mod-headbar BL-mod-headbar-pos">
-        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+        <a class="mui-icon-left-nav BL-icon BL-icon-left" id="backto"></a>
         <h1 class="BL-title">支付信息</h1>
     </div>
 </header>
@@ -283,6 +283,11 @@
 
             }, 3000)
         }
+
+        //返回
+        document.querySelector('#backto').addEventListener('tap', function () {
+            afterPay(true, false)
+        })
     })
 
 </script>

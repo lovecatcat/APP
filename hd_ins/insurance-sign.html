@@ -654,8 +654,13 @@
                 success: function (res) {
                     if (res.code) {
                         if (res.data.resultCode === '00') {
-                            mui.toast('承保成功', {duration: 'long', type: 'div'});
-                            afterPay(true,true)
+                            if (res.data.data.payStatus == 7) {
+                                mui.toast('承保成功', {duration: 'long', type: 'div'});
+                                afterPay(true, true)
+                            } else if (res.data.data.payStatus == 20) {
+                                mui.toast('转线下批扣', {duration: 'long', type: 'div'});
+                                afterPay(true, false)
+                            }
                         } else if (res.data.resultCode === '02') {
                             mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
                             afterPay(true,false)

@@ -55,14 +55,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="BL-pad-lr-1">
-					<div class="mui-input-row mui-checkbox mui-left BL-pad-t-1">
-						<label style="padding-left: 3rem;">
-                        本人已阅读并同意银行<a type="button" id="statement">《银行自动转账授权事项》</a>
-                        <input name="checkbox" value="Item1" type="checkbox" v-model="agree" style="top: 20px; left: 0px;">
-                    </label>
-					</div>
-				</div>
 				<div class="BL-mar-t-3 BL-pad-lr-1_5">
 					<a type="button" id="saveBank" class="form-btn blue">支付</a>
 				</div>
@@ -103,8 +95,6 @@
 						toast_text = '请选择开户行';
 					} else if(!this.bank_type) {
 						toast_text = '请选择账户类型';
-					} else if(!this.agree) {
-						toast_text = '请确认并同意自动转账授权声明';
 					}
 					if(toast_text) {
 						mui.toast(toast_text, {

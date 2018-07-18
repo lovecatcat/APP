@@ -224,8 +224,11 @@
             document.addEventListener("resume", function () {
                 updateUserinfo()
             }, false);
-
+			//更新用户信息
             function updateUserinfo() {
+            	if(!userinfo){
+            		return 
+            	}
                 luckyAjax({
                     data: {
                         data: JSON.stringify({user_id: userinfo.id}),

@@ -1755,6 +1755,8 @@ var methods = {
 					toastText = '20年交投保人年龄不能大于50周岁'
 				}else if(mainPayYear === 30) {
 					toastText = '30年交不可附加'
+				}else if(mainSafeYear === 88) {
+					toastText = '保至88周岁不可附加'
 				}
 				break
             case '10101': // 长城附加吉康人生两全保险投保

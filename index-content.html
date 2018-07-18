@@ -473,15 +473,16 @@
                             })
                             index.items = indexItem;
                             
-                            var timeout = setInterval(function(){
-                            	if(plus.webview.getWebviewById('member')){
-                            		mui.fire(plus.webview.getWebviewById('member'), 'showmenu', {
-		                                data: JSON.stringify(indexItem)
-		                            });	
-		                            clearInterval(timeout);
-                            	};
-                            	console.log(JSON.stringify(indexItem));
-                            }, 100);
+//                            var timeout = setInterval(function(){
+//                            	if(plus.webview.getWebviewById('member')){
+//                            		mui.fire(plus.webview.getWebviewById('member'), 'showmenu', {
+//		                                data: JSON.stringify(indexItem)
+//		                            });
+//		                            clearInterval(timeout);
+//                            	};
+//                            	console.log(JSON.stringify(indexItem));
+//                            }, 100);
+
                             
                         }
                     } else {

@@ -266,16 +266,16 @@ select, textarea, input[type='text'], input[type='number'], input[type='date'],i
 .form-list-btn{font-size: 1.4375rem;border-radius: .5rem;padding: .8725rem 1.3125rem;background-color: #eee;}
 .list-btn-blue{background-color: #3b9cf5;color:#fff;}
 /*输入框提示文字*/
-input[type='text']::-webkit-input-placeholder,input[type='password']::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+input[type='number']::-webkit-input-placeholder,input[type='text']::-webkit-input-placeholder,input[type='password']::-webkit-input-placeholder { /* WebKit, Blink, Edge */
    color:   #999999;
 }
-input[type='text']:-moz-placeholder, input[type='password']:-moz-placeholder{ /* Mozilla Firefox 4 to 18 */
+input[type='number']:-moz-placeholder,input[type='text']:-moz-placeholder, input[type='password']:-moz-placeholder{ /* Mozilla Firefox 4 to 18 */
    color:    #999999;
 }
-input[type='text']::-moz-placeholder,input[type='password']::-moz-placeholder { /* Mozilla Firefox 19+ */
+input[type='number']::-moz-placeholder,input[type='text']::-moz-placeholder,input[type='password']::-moz-placeholder { /* Mozilla Firefox 19+ */
    color:    #999999;
 }
-input[type='text']:-ms-input-placeholder,input[type='password']:-ms-input-placeholder { /* Internet Explorer 10-11 */
+input[type='number']:-ms-input-placeholder,input[type='text']:-ms-input-placeholder,input[type='password']:-ms-input-placeholder { /* Internet Explorer 10-11 */
    color:    #999999;
 }
 /*表单提示*/

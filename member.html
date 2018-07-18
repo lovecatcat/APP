@@ -160,6 +160,7 @@
             userinfo: '',
             menuitems: '',
             memberItems: ['warranty','team','plans','commission','intergral','birthday','renewal','duty'],
+            allownewer:['product','plans','taxcal','clips','poster','requirement'],
             memberItems2: ['requirement','taxcal','clips','poster'],
             itemlink:{
                 'warranty':{
@@ -256,26 +257,73 @@
                 document.querySelector('.mheader').style.height = (hrHeight - titHeight) + 'px';
             }, 100);
         })
-        //菜单显隐
-        window.addEventListener('showmenu', function (event) {
-            var data = event.detail.data ? JSON.parse(event.detail.data) : ''
-            mui.each(data, function (index, item) {
-                if (member.itemlink[item.module_sn]) {
-                    item.html = member.itemlink[item.module_sn].html
-                    item.wid = member.itemlink[item.module_sn].wid
+        //模块的显隐
+        luckyAjax({
+            closeWaiting: true,
+            data: {
+                server: 'User.getMenuModuleList'
+            },
+            success: function (res) {
+                //console.log(JSON.stringify(res))
+                if (res.code) {
+                    if (res.data) {
+                        var indexItem = []
+                        var data = res.data
+                        data = data.sort(function (a, b) {
+                            return a.sort_by - b.sort_by;
+                        });
+                        mui.each(data, function (ind, item) {
+                            item.isallow = false
+                            if (member.allownewer.indexOf(item.module_sn) > -1) {
+                                item.isallow = true
+                            }
+                            indexItem.push(item)
+                            if (item.module_sn === 'index') {
+                                mui.fire(plus.webview.getLaunchWebview(), 'homeicon', {
+                                    data: JSON.stringify(item)
+                                });
+                            }
+                        })
+                        mui.each(indexItem, function (index, item) {
+                            if (member.itemlink[item.module_sn]) {
+                                item.html = member.itemlink[item.module_sn].html
+                                item.wid = member.itemlink[item.module_sn].wid
+                            }
+                        })
+                        member.menuitems = data
+                        console.log(JSON.stringify(data))
+                        member.$nextTick(function () {
+                            statusbar();
+                            var winH = window.innerHeight;
+                            var titHeight = document.querySelector('#Js-header').offsetHeight;
+                            var hrHeight = document.querySelector('.member-hr').offsetHeight;
+                            document.querySelector('#Js-content').style.height = (winH - titHeight) + 'px';
+                            document.querySelector('.mheader').style.height = (hrHeight - titHeight) + 'px';
+                        })
+                    }
                 }
-            })
-            member.menuitems = data
-            console.log(JSON.stringify(data))
-            member.$nextTick(function () {
-                statusbar();
-                var winH = window.innerHeight;
-                var titHeight = document.querySelector('#Js-header').offsetHeight;
-                var hrHeight = document.querySelector('.member-hr').offsetHeight;
-                document.querySelector('#Js-content').style.height = (winH - titHeight) + 'px';
-                document.querySelector('.mheader').style.height = (hrHeight - titHeight) + 'px';
-            })
-        })
+            }
+        });
+//        //菜单显隐
+//        window.addEventListener('showmenu', function (event) {
+//            var data = event.detail.data ? JSON.parse(event.detail.data) : ''
+//            mui.each(data, function (index, item) {
+//                if (member.itemlink[item.module_sn]) {
+//                    item.html = member.itemlink[item.module_sn].html
+//                    item.wid = member.itemlink[item.module_sn].wid
+//                }
+//            })
+//            member.menuitems = data
+//            console.log(JSON.stringify(data))
+//            member.$nextTick(function () {
+//                statusbar();
+//                var winH = window.innerHeight;
+//                var titHeight = document.querySelector('#Js-header').offsetHeight;
+//                var hrHeight = document.querySelector('.member-hr').offsetHeight;
+//                document.querySelector('#Js-content').style.height = (winH - titHeight) + 'px';
+//                document.querySelector('.mheader').style.height = (hrHeight - titHeight) + 'px';
+//            })
+//        })
 
     })
     function nofind() {

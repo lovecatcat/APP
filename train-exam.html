@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="css/mui.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/module.css" rel="stylesheet" />
+    <link href="css/news.css" rel="stylesheet" />
+    <script src="js/config.js" type="text/javascript"></script>
+</head>
+<body class="BL-bg-f2f">
+<header id="Js-header" class="BL-bg-fff">
+    <div class="BL-mod-headbar BL-mod-headbar-pos">
+        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+        <h1 class="BL-title">&nbsp;</h1>
+    </div>
+</header>
+<div id="Js-control" class="exam-control mui-row BL-pad-lr-1_25">
+    <div class="mui-col-xs-6 BL-txt-l BL-ftz-46 BL-col-ccc">
+        <i class="ico-exam-time"></i>
+        <span id="time" class="BL-ftz-48"></span>
+    </div>
+    <div class="mui-col-xs-6 BL-txt-r BL-ftz-52 BL-col-999">共<span id="num"></span>题</div>
+</div>
+<div id="Js-content" class="mui-content BL-rel BL-bg-fff" v-cloak>
+    <div class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <ul class="mui-table-view exam-list-cell">
+                <li class="mui-table-view-cell eItem" v-for="(item,index) in list">
+                    <p class="title">{{ (index+1) + '、'+item.question }} ？</p>
+                    <ol class="options-list">
+                        <li v-for="(val, key) in item.options">
+                        	<input type="checkbox" :value="key" class="options-check" v-model="item.answer"/>
+                    		<label :for="key">{{ key + '、' + val}}</label>
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+            <div class="form-button-group">
+                <a type="button" class="form-btn" id="next">下一步</a>
+            </div>
+        </div>
+    </div>
+    <!-- 弹出层 -->
+    <div class="exam-dialog-face" v-show="modal==1 || modal==2 || modal==3"></div>
+    <!-- 考试是否通过提示 -->
+    <div class="exam-dialog-wrapper" v-show="modal==1 || modal==2" :class="{'dialog-wrapper-pass': modal==1,'dialog-wrapper-nopass': modal==2}">
+        <div class="exam-dialog-header">
+			<span class="exam-dialog-close" @click="modal=''">
+				<i class="mui-icon mui-icon-closeempty"></i>
+			</span>
+        </div>
+        <div class="exam-dialog-content">
+            <i class="exam-scroce">{{ score }}</i>
+            <p class="BL-ftz-52 BL-col-fff">
+                <span v-if="result">合格</span>
+                <span v-else>不合格</span>
+            </p>
+            <div class="exam-comment" v-if="result">恭喜您通过考试！</div>
+            <div class="exam-comment" v-else>很遗憾，您未能通过考试<br>第{{ mistake }}题错误</div>
+        </div>
+        <div class="exam-dialog-footer">
+            <button class="exam-btn BL-col-3b9cf5" v-if="modal==1" @click="next">前往下一阶</button>
+            <button class="exam-btn BL-col-ff8201" v-if="modal==2" @click="again">再试一次</button>
+        </div>
+    </div>
+    <!--确认提示-->
+    <div class="config-dialog-wrapper" v-show="modal==3">
+        <div class="config-dialog-content">是否提交试卷?</div>
+        <div class="config-dialog-button">
+            <button type="button" class="cancel" @click="modal=''">取消</button>
+            <button type="button" class="sure" @click="sure">确认</button>
+        </div>
+    </div>
+</div>
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/interval-dtpicker.js" type="text/javascript"></script>
+<script src="js/mui.pullToRefresh.js"></script>
+<script src="js/mui.pullToRefresh.material.js"></script>
+<script src="js/vue.min.js"></script>
+<script type="text/javascript">
+    mui.init();
+    
+    var exam = new Vue({
+        el: '#Js-content',
+        data: {
+            timer: '',  // 计时器
+            grade: '',  // 等级
+            next_grade: '',  // 下一阶，无下阶为空
+            name: '',   // 阶段名称
+            num: '',    // 题目条数
+            list: [],   // 题目列表
+            time: '',   // 考试时间
+            storage_time: '',  // 存储考试时间、仅供再试一次时使用
+            score: '',  // 考试分数
+            result: '',  // 考试结果 false不合格、true合格
+            mistake: '',  // 错误题目
+            modal: ""    // 展示三个弹出层 1:合格、2不合格、3是否提交
+        },
+        methods: {
+            // 确认框确认事件
+            sure: function () {
+                this.modal = ''
+                plus.nativeUI.showWaiting('正在提交...', {
+                    style: 'white',
+                    width: '120px'
+                })
+                setTimeout(function () {
+                    plus.nativeUI.closeWaiting();
+                    submitExam()
+                },500)
+            },
+            // 考试结果不合格再试一次事件
+            again: function () {
+                var vm = this
+                vm.time = vm.storage_time
+                vm.modal = ''
+                mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
+
+                // 考试时间倒计时
+                vm.timer = setInterval("countDown()", 1000);
+                mui.each(exam.list, function (index, item) {
+                    item.answer = []
+                });
+            },
+            // 下一阶考试
+            next: function () {
+                var vm = this
+                vm.modal = ''
+                mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
+
+                // 判断是否还有下一阶
+                if (exam.next_grade) {
+                    loadExam(exam.next_grade)
+                } else {
+                    mui.toast("当前已是最后一阶考试", {duration: 'long', type: 'div'})
+                }
+            }
+        }
+    });
+        
+    mui('.mui-scroll-wrapper').scroll({
+        scrollY: true, //是否竖向滚动
+        scrollX: false, //是否横向滚动
+        startX: 0, //初始化时滚动至x
+        startY: 0, //初始化时滚动至y
+        indicators: false, //是否显示滚动条
+        deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
+        bounce: true //是否启用回弹
+    });
+
+    mui.plusReady(function() {
+        statusbar();
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        var controlHeight = document.querySelector('#Js-control').offsetHeight;
+        document.querySelector('#Js-content').style.height = winH - titHeight - controlHeight + 'px';
+
+        exam.grade = plus.webview.currentWebview().grade;
+
+        loadExam(exam.grade)
+
+        // 下一步
+        document.querySelector('#next').addEventListener('click', function () {
+            if (exam.time > 3) {
+                exam.modal = 3
+            } else {
+                plus.nativeUI.showWaiting('正在提交...', {
+                    style: 'white',
+                    width: '120px'
+                })
+                setTimeout(function () {
+                    plus.nativeUI.closeWaiting();
+                    submitExam()
+                },500)
+            }
+        })
+    });
+    
+    var loadExam = function (grade) {
+        luckyAjax({
+            data: {
+                server: 'videoLearn.exam',
+                data: JSON.stringify({
+                    grade_id: grade
+                })
+            },
+            success: function (res) {
+                if (res.code == 1) {
+                    var data = res.data
+                    exam.num = data.questionNum
+                    exam.name = data.grade_name
+                    exam.list = data.questionList
+                    exam.storage_time = data.examTime
+                    exam.time = data.examTime
+
+                    document.querySelector('.BL-title').innerHTML = exam.name
+                    document.querySelector('#num').innerHTML = exam.num
+                    // 考试时间倒计时
+                    exam.timer = setInterval("countDown()", 1000);
+
+                    mui.each(exam.list, function (index, item) {
+                        item.answer = []
+                    });
+                }
+            },
+        });
+    }
+
+    var countDown = function () {
+        if (exam.time >= 0) {
+            var hour = Math.floor((exam.time)/3600);
+            var min = Math.floor((exam.time)/60) % 60;
+            var sec = (exam.time)% 60;
+            if(hour < 10) {
+                t = '0'+ hour + ":";
+            } else {
+                t = hour + ":";
+            }
+
+            if(min < 10){t += "0";}
+            t += min + ":";
+            if(sec < 10){t += "0";}
+            t += sec;
+
+            document.querySelector('#time').innerHTML = t
+            -- exam.time;
+        } else{
+            clearInterval(exam.timer);
+            plus.nativeUI.showWaiting('正在提交...', {
+                style: 'white',
+                width: '120px'
+            })
+            setTimeout(function () {
+                plus.nativeUI.closeWaiting();
+                submitExam()
+            },500)
+        }
+    }
+    // 提交考试
+    var submitExam = function () {
+        var answers = []
+        mui.each(exam.list, function (index, item) {
+            var answer_item = {}
+            answer_item.question_id = item.id
+            answer_item.answer = item.answer.toString()
+            answers.push(answer_item)
+        })
+        // 提交
+        luckyAjax({
+            data: {
+                server: 'videoLearn.examResult',
+                data: JSON.stringify({
+                    grade_id: exam.grade,
+                    answers: answers
+                })
+            },
+            success: function (res) {
+                // 清除倒计时
+                clearInterval(exam.timer);
+
+                if (res.code == 1) {
+                    var data = res.data
+                    exam.score = data.score
+                    exam.result = data.result
+                    exam.next_grade = data.next_grade
+                    data.result? exam.modal = 1: exam.modal = 2
+                    data.result? exam.mistake = '': exam.mistake = data.mistake
+                    if (data.result) {
+                        mui.fire(plus.webview.getWebviewById('train'),'reloadTrain',{});
+                    }
+                } else {
+                    mui.toast(res.msg, {duration: 'long', type: 'div'})
+                }
+            }
+        });
+    }
+</script>
+</html>

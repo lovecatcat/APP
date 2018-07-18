@@ -286,12 +286,14 @@
 					"js/Tunnel.js",
 					"news.html",
 					"prospect.html",
-					"member.html"
+					"member.html",
+					"train.html"
 				],
 				"refer": [
 					"discover.html",
 					"login.html",
-					"guide.html"
+					"guide.html",
+					"train-exam-list.html"
 				],
 				"priority": 0
 			},
@@ -1799,7 +1801,10 @@
 					"js/config.js",
 					"images/product/menu-prospect.png",
 					"images/product/menu-pk.png",
-					"js/pdf.js"
+					"js/pdf.js",
+					"js/mui.zoom.js",
+					"js/mui.previewimage.js",
+					"js/plusShare.js"
 				],
 				"refer": [
 					"product-contrast.html",
@@ -2180,7 +2185,8 @@
 					"images/plans/plansManage/16139.png",
 					"images/plans/plansManage/16208.png",
 					"images/plans/plansManage/16220.png",
-					"images/plans/plansManage/16221.png"
+					"images/plans/plansManage/16221.png",
+					"images/plans/plansManage/311.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -3930,6 +3936,151 @@
 					"js/html5video.js",
 					"css/mui.min.css",
 					"css/video.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"train.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"images/icon/ico-search-blue.png",
+					"js/mui.pullToRefresh.material.js",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"css/member.css",
+					"js/interval-dtpicker.js",
+					"css/mui.css",
+					"css/news.css",
+					"images/icon/ico-lock.png",
+					"images/icon/ico-audio.png",
+					"train-exam-list.html",
+					"images/icon/ico-train-category.png",
+					"images/icon/ico-unlock.png",
+					"css/module.css",
+					"css/common.css",
+					"images/icon/ico-video.png",
+					"images/icon/ico-picture.png",
+					"js/Date.js"
+				],
+				"refer": [
+					"train-list.html",
+					"train-video.html",
+					"train-audio.html",
+					"train-article.html"
+				],
+				"priority": 0
+			},
+			"train-exam-list.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"images/icon/ico-audio.png",
+					"css/news.css",
+					"js/mui.pullToRefresh.material.js",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"css/mui.css",
+					"css/module.css",
+					"css/common.css",
+					"js/Date.js",
+					"images/icon/ico-video.png"
+				],
+				"refer": [
+					"train-video.html",
+					"train-article.html",
+					"train-exam.html"
+				],
+				"priority": 0
+			},
+			"train-list.html": {
+				"resources": [
+					"images/icon/ico-up.png",
+					"images/icon/ico-filter.png",
+					"css/news.css",
+					"images/icon/ico-down.png",
+					"js/Date.js",
+					"css/mui.css",
+					"images/icon/ico-video.png",
+					"images/icon/ico-picture.png",
+					"images/icon/ico-up-active.png",
+					"images/icon/ico-down-active.png",
+					"images/icon/ico-filter-active.png"
+				],
+				"refer": [
+					"quickly-filter.html",
+					"train-article.html",
+					"train-video.html",
+					"train-audio.html"
+				],
+				"priority": 0
+			},
+			"train-article.html": {
+				"resources": [
+					"js/mui.zoom.js",
+					"js/mui.previewimage.js",
+					"images/icon/ico-share.png",
+					"js/plusShare.js",
+					"css/mui.css",
+					"css/news.css",
+					"images/icon/ico-eye1.png",
+					"images/icon/ico-collect.png",
+					"css/module.css",
+					"css/common.css",
+					"images/icon/ico-collect-active.png"
+				],
+				"refer": [
+					"train-video.html"
+				],
+				"priority": 0
+			},
+			"train-video.html": {
+				"resources": [
+					"css/video.css",
+					"css/mui.css",
+					"js/hls.min.js",
+					"js/html5video.js",
+					"js/mui.zoom.js",
+					"js/mui.previewimage.js",
+					"js/plusShare.js",
+					"css/news.css",
+					"images/icon/ico-eye1.png",
+					"images/icon/ico-collect.png",
+					"images/icon/ico-share.png",
+					"css/module.css",
+					"css/common.css",
+					"images/icon/ico-collect-active.png"
+				],
+				"refer": [
+					"train-article.html"
+				],
+				"priority": 0
+			},
+			"train-exam.html": {
+				"resources": [
+					"images/icon/ico-exam-time.png",
+					"images/index/exam-pass-bg.png",
+					"css/news.css",
+					"css/mui.css",
+					"images/index/exam-nopass-bg.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"train-audio.html": {
+				"resources": [
+					"js/mui.zoom.js",
+					"css/news.css",
+					"images/icon/ico-eye1.png",
+					"images/icon/ico-collect.png",
+					"js/mui.previewimage.js",
+					"images/icon/ico-share.png",
+					"css/mui.css",
+					"js/plusShare.js",
+					"images/icon/ico-collect-active.png",
+					"js/audio.min.js",
+					"images/icon/player-graphics.gif",
+					"js/hls.min.js",
+					"css/video.css",
+					"js/html5video.js"
 				],
 				"refer": [],
 				"priority": 0

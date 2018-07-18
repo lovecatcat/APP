@@ -39,7 +39,7 @@
         </header>
         <div id="Js-control" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
             <div class="mui-scroll" style="left: 0; right: 0">
-                <a v-for="(item,index) in level" class="mui-control-item" :class="{'mui-active': index == flag}">
+                <a v-for="(item,index) in level" class="mui-control-item" :class="{'mui-active': index == cur_index}">
                     <span>第 {{ item+1 }} 分类</span>
                 </a>
             </div>
@@ -47,7 +47,7 @@
         <div id="Js-content" class="BL-overFlow-autoY">
             <div id="slider" class="mui-slider">
                 <div class="mui-slider-group" id="Js-slider-group" v-cloak>
-                    <div v-for="(item,index) in level" :id="'item'+(index+1)" class="mui-slider-item mui-control-content" :class="{'mui-active': index == flag}" v-show="flag>=index">
+                    <div v-for="(item,index) in level" :id="'item'+(index+1)" class="mui-slider-item mui-control-content" :class="{'mui-active': index == flag}" v-if="flag>=index">
                         <ul class="mui-table-view form-list-cell" style="margin-top: 0rem !important;">
                             <li class="fItem BL-ub BL-ub-f1" v-for="(item,key) in joblist[index]" v-if="joblist[index]" @click="querySubJob(index,item.id)">
                                 <a class="mui-navigate-right form-list-label BL-ub-f1">
@@ -97,6 +97,7 @@
             level:[],
             show: false,
             flag: 0,   // 当前级别
+            cur_index: 0,  // 当前分类
             joblist: []
         },
         methods: {
@@ -161,7 +162,7 @@
                     if(res.code == 1) {
                         job.joblist = []   // 清空
                         job.joblist.push(res.data)
-//                      gallery.slider()
+                        gallery.slider()
                     }
                 }
             });
@@ -184,8 +185,8 @@
                                 job.joblist.push(res.data)
                             }
                         })
-                        gallery.slider().refresh().gotoItem(index + 1);
-//                        gallery.slider().gotoItem(index + 1);
+                        gallery.slider().refresh();
+                        gallery.slider().gotoItem(index + 1);
                     }
                 }
             });

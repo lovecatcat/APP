@@ -826,6 +826,11 @@
             }
         });
 
+        // 监听工作经历编辑
+        window.addEventListener('refreshWork', function (e) {
+            Info.work_on = e.detail.work_on
+        });
+
         //整理所有下拉框需要的数据
         function dataToselect(data) {
             var arr = [];

@@ -115,6 +115,15 @@
                 }
             }
         })
+
+        mui.back=function () {
+            setTimeout(function(){
+                plus.webview.currentWebview().close();
+            },500);
+            mui.fire(plus.webview.getWebviewById('member_register'),'refreshWork',{
+                work_on: info.work_on
+            });
+        }
     })
 </script>
 </html>

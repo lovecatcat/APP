@@ -42,7 +42,7 @@
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label">初登日期</label>
 					<div class="form-list-control">
-						<input type="text" class="date" data-options='{"type":"date"}' v-model="car.registerDate" placeholder="请选择" readonly>
+						<input type="text" class="date" data-options='{"type":"date","beginYear":1900}' v-model="car.registerDate" placeholder="请选择" readonly>
 					</div>
 					<div class="form-list-icon">
 						<div class="mui-icon mui-icon-arrowright"></div>
@@ -79,7 +79,7 @@
 				<li class="fItem BL-ub BL-ub-f1" :class="{'BL-hide': !car.isTrans}">
 					<label class="form-list-label">过户日期</label>
 					<div class="form-list-control">
-						<input type="text" class="date" data-options='{"type":"date"}' v-model="car.transDate" placeholder="请选择">
+						<input type="text" class="date" data-options='{"type":"date","beginYear":1900}' v-model="car.transDate" placeholder="请选择">
 					</div>
 					<div class="form-list-icon">
 						<div class="mui-icon mui-icon-arrowright"></div>

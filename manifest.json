@@ -6,7 +6,7 @@
 	"id": "H517AA33E",
 	"name": "保险+",
 	"version": {
-		"name": "1.9.0716",
+		"name": "1.9.0717",
 		"code": "83"
 	},
 	"description": "保险plus mobile",
@@ -213,12 +213,12 @@
 					"appstore": "unpackage/res/icons/1024x1024.png"
 				},
 				"android": {
-					"mdpi": "unpackage/res/icons/a48x48.png",
-					"ldpi": "unpackage/res/icons/a48x48.png",
-					"hdpi": "unpackage/res/icons/a72x72.png",
-					"xhdpi": "unpackage/res/icons/a96x96.png",
-					"xxhdpi": "unpackage/res/icons/a144x144.png",
-					"xxxhdpi": "unpackage/res/icons/a192x192.png"
+					"mdpi": "unpackage/res/icons/48x48.png",
+					"ldpi": "unpackage/res/icons/48x48.png",
+					"hdpi": "unpackage/res/icons/72x72.png",
+					"xhdpi": "unpackage/res/icons/96x96.png",
+					"xxhdpi": "unpackage/res/icons/144x144.png",
+					"xxxhdpi": "unpackage/res/icons/192x192.png"
 				}
 			},
 			"splashscreen": {

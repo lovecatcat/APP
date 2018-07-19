@@ -31,16 +31,18 @@
 					 iospay:false,//是否点击播放就全屏显示
 					 drag:false,//禁止拖动,调节,音量和亮度
 					 isfull:true,//是否显示全屏按钮
-					 prompt:function(video){} //当开启isMobile时,这里可以写提示用户的内容,
+					 prompt:function(video){}, //当开启isMobile时,这里可以写提示用户的内容,
+                     getCurrentTime: function (video) {}
 			        },options);
 			         // 判断传进来的是DOM还是字符串  
 			        if((typeof getDom)==="string"){  
 			            this.getDom =document.querySelector(getDom);  
 			        }else{  
 			            this.getDom=getDom;  
-			        }      
-            	 	 // 初始化  
-                  this.init(); 
+			        }
+			        // 初始化
+                  this.init();
+			        return "aaa"
             	}	
             	 	 Html5video.prototype={
             	 	  init:function() //初始化 
@@ -57,9 +59,9 @@
 			          Second:function(second)  //把时间转换成分钟
                       {
 			             var hour = parseInt(second / (60* 60));
-            var minute = parseInt((second/60) % 60);
-            var second = parseInt(second % 60);
-            return (hour > 0 ?((hour < 10 ? "0" + hour:hour) + ":") : "") + (minute < 10 ? "0" + minute:minute) + ":" + (second < 10 ? "0" + second:second); 
+						 var minute = parseInt((second/60) % 60);
+						 var second = parseInt(second % 60);
+						 return (hour > 0 ?((hour < 10 ? "0" + hour:hour) + ":") : "") + (minute < 10 ? "0" + minute:minute) + ":" + (second < 10 ? "0" + second:second);
 			          },
 			          isMobile:function()
 			          {
@@ -226,10 +228,13 @@
 					            		_this.options.prompt(mui_video);
 					            		return
 					            	}
-					             mui_video.play();
-					             mui_pay_ico.style.display="none";
-					             mui_videoControls.style.display="none";
-					             rprogress.style.display="block";
+
+                                    _this.options.getCurrentTime(mui_video);
+
+					            	mui_video.play();
+					            	mui_pay_ico.style.display="none";
+					            	mui_videoControls.style.display="none";
+					            	rprogress.style.display="block";
 					            }
 					          });
                              //监测视频是否已开始播放

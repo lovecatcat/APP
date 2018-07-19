@@ -26,7 +26,7 @@
 <div id="Js-content" class="mui-content BL-rel BL-bg-fff" v-cloak>
     <div class="mui-scroll-wrapper">
         <div class="mui-scroll">
-            <ul class="mui-table-view exam-list-cell">
+            <ul class="mui-table-view exam-list-cell" v-if="list&&list.length>0">
                 <li class="mui-table-view-cell eItem" v-for="(item,index) in list">
                     <p class="title">{{ (index+1) + '、'+item.question }} ？</p>
                     <ol class="options-list">
@@ -37,7 +37,7 @@
                     </ol>
                 </li>
             </ul>
-            <div class="form-button-group">
+            <div class="form-button-group" v-if="list&&list.length>0">
                 <a type="button" class="form-btn" id="next">下一步</a>
             </div>
         </div>
@@ -89,7 +89,8 @@
             timer: '',  // 计时器
             grade: '',  // 等级
             next_grade: '',  // 下一阶，无下阶为空
-            name: '',   // 阶段名称
+            grade_name: '',   // 阶段名称
+            next_name: '', // 下一阶阶段名称，无下阶为空
             num: '',    // 题目条数
             list: [],   // 题目列表
             time: '',   // 考试时间
@@ -129,11 +130,18 @@
             next: function () {
                 var vm = this
                 vm.modal = ''
-                mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
 
                 // 判断是否还有下一阶
                 if (exam.next_grade) {
-                    loadExam(exam.next_grade)
+                	mui.fire(plus.webview.getWebviewById('train_exam_list'),'reloadExam',{
+                		'grade': exam.next_grade,
+                        'name': exam.next_name
+                	});
+
+	                setTimeout(function () {
+	                    plus.webview.currentWebview().close()
+	                }, 	500)
+	                
                 } else {
                     mui.toast("当前已是最后一阶考试", {duration: 'long', type: 'div'})
                 }
@@ -161,22 +169,6 @@
         exam.grade = plus.webview.currentWebview().grade;
 
         loadExam(exam.grade)
-
-        // 下一步
-        document.querySelector('#next').addEventListener('click', function () {
-            if (exam.time > 3) {
-                exam.modal = 3
-            } else {
-                plus.nativeUI.showWaiting('正在提交...', {
-                    style: 'white',
-                    width: '120px'
-                })
-                setTimeout(function () {
-                    plus.nativeUI.closeWaiting();
-                    submitExam()
-                },500)
-            }
-        })
     });
     
     var loadExam = function (grade) {
@@ -191,12 +183,12 @@
                 if (res.code == 1) {
                     var data = res.data
                     exam.num = data.questionNum
-                    exam.name = data.grade_name
+                    exam.grade_name = data.grade_name
                     exam.list = data.questionList
                     exam.storage_time = data.examTime
                     exam.time = data.examTime
 
-                    document.querySelector('.BL-title').innerHTML = exam.name
+                    document.querySelector('.BL-title').innerHTML = exam.grade_name
                     document.querySelector('#num').innerHTML = exam.num
                     // 考试时间倒计时
                     exam.timer = setInterval("countDown()", 1000);
@@ -204,8 +196,28 @@
                     mui.each(exam.list, function (index, item) {
                         item.answer = []
                     });
+
+                    // 下一步(因在按钮下一步中添加v-if条件)
+                    exam.$nextTick(function () {
+                        document.querySelector('#next').addEventListener('click', function () {
+                            if (exam.time > 3) {
+                                exam.modal = 3
+                            } else {
+                                plus.nativeUI.showWaiting('正在提交...', {
+                                    style: 'white',
+                                    width: '120px'
+                                })
+                                setTimeout(function () {
+                                    plus.nativeUI.closeWaiting();
+                                    submitExam()
+                                },500)
+                            }
+                        })
+                    })
+                } else {
+                    mui.toast(res.msg, {duration: 'long', type: 'div'})
                 }
-            },
+            }
         });
     }
 
@@ -266,6 +278,7 @@
                     exam.score = data.score
                     exam.result = data.result
                     exam.next_grade = data.next_grade
+                    exam.next_name = data.next_grade_name
                     data.result? exam.modal = 1: exam.modal = 2
                     data.result? exam.mistake = '': exam.mistake = data.mistake
                     if (data.result) {

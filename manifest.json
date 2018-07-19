@@ -3219,7 +3219,9 @@
 			},
 			"member-poster-detail.html": {
 				"resources": [
-					"css/mui.css"
+					"css/mui.css",
+					"images/icon/ico-share.png",
+					"js/plusShare.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -3960,13 +3962,16 @@
 					"css/common.css",
 					"images/icon/ico-video.png",
 					"images/icon/ico-picture.png",
-					"js/Date.js"
+					"js/Date.js",
+					"images/index/guide_1.jpg",
+					"images/member/month_magazine.jpg"
 				],
 				"refer": [
 					"train-list.html",
 					"train-video.html",
 					"train-audio.html",
-					"train-article.html"
+					"train-article.html",
+					"train-month-list.html"
 				],
 				"priority": 0
 			},
@@ -4003,13 +4008,16 @@
 					"images/icon/ico-picture.png",
 					"images/icon/ico-up-active.png",
 					"images/icon/ico-down-active.png",
-					"images/icon/ico-filter-active.png"
+					"images/icon/ico-filter-active.png",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [
 					"quickly-filter.html",
 					"train-article.html",
 					"train-video.html",
-					"train-audio.html"
+					"train-audio.html",
+					"train-menu-filter.html"
 				],
 				"priority": 0
 			},
@@ -4028,7 +4036,8 @@
 					"images/icon/ico-collect-active.png"
 				],
 				"refer": [
-					"train-video.html"
+					"train-video.html",
+					"train-audio.html"
 				],
 				"priority": 0
 			},
@@ -4060,7 +4069,9 @@
 					"images/index/exam-pass-bg.png",
 					"css/news.css",
 					"css/mui.css",
-					"images/index/exam-nopass-bg.png"
+					"images/index/exam-nopass-bg.png",
+					"css/module.css",
+					"css/common.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -4081,6 +4092,42 @@
 					"js/hls.min.js",
 					"css/video.css",
 					"js/html5video.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"train-month-list.html": {
+				"resources": [
+					"images/icon/ico-down.png",
+					"css/mui.picker.min.css",
+					"css/member.css",
+					"css/mui.css",
+					"css/module.css",
+					"css/common.css",
+					"css/news.css"
+				],
+				"refer": [
+					"member-commission-salarydetail.html",
+					"train-month-detail.html"
+				],
+				"priority": 0
+			},
+			"train-month-detail.html": {
+				"resources": [
+					"css/news.css",
+					"css/mui.css"
+				],
+				"refer": [
+					"train-article.html",
+					"train-audio.html",
+					"train-video.html"
+				],
+				"priority": 0
+			},
+			"train-menu-filter.html": {
+				"resources": [
+					"css/news.css",
+					"css/mui.css"
 				],
 				"refer": [],
 				"priority": 0

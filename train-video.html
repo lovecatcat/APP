@@ -273,7 +273,7 @@
             })
         });
     })
-    
+
     //根据id向服务器请求课程详情
     var loadVideo = function(wid) {
     	mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
@@ -287,7 +287,7 @@
                     lesson.detail = res.data.details
                     lesson.recommend = res.data.recommend
                     //初始化插件
-                    var htmlvideo=Html5video("#video_Container", {
+                    var htmlvideo = Html5video("#video_Container", {
                         title: lesson.detail.title, //视频标题，当全屏时会显示
                         url: lesson.detail.media_url, //支持本地视频和网络视频，格式MP4
                         img: config.domain + lesson.detail.img, //视频截图封面
@@ -301,11 +301,19 @@
                         prompt: function(video) { //当开启isMobile时,这里可以写提示用户的内容,h5+环境才有效
 	                        mui.confirm('你当前处于移动手机网络将会消耗手机流量，是否继续播放？', '提示',["取消","确定"], function(e) {
 	                              if(e.index == 1) {
+                                      setInterval(function () {
+                                          console.log(video.currentTime)
+                                      }, 1000);
 	                                  video.play();
 	                              }
-	                          },"div");
-	                    	}
-                		});
+							},"div");
+						},
+                        getCurrentTime: function (video) {  // 获取视频当前播放时间
+                            setInterval(function () {
+								console.log(video.currentTime)
+                            }, 1000);
+                        }
+					});
             	} else {
                 	mui.toast(res.msg, {duration: 'short', type: 'div'})
             	}

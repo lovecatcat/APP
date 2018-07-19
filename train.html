@@ -19,25 +19,27 @@
 </header>
 <div id="Js-content" class="mui-content BL-rel" style="background: #9BCCF9">
     <div class="mui-scroll-wrapper">
-        <div class="mui-scroll BL-pad-lr-1_5">
+        <div class="mui-scroll">
             <component v-bind:is="item"
                        v-for="(item,index) in arr"
                        :e_data="init[index]">
             </component>
+            <!-- 月刊入口 -->
+            <div class="train-month-magazine" id="month_magazine"></div>
         </div>
     </div>
 </div>
 <!-- 动态组件之公用 -->
 <template id="COMMOM">
-    <div>
+    <div class="BL-pad-lr-1_5">
         <!-- 每日一课 -->
         <div class="train-category">
             <div class="train-category-header">
                 <div class="category-title">{{ e_data.name }}</div>
             </div>
-            <div class="train-category-body" v-if="e_data.style === 1">
+            <div class="train-category-body" v-if="e_data.style === 1&&e_data.child.type == 'content'">
                 <ul class="mui-table-view train-list-cell">
-                    <li class="nItem BL-mar-b-1_5" v-for="(item,index) in e_data.child">
+                    <li class="nItem BL-mar-b-1_5" v-for="(item,index) in e_data.child.list">
                         <div class="BL-ub BL-ub-f1" @click="$parent.OpenLessonDetail(item.media_type,item.id)">
                             <div class="img">
                                 <img :src="item.img | setImg"/>
@@ -58,12 +60,12 @@
                     </li>
                 </ul>
             </div>
-            <div class="train-category-body mui-row" v-if="e_data.style === 2">
-                <div class="train-category-block mui-col-xs-4" v-for="(item,index) in e_data.child" @click="$parent.OpenLessonList(item.id,item.name)">
+            <div class="train-category-body mui-row" v-if="e_data.style === 2&&e_data.child.type == 'category'">
+                <div class="train-category-block mui-col-xs-4" v-for="(item,index) in e_data.child.list" @click="$parent.OpenLessonList(e_data.id,item.id,item.name)">
                     {{ item.name }}
                 </div>
             </div>
-            <div class="train-category-footer" @click="$parent.OpenLessonList('',e_data.name)">
+            <div class="train-category-footer" @click="$parent.OpenLessonList(e_data.id,'',e_data.name)">
                 查看更多 <span class="mui-icon mui-icon-arrowright"></span>
             </div>
         </div>
@@ -71,14 +73,14 @@
 </template>
 <!-- 动态组件之晋升之路 -->
 <template id="JJKS">
-    <div>
+    <div class="BL-pad-lr-1_5">
         <div class="train-category">
             <div class="train-category-header">
                 <div class="category-title">{{ e_data.name }}</div>
             </div>
             <div class="train-category-body mui-row train-exam-row">
-                <div class="mui-col-xs-6" v-for="(item,index) in e_data.child">
-                    <div class="BL-ub BL-ub-f1 train-exam" @click="$parent.OpenExamList(item.id,item.name)">
+                <div class="mui-col-xs-6" v-for="(item,index) in e_data.child.list">
+                    <div class="BL-ub BL-ub-f1 train-exam" @click="$parent.OpenExamList(index,e_data.child.list,item.id,item.name)">
                         <div class="order block-exam">{{ index+1 }}</div>
                         <div class="context BL-ub BL-ub-ver BL-ub-f1">
                             <div class="BL-ub BL-ub-ac lock">
@@ -139,12 +141,13 @@
         },
         methods: {
             // 打开课程列表页面 cate_id 二级种类ID
-            OpenLessonList: function (cate_id, name) {
+            OpenLessonList: function (pid, cate_id, name) {
                 mui.openWindow({
                     url: 'train-list.html',
                     id: 'train_list',
                     show: animateObj.aniDetal,
                     extras:{
+                        pid: pid,
                         cate_id: cate_id,
                         name: name
                     }
@@ -174,8 +177,17 @@
                     }
                 });
             },
-            // 打开阶段课程 grade: 阶段ID, name:阶段名称
-            OpenExamList: function (grade, name) {
+            // 打开阶段课程 index: 下标, gradeArr: 阶段数组，grade: 阶段ID, name:阶段名称,
+            OpenExamList: function (index, gradeArr, grade, name) {
+            	if (index != 0) {
+            		for(var i=index; i--; i>0) {
+            			if(gradeArr[i].is_pass == 0) {
+            				mui.alert('请先完成'+gradeArr[i].name, '提示');
+            				return false
+            			}
+            		}
+            	}
+            	
                 mui.openWindow({
                     url: 'train-exam-list.html',
                     id: 'train_exam_list',
@@ -213,6 +225,7 @@
                     server: 'videoLearn.homePage'
                 },
                 success: function (res) {
+                	console.log("ww"+JSON.stringify(res))
                     if (res.code == 1) {
                         var data = res.data
                         train.init = res.data
@@ -229,8 +242,19 @@
         }
         // 获取首页数据
         loadTrain()
+
+        // 月刊入口
+        document.getElementById("month_magazine").addEventListener("tap", function() {
+            // 进入月刊列表页
+            mui.openWindow({
+                url: 'train-month-list.html',
+                id: 'train_month_list',
+                show: animateObj.aniDetal
+            })
+        });
         // 监听事件--更新当前页数据
         window.addEventListener('reloadTrain', function (e) {
+        	train.arr = []
             loadTrain()
         });
     });

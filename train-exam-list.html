@@ -59,6 +59,8 @@
 	var exam = new Vue({
 		el: '#Js-content',
 		data: {
+		    grade: '', // 阶级ID
+            name: '',  // 阶级名称
 			list: [],
             page: 0,
 			row: 10
@@ -90,10 +92,11 @@
             var titHeight = document.querySelector('#Js-header').offsetHeight;
             document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
             var self;
-            //接收首页传来的考试阶数
-            var grade = plus.webview.currentWebview().grade;
-            var name = plus.webview.currentWebview().name;
-            document.querySelector('#grade_name').innerHTML = '('+ name + ')'
+            
+            
+            exam.grade = plus.webview.currentWebview().grade;
+            exam.name = plus.webview.currentWebview().name;
+            document.querySelector('#grade_name').innerHTML = '('+ exam.name + ')'
 
 			//循环初始化和上拉加载。
 			/**
@@ -105,13 +108,12 @@
 					data: {
 			            server: 'videoLearn.examMaterials',
 			            data: JSON.stringify({
-                            grade: grade,
+                            grade: exam.grade,
 			            	page: exam.page,
 			            	row: exam.row
 						}),
 			        },
 			        success: function (res) {
-                        console.log(JSON.stringify(res))
                         if(res.code == 1) {
                             if (exam.page >= res.data.page) {
                                 self.endPullUpToRefresh(true);
@@ -145,16 +147,25 @@
 				}
 			});
 
+			// 监听事件--更新当前页数据
+	        window.addEventListener('reloadExam', function (e) {
+	        	exam.grade = e.detail.grade;
+            	exam.name = e.detail.name;
+            	document.querySelector('#grade_name').innerHTML = '('+ exam.name + ')'
+            	exam.page = 0
+            	exam.list = []
+	            getExamList()
+	        });
+	        
             // 去考试
             document.querySelector('#exam').addEventListener('click', function () {
-                // 通知事件
                 mui.openWindow({
                     id:'train_exam',
                     url: 'train-exam.html',
                     show: animateObj.aniDetal,
                     extras:{
-                        name: name,
-                        grade: grade
+                        grade: exam.grade,
+                        name: exam.name
                     }
                 });
             });

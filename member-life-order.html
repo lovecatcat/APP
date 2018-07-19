@@ -39,8 +39,8 @@
                         <span>待支付</span>
                     </a>
                     <!--<a class="pro-control-item" :class="{'mui-active':status_type=='3'}"-->
-                       <!--@tap="status_type='3',page=0">-->
-                        <!--<span>已取消</span>-->
+                    <!--@tap="status_type='3',page=0">-->
+                    <!--<span>已取消</span>-->
                     <!--</a>-->
                 </div>
             </div>
@@ -78,16 +78,25 @@
                                     <div class="team-per-ins BL-pad-b-1 clearfloat">
                                         <span>提交时间：<i>{{ item.create_time}}</i></span>
                                     </div>
+                                    <div class="team-per-ins BL-pad-b-1 clearfloat" v-if="item.supplier_id==85">
+                                        <span>签名状态：<i class="BL-col-3b9cf5">{{ item.extend_items.signature_status==='1'?'已完成':'未完成'}}</i></span>
+                                    </div>
+                                    <div class="team-per-ins BL-pad-b-1 clearfloat" v-if="item.supplier_id==85">
+                                        <span>支付状态：<i class="BL-col-3b9cf5">{{ item.extend_items.pay_status==='1'?'已完成':'待支付'}}</i></span>
+                                    </div>
                                 </a>
                                 <div class="BL-txt-r button">
                                     <a class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 continue" v-show="btnShow(1,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="1">继续录入</a>
-                                    <a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state==0&&item.supplier_id==8" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-policyno="item.policy_no" :data-fee="item.total">去支付</a>
-                                    <a class="BL-btn-white BL-pad-lr-1 continue" v-show="btnShow(2,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">去支付</a>
-                                    <a class="BL-btn-white BL-pad-lr-1" @tap="toPay(item.policy_id,item.holder_mobile)" v-show="item.supplier_id === 19 && item.state!==5 && (!item.extend_items.pay_status || item.extend_items.pay_status === '0')">去支付</a>
-                                    <a class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 continue" v-show="btnShow(3,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">去签名</a>
-                                    <a class="BL-btn-white BL-pad-lr-1" @tap="freshSign(item.policy_id)" v-show="item.supplier_id==85&&item.state===5&&item.extend_items.signature_status === '0'">刷新</a>
-                                    <a class="BL-btn-white BL-pad-lr-1" @tap="queryPay(item.policy_id)" v-show="item.supplier_id==85&&item.extend_items.pay_status === '2'">查询支付状态</a>
-                                    <a class="BL-btn-white BL-pad-lr-1" @tap="chengbao(item.policy_id)" v-show="item.supplier_id==85&&item.extend_items.pay_status === '1'&&progress!==2">去承保</a>
+
+                                    <a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state==0&&item.supplier_id==8" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-policyno="item.policy_no" :data-fee="item.total">去支付</a><!--平安-->
+                                    <a class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 continue" v-show="btnShow(3,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">去签名</a><!--招商-->
+                                    <a class="BL-btn-white BL-pad-lr-1 continue" v-show="btnShow(2,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">去支付</a><!--招商-->
+                                    <a class="BL-btn-white BL-pad-lr-1 continue" v-show="btnShow(4,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">去支付</a><!--国华-->
+
+                                    <a class="BL-btn-white BL-pad-lr-1" @tap="toPay(item.policy_id,item.holder_mobile)" v-show="item.supplier_id === 19 && item.state!==5 && (!item.extend_items.pay_status || item.extend_items.pay_status === '0')">去支付</a><!--恒大-->
+                                    <a class="BL-btn-white BL-pad-lr-1" @tap="freshSign(item.policy_id)" v-show="item.supplier_id==85&&item.state===5&&item.extend_items.signature_status === '0'">刷新</a><!--招商-->
+                                    <a class="BL-btn-white BL-pad-lr-1" @tap="queryPay(item.policy_id)" v-show="item.supplier_id==85&&item.extend_items.pay_status === '2'">查询支付状态</a><!--招商-->
+                                    <a class="BL-btn-white BL-pad-lr-1" @tap="chengbao(item.policy_id)" v-show="item.supplier_id==85&&item.extend_items.pay_status === '1'&&progress!==2">去承保</a><!--招商-->
                                 </div>
                             </div>
                         </li>
@@ -170,9 +179,9 @@
                 });
             },
             btnShow: function (index, item) {
-                switch (index){
+                switch (index) {
                     case 1: //继续录入 恒大 招商
-                        if ((item.supplier_id === 19 && item.state!==5 && (!item.extend_items.pay_status || item.extend_items.pay_status === '0')) || (item.supplier_id === 85 && (item.extend_items.update_img !== '1')) || (item.supplier_id === 2 && (item.progress < 1 || item.status == 4))) {
+                        if ((item.supplier_id === 19 && item.state !== 5 && (!item.extend_items.pay_status || item.extend_items.pay_status === '0')) || (item.supplier_id === 85 && (item.extend_items.update_img !== '1')) || (item.supplier_id === 2 && (item.progress < 1 || item.state == 4))) {
                             return true
                         }
                         break
@@ -183,6 +192,11 @@
                         break
                     case 3: //去签名 招商
                         if (item.supplier_id == 85 && item.state === 5 && item.extend_items.signature_status === '0') {
+                            return true
+                        }
+                        break
+                    case 4: //去支付 国华
+                        if (item.supplier_id == 2 && item.extend_items.pay_status === '3') {
                             return true
                         }
                         break
@@ -205,134 +219,159 @@
     var user_id;
 
 
-        //阻尼系数
-        var deceleration = mui.os.ios ? 0.003 : 0.0009;
-        mui('.mui-scroll-wrapper').scroll({
-            bounce: false,
-            indicators: false, //是否显示滚动条
-            deceleration: deceleration
-        });
+    //阻尼系数
+    var deceleration = mui.os.ios ? 0.003 : 0.0009;
+    mui('.mui-scroll-wrapper').scroll({
+        bounce: false,
+        indicators: false, //是否显示滚动条
+        deceleration: deceleration
+    });
 
-        mui.plusReady(function () {
-            statusbar();
-            user_id = JSON.parse(plus.storage.getItem("userinfo")).id
-            
-            var winH = window.innerHeight;
-            var titHeight = document.querySelector('#Js-header').offsetHeight;
-            var divHeight = document.querySelector('#Js-orderFilter').offsetHeight;
-            document.querySelector('#Js-orderList').style.height = winH - titHeight - divHeight + 'px';
+    mui.plusReady(function () {
+        statusbar();
+        user_id = JSON.parse(plus.storage.getItem("userinfo")).id
+
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        var divHeight = document.querySelector('#Js-orderFilter').offsetHeight;
+        document.querySelector('#Js-orderList').style.height = winH - titHeight - divHeight + 'px';
 
 
-            //循环初始化所有下拉刷新，上拉加载。
-            mui('#Js-orderList .mui-scroll').pullToRefresh({
-                up: { // 上拉加载更多
-                    auto: true, // 自动上拉一次
-                    contentrefresh: '正在加载...',
-                    contentnomore: '没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
-                    callback: function () {
-                        self = this
-                        loaddata(1)
-                    }
-                },
-                down: {
-                    callback: function () {
-                        self = this
-                        order.page = 0;
-                        loaddata(2, true);
-                    }
+        //循环初始化所有下拉刷新，上拉加载。
+        mui('#Js-orderList .mui-scroll').pullToRefresh({
+            up: { // 上拉加载更多
+                auto: true, // 自动上拉一次
+                contentrefresh: '正在加载...',
+                contentnomore: '没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+                callback: function () {
+                    self = this
+                    loaddata(1)
                 }
-            });
-            //继续录入-后更新列表
-            window.addEventListener('reload', function () {
-                plus.webview.currentWebview().reload()
-            });
-            window.addEventListener('closeins', function (e) {
-                console.log('closeins')
-                var company = e.detail.data
-                setTimeout(function () {
-                    if (company === 'hengda') {
-                        plus.webview.close('hd-insurance-sign');
-                        plus.webview.close('hd_insurance-index');
-                    }
-                }, 100)
-            });
-            // 取消订单
-            mui('body').on('tap', '.cancel', function () {
-                var _this = this
-                var id = _this.getAttribute('data-id')
-                var index = _this.getAttribute('data-index')
+            },
+            down: {
+                callback: function () {
+                    self = this
+                    order.page = 0;
+                    loaddata(2, true);
+                }
+            }
+        });
+        //继续录入-后更新列表
+        window.addEventListener('reload', function () {
+            plus.webview.currentWebview().reload()
+        });
+        window.addEventListener('closeins', function (e) {
+            console.log('closeins')
+            var company = e.detail.data
+            setTimeout(function () {
+                if (company === 'hengda') {
+                    plus.webview.close('hd-insurance-sign');
+                    plus.webview.close('hd_insurance-index');
+                }
+            }, 100)
+        });
+        // 取消订单
+        mui('body').on('tap', '.cancel', function () {
+            var _this = this
+            var id = _this.getAttribute('data-id')
+            var index = _this.getAttribute('data-index')
 
-                mui.confirm('确定要删除该订单？', '提示', ['确定', '取消'], function (e) {
-                    if (e.index == 0) {
-                        luckyAjax({
-                            data: {
-                                server: 'PolicyIns.changePolicyState',
-                                data: JSON.stringify({
-                                    policy_state: '2', //取消订单固定传2
-                                    policy_id: id
-                                })
-                            },
-                            success: function (res) {
-                                if (res.code == 1) {
-                                    // 设置按钮不可以用
-                                    _this.disabled = true
-                                    if (_this.nextElementSibling) {
-                                        _this.nextElementSibling.disabled = true
-                                    }
-                                    order.listdata[index].ins_state_name = '取消'
-
-                                    mui.toast('成功取消订单', {duration: 'short', type: 'div'})
-                                } else {
-                                    mui.toast(res.msg, {duration: 'short', type: 'div'})
+            mui.confirm('确定要删除该订单？', '提示', ['确定', '取消'], function (e) {
+                if (e.index == 0) {
+                    luckyAjax({
+                        data: {
+                            server: 'PolicyIns.changePolicyState',
+                            data: JSON.stringify({
+                                policy_state: '2', //取消订单固定传2
+                                policy_id: id
+                            })
+                        },
+                        success: function (res) {
+                            if (res.code == 1) {
+                                // 设置按钮不可以用
+                                _this.disabled = true
+                                if (_this.nextElementSibling) {
+                                    _this.nextElementSibling.disabled = true
                                 }
-                            }
-                        });
-                    }
-                })
-            })
+                                order.listdata[index].ins_state_name = '取消'
 
-            // 继续录入
-            mui('body').on('tap', '.continue', function () {
-                var _this = this
-                var supplier_id = _this.getAttribute('data-supplier')
-                var policyid = _this.getAttribute('data-policyid')
-                var orderno = _this.getAttribute('data-policyno')
-                var fee = _this.getAttribute('data-fee')
-                var type = _this.getAttribute('data-type')
-                var url = null
-                var id = null
-                var extras = null
-                if (supplier_id == 19) {
-                    url = 'hd_ins/insurance-index.html'
-                    id = 'hd_insurance-index'
-                    extras = {policy_id: policyid}
-                } else if (supplier_id == 85 && type === '1') {
-                    url = 'zs_ins/insurance-index.html'
-                    id = 'zs_insurance-index'
-                    extras = {policy_id: policyid}
-                } else if (supplier_id == 85 && type === '2') {
-                    url = 'zs_ins/order-to-pay.html'
-                    id = 'order_to_pay'
-                    extras = {policy_id: policyid}
-                } else if (supplier_id == 8) {
-                    console.log(policyid)
-                    url = 'paehis/pa-pay.html'
-                    id = 'pa_pay'
-                    extras = {
-                        policy_id: policyid,
-                        order_no: orderno,
-                        fee: fee
-                    }
+                                mui.toast('成功取消订单', {duration: 'short', type: 'div'})
+                            } else {
+                                mui.toast(res.msg, {duration: 'short', type: 'div'})
+                            }
+                        }
+                    });
                 }
-                //打开新窗口
-                mui.openWindow({
-                    url: url,
-                    id: id,
-                    show: animateObj.aniDetal,
-                    extras: extras
-                });
             })
-        });
+        })
+
+        // 继续录入
+        mui('body').on('tap', '.continue', function () {
+            var _this = this
+            var supplier_id = _this.getAttribute('data-supplier')
+            var policyid = _this.getAttribute('data-policyid')
+            var orderno = _this.getAttribute('data-policyno')
+            var fee = _this.getAttribute('data-fee')
+            var type = _this.getAttribute('data-type')
+            var url = null
+            var id = null
+            var extras = null
+            if (supplier_id == 19) {
+                url = 'hd_ins/insurance-index.html'
+                id = 'hd_insurance-index'
+                extras = {policy_id: policyid}
+            } else if (supplier_id == 85 && type === '1') {
+                url = 'zs_ins/insurance-index.html'
+                id = 'zs_insurance-index'
+                extras = {policy_id: policyid}
+            } else if (supplier_id == 85 && type === '2') {
+                url = 'zs_ins/order-to-pay.html'
+                id = 'order_to_pay'
+                extras = {policy_id: policyid}
+            } else if (supplier_id == 2 && type === '1') { //国华继续录入
+                url = 'gh_ins/insurance-index.html'
+                id = 'gh_insurance-index'
+                extras = {policy_id: policyid}
+            } else if (supplier_id == 2 && type === '2') { //国华去支付
+                url = 'gh_ins/gh-pay.html'
+                id = 'gh_pay'
+                extras = {policy_id: policyid}
+//                 luckyAjax({
+//			            data: {
+//			                server: 'PolicyIns.onlineInsured',
+//			                data: JSON.stringify({
+//			                	msg: { policy_id: policyid},
+//			                	company_code: 'GuoHua',
+//			                	method: 'pay'
+//			                })
+//			            },
+//			            success: function(res){
+//			                if(res.code == 1) {
+//			                    mui.toast(res.msg, {duration: 'long', type: 'div'})
+//			                } else {
+//			                   mui.toast(res.msg, {duration: 'long', type: 'div'})
+//			                }
+//			            }
+//			        });
+            } else if (supplier_id == 8) {
+                console.log(policyid)
+                url = 'paehis/pa-pay.html'
+                id = 'pa_pay'
+                extras = {
+                    policy_id: policyid,
+                    order_no: orderno,
+                    fee: fee
+                }
+            }
+            //打开新窗口
+            mui.openWindow({
+                url: url,
+                id: id,
+                show: animateObj.aniDetal,
+                extras: extras
+            });
+        })
+    });
 
     //加载险种列表
     var loaddata = function (type, e) {
@@ -372,7 +411,6 @@
                         }
                     }
                     if (e) {
-                        console.log('覆盖')
                         order.listdata = res.data.list;
                     } else {
                         var list = res.data.list;
@@ -381,7 +419,9 @@
                         });
                     }
                 } else {
-                    order.listdata = []
+                    if(e){
+                        order.listdata = []
+                    }
                     self.endPullUpToRefresh(true)
                 }
             }

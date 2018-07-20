@@ -1,0 +1,294 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="../css/mui.css" rel="stylesheet"/>
+    <link href="../css/common.css" rel="stylesheet"/>
+    <link href="../css/module.css" rel="stylesheet"/>
+    <link href="../css/insurance.css" rel="stylesheet"/>
+    <script src="../js/config.js" type="text/javascript"></script>
+</head>
+
+<body class="BL-bg-f2f">
+<header id="Js-header" class="BL-bg-fff">
+    <div class="BL-mod-headbar BL-mod-headbar-pos">
+        <a class="mui-icon-left-nav BL-icon BL-icon-left" id="backto"></a>
+        <h1 class="BL-title">支付信息</h1>
+    </div>
+</header>
+<div id="Js-content" class="mui-content BL-rel BL-overFlow-autoY" v-cloak>
+    <div class="BL-mar-t-1" v-if="res">
+        <div class="form-wrap">
+            <div class="input-item ins-font-xs BL-col-ff8201">{{res.resultMsg}}</div>
+        </div>
+        <div class="form-wrap">
+            <div class="input-item">
+                <label class="">身份证号</label>
+                <div class="input-wrap box-f-1">
+                    <div class="input" style="border: none;">{{res.data.idNo}}</div>
+                </div>
+            </div>
+            <div class="input-item">
+                <label class="">手机号码</label>
+                <div class="input-wrap box-f-1">
+                    <input type="number" v-model="tel"
+                           @blur="checkPhone" placeholder="请输入">
+                    <div class="form-clear-icon" v-show="tel!=''" @click="tel=''">
+                        <span class="mui-icon mui-icon-clear"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-item">
+                <label class="">验证码</label>
+                <div class="BL-ub BL-ub-pj BL-ub-f1">
+                    <div class="input-wrap BL-ub-f1">
+                        <input type="number" v-model="smscode">
+                    </div>
+                    <button class="right-btn orange" :disabled="disabled" @click="sendsms">{{text}}</button>
+                </div>
+            </div>
+        </div>
+        <div class="BL-mar-t-3 BL-pad-lr-1_5">
+            <a type="button" @tap="sign" class="form-btn blue">立即签约</a>
+        </div>
+        <div class="BL-mar-t-3 BL-pad-lr-1_5">
+            <a type="button" @tap="closepay" class="form-btn">关闭</a>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/mui.min.js" type="text/javascript"></script>
+<script src="../js/vue.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mui.init();
+
+    mui.plusReady(function () {
+        statusbar();
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+
+        var itemName = ['hengda_applicant','hengda_assured','hengda_beneficiary','hengda_safegoods','hengda_healthinfo','hengda_bank','hengda_upload','hengda_ids'];
+
+        var paystatus = new Vue({
+            el: '#Js-content',
+            data: function () {
+                return {
+                    idNo: '',
+                    tel: '',
+                    res: '',
+                    smscode: '',
+                    disabled: false,
+                    second: 60,
+                    time: 0
+                }
+            },
+            created:function () {
+                this.smscode = ''
+            },
+            computed: {
+                text: function () {
+                    return this.time > 0 ? this.time + 's后可重新获取' : '点击获取'
+                }
+            },
+            methods:{
+                closepay:function () {
+                    //清除本地缓存
+                    for (var i = 0; i < itemName.length; i++) {
+                        plus.storage.removeItem(itemName[i])
+                    }
+                    mui.openWindow({
+                        url: '../member-life-order.html',
+                        id: 'member_life_order',
+                        show: animateObj.aniDetal
+                    })
+                    setTimeout(function () {
+                        plus.webview.close('pay_status');
+                        plus.webview.close('hd-insurance-sign');
+                        plus.webview.close('hd_insurance-index');
+                        mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
+                    }, 500)
+                },
+                sign: function () {
+                    const vm = this
+                    if (!vm.checkPhone()) {
+                        return false
+                    }
+                    luckyAjax({
+                        data: {
+                            data: JSON.stringify({
+                                msg: {policy_id: vm.war_id, sms_code: vm.smscode},
+                                company_code: 'HengDa',
+                                method: 'signed'
+                            }),
+                            server: 'PolicyIns.onlineInsured',
+                            device: 'mobile',
+                            view: true
+                        },
+                        timeout: 30000,
+                        success: function (res) {
+                            if (res.code) {
+                                mui.toast('签约成功!支付中...', {duration: 'short', type: 'div'});
+                                vm.topay()
+                                return false;
+                            } else {
+                                mui.toast(res.data.resultMsg, {duration: 'short', type: 'div'});
+                                return false;
+                            }
+                        }
+                    });
+                },
+                topay: function () {
+                    const vm = this
+                    luckyAjax({
+                        data: {
+                            data: JSON.stringify({
+                                msg: {policy_id: vm.war_id},
+                                company_code: 'HengDa',
+                                method: 'pay'
+                            }),
+                            server: 'PolicyIns.onlineInsured',
+                            device: 'mobile'
+                        },
+                        timeout: 10000,
+                        success: function (res) {
+                            if (res.code) {
+                                if (res.data.resultCode === '00') {
+                                    mui.toast('承保成功', {duration: 'long', type: 'div'});
+                                    afterPay(true,true)
+                                } else if (res.data.resultCode === '02') {
+                                    mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
+                                    afterPay(true,false)
+                                } else {
+                                    mui.toast(res.data && res.data.resultMsg ? res.data.resultMsg : '承保失败', {
+                                        duration: 'long',
+                                        type: 'div'
+                                    })
+                                    afterPay(true,false)
+                                }
+                            } else {
+                                mui.toast('网络出错，请稍后再试', {duration: 'long', type: 'div'})
+                                return false
+                            }
+                        }
+                    });
+                },
+                checkPhone: function () {
+                    var phone = this.tel
+                    var toast_text = null;
+                    if (!phone) {
+                        toast_text = '手机号码不能为空';
+                    } else if (!/^1[3-9][0-9]{9}$/.test(phone)) {
+                        toast_text = '手机号码格式不对';
+                    }
+                    if (toast_text) {
+                        mui.toast(toast_text, {duration: 'short', type: 'div'});
+                        return false;
+                    }
+                    return true
+                },
+                //07发送验证码
+                sendsms: function () {
+                    const vm = this
+                    console.log('sendsms')
+                    luckyAjax({
+                        data: {
+                            data: JSON.stringify({
+                                msg: {policy_id: vm.war_id, mobile: vm.tel},
+                                company_code: 'HengDa',
+                                method: 'applyForSign'
+                            }),
+                            server: 'PolicyIns.onlineInsured',
+                            device: 'mobile',
+                            view: true
+                        },
+                        timeout: 30000,
+                        success: function (res) {
+                            if (res.data.result === 'fail') {
+                                mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
+                                return false;
+                            } else if (res.data.result === 'success') {
+                                mui.toast('发送成功！', {duration: 'short', type: 'div'});
+                                return false;
+                            }
+                        }
+                    });
+                },
+                run: function () {
+                    this.time = this.second
+                    this.timer()
+                },
+                sended: function () {
+                    this.run()
+                    this.disabled = true
+                },
+                timer: function () {
+                    const vm = this
+                    if (vm.time > 0) {
+                        vm.time--
+                        setTimeout(function () {
+                            vm.timer()
+                        }, 1000)
+                    } else {
+                        vm.disabled = false
+                    }
+                }
+            }
+        });
+
+        var res = plus.webview.currentWebview().data;
+        var war_id = plus.webview.currentWebview().war_id;
+        var tel = plus.webview.currentWebview().tel;
+        console.log(JSON.stringify(res))
+        console.log(war_id)
+        console.log(tel)
+        paystatus.res = res
+        paystatus.war_id = war_id
+        paystatus.tel = tel
+
+        //承保接口调完后
+        function afterPay(clear, ispay) {
+            if (clear) {
+                //清除本地缓存
+                for (var i = 0; i < itemName.length; i++) {
+                    plus.storage.removeItem(itemName[i])
+                }
+            }
+            setTimeout(function () {
+                if (ispay) {
+                    mui.openWindow({
+                        url: '../member-warranty-manage.html',
+                        id: 'member_warranty_manage',
+                        show: animateObj.aniDetal
+                    })
+                    setTimeout(function () {
+                        plus.webview.close('pay_status');
+                        plus.webview.close('hd-insurance-sign');
+                        plus.webview.close('hd_insurance-index');
+                    }, 500)
+                } else {
+                    mui.openWindow({
+                        url: '../member-life-order.html',
+                        id: 'member_life_order',
+                        show: animateObj.aniDetal
+                    })
+                    setTimeout(function () {
+                        plus.webview.close('pay_status');
+                        plus.webview.close('hd-insurance-sign');
+                        plus.webview.close('hd_insurance-index');
+                        mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
+                    }, 500)
+                }
+
+            }, 3000)
+        }
+
+        //返回
+        document.querySelector('#backto').addEventListener('tap', function () {
+            afterPay(true, false)
+        })
+    })
+
+</script>
+</html>

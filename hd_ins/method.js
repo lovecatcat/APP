@@ -25,6 +25,7 @@ var njbznx = 'LBB0001' //年金保障年限20年
 var njlqfs = 'LBC0001' //年金领取方式 年领
 
 var typename = {'LAA0001': '身份证', 'LAA0002': '户口本', 'LAA0005': '出生证'}
+var benerelname = {'LAC0002': '配偶', 'LAN0003': '父母', 'LAN0004': '子女'}
 var ISASSURED = 'LAC0001'; //被保人是本人
 var COUPLE = 'LAC0002';//投被保人为配偶
 var BCOUPLE = 'LAN0002';//受益人与被保人为配偶

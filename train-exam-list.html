@@ -27,7 +27,7 @@
                 <ul class="mui-table-view train-list-cell">
                     <li class="nItem BL-mar-tb-1_5" v-for="(item,index) in list">
                         <a class="BL-ub BL-ub-f1" :data-type="item.media_type" :data-id="item.id">
-                            <div class="img">
+                            <div class="list_img">
                                 <img :src="item.img | setImg"/>
                             </div>
                             <div class="context BL-ub BL-ub-ver BL-ub-f1">
@@ -39,7 +39,7 @@
                                 <div class="remarks BL-ub BL-ub-ac">
                                     <i class="ico-remarks" :class="{'ico-picture': item.media_type == 0,'ico-tv': item.media_type == 1,'ico-ad': item.media_type == 2}"></i>
                                     <span>{{ item.play_count }}</span>
-                                    <span>{{ item.create_time | setTime }}</span>
+                                    <span>{{ item.date }}</span>
                                 </div>
                             </div>
                         </a>
@@ -82,9 +82,13 @@
 		//阻尼系数
 		var deceleration = mui.os.ios ? 0.003 : 0.0009;
 		$('#Js-content .mui-scroll-wrapper').scroll({
-			bounce: true,
-			indicators: false, //是否显示滚动条
-			deceleration: deceleration
+            scrollY: true, //是否竖向滚动
+            scrollX: false, //是否横向滚动
+            startX: 0, //初始化时滚动至x
+            startY: 0, //初始化时滚动至y
+            indicators: false, //是否显示滚动条
+            deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
+            bounce: false //是否启用回弹
 		});
 		$.plusReady(function() {
             statusbar();
@@ -176,6 +180,9 @@
 		        var type = this.getAttribute("data-type");
 		        var wid = this.getAttribute("data-id");
 
+                // 课程详情ID保存在本地
+                plus.storage.setItem('LessonInfo', JSON.stringify({id: wid}));
+
                 if (type == 0) {
                     href = 'train-article.html'
                     id = 'train_article'
@@ -190,10 +197,7 @@
 		        mui.openWindow({
 		            url: href,
 		            id: id,
-		            show: animateObj.aniDetal,
-		            extras:{
-                        wid: wid   // 课程详情ID
-					}
+		            show: animateObj.aniDetal
 		        });
 			});
 		});	

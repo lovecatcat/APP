@@ -61,8 +61,9 @@
                 <div class="mui-scroll">
                     <ul class="mui-table-view train-list-cell">
 	                    <li class="nItem BL-mar-tb-1_5" v-for="(item,index) in list">
+                            <i class="train-sign" v-if="nowTime==item.date&&is_sign==0&&item.media_type==1"></i>
                             <a class="BL-ub BL-ub-f1" :data-type="item.media_type" :data-id="item.id">
-	                            <div class="img">
+	                            <div class="list_img">
                                     <img :src="item.img | setImg"/>
 	                            </div>
                                 <div class="context BL-ub BL-ub-ver BL-ub-f1">
@@ -74,7 +75,7 @@
                                     <div class="remarks BL-ub BL-ub-ac">
                                         <i class="ico-remarks" :class="{'ico-picture': item.media_type == 0,'ico-tv': item.media_type == 1,'ico-ad': item.media_type == 2}"></i>
                                         <span>{{ item.play_count }}</span>
-                                        <span>{{ item.create_time | setTime }}</span>
+                                        <span>{{ item.date }}</span>
                                     </div>
                                 </div>
 	                        </a>
@@ -96,11 +97,13 @@
     var train = new Vue({
         el: '#Js-content',
         data: {
+            nowTime: new Date().addDays(0).Format('yyyy-MM-dd'),   // 今天日期
+            is_sign: 0,  // "is_sign":1,     //今日是否打卡   1 是， 0 否
             page: 0,
             name: '', // 名称
             pid: '',  // 一级类别id
             cate_id: '',   // 二级类别id
-            type: '', // 1 和 2 时间排序 1create_time desc （递减）、2create_time （递增）
+            type: '', // 1 和 2 时间排序 1date desc （递减）、2date （递增）
                        // 3 播放最多 play_count desc
                        // 4 有二级类别
             list: [],
@@ -178,26 +181,25 @@
             });
         });
     }(mui));
-    //加载险种列表
+
     var loaddata = function (type,e) {
         train.page++;
         var basedata = {
             page: train.page,
             row: 10,
-            create_time: train.type === 1? 'create_time desc': (train.type === 2 ? 'create_time': ''),
+            date: train.type === 1? 'date desc': (train.type === 2 ? 'date': ''),
             play_count: train.type === 3? 'play_count desc': '',
             cate_id: train.cate_id === ''? '': train.cate_id
         };
-        console.log(JSON.stringify(basedata))
         luckyAjax({
-        	closeWaiting:  type == 2 ? true:false, 
+        	closeWaiting:  type == 2 ? true:false,
             data: {
                 server: 'videoLearn.lessonList',
                 data: JSON.stringify(basedata)
             },
             success: function (res) {
-                console.log(JSON.stringify(res))
                 if (res.code) {
+                    train.is_sign = res.data.is_sign
                     if (train.page >= res.data.page) {
                         if (type === 1) {
                             self.endPullUpToRefresh(true);
@@ -245,7 +247,6 @@
             success: function (res) {
                 if (res.code == 1) {
                     train.menu = res.data
-                    alert(JSON.stringify(res))
                 } else {
                     mui.toast(res.msg, {duration: 'long', type: 'div'})
                 }
@@ -257,6 +258,8 @@
         var href = '', id = '';
         var type = this.getAttribute("data-type");
         var wid = this.getAttribute("data-id");
+        // 课程详情ID保存在本地
+        plus.storage.setItem('LessonInfo', JSON.stringify({id: wid}));
 
         if (type == 0) {
             href = 'train-article.html'
@@ -272,10 +275,7 @@
         mui.openWindow({
             url: href,
             id: id,
-            show: animateObj.aniDetal,
-            extras:{
-                wid: wid   // 课程详情ID
-            }
+            show: animateObj.aniDetal
         });
     });
     // 跳到二级菜单筛选页面
@@ -303,8 +303,11 @@
     //接收筛选的公司id
     window.addEventListener('selectMenu', function (e) {
         train.cate_id = e.detail.cate_id;
+        train.name = e.detail.cate_name;
         train.type = 4;
         train.page = 0;
+
+        document.querySelector('.BL-title').innerHTML = train.name
         loaddata(1,true);
     });
 

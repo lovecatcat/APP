@@ -26,25 +26,28 @@
         <div id="Js-newsList" class="news-list">
             <div class="mui-content mui-scroll-wrapper">
                 <div class="mui-scroll">
-                    <!--活动中，数据列表-->
-                    <ul class="mui-table-view news-list-cell" v-if="newsList_data.length > 0">
-                        <li class="BL-ub BL-ub-ac nItem" v-for="(item, index) in newsList_data" :key="index" :class="{'nItem-active': checkModel.indexOf(item.id) > -1}">
+                    <ul class="mui-table-view train-list-cell BL-mar-t-1" v-if="list&&list.length > 0">
+                        <li class="BL-ub BL-ub-ac nItem BL-mar-tb-1_5" v-for="(item,index) in list" :key="index" :class="{'nItem-active': checkModel.indexOf(item.id) > -1}">
                             <div class="selected" @tap="changeOneChecked(item.id, index)" v-show="editShow">
                                 <div class="mui-icon mui-icon-checkmarkempty"></div>
                             </div>
-                            <a class="BL-ub BL-ub-f1" :data-id="item.id" :data-type="item.type" :data-wid="item.mark === 2 ? 'news_tv_detail' : 'news_detail'" :href="item.mark === 2 ? 'news-tv-detail.html' : 'news-detail.html'">
+                            <div class="BL-ub BL-ub-f1" @tap="OpenLessonDetail(item.media_type,item.id)">
                                 <div class="img">
-                                    <img :src="item.image" />
+                                    <img :src="item.img | setImg"/>
                                 </div>
                                 <div class="context BL-ub BL-ub-ver BL-ub-f1">
                                     <h1 class="tit">
-                                        <span class="tit-badg tit-badg-hot" v-if="item.mark === 1">热门</span>
-                                        <span class="tit-badg tit-badg-tv" v-else-if="item.mark === 2">视频</span>
-                                        {{item.title}}
+                                        <span class="tit-badg" v-if="item.media_type == 1" :class="{'tit-badg-tv': item.media_type == 1}">视频</span>
+                                        <span class="tit-badg" v-if="item.media_type == 2" :class="{'tit-badg-ad': item.media_type == 2}">音频</span>
+                                        {{ item.title }}
                                     </h1>
-                                    <div class="name">{{item.type_name}}</div>
+                                    <div class="remarks BL-ub BL-ub-ac">
+                                        <i class="ico-remarks" :class="{'ico-picture': item.media_type == 0,'ico-tv': item.media_type == 1,'ico-ad': item.media_type == 2}"></i>
+                                        <span>{{ item.play_count }}</span>
+                                        <span>{{ item.create_time | setTime }}</span>
+                                    </div>
                                 </div>
-                            </a>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -72,22 +75,36 @@
 <script src="js/mui.pullToRefresh.js"></script>
 <script src="js/mui.pullToRefresh.material.js"></script>
 <script src="js/vue.min.js"></script>
+<script src="js/Date.js"></script>
 <script type="text/javascript">
     mui.init();
 
-    var newsList = new Vue({
+    var train = new Vue({
         el: '#Js-content',
         data: {
-            newsList_data: [], // 列表数据
+            page: 0,
+            row: 10,
+            list:  [], // 列表数据
             editShow: false,
             checkedAll: false, //全选
             checkModel: [], //选中的复选框
+        },
+        //过滤器
+        filters: {
+            setTime: function (timestamp) {
+                var time = new Date(timestamp*1000)   // 时间戳转成日期
+                var timeFormat = time.Format('yyyy-MM-dd')
+                return timeFormat
+            },
+            setImg: function(val) {
+                return config.domain + val
+            }
         },
         watch: {
             //监听单个选择框的改变
             checkModel: {
                 handler: function() {
-                    if(this.checkModel.length === this.newsList_data.length) {
+                    if(this.checkModel.length === this.list.length) {
                         this.checkedAll = true
                     } else {
                         this.checkedAll = false
@@ -117,7 +134,7 @@
                 vm.checkModel = []
                 vm.checkedAll = !vm.checkedAll
                 if(vm.checkedAll === true) {
-                    vm.newsList_data.forEach(function(value, index) {
+                    vm.list.forEach(function(value, index) {
                         var id = value.id
                         vm.checkModel.push(id)
                     })
@@ -135,24 +152,23 @@
                         if (e.index == 0) {
                             luckyAjax({
                                 data: {
-                                    server: 'Information.enshrine',
+                                    server: 'videoLearn.cancelCollectMany',
                                     data: JSON.stringify({
-                                        type: '0',
-                                        info_id: vm.checkModel.toString()
+                                        video_list: vm.checkModel.toString()
                                     })
                                 },
                                 success: function(res) {
                                     if(res.code == 1) {
                                         var arr =[]
                                         var check = ""
-                                        mui.each(vm.newsList_data, function(index, item) {
-                                            if(vm.checkModel.indexOf(vm.newsList_data[index].id) < 0) {
-                                                arr.push(vm.newsList_data[index])
+                                        mui.each(vm.list, function(index, item) {
+                                            if(vm.checkModel.indexOf(vm.list[index].id) < 0) {
+                                                arr.push(vm.list[index])
                                             }
                                         })
                                         vm.$nextTick(function () {
                                             vm.checkModel = []
-                                            vm.newsList_data = arr
+                                            vm.list = arr
                                         })
                                         mui.toast('删除成功', {duration: 'short', type: 'div'})
 
@@ -168,15 +184,44 @@
                     })
                 }
             },
+            // 打开课程详情页面
+            OpenLessonDetail: function (type,wid) {
+                var href = '', id = '';
+
+                if (type == 0) {
+                    href = 'train-article.html'
+                    id = 'train_article'
+                } else if (type == 1) {
+                    href = 'train-video.html'
+                    id = 'train_video'
+                } else if (type == 2) {
+                    href = 'train-audio.html'
+                    id = 'train_audio'
+                }
+
+                // 课程详情ID保存在本地
+                plus.storage.setItem('LessonInfo', JSON.stringify({id: wid}));
+
+                //打开新窗口
+                mui.openWindow({
+                    url: href,
+                    id: id,
+                    show: animateObj.aniDetal
+                });
+            },
         }
     });
     (function($) {
         //阻尼系数
         var deceleration = mui.os.ios ? 0.003 : 0.0009;
         $('#Js-newsList .mui-scroll-wrapper').scroll({
-            bounce: false,
+            scrollY: true, //是否竖向滚动
+            scrollX: false, //是否横向滚动
+            startX: 0, //初始化时滚动至x
+            startY: 0, //初始化时滚动至y
             indicators: false, //是否显示滚动条
-            deceleration: deceleration
+            deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
+            bounce: false //是否启用回弹
         });
 
         $.plusReady(function() {
@@ -187,138 +232,95 @@
             document.querySelector('#Js-newsList').style.height = winH - titHeight + 'px';
 
             var user_id = JSON.parse(plus.storage.getItem("userinfo")).id
-            var i = 0;
+
             //循环初始化所有下拉刷新，上拉加载。
             $('#Js-newsList .mui-scroll').pullToRefresh({
                 up: { // 上拉加载更多
                     auto: true, // 自动上拉一次
                     callback: function() {
-                        i++;
                         self = this;
-                        getAjax();
+                        getAjax(1);
                     }
                 },
                 down: {
                     callback: function() {
-                        i = 1;
+                        train.page = 0;
                         self = this;
-                        getAjax(true);
+                        getAjax(2,true);
                     }
                 }
             });
 
-            // 更新列表
-            window.addEventListener('reload', function () {
-                plus.webview.currentWebview().reload()
-            });
+//            // 更新列表
+//            window.addEventListener('reload', function () {
+//                plus.webview.currentWebview().reload()
+//            });
 
-            function getAjax(e) {
+            function getAjax(type, e) {
+                train.page++;
+                var basedata = {
+                    page: train.page,
+                    row: train.row
+                };
                 luckyAjax({
-                    closeWaiting: e === true ? true : false,
+                    closeWaiting:  type == 2 ? true:false,
                     data: {
-                        server: 'information.enshrineQueue',
-                        data: JSON.stringify({
-                            user_id: user_id,
-                            amount: 15, //每页显示的条数
-                            page: i //请求的页码
-                        })
+                        server: 'videoLearn.collectList',
+                        data: JSON.stringify(basedata)
                     },
-                    success: function(res) {
-                        if(res.code == 1 && i <= res.data.pageCount) {
-                            if(e) {
-                                newsList.newsList_data = res.data.queue
-                                mui.toast('更新完成', {
-                                    duration: 'short',
-                                    type: 'div'
-                                });
-                                self.endPullDownToRefresh();
+                    success: function (res) {
+                        if (res.code) {
+                            if (train.page >= res.data.page) {
+                                if (type === 1) {
+                                    self.endPullUpToRefresh(true);
+                                } else if (type === 2) {
+                                    mui.toast('更新完成', {duration: 'short', type: 'div'})
+                                    self.endPullDownToRefresh(true);
+                                }
                             } else {
-                                newsList.newsList_data = newsList.newsList_data.concat(res.data.queue)
-                                self.endPullUpToRefresh();
+                                if (type === 1) {
+                                    self.endPullUpToRefresh();
+                                } else if (type === 2) {
+                                    mui.toast('更新完成', {duration: 'short', type: 'div'})
+                                    self.endPullDownToRefresh();
+                                }
+                            }
+                            if (e) {
+                                if (res.data == []) {
+                                    train.list = []
+                                } else {
+                                    train.list = res.data.list;
+                                }
+                            } else {
+                                var list = res.data.list;
+                                mui.each(list, function (index, item) {
+                                    train.list.push(item);
+                                });
                             }
                         } else {
-                            self.endPullUpToRefresh(true);
+                            mui.toast(res.msg, {duration: 'long', type: 'div'});
+                            return false;
                         }
                     }
                 });
             }
 
+            // 监听事件--更新当前页数据
+            window.addEventListener('reloadRequirement', function (e) {
+                train.list = []
+                train.page = 0
+                getAjax(1);
+            });
+
             //点击编辑
             document.querySelector('.control a').addEventListener('tap', function() {
-                if (!newsList.editShow && newsList.newsList_data.length == 0) {
+                if (!train.editShow && train.list.length == 0) {
                     mui.toast("无收藏项可编辑", {duration: 'short', type: 'div'})
                     return false
                 }
-                newsList.editShow = !newsList.editShow
+                train.editShow = !train.editShow
                 this.innerText = this.innerText == '编辑' ? '完成' : '编辑'
             }, false);
         });
-
     }(mui));
-
-    //主列表点击事件
-    var detailPage = null;
-    mui('.news-list').on('tap', 'a', function() {
-        var href = this.getAttribute('href');
-        var id = this.getAttribute("data-wid");
-        var pid = this.getAttribute('data-id');
-        var type = this.getAttribute('data-type');
-        //非plus环境，直接走href跳转
-        if(!mui.os.plus) {
-            location.href = href;
-            return;
-        };
-
-        if(id == 'news_detail') {
-            if(pid) {
-                //获得详情页面
-                if(!detailPage) {
-                    detailPage = plus.webview.getWebviewById(id);
-                }
-
-                //打开新窗口
-                mui.openWindow({
-                    id: id,
-                    show: animateObj.aniDetal
-                });
-
-                //触发详情页面的newsId事件
-                mui.fire(detailPage, 'newsId', {
-                    id: pid,
-                    parent_id: 'requirement',
-                    type: type
-                });
-            };
-        } else {
-            luckyAjax({
-                data: {
-                    server: 'Information.content',
-                    device: 'mobile',
-                    view: true,
-                    data: JSON.stringify({
-                        id: pid
-                    })
-                },
-                success: function(res) {
-                    if(res.code == 1) {
-                        mui.openWindow({
-                            id: 'news_tv_video',
-                            url: 'news-tv-video.html',
-                            show: animateObj.aniDetal,
-                            extras: {
-                                parent_id: 'requirement',
-                                new_id: res.data.id,
-                                video_url: res.data.link,
-                                title: res.data.title,
-                                read_num: res.data.read_num,
-                                is_enshrine: res.data.is_enshrine
-                            }
-                        });
-                    } else {
-                        console.log(res.msg)
-                    }
-                }
-            });
-        }
-    });
 </script>

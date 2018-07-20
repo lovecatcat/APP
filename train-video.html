@@ -15,7 +15,7 @@
 		<div class="BL-mod-headbar BL-mod-headbar-pos">
 			<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
 			<h1 class="BL-title">发现</h1>
-			<a id="Js-openShare" class="BL-icon BL-icon-share"></a>
+			<!--<a id="Js-openShare" class="BL-icon BL-icon-share"></a>-->
 		</div>
 	</header>
 	<div id="Js-content" class="mui-content BL-rel" v-cloak>
@@ -25,7 +25,7 @@
 					<div class="hd">
 						<div class="title">{{ detail.title }}</div>
 						<div class="date">
-							<span v-if="detail.create_time">{{ detail.create_time | setTime }}</span>
+							<span v-if="detail.date">{{ detail.date }}</span>
 							<span v-if="detail.name" class="BL-pad-l-1">
 								{{ detail.name }}
 							</span>
@@ -70,7 +70,7 @@
 									</span>
 								</span>
 								<span class="mui-time-current">00:00</span> <!--进度时间-->
-								<div class="mui-progressWrap"> <!--可以拖动的进度条-->
+								<div class="mui-progressWrap" style="display: none"> <!--可以拖动的进度条-->
 									<div class="mui-wrap-right">
 										<input type="range" id='mui-block-range' value="0" min="0" max="100" >
 									</div>
@@ -127,6 +127,11 @@
 				</div>
 			</div>
 		</footer>
+		<!----------- 打卡按键  begin -------------->
+		<a id="Js-duty" class="BL-mod-sign" v-if="is_sign==0&&nowTime==detail.date" @click="clock">
+			<div class="sign BL-bimg-contain" :class="{'sign': sign_flag&&is_sign==0, 'sign_disabled': !sign_flag&&is_sign==0 }"></div>
+		</a>
+		<!----------- 打卡按键  end   -------------->
 	</div>
 </body>
 <script src="js/mui.min.js" type="text/javascript"></script>
@@ -138,10 +143,20 @@
 <script src="js/vue.min.js"></script>
 <script src="js/plusShare.js"></script>
 <script type="text/javascript">
-    mui.init();
+    mui.init({
+        gestureConfig:{
+            drag: false //默认为true
+        }
+	});
     var lesson = new Vue({
         el: '#Js-content',
         data: {
+            nowTime: new Date().addDays(0).Format('yyyy-MM-dd'),   // 今天日期
+            is_attendance: 0, // 是否已观看 ，  1 是  0 否
+			is_sign: '',   // 是否已经打卡  1 是  0 否
+			sign_flag: false,   // 是否可以打卡
+            effective_time: 60,  // 有效观看时间(涉及考勤、阅读量)
+			timer: '',  // 计时器
             detail: {},   // 课程详情数据
             recommend: null
         },
@@ -161,9 +176,11 @@
             OpenLessonDetail: function (type,wid) {
             	var vm = this
                 var href = '', id = '';
-                
+                // 课程详情ID保存在本地
+                plus.storage.setItem('LessonInfo', JSON.stringify({id: wid}));
+
                 if (vm.detail.media_type == type) {
-                	loadVideo(wid)
+                    plus.webview.currentWebview().reload()
                 	return false;
                 }
                 
@@ -180,10 +197,7 @@
                 mui.openWindow({
                     url: href,
                     id: id,
-                    show: animateObj.aniDetal,
-                    extras:{
-                        wid: wid   // 课程详情ID
-                    }
+                    show: animateObj.aniDetal
                 });
                 
                 setTimeout(function () {
@@ -194,6 +208,32 @@
                     plus.webview.currentWebview().close()
                 }, 	1000)
                 
+            },
+			// 打卡
+            clock: function () {
+                var jsonData={}
+                jsonData['sign_type'] = 'study'
+                jsonData['mac'] = plus.device.uuid
+                jsonData['wifi'] = '';
+                jsonData['location'] = ''
+				// 判断是否到时间打卡
+				if (this.sign_flag) {
+                    luckyAjax({
+                        data: {
+                            server: 'Attendance.PunchCard',
+                            data: JSON.stringify(jsonData)
+                        },
+                        success: function (ret) {
+                            if (ret.code == 1) {
+                                mui.toast('打卡成功', {duration: 'short', type: 'div'})
+                            } else {
+                                mui.toast(ret.msg, {duration: 'short', type: 'div'})
+                            }
+                        },
+                    });
+				} else {
+                    mui.toast('抱歉，您还没到时间打卡，请认真观看视频', {duration: 'short', type: 'div'})
+				}
             }
 		}
     });
@@ -221,7 +261,7 @@
         document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
         // 获取视频课程详情
         
-        var wid = plus.webview.currentWebview().wid;
+        var wid = JSON.parse(plus.storage.getItem('LessonInfo')).id
         loadVideo(wid)
 
         // 收藏
@@ -254,24 +294,33 @@
             });
         });
 
-        document.getElementById("Js-openShare").addEventListener("tap", function() {
-            //分享内容，开发者可自定义
-            var message = {
-                title: lesson.detail.title, //名字
-                content: "保险+ ——为保险展业创造无限可能",
-                href: config.domain + "/share/AppShare.html#/Newsdetail?newId="+lesson.detail.id, //分享出去后，点击跳转地址
-                thumbs: ["_www/images/pic/logo.png"] //分享缩略图
+        // 自定义返回事件
+        mui.oldBack = mui.back;
+        mui.back = function () {
+            clearInterval(lesson.timer);
+            if(plus.webview.currentWebview().opener().id == 'requirement') {
+                mui.fire(plus.webview.getWebviewById('requirement'),'reloadRequirement',{});
             }
-            //调起分享
-            plusShare(message, function(res) {
-                //分享回调函数
-                if(res) {
-                    plus.nativeUI.toast("分享成功");
-                } else {
-                    plus.nativeUI.toast("分享失败");
-                }
-            })
-        });
+            mui.oldBack();
+        };
+//        document.getElementById("Js-openShare").addEventListener("tap", function() {
+//            //分享内容，开发者可自定义
+//            var message = {
+//                title: lesson.detail.title, //名字
+//                content: "保险+ ——为保险展业创造无限可能",
+//                href: config.domain + "/share/AppShare.html#/Newsdetail?newId="+lesson.detail.id, //分享出去后，点击跳转地址
+//                thumbs: ["_www/images/pic/logo.png"] //分享缩略图
+//            }
+//            //调起分享
+//            plusShare(message, function(res) {
+//                //分享回调函数
+//                if(res) {
+//                    plus.nativeUI.toast("分享成功");
+//                } else {
+//                    plus.nativeUI.toast("分享失败");
+//                }
+//            })
+//        });
     })
 
     //根据id向服务器请求课程详情
@@ -280,12 +329,17 @@
     	luckyAjax({
 	        data: {
 	            server: 'videoLearn.learnDetails',
-	            data: JSON.stringify({id: wid})
+	            data: JSON.stringify({video_id: wid})
 	        },
         	success: function (res) {
+	            console.log("收藏前后："+JSON.stringify(res))
                 if (res.code == 1) {
                     lesson.detail = res.data.details
                     lesson.recommend = res.data.recommend
+                    lesson.is_attendance = lesson.detail.is_attendance
+					lesson.is_sign = lesson.detail.is_sign
+					lesson.effective_time = lesson.detail.effective_time
+
                     //初始化插件
                     var htmlvideo = Html5video("#video_Container", {
                         title: lesson.detail.title, //视频标题，当全屏时会显示
@@ -296,21 +350,28 @@
                         isMobile: true, //是否开启当处于移动网络时，提示用户是否继续播放视频。,不支持浏览器环境
                         isFull: false, //是否点击播放就全屏显示
                         iospay: false, //如果是IOS系统是否采用苹果系统自带播放器, 可以在浏览器或微信中，全屏观看视频
-                        drag: true, //禁止拖动,调节,音量和亮度
+                        drag: false, //禁止拖动,调节,音量和亮度
                         isfull: true, //是否显示全屏按钮
                         prompt: function(video) { //当开启isMobile时,这里可以写提示用户的内容,h5+环境才有效
 	                        mui.confirm('你当前处于移动手机网络将会消耗手机流量，是否继续播放？', '提示',["取消","确定"], function(e) {
-	                              if(e.index == 1) {
-                                      setInterval(function () {
-                                          console.log(video.currentTime)
-                                      }, 1000);
-	                                  video.play();
-	                              }
+                                lesson.timer = setInterval(function () {
+                                    if (video.currentTime >= lesson.effective_time) {
+                                        // 设置可以打卡
+                                        lesson.sign_flag = true
+                                        // 写入观看记录
+                                        takeAttendance()
+                                    }
+                                }, 1000);
 							},"div");
 						},
                         getCurrentTime: function (video) {  // 获取视频当前播放时间
-                            setInterval(function () {
-								console.log(video.currentTime)
+                            lesson.timer = setInterval(function () {
+                                if (video.currentTime >= lesson.effective_time) {
+                                    // 设置可以打卡
+                                    lesson.sign_flag = true
+									// 写入观看记录
+                                    takeAttendance()
+								}
                             }, 1000);
                         }
 					});
@@ -319,6 +380,23 @@
             	}
             }
         });
+    }
+    // 写入观看记录
+    var takeAttendance = function () {
+        if (lesson.is_attendance == 0) {
+            luckyAjax({
+                data: {
+                    server: 'videoLearn.takeAttendance',
+                    data: JSON.stringify({
+                        video_id: lesson.detail.id
+                    })
+                },
+                success: function (res) {
+                    lesson.is_attendance = 1
+                    mui.fire(plus.webview.getWebviewById('train'),'reloadTrain',{});
+                }
+            });
+		}
     }
 </script>
 </html>

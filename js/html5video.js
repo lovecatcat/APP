@@ -213,7 +213,7 @@
 						      mui_block_range.addEventListener("input", function()
 						       {
 						            var val=this.value;
-						            mui_block_range.style.backgroundSize=""+val+"% 100%";  
+						            mui_block_range.style.backgroundSize=""+val+"% 100%";
 						       });
          
                               //媒体数据加载完成，获得视频总时间，获得总时间有点慢

@@ -24,8 +24,8 @@
 				<span class="footNav-label">计划书</span>
 			</a>
 			<a data-index="2" class="mui-tab-item footNav-item">
-				<span class="footNav-icon footNav-icon-discover"></span>
-				<span class="footNav-label">发现</span>
+				<span class="footNav-icon footNav-icon-cloud"></span>
+				<span class="footNav-label">云课堂</span>
 			</a>
 			<a data-index="3" class="mui-tab-item footNav-item">
 				<span class="footNav-icon footNav-icon-user"></span>
@@ -315,7 +315,7 @@
 					}
 
 					if(targetIndex == 2 && !isLoadNew){
-						var loadPageWeb = plus.webview.getWebviewById('news');
+						var loadPageWeb = plus.webview.getWebviewById('train');
 						mui.fire(loadPageWeb,'loadpage');
 						isLoadNew = true;
 					}

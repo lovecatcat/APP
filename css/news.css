@@ -210,9 +210,6 @@
 	border: 2px solid #3b9cf5;
 	background-color: #3b9cf5;
 }
-.mui-icon-checkmarkempty{
-	color: #ffffff;
-}
 .BL-foot-selectAll{
 	padding-left: 1.25rem;
 }
@@ -258,7 +255,7 @@
 	border-top: 1px solid rgba(153,153,153,0.7);
 }
 /* 查看更多 > */
-.mui-icon, .mui-pull-caption {
+.mui-icon-arrowright {
 	font-size: 1.8rem;
 	line-height: 1.8rem;
 	color: #999999;
@@ -298,6 +295,7 @@
 	font-size: 1.4375rem;
 }
 .train-list-cell .nItem{
+	position: relative;
 	text-align: left;
 }
 .train-list-cell .nItem .img{
@@ -305,7 +303,12 @@
 	height: 7.125rem;
 	border: 1px solid #b7b4b4;
 }
-.train-list-cell .nItem .img>img{
+.train-list-cell .nItem .list_img{
+	width: 10.3125rem;
+	height: 7.125rem;
+	border: 1px solid #b7b4b4;
+}
+.train-list-cell .nItem .img>img,.train-list-cell .nItem .list_img>img{
 	width: 100%;
 	height: 100%;
 }
@@ -386,6 +389,17 @@
 	width: 0.3rem;
 	background: #3B9CF5;
 	margin: auto;
+}
+/* 未打卡标志 */
+.train-sign {
+	display: inline-block;
+	position: absolute;
+	right: -1.5rem;
+	top: 0rem;
+	width:0;
+	height:0;
+	border-top: 2rem solid #ffdcb2;
+	border-left: 2.5rem solid transparent;
 }
 /* 月刊 */
 .train-month-magazine {
@@ -491,12 +505,13 @@
 /* 培训列表 页*/
 /* 列表筛选——状态 */
 .filter-state{
-	margin-top: .7rem;
-	background-color: #ffffff;
+	padding-top: .7rem;
+	/*background-color: #ffffff;*/
 }
 .filter-state .state-select{
 	border-top: 1px solid #e7e7e7;
 	border-bottom: 1px solid #e7e7e7;
+	background-color: #ffffff;
 }
 .filter-state .state-select .item{
 	color: #999999;
@@ -753,7 +768,7 @@
     transform: translate(-50%, -50%);
 	background: transparent;
     width: 30.25rem;
-    height: 11rem;
+    height: 12rem;
     overflow: hidden;
     -webkit-border-radius: .625rem;
     -moz-border-radius: .625rem;
@@ -762,8 +777,8 @@
 .config-dialog-content {
 	width: 100%;
 	text-align: center;
-	height: 7rem;
-	line-height: 7rem;
+	height: 8rem;
+	line-height: 8rem;
 	font-size: 1.4375rem;
 	background: #FFFFFF;
 }

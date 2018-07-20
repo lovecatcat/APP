@@ -287,7 +287,9 @@
 					"news.html",
 					"prospect.html",
 					"member.html",
-					"train.html"
+					"train.html",
+					"images/icon/nav-cloud-active.png",
+					"images/icon/nav-cloud.png"
 				],
 				"refer": [
 					"discover.html",
@@ -824,7 +826,8 @@
 					"requirement.html",
 					"member-auto-order.html",
 					"member-register.html",
-					"video.html"
+					"video.html",
+					"member-duty-stats.html"
 				],
 				"priority": 0
 			},
@@ -1422,7 +1425,8 @@
 					"images/icon/ico-down.png",
 					"js/config.js",
 					"js/Date.js",
-					"member-duty-stats.html"
+					"member-duty-stats.html",
+					"train-video.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -1687,7 +1691,9 @@
 					"images/pic/p6.jpg"
 				],
 				"priority": 4,
-				"refer": []
+				"refer": [
+					"prospect-product.html"
+				]
 			},
 			"product-contrast-delete.html": {
 				"href": "product-contrast-delete.html",
@@ -2467,7 +2473,9 @@
 					"images/icon/ico-duty-wifi.png",
 					"images/icon/ico-duty-address.png",
 					"css/module.css",
-					"css/common.css"
+					"css/common.css",
+					"js/moment.min.js",
+					"js/wifi.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -3563,13 +3571,17 @@
 					"css/news.css",
 					"images/index/guide_1.jpg",
 					"css/module.css",
-					"css/common.css"
+					"css/common.css",
+					"images/icon/ico-audio.png"
 				],
 				"refer": [
 					"requirement_question.html",
 					"member-plans-detail.html",
 					"popup-content.html",
-					"news-tv-video.html"
+					"news-tv-video.html",
+					"train-article.html",
+					"train-audio.html",
+					"train-video.html"
 				],
 				"priority": 0
 			},
@@ -4010,7 +4022,8 @@
 					"images/icon/ico-down-active.png",
 					"images/icon/ico-filter-active.png",
 					"css/module.css",
-					"css/common.css"
+					"css/common.css",
+					"images/icon/ico-audio.png"
 				],
 				"refer": [
 					"quickly-filter.html",
@@ -4033,7 +4046,9 @@
 					"images/icon/ico-collect.png",
 					"css/module.css",
 					"css/common.css",
-					"images/icon/ico-collect-active.png"
+					"images/icon/ico-collect-active.png",
+					"images/icon/ico-video.png",
+					"images/icon/ico-audio.png"
 				],
 				"refer": [
 					"train-video.html",
@@ -4056,10 +4071,14 @@
 					"images/icon/ico-share.png",
 					"css/module.css",
 					"css/common.css",
-					"images/icon/ico-collect-active.png"
+					"images/icon/ico-collect-active.png",
+					"images/icon/ico-audio.png",
+					"member-duty.html",
+					"images/icon/sign_disabled.png"
 				],
 				"refer": [
-					"train-article.html"
+					"train-article.html",
+					"train-audio.html"
 				],
 				"priority": 0
 			},
@@ -4093,7 +4112,9 @@
 					"css/video.css",
 					"js/html5video.js"
 				],
-				"refer": [],
+				"refer": [
+					"train-video.html"
+				],
 				"priority": 0
 			},
 			"train-month-list.html": {

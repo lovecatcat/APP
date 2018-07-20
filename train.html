@@ -53,7 +53,7 @@
                                 <div class="remarks BL-ub BL-ub-ac">
                                     <i class="ico-remarks" :class="{'ico-picture': item.media_type == 0,'ico-tv': item.media_type == 1,'ico-ad': item.media_type == 2}"></i>
                                     <span>{{ item.play_count }}</span>
-                                    <span>{{ item.create_time | setTime }}</span>
+                                    <span>{{ item.date }}</span>
                                 </div>
                             </div>
                         </div>
@@ -167,14 +167,15 @@
                     href = 'train-audio.html'
                     id = 'train_audio'
                 }
+
+                // 课程详情ID保存在本地
+                plus.storage.setItem('LessonInfo', JSON.stringify({id: wid}));
+
                 //打开新窗口
                 mui.openWindow({
                     url: href,
                     id: id,
-                    show: animateObj.aniDetal,
-                    extras:{
-                        wid: wid   // 课程详情ID
-                    }
+                    show: animateObj.aniDetal
                 });
             },
             // 打开阶段课程 index: 下标, gradeArr: 阶段数组，grade: 阶段ID, name:阶段名称,
@@ -187,7 +188,7 @@
             			}
             		}
             	}
-            	
+
                 mui.openWindow({
                     url: 'train-exam-list.html',
                     id: 'train_exam_list',

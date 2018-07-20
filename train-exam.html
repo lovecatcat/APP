@@ -47,9 +47,9 @@
     <!-- 考试是否通过提示 -->
     <div class="exam-dialog-wrapper" v-show="modal==1 || modal==2" :class="{'dialog-wrapper-pass': modal==1,'dialog-wrapper-nopass': modal==2}">
         <div class="exam-dialog-header">
-			<span class="exam-dialog-close" @click="modal=''">
-				<i class="mui-icon mui-icon-closeempty"></i>
-			</span>
+			<!--<span class="exam-dialog-close" @click="modal=''">-->
+				<!--<i class="mui-icon mui-icon-closeempty"></i>-->
+			<!--</span>-->
         </div>
         <div class="exam-dialog-content">
             <i class="exam-scroce">{{ score }}</i>
@@ -118,6 +118,7 @@
                 var vm = this
                 vm.time = vm.storage_time
                 vm.modal = ''
+                vm.score = ''
                 mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
 
                 // 考试时间倒计时
@@ -169,6 +170,22 @@
         exam.grade = plus.webview.currentWebview().grade;
 
         loadExam(exam.grade)
+
+        // 自定义返回事件
+        mui.oldBack = mui.back;
+        mui.back = function () {
+            if (exam.score == '') {
+                var btnArray = ['确定','取消'];
+                mui.confirm('确定退出当前考试？', '', btnArray, function(e) {
+                    if (e.index == 0) {
+                        clearInterval(exam.timer);
+                        mui.oldBack();
+                    }
+                })
+            } else {
+                mui.oldBack();
+            }
+        };
     });
     
     var loadExam = function (grade) {

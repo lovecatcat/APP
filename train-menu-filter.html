@@ -23,15 +23,13 @@
         <div class="filter-business">
             <div class="hd BL-ub BL-ub-ac BL-ub-pc">
                 <div class="line BL-ub-f1">&nbsp;</div>
-                <!--<div class="title">-->
-                    <!--保险公司-->
-                <!--</div>-->
+                <div class="title">二级分类</div>
                 <div class="line BL-ub-f1">&nbsp;</div>
             </div>
             <div class="mui-row bd group" v-if="menuData&&menuData.length > 0">
                 <div class="item mui-col-sm-4 mui-col-xs-4" v-for="(item,key) in menuData" :key="key"
                      :class="{'item-active':cate_id&&cate_id===item.id}">
-                    <div class="name" @click="chooseMenu(item.id)">{{ item.name }}aaa</div>
+                    <div class="name" @click="chooseMenu(item.id, item.name)">{{ item.name }}</div>
                 </div>
             </div>
         </div>
@@ -52,19 +50,16 @@
                     menuData: []
                 },
                 methods: {
-                    chooseMenu: function (e) {
-                        this.cate_id = e;
-                        $.fire(plus.webview.currentWebview().opener(), 'selectMenu', {cate_id: e});
+                    chooseMenu: function (id, name) {
+                        this.cate_id = id;
+                        $.fire(plus.webview.currentWebview().opener(), 'selectMenu', {cate_id: id, cate_name: name});
                         $.back();
                     }
                 }
             });
             //接收上一个页面传来的
-            menu.$nextTick(function () {
-                menu.menuData = plus.webview.currentWebview().menu;
-                alert(JSON.stringify(menu.menuData))
-                menu.cate_id = plus.webview.currentWebview().cate_id;
-            })
+            menu.menuData = plus.webview.currentWebview().menu;
+            menu.cate_id = plus.webview.currentWebview().cate_id;
         });
     }(mui));
 </script>

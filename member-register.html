@@ -241,7 +241,7 @@
         </div>
         <div class="mui-input-row mui-checkbox mui-left BL-mar-t-1">
             <div class="BL-mar-l-1 BL-pad-l-3 BL-pad-r-1 BL-ftz-48 BL-ub BL-ub-ac">
-                <label style="font-size: 1.5rem">本人已认真阅读并同意签署</label><a href="javacript:void(0);" id="protocol"> “保险+” 用户使用协议</a>。
+                <label style="font-size: 1.5rem">本人已认真阅读并同意签署</label><a href="javacript:void(0);" id="protocol"> “藏保图” 用户使用协议</a>。
                 <input name="checkbox" type="checkbox" v-model="agree_check" style="left: .8rem;top: 0.5rem;">
             </div>
         </div>
@@ -745,7 +745,7 @@
                     }
 
                     if (!Info.agree_check) {
-                        mui.toast('请阅读“保险+”用户使用协议',{duration: 'short', type: 'div'});
+                        mui.toast('请阅读“藏保图”用户使用协议',{duration: 'short', type: 'div'});
                         return false
                     }
 
@@ -970,7 +970,7 @@
         });
         // 协议
         document.querySelector('#protocol').addEventListener('tap',function () {
-            //打开“保险+”协议窗口
+            //打开“藏保图”协议窗口
             mui.openWindow({
                 url: "member-register-protocol.html",
                 id: 'member_register_protocol',

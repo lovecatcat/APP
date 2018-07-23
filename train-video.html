@@ -11,56 +11,56 @@
 	<script src="js/config.js" type="text/javascript"></script>
 </head>
 <body class="BL-bg-f2f" >
-	<header id="Js-header" class="BL-bg-fff">
-		<div class="BL-mod-headbar BL-mod-headbar-pos">
-			<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
-			<h1 class="BL-title">云课堂</h1>
-			<!--<a id="Js-openShare" class="BL-icon BL-icon-share"></a>-->
-		</div>
-	</header>
-	<div id="Js-content" class="mui-content BL-rel" v-cloak>
-		<div class="mui-scroll-wrapper">
-			<div class="mui-scroll">
-				<div class="train-detail-contain">
-					<div class="hd">
-						<div class="title">{{ detail.title }}</div>
-						<div class="date">
-							<span v-if="detail.date">{{ detail.date }}</span>
-							<span v-if="detail.name" class="BL-pad-l-1">
+<header id="Js-header" class="BL-bg-fff">
+	<div class="BL-mod-headbar BL-mod-headbar-pos">
+		<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+		<h1 class="BL-title">云课堂</h1>
+		<!--<a id="Js-openShare" class="BL-icon BL-icon-share"></a>-->
+	</div>
+</header>
+<div id="Js-content" class="mui-content BL-rel" v-cloak>
+	<div class="mui-scroll-wrapper">
+		<div class="mui-scroll">
+			<div class="train-detail-contain">
+				<div class="hd">
+					<div class="title">{{ detail.title }}</div>
+					<div class="date">
+						<span v-if="detail.date">{{ detail.date }}</span>
+						<span v-if="detail.name" class="BL-pad-l-1">
 								{{ detail.name }}
 							</span>
-						</div>
 					</div>
-					<!-- 视频播放区域-->
-					<div class="mui-video-Container BL-mar-b-1_5" id="video_Container">
-						<div class="mui-video-full">
-							<!--加载提示-->
-							<div class="rprogress">
-								<span class="ladtit">加载</span>
-								<div class="rschedule"></div>
-							</div>
-							<!--end-->
-							<!--全屏时后退图标-->
-							<span class="mui-full-back">
+				</div>
+				<!-- 视频播放区域-->
+				<div class="mui-video-Container BL-mar-b-1_5" id="video_Container">
+					<div class="mui-video-full">
+						<!--加载提示-->
+						<div class="rprogress">
+							<span class="ladtit">加载</span>
+							<div class="rschedule"></div>
+						</div>
+						<!--end-->
+						<!--全屏时后退图标-->
+						<span class="mui-full-back">
 								<svg class="icon" aria-hidden="true">
 									<use xlink:href="#icon-houtui1"></use>
 								</svg>
 								<span class="vtitle"></span>
 							</span>
-							<!--end-->
-							<!--播放按钮-->
-							<span class="mui-pay_ico">
+						<!--end-->
+						<!--播放按钮-->
+						<span class="mui-pay_ico">
 								<svg class="icon" aria-hidden="true">
 									<use xlink:href="#icon-bofang1"></use>
 								</svg>
 							</span>
-							<!--end-->
-							<div class="v_left"></div>
-							<div class="b_right"></div>
-							<div class="ptime"></div>
-							<div class="mui-video-txt"></div>
-							<!-- 播放进度条-->
-							<div class="mui-videoControls">
+						<!--end-->
+						<div class="v_left"></div>
+						<div class="b_right"></div>
+						<div class="ptime"></div>
+						<div class="mui-video-txt"></div>
+						<!-- 播放进度条-->
+						<div class="mui-videoControls">
 								<span class="mui-time-total mui-quanping"> <!--全屏按钮-->
 									<span class="mui-time-cout">00:00</span> <!--总时间-->
 									<span class="mui-full-btu">
@@ -69,70 +69,70 @@
 										</svg>
 									</span>
 								</span>
-								<span class="mui-time-current">00:00</span> <!--进度时间-->
-								<div class="mui-progressWrap" style="display: none"> <!--可以拖动的进度条-->
-									<div class="mui-wrap-right">
-										<input type="range" id='mui-block-range' value="0" min="0" max="100" >
-									</div>
+							<span class="mui-time-current">00:00</span> <!--进度时间-->
+							<div class="mui-progressWrap"> <!--可以拖动的进度条-->
+								<div class="mui-wrap-right">
+									<input type="range" id='mui-block-range' value="0" min="0" max="100" >
 								</div>
 							</div>
-							<!-- 播放进度条end-->
 						</div>
-					</div>
-					<!--视频播放区域end-->
-					<!-- 视频简介-->
-					<div class="content bd">
-						<div v-if="detail.introduction" class="BL-ftz-46 BL-pad-tb-1_5">
-							视频简介：{{ detail.introduction }}
-						</div>
-						<div v-if="detail.desc" v-html="detail.desc"></div>
+						<!-- 播放进度条end-->
 					</div>
 				</div>
-				<!-- 为你推荐 -->
-				<div class="BL-mar-t-1 BL-bg-fff BL-pad-tb-1" v-if="recommend&&recommend.length >0">
-					<p class="train-recommend">为你推荐</p>
-					<ul class="mui-table-view train-list-cell">
-						<li class="nItem BL-mar-b-1_5" v-for="(item,index) in recommend">
-							<div class="BL-ub BL-ub-f1" @click="OpenLessonDetail(item.media_type,item.id)">
-								<div class="img">
-									<img :src="item.img | setImg"/>
-								</div>
-								<div class="context BL-ub BL-ub-ver BL-ub-f1">
-									<h1 class="tit">
-										<span class="tit-badg" v-if="item.media_type == 1" :class="{'tit-badg-tv': item.media_type == 1}">视频</span>
-										<span class="tit-badg" v-if="item.media_type == 2" :class="{'tit-badg-ad': item.media_type == 2}">音频</span>
-										{{ item.title }}
-									</h1>
-									<div class="remarks BL-ub BL-ub-ac">
-										<i class="ico-remarks" :class="{'ico-picture': item.media_type == 0,'ico-tv': item.media_type == 1,'ico-ad': item.media_type == 2}"></i>
-										<span>{{ item.play_count }}</span>
-										<span>{{ item.create_time | setTime }}</span>
-									</div>
+				<!--视频播放区域end-->
+				<!-- 视频简介-->
+				<div class="content bd">
+					<div v-if="detail.introduction" class="BL-ftz-46 BL-pad-tb-1_5">
+						视频简介：{{ detail.introduction }}
+					</div>
+					<div v-if="detail.desc" v-html="detail.desc"></div>
+				</div>
+			</div>
+			<!-- 为你推荐 -->
+			<div class="BL-mar-t-1 BL-bg-fff BL-pad-tb-1" v-if="recommend&&recommend.length >0">
+				<p class="train-recommend">为你推荐</p>
+				<ul class="mui-table-view train-list-cell">
+					<li class="nItem BL-mar-b-1_5" v-for="(item,index) in recommend">
+						<div class="BL-ub BL-ub-f1" @click="OpenLessonDetail(item.media_type,item.id)">
+							<div class="img">
+								<img :src="item.img | setImg"/>
+							</div>
+							<div class="context BL-ub BL-ub-ver BL-ub-f1">
+								<h1 class="tit">
+									<span class="tit-badg" v-if="item.media_type == 1" :class="{'tit-badg-tv': item.media_type == 1}">视频</span>
+									<span class="tit-badg" v-if="item.media_type == 2" :class="{'tit-badg-ad': item.media_type == 2}">音频</span>
+									{{ item.title }}
+								</h1>
+								<div class="remarks BL-ub BL-ub-ac">
+									<i class="ico-remarks" :class="{'ico-picture': item.media_type == 0,'ico-tv': item.media_type == 1,'ico-ad': item.media_type == 2}"></i>
+									<span>{{ item.play_count }}</span>
+									<span>{{ item.date }}</span>
 								</div>
 							</div>
-						</li>
-					</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<footer id="Js-footer" class="BL-footer BL-bg-fff">
+		<div class="BL-ub BL-ub-pc">
+			<div class="BL-ub BL-ub-pj" style="width: 50%;">
+				<div class="reads">
+					{{ detail.play_count }}
+				</div>
+				<div class="collect" :class="{'active': detail.is_collect == 1}" :data-collect="detail.is_collect">
+					{{ detail.collect_count }}
 				</div>
 			</div>
 		</div>
-		<footer id="Js-footer" class="BL-footer BL-bg-fff">
-			<div class="BL-ub BL-ub-pc">
-				<div class="BL-ub BL-ub-pj" style="width: 50%;">
-					<div class="reads">
-						{{ detail.play_count }}
-					</div>
-					<div class="collect" :class="{'active': detail.is_collect == 1}" :data-collect="detail.is_collect">
-						{{ detail.collect_count }}
-					</div>
-				</div>
-			</div>
-		</footer>
-		<!----------- 打卡按键  begin -------------->
-		<a id="Js-duty" class="BL-mod-sign" v-if="is_sign==0&&nowTime==detail.date" @click="clock">
-			<div class="sign BL-bimg-contain" :class="{'sign': sign_flag&&is_sign==0, 'sign_disabled': !sign_flag&&is_sign==0 }"></div>
-		</a>
-		<!----------- 打卡按键  end   -------------->
-	</div>
+	</footer>
+	<!----------- 打卡按键  begin -------------->
+	<a id="Js-duty" class="BL-mod-sign" v-if="is_sign==0&&nowTime==detail.date" @click="clock">
+		<div class="sign BL-bimg-contain" :class="{'sign': sign_flag&&is_sign==0, 'sign_disabled': !sign_flag&&is_sign==0 }"></div>
+	</a>
+	<!----------- 打卡按键  end   -------------->
+</div>
 </body>
 <script src="js/mui.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/mui.zoom.js" ></script>
@@ -143,20 +143,16 @@
 <script src="js/vue.min.js"></script>
 <script src="js/plusShare.js"></script>
 <script type="text/javascript">
-    mui.init({
-        gestureConfig:{
-            drag: false //默认为true
-        }
-	});
+    mui.init();
     var lesson = new Vue({
         el: '#Js-content',
         data: {
             nowTime: new Date().addDays(0).Format('yyyy-MM-dd'),   // 今天日期
             is_attendance: 0, // 是否已观看 ，  1 是  0 否
-			is_sign: '',   // 是否已经打卡  1 是  0 否
-			sign_flag: false,   // 是否可以打卡
+            is_sign: '',   // 是否已经打卡  1 是  0 否
+            sign_flag: false,   // 是否可以打卡
             effective_time: 60,  // 有效观看时间(涉及考勤、阅读量)
-			timer: '',  // 计时器
+            timer: '',  // 计时器
             detail: {},   // 课程详情数据
             recommend: null
         },
@@ -174,16 +170,16 @@
         methods: {
             // 打开课程详情页面
             OpenLessonDetail: function (type,wid) {
-            	var vm = this
+                var vm = this
                 var href = '', id = '';
                 // 课程详情ID保存在本地
                 plus.storage.setItem('LessonInfo', JSON.stringify({id: wid}));
 
                 if (vm.detail.media_type == type) {
                     plus.webview.currentWebview().reload()
-                	return false;
+                    return false;
                 }
-                
+
                 if (type == 0) {
                     href = 'train-article.html'
                     id = 'train_article'
@@ -191,33 +187,33 @@
                     href = 'train-audio.html'
                     id = 'train_audio'
                 }
-                
-                
+
+
                 //打开新窗口
                 mui.openWindow({
                     url: href,
                     id: id,
                     show: animateObj.aniDetal
                 });
-                
+
                 setTimeout(function () {
                     plus.webview.currentWebview().hide()
                 }, 	500)
-                
+
                 setTimeout(function () {
                     plus.webview.currentWebview().close()
                 }, 	1000)
-                
+
             },
-			// 打卡
+            // 打卡
             clock: function () {
                 var jsonData={}
                 jsonData['sign_type'] = 'study'
                 jsonData['mac'] = plus.device.uuid
                 jsonData['wifi'] = '';
                 jsonData['location'] = ''
-				// 判断是否到时间打卡
-				if (this.sign_flag) {
+                // 判断是否到时间打卡
+                if (this.sign_flag) {
                     luckyAjax({
                         data: {
                             server: 'Attendance.PunchCard',
@@ -231,11 +227,11 @@
                             }
                         },
                     });
-				} else {
+                } else {
                     mui.toast('抱歉，您还没到时间打卡，请认真观看视频', {duration: 'short', type: 'div'})
-				}
+                }
             }
-		}
+        }
     });
 
     //非plus环境
@@ -260,7 +256,7 @@
         var fotHeight = document.querySelector('#Js-footer').offsetHeight;
         document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
         // 获取视频课程详情
-        
+
         var wid = JSON.parse(plus.storage.getItem('LessonInfo')).id
         loadVideo(wid)
 
@@ -298,9 +294,13 @@
         mui.oldBack = mui.back;
         mui.back = function () {
             clearInterval(lesson.timer);
-            if(plus.webview.currentWebview().opener().id == 'requirement') {
+            if(plus.webview.currentWebview().opener()&&plus.webview.currentWebview().opener().id == 'requirement') {
                 mui.fire(plus.webview.getWebviewById('requirement'),'reloadRequirement',{});
             }
+//            if (mui.os.plus) {
+//                plus.navigator.setFullscreen(false);
+//                plus.screen.lockOrientation('portrait'); //锁死屏幕方向为竖屏
+//            }
             mui.oldBack();
         };
 //        document.getElementById("Js-openShare").addEventListener("tap", function() {
@@ -325,20 +325,19 @@
 
     //根据id向服务器请求课程详情
     var loadVideo = function(wid) {
-    	mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
-    	luckyAjax({
-	        data: {
-	            server: 'videoLearn.learnDetails',
-	            data: JSON.stringify({video_id: wid})
-	        },
-        	success: function (res) {
-	            console.log("收藏前后："+JSON.stringify(res))
+        mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
+        luckyAjax({
+            data: {
+                server: 'videoLearn.learnDetails',
+                data: JSON.stringify({video_id: wid})
+            },
+            success: function (res) {
                 if (res.code == 1) {
                     lesson.detail = res.data.details
                     lesson.recommend = res.data.recommend
                     lesson.is_attendance = lesson.detail.is_attendance
-					lesson.is_sign = lesson.detail.is_sign
-					lesson.effective_time = lesson.detail.effective_time
+                    lesson.is_sign = lesson.detail.is_sign
+                    lesson.effective_time = lesson.detail.effective_time
 
                     //初始化插件
                     var htmlvideo = Html5video("#video_Container", {
@@ -353,31 +352,59 @@
                         drag: false, //禁止拖动,调节,音量和亮度
                         isfull: true, //是否显示全屏按钮
                         prompt: function(video) { //当开启isMobile时,这里可以写提示用户的内容,h5+环境才有效
-	                        mui.confirm('你当前处于移动手机网络将会消耗手机流量，是否继续播放？', '提示',["取消","确定"], function(e) {
-                                lesson.timer = setInterval(function () {
-                                    if (video.currentTime >= lesson.effective_time) {
-                                        // 设置可以打卡
-                                        lesson.sign_flag = true
-                                        // 写入观看记录
-                                        takeAttendance()
-                                    }
-                                }, 1000);
-							},"div");
-						},
+                            mui.confirm('你当前处于移动手机网络将会消耗手机流量，是否继续播放？', '提示',["取消","确定"], function(e) {
+                                if(e.index == 1) {
+                                    video.play();
+                                    lesson.timer = setInterval(function () {
+                                        if(lesson.effective_time <= 0) {
+                                            clearInterval(lesson.timer)
+                                            // 设置可以打卡
+                                            lesson.sign_flag = true
+                                            // 写入观看记录
+                                            takeAttendance()
+                                        }
+
+                                        if(video.paused || video.ended) {
+		                                    console.log("视频暂停中或结束")
+		                                    if (mui.os.ios && (window.orientation == 90 || window.orientation == -90)) {
+		                                        plus.navigator.setFullscreen(false);
+		                                        plus.screen.lockOrientation('portrait'); //锁死屏幕方向为竖屏
+		                                    }
+		                                } else {
+		                                    --lesson.effective_time
+		                                    console.log(lesson.effective_time)
+		                                }
+                                    }, 1000);
+                                }
+
+                            },"div");
+                        },
                         getCurrentTime: function (video) {  // 获取视频当前播放时间
                             lesson.timer = setInterval(function () {
-                                if (video.currentTime >= lesson.effective_time) {
+                                if(lesson.effective_time <= 0) {
+                                    clearInterval(lesson.timer)
                                     // 设置可以打卡
                                     lesson.sign_flag = true
-									// 写入观看记录
+                                    // 写入观看记录
                                     takeAttendance()
-								}
+                                }
+
+                                if(video.paused || video.ended) {
+                                    console.log("视频暂停中或结束")
+                                    if (mui.os.ios && (window.orientation == 90 || window.orientation == -90)) {
+                                        plus.navigator.setFullscreen(false);
+                                        plus.screen.lockOrientation('portrait'); //锁死屏幕方向为竖屏
+                                    }
+                                } else {
+                                    --lesson.effective_time
+                                    console.log(lesson.effective_time)
+                                }
                             }, 1000);
                         }
-					});
-            	} else {
-                	mui.toast(res.msg, {duration: 'short', type: 'div'})
-            	}
+                    });
+                } else {
+                    mui.toast(res.msg, {duration: 'short', type: 'div'})
+                }
             }
         });
     }
@@ -396,7 +423,7 @@
                     mui.fire(plus.webview.getWebviewById('train'),'reloadTrain',{});
                 }
             });
-		}
+        }
     }
 </script>
 </html>

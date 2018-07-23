@@ -142,9 +142,10 @@
 	                setTimeout(function () {
 	                    plus.webview.currentWebview().close()
 	                }, 	500)
-	                
                 } else {
                     mui.toast("当前已是最后一阶考试", {duration: 'long', type: 'div'})
+                    plus.webview.getWebviewById('train_exam_list').close()
+                    plus.webview.currentWebview().close()
                 }
             }
         }

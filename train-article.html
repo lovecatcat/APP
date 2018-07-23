@@ -55,7 +55,7 @@
 										<div class="remarks BL-ub BL-ub-ac">
 											<i class="ico-remarks" :class="{'ico-picture': item.media_type == 0,'ico-tv': item.media_type == 1,'ico-ad': item.media_type == 2}"></i>
 											<span>{{ item.play_count }}</span>
-											<span>{{ item.create_time | setTime }}</span>
+											<span>{{ item.date }}</span>
 										</div>
 									</div>
 								</div>
@@ -207,7 +207,7 @@
             mui.oldBack = mui.back;
             mui.back = function () {
                 clearInterval(lesson.timer);
-                if(plus.webview.currentWebview().opener().id == 'requirement') {
+                if(plus.webview.currentWebview().opener()&&plus.webview.currentWebview().opener().id == 'requirement') {
                     mui.fire(plus.webview.getWebviewById('requirement'),'reloadRequirement',{});
 				}
                 mui.oldBack();

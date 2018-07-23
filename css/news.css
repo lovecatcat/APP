@@ -407,7 +407,7 @@
 	width: 100%;
 	height: 17.96875rem;
 	background-image: url("../images/member/month_magazine.jpg");
-	background-size: contain;
+	background-size: cover;
 	background-repeat: no-repeat;
 }
 .train-month-list-item {
@@ -827,10 +827,10 @@
 }
 .train-detail-contain .content p{
 	font-size: 1.4375rem !important;
-	line-height: 2rem;
+	line-height: 2rem !important;
 }
 .train-detail-contain p img{
 	margin-left: 0rem;
-	max-width: 100% !important;
+	width: 100% !important;
 	height: auto !important;
 }

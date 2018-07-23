@@ -30,7 +30,7 @@
     </div>
 </div>
 <!-- 动态组件之公用 -->
-<template id="COMMOM">
+<template id="COMMON">
     <div class="BL-pad-lr-1_5">
         <!-- 每日一课 -->
         <div class="train-category">
@@ -113,8 +113,8 @@
         return timeFormat
     });
     // 公用样式模板
-    Vue.component('COMMOM', {
-        template: '#COMMOM',
+    Vue.component('COMMON', {
+        template: '#COMMON',
         props: {
             e_data: {
                 type: Object,
@@ -226,13 +226,14 @@
                     server: 'videoLearn.homePage'
                 },
                 success: function (res) {
-                	console.log("ww"+JSON.stringify(res))
+                	console.log(JSON.stringify(res))
                     if (res.code == 1) {
                         var data = res.data
                         train.init = res.data
                         mui.each(data, function (index, item) {
                             train.arr.push(item.code)
                         });
+
                         // 初始化，修复动态数据加载后页面不能滚动问题
                         init()
                     } else {
@@ -255,11 +256,10 @@
         });
         // 监听事件--更新当前页数据
         window.addEventListener('reloadTrain', function (e) {
+            mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
         	train.arr = []
             loadTrain()
         });
     });
-    
-
 </script>
 </html>

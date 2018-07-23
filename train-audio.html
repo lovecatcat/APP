@@ -63,7 +63,7 @@
 						<div class="mui-videoControls">
 								<span class="mui-time-total mui-quanping"> <!--全屏按钮-->
 									<span class="mui-time-cout">00:00</span> <!--总时间-->
-									<span class="mui-full-btu" style="display: none;">
+									<span class="mui-full-btu">
 										<svg class="icon" aria-hidden="true">
 											<use xlink:href="#icon-quanping"></use>
 										</svg>
@@ -106,7 +106,7 @@
 								<div class="remarks BL-ub BL-ub-ac">
 									<i class="ico-remarks" :class="{'ico-picture': item.media_type == 0,'ico-tv': item.media_type == 1,'ico-ad': item.media_type == 2}"></i>
 									<span>{{ item.play_count }}</span>
-									<span>{{ item.create_time | setTime }}</span>
+									<span>{{ item.date }}</span>
 								</div>
 							</div>
 						</div>
@@ -140,7 +140,7 @@
 <script type="text/javascript">
     mui.init({
         gestureConfig:{
-            drag: false //默认为true
+            drag: true //默认为true
         }
     });
     var lesson = new Vue({
@@ -166,7 +166,7 @@
         methods: {
             // 打开课程详情页面
             OpenLessonDetail: function (type,wid) {
-            	var vm = this
+                var vm = this
                 var href = '', id = '';
 
                 // 课程详情ID保存在本地
@@ -174,9 +174,9 @@
 
                 if (vm.detail.media_type == type) {
                     plus.webview.currentWebview().reload()
-                	return false;
+                    return false;
                 }
-                
+
                 if (type == 0) {
                     href = 'train-article.html'
                     id = 'train_article'
@@ -184,23 +184,23 @@
                     href = 'train-video.html'
                     id = 'train_video'
                 }
-                
+
                 //打开新窗口
                 mui.openWindow({
                     url: href,
                     id: id,
                     show: animateObj.aniDetal
                 });
-                
+
                 setTimeout(function () {
                     plus.webview.currentWebview().hide()
                 }, 	500)
-                
+
                 setTimeout(function () {
                     plus.webview.currentWebview().close()
                 }, 	1000)
             }
-		}
+        }
     });
 
     //非plus环境
@@ -228,7 +228,7 @@
         mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
         var wid = JSON.parse(plus.storage.getItem('LessonInfo')).id
         loadAudio(wid)
-    
+
         // 收藏
         document.querySelector('.collect').addEventListener('tap', function() {
             var _this = this
@@ -263,7 +263,7 @@
         mui.oldBack = mui.back;
         mui.back = function () {
             clearInterval(lesson.timer);
-            if(plus.webview.currentWebview().opener().id == 'requirement') {
+            if(plus.webview.currentWebview().opener()&&plus.webview.currentWebview().opener().id == 'requirement') {
                 mui.fire(plus.webview.getWebviewById('requirement'),'reloadRequirement',{});
             }
             mui.oldBack();
@@ -288,9 +288,9 @@
 //            })
 //        });
     })
-    
+
     var loadAudio = function(wid) {
-    	//根据id向服务器请求课程详情
+        //根据id向服务器请求课程详情
         luckyAjax({
             data: {
                 server: 'videoLearn.learnDetails',
@@ -316,19 +316,46 @@
                         isfull: true, //是否显示全屏按钮
                         prompt: function(video) { //当开启isMobile时,这里可以写提示用户的内容,h5+环境才有效
                             mui.confirm('你当前处于移动手机网络将会消耗手机流量，是否继续播放？', '提示',["取消","确定"], function(e) {
-                                lesson.timer = setInterval(function () {
-                                    if (video.currentTime >= lesson.effective_time) {
-                                        // 写入观看记录
-                                        takeAttendance()
-                                    }
-                                }, 1000);
+                                if(e.index == 1) {
+                                    video.play();
+                                    lesson.timer = setInterval(function () {
+                                        if(lesson.effective_time <= 0) {
+                                            clearInterval(lesson.timer)
+                                            // 写入观看记录
+                                            takeAttendance()
+                                        }
+
+                                        if(video.paused || video.ended) {
+		                                    console.log("视频暂停中或结束")
+		                                    if (mui.os.ios && (window.orientation == 90 || window.orientation == -90)) {
+		                                        plus.navigator.setFullscreen(false);
+		                                        plus.screen.lockOrientation('portrait'); //锁死屏幕方向为竖屏
+		                                    }
+		                                } else {
+		                                    --lesson.effective_time
+		                                    console.log(lesson.effective_time)
+		                                }
+                                    }, 1000);
+                                }
                             },"div");
                         },
                         getCurrentTime: function (video) {  // 获取视频当前播放时间
                             lesson.timer = setInterval(function () {
-                                if (video.currentTime >= lesson.effective_time) {
+                                if(lesson.effective_time <= 0) {
+                                    clearInterval(lesson.timer)
                                     // 写入观看记录
                                     takeAttendance()
+                                }
+
+                                if(video.paused || video.ended) {
+                                    console.log("视频暂停中或结束")
+                                    if (mui.os.ios && (window.orientation == 90 || window.orientation == -90)) {
+                                        plus.navigator.setFullscreen(false);
+                                        plus.screen.lockOrientation('portrait'); //锁死屏幕方向为竖屏
+                                    }
+                                } else {
+                                    --lesson.effective_time
+                                    console.log(lesson.effective_time)
                                 }
                             }, 1000);
                         }

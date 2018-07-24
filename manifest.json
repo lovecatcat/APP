@@ -3710,10 +3710,15 @@
 					"images/auto/ASTP.png",
 					"css/mui.css",
 					"css/mui.picker.min.css",
-					"css/form.css"
+					"css/form.css",
+					"images/icon/ico-modify.png",
+					"css/auto.css"
 				],
 				"refer": [
-					"auto2c-order.html"
+					"auto2c-order.html",
+					"auto2c-choose.html",
+					"auto2c-brand.html",
+					"auto2c-supplement.html"
 				],
 				"priority": 0
 			},

@@ -22,9 +22,9 @@
     <div id="Js-content" class="mui-content BL-rel">
         <div class="mui-content mui-scroll-wrapper">
             <div class="mui-scroll">
-                <ul class="mui-table-view BL-mar-t-1" v-if="list">
+                <ul class="mui-table-view BL-mar-t-1" v-if="list&&list.length>0">
                     <li v-for="item in list" class="mui-table-view-cell train-month-list-item">
-                        <a href="javascript:;" class="mui-navigate-right" :data-month="item.month">
+                        <a href="javascript:;" class="mui-navigate-right" @tap="OpenMonthDetail(item.month)">
                             <div class="train-month-list-l">
                                 <p class='list-top-txt'>{{ item.month }}</p>
                             </div>
@@ -53,6 +53,23 @@
             list: [],
             page: 0,
             row: 10
+        },
+        methods: {
+            OpenMonthDetail: function (month) {
+                //触发详情页面的monthDetail事件
+                mui.fire(plus.webview.getWebviewById('train_month_detail'),'monthDetail',{
+                    'month': month
+                });
+                //打开详情页面
+                mui.openWindow({
+                    url: 'train-month-detail.html',
+                    id:'train_month_detail',
+                    show:animateObj.aniDetal,
+                    extras:{
+                        month: month
+                    }
+                });
+            }
         }
     });
 
@@ -83,7 +100,6 @@
                         })
                     },
                     success: function (res) {
-                        console.log(JSON.stringify(res))
                         if(res.code == 1) {
                             if (train.page >= res.data.page) {
                                 self.endPullUpToRefresh(true);
@@ -116,24 +132,6 @@
                         getMonthlist()
                     }
                 }
-            });
-
-            mui('.mui-table-view').on('tap', 'a', function(e) {
-                var month = this.getAttribute('data-month');
-
-                //触发详情页面的monthDetail事件
-                mui.fire(plus.webview.getWebviewById('train_month_detail'),'monthDetail',{
-                    'month': month
-                });
-                //打开详情页面
-                mui.openWindow({
-                    url: 'train-month-detail.html',
-                    id:'train_month_detail',
-                    show:animateObj.aniDetal,
-                    extras:{
-                        month: month
-                    }
-                });
             });
         });
     }(mui));

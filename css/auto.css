@@ -108,3 +108,11 @@
 .mui-radio label, .mui-checkbox label {
     width: auto;
 }
+.ico-modify {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    background-image: url("../images/icon/ico-modify.png");
+    vertical-align: bottom;
+    margin-right: .5rem;
+}

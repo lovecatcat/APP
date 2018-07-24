@@ -110,7 +110,7 @@ display:none !important;
     display: inline-block;
     color: white;
     font-size: 1.3125rem;
-    margin-left: 1rem;
+    margin-left: .5rem;
 }
 .mui-video-Container .mui-time-total{width:78px;text-align: center;  color: white;display: inline-block;  font-size: 14px;}  	
 .mui-video-Container .mui-time-total .icon{ 
@@ -126,7 +126,7 @@ display:none !important;
 .mui-video-Container .mui-quanping{
 	width: auto; 
 	position:absolute; 
-	right:1rem;
+	right:0rem;
 	z-index:10;
 }
 .mui-video-Container .mui-videoControls{
@@ -144,12 +144,12 @@ display:none !important;
     width: 100%;
     position: absolute;
     top: 1rem;
-    left: 5rem; 
+    left: 6rem;
 }
 .mui-video-Container .mui-progressWrap .mui-wrap-right{
 	position: absolute;
     width: 100%;
-    padding-right: 12.7rem;
+    padding-right: 14.30rem;
     top: -1.2rem;
 }
 .mui-video-Container .mui-full-back{position: absolute; z-index: 2;display: none;}

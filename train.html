@@ -61,11 +61,11 @@
                 </ul>
             </div>
             <div class="train-category-body mui-row" v-if="e_data.style === 2&&e_data.child.type == 'category'">
-                <div class="train-category-block mui-col-xs-4" v-for="(item,index) in e_data.child.list" @click="$parent.OpenLessonList(e_data.id,item.id,item.name)">
+                <div class="train-category-block mui-col-xs-4" v-for="(item,index) in e_data.child.list" @click="$parent.OpenLessonList(e_data.id,item.id,item.name,e_data.style)">
                     {{ item.name }}
                 </div>
             </div>
-            <div class="train-category-footer" @click="$parent.OpenLessonList(e_data.id,'',e_data.name)">
+            <div class="train-category-footer" @click="$parent.OpenLessonList(e_data.id,'',e_data.name,e_data.style)">
                 查看更多 <span class="mui-icon mui-icon-arrowright"></span>
             </div>
         </div>
@@ -141,7 +141,8 @@
         },
         methods: {
             // 打开课程列表页面 cate_id 二级种类ID
-            OpenLessonList: function (pid, cate_id, name) {
+            // type 区分每日一课1or云课堂2
+            OpenLessonList: function (pid, cate_id, name, type) {
                 mui.openWindow({
                     url: 'train-list.html',
                     id: 'train_list',
@@ -149,7 +150,8 @@
                     extras:{
                         pid: pid,
                         cate_id: cate_id,
-                        name: name
+                        name: name,
+                        type: type
                     }
                 })
             },

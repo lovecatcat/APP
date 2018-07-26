@@ -3574,7 +3574,9 @@
 					"images/index/guide_1.jpg",
 					"css/module.css",
 					"css/common.css",
-					"images/icon/ico-audio.png"
+					"images/icon/ico-audio.png",
+					"images/icon/ico-picture.png",
+					"images/icon/ico-video.png"
 				],
 				"refer": [
 					"requirement_question.html",
@@ -3924,7 +3926,8 @@
 				"refer": [
 					"member-register-addwork.html",
 					"member-register-editwork.html",
-					"member-avatarmenu.html"
+					"member-avatarmenu.html",
+					"member-register-protocol.html"
 				],
 				"priority": 0
 			},
@@ -3992,7 +3995,8 @@
 					"train-video.html",
 					"train-audio.html",
 					"train-article.html",
-					"train-month-list.html"
+					"train-month-list.html",
+					"member-register.html"
 				],
 				"priority": 0
 			},
@@ -4010,7 +4014,8 @@
 					"js/Date.js",
 					"images/icon/ico-video.png",
 					"js/mui.min.js",
-					"js/config.js"
+					"js/config.js",
+					"images/icon/ico-picture.png"
 				],
 				"refer": [
 					"train-video.html",
@@ -4098,11 +4103,13 @@
 					"js/vue.min.js",
 					"js/mui.min.js",
 					"js/Date.js",
-					"js/config.js"
+					"js/config.js",
+					"images/icon/ico-picture.png"
 				],
 				"refer": [
 					"train-article.html",
-					"train-audio.html"
+					"train-audio.html",
+					"member-register.html"
 				],
 				"priority": 0
 			},
@@ -4178,7 +4185,8 @@
 			"train-month-detail.html": {
 				"resources": [
 					"css/news.css",
-					"css/mui.css"
+					"css/mui.css",
+					"images/icon/ico-picture.png"
 				],
 				"refer": [
 					"train-article.html",
@@ -4190,6 +4198,13 @@
 			"train-menu-filter.html": {
 				"resources": [
 					"css/news.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-register-protocol.html": {
+				"resources": [
 					"css/mui.css"
 				],
 				"refer": [],

@@ -297,6 +297,14 @@
 				// 保存在本地
                 plus.storage.setItem('brand',JSON.stringify(auto.brand));
             });
+
+            window.addEventListener('uploadSupplement', function (e) {
+                auto.car = JSON.parse(plus.storage.getItem('car'))
+                auto.brand = JSON.parse(plus.storage.getItem('brand'))
+
+                auto.car.seatCount = auto.brand.seat
+                auto.modelName = ([auto.brand.brandName,auto.brand.vehicleFgwName,auto.brand.parentVehName].join(' ')).trim() //品牌名称
+            });
 		})
 	</script>
 </html>

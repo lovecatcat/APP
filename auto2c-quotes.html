@@ -268,6 +268,9 @@
             methods: {
                 // 这不是我的车
                 amendCar: function() {
+                    // 通知修改
+                    mui.fire(plus.webview.getWebviewById('auto2c_supplement'),'uploadSupplement',{});
+
                     mui.openWindow({
                         url: 'auto2c-supplement.html',
                         id: 'auto2c_supplement',

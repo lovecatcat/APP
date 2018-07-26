@@ -136,6 +136,7 @@
     var train = new Vue({
         el: '#Js-content',
         data: {
+            userinfo: '', // 用户个人信息
             arr : [],
             init: null
         },
@@ -143,6 +144,24 @@
             // 打开课程列表页面 cate_id 二级种类ID
             // type 区分每日一课1or云课堂2
             OpenLessonList: function (pid, cate_id, name, type) {
+                if (type == 2)  {
+                    if (this.userinfo.login_mk == -2) {
+                        var btnArray = ['确定', '取消'];
+                        mui.confirm('请先完善个人信息，立即前往？', '', btnArray, function (e) {
+                            if (e.index == 0) {
+                                mui.openWindow({
+                                    url: 'member-register.html',
+                                    id: 'member_register',
+                                    show: animateObj.aniDetal
+                                })
+                            }
+                        })
+                        return false;
+                    } else if (this.userinfo.login_mk == -1) {
+                        mui.toast('账号审核中，请联系管理员', {duration: 'short', type: 'div'})
+                        return false;
+                    }
+                }
                 mui.openWindow({
                     url: 'train-list.html',
                     id: 'train_list',
@@ -182,6 +201,23 @@
             },
             // 打开阶段课程 index: 下标, gradeArr: 阶段数组，grade: 阶段ID, name:阶段名称,
             OpenExamList: function (index, gradeArr, grade, name) {
+                if (this.userinfo.login_mk == -2) {
+                    var btnArray = ['确定', '取消'];
+                    mui.confirm('请先完善个人信息，立即前往？', '', btnArray, function (e) {
+                        if (e.index == 0) {
+                            mui.openWindow({
+                                url: 'member-register.html',
+                                id: 'member_register',
+                                show: animateObj.aniDetal
+                            })
+                        }
+                    })
+                    return false;
+                } else if (this.userinfo.login_mk == -1) {
+                    mui.toast('账号审核中，请联系管理员', {duration: 'short', type: 'div'})
+                    return false;
+                }
+
             	if (index != 0) {
             		for(var i=index; i--; i>0) {
             			if(gradeArr[i].is_pass == 0) {
@@ -190,7 +226,6 @@
             			}
             		}
             	}
-
                 mui.openWindow({
                     url: 'train-exam-list.html',
                     id: 'train_exam_list',
@@ -220,6 +255,9 @@
                 deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
                 bounce: true //是否启用回弹
             });
+
+            var userinfo = plus.storage.getItem('userinfo') ? JSON.parse(plus.storage.getItem('userinfo')) : '';
+            train.userinfo = userinfo;
         }
 
         var loadTrain = function () {

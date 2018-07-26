@@ -147,6 +147,7 @@
     var lesson = new Vue({
         el: '#Js-content',
         data: {
+            userinfo: '', // 用户个人信息
             nowTime: new Date().addDays(0).Format('yyyy-MM-dd'),   // 今天日期
             is_attendance: 0, // 是否已观看 ，  1 是  0 否
             is_sign: '',   // 是否已经打卡  1 是  0 否
@@ -207,8 +208,26 @@
             },
             // 打卡
             clock: function () {
+                if (this.userinfo.login_mk == -2) {
+                    var btnArray = ['确定', '取消'];
+                    mui.confirm('请先完善个人信息，立即前往？', '', btnArray, function (e) {
+                        if (e.index == 0) {
+                            clearInterval(lesson.timer)
+                            mui.openWindow({
+                                url: 'member-register.html',
+                                id: 'member_register',
+                                show: animateObj.aniDetal
+                            })
+                        }
+                    })
+                    return false;
+                } else if (this.userinfo.login_mk == -1) {
+                    mui.toast('账号审核中，请联系管理员', {duration: 'short', type: 'div'})
+                    return false;
+                }
+
                 var jsonData={}
-                jsonData['sign_type'] = 'study'
+                jsonData['sign_type'] = 'study'   // study表示培训考勤
                 jsonData['mac'] = plus.device.uuid
                 jsonData['wifi'] = '';
                 jsonData['location'] = ''
@@ -255,6 +274,8 @@
         var titHeight = document.querySelector('#Js-header').offsetHeight;
         var fotHeight = document.querySelector('#Js-footer').offsetHeight;
         document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
+        var userinfo = plus.storage.getItem('userinfo') ? JSON.parse(plus.storage.getItem('userinfo')) : '';
+        lesson.userinfo = userinfo;
         // 获取视频课程详情
 
         var wid = JSON.parse(plus.storage.getItem('LessonInfo')).id

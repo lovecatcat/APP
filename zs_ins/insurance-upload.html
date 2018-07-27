@@ -56,7 +56,7 @@
                             <span class="form-p BL-col-999">投保人证件</span>
                         </div>
                     </div>
-                    <template v-show="assured.rel_holder_insured!==ISASSURED">
+                    <template v-if="assured.rel_holder_insured!==ISASSURED">
                         <template v-if="assured.insured_ID_type===IDcard">
                             <div class="mui-col-sm-6 BL-mar-b-1" >
                                 <div class="BL-txt-c">
@@ -125,7 +125,7 @@
                 } else if (!img.appl_front_img) {
                     toastText = '请上传投保人证件'
                 }
-                if (this.assured.rel_insured_holder !== ISASSURED) {
+                if (this.assured.rel_holder_insured !== ISASSURED) {
                     if (this.assured.insured_ID_type === IDcard && !img.assu_front_img) {
                         toastText = '请上传被保人身份证正面照片'
                     } else if (this.assured.insured_ID_type === IDcard && !img.assu_negative_img) {
@@ -154,6 +154,7 @@
         var upload = plus.storage.getItem('zhaos_upload') ? JSON.parse(plus.storage.getItem('zhaos_upload')) : ''
         console.log(JSON.stringify(upload))
         var assured = plus.storage.getItem('zhaos_assured') ? JSON.parse(plus.storage.getItem('zhaos_assured')) : ''
+        console.log(JSON.stringify(assured))
         img.assured = assured
         var applicant = plus.storage.getItem('zhaos_applicant') ? JSON.parse(plus.storage.getItem('zhaos_applicant')) : ''
         img.applicant = applicant

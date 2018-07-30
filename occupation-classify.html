@@ -53,13 +53,13 @@
                 <div class="BL-ub BL-ub-ac headbar-search">
                     <div class="BL-ub BL-ub-ac BL-ub-f1 mui-row" style="max-width: 10rem">
                         <div class="mui-col-xs-10 BL-ellipsis BL-ftz-48">
-                            {{ company_item.txt }}
+                            {{ name }}
                         </div>
                         <div class="mui-col-xs-2" @click="show=true">
                             <span class="mui-icon mui-icon-arrowdown BL-ftz-2"></span>
                         </div>
                     </div>
-                    <div class="search search-pro BL-ub BL-ub-ac BL-ub-pc BL-ub-f3 BL-col-999 BL-ftz-46">
+                    <div class="search search-pro BL-ub BL-ub-ac BL-ub-pc BL-ub-f3 BL-col-999 BL-ftz-46" @tap="openJobSearch">
                         <div class="button BL-noBorder-l">
                             <span class="BL-bimg-contain"></span>
                         </div>搜索职业
@@ -69,7 +69,7 @@
         </header>
         <div id="Js-control" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
             <div class="mui-scroll" style="left: 0; right: 0">
-                <div v-for="(item,index) in level" class="control-item" :class="{'mui-active': index == cur_index}" @click="selectType(index)">
+                <div v-for="(item,index) in level" class="control-item" :class="{'mui-active': index == cur_index, 'BL-col-ededed': flag<index }" @click="selectType(index)">
                     <span>第 {{ item+1 }} 分类</span>
                 </div>
             </div>
@@ -78,12 +78,15 @@
             <div class="mui-scroll-wrapper">
                 <div id="slider" class="mui-scroll mui-slider">
                     <div id="Js-slider-group" class="mui-slider-group">
-                        <div v-for="(item,index) in level" :id="'item'+(index+1)" class="mui-slider-item mui-control-content" :class="{'mui-active': index == flag}" v-if="flag>=index">
+                        <div v-for="(item,index) in level" class="mui-slider-item mui-control-content" :class="{'mui-active': index == flag}" v-if="flag>=index">
                             <ul class="mui-table-view form-list-cell" style="margin-top: 0rem !important;">
                                 <li class="fItem BL-ub BL-ub-f1" v-for="(item,key) in joblist[index]" v-if="joblist[index]" @click="querySubJob(index,item)">
                                     <a class="form-list-label BL-ub-f1">
                                         <div class="BL-ftz-48 BL-ellipsis BL-pad-r-2"  :class="{'BL-col-3b9cf5': item.isActive}">
                                             {{ key + 1 }}.{{ item.name }}
+                                            <div v-if="item.extend&&(item.extend.life_insurance!=''||item.extend.accident_insurance!=''||item.extend.medical_insurance!='')" class="BL-ftz-46 BL-ellipsis BL-pad-r-2">
+                                                风险等级：<span v-if="item.extend.life_insurance">寿险[{{item.extend.life_insurance}}]</span>&nbsp;&nbsp;&nbsp;<span v-if="item.extend.accident_insurance">意外[{{item.extend.accident_insurance}}]</span>&nbsp;&nbsp;&nbsp;<span v-if="item.extend.medical_insurance">医疗[{{item.extend.medical_insurance}}]</span>
+                                            </div>
                                         </div>
                                     </a>
                                 </li>
@@ -96,8 +99,8 @@
         <div class="BL-modal-bg" style="z-index: 10;" v-show="show">
             <div class="BL-modal BL-modal-w80" style="z-index: 10; border-radius: 0rem">
                 <p class="BL-ftz-52 BL-pad-tb-1 BL-pad-lr-1_25 BL-col-333 BL-Border-b">选择公司</p>
-                <ul v-if="company" class="mui-table-view mui-table-view-radio BL-overFlow-autoY" style="max-height: 30rem;">
-                    <li class="mui-table-view-cell BL-ftz-52" v-for="(item,index) in company" :class="{'mui-selected': item.id == company_item.id }">
+                <ul v-if="company" class="mui-table-view mui-table-view-radio BL-overFlow-autoY">
+                    <li class="mui-table-view-cell BL-ftz-52" v-for="(item,index) in company" :class="{'mui-selected': item.id == supplier_id }">
                         <a class="BL-pad-a1 mui-navigate-right" @click="setCompany(item),show = false">
                             {{ item.short_name != "" ? item.short_name : item.company_name }}
                         </a>
@@ -123,21 +126,16 @@
     var job = new Vue({
         el: '#Js-main',
         data: {
-            company: null,
-            company_item: {
-                id: "",
-                txt: "请选择"
-            },
+            supplier_id: '', // 公司id
+            name: '请选择',
+            company: [],
             level:[],
             show: false,
             flag: 0,   // 当前级别
-            cur_index: 0,  // 当前分类
+            cur_index: 0,  // 当前分类索引
             joblist: []
         },
         methods: {
-            activeFun: function(index, data){
-
-            },
             setCompany: function (item) {
                 this.level = []
                 getJobList(item)
@@ -157,14 +155,25 @@
                 getSubJobList(index, item.id)
             },
             selectType: function (index) {
+                mui('#Js-content .mui-scroll-wrapper').scroll().scrollTo(0, 0, 10);
                 if (!job.joblist[index]) return
                 job.cur_index = index
                 gallery.slider().gotoItem(job.cur_index);
+            },
+            openJobSearch: function () {
+                //打开新窗口
+                mui.openWindow({
+                    id: "occupation_classify_search",
+                    url: "occupation-classify-search.html",
+                    show: animateObj.aniDetal,
+                    extras:{
+                        name: this.name,
+                        supplier_id: this.supplier_id
+                    }
+                });
             }
         }
     })
-
-
 
     mui.plusReady(function() {
         statusbar();
@@ -187,15 +196,14 @@
         // 获取保险公司
         luckyAjax({
             data: {
-                server: 'PolicyIns.getDockedCompanyList',
+                server: 'PolicyIns.getDockedCompanyList'
             },
             success: function (res) {
                 if (res.code == 1) {
                     job.company = res.data
-                    job.company_item = res.data[0]
-                    getJobList(job.company_item)
+                    getJobList(res.data[0])
                 }
-            },
+            }
         });
         // 监测左右滑动事件
         document.getElementById('slider').addEventListener('slide', function(e) {
@@ -204,8 +212,8 @@
 
         // 获取第一分类列表
         getJobList = function (item) {
-            job.company_item.id = item.id
-            job.company_item.txt = item.short_name != ""? item.short_name : item.company_name
+            job.supplier_id = item.id
+            job.name = item.short_name != ""? item.short_name : item.company_name
             job.$nextTick(function () {
                 for(var i = 0; i < item.job_level; i++) {
                     job.level.push(i)
@@ -215,14 +223,14 @@
                 data: {
                     server: 'PolicyIns.getJobList',
                     data:JSON.stringify({
-                        supplier_id: job.company_item.id
+                        supplier_id: item.id
                     })
                 },
                 success: function (res) {
                     if(res.code == 1) {
-                        job.joblist = []   // 清空
                         job.flag = 0
                         job.cur_index = 0
+                        job.joblist = []   // 清空
 
                         var data = []
                         mui.each(res.data, function (index, item) {
@@ -230,8 +238,7 @@
                             data.push(item)
                         })
                         job.joblist.push(data)
-
-                        gallery.slider()
+                        gallery.slider().gotoItem(0,0);
                     }
                 }
             });
@@ -246,7 +253,10 @@
                     })
                 },
                 success: function (res) {
+                    console.log(JSON.stringify(res))
                     if(res.code == 1) {
+                        // 滚到顶部
+                        job.flag = index + 1
                         mui('#Js-content .mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
                         // 处理数据
                         var data = []
@@ -260,6 +270,7 @@
                         } else {
                             job.joblist.push(data)
                         }
+
                         gallery.slider().refresh();
                         gallery.slider().gotoItem(index + 1);
                     }

@@ -2878,7 +2878,8 @@
 					"images/member/req-banner.jpg",
 					"images/member/req-title.png",
 					"images/member/req-hm.png",
-					"images/icon/avatar-default.png"
+					"images/icon/avatar-default.png",
+					"js/plusShare.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -3669,7 +3670,8 @@
 					"images/member/risk-education.png",
 					"images/member/risk-medical.png",
 					"images/member/req-bg.png",
-					"images/member/risk-pension.png"
+					"images/member/risk-pension.png",
+					"css/mui.css"
 				],
 				"refer": [
 					"requirement_safe.html",
@@ -3832,7 +3834,9 @@
 					"css/form.css",
 					"js/mui.js"
 				],
-				"refer": [],
+				"refer": [
+					"occupation-classify-search.html"
+				],
 				"priority": 0
 			},
 			"insurance-law.html": {
@@ -4206,6 +4210,14 @@
 			"member-register-protocol.html": {
 				"resources": [
 					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"occupation-classify-search.html": {
+				"resources": [
+					"css/mui.css",
+					"css/form.css"
 				],
 				"refer": [],
 				"priority": 0

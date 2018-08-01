@@ -187,6 +187,7 @@
 	<script type="text/javascript" src="js/vue.min.js" ></script>
 	<script type="text/javascript">
 		var popu;
+		var user_id;
 		mui.init();
 		var modal = new Vue({
 			el: '#modal',
@@ -194,7 +195,7 @@
 				isHide: '' , //要弹哪个框
 				formID: '', //来自哪个页面
 				goIns: false, //是不是在线投保
-				gonIns_genre: [272, 276, 340, 348, 370, 16217, 264,354,16201], //目前只有恒大才能去在线投保
+				gonIns_genre: [272, 276, 340, 348, 370, 16217, 264,354,16201, 332, 347], //目前只有恒大才能去在线投保
 				goIns_data: ''
 			},
 			methods: {
@@ -254,6 +255,15 @@
                             url: 'gh_ins/insurance-index.html',
                             show: animateObj.aniDetal
                         })
+                    }else if(modal.gonIns_genre.indexOf(genre) > -1 && (genre == 332 || genre == 347)){
+                        mui.openWindow({
+							id: 'XT_ins',
+							url: 'XT_ins.html',
+							show: animateObj.aniDetal,
+							extras:{
+								video_url:  config.domain + '/xtins/XT_ins.html?user_id='+user_id
+							}
+						});
                     }else if(modal.gonIns_genre.indexOf(genre) > -1){
 						mui.openWindow({
 							id: 'hd_insurance-index',
@@ -313,6 +323,7 @@
 		
 		mui.plusReady(function() {
 			popu = new ClosePopu();
+			user_id = JSON.parse(plus.storage.getItem("userinfo")).id;
 			// 实例化关闭窗口对象
 			var data = plus.webview.currentWebview().data;
 			modal.isHide = data.modalID

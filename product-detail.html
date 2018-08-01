@@ -53,6 +53,10 @@
                      v-else-if="info.company_id===2&&info.online_insure&&userinfo.login_mk==1">
                     我要投保
                 </div>
+                <div class="BL-foot-btn-sign" @tap="xtIns()"
+                     v-else-if="info.company_id===12&&info.online_insure&&userinfo.login_mk==1">
+                    我要投保
+                </div>
                 <div class="BL-foot-btn-sign" @tap="toastMsg" v-else>
                     我要投保
                 </div>
@@ -79,13 +83,14 @@
 <script src="js/plusShare.js"></script>
 <script type="text/javascript">
     mui.init();
-
+	var user_id;
     mui.plusReady(function () {
         statusbar();
         var winH = window.innerHeight;
         var topHeight = document.querySelector('#Js-header').offsetHeight;
 
         var pid = plus.webview.currentWebview().product_id;
+        user_id = JSON.parse(plus.storage.getItem("userinfo")).id;
 
         //主列表点击事件
         var extras = null;
@@ -173,7 +178,17 @@
                         mui.toast('本产品暂不支持在线投保，敬请期待', {duration: 'short', type: 'div'})
                         return false;
                     }
-                }
+                },
+                xtIns: function(){
+					mui.openWindow({
+						id: 'XT_ins',
+						url: 'XT_ins.html',
+						show: animateObj.aniDetal,
+						extras:{
+							video_url:  config.domain + '/xtins/XT_ins.html?user_id='+user_id
+						}
+					});
+				}
             }
         });
         var userinfo = plus.storage.getItem('userinfo') ? JSON.parse(plus.storage.getItem('userinfo')) : '';

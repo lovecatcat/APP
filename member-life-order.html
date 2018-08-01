@@ -27,15 +27,15 @@
 			<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted BL-segmented-control">
 				<div class="mui-scroll">
 					<a class="pro-control-item" :class="{'mui-active':status_type=='0'}"
-					   @click="status_type='0',page=0">
+                       @tap="status_type='0',page=0">
 						<span>全部</span>
 					</a>
 					<a class="pro-control-item" :class="{'mui-active':status_type=='1'}"
-					   @click="status_type='1',page=0">
+                       @tap="status_type='1',page=0">
 						<span>待核保</span>
 					</a>
 					<a class="pro-control-item" :class="{'mui-active':status_type=='2'}"
-					   @click="status_type='2',page=0">
+                       @tap="status_type='2',page=0">
 						<span>待支付</span>
 					</a>
 					<!--<a class="pro-control-item" :class="{'mui-active':status_type=='3'}"-->
@@ -78,13 +78,13 @@
 										<span>提交时间：<i>{{ item.create_time}}</i></span>
 									</div>
 									<div class="team-per-ins BL-pad-b-1 clearfloat" v-if="item.supplier_id==85">
-										<span>签名状态：<i class="BL-col-3b9cf5">{{ item.extend_items.signature_status==='1'?'已完成':'未完成'}}</i></span>
+                                        <span>签名状态：<i class="BL-col-3b9cf5">{{ item.extend_items.signature_status=='1'?'已完成':'未完成'}}</i></span>
 									</div>
 									<div class="team-per-ins BL-pad-b-1 clearfloat" v-if="item.supplier_id==85">
-										<span>支付状态：<i class="BL-col-3b9cf5">{{ item.extend_items.pay_status==='1'?'已完成':'待支付'}}</i></span>
+                                        <span>支付状态：<i class="BL-col-3b9cf5">{{ item.pay_status=='1'?'已完成':'待支付'}}</i></span>
 									</div>
 								</a>
-								<div class="BL-txt-r button">
+                                <div class="BL-txt-r button" v-if="item.extend_items">
 									<!--<a class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 cancel"-->
 									   <!--:data-id="item.policy_id"-->
 									   <!--:data-index="index"-->
@@ -92,20 +92,23 @@
 									<!--</a>-->
 									<a class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 continue" v-show="btnShow(1,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="1">继续录入</a>
 									<a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state==0&&item.supplier_id==8" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-policyno="item.policy_no" :data-fee="item.total">去支付</a>
-									<a class="BL-btn-white BL-pad-lr-1 continue" v-show="btnShow(2,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">去支付</a>
-									<a class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 continue" v-show="btnShow(3,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">去签名</a>
-									<a class="BL-btn-white BL-pad-lr-1" @tap="freshSign(item.policy_id)" v-show="item.supplier_id==85&&item.state===5&&item.extend_items.signature_status === '0'">刷新</a>
-									<a class="BL-btn-white BL-pad-lr-1" @tap="queryPay(item.policy_id)" v-show="item.supplier_id==85&&item.extend_items.pay_status === '2'">查询支付状态</a>
-									<a class="BL-btn-white BL-pad-lr-1" @tap="chengbao(item.policy_id)" v-show="item.supplier_id==85&&item.extend_items.pay_status === '1'&&progress!==2">去承保</a>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<!------------产品列表 end  ------------->
-	</div>
+                                    <a class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 continue" v-show="btnShow(3,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">去签名</a><!--招商-->
+                                    <a class="BL-btn-white BL-pad-lr-1 continue" v-show="btnShow(2,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">去支付</a><!--招商-->
+                                    <a class="BL-btn-white BL-pad-lr-1 continue" v-show="btnShow(4,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">去支付</a><!--国华-->
+
+                                    <a class="BL-btn-white BL-pad-lr-1" @tap="toPay(item.policy_id,item.holder_mobile)" v-show="item.supplier_id == 19 && item.state!=5 && (!item.pay_status || item.pay_status == '0')">去支付</a><!--恒大-->
+                                    <a class="BL-btn-white BL-pad-lr-1" @tap="freshSign(item.policy_id)" v-show="item.supplier_id==85&&item.state==5&&item.extend_items.signature_status == '0'">刷新</a><!--招商-->
+                                    <a class="BL-btn-white BL-pad-lr-1" @tap="queryPay(item.policy_id)" v-show="item.supplier_id==85&&item.pay_status == '2'">查询支付状态</a><!--招商-->
+                                    <a class="BL-btn-white BL-pad-lr-1" @tap="chengbao(item.policy_id)" v-show="item.supplier_id==85&&item.pay_status == '1'&&progress!=2">去承保</a><!--招商-->
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!------------产品列表 end  ------------->
+    </div>
 </div>
 <!------------悬浮控制按钮 end --------------->
 </body>
@@ -126,28 +129,77 @@
             status_type: {
                 handler: function () {
                     this.page = 0;
-                    mui('#Js-orderList .mui-scroll-wrapper').each(function(){
+                    this.listdata = []
+                    mui('#Js-orderList .mui-scroll-wrapper').each(function () {
                         this.setAttribute('data-scroll', '');
                     });
+                    mui('#Js-orderList .mui-scroll-wrapper').scroll().scrollTo(0,0);
                     loaddata(3,true);
                 }
             }
         },
         methods: {
+            //恒大-去支付
+            toPay: function (policy_id, mobile) {
+                luckyAjax({
+                    data: {
+                        data: JSON.stringify({
+                            msg: {policy_id: policy_id},
+                            company_code: 'HengDa',
+                            method: 'pay'
+                        }),
+                        server: 'PolicyIns.onlineInsured',
+                        device: 'mobile'
+                    },
+                    timeout: 10000,
+                    success: function (res) {
+                        if (res.code) {
+                            if (res.data.resultCode == '01') {
+                                if (res.data.data && res.data.data.signed) {
+                                    mui.openWindow({
+                                        url: 'hd_ins/pay-status.html',
+                                        id: 'pay_status',
+                                        show: animateObj.aniDetal,
+                                        extras: {
+                                            'data': res.data,
+                                            'war_id': policy_id,
+                                            'tel': mobile
+                                        }
+                                    })
+                                } else {
+                                    mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
+                                    return false
+                                }
+                            } else if (res.data.resultCode == '03') { //批扣中
+                                mui.toast(res.data.resultMsg, {duration: 'long', type: 'div'});
+                                return false
+                            }
+                        } else {
+                            mui.toast('网络出错，请稍后再试', {duration: 'long', type: 'div'})
+                            return false
+                        }
+                    }
+                });
+            },
             btnShow: function (index, item) {
-				switch (index){
-					case 1: //继续录入 恒大 招商
-                        if ((item.supplier_id === 19 && (!item.pay_status || item.pay_status === '0')) || (item.supplier_id === 85 && (item.extend_items.update_img !== '1')) || (item.supplier_id === 2 && (item.progress < 1 || item.status == 4))) {
+                switch (index) {
+                    case 1: //继续录入 恒大 招商
+                        if ((item.supplier_id == 19 && item.state != 5 && (!item.pay_status || item.pay_status == '0')) || (item.supplier_id == 85 && (item.extend_items.update_img != '1')) || (item.supplier_id == 2 && (item.progress < 1 || item.state == 4))) {
                             return true
                         }
-						break
-					case 2: //去支付 招商
-                        if (item.supplier_id === 85 && item.progress === 1 && item.state !== 5 && item.extend_items.update_img === '1' && item.extend_items.pay_status !== '1' && item.extend_items.pay_status !== '2') {
+                        break
+                    case 2: //去支付 招商
+                        if (item.supplier_id == 85 && item.progress == 1 && item.state != 5 && item.extend_items.update_img == '1' && item.pay_status != '1' && item.pay_status != '2') {
                             return true
                         }
-					    break
-					case 3: //去签名 招商
-                        if (item.supplier_id == 85 && item.state === 5 && item.extend_items.signature_status === '0') {
+                        break
+                    case 3: //去签名 招商
+                        if (item.supplier_id == 85 && item.state == 5 && item.extend_items.signature_status == '0') {
+                            return true
+                        }
+                        break
+                    case 4: //去支付 国华
+                        if (item.supplier_id == 2 && item.pay_status == '3') {
                             return true
                         }
 						break
@@ -279,52 +331,63 @@
     var self;
     var user_id;
 
-    (function ($) {
-        //阻尼系数
-        var deceleration = mui.os.ios?0.003:0.0009;
-        $('.mui-scroll-wrapper').scroll({
-            bounce: false,
-            indicators: false, //是否显示滚动条
-            deceleration: deceleration
-        });
-        $.plusReady(function () {
-            user_id = JSON.parse(plus.storage.getItem("userinfo")).id
 
-            statusbar();
+    //阻尼系数
+    var deceleration = mui.os.ios ? 0.003 : 0.0009;
+    mui('.mui-scroll-wrapper').scroll({
+        bounce: false,
+        indicators: false, //是否显示滚动条
+        deceleration: deceleration
+    });
 
-            var winH = window.innerHeight;
-            var titHeight = document.querySelector('#Js-header').offsetHeight;
-            var divHeight = document.querySelector('#Js-orderFilter').offsetHeight;
-            document.querySelector('#Js-orderList').style.height = winH - titHeight - divHeight + 'px';
+    mui.plusReady(function () {
+        statusbar();
+        user_id = JSON.parse(plus.storage.getItem("userinfo")).id
 
-            //循环初始化所有下拉刷新，上拉加载。
-            $('#Js-orderList .mui-scroll').pullToRefresh({
-                up: { // 上拉加载更多
-                    auto: true, // 自动上拉一次
-                    contentrefresh: '正在加载...',
-                    contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
-                    callback: function() {
-                        self = this
-                        loaddata(1)
-                    }
-                },
-                down:{
-                    callback: function() {
-                        self = this
-                        order.page = 0;
-                        loaddata(2,true);
-                    }
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        var divHeight = document.querySelector('#Js-orderFilter').offsetHeight;
+        document.querySelector('#Js-orderList').style.height = winH - titHeight - divHeight + 'px';
+
+
+        //循环初始化所有下拉刷新，上拉加载。
+        mui('#Js-orderList .mui-scroll').pullToRefresh({
+            up: { // 上拉加载更多
+                auto: true, // 自动上拉一次
+                contentrefresh: '正在加载...',
+                contentnomore: '没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+                callback: function () {
+                    self = this
+                    loaddata(1)
                 }
-            });
-            //继续录入-后更新列表
-            window.addEventListener('reload', function () {
-                plus.webview.currentWebview().reload()
-            });
-            // 取消订单
-            mui('body').on('tap', '.cancel', function () {
-                var _this = this
-                var id = _this.getAttribute('data-id')
-                var index = _this.getAttribute('data-index')
+            },
+            down: {
+                callback: function () {
+                    self = this
+                    order.page = 0;
+                    loaddata(2, true);
+                }
+            }
+        });
+        //继续录入-后更新列表
+        window.addEventListener('reload', function () {
+            plus.webview.currentWebview().reload()
+        });
+        window.addEventListener('closeins', function (e) {
+            console.log('closeins')
+            var company = e.detail.data
+            setTimeout(function () {
+                if (company == 'hengda') {
+                    plus.webview.close('hd-insurance-sign');
+                    plus.webview.close('hd_insurance-index');
+                }
+            }, 100)
+        });
+        // 取消订单
+        mui('body').on('tap', '.cancel', function () {
+            var _this = this
+            var id = _this.getAttribute('data-id')
+            var index = _this.getAttribute('data-index')
 
                 mui.confirm('确定要删除该订单？', '提示', ['确定', '取消'], function (e) {
                     if (e.index == 0) {
@@ -378,6 +441,31 @@
                     url = 'zs_ins/order-to-pay.html'
                     id = 'order_to_pay'
                     extras = {policy_id: policyid}
+            } else if (supplier_id == 2 && type === '1') { //国华继续录入
+                url = 'gh_ins/insurance-index.html'
+                id = 'gh_insurance-index'
+                extras = {policy_id: policyid}
+            } else if (supplier_id == 2 && type === '2') { //国华去支付
+                url = 'gh_ins/gh-pay.html'
+                id = 'gh_pay'
+                extras = {policy_id: policyid}
+//                 luckyAjax({
+//			            data: {
+//			                server: 'PolicyIns.onlineInsured',
+//			                data: JSON.stringify({
+//			                	msg: { policy_id: policyid},
+//			                	company_code: 'GuoHua',
+//			                	method: 'pay'
+//			                })
+//			            },
+//			            success: function(res){
+//			                if(res.code == 1) {
+//			                    mui.toast(res.msg, {duration: 'long', type: 'div'})
+//			                } else {
+//			                   mui.toast(res.msg, {duration: 'long', type: 'div'})
+//			                }
+//			            }
+//			        });
                 } else if (supplier_id == 8) {
                     console.log(policyid)
                     url = 'paehis/pa-pay.html'
@@ -397,7 +485,7 @@
                 });
             })
         });
-    }(mui));
+
     //加载险种列表
     var loaddata = function (type, e) {
         order.page++;
@@ -405,13 +493,14 @@
             user_id: user_id,
             state: '',
             type: '2',
-            ins_state: order.status_type,
+            ins_state: order.status_type ? order.status_type : '0',
             isRenewal: '2', //传1显示代理人接收的保单，传2或者不传表示显示代理人自己保单
             page: order.page,
         }
 
         luckyAjax({
-            closeWaiting: type !== 2 ? true : false,
+            closeWaiting: type === 1 ? true : false,
+            timeout: 10000,
             data: {
                 server: 'PolicyIns.PolicyManage',
                 data: JSON.stringify(basedata)
@@ -442,7 +531,9 @@
                         });
                     }
                 } else {
-                    order.listdata = []
+                    if(e){
+                        order.listdata = []
+                    }
                     self.endPullUpToRefresh(true)
                 }
             }

@@ -67,7 +67,8 @@
                                 <a class="BL-col-3b9cf5" type="button" disabled @tap="showStatement(item.safe_id,item.name)" v-for="(item,index) in safegoods" v-show="item.name"><strong>《{{item.name}}条款》</strong></a>
                                 、和<a type="button" id="safenotice"
                                     class="BL-col-3b9cf5"><strong>《客户声明与授权》</strong></a>、<a type="button" id="statement"
-                                    class="BL-col-3b9cf5"><strong>《自动转账授权说明》</strong></a>，并确认无误
+                                    class="BL-col-3b9cf5"><strong>《自动转账授权说明》</strong></a>、<a type="button" @tap="showNotice"
+                                                                                             class="BL-col-3b9cf5"><strong>《投保提示书》</strong></a>，并确认无误
                                 <input name="checkbox" v-model="agree" type="checkbox" style="top: 10px; left: 0px;">
                             </label>
                         </div>
@@ -84,7 +85,7 @@
                             <div class="input-wrap BL-ub-f1">
                                 <input type="number" v-model="smscode">
                             </div>
-                            <button class="right-btn orange" @click="getSignature" :disabled="disabled">{{text}}</button>
+                            <button class="right-btn orange" @click="getSignature(false)" :disabled="disabled">{{text}}</button>
                         </div>
                     </div>
                 </div>
@@ -123,6 +124,174 @@
         })
         return false
     })
+    
+    var img = new Vue({
+        el: '#Js-content',
+        data:function() {
+            return {
+            	isfa: false,
+                safegoods: '',
+                agree: false,
+                pdfurl: '',
+                main_insurance: '',
+                war_id: '',
+                appSignAddress: '', //投保人签名链接
+                insuredSignAddress: '',//被保人签名链接
+                signflag: false, //签名状态
+                ispass: false, //是否自核通过
+                smscode: '',
+                assured: {},
+                previewImg: [], //上传图片
+                disabled: false,
+                second: 60,
+                time: 0
+            }
+        },
+        computed: {
+            text: function () {
+                return this.time > 0 ? this.time + 's后可重新获取' : '点击获取'
+            }
+        },
+        methods: {
+    	    //投保提示书
+        	showNotice: function () {
+				mui.openWindow({
+	                url: '../pdf-modal.html',
+	                id: 'pdf_modal',
+	                show: animateObj.aniDetal,
+	                extras: {
+		    			pdf: config.domain + '/static/file/zstbtss.pdf',
+		    			name:'投保提示书'
+		    		},
+		    		waiting:{
+		    			auto:false,
+		    		}
+	            });
+        	},
+            //险种条款
+            showStatement: function (id, name) {
+                luckyAjax({
+                    data: {
+                        data: JSON.stringify({product_id: id}),
+                        server: 'lifeProduct.getProductInfo'
+                    },
+                    success: function (data) {
+                        plus.nativeUI.closeWaiting();
+                        if (data.code === 1) {
+                            if (data.data.statement) {
+                                mui.openWindow({
+                                    url: '../pdf-modal.html',
+                                    id: 'pdf_modal',
+                                    show: animateObj.aniDetal,
+                                    extras: {
+                                        pdf: data.data.statement,
+                                        name: name
+                                    },
+                                    waiting: {
+                                        auto: false,
+                                    }
+                                });
+                            } else {
+                                mui.toast('暂无条款详情', {duration: 'short', type: 'div'});
+                                return false;
+                            }
+                        }
+                    }
+                })
+            },
+            //07发送验证码
+            sendsms: function () {
+                luckyAjax({
+                    data: {
+                        data: JSON.stringify({
+                            msg: {policy_id: img.war_id},
+                            company_code: 'ZhaoShang',
+                            method: 'sendSms'
+                        }),
+                        server: 'PolicyIns.onlineInsured',
+                        device: 'mobile'
+                    },
+                    timeout: 30000,
+                    success: function (res) {
+                        if (res.data.flag === 'Y') {
+                            mui.toast(res.msg, {duration: 'long', type: 'div'})
+                            img.isfa = true
+                            img.sended()
+                        } else if (res.data.flag === 'N') {
+                            mui.toast(res.data.message, {duration: 'long', type: 'div'})
+                        } else if (res.code === 0) {
+                            mui.toast(res.msg, {duration: 'long', type: 'div'})
+                            return false
+                        } else {
+                            mui.toast(res.data && res.data.message ? res.data.message : '网络出错，请稍后再试', {
+                                duration: 'long',
+                                type: 'div'
+                            })
+                            return false
+                        }
+                    }
+                });
+            },
+            run: function () {
+                this.time = this.second
+                this.timer()
+            },
+            sended: function () {
+                this.run()
+                this.disabled = true
+            },
+            timer: function () {
+                if (this.time > 0) {
+                    this.time--
+                    setTimeout(function () {
+                        img.timer()
+                    }, 1000)
+                } else {
+                    this.disabled = false
+                }
+            },
+            // 03查看签名状态
+            getSignature: function (notosend) {
+                luckyAjax({
+                    data: {
+                        data: JSON.stringify({
+                            msg: {policy_id: img.war_id},
+                            company_code: 'ZhaoShang',
+                            method: 'sign'
+                        }),
+                        server: 'PolicyIns.onlineInsured',
+                        device: 'mobile'
+                    },
+                    timeout: 30000,
+                    success: function (res) {
+                        if (res.data.flag === 'Y') {
+                            if (res.data.isSignFinish === 'Y') {
+                                img.signflag = true
+                                if (notosend){
+                                    mui.toast('签名已完成', {duration: 'long', type: 'div'})
+                                } else {
+                                	img.sendsms()
+                                }
+                            } else {
+                                mui.toast(res.msg, {duration: 'long', type: 'div'})
+                                return false
+                            }
+                        } else if (res.data.flag === 'N') {
+                            mui.toast('接口调用失败', {duration: 'long', type: 'div'})
+                            return false
+                        } else {
+                            mui.toast('网络出错，请稍后再试', {
+                                duration: 'long',
+                                type: 'div'
+                            })
+                            return false
+                        }
+                    }
+                });
+            },
+        }
+    })
+    
     mui.plusReady(function () {
         popu = new ClosePopu(); // 实例化关闭窗口对象
 
@@ -160,6 +329,10 @@
             if (!img.agree) {
                 mui.toast("请确认阅读相关条款声明并同意转账授权与声明", {duration: 'short', type: 'div'})
                 return false;
+            }
+             if (!img.isfa) {
+            	mui.toast("请先获取验证码", {duration: 'short', type: 'div'})
+                return false
             }
             if (!img.smscode) {
                 mui.toast("请填写验证码", {duration: 'short', type: 'div'})
@@ -200,7 +373,7 @@
                     setTimeout(function () {
                         plus.webview.close('zs-insurance-sign');
                         plus.webview.close('zs_insurance-index');
-                    }, 200)
+                    }, 400)
                 }, 3000)
             } else {
                 setTimeout(function () {
@@ -213,7 +386,7 @@
                         plus.webview.close('zs-insurance-sign');
                         plus.webview.close('zs_insurance-index');
                         mui.fire(plus.webview.getWebviewById('member_life_order'), 'reload');
-                    }, 200)
+                    }, 400)
                 }, 3000)
             }
         }
@@ -269,13 +442,12 @@
                 timeout: 30000,
                 success: function (res) {
                     if (res.data.flag === 'Y') {
-                        if (res.data.state && res.data.error) {
-                            mui.toast(res.data.error, {duration: 'long', type: 'div'})
-                            return false
-                        } else {
-                            mui.toast(res.msg, {duration: 'long', type: 'div'})
+                    	if (res.data.state  == 'S0000' || res.data.state == '700001') {
                             ins_pay()
-                        }
+                    	} else {
+                    		mui.toast(res.data.error, {duration: 'long', type: 'div'})
+                            return false
+                    	}
                     } else if (res.data.flag === 'N') {
                         mui.toast(res.data.message, {duration: 'long', type: 'div'})
                         return false
@@ -292,158 +464,6 @@
         //
     });
 
-    var img = new Vue({
-        el: '#Js-content',
-        data:function() {
-            return {
-                safegoods: '',
-                agree: false,
-                pdfurl: '',
-                main_insurance: '',
-                war_id: '',
-                appSignAddress: '', //投保人签名链接
-                insuredSignAddress: '',//被保人签名链接
-                signflag: false, //签名状态
-                ispass: false, //是否自核通过
-                smscode: '',
-                assured: {},
-                previewImg: [], //上传图片
-                disabled: false,
-                second: 60,
-                time: 0
-            }
-        },
-        computed: {
-            text: function () {
-                return this.time > 0 ? this.time + 's后可重新获取' : '点击获取'
-            }
-        },
-        methods: {
-            //险种条款
-            showStatement: function (id, name) {
-                luckyAjax({
-                    data: {
-                        data: JSON.stringify({product_id: id}),
-                        server: 'lifeProduct.getProductInfo'
-                    },
-                    success: function (data) {
-                        plus.nativeUI.closeWaiting();
-                        if (data.code === 1) {
-                            if (data.data.statement) {
-                                mui.openWindow({
-                                    url: '../pdf-modal.html',
-                                    id: 'pdf_modal',
-                                    show: animateObj.aniDetal,
-                                    extras: {
-                                        pdf: data.data.statement,
-                                        name: name
-                                    },
-                                    waiting: {
-                                        auto: false,
-                                    }
-                                });
-                            } else {
-                                mui.toast('暂无条款详情', {duration: 'short', type: 'div'});
-                                return false;
-                            }
-                        }
-                    }
-                })
-            },
-            //07发送验证码
-            sendsms: function () {
-                luckyAjax({
-                    data: {
-                        data: JSON.stringify({
-                            msg: {policy_id: img.war_id},
-                            company_code: 'ZhaoShang',
-                            method: 'sendSms'
-                        }),
-                        server: 'PolicyIns.onlineInsured',
-                        device: 'mobile'
-                    },
-                    timeout: 30000,
-                    success: function (res) {
-                        if (res.data.flag === 'Y') {
-                            mui.toast(res.msg, {duration: 'long', type: 'div'})
-                            img.sended()
-                        } else if (res.data.flag === 'N') {
-                            mui.toast(res.data.message, {duration: 'long', type: 'div'})
-                        } else if (res.code === 0) {
-                            mui.toast(res.msg, {duration: 'long', type: 'div'})
-                            return false
-                        } else {
-                            mui.toast(res.data && res.data.message ? res.data.message : '网络出错，请稍后再试', {
-                                duration: 'long',
-                                type: 'div'
-                            })
-                            return false
-                        }
-                    }
-                });
-            },
-            run: function () {
-                this.time = this.second
-                this.timer()
-            },
-            sended: function () {
-                this.run()
-                this.disabled = true
-            },
-            timer: function () {
-                if (this.time > 0) {
-                    this.time--
-                    setTimeout(function () {
-                        img.timer()
-                    }, 1000)
-                } else {
-                    this.disabled = false
-                }
-            },
-            // 03查看签名状态
-            getSignature: function (notosend) {
-                luckyAjax({
-                    data: {
-                        data: JSON.stringify({
-                            msg: {policy_id: img.war_id},
-                            company_code: 'ZhaoShang',
-                            method: 'sign'
-                        }),
-                        server: 'PolicyIns.onlineInsured',
-                        device: 'mobile'
-                    },
-                    timeout: 30000,
-                    success: function (res) {
-                        if (res.data.flag === 'Y') {
-                            if (res.data.isSignFinish === 'Y') {
-                                img.signflag = true
-                                if (notosend){
-                                    mui.toast('签名已完成', {duration: 'long', type: 'div'})
-                                }
-                                setTimeout(function () {
-                                    img.sendsms()
-                                    if (!notosend) {
-                                        img.sendsms()
-                                    }
-                                }, 3000)
-                            } else {
-                                mui.toast(res.msg, {duration: 'long', type: 'div'})
-                                return false
-                            }
-                        } else if (res.data.flag === 'N') {
-                            mui.toast('接口调用失败', {duration: 'long', type: 'div'})
-                            return false
-                        } else {
-                            mui.toast('网络出错，请稍后再试', {
-                                duration: 'long',
-                                type: 'div'
-                            })
-                            return false
-                        }
-                    }
-                });
-            },
-        }
-    })
+    
 </script>
 </html>

@@ -379,6 +379,9 @@
                                 plus.storage.setItem('hengda_upload', JSON.stringify(upload_data));
                                 console.log('edit-over')
                                 vm.getReadyItem();
+                            } else {
+                            	mui.toast(res.msg, {duration: 'short', type: 'div'});
+                        		return false
                             }
                         }
                     })

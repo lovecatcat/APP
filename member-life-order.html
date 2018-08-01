@@ -79,10 +79,10 @@
                                         <span>提交时间：<i>{{ item.create_time}}</i></span>
                                     </div>
                                     <div class="team-per-ins BL-pad-b-1 clearfloat" v-if="item.supplier_id==85">
-                                        <span>签名状态：<i class="BL-col-3b9cf5">{{ item.extend_items.signature_status==='1'?'已完成':'未完成'}}</i></span>
+                                        <span>签名状态：<i class="BL-col-3b9cf5">{{ item.extend_items.signature_status=='1'?'已完成':'未完成'}}</i></span>
                                     </div>
                                     <div class="team-per-ins BL-pad-b-1 clearfloat" v-if="item.supplier_id==85">
-                                        <span>支付状态：<i class="BL-col-3b9cf5">{{ item.extend_items.pay_status==='1'?'已完成':'待支付'}}</i></span>
+                                        <span>支付状态：<i class="BL-col-3b9cf5">{{ item.pay_status=='1'?'已完成':'待支付'}}</i></span>
                                     </div>
                                 </a>
                                 <div class="BL-txt-r button">
@@ -181,22 +181,22 @@
             btnShow: function (index, item) {
                 switch (index) {
                     case 1: //继续录入 恒大 招商
-                        if ((item.supplier_id === 19 && item.state !== 5 && (!item.extend_items.pay_status || item.extend_items.pay_status === '0')) || (item.supplier_id === 85 && (item.extend_items.update_img !== '1')) || (item.supplier_id === 2 && (item.progress < 1 || item.state == 4))) {
+                        if ((item.supplier_id == 19 && item.state != 5 && (!item.pay_status || item.pay_status == '0')) || (item.supplier_id == 85 && (item.extend_items.update_img != '1')) || (item.supplier_id == 2 && (item.progress < 1 || item.state == 4))) {
                             return true
                         }
                         break
                     case 2: //去支付 招商
-                        if (item.supplier_id === 85 && item.progress === 1 && item.state !== 5 && item.extend_items.update_img === '1' && item.extend_items.pay_status !== '1' && item.extend_items.pay_status !== '2') {
+                        if (item.supplier_id == 85 && item.progress == 1 && item.state != 5 && item.extend_items.update_img == '1' && item.pay_status != '1' && item.pay_status != '2') {
                             return true
                         }
                         break
                     case 3: //去签名 招商
-                        if (item.supplier_id == 85 && item.state === 5 && item.extend_items.signature_status === '0') {
+                        if (item.supplier_id == 85 && item.state == 5 && item.extend_items.signature_status == '0') {
                             return true
                         }
                         break
                     case 4: //去支付 国华
-                        if (item.supplier_id == 2 && item.extend_items.pay_status === '3') {
+                        if (item.supplier_id == 2 && item.pay_status == '3') {
                             return true
                         }
                         break

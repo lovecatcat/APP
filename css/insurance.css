@@ -69,6 +69,8 @@
 
 .input-item{display:-moz-box; display:-webkit-box; display:-ms-flexbox; padding: 0 1rem;margin: 1.28rem 0;position: relative}
 .input-item-title { margin: .5rem 0; }
+.desc-text{font-size: 1.4375rem;padding-top: .75rem;}
+.info-collapse{padding: 0 1rem!important;font-size: 1.4375rem;line-height: 4.5rem;color: #3b9cf5!important;}
 .input-item.box-align-center{-webkit-box-align: center;}
 .input-item.ins-pd-r-0{padding: 0 0 0 1rem;}
 .input-item input{text-align: left;padding-left: 1rem;height: 2.9375rem;line-height: 2.9375rem;}
@@ -107,7 +109,9 @@
 .item-operate{width: 7.5rem;text-align: center;}
 .table-wrap .flex{padding: 1rem .5rem;}
 .flex{display: flex;border: 1px solid #e7e7e7;border-width: 1px 1px 0 1px;}
+.flex-n{display: flex;}
 .flex-1{flex: 1;}
+.flex-2{flex: 2;}
 .border-l-r{border: 1px solid #e7e7e7;}
 /*附加险*/
 .form-bgc-eee{background-color: #eee;margin: 1rem;}

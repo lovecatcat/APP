@@ -85,7 +85,7 @@
                                         <span>支付状态：<i class="BL-col-3b9cf5">{{ item.pay_status=='1'?'已完成':'待支付'}}</i></span>
                                     </div>
                                 </a>
-                                <div class="BL-txt-r button">
+                                <div class="BL-txt-r button" v-if="item.extend_items">
                                     <a class="BL-btn-white BL-pad-lr-1 BL-mar-r-1 continue" v-show="btnShow(1,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="1">继续录入</a>
 
                                     <a class="BL-btn-white BL-pad-lr-1 continue" v-if="item.state==0&&item.supplier_id==8" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-policyno="item.policy_no" :data-fee="item.total">去支付</a><!--平安-->
@@ -93,10 +93,10 @@
                                     <a class="BL-btn-white BL-pad-lr-1 continue" v-show="btnShow(2,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">去支付</a><!--招商-->
                                     <a class="BL-btn-white BL-pad-lr-1 continue" v-show="btnShow(4,item)" :data-supplier="item.supplier_id" :data-policyid="item.policy_id" :data-type="2">去支付</a><!--国华-->
 
-                                    <a class="BL-btn-white BL-pad-lr-1" @tap="toPay(item.policy_id,item.holder_mobile)" v-show="item.supplier_id === 19 && item.state!==5 && (!item.extend_items.pay_status || item.extend_items.pay_status === '0')">去支付</a><!--恒大-->
-                                    <a class="BL-btn-white BL-pad-lr-1" @tap="freshSign(item.policy_id)" v-show="item.supplier_id==85&&item.state===5&&item.extend_items.signature_status === '0'">刷新</a><!--招商-->
-                                    <a class="BL-btn-white BL-pad-lr-1" @tap="queryPay(item.policy_id)" v-show="item.supplier_id==85&&item.extend_items.pay_status === '2'">查询支付状态</a><!--招商-->
-                                    <a class="BL-btn-white BL-pad-lr-1" @tap="chengbao(item.policy_id)" v-show="item.supplier_id==85&&item.extend_items.pay_status === '1'&&progress!==2">去承保</a><!--招商-->
+                                    <a class="BL-btn-white BL-pad-lr-1" @tap="toPay(item.policy_id,item.holder_mobile)" v-show="item.supplier_id == 19 && item.state!=5 && (!item.pay_status || item.pay_status == '0')">去支付</a><!--恒大-->
+                                    <a class="BL-btn-white BL-pad-lr-1" @tap="freshSign(item.policy_id)" v-show="item.supplier_id==85&&item.state==5&&item.extend_items.signature_status == '0'">刷新</a><!--招商-->
+                                    <a class="BL-btn-white BL-pad-lr-1" @tap="queryPay(item.policy_id)" v-show="item.supplier_id==85&&item.pay_status == '2'">查询支付状态</a><!--招商-->
+                                    <a class="BL-btn-white BL-pad-lr-1" @tap="chengbao(item.policy_id)" v-show="item.supplier_id==85&&item.pay_status == '1'&&progress!=2">去承保</a><!--招商-->
                                 </div>
                             </div>
                         </li>

@@ -194,7 +194,7 @@
                         }
                         break
                     case 3: //去签名 招商
-                        if (item.supplier_id == 85 && item.state == 5 && item.extend_items.signature_status == '0') {
+                        if (item.supplier_id == 85 && item.state == 5 && (!item.extend_items.signature_status || item.extend_items.signature_status == '0')) {
                             return true
                         }
                         break

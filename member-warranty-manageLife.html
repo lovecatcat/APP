@@ -91,9 +91,11 @@
 											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.receipt_state == '5' && ['11','21'].indexOf(item.email_state) > -1" @click="InsReceipt('1', item.policy_id)">影像上传失败</button>
 											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.receipt_state == '6'" disabled>已线下处理</button>
 										</template>
-										<template v-if="item.supplier_id == 85">
+										<template v-else-if="item.supplier_id == 85">
 											<!-- 纸质回执 -->
-											<button class="BL-btn-white BL-pad-lr-1 BL-mar-r-1" @click="ToReceipt(item.policy_id)">去回执</button>
+											<button class="BL-btn-white BL-pad-lr-1 BL-mar-r-1" @click="ToReceipt(item.policy_id)" v-if="!item.extend_items.receptionStatus">去回执</button>
+											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.extend_items.receptionStatus == 'Y'" disabled>回执通过</button>
+											<button class="BL-btn-white BL-pad-lr-1" v-else-if="item.extend_items.receptionStatus == 'N'" disabled>回执失败</button>
 										</template>
 										<a :data-wid="item.policy_id" href="member-warranty-manageLife-detail.html" class="BL-btn-blue BL-pad-lr-2 BL-mar-l-1">详情</a>
 									</div>

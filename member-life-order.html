@@ -232,7 +232,16 @@
                         if (res.data.flag === 'Y') {
                             if (res.data.isIssue === 'Y') {
                                 mui.toast('承保成功', {duration: 'long', type: 'div'});
-                                plus.webview.currentWebview().reload()
+                                setTimeout(function () {
+                                    loaddata(2, true);
+                                    setTimeout(function () {
+                                        mui.openWindow({
+                                            id: 'member_warranty_manage',
+                                            url: 'member-warranty-manage.html',
+                                            show: animateObj.aniDetal
+                                        });
+                                    },400)
+                                },300)
                             } else {
                                 mui.toast(res.data.issueNotPassReason, {duration: 'long', type: 'div'});
                                 return false
@@ -348,7 +357,6 @@
         var titHeight = document.querySelector('#Js-header').offsetHeight;
         var divHeight = document.querySelector('#Js-orderFilter').offsetHeight;
         document.querySelector('#Js-orderList').style.height = winH - titHeight - divHeight + 'px';
-
 
         //循环初始化所有下拉刷新，上拉加载。
         mui('#Js-orderList .mui-scroll').pullToRefresh({

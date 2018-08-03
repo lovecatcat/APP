@@ -17,7 +17,7 @@
 <header id="Js-header" class="BL-bg-fff">
     <div class="BL-mod-headbar BL-mod-headbar-pos">
         <a class="mui-icon-left-nav BL-icon BL-icon-left" id="backto"></a>
-        <h1 class="BL-title">恒大在线投保</h1>
+        <h1 class="BL-title">招商仁和在线投保</h1>
         <div class="control">
             <a type="button" class="BL-col-3b9cf5" id="resetData">重置</a>
         </div>
@@ -67,12 +67,19 @@
                 <div class="mui-icon mui-icon-arrowright"></div>
             </div>
         </div>
+        <div class="mui-input-row mui-checkbox ins-checkbox-right" @tap="showpop(8)">
+            <label class="ins-font-md" :class="{'BL-col-3b9cf5':agent}">代理人告知</label>
+            <div class="form-list-icon">
+                <div class="mui-icon mui-icon-arrowright"></div>
+            </div>
+        </div>
     </form>
     <div class="BL-mar-t-3 BL-pad-lr-1_5">
-        <a type="button" id="ins-save" class="form-btn blue">提交</a>
+        <a type="button" id="ins-save" class="form-btn blue">核保</a>
     </div>
-    <div class="BL-mar-t-3 BL-pad-lr-1_5" style="display: none">
-        <a type="button" id="qianming" class="form-btn blue">提交</a>
+    <br><br>
+    <div class="BL-mar-t-3 BL-pad-lr-1_5" style="display: none;">
+        <a type="button" id="temppop" class="form-btn blue">签名</a>
     </div>
 </div>
 <script src="../js/mui.min.js" type="text/javascript"></script>
@@ -87,8 +94,8 @@
         var winH = window.innerHeight;
         var titHeight = document.querySelector('#Js-header').offsetHeight;
         document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
-        var itemName = ['hengda_applicant','hengda_assured','hengda_beneficiary','hengda_safegoods','hengda_healthinfo','hengda_bank','hengda_upload','hengda_ids','userinfo'];
-        var subpages = ["insurance-applicant", "insurance-assured", "insurance-beneficiary", "insurance-safegoods", "insurance-healthinfo", "insurance-bank", "insurance-upload"];
+        var itemName = ['zhaos_applicant','zhaos_assured','zhaos_beneficiary','zhaos_safegoods','zhaos_healthinfo','zhaos_bank','zhaos_upload','zhaos_agent','zhaos_ids','userinfo'];
+        var subpages = ["insurance-applicant", "insurance-assured", "insurance-beneficiary", "insurance-safegoods", "insurance-healthinfo", "insurance-bank", "insurance-upload","insurance-agent"];
 
         var index = new Vue({
             el: '#Js-content',
@@ -106,25 +113,27 @@
                     healthinfo: '',
                     bank: '',
                     sign: '',
-                    upload: ''
+                    upload: '',
+                    agent: ''
                 }
             },
             created:function(){
                 console.log('index-created')
                 //编辑保单
                 var openerId = plus.webview.currentWebview().opener().id
-                if (openerId !== 'quickly' && openerId !== 'member_life_order') {
-                    console.log('begin-clear')
-                    this.clearItem()
-                }
+//                if (openerId !== 'quickly' && openerId !== 'member_life_order') {
+//                    console.log('begin-clear')
+//                    this.clearItem()
+//                }
                 var pid = plus.webview.currentWebview().policy_id;
+                console.log(pid)
                 if (pid) {
                     document.getElementById('resetData').style.display = 'none'
                     this.pid = pid
-                    plus.storage.setItem('hengda_ids', JSON.stringify({policy_id: pid}));
+                    plus.storage.setItem('zhaos_ids', JSON.stringify({policy_id: pid}));
                     checkStatus(pid)
                 } else {
-                    if (plus.storage.getItem('hengda_ids')) {
+                    if (plus.storage.getItem('zhaos_ids')) {
                         this.clearItem()
                     }
                     this.getReadyItem();
@@ -134,7 +143,7 @@
             methods:{
                 //清除localstorage
                 clearItem: function (back, timeout) {
-                    for (var i = 0; i < 8; i++) {
+                    for (var i = 0; i < 9; i++) {
                         plus.storage.removeItem(itemName[i])
                     }
                     this.ids = ''
@@ -146,6 +155,7 @@
                     this.bank = ''
                     this.sign = ''
                     this.upload = ''
+                    this.agent = ''
                     if (back && timeout) {
                         setTimeout(function () {
                             mui.back();
@@ -155,7 +165,7 @@
                     }
                 },
                 getReadyItem: function () {
-                    var dataName = ['applicant', 'assured', 'beneficiary', 'safegoods', 'healthinfo', 'bank', 'upload', 'ids', 'userinfo'];
+                    var dataName = ['applicant', 'assured', 'beneficiary', 'safegoods', 'healthinfo', 'bank', 'upload','agent', 'ids', 'userinfo'];
                     for (var i = 0; i < itemName.length; i++) {
                         this.getItem(itemName[i], dataName[i]);
                     }
@@ -169,7 +179,7 @@
                 },
                 //编辑保单数据赋值
                 getWarranty: function (pid) {
-                    console.log('getWarranty')
+                    console.log('赋值')
                     const vm = this
                     var appl_data = {}
                     var assu_data = {}
@@ -178,6 +188,7 @@
                     var health_data = []
                     var bank_data = {}
                     var upload_data = {}
+                    var agent_data = {}
                     luckyAjax({
                         data: {
                             data: JSON.stringify({'policy_id': pid}),
@@ -185,12 +196,11 @@
                         },
                         success: function (res) {
                             if (res.code) {
-                                console.log('44444')
                                 var da = res.data
                                 //投保人
                                 appl_data.holder_name = da.insData.holder_name
-                                appl_data.holder_ID_type = IDcard //证件类型
-                                appl_data.holder_ID_type_name = '身份证' //证件类型名
+                                appl_data.holder_ID_type = da.insData.holder_ID_type //证件类型
+                                appl_data.holder_ID_type_name = da.insData.holder_ID_type_text //证件类型名
                                 appl_data.holder_ID_no = da.insData.holder_ID_no //证件号码
                                 appl_data.holder_birthday = da.insData.holder_birthday //出生日期
                                 appl_data.holder_ID_expire_end = da.insData.holder_ID_expire_end //证件有效期
@@ -199,43 +209,48 @@
                                 appl_data.holder_email = da.insData.holder_email//邮箱
                                 appl_data.holder_height = parseInt(da.insData.holder_height)//身高
                                 appl_data.holder_weight = da.insData.holder_weight//体重
-                                appl_data.holder_nation = NATION//国籍
-                                appl_data.holder_nation_name = '中国'//国籍
+                                appl_data.holder_nation = da.insData.holder_nation//国籍
+                                appl_data.holder_nation_name = da.insData.holder_nation_text//国籍
                                 appl_data.holder_company = da.insData.holder_company //工作单位
                                 appl_data.holder_salary_from = da.insData.holder_salary_from//收入来源
                                 appl_data.holder_salary_from_name = da.insData.holder_salary_from_text//收入来源名
                                 appl_data.holder_salary_avg = parseInt(da.insData.holder_salary_avg)//年收入
 
-                                appl_data.holder_home_province = '20'//现在住址【省】
-                                appl_data.holder_home_city = '323'//现在住址【市】
-                                if (da.insData.holder_home_city === '323') {
-                                    appl_data.holder_home_district = da.insData.holder_home_district//现在住址【区】
-                                    appl_data.holder_home_district_name = da.insData.holder_home_district_text//现在住址【区】名称
-                                    appl_data.holder_home_zip = da.insData.holder_home_zip//现在住址【邮编】
-                                }
+                                appl_data.holder_home_province = da.insData.holder_home_province//现在住址【省】
+                                appl_data.holder_home_province_name = da.insData.holder_home_province_text//现在住址【省】
+                                appl_data.holder_home_city = da.insData.holder_home_city//现在住址【市】
+                                appl_data.holder_home_city_name = da.insData.holder_home_city_text//现在住址【市】
+                                appl_data.holder_home_district = da.insData.holder_home_district//现在住址【区】
+                                appl_data.holder_home_district_name = da.insData.holder_home_district_text//现在住址【区】名称
+                                appl_data.holder_home_zip = da.insData.holder_home_zip//现在住址【邮编】
                                 appl_data.holder_home_address = da.insData.holder_home_address //现在住址【地址详情】
-                                appl_data.mail_addr_type = da.insData.extend_items.mail_addr_type === '0' ? false : true//（通讯地址）是否同现在住址
-                                appl_data.holder_contact_province = '20'//通讯地址【省】
-                                appl_data.holder_contact_city = '323'//通讯地址【市】
-                                if (da.insData.holder_contact_city === '323') {
-                                    appl_data.holder_contact_district = da.insData.holder_contact_district//通讯地址【区】
-                                    appl_data.holder_contact_district_name = da.insData.holder_contact_district_text//通讯地址【区】名称
-                                    appl_data.holder_contact_zip = da.insData.holder_contact_zip//通讯地址【邮编】
-                                }
+                                appl_data.holder_home_ssq_name = da.insData.holder_home_province_text + ' ' + da.insData.holder_home_city_text + ' ' + da.insData.holder_home_district_text //现在住址【地址详情】
+
+                                appl_data.mail_addr_type =  da.insData.extend_items.mail_addr_type//（通讯地址）是否同现在住址
+
+                                appl_data.holder_contact_province = da.insData.holder_contact_province//通讯地址【省】
+                                appl_data.holder_contact_province_name = da.insData.holder_contact_province_text//通讯地址【省】
+                                appl_data.holder_contact_city = da.insData.holder_contact_city//通讯地址【市】
+                                appl_data.holder_contact_city_name = da.insData.holder_contact_city_text//通讯地址【市】
+                                appl_data.holder_contact_district = da.insData.holder_contact_district//通讯地址【区】
+                                appl_data.holder_contact_district_name = da.insData.holder_contact_district_text//通讯地址【区】名称
+                                appl_data.holder_contact_zip = da.insData.holder_contact_zip//通讯地址【邮编】
                                 appl_data.holder_contact_address = da.insData.holder_contact_address //通讯地址【地址详情】
+                                appl_data.holder_contact_ssq_name = da.insData.holder_contact_province_text + ' ' + da.insData.holder_contact_city_text + ' ' + da.insData.holder_contact_district_text //通讯地址【地址详情】
 
                                 appl_data.holder_has_SSID = da.insData.holder_has_SSID === has_social_security ? true : false//是否有社保
                                 appl_data.holder_marriage = da.insData.holder_marriage//婚姻状况
                                 appl_data.holder_job_code = da.insData.holder_job_code//职业
                                 appl_data.temp_holder_job_code = da.insData.holder_job_code_code//职业代码
                                 appl_data.holder_job_name = da.insData.holder_job_code_text//职业名称
+                                appl_data.holder_job_cate = da.insData.holder_job_category.extend.life_insurance//职业分类
                                 appl_data.holder_isTaxResidents = TAXTYPE //税收标识
                                 appl_data.resident_type = da.insData.extend_items.resident_type //居民类型
-                                console.log('aa')
+                                console.log(JSON.stringify(appl_data))
                                 //被保人
-                                assu_data.rel_insured_holder = da.insured.rel_insured_holder
-                                assu_data.addr_type = da.insData.extend_items.addr_type === '0' ? false : true
-                                if (da.insured.rel_insured_holder === ISASSURED) {//被保人为本人
+                                assu_data.rel_holder_insured = da.insured.rel_holder_insured
+                                assu_data.addr_type = da.insData.extend_items.addr_type
+                                if (da.insured.rel_holder_insured === ISASSURED) {//被保人为本人
                                     RSChanged(assu_data, appl_data)
                                 } else {
                                     assu_data.insured_name = da.insured.insured_name //姓名
@@ -249,25 +264,40 @@
                                     assu_data.insured_email = da.insured.insured_email//邮箱
                                     assu_data.insured_height = parseInt(da.insured.insured_height)//身高
                                     assu_data.insured_weight = da.insured.insured_weight//体重
-                                    assu_data.insured_nation = NATION//国籍
-                                    assu_data.insured_nation_name = '中国'//国籍
+                                    assu_data.insured_nation = da.insured.insured_nation//国籍
+                                    assu_data.insured_nation_name = da.insured.insured_nation_text//国籍
                                     assu_data.insured_company = da.insured.insured_company //工作单位
                                     assu_data.insured_salary_from = da.insured.insured_salary_from//收入来源
                                     assu_data.insured_salary_from_name = da.insured.insured_salary_from_text//收入来源名
                                     assu_data.insured_salary_avg = parseInt(da.insured.insured_salary_avg)//年收入
 
-                                    assu_data.insured_home_province = '20'//现在住址【省】
-                                    assu_data.insured_home_city = '323'//现在住址【市】
+                                    assu_data.insured_home_province = da.insured.insured_home_province//现在住址【省】
+                                    assu_data.insured_home_province_name = da.insured.insured_home_province_text//现在住址【省】
+                                    assu_data.insured_home_city = da.insured.insured_home_city//现在住址【市】
+                                    assu_data.insured_home_city_name = da.insured.insured_home_city_text//现在住址【市】
                                     assu_data.insured_home_district = da.insured.insured_home_district//现在住址【区】
                                     assu_data.insured_home_district_name = da.insured.insured_home_district_text//现在住址【区】名称
                                     assu_data.insured_home_address = da.insured.insured_home_address //现在住址【地址详情】
                                     assu_data.insured_home_zip = da.insured.insured_home_zip//现在住址【邮编】
+                                    assu_data.insured_home_ssq_name = da.insured.insured_home_province_text + ' ' + da.insured.insured_home_city_text + ' ' + da.insured.insured_home_district_text//现在住址【邮编】
+
+                                    assu_data.insured_contact_province = da.insured.insured_contact_province//通讯地址【省】
+                                    assu_data.insured_contact_province_name = da.insured.insured_contact_province_text//通讯地址【省】
+                                    assu_data.insured_contact_city = da.insured.insured_contact_city//通讯地址【市】
+                                    assu_data.insured_contact_city_name = da.insured.insured_contact_city_text//通讯地址【市】
+                                    assu_data.insured_contact_district = da.insured.insured_contact_district//通讯地址【区】
+                                    assu_data.insured_contact_district_name = da.insured.insured_contact_district_text//通讯地址【区】名称
+                                    assu_data.insured_contact_address = da.insured.insured_contact_address //通讯地址【地址详情】
+                                    assu_data.insured_contact_zip = da.insured.insured_contact_zip//通讯地址【邮编】
+                                    assu_data.insured_contact_ssq_name = da.insured.insured_contact_province_text + ' ' + da.insured.insured_contact_city_text + ' ' + da.insured.insured_contact_district_text//通讯地址【邮编】
+
 
                                     assu_data.insured_has_SSID = da.insured.has_insured_SSID === has_social_security ? true : false//是否有社保
                                     assu_data.insured_marriage = da.insured.insured_marriage//婚姻状况
                                     assu_data.insured_job_code = da.insured.insured_job_code//职业
                                     assu_data.temp_insured_job_code = da.insured.insured_job_code_code//职业代码
                                     assu_data.insured_job_name = da.insured.insured_job_code_text//职业名称
+                                    assu_data.insured_job_cate = da.insured.insured_job_category.extend.life_insurance//职业分类
                                     assu_data.insured_isTaxResidents = TAXTYPE//税收标识
                                 }
                                 console.log(JSON.stringify(assu_data))
@@ -277,7 +307,7 @@
                                 } else {
                                     if (!da.beneficList.length) {
                                         bene_data = ''
-                                        plus.storage.removeItem('hengda_beneficiary')
+                                        plus.storage.removeItem('zhaos_beneficiary')
                                     } else {
                                         var bitem = {}
                                         bene_data = []
@@ -292,17 +322,10 @@
                                                 ID_expire_end: bitem.ID_expire_end,//证件有效期
                                                 gender: bitem.gender,//性别
                                                 birthday: bitem.birthday,//出生日期
-                                                zip: bitem.zip,//邮编
                                                 sort_order: bitem.sort_order,//受益顺序
                                                 rate: bitem.rate,//受益比例
                                                 type: SY_TYPE,//受益类型：身故
-                                                addr_type: bitem.addr_type,//地址类型 1同投保人 2同被保人 3否
-                                                province: bitem.province,
-                                                city: bitem.city,
-                                                district: bitem.district,
-                                                address: bitem.address,//详细地址
-                                                ID_type_name: typename[bitem.ID_type],//证件类型名称
-                                                address_select: bitem.province_text + ' ' + bitem.city_text + ' ' + bitem.district_text
+                                                ID_type_name: typename[bitem.ID_type]//证件类型名称
                                             })
                                         }
                                     }
@@ -310,7 +333,7 @@
                                 //险种信息
                                 if (!da.contentList.length) {
                                     safe_data = ''
-                                    plus.storage.removeItem('hengda_safegoods');
+                                    plus.storage.removeItem('zhaos_safegoods');
                                 } else {
                                     var sitem = {}
                                     for (var s in da.contentList) {
@@ -318,29 +341,28 @@
                                         console.log(JSON.stringify(sitem))
                                         var pdata = {}
                                         pdata = {
-                                            name: sitem.product_name,
                                             is_main: sitem.is_main,
                                             safe_id: sitem.product_id,
                                             code: sitem.code,
                                             safe_year: sitem.period_guanantee,
                                             pay_year: sitem.period_payment,
                                             money: sitem.amount, // 基本保险金额
-                                            period_money: sitem.fee // 年交保费
+                                            period_money: sitem.fee, // 年交保费
+                                            name: sitem.product_name
                                         }
                                         if (sitem.is_main) {
-                                            pdata.guarantee_term = sitem.extend_items.guarantee_term//年金保障年限  20 30
-                                            pdata.draw_freq = sitem.extend_items.draw_freq//生存金领取方式 年领 月领
-                                            pdata.draw_age = sitem.extend_items.draw_age//年金领取年龄
-                                            pdata.shareDrawType = sitem.extend_items.shareDrawType//分红领取方式 累计生息 转入万能账户 现金领取
+                                            pdata.bcestype = da.insData.extend_items.bcestype//生存金领取方式 累计生息 现金领取
+                                            pdata.BonusGetMode = sitem.extend_items.BonusGetMode//分红领取方式 累计生息 保额分红 现金领取
                                             pdata.autoApl = sitem.extend_items.autoApl === '1' ? true : false //是否自动垫交
                                         }
                                         safe_data.push(pdata)
                                     }
                                 }
+                                console.log()
                                 //健康告知
                                 if (!da.matterList.length) {
                                     health_data = ''
-                                    plus.storage.removeItem('hengda_healthinfo');
+                                    plus.storage.removeItem('zhaos_healthinfo');
                                 } else {
                                     var hitem = {}
                                     for(var h in da.matterList) {
@@ -355,33 +377,51 @@
                                     }
                                 }
                                 //银行信息
-                                bank_data.agree = false
+                                bank_data.agree = true
                                 bank_data.bank_holder = da.insData.holder_name //户名
                                 bank_data.bank_name = da.insData.bank_name //开户行
                                 bank_data.temp_bank_name = da.insData.bank_name_text //开户行名称
+                                bank_data.bank_type = da.insData.bank_type //账户类型
+                                bank_data.temp_bank_type = da.insData.bank_type_text //账户类型名称
                                 bank_data.bank_no = da.insData.bank_no//卡号
+                                bank_data.bank_province = da.insData.bank_province
+                                bank_data.bank_province_name = da.insData.bank_province_text
+                                bank_data.bank_area = da.insData.bank_area
+                                bank_data.bank_area_name = da.insData.bank_area_text
+                                bank_data.bank_ss_name = da.insData.bank_province_text + ' ' + da.insData.bank_area_text
+                                console.log(JSON.stringify(bank_data))
                                 //证件照
                                 for (var i in da.insData.img_json) {
                                     upload_data[i] = config.domain + da.insData.img_json[i]
                                 }
-                                console.log('a')
+                                //代理人告知
+                                agent_data.applyProcessCode =  da.insData.extend_items.applyProcessCode
+                                agent_data.process_name =  da.insData.apply_process_code_text
+                                agent_data.durationType =  da.insData.extend_items.durationType //投保目的
+                                agent_data.duration_name =  da.insData.duration_type_text
+                                agent_data.insuredBadHabits =  da.insData.extend_items.insuredBadHabits === 'Y' ? true : false
+                                agent_data.insuredPartTime =  da.insData.extend_items.insuredPartTime === 'Y' ? true : false
+                                agent_data.insuredBodyAbnormity =  da.insData.extend_items.insuredBodyAbnormity === 'Y' ? true : false
+                                agent_data.insuredBodyAbnormityDesc =  da.insData.extend_items.insuredBodyAbnormityDesc
+                                agent_data.insuredSpecialAffinity =  da.insData.extend_items.insuredSpecialAffinity === 'Y' ? true : false
+                                agent_data.otherRisk =  da.insData.extend_items.otherRisk === 'Y' ? true : false
+                                agent_data.otherRiskDesc =  da.insData.extend_items.otherRiskDesc
+                                agent_data.reasons =  da.insData.extend_items.reasons === 'Y' ? true : false
                                 //存
-                                plus.storage.setItem('hengda_applicant',JSON.stringify(appl_data));
-                                plus.storage.setItem('hengda_assured',JSON.stringify(assu_data));
+                                plus.storage.setItem('zhaos_applicant',JSON.stringify(appl_data));
+                                plus.storage.setItem('zhaos_assured',JSON.stringify(assu_data));
                                 if (bene_data === 1) {
-                                    plus.storage.setItem('hengda_beneficiary', '1');
+                                    plus.storage.setItem('zhaos_beneficiary', '1');
                                 } else {
-                                    bene_data && plus.storage.setItem('hengda_beneficiary', JSON.stringify(bene_data));
+                                    bene_data && plus.storage.setItem('zhaos_beneficiary', JSON.stringify(bene_data));
                                 }
-                                safe_data && plus.storage.setItem('hengda_safegoods', JSON.stringify(safe_data));
-                                health_data && plus.storage.setItem('hengda_healthinfo', JSON.stringify(health_data));
-                                plus.storage.setItem('hengda_bank', JSON.stringify(bank_data));
-                                plus.storage.setItem('hengda_upload', JSON.stringify(upload_data));
+                                safe_data && plus.storage.setItem('zhaos_safegoods', JSON.stringify(safe_data));
+                                health_data && plus.storage.setItem('zhaos_healthinfo', JSON.stringify(health_data));
+                                plus.storage.setItem('zhaos_bank', JSON.stringify(bank_data));
+                                plus.storage.setItem('zhaos_upload', JSON.stringify(upload_data));
+                                plus.storage.setItem('zhaos_agent', JSON.stringify(agent_data));
                                 console.log('edit-over')
                                 vm.getReadyItem();
-                            } else {
-                            	mui.toast(res.msg, {duration: 'short', type: 'div'});
-                        		return false
                             }
                         }
                     })
@@ -410,7 +450,7 @@
                     if (e === 5) {
                         plus.nativeUI.showWaiting();
                     }
-                    showPopu(subpages[e-1] + '.html', 'hd-'+subpages[e-1], "bottom", index.init);
+                    showPopu(subpages[e-1] + '.html', 'zs-'+subpages[e-1], "bottom", index.init);
                 }
             }
         });
@@ -418,15 +458,12 @@
         window.addEventListener('saveFlag', function (e) {
             console.log('saveFlag')
             if (e.detail.clear) {
-                plus.storage.removeItem('hengda_safegoods')
-                plus.storage.removeItem('hengda_healthinfo')
-                plus.storage.removeItem('hengda_upload')
-                index.getItem('hengda_safegoods', 'safegoods')
-                index.getItem('hengda_healthinfo', 'healthinfo')
-                index.getItem('hengda_upload', 'upload')
-            } else if (e.detail.clearupload) {
-                plus.storage.removeItem('hengda_upload')
-                index.getItem('hengda_upload', 'upload')
+                plus.storage.removeItem('zhaos_safegoods')
+                plus.storage.removeItem('zhaos_healthinfo')
+                plus.storage.removeItem('zhaos_upload')
+                index.getItem('zhaos_safegoods', 'safegoods')
+                index.getItem('zhaos_healthinfo', 'healthinfo')
+                index.getItem('zhaos_upload', 'upload')
             }
             index.getItem(e.detail.item,e.detail.data)
 
@@ -459,7 +496,7 @@
                             res.ID_type = dataToselect(itemdata); //证件类型
                         } else if (item.cate === 'AB') {
                             res.gender = dataToselect(item.child); //性别
-                        } else if (item.cate === 'AC') {
+                        } else if (item.cate === 'BK') {
                             res.is_assured = dataToselect(item.child); //与投保人关系
                         } else if (item.cate === 'AD') {
                             res.marriage = dataToselect(item.child); //婚姻状况
@@ -477,22 +514,24 @@
                             res.drving_type = dataToselect(item.child); //驾照类型
                         } else if (item.cate === 'AL') {
                             res.resident_type = dataToselect(item.child); //居民类型
+                        } else if (item.cate === 'AM') {
+                            res.education = dataToselect(item.child); //学历
                         } else if (item.cate === 'AN') {
                             res.relation_beneficiary = dataToselect(item.child); //受益人与被保人关系
                         } else if (item.cate === 'AO') {
                             res.beneficiary_type = dataToselect(item.child); //受益人类型 法定 指定
                         } else if (item.cate === 'AP') {
                             res.benefit_type = dataToselect(item.child); //受益类型 身故
+                        } else if (item.cate === 'AU') {
+                            res.account_type = dataToselect(item.child); //银行卡账号类型
                         } else if (item.cate === 'AV') {
                             res.bank_code = dataToselect(item.child); //银行代码
                         } else if (item.cate === 'area') {
                             res.province = dataToselect(item.child, true); //省
-                        } else if (item.cate === 'BB') {
-                            res.nj_safe_year = dataToselect(item.child); //年金保障年限
-                        } else if (item.cate === 'BC') {
-                            res.nj_get_way = dataToselect(item.child); //年金领取方式
-                        } else if (item.cate === 'BD') {
-                            res.nj_get_type = dataToselect(item.child); //年金领取类型
+                        } else if (item.cate === 'BA') {
+                            res.sc_get_type = dataToselect(item.child); //生存金领取方式
+                        } else if (item.cate === 'AZ') {
+                            res.hl_get_type = dataToselect(item.child); //红利领取方式
                         }
                     });
                     index.init = res;
@@ -533,37 +572,27 @@
                 mui.back();
             }
         })
-
         //重置
         document.querySelector('#resetData').addEventListener('tap', function () {
             index.$nextTick(function () {
                 index.clearItem()
             })
         })
-        //
-        document.querySelector('#qianming').addEventListener('click', function () {
-            var warid = index.ids ? Number(index.ids.policy_id) : ''
-            mui.openWindow({
-                url: 'insurance-sign.html',
-                id: 'hd-insurance-sign',
-                show: animateObj.aniDetal,
-                extras:{
-                    war_id : warid
-                }
-            })
-        });
         //提交
         var i = 0;
+        var pushdata = {};
         document.querySelector('#ins-save').addEventListener('click', function () {
-            var war_id = index.ids ? Number(index.ids.policy_id) : ''
             i = 0;
+            index.loading = false;
+            var war_id = index.ids ? Number(index.ids.policy_id) : ''
             setPushData(war_id);
 
         });
-        var pushdata = {};
 
+        var totalfee = 0
         //核保数据整理
         function setPushData(war_id) {
+            console.log(JSON.stringify(index.applicant))
             plus.nativeUI.showWaiting();
             if (index.loading) {
                 console.log('again')
@@ -573,7 +602,7 @@
                 plus.nativeUI.closeWaiting();
                 index.loading = false;
                 i = 0;
-                index.getItem('hengda_ids', 'ids');
+                index.getItem('zhaos_ids', 'ids');
             }, 15000)
             var toast_text = null
             if (!war_id) {
@@ -617,6 +646,8 @@
                 toast_text = '请填写付款信息';
             } else if (!index.upload) {
                 toast_text = '请上传证件';
+            } else if (!index.agent) {
+                toast_text = '请填写代理人告知';
             }
             if(toast_text){
                 plus.nativeUI.closeWaiting();
@@ -633,7 +664,7 @@
             pushdata.is_first = '1'
             pushdata.user_id = index.userinfo.id
             //投保人信息
-            var applfieldFilter = ['holder_has_SSID', 'resident_type', 'temp_holder_job_code', 'mail_addr_type', 'holder_ID_type_name', 'holder_nation_name', 'holder_salary_from_name', 'holder_home_district_name', 'holder_job_name', 'holder_isTaxResidents']
+            var applfieldFilter = ['holder_has_SSID', 'resident_type', 'temp_holder_job_code', 'mail_addr_type', 'holder_ID_type_name', 'holder_nation_name', 'holder_home_ssq_name', 'holder_home_province_name', 'holder_home_city_name', 'holder_home_district_name', 'holder_contact_ssq_name', 'holder_contact_province_name', 'holder_contact_city_name', 'holder_contact_district_name', 'holder_job_name', 'holder_isTaxResidents','sameToHome']
             for (var i in index.applicant) {
                 if (applfieldFilter.indexOf(i) === -1) {
                     pushdata[i] = index.applicant[i]
@@ -643,7 +674,7 @@
             //被保人信息
             var insured = {}
             insured.id = ''
-            var assufieldFilter = ['insured_has_SSID', 'insured_temp_job_code', 'addr_type', 'insured_isTaxResidents', 'insured_job_name', 'insured_ID_type_name', 'insured_nation_name', 'insured_salary_from_name', 'insured_home_district_name']
+            var assufieldFilter = ['insured_has_SSID', 'insured_temp_job_code', 'addr_type', 'insured_isTaxResidents', 'insured_job_name', 'insured_ID_type_name', 'insured_nation_name', 'insured_home_district_name', 'insured_home_ssq_name', 'insured_home_province_name', 'insured_home_city_name', 'insured_home_district_name', 'insured_contact_ssq_name', 'insured_contact_province_name', 'insured_contact_city_name', 'insured_contact_district_name']
             for (var i in index.assured) {
                 if (assufieldFilter.indexOf(i) === -1) {
                     insured[i] = index.assured[i]
@@ -651,11 +682,24 @@
             }
             insured.has_insured_SSID = index.assured.insured_has_SSID ? has_social_security : no_social_security
             pushdata.insured = insured
+            //代理人告知
+            var extend_items = {}
+            var agentFilter = ['process_name', 'duration_name']
+            for (var i in index.agent) {
+                if (agentFilter.indexOf(i) === -1) {
+                    if (index.agent[i] === true) {
+                        extend_items[i] = 'Y'
+                    } else if (index.agent[i] === false) {
+                        extend_items[i] = 'N'
+                    } else {
+                        extend_items[i] = index.agent[i]
+                    }
+                }
+            }
             //险种信息
             var content = []
-
-            var totalfee = 0
-            mui.each(index.safegoods, function (ind, item) {
+            totalfee = 0
+            mui.each(index.safegoods, function (index, item) {
                 var safeitem = {}
                 safeitem.is_main = item.is_main ? '1' : '0' //是主险
                 safeitem.product_id = item.safe_id
@@ -664,26 +708,17 @@
                 safeitem.fee = item.period_money
                 safeitem.amount = item.money
                 totalfee += Number(item.period_money)
-                if (item.code === qwhh) {
-                    safeitem.quantity = (item.money / 50000).toString()
-                }
 
                 safeitem.extend_items = {
-                    autoApl: item.autoApl ? '1' : '0',
-                    guarantee_term: item.guarantee_term,
-                    draw_freq: item.draw_freq,
-                    draw_age: item.draw_age,
-                    shareDrawType: item.code === cjb ? zrwnzh : item.shareDrawType
+                    BonusGetMode: item.BonusGetMode,
+                    level: ''
                 }
-                if (item.code === fxjs) {
-                    safeitem.extend_items.shareDrawType = item.shareDrawType
+                if (item.is_main) {
+                    extend_items.bcestype = item.bcestype
                 }
-                if (item.code === ylnj) {
-                    safeitem.extend_items.draw_freq = njlqfs
-                }
-                if ([fxjs, wnf].indexOf(item.code) > -1) {
-                    safeitem.extend_items.guarantee_term = njbznx
-                    safeitem.extend_items.draw_age = index.assured.insured_gender === MALE ? 60 : 55
+                console.log(item.code)
+                if (item.code === hmzj) {
+                    safeitem.extend_items.level = '1'
                 }
                 content.push(safeitem)
             })
@@ -704,8 +739,11 @@
                 }
             }
             //银行信息
+            var bankFilter = ['temp_bank_name', 'temp_bank_name','bank_ss_name','bank_province_name','bank_area_name','temp_bank_type']
             for (var i in index.bank) {
-                pushdata[i] = index.bank[i]
+                if (bankFilter.indexOf(i) === -1) {
+                    pushdata[i] =index.bank[i]
+                }
             }
             pushdata.bank_holder = index.applicant.holder_name
             //健康告知
@@ -713,7 +751,7 @@
             //影像
             pushdata.img_json = index.upload
             //
-            var extend_items = {}
+
             extend_items.resident_type = index.applicant.resident_type;
             extend_items.isTaxResidents = index.applicant.holder_isTaxResidents;
             extend_items.isTaxResidentsInsured = index.assured.insured_isTaxResidents;
@@ -745,7 +783,7 @@
                     if (res.code) {
                         console.log('删除成功')
                         i++;
-                        console.log(i)
+                        console.log('i:'+i)
                         if (i === 3) {
                             save_ins(pushdata);
                         }
@@ -761,23 +799,15 @@
 
         //保存保单
         function save_ins(data) {
-            console.log('saving---')
             luckyAjax({
                 data: {data: JSON.stringify(data), server: 'PolicyIns.save'},
                 closeWaiting: true,
                 timeout: 10000,
                 success: function (res) {
                     if (res.code) {
-                        plus.storage.setItem('hengda_ids',JSON.stringify(res.data));
-                        mui.openWindow({
-                            url: 'insurance-sign.html',
-                            id: 'hd-insurance-sign',
-                            show: animateObj.aniDetal,
-                            extras:{
-                                war_id : res.data.policy_id
-                            }
-                        })
-                        plus.nativeUI.closeWaiting();
+                        plus.storage.setItem('zhaos_ids',JSON.stringify(res.data));
+//                        showPopu('insurance-sign.html', 'zs-insurance-sign', "bottom",res.data.policy_id);
+                        online_ins(res.data.policy_id)
                     } else {
                         plus.nativeUI.closeWaiting();
                         index.loading = false;
@@ -786,19 +816,116 @@
                 }
             });
         };
+        //01核保
+        function online_ins(war_id) {
+            console.log('核保')
+            luckyAjax({
+                data: {
+                    data: JSON.stringify({
+                        msg: {policy_id: war_id},
+                        company_code: 'ZhaoShang',
+                        method: 'insure'
+                    }),
+                    closeWaiting: true,
+                    server: 'PolicyIns.onlineInsured',
+                    device: 'mobile'
+                },
+                timeout: 20000,
+                success: function (res) {
+                    if (res.data.flag === 'Y') {
+                        if(res.data.isRulePass === 'Y'){
+                            var sumPrem = res.data.sumPrem
+                            if (parseInt(sumPrem) != parseInt(totalfee)) {
+                                mui.toast('保费不一致！', {duration: 'long', type: 'div'})
+                                return false
+                            } else {
+                                mui.toast('保存成功，核保中', {duration: 'long', type: 'div'})
+                                upload_img(war_id)
+                            }
+                        } else {
+                            mui.toast(JSON.stringify(res.data.uwNotPassProblem), {duration: 'long', type: 'div'})
+                            return false
+                        }
+                    } else if (res.data.flag === 'N') {
+                        plus.nativeUI.closeWaiting();
+                        index.loading = false;
+                        mui.toast(JSON.stringify(res.data.message), {duration: 'long', type: 'div'})
+                        return false
+                    } else {
+                        plus.nativeUI.closeWaiting();
+                        index.loading = false;
+                        mui.toast(res.data && res.data.message ? res.data.message : '网络出错，请稍后再试', {
+                            duration: 'long',
+                            type: 'div'
+                        })
+                        return false
+                    }
+                }
+            });
+        };
+        //02上传影像
+        function upload_img(id) {
+            luckyAjax({
+                data: {
+                    data: JSON.stringify({
+                        msg: {policy_id: id},
+                        company_code: 'ZhaoShang',
+                        method: 'update_img'
+                    }),
+                    server: 'PolicyIns.onlineInsured',
+                    device: 'mobile'
+                },
+                timeout: 10000,
+                success: function (res) {
+                    if (res.data.flag === 'Y') {
+                        if (res.data.isUWPass === 'Y') {
+                            mui.toast('自核通过', {duration: 'short', type: 'div'})
+                            showPopu('insurance-sign.html', 'zs-insurance-sign', "bottom", {
+                                id: id,
+                                ispass: true,
+                                appSignAddress: res.data.appSignAddress,
+                                insuredSignAddress: res.data.insuredSignAddress ? res.data.insuredSignAddress : ''
+                            });
+                        } else if (res.data.isUWPass === 'N') {
+                            mui.toast('进入人工核保', {duration: 'long', type: 'div'})
+                            showPopu('insurance-sign.html', 'zs-insurance-sign', "bottom", {
+                                id: id,
+                                ispass: false,
+                                appSignAddress: res.data.appSignAddress,
+                                insuredSignAddress: res.data.insuredSignAddress ? res.data.insuredSignAddress : ''
+                            });
+                        }
+                    } else if (res.data.flag === 'N') {
+                        mui.toast(res.data.message, {duration: 'long', type: 'div'})
+                        return false
+                    } else {
+                        mui.toast(res.data.message, {duration: 'long', type: 'div'})
+                        return false
+                    }
+                }
+            });
+        };
+        //
+        document.querySelector('#temppop').addEventListener('click', function () {
+            var war_id = index.ids ? Number(index.ids.policy_id) : ''
+            showPopu('insurance-sign.html', 'zs-insurance-sign', "bottom", {
+                id: war_id,
+                appSignAddress: '',
+                insuredSignAddress: ''
+            });
+        })
         //
         //安卓监听返回事件
         plus.key.addEventListener("backbutton",function(){
-            plus.nativeUI.closeWaiting();
             console.log('back')
             index.loading = false;
             i = 0;
-            index.getItem('hengda_ids', 'ids');
+            index.getItem('zhaos_ids', 'ids');
         });
         window.addEventListener('resetLoading', function () {
             index.loading = false;
             i = 0;
-            index.getItem('hengda_ids', 'ids');
+            index.getItem('zhaos_ids', 'ids');
         });
 
     })

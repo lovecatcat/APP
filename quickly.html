@@ -108,13 +108,14 @@
 										<div class="fd-price">
 											{{item.price | priceFilter}}元起
 										</div>
-										<a data-wid="hd_insurance-index" href="hd_ins/insurance-index.html" class="fd-btn a-link" v-show="item.company_id===19&&item.online_insure">
+										<a data-wid="hd_insurance-index" href="hd_ins/insurance-index.html" class="fd-btn a-link" v-show="item.company_id===19">
 											快速投保
 										</a>
 										<a data-wid="pa_insurance-index" href="paehis/pa-healthinfo.html" class="fd-btn a-link" v-show="item.company_id===8&&item.online_insure">
 											快速投保
 										</a>
 										<a data-wid="gh_insurance-index" href="gh_ins/insurance-index.html" class="fd-btn a-link" v-show="item.company_id===2&&item.online_insure">
+										<a data-wid="zs_insurance-index" href="zs_ins/insurance-index.html" class="fd-btn a-link" v-show="item.company_id===85&&item.online_insure">
 											快速投保
 										</a>
 									</div>

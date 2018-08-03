@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="../css/mui.css" rel="stylesheet"/>
+    <link href="../css/common.css" rel="stylesheet"/>
+    <link href="../css/module.css" rel="stylesheet"/>
+    <link href="../css/member.css" rel="stylesheet"/>
+    <script src="../js/config.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div id="Js-content">
+    <div class="menu-fixed">
+        <ul class="menu-list">
+            <li id="take-photo">拍照上传</li>
+            <li id="choose-photo">从相册中选择</li>
+        </ul>
+        <ul class="menu-list BL-mar-t-1">
+            <li id="menu-cancel">取消</li>
+        </ul>
+    </div>
+</div>
+</body>
+<script src="../js/mui.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mui.init();
+
+    mui.plusReady(function () {
+        var popu = new ClosePopu(); // 实例化关闭窗口对象
+        //安卓监听返回事件
+        plus.key.addEventListener("backbutton", function () {
+            popu.closepop();
+        });
+        // 点击关闭遮罩层，弹框
+        mui('body').on('tap', '#maskInit', function () {
+            // 关闭遮罩层，弹框
+            popu.closepop();
+        }, false);
+        mui('body').on('tap', '#menu-cancel', function () {
+            // 关闭遮罩层，弹框
+            popu.closepop();
+        });
+        //从相册中选择
+        mui('body').on('tap', '#choose-photo', function () {
+            plus.gallery.pick(function (path) {
+                imgtobase64(path);
+            }, function (e) {
+//                console.log("取消选择图片");
+            }, {filter: "image"});
+        })
+        //拍照上传
+        mui('body').on('tap', '#take-photo', function () {
+            var cmr = plus.camera.getCamera();
+            var res = cmr.supportedImageResolutions[0];
+            var fmt = cmr.supportedImageFormats[0];
+            cmr.captureImage(function (path) {
+                    imgtobase64(plus.io.convertLocalFileSystemURL(path));
+                },
+                function (error) {
+                    console.log("Capture image failed: " + error.message);
+                },
+                {resolution: res, format: fmt}
+           );
+        });
+		
+		var id = plus.webview.currentWebview().data.id
+        //src转base64
+        function imgtobase64(path) {
+            var base64Img
+            var img = new Image()
+            img.src = path;
+            var canvas = document.createElement('canvas')
+            var drawer = canvas.getContext('2d')
+
+            img.onload = function () {
+                var width = 300 //图片resize宽度
+                var quality = 0.6 //图像质量
+                canvas.width = width
+                canvas.height = width * (img.height / img.width)
+                drawer.drawImage(img, 0, 0, canvas.width, canvas.height)
+                base64Img = canvas.toDataURL('image/jpeg', quality)
+                mui.fire(plus.webview.getWebviewById('zs-insurance-upload'), 'uploadimg', {
+                    img: base64Img,
+                    id: id
+                });
+                mui.back();
+                popu.closepop();
+            }
+        }
+    })
+
+</script>
+</html>
+

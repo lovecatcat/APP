@@ -770,9 +770,12 @@
                 timeout: 30000,
                 success: function (res) {
                     if (res.data.flag === 'Y') {
-                    	if (res.data.state  == 'S0000' || res.data.state == '700001') {
+                    	if (res.data.state  == 'S0000') {
                             ins_pay()
-                    	} else {
+                    	} else if (res.data.state == '700001') {
+                            mui.toast(res.msg, {duration: 'long', type: 'div'})
+                            return false
+                        } else {
                     		mui.toast(res.data.error, {duration: 'long', type: 'div'})
                             return false
                     	}

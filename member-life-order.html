@@ -184,7 +184,7 @@
             btnShow: function (index, item) {
                 switch (index) {
                     case 1: //继续录入 恒大 招商
-                        if ((item.supplier_id == 19 && item.state != 5 && (!item.pay_status || item.pay_status == '0')) || (item.supplier_id == 85 && (item.extend_items.update_img != '1')) || (item.supplier_id == 2 && (item.progress < 1 || item.state == 4))) {
+                        if ((item.supplier_id == 19 && item.state != 5 && (!item.pay_status || item.pay_status == '0')) || (item.supplier_id == 85 && item.state != 5 && (item.extend_items.update_img != '1')) || (item.supplier_id == 2 && (item.progress < 1 || item.state == 4))) {
                             return true
                         }
                         break
@@ -194,7 +194,7 @@
                         }
                         break
                     case 3: //去签名 招商
-                        if (item.supplier_id == 85 && item.state == 5 && item.extend_items.signature_status == '0') {
+                        if (item.supplier_id == 85 && item.state == 5 && (!item.extend_items.signature_status || item.extend_items.signature_status == '0')) {
                             return true
                         }
                         break

@@ -293,6 +293,9 @@ i {
 	color: #999999 !important;
 }
 
+.BL-col-ededed {
+	color: #ededed !important;
+}
 .BL-col-ff8201 {
 	color: #ff8201 !important;
 }
@@ -474,6 +477,9 @@ i {
 .BL-mar-l-1{
 	margin-left: 1rem;
 }
+.BL-mar-l-2{
+	margin-left: 2rem;
+}
 .BL-mar-r-1{
 	margin-right: 1rem;
 }
@@ -522,6 +528,10 @@ i {
 .BL-mar-tb-1 {
 	margin-top: 1rem;
 	margin-bottom: 1rem;
+}
+.BL-mar-tb-1_5 {
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
 }
 .BL-mar-t-b-2 {
     margin-top: 2rem;

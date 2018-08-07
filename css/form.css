@@ -372,7 +372,8 @@ input[type='number']:-ms-input-placeholder,input[type='text']:-ms-input-placehol
     padding: 0rem 0rem;
 }
 .form-button-group .form-btn.gray{
-    background-color: #fff;color:#3b9cf5 }
+    background-color: #fff;color:#3b9cf5
+}
 /*条款*/
 .form-clause p{font-size: 1.4375rem;line-height: 2rem;color: #333;}
 .form-cal{font-size: 1.625rem;color: #3b9cf5;display: block;border-left: 1px solid #3b9cf5;padding-left: 1rem;}

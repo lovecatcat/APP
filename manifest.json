@@ -286,12 +286,16 @@
 					"js/Tunnel.js",
 					"news.html",
 					"prospect.html",
-					"member.html"
+					"member.html",
+					"train.html",
+					"images/icon/nav-cloud-active.png",
+					"images/icon/nav-cloud.png"
 				],
 				"refer": [
 					"discover.html",
 					"login.html",
-					"guide.html"
+					"guide.html",
+					"train-exam-list.html"
 				],
 				"priority": 0
 			},
@@ -407,7 +411,8 @@
 					"requirement.html",
 					"analysis.html",
 					"auto2c-business.html",
-					"auto2c-order.html"
+					"auto2c-order.html",
+					"member-register.html"
 				],
 				"priority": 0
 			},
@@ -822,7 +827,8 @@
 					"requirement.html",
 					"member-auto-order.html",
 					"member-register.html",
-					"video.html"
+					"video.html",
+					"member-duty-stats.html"
 				],
 				"priority": 0
 			},
@@ -1420,7 +1426,8 @@
 					"images/icon/ico-down.png",
 					"js/config.js",
 					"js/Date.js",
-					"member-duty-stats.html"
+					"member-duty-stats.html",
+					"train-video.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -1685,7 +1692,9 @@
 					"images/pic/p6.jpg"
 				],
 				"priority": 4,
-				"refer": []
+				"refer": [
+					"prospect-product.html"
+				]
 			},
 			"product-contrast-delete.html": {
 				"href": "product-contrast-delete.html",
@@ -1799,7 +1808,10 @@
 					"js/config.js",
 					"images/product/menu-prospect.png",
 					"images/product/menu-pk.png",
-					"js/pdf.js"
+					"js/pdf.js",
+					"js/mui.zoom.js",
+					"js/mui.previewimage.js",
+					"js/plusShare.js"
 				],
 				"refer": [
 					"product-contrast.html",
@@ -2091,7 +2103,8 @@
 					"images/icon/ico-good.png",
 					"js/config.js",
 					"member-plans-total.html",
-					"css/plans.css"
+					"css/plans.css",
+					"js/plusShare.js"
 				],
 				"refer": [
 					"member-plans-alone.html",
@@ -2180,7 +2193,10 @@
 					"images/plans/plansManage/16139.png",
 					"images/plans/plansManage/16208.png",
 					"images/plans/plansManage/16220.png",
-					"images/plans/plansManage/16221.png"
+					"images/plans/plansManage/16221.png",
+					"images/plans/plansManage/311.png",
+					"images/plans/plansManage/16228.png",
+					"images/plans/plansManage/16207.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -2288,7 +2304,8 @@
 					"member-warranty-manageLife.html",
 					"css/mui.css",
 					"css/module.css",
-					"css/common.css"
+					"css/common.css",
+					"js/webviewGroup.js"
 				],
 				"refer": [
 					"member-warranty-manageCar.html"
@@ -2461,7 +2478,9 @@
 					"images/icon/ico-duty-wifi.png",
 					"images/icon/ico-duty-address.png",
 					"css/module.css",
-					"css/common.css"
+					"css/common.css",
+					"js/moment.min.js",
+					"js/wifi.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -2862,7 +2881,8 @@
 					"images/member/req-banner.jpg",
 					"images/member/req-title.png",
 					"images/member/req-hm.png",
-					"images/icon/avatar-default.png"
+					"images/icon/avatar-default.png",
+					"js/plusShare.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -3031,7 +3051,8 @@
 				"refer": [
 					"quickly-filter.html",
 					"member-promote-detail.html",
-					"pdf-modal.html"
+					"pdf-modal.html",
+					"member-clips-search.html"
 				],
 				"priority": 0
 			},
@@ -3213,7 +3234,9 @@
 			},
 			"member-poster-detail.html": {
 				"resources": [
-					"css/mui.css"
+					"css/mui.css",
+					"images/icon/ico-share.png",
+					"js/plusShare.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -3424,7 +3447,8 @@
 				],
 				"refer": [
 					"pdf-modal.html",
-					"quickly-filter.html"
+					"quickly-filter.html",
+					"member-clips-search.html"
 				],
 				"priority": 0
 			},
@@ -3555,13 +3579,19 @@
 					"css/news.css",
 					"images/index/guide_1.jpg",
 					"css/module.css",
-					"css/common.css"
+					"css/common.css",
+					"images/icon/ico-audio.png",
+					"images/icon/ico-picture.png",
+					"images/icon/ico-video.png"
 				],
 				"refer": [
 					"requirement_question.html",
 					"member-plans-detail.html",
 					"popup-content.html",
-					"news-tv-video.html"
+					"news-tv-video.html",
+					"train-article.html",
+					"train-audio.html",
+					"train-video.html"
 				],
 				"priority": 0
 			},
@@ -3645,7 +3675,8 @@
 					"images/member/risk-education.png",
 					"images/member/risk-medical.png",
 					"images/member/req-bg.png",
-					"images/member/risk-pension.png"
+					"images/member/risk-pension.png",
+					"css/mui.css"
 				],
 				"refer": [
 					"requirement_safe.html",
@@ -3688,10 +3719,15 @@
 					"images/auto/ASTP.png",
 					"css/mui.css",
 					"css/mui.picker.min.css",
-					"css/form.css"
+					"css/form.css",
+					"images/icon/ico-modify.png",
+					"css/auto.css"
 				],
 				"refer": [
-					"auto2c-order.html"
+					"auto2c-order.html",
+					"auto2c-choose.html",
+					"auto2c-brand.html",
+					"auto2c-supplement.html"
 				],
 				"priority": 0
 			},
@@ -3803,7 +3839,9 @@
 					"css/form.css",
 					"js/mui.js"
 				],
-				"refer": [],
+				"refer": [
+					"occupation-classify-search.html"
+				],
 				"priority": 0
 			},
 			"insurance-law.html": {
@@ -3897,7 +3935,8 @@
 				"refer": [
 					"member-register-addwork.html",
 					"member-register-editwork.html",
-					"member-avatarmenu.html"
+					"member-avatarmenu.html",
+					"member-register-protocol.html"
 				],
 				"priority": 0
 			},
@@ -3932,6 +3971,287 @@
 					"css/video.css"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"train.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"images/icon/ico-search-blue.png",
+					"js/mui.pullToRefresh.material.js",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"css/member.css",
+					"js/interval-dtpicker.js",
+					"css/mui.css",
+					"css/news.css",
+					"images/icon/ico-lock.png",
+					"images/icon/ico-audio.png",
+					"train-exam-list.html",
+					"images/icon/ico-train-category.png",
+					"images/icon/ico-unlock.png",
+					"css/module.css",
+					"css/common.css",
+					"images/icon/ico-video.png",
+					"images/icon/ico-picture.png",
+					"js/Date.js",
+					"images/index/guide_1.jpg",
+					"images/member/month_magazine.jpg",
+					"js/mui.min.js",
+					"js/config.js"
+				],
+				"refer": [
+					"train-list.html",
+					"train-video.html",
+					"train-audio.html",
+					"train-article.html",
+					"train-month-list.html",
+					"member-register.html",
+					"train-search.html"
+				],
+				"priority": 0
+			},
+			"train-exam-list.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"images/icon/ico-audio.png",
+					"css/news.css",
+					"js/mui.pullToRefresh.material.js",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"css/mui.css",
+					"css/module.css",
+					"css/common.css",
+					"js/Date.js",
+					"images/icon/ico-video.png",
+					"js/mui.min.js",
+					"js/config.js",
+					"images/icon/ico-picture.png"
+				],
+				"refer": [
+					"train-video.html",
+					"train-article.html",
+					"train-exam.html",
+					"train-audio.html"
+				],
+				"priority": 0
+			},
+			"train-list.html": {
+				"resources": [
+					"images/icon/ico-up.png",
+					"images/icon/ico-filter.png",
+					"css/news.css",
+					"images/icon/ico-down.png",
+					"js/Date.js",
+					"css/mui.css",
+					"images/icon/ico-video.png",
+					"images/icon/ico-picture.png",
+					"images/icon/ico-up-active.png",
+					"images/icon/ico-down-active.png",
+					"images/icon/ico-filter-active.png",
+					"css/module.css",
+					"css/common.css",
+					"images/icon/ico-audio.png",
+					"js/mui.pullToRefresh.js",
+					"images/icon/ico-search-blue.png",
+					"js/mui.pullToRefresh.material.js",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"js/mui.min.js",
+					"js/config.js"
+				],
+				"refer": [
+					"quickly-filter.html",
+					"train-article.html",
+					"train-video.html",
+					"train-audio.html",
+					"train-menu-filter.html",
+					"train-search.html"
+				],
+				"priority": 0
+			},
+			"train-article.html": {
+				"resources": [
+					"js/mui.zoom.js",
+					"js/mui.previewimage.js",
+					"images/icon/ico-share.png",
+					"js/plusShare.js",
+					"css/mui.css",
+					"css/news.css",
+					"images/icon/ico-eye1.png",
+					"images/icon/ico-collect.png",
+					"css/module.css",
+					"css/common.css",
+					"images/icon/ico-collect-active.png",
+					"images/icon/ico-video.png",
+					"images/icon/ico-audio.png"
+				],
+				"refer": [
+					"train-video.html",
+					"train-audio.html"
+				],
+				"priority": 0
+			},
+			"train-video.html": {
+				"resources": [
+					"css/video.css",
+					"css/mui.css",
+					"js/hls.min.js",
+					"js/html5video.js",
+					"js/mui.zoom.js",
+					"js/mui.previewimage.js",
+					"js/plusShare.js",
+					"css/news.css",
+					"images/icon/ico-eye1.png",
+					"images/icon/ico-collect.png",
+					"images/icon/ico-share.png",
+					"css/module.css",
+					"css/common.css",
+					"images/icon/ico-collect-active.png",
+					"images/icon/ico-audio.png",
+					"member-duty.html",
+					"images/icon/sign_disabled.png",
+					"images/icon/sign.png",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"js/mui.min.js",
+					"js/Date.js",
+					"js/config.js",
+					"images/icon/ico-picture.png"
+				],
+				"refer": [
+					"train-article.html",
+					"train-audio.html",
+					"member-register.html"
+				],
+				"priority": 0
+			},
+			"train-exam.html": {
+				"resources": [
+					"images/icon/ico-exam-time.png",
+					"images/index/exam-pass-bg.png",
+					"css/news.css",
+					"css/mui.css",
+					"images/index/exam-nopass-bg.png",
+					"css/module.css",
+					"css/common.css",
+					"js/mui.pullToRefresh.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"js/interval-dtpicker.js",
+					"js/config.js"
+				],
+				"refer": [
+					"train-list.html"
+				],
+				"priority": 0
+			},
+			"train-audio.html": {
+				"resources": [
+					"js/mui.zoom.js",
+					"css/news.css",
+					"images/icon/ico-eye1.png",
+					"images/icon/ico-collect.png",
+					"js/mui.previewimage.js",
+					"images/icon/ico-share.png",
+					"css/mui.css",
+					"js/plusShare.js",
+					"images/icon/ico-collect-active.png",
+					"js/audio.min.js",
+					"images/icon/player-graphics.gif",
+					"js/hls.min.js",
+					"css/video.css",
+					"js/html5video.js"
+				],
+				"refer": [
+					"train-video.html"
+				],
+				"priority": 0
+			},
+			"train-month-list.html": {
+				"resources": [
+					"images/icon/ico-down.png",
+					"css/mui.picker.min.css",
+					"css/member.css",
+					"css/mui.css",
+					"css/module.css",
+					"css/common.css",
+					"css/news.css",
+					"js/mui.pullToRefresh.js",
+					"js/mui.picker.js",
+					"js/mui.pullToRefresh.material.js",
+					"fonts/mui.ttf",
+					"js/vue.min.js",
+					"js/mui.dtpicker.js",
+					"js/mui.min.js",
+					"js/Date.js",
+					"js/config.js"
+				],
+				"refer": [
+					"member-commission-salarydetail.html",
+					"train-month-detail.html"
+				],
+				"priority": 0
+			},
+			"train-month-detail.html": {
+				"resources": [
+					"css/news.css",
+					"css/mui.css",
+					"images/icon/ico-picture.png"
+				],
+				"refer": [
+					"train-article.html",
+					"train-audio.html",
+					"train-video.html"
+				],
+				"priority": 0
+			},
+			"train-menu-filter.html": {
+				"resources": [
+					"css/news.css",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-register-protocol.html": {
+				"resources": [
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"occupation-classify-search.html": {
+				"resources": [
+					"css/mui.css",
+					"css/form.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"member-clips-search.html": {
+				"resources": [
+					"css/mui.css",
+					"css/form.css"
+				],
+				"refer": [
+					"pdf-modal.html"
+				],
+				"priority": 0
+			},
+			"train-search.html": {
+				"resources": [
+					"css/mui.css",
+					"css/form.css",
+					"css/news.css",
+					"images/icon/ico-video.png",
+					"images/icon/ico-picture.png"
+				],
+				"refer": [
+					"train-article.html",
+					"train-video.html"
+				],
 				"priority": 0
 			}
 		},

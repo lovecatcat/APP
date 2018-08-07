@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>发现</title>
+	<link href="css/mui.css" rel="stylesheet" />
+	<link href="css/common.css" rel="stylesheet" />
+	<link href="css/module.css" rel="stylesheet" />
+	<link href="css/news.css" rel="stylesheet" />
+	<link href="css/video.css" rel="stylesheet" />
+	<script src="js/config.js" type="text/javascript"></script>
+</head>
+<body class="BL-bg-f2f" >
+<header id="Js-header" class="BL-bg-fff">
+	<div class="BL-mod-headbar BL-mod-headbar-pos">
+		<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+		<h1 class="BL-title">云课堂</h1>
+		<!--<a id="Js-openShare" class="BL-icon BL-icon-share"></a>-->
+	</div>
+</header>
+<div id="Js-content" class="mui-content BL-rel" v-cloak>
+	<div class="mui-scroll-wrapper">
+		<div class="mui-scroll">
+			<div class="train-detail-contain">
+				<div class="hd">
+					<div class="title">{{ detail.title }}</div>
+					<div class="date">
+						<span v-if="detail.date">{{ detail.date }}</span>
+						<span v-if="detail.name" class="BL-pad-l-1">
+								{{ detail.name }}
+							</span>
+					</div>
+				</div>
+				<!-- 视频播放区域-->
+				<div class="mui-video-Container BL-mar-b-1_5" id="video_Container">
+					<div class="mui-video-full">
+						<!--加载提示-->
+						<div class="rprogress">
+							<span class="ladtit">加载</span>
+							<div class="rschedule"></div>
+						</div>
+						<!--end-->
+						<!--全屏时后退图标-->
+						<span class="mui-full-back">
+								<svg class="icon" aria-hidden="true">
+									<use xlink:href="#icon-houtui1"></use>
+								</svg>
+								<span class="vtitle"></span>
+							</span>
+						<!--end-->
+						<!--播放按钮-->
+						<span class="mui-pay_ico">
+							<svg class="icon" aria-hidden="true">
+								<use xlink:href="#icon-bofang1"></use>
+							</svg>
+						</span>
+						<!--end-->
+						<div class="v_left"></div>
+						<div class="b_right"></div>
+						<div class="ptime"></div>
+						<div class="mui-video-txt"></div>
+						<!-- 播放进度条-->
+						<div class="mui-videoControls">
+							<span class="mui-time-total mui-quanping"> <!--全屏按钮-->
+								<span class="mui-time-cout">00:00</span> <!--总时间-->
+								<span class="mui-full-btu">
+									<svg class="icon" aria-hidden="true">
+										<use xlink:href="#icon-quanping"></use>
+									</svg>
+								</span>
+							</span>
+							<span class="mui-time-current">00:00</span> <!--进度时间-->
+							<div class="mui-progressWrap"> <!--可以拖动的进度条-->
+								<div class="mui-wrap-right">
+									<input type="range" id='mui-block-range' value="0" min="0" max="100" >
+								</div>
+							</div>
+						</div>
+						<!-- 播放进度条end-->
+					</div>
+				</div>
+				<!--视频播放区域end-->
+				<!-- 视频简介-->
+				<div class="content bd">
+					<div v-if="detail.introduction" class="BL-ftz-46 BL-pad-tb-1_5">
+						视频简介：{{ detail.introduction }}
+					</div>
+					<div v-if="detail.desc" v-html="detail.desc"></div>
+				</div>
+			</div>
+			<!-- 为你推荐 -->
+			<div class="BL-mar-t-1 BL-bg-fff BL-pad-tb-1" v-if="recommend&&recommend.length >0">
+				<p class="train-recommend">为你推荐</p>
+				<ul class="mui-table-view train-list-cell">
+					<li class="nItem BL-mar-b-1_5" v-for="(item,index) in recommend">
+						<div class="BL-ub BL-ub-f1" @click="OpenLessonDetail(item.media_type,item.id)">
+							<div class="img">
+								<img :src="item.img | setImg"/>
+							</div>
+							<div class="context BL-ub BL-ub-ver BL-ub-f1">
+								<h1 class="tit">
+									<span class="tit-badg" v-if="item.media_type == 1" :class="{'tit-badg-tv': item.media_type == 1}">视频</span>
+									<span class="tit-badg" v-if="item.media_type == 2" :class="{'tit-badg-ad': item.media_type == 2}">音频</span>
+									{{ item.title }}
+								</h1>
+								<div class="remarks BL-ub BL-ub-ac">
+									<i class="ico-remarks" :class="{'ico-picture': item.media_type == 0,'ico-tv': item.media_type == 1,'ico-ad': item.media_type == 2}"></i>
+									<span>{{ item.play_count }}</span>
+									<span>{{ item.date }}</span>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<footer id="Js-footer" class="BL-footer BL-bg-fff">
+		<div class="BL-ub BL-ub-pc">
+			<div class="BL-ub BL-ub-pj" style="width: 50%;">
+				<div class="reads">
+					{{ detail.play_count }}
+				</div>
+				<div class="collect" :class="{'active': detail.is_collect == 1}" :data-collect="detail.is_collect">
+					{{ detail.collect_count }}
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!----------- 打卡按键  begin -------------->
+	<a id="Js-duty" class="BL-mod-sign" v-if="is_sign==0&&nowTime==detail.date" @click="clock">
+		<div class="sign BL-bimg-contain" :class="{'sign': sign_flag&&is_sign==0, 'sign_disabled': !sign_flag&&is_sign==0 }"></div>
+	</a>
+	<!----------- 打卡按键  end   -------------->
+</div>
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/mui.zoom.js" ></script>
+<script type="text/javascript" src="js/mui.previewimage.js" ></script>
+<script type="text/javascript" src="js/Date.js" ></script>
+<script src="js/html5video.js"></script> <!--//视频JS-->
+<script src="js/hls.min.js"></script> <!--//如果需要播放m3u8格式需要引入这个JS解码,不需要可以去掉-->
+<script src="js/vue.min.js"></script>
+<script src="js/plusShare.js"></script>
+<script type="text/javascript">
+    mui.init();
+    var lesson = new Vue({
+        el: '#Js-content',
+        data: {
+            userinfo: '', // 用户个人信息
+            nowTime: new Date().addDays(0).Format('yyyy-MM-dd'),   // 今天日期
+            is_attendance: 0, // 是否已观看 ，  1 是  0 否
+            is_sign: '',   // 是否已经打卡  1 是  0 否
+            sign_flag: false,   // 是否可以打卡
+            effective_time: 60,  // 有效观看时间(涉及考勤、阅读量)
+            timer: '',  // 计时器
+            detail: {},   // 课程详情数据
+            recommend: null
+        },
+        //过滤器
+        filters: {
+            setTime: function (timestamp) {
+                var time = new Date(timestamp*1000)   // 时间戳转成日期
+                var timeFormat = time.Format('yyyy-MM-dd')
+                return timeFormat
+            },
+            setImg: function(val) {
+                return config.domain + val
+            }
+        },
+        methods: {
+            // 打开课程详情页面
+            OpenLessonDetail: function (type,wid) {
+                var vm = this
+                var href = '', id = '';
+                // 课程详情ID保存在本地
+                plus.storage.setItem('LessonInfo', JSON.stringify({id: wid}));
+
+                if (vm.detail.media_type == type) {
+                    plus.webview.currentWebview().reload()
+                    return false;
+                }
+
+                if (type == 0) {
+                    href = 'train-article.html'
+                    id = 'train_article'
+                } else if (type == 2) {
+                    href = 'train-audio.html'
+                    id = 'train_audio'
+                }
+
+
+                //打开新窗口
+                mui.openWindow({
+                    url: href,
+                    id: id,
+                    show: animateObj.aniDetal
+                });
+
+                setTimeout(function () {
+                    plus.webview.currentWebview().hide()
+                }, 	500)
+
+                setTimeout(function () {
+                    plus.webview.currentWebview().close()
+                }, 	1000)
+
+            },
+            // 打卡
+            clock: function () {
+                if (this.userinfo.login_mk == -2) {
+                    var btnArray = ['确定', '取消'];
+                    mui.confirm('请先完善个人信息，立即前往？', '', btnArray, function (e) {
+                        if (e.index == 0) {
+                            clearInterval(lesson.timer)
+                            mui.openWindow({
+                                url: 'member-register.html',
+                                id: 'member_register',
+                                show: animateObj.aniDetal
+                            })
+                        }
+                    })
+                    return false;
+                } else if (this.userinfo.login_mk == -1) {
+                    mui.toast('账号审核中，请联系管理员', {duration: 'short', type: 'div'})
+                    return false;
+                }
+
+                var jsonData={}
+                jsonData['sign_type'] = 'study'   // study表示培训考勤
+                jsonData['mac'] = plus.device.uuid
+                jsonData['wifi'] = '';
+                jsonData['location'] = ''
+                // 判断是否到时间打卡
+                if (this.sign_flag) {
+                    luckyAjax({
+                        data: {
+                            server: 'Attendance.PunchCard',
+                            data: JSON.stringify(jsonData)
+                        },
+                        success: function (ret) {
+                            if (ret.code == 1) {
+                                mui.toast('打卡成功', {duration: 'short', type: 'div'})
+                            } else {
+                                mui.toast(ret.msg, {duration: 'short', type: 'div'})
+                            }
+                        },
+                    });
+                } else {
+                    mui.toast('抱歉，您还没到时间打卡，请认真观看视频', {duration: 'short', type: 'div'})
+                }
+            }
+        }
+    });
+
+    //非plus环境
+    if(!mui.os.plus) {
+        mui.previewImage(); // H5 非原生图片预览
+    }
+
+    mui('.mui-scroll-wrapper').scroll({
+        scrollY: true, //是否竖向滚动
+        scrollX: false, //是否横向滚动
+        startX: 0, //初始化时滚动至x
+        startY: 0, //初始化时滚动至y
+        indicators: false, //是否显示滚动条
+        deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
+        bounce: false //是否启用回弹
+    });
+
+    mui.plusReady(function() {
+        statusbar();
+        var winH = window.innerHeight;
+        var titHeight = document.querySelector('#Js-header').offsetHeight;
+        var fotHeight = document.querySelector('#Js-footer').offsetHeight;
+        document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
+        var userinfo = plus.storage.getItem('userinfo') ? JSON.parse(plus.storage.getItem('userinfo')) : '';
+        lesson.userinfo = userinfo;
+        // 获取视频课程详情
+
+        var wid = JSON.parse(plus.storage.getItem('LessonInfo')).id
+        loadVideo(wid)
+
+        // 收藏
+        document.querySelector('.collect').addEventListener('tap', function() {
+            var _this = this
+            var collect = _this.getAttribute('data-collect')
+            var type = (collect == '1')? '0' : '1'
+            luckyAjax({
+                data: {
+                    server: 'videoLearn.learnCollect',
+                    data: JSON.stringify({
+                        video_id: lesson.detail.id,
+                        type: type
+                    })
+                },
+                success:function(res){
+                    if(res.code == 1) {
+                        collect == '1' ? lesson.detail.is_collect = '0' : lesson.detail.is_collect = '1'
+                        if (lesson.detail.is_collect == '0') {
+                            var txt = '已取消收藏'
+                        } else if (lesson.detail.is_collect == '1'){
+                            var txt = '收藏成功'
+                        }
+                        lesson.detail.collect_count = res.data
+                        mui.toast(txt, {duration: 'short', type: 'div'})
+                    } else{
+                        mui.toast(res.msg, {duration: 'short', type: 'div'})
+                    }
+                }
+            });
+        });
+
+        // 自定义返回事件
+        mui.oldBack = mui.back;
+        mui.back = function () {
+            clearInterval(lesson.timer);
+            if(plus.webview.currentWebview().opener()&&plus.webview.currentWebview().opener().id == 'requirement') {
+                mui.fire(plus.webview.getWebviewById('requirement'),'reloadRequirement',{});
+            }
+//            if (mui.os.plus) {
+//                plus.navigator.setFullscreen(false);
+//                plus.screen.lockOrientation('portrait'); //锁死屏幕方向为竖屏
+//            }
+            mui.oldBack();
+        };
+//        document.getElementById("Js-openShare").addEventListener("tap", function() {
+//            //分享内容，开发者可自定义
+//            var message = {
+//                title: lesson.detail.title, //名字
+//                content: "保险+ ——为保险展业创造无限可能",
+//                href: config.domain + "/share/AppShare.html#/Newsdetail?newId="+lesson.detail.id, //分享出去后，点击跳转地址
+//                thumbs: ["_www/images/pic/logo.png"] //分享缩略图
+//            }
+//            //调起分享
+//            plusShare(message, function(res) {
+//                //分享回调函数
+//                if(res) {
+//                    plus.nativeUI.toast("分享成功");
+//                } else {
+//                    plus.nativeUI.toast("分享失败");
+//                }
+//            })
+//        });
+    })
+
+    //根据id向服务器请求课程详情
+    var loadVideo = function(wid) {
+        mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
+        luckyAjax({
+            data: {
+                server: 'videoLearn.learnDetails',
+                data: JSON.stringify({video_id: wid})
+            },
+            success: function (res) {
+                if (res.code == 1) {
+                    lesson.detail = res.data.details
+                    lesson.recommend = res.data.recommend
+                    lesson.is_attendance = lesson.detail.is_attendance
+                    lesson.is_sign = lesson.detail.is_sign
+                    lesson.effective_time = lesson.detail.effective_time
+                    //初始化插件
+                    var htmlvideo = Html5video("#video_Container", {
+                        title: lesson.detail.title, //视频标题，当全屏时会显示
+                        url: lesson.detail.media_url, //支持本地视频和网络视频，格式MP4
+                        img: config.domain + lesson.detail.img, //视频截图封面
+                        time: "", //视频总时间以分钟单位，当网络缓慢时，没办法及时加载出来，如已知可以填写，可不填。
+                        autoplay: true, //是否自动播放视频
+                        isMobile: true, //是否开启当处于移动网络时，提示用户是否继续播放视频。,不支持浏览器环境
+                        isFull: false, //是否点击播放就全屏显示
+                        iospay: false, //如果是IOS系统是否采用苹果系统自带播放器, 可以在浏览器或微信中，全屏观看视频
+                        drag: false, //禁止拖动,调节,音量和亮度
+                        isfull: true, //是否显示全屏按钮
+                        prompt: function(video) { //当开启isMobile时,这里可以写提示用户的内容,h5+环境才有效
+                            mui.confirm('你当前处于移动手机网络将会消耗手机流量，是否继续播放？', '提示',["取消","确定"], function(e) {
+                                if(e.index == 1) {
+                                    video.play();
+                                    lesson.timer = setInterval(function () {
+                                        if(lesson.effective_time <= 0) {
+                                            clearInterval(lesson.timer)
+                                            // 设置可以打卡
+                                            lesson.sign_flag = true
+                                            // 写入观看记录
+                                            takeAttendance()
+                                        }
+
+                                        if(video.paused || video.ended) {
+		                                    console.log("视频暂停中或结束")
+		                                    if (mui.os.ios && (window.orientation == 90 || window.orientation == -90)) {
+		                                        plus.navigator.setFullscreen(false);
+		                                        plus.screen.lockOrientation('portrait'); //锁死屏幕方向为竖屏
+		                                    }
+		                                } else {
+		                                    --lesson.effective_time
+		                                    console.log(lesson.effective_time)
+		                                }
+                                    }, 1000);
+                                }
+
+                            },"div");
+                        },
+                        getCurrentTime: function (video) {  // 获取视频当前播放时间
+                            lesson.timer = setInterval(function () {
+                                if(lesson.effective_time <= 0) {
+                                    clearInterval(lesson.timer)
+                                    // 设置可以打卡
+                                    lesson.sign_flag = true
+                                    // 写入观看记录
+                                    takeAttendance()
+                                }
+
+                                if(video.paused || video.ended) {
+                                    console.log("视频暂停中或结束")
+                                    if (mui.os.ios && (window.orientation == 90 || window.orientation == -90)) {
+                                        plus.navigator.setFullscreen(false);
+                                        plus.screen.lockOrientation('portrait'); //锁死屏幕方向为竖屏
+                                    }
+                                } else {
+                                    --lesson.effective_time
+                                    console.log(lesson.effective_time)
+                                }
+                            }, 1000);
+                        }
+                    });
+                } else {
+                    mui.toast(res.msg, {duration: 'short', type: 'div'})
+                }
+            }
+        });
+    }
+    // 写入观看记录
+    var takeAttendance = function () {
+        if (lesson.is_attendance == 0) {
+            luckyAjax({
+                data: {
+                    server: 'videoLearn.takeAttendance',
+                    data: JSON.stringify({
+                        video_id: lesson.detail.id
+                    })
+                },
+                success: function (res) {
+                    lesson.is_attendance = 1
+                    mui.fire(plus.webview.getWebviewById('train'),'reloadTrain',{});
+                }
+            });
+        }
+    }
+</script>
+</html>

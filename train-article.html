@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>发现</title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/module.css" rel="stylesheet" />
+		<link href="css/news.css" rel="stylesheet" />
+		<script src="js/config.js" type="text/javascript"></script>
+	</head>
+	<body class="BL-bg-f2f" >
+		<header id="Js-header" class="BL-bg-fff">
+			<div class="BL-mod-headbar BL-mod-headbar-pos">
+				<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+				<h1 class="BL-title">云课堂</h1>
+				<!--<a id="Js-openShare" class="BL-icon BL-icon-share"></a>-->
+			</div>
+		</header>
+		<div id="Js-content" class="mui-content BL-rel" v-cloak>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="train-detail-contain">
+						<div class="hd">
+							<div class="title">{{ detail.title }}</div>
+							<div class="date">
+								<span v-if="detail.date">{{ detail.date }}</span>
+								<span v-if="detail.name" class="BL-pad-l-1">
+									{{ detail.name }}
+								</span>
+							</div>
+						</div>
+						<div class="content bd">
+							<div v-if="detail.introduction" class="BL-ftz-46 BL-pad-tb-1_5">
+								文章简介：{{ detail.introduction }}
+							</div>
+							<div v-if="detail.desc" v-html="detail.desc"></div>
+						</div>
+					</div>
+					<!-- 为你推荐 -->
+					<div class="BL-mar-t-1 BL-bg-fff BL-pad-tb-1" v-if="recommend&&recommend.length >0">
+						<p class="train-recommend">为你推荐</p>
+						<ul class="mui-table-view train-list-cell">
+							<li class="nItem BL-mar-b-1_5" v-for="(item,index) in recommend">
+								<div class="BL-ub BL-ub-f1" @click="OpenLessonDetail(item.media_type,item.id)">
+									<div class="img">
+										<img :src="item.img | setImg"/>
+									</div>
+									<div class="context BL-ub BL-ub-ver BL-ub-f1">
+										<h1 class="tit">
+											<span class="tit-badg" v-if="item.media_type == 1" :class="{'tit-badg-tv': item.media_type == 1}">视频</span>
+											<span class="tit-badg" v-if="item.media_type == 2" :class="{'tit-badg-ad': item.media_type == 2}">音频</span>
+											{{ item.title }}
+										</h1>
+										<div class="remarks BL-ub BL-ub-ac">
+											<i class="ico-remarks" :class="{'ico-picture': item.media_type == 0,'ico-tv': item.media_type == 1,'ico-ad': item.media_type == 2}"></i>
+											<span>{{ item.play_count }}</span>
+											<span>{{ item.date }}</span>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div> 
+			</div> 	
+			<footer id="Js-footer" class="BL-footer BL-bg-fff">
+				<div class="BL-ub BL-ub-pc">
+					<div class="BL-ub BL-ub-pj" style="width: 50%;">
+						<div class="reads">
+							{{ detail.play_count }}
+						</div>
+						<div class="collect" :class="{'active': detail.is_collect == 1}" :data-collect="detail.is_collect">
+							{{ detail.collect_count }}
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+	<script src="js/mui.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/mui.zoom.js" ></script>
+	<script type="text/javascript" src="js/mui.previewimage.js" ></script>
+	<script type="text/javascript" src="js/Date.js" ></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/plusShare.js"></script>
+	<script type="text/javascript">
+        mui.init();
+		var lesson = new Vue({
+			el: '#Js-content',
+			data: {
+                is_attendance: 0, // 是否已观看 ，  1 是  0 否
+                effective_time: 60,  // 有效观看时间(涉及考勤、阅读量)
+                timer: '',  // 计时器
+				detail: {},   // 课程详情数据
+                recommend: null   // 推荐
+			},
+            //过滤器
+            filters: {
+                setTime: function (timestamp) {
+                    var time = new Date(timestamp*1000)   // 时间戳转成日期
+                    var timeFormat = time.Format('yyyy-MM-dd')
+                    return timeFormat
+                },
+                setImg: function(val) {
+					return config.domain + val
+				}
+            },
+			methods: {
+                // 打开课程详情页面
+                OpenLessonDetail: function (type,wid) {
+                	var vm = this
+                    var href = '', id = '';
+
+                    // 课程详情ID保存在本地
+                    plus.storage.setItem('LessonInfo', JSON.stringify({id: wid}));
+
+                    if (vm.detail.media_type == type) {
+                        plus.webview.currentWebview().reload()
+                    	return false;
+                    }
+                    
+                    if (type == 1) {
+                        href = 'train-video.html'
+                        id = 'train_video'
+                    } else if (type == 2) {
+                        href = 'train-audio.html'
+                        id = 'train_audio'
+                    }
+                    
+                    //打开新窗口
+	                mui.openWindow({
+	                    url: href,
+	                    id: id,
+	                    show: animateObj.aniDetal,
+	                    extras:{
+	                        wid: wid   // 课程详情ID
+	                    }
+	                });
+	                
+	                setTimeout(function () {
+	                    plus.webview.currentWebview().hide()
+	                }, 	500)
+	                setTimeout(function () {
+	                    plus.webview.currentWebview().close()
+	                }, 	1000)
+                }
+			}
+		});
+
+		//非plus环境
+		if(!mui.os.plus) {
+			mui.previewImage(); // H5 非原生图片预览
+		}
+
+		mui('.mui-scroll-wrapper').scroll({
+			scrollY: true, //是否竖向滚动
+			scrollX: false, //是否横向滚动
+			startX: 0, //初始化时滚动至x
+			startY: 0, //初始化时滚动至y
+			indicators: false, //是否显示滚动条
+			deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
+			bounce: false //是否启用回弹
+		});
+		
+		mui.plusReady(function() {
+			statusbar();
+			var winH = window.innerHeight;
+			var titHeight = document.querySelector('#Js-header').offsetHeight;
+			var fotHeight = document.querySelector('#Js-footer').offsetHeight;
+			document.querySelector('#Js-content').style.height = winH - titHeight - fotHeight + 'px';
+			// 获取课程详情
+            var wid = JSON.parse(plus.storage.getItem('LessonInfo')).id
+            loadArticle(wid)
+            
+			// 收藏
+            document.querySelector('.collect').addEventListener('tap', function() {
+            	var _this = this
+                var collect = _this.getAttribute('data-collect')
+                var type = (collect == '1')? '0' : '1'
+                luckyAjax({
+                    data: {
+                        server: 'videoLearn.learnCollect',
+                        data: JSON.stringify({
+                            video_id: lesson.detail.id,
+                            type: type
+                        })
+                    },
+                    success:function(res){
+                        if(res.code == 1) {
+                            collect == '1' ? lesson.detail.is_collect = '0' : lesson.detail.is_collect = '1'
+							if (lesson.detail.is_collect == '0') {
+                                var txt = '已取消收藏'
+							} else if (lesson.detail.is_collect == '1'){
+                                var txt = '收藏成功'
+							}
+							lesson.detail.collect_count = res.data
+                            mui.toast(txt, {duration: 'short', type: 'div'})
+                        } else{
+                            mui.toast(res.msg, {duration: 'short', type: 'div'})
+                        }
+                    }
+                });
+            });
+
+            // 自定义返回事件
+            mui.oldBack = mui.back;
+            mui.back = function () {
+                clearInterval(lesson.timer);
+                if(plus.webview.currentWebview().opener()&&plus.webview.currentWebview().opener().id == 'requirement') {
+                    mui.fire(plus.webview.getWebviewById('requirement'),'reloadRequirement',{});
+				}
+                mui.oldBack();
+            };
+			// 分享
+//			document.getElementById("Js-openShare").addEventListener("tap", function() {
+//			    //分享内容，开发者可自定义
+//			    var message = {
+//			        title: lesson.detail.title, //名字
+//			        content: "保险+ ——为保险展业创造无限可能",
+//			        href: config.domain + "/share/AppShare.html#/Newsdetail?newId="+lesson.detail.id, //分享出去后，点击跳转地址
+//			        thumbs: ["_www/images/pic/logo.png"] //分享缩略图
+//			    }
+//			    //调起分享
+//			    plusShare(message, function(res) {
+//			        //分享回调函数
+//			        if(res) {
+//			            plus.nativeUI.toast("分享成功");
+//			        } else {
+//			            plus.nativeUI.toast("分享失败");
+//			        }
+//			    })
+//			});
+		})
+		
+		//根据id向服务器请求课程详情
+        var loadArticle = function(wid) {
+        	mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
+        	luckyAjax({
+                data: {
+                    server: 'videoLearn.learnDetails',
+                    data: JSON.stringify({video_id: wid})
+                },
+                success: function (res) {
+                    console.log(JSON.stringify(res))
+                    if (res.code == 1) {
+                        lesson.detail = res.data.details
+						lesson.recommend = res.data.recommend
+                        lesson.is_attendance = lesson.detail.is_attendance
+                        lesson.effective_time = lesson.detail.effective_time
+                        lesson.$nextTick(function () {
+                            var images = [].slice.call(document.querySelectorAll('.bd img'));
+                            images.forEach(function (item) {
+                                item.setAttribute('data-preview-src', item.src)
+//                                item.setAttribute('data-preview-group', id)
+                            });
+                            mui.previewImage();
+                        })
+                        lesson.timer = setInterval(function () {
+                            if (lesson.effective_time >= 0) {
+                                -- lesson.effective_time;
+                            } else{
+                                takeAttendance()
+                                clearInterval(lesson.timer);
+                            }
+                        }, 1000);
+                    } else {
+                        mui.toast(res.msg, {duration: 'short', type: 'div'})
+                    }
+                }
+            });
+        }
+        // 写入观看记录
+        var takeAttendance = function () {
+            if (lesson.is_attendance == 0) {
+                luckyAjax({
+                    data: {
+                        server: 'videoLearn.takeAttendance',
+                        data: JSON.stringify({
+                            video_id: lesson.detail.id
+                        })
+                    },
+                    success: function (res) {
+                        lesson.is_attendance = 1
+                        mui.fire(plus.webview.getWebviewById('train'),'reloadTrain',{});
+                    }
+                });
+            }
+        }
+	</script>
+</html>

@@ -265,8 +265,10 @@
 			var activeIndex = 0;
 			// 目标页面索引，初始化为当前页面索引；
 			var targetIndex = activeIndex;
-			// 《发现》页面已触发过一次，再次触发禁止，默认未触发
-			var isLoadNew = false;
+            // 《发现》页面已触发过一次，再次触发禁止，默认未触发
+            var isLoadNew = false;
+//			// 《云课堂》页面已触发过一次，再次触发禁止，默认未触发
+//			var isLoadTrain = false;
 			// 创建子页面
 			for(var i = 0; i < subLen; i++) {
 				/**
@@ -314,11 +316,17 @@
 						mui.fire(loadPageprospect,'loadSize');
 					}
 
-					if(targetIndex == 2 && !isLoadNew){
-						var loadPageWeb = plus.webview.getWebviewById('news');
-						mui.fire(loadPageWeb,'loadpage');
-						isLoadNew = true;
-					}
+                    if(targetIndex == 2 && !isLoadNew){
+                        var loadPageWeb = plus.webview.getWebviewById('news');
+                        mui.fire(loadPageWeb,'loadpage');
+                        isLoadNew = true;
+                    }
+
+//                    if(targetIndex == 2){
+//                        var loadPageWeb = plus.webview.getWebviewById('train');
+//                        mui.fire(loadPageWeb,'reloadTrain');
+////                        isLoadTrain = true;
+//                    }
 
 					if(targetIndex == 3){
 						var loadPageMember = plus.webview.getWebviewById('member');

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="css/mui.css" rel="stylesheet"/>
+    <link href="css/common.css" rel="stylesheet"/>
+    <link href="css/module.css" rel="stylesheet"/>
+    <link href="css/news.css" rel="stylesheet"/>
+    <script src="js/config.js" type="text/javascript"></script>
+</head>
+
+<body class="BL-bg-f2f">
+	<header id="Js-header" class="BL-bg-fff">
+	    <div class="BL-mod-headbar BL-mod-headbar-pos">
+	        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+	        <h1 class="BL-title">&nbsp;</h1>
+	        <a class="BL-icon BL-icon-search" id="Js-openSearch"></a>
+	    </div>
+	</header>
+    <div id="Js-content" class="mui-content" v-cloak>
+        <div id="Js-trainFilter" class="train-Filter">
+            <!--状态筛选 begin-->
+            <div class="filter-state">
+                <div class="BL-ub BL-ub-ac state-select">
+                    <div class="mui-col-sm-4 mui-col-xs-4 item"
+                         :class="{'item-active-down':type===2,'item-active-up':type===1}"
+                         @click="type===1?type=2:type=1">
+                        <div class="BL-ub BL-ub-ac BL-ub-pc">
+                            <div class="text">
+                                时间排序
+                            </div>
+                            <div class="BL-ub BL-ub-ver">
+                                <a class="item-control item-control-up"></a>
+                                <a class="item-control item-control-down"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mui-col-sm-4 mui-col-xs-4 item" :class="{'mui-active': type===3}"
+                         @click="type=3">播放最多
+                    </div>
+                    <div class="mui-col-sm-4 mui-col-xs-4 item" :class="{'mui-active': type===4&&cate_id}">
+                        <div class="BL-ub BL-ub-ac BL-ub-pc a-link" href="train-menu-filter.html" data-wid="train_menu_filter"
+                             data-cid="cate_id" @click="type=4">
+                            <div class="text">
+                                筛选
+                            </div>
+                            <div class="BL-ub BL-ub-ver">
+                                <div class="item-control item-control-filter"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--状态筛选 end -->
+        </div>
+        <!------------课程列表 begin------------->
+        <div id="Js-trainList" class="BL-rel BL-bg-fff">
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                    <ul class="mui-table-view train-list-cell">
+	                    <li class="nItem BL-mar-tb-1_5" v-for="(item,index) in list">
+                            <i class="train-sign" v-if="nowTime==item.date&&is_sign==0&&item.media_type==1"></i>
+                            <a class="BL-ub BL-ub-f1" :data-type="item.media_type" :data-id="item.id">
+	                            <div class="list_img">
+                                    <img :src="item.img | setImg"/>
+	                            </div>
+                                <div class="context BL-ub BL-ub-ver BL-ub-f1">
+                                    <h1 class="tit">
+                                        <span class="tit-badg" v-if="item.media_type == 1" :class="{'tit-badg-tv': item.media_type == 1}">视频</span>
+                                        <span class="tit-badg" v-if="item.media_type == 2" :class="{'tit-badg-ad': item.media_type == 2}">音频</span>
+                                        {{ item.title }}
+                                    </h1>
+                                    <div class="remarks BL-ub BL-ub-ac">
+                                        <i class="ico-remarks" :class="{'ico-picture': item.media_type == 0,'ico-tv': item.media_type == 1,'ico-ad': item.media_type == 2}"></i>
+                                        <span>{{ item.play_count }}</span>
+                                        <span>{{ item.date }}</span>
+                                    </div>
+                                </div>
+	                        </a>
+	                    </li>
+	                </ul>
+                </div>
+            </div>
+        </div>
+	</div>
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/mui.pullToRefresh.js"></script>
+<script src="js/mui.pullToRefresh.material.js"></script>
+<script src="js/vue.min.js" type="text/javascript"></script>
+<script src="js/Date.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mui.init();
+    var self;
+    var train = new Vue({
+        el: '#Js-content',
+        data: {
+            nowTime: new Date().addDays(0).Format('yyyy-MM-dd'),   // 今天日期
+            is_sign: 0,  // "is_sign":1,     //今日是否打卡   1 是， 0 否
+            page: 0,
+            name: '', // 名称
+            pid: '',  // 一级类别id
+            cate_id: '',   // 二级类别id
+            type: '', // 1 和 2 时间排序 1date desc （递减）、2date （递增）
+                       // 3 播放最多 play_count desc
+                       // 4 有二级类别
+            menutype: '',
+            list: [],
+            menu: null   // 二级菜单
+        },
+        //过滤器
+        filters: {
+            setTime: function (timestamp) {
+                var time = new Date(timestamp*1000)   // 时间戳转成日期
+                var timeFormat = time.Format('yyyy-MM-dd')
+                return timeFormat
+            },
+            setImg: function(val) {
+                return config.domain + val
+            }
+        },
+        watch: {
+            type: {
+                handler: function (val) {
+                    if (val && val!==4) {
+                        this.page = 0;
+                        mui('#Js-trainList .mui-scroll-wrapper')[0].setAttribute('data-scroll', '');
+                        loaddata(1,true);
+                    }
+                }
+            }
+        }
+    }); 
+
+    (function ($) {
+        //阻尼系数
+        var deceleration = mui.os.ios ? 0.003 : 0.0009;
+        $('#Js-trainList .mui-scroll-wrapper').scroll({
+            scrollY: true, //是否竖向滚动
+            scrollX: false, //是否横向滚动
+            startX: 0, //初始化时滚动至x
+            startY: 0, //初始化时滚动至y
+            indicators: false, //是否显示滚动条
+            deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
+            bounce: true //是否启用回弹
+        });
+
+        $.plusReady(function () {
+            statusbar();
+            var winH = window.innerHeight;
+            var titHeight = document.querySelector('#Js-header').offsetHeight;
+            var divHeight = document.querySelector('#Js-trainFilter').offsetHeight;
+            document.querySelector('#Js-trainList').style.height = winH - titHeight - divHeight + 'px';
+
+            // 接收培训首页传过来的数据并处理
+            train.name = plus.webview.currentWebview().name;
+            train.pid = plus.webview.currentWebview().pid;
+            train.cate_id = plus.webview.currentWebview().cate_id;
+            train.menutype = plus.webview.currentWebview().type;
+
+            document.querySelector('.BL-title').innerHTML = train.name
+            // 获取二级菜单
+            loadMenu()
+
+            //循环初始化所有下拉刷新，上拉加载。
+            $('#Js-trainList .mui-scroll').pullToRefresh({
+                up: { // 上拉加载更多
+                    auto: true, // 自动上拉一次
+                    callback: function () {
+                        self = this
+                        loaddata(1);
+                    }
+                },
+                down:{
+                    callback: function() {
+                        self = this
+                        train.page = 0;
+                        loaddata(2,true);
+                    }
+                }
+            });
+        });
+    }(mui));
+
+    var loaddata = function (type,e) {
+        train.page++;
+        var basedata = {
+            page: train.page,
+            row: 10,
+            date: train.type === 1? 'date desc': (train.type === 2 ? 'date': ''),
+            play_count: train.type === 3? 'play_count desc': '',
+            cate_id: train.cate_id === ''? '': train.cate_id,
+            type: train.menutype
+        };
+        luckyAjax({
+        	closeWaiting:  type == 2 ? true:false,
+            data: {
+                server: 'videoLearn.lessonList',
+                data: JSON.stringify(basedata)
+            },
+            success: function (res) {
+                if (res.code) {
+                    train.is_sign = res.data.is_sign
+                    if (train.page >= res.data.page) {
+                        if (type === 1) {
+                            self.endPullUpToRefresh(true);
+                        } else if (type === 2) {
+                        	mui.toast('更新完成', {duration: 'short', type: 'div'})
+                            self.endPullDownToRefresh(true);
+                        }
+                    } else {
+                        if (type === 1) {
+                            self.endPullUpToRefresh();
+                        } else if (type === 2) {
+                        	mui.toast('更新完成', {duration: 'short', type: 'div'})
+                            self.endPullDownToRefresh();
+                        }
+                    }
+                    if (e) {
+                        if (res.data == []) {
+                            train.list = []
+                        } else {
+                            train.list = res.data.list;
+                        }
+                    } else {
+                        var list = res.data.list;
+                        mui.each(list, function (index, item) {
+                            train.list.push(item);
+                        });
+                    }
+                } else {
+                    mui.toast(res.msg, {duration: 'long', type: 'div'});
+                    return false;
+                }
+            }
+        });
+    };
+
+    // 获取当前一级下的二级菜单
+    var loadMenu = function (pid) {
+        luckyAjax({
+            data: {
+                server: 'videoLearn.getSubMenu',
+                data: JSON.stringify({
+                    pid: train.pid
+                })
+            },
+            success: function (res) {
+                if (res.code == 1) {
+                    train.menu = res.data
+                } else {
+                    mui.toast(res.msg, {duration: 'long', type: 'div'})
+                }
+            }
+        });
+    }
+    // 跳转课程详情页
+    mui('.mui-table-view').on('tap', 'a', function(e) {
+        var href = '', id = '';
+        var type = this.getAttribute("data-type");
+        var wid = this.getAttribute("data-id");
+        // 课程详情ID保存在本地
+        plus.storage.setItem('LessonInfo', JSON.stringify({id: wid}));
+
+        if (type == 0) {
+            href = 'train-article.html'
+            id = 'train_article'
+        } else if (type == 1) {
+            href = 'train-video.html'
+            id = 'train_video'
+        } else if (type == 2) {
+            href = 'train-audio.html'
+            id = 'train_audio'
+        }
+        //打开新窗口
+        mui.openWindow({
+            url: href,
+            id: id,
+            show: animateObj.aniDetal
+        });
+    });
+    // 跳到二级菜单筛选页面
+    mui('body').on('tap', '.a-link', function () {
+        var href = this.getAttribute('href');
+        var id = this.getAttribute("data-wid");
+
+        if (!train.menu) {
+            mui.toast(train.name+'没有二级分类可筛选', {duration: 'long', type: 'div'});
+        } else {
+            mui.openWindow({
+                url: href,
+                id: id,
+                show: animateObj.aniDetal,
+                extras: {
+                    cate_id: train.cate_id,
+                    menu: train.menu
+                },
+                waiting: {
+                    autoShow: false
+                }
+            });
+        }
+    });
+    // 搜索
+    document.getElementById("Js-openSearch").addEventListener("tap", function() {
+        //打开新窗口
+        mui.openWindow({
+            id: "train_search",
+            url: "train-search.html",
+            show: animateObj.aniDetal,
+            extras:{
+                cate_id: train.pid
+            }
+        });
+    });
+    // 接收筛选的公司id
+    window.addEventListener('selectMenu', function (e) {
+        train.cate_id = e.detail.cate_id;
+        train.name = e.detail.cate_name;
+        train.type = 4;
+        train.page = 0;
+
+        document.querySelector('.BL-title').innerHTML = train.name
+        loaddata(1,true);
+    });
+
+</script>
+
+</html>

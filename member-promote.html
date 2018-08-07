@@ -17,7 +17,7 @@
 		    <div class="BL-mod-headbar BL-mod-headbar-pos">
 		        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
 		        <h1 class="BL-title">投保规则</h1>
-		        <a class="BL-icon BL-icon-search"></a>
+		        <a class="BL-icon BL-icon-search" id="Js-openSearch"></a>
 		    </div>
 		</header>
 		<div id="Js-content" class="mui-content" v-cloak>
@@ -180,6 +180,19 @@
 	            }
 	        });
 	    };
+
+	    // 搜索
+        document.getElementById("Js-openSearch").addEventListener("tap", function() {
+            //打开新窗口
+            mui.openWindow({
+                id: "member_clips_search",
+                url: "member-clips-search.html",
+                show: animateObj.aniDetal,
+                extras:{
+                    supplier_id: 2
+                }
+            });
+        });
 	    
 	    //列表点击事件查看pdf
 	    mui('body').on('tap', '.mui-navigate-right', function (e) {

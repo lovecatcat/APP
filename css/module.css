@@ -156,6 +156,10 @@
 	background-image: url(../images/icon/nav-discover.png);
 }
 
+.BL-mod-footNav .footNav-icon-cloud{
+	background-image: url(../images/icon/nav-cloud.png);
+}
+
 .BL-mod-footNav .footNav-icon-user {
 	background-image: url(../images/icon/nav-user.png);
 }
@@ -170,6 +174,10 @@
 
 .BL-mod-footNav .footNav-item.mui-active .footNav-icon-discover {
 	background-image: url(../images/icon/nav-discover-active.png);
+}
+
+.BL-mod-footNav .footNav-item.mui-active .footNav-icon-cloud {
+	background-image: url(../images/icon/nav-cloud-active.png);
 }
 
 .BL-mod-footNav .footNav-item.mui-active .footNav-icon-user {
@@ -195,11 +203,15 @@
 	height: 7.9375rem;
 	background-image: url(../images/icon/sign.png);
 }
+.BL-mod-sign .sign_disabled {
+	width: 7.9375rem;
+	height: 7.9375rem;
+	background-image: url(../images/icon/sign_disabled.png);
+}
 
 .BL-mod-sign .sign.active {
 	background-image: url(../images/icon/sign-active.png);
 }
-
 
 /* BL-segmented-control Tab切换按钮样式 */
 

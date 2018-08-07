@@ -24,8 +24,8 @@
 				<span class="footNav-label">计划书</span>
 			</a>
 			<a data-index="2" class="mui-tab-item footNav-item">
-				<span class="footNav-icon footNav-icon-cloud"></span>
-				<span class="footNav-label">云课堂</span>
+				<span class="footNav-icon footNav-icon-discover"></span>
+				<span class="footNav-label">发现</span>
 			</a>
 			<a data-index="3" class="mui-tab-item footNav-item">
 				<span class="footNav-icon footNav-icon-user"></span>
@@ -249,7 +249,7 @@
 			 */
 			var self = plus.webview.currentWebview();
 			// 子窗口地址数组
-			var subpages = ["index-content.html", "prospect.html", "train.html", "member.html"];
+			var subpages = ["index-content.html", "prospect.html", "news.html", "member.html"];
 			// 子窗口样式
 			var subStyles = {
 				top: "0px",
@@ -265,8 +265,10 @@
 			var activeIndex = 0;
 			// 目标页面索引，初始化为当前页面索引；
 			var targetIndex = activeIndex;
-			// 《云课堂》页面已触发过一次，再次触发禁止，默认未触发
-			var isLoadTrain = false;
+            // 《发现》页面已触发过一次，再次触发禁止，默认未触发
+            var isLoadNew = false;
+//			// 《云课堂》页面已触发过一次，再次触发禁止，默认未触发
+//			var isLoadTrain = false;
 			// 创建子页面
 			for(var i = 0; i < subLen; i++) {
 				/**
@@ -314,17 +316,17 @@
 						mui.fire(loadPageprospect,'loadSize');
 					}
 
-//					if(targetIndex == 2 && !isLoadNew){
-//						var loadPageWeb = plus.webview.getWebviewById('train');
-//						mui.fire(loadPageWeb,'loadpage');
-//						isLoadNew = true;
-//					}
-
-                    if(targetIndex == 2){
-                        var loadPageWeb = plus.webview.getWebviewById('train');
-                        mui.fire(loadPageWeb,'reloadTrain');
-//                        isLoadTrain = true;
+                    if(targetIndex == 2 && !isLoadNew){
+                        var loadPageWeb = plus.webview.getWebviewById('news');
+                        mui.fire(loadPageWeb,'loadpage');
+                        isLoadNew = true;
                     }
+
+//                    if(targetIndex == 2){
+//                        var loadPageWeb = plus.webview.getWebviewById('train');
+//                        mui.fire(loadPageWeb,'reloadTrain');
+////                        isLoadTrain = true;
+//                    }
 
 					if(targetIndex == 3){
 						var loadPageMember = plus.webview.getWebviewById('member');

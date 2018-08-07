@@ -16,8 +16,8 @@
 <header id="Js-header" class="BL-bg-fff">
 	<div class="BL-mod-headbar BL-mod-headbar-pos">
 		<a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
-		<h1 class="BL-title">条款</h1>
-		<a class="BL-icon BL-icon-search"></a>
+		<h1 class="BL-title">条款搜索</h1>
+		<a class="BL-icon BL-icon-search" id="Js-openSearch"></a>
 	</div>
 </header>
 <div id="Js-content" class="mui-content" v-cloak>
@@ -39,7 +39,6 @@
 		</div>
 	</div>
 	<!------------条件筛选 end------------->
-	<!------------计划书明细 begin------------->
 	<div id="Js-list" class="BL-rel">
 		<div class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
@@ -150,7 +149,6 @@
             if (promote.is_primary) {
                 basedata.is_primary = promote.is_primary
             }
-            
 
             luckyAjax({
                 data: {
@@ -203,6 +201,18 @@
             return false
         }
 
+    });
+
+    document.getElementById("Js-openSearch").addEventListener("tap", function() {
+        //打开新窗口
+        mui.openWindow({
+            id: "member_clips_search",
+            url: "member-clips-search.html",
+            show: animateObj.aniDetal,
+            extras:{
+                supplier_id: 1
+            }
+        });
     });
 
     //主列表点击事件

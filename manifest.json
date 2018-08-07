@@ -2103,7 +2103,8 @@
 					"images/icon/ico-good.png",
 					"js/config.js",
 					"member-plans-total.html",
-					"css/plans.css"
+					"css/plans.css",
+					"js/plusShare.js"
 				],
 				"refer": [
 					"member-plans-alone.html",
@@ -2193,7 +2194,9 @@
 					"images/plans/plansManage/16208.png",
 					"images/plans/plansManage/16220.png",
 					"images/plans/plansManage/16221.png",
-					"images/plans/plansManage/311.png"
+					"images/plans/plansManage/311.png",
+					"images/plans/plansManage/16228.png",
+					"images/plans/plansManage/16207.png"
 				],
 				"refer": [
 					"member-plans-detail.html",
@@ -3048,7 +3051,8 @@
 				"refer": [
 					"quickly-filter.html",
 					"member-promote-detail.html",
-					"pdf-modal.html"
+					"pdf-modal.html",
+					"member-clips-search.html"
 				],
 				"priority": 0
 			},
@@ -3443,7 +3447,8 @@
 				],
 				"refer": [
 					"pdf-modal.html",
-					"quickly-filter.html"
+					"quickly-filter.html",
+					"member-clips-search.html"
 				],
 				"priority": 0
 			},
@@ -4000,7 +4005,8 @@
 					"train-audio.html",
 					"train-article.html",
 					"train-month-list.html",
-					"member-register.html"
+					"member-register.html",
+					"train-search.html"
 				],
 				"priority": 0
 			},
@@ -4024,7 +4030,8 @@
 				"refer": [
 					"train-video.html",
 					"train-article.html",
-					"train-exam.html"
+					"train-exam.html",
+					"train-audio.html"
 				],
 				"priority": 0
 			},
@@ -4057,7 +4064,8 @@
 					"train-article.html",
 					"train-video.html",
 					"train-audio.html",
-					"train-menu-filter.html"
+					"train-menu-filter.html",
+					"train-search.html"
 				],
 				"priority": 0
 			},
@@ -4220,6 +4228,30 @@
 					"css/form.css"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"member-clips-search.html": {
+				"resources": [
+					"css/mui.css",
+					"css/form.css"
+				],
+				"refer": [
+					"pdf-modal.html"
+				],
+				"priority": 0
+			},
+			"train-search.html": {
+				"resources": [
+					"css/mui.css",
+					"css/form.css",
+					"css/news.css",
+					"images/icon/ico-video.png",
+					"images/icon/ico-picture.png"
+				],
+				"refer": [
+					"train-article.html",
+					"train-video.html"
+				],
 				"priority": 0
 			}
 		},

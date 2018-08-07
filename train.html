@@ -14,7 +14,7 @@
 <header id="Js-header" class="BL-bg-fff">
     <div class="BL-mod-headbar BL-mod-headbar-pos">
         <h1 class="BL-title">云课堂</h1>
-        <a class="BL-icon BL-icon-search"></a>
+        <a class="BL-icon BL-icon-search" id="Js-openSearch"></a>
     </div>
 </header>
 <div id="Js-content" class="mui-content BL-rel" style="background: #9BCCF9">
@@ -39,7 +39,7 @@
             </div>
             <div class="train-category-body" v-if="e_data.style === 1&&e_data.child.type == 'content'">
                 <ul class="mui-table-view train-list-cell">
-                    <li class="nItem BL-mar-b-1_5" v-for="(item,index) in e_data.child.list">
+                    <li v-if="e_data.child.list" class="nItem BL-mar-b-1_5" v-for="(item,index) in e_data.child.list">
                         <div class="BL-ub BL-ub-f1" @click="$parent.OpenLessonDetail(item.media_type,item.id)">
                             <div class="img">
                                 <img :src="item.img | setImg"/>
@@ -61,7 +61,7 @@
                 </ul>
             </div>
             <div class="train-category-body mui-row" v-if="e_data.style === 2&&e_data.child.type == 'category'">
-                <div class="train-category-block mui-col-xs-4" v-for="(item,index) in e_data.child.list" @click="$parent.OpenLessonList(e_data.id,item.id,item.name,e_data.style)">
+                <div v-if="e_data.child.list" class="train-category-block mui-col-xs-4" v-for="(item,index) in e_data.child.list" @click="$parent.OpenLessonList(e_data.id,item.id,item.name,e_data.style)">
                     {{ item.name }}
                 </div>
             </div>
@@ -79,7 +79,7 @@
                 <div class="category-title">{{ e_data.name }}</div>
             </div>
             <div class="train-category-body mui-row train-exam-row">
-                <div class="mui-col-xs-6" v-for="(item,index) in e_data.child.list">
+                <div v-if="e_data.child.list" class="mui-col-xs-6" v-for="(item,index) in e_data.child.list">
                     <div class="BL-ub BL-ub-f1 train-exam" @click="$parent.OpenExamList(index,e_data.child.list,item.id,item.name)">
                         <div class="order block-exam">{{ index+1 }}</div>
                         <div class="context BL-ub BL-ub-ver BL-ub-f1">
@@ -294,6 +294,19 @@
                 show: animateObj.aniDetal
             })
         });
+        // 搜索
+        document.getElementById("Js-openSearch").addEventListener("tap", function() {
+            //打开新窗口
+            mui.openWindow({
+                id: "train_search",
+                url: "train-search.html",
+                show: animateObj.aniDetal,
+                extras:{
+                    cate_id: 0
+                }
+            });
+        });
+
         // 监听事件--更新当前页数据
         window.addEventListener('reloadTrain', function (e) {
             mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);

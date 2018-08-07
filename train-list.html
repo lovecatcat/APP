@@ -16,7 +16,7 @@
 	    <div class="BL-mod-headbar BL-mod-headbar-pos">
 	        <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
 	        <h1 class="BL-title">&nbsp;</h1>
-	        <a class="BL-icon BL-icon-search"></a>
+	        <a class="BL-icon BL-icon-search" id="Js-openSearch"></a>
 	    </div>
 	</header>
     <div id="Js-content" class="mui-content" v-cloak>
@@ -303,7 +303,19 @@
             });
         }
     });
-    //接收筛选的公司id
+    // 搜索
+    document.getElementById("Js-openSearch").addEventListener("tap", function() {
+        //打开新窗口
+        mui.openWindow({
+            id: "train_search",
+            url: "train-search.html",
+            show: animateObj.aniDetal,
+            extras:{
+                cate_id: train.pid
+            }
+        });
+    });
+    // 接收筛选的公司id
     window.addEventListener('selectMenu', function (e) {
         train.cate_id = e.detail.cate_id;
         train.name = e.detail.cate_name;

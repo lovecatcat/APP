@@ -20,20 +20,20 @@
 		
 		<div id="Js-duty" class="mui-content BL-overFlow-autoY member-duty">
 			<!--个人信息区begin-->
-			<div  v-if="userInfo" class="member-duty-perinfo BL-ub BL-ub-ac BL-bg-fff">
-				<div class="img">
-					<img :src="userInfo.avatar" onerror="this.src='images/icon/avatar-default.png'"/>
-				</div>
-				<div class="context BL-ub-f1">
-					<p class="name BL-col-333">{{ userInfo.user_name }}</p>
-					<div class="other BL-col-3b9cf5">
-						<span>考勤组：<i>{{ userInfo.dept_name }}</i></span>
-						<span>
-	        				<i>{{ curtimeData.date }}</i>
-	        			</span>
-					</div>
-				</div>
-			</div>
+			<!--<div  v-if="userInfo" class="member-duty-perinfo BL-ub BL-ub-ac BL-bg-fff">-->
+				<!--<div class="img">-->
+					<!--<img :src="userInfo.avatar" onerror="this.src='images/icon/avatar-default.png'"/>-->
+				<!--</div>-->
+				<!--<div class="context BL-ub-f1">-->
+					<!--<p class="name BL-col-333">{{ userInfo.user_name }}</p>-->
+					<!--<div class="other BL-col-3b9cf5">-->
+						<!--<span>考勤组：<i>{{ userInfo.dept_name }}</i></span>-->
+						<!--<span>-->
+	        				<!--<i>{{ curtimeData.date }}</i>-->
+	        			<!--</span>-->
+					<!--</div>-->
+				<!--</div>-->
+			<!--</div>-->
 			<!--个人信息区end-->
 			<div id="Js-schedule" class="member-duty-dater BL-mar-t-1"></div>
 			<div class="member-duty-context BL-bg-fff">
@@ -113,14 +113,14 @@
 						<div class="section">
 							<div class="BL-pad-lr-1_25">
 								<p class="duty-tip BL-ub BL-ub-ac BL-col-333">上班： <span v-if="data_day.sign_in_time" class="BL-col-999">打卡时间 {{ data_day.sign_in_time }}</span></p>
-								<!--<p v-if="data_day.sign_in_wifi" class="duty-tip BL-ub BL-ub-ac">-->
-									<!--<i class="member-duty-wifi BL-bimg-contain BL-ub BL-ub-pc BL-mar-r-1"></i>-->
-									<!--{{ data_day.sign_in_wifi | getWifiName(wifiList) }}-->
-								<!--</p>-->
-								<!--<p v-if="data_day.sign_in_location" class="duty-tip BL-ub BL-ub-ac">-->
-									<!--<i class="member-duty-address BL-bimg-contain BL-ub BL-ub-pc BL-mar-r-1"></i>-->
-									<!--{{ data_day.sign_in_location }}-->
-								<!--</p>-->
+								<p v-if="data_day.sign_in_wifi" class="duty-tip BL-ub BL-ub-ac">
+									<i class="member-duty-wifi BL-bimg-contain BL-ub BL-ub-pc BL-mar-r-1"></i>
+									{{ data_day.sign_in_wifi | getWifiName(wifiList) }}
+								</p>
+								<p v-if="data_day.sign_in_location" class="duty-tip BL-ub BL-ub-ac">
+									<i class="member-duty-address BL-bimg-contain BL-ub BL-ub-pc BL-mar-r-1"></i>
+									{{ data_day.sign_in_location }}
+								</p>
 								<p class="duty-tip BL-ub BL-ub-ac">
 									<span v-if="data_day.sign_in_state==1" class="duty-status duty-normal BL-ub BL-ub-ac BL-ub-pc">
 										正常

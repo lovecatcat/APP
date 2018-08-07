@@ -168,7 +168,7 @@
                                     afterPay(true,false)
                                 }
                             } else {
-                                mui.toast('网络出错，请稍后再试', {duration: 'long', type: 'div'})
+                                mui.toast(res.msg?res.msg:'网络出错，请稍后再试', {duration: 'long', type: 'div'})
                                 return false
                             }
                         }

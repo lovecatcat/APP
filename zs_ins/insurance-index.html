@@ -213,7 +213,7 @@
                                 appl_data.holder_nation_name = da.insData.holder_nation_text//国籍
                                 appl_data.holder_company = da.insData.holder_company //工作单位
                                 appl_data.holder_salary_from = da.insData.holder_salary_from//收入来源
-                                appl_data.holder_salary_from_name = da.insData.holder_salary_from_text//收入来源名
+                                appl_data.holder_salary_from_name = da.insData.holder_salary_from_text || '请选择'//收入来源名
                                 appl_data.holder_salary_avg = parseInt(da.insData.holder_salary_avg)//年收入
 
                                 appl_data.holder_home_province = da.insData.holder_home_province//现在住址【省】
@@ -268,7 +268,7 @@
                                     assu_data.insured_nation_name = da.insured.insured_nation_text//国籍
                                     assu_data.insured_company = da.insured.insured_company //工作单位
                                     assu_data.insured_salary_from = da.insured.insured_salary_from//收入来源
-                                    assu_data.insured_salary_from_name = da.insured.insured_salary_from_text//收入来源名
+                                    assu_data.insured_salary_from_name = da.insured.insured_salary_from_text || '请选择'//收入来源名
                                     assu_data.insured_salary_avg = parseInt(da.insured.insured_salary_avg)//年收入
 
                                     assu_data.insured_home_province = da.insured.insured_home_province//现在住址【省】
@@ -664,7 +664,7 @@
             pushdata.is_first = '1'
             pushdata.user_id = index.userinfo.id
             //投保人信息
-            var applfieldFilter = ['holder_has_SSID', 'resident_type', 'temp_holder_job_code', 'mail_addr_type', 'holder_ID_type_name', 'holder_nation_name', 'holder_home_ssq_name', 'holder_home_province_name', 'holder_home_city_name', 'holder_home_district_name', 'holder_contact_ssq_name', 'holder_contact_province_name', 'holder_contact_city_name', 'holder_contact_district_name', 'holder_job_name', 'holder_isTaxResidents','sameToHome']
+            var applfieldFilter = ['holder_has_SSID', 'resident_type', 'temp_holder_job_code', 'mail_addr_type', 'holder_ID_type_name', 'holder_nation_name', 'holder_home_ssq_name', 'holder_home_province_name', 'holder_home_city_name','holder_salary_from_name', 'holder_home_district_name', 'holder_contact_ssq_name', 'holder_contact_province_name', 'holder_contact_city_name', 'holder_contact_district_name', 'holder_job_name', 'holder_isTaxResidents','sameToHome']
             for (var i in index.applicant) {
                 if (applfieldFilter.indexOf(i) === -1) {
                     pushdata[i] = index.applicant[i]
@@ -674,7 +674,7 @@
             //被保人信息
             var insured = {}
             insured.id = ''
-            var assufieldFilter = ['insured_has_SSID', 'insured_temp_job_code', 'addr_type', 'insured_isTaxResidents', 'insured_job_name', 'insured_ID_type_name', 'insured_nation_name', 'insured_home_district_name', 'insured_home_ssq_name', 'insured_home_province_name', 'insured_home_city_name', 'insured_home_district_name', 'insured_contact_ssq_name', 'insured_contact_province_name', 'insured_contact_city_name', 'insured_contact_district_name']
+            var assufieldFilter = ['insured_has_SSID', 'insured_temp_job_code', 'addr_type', 'insured_isTaxResidents', 'insured_job_name', 'insured_ID_type_name', 'insured_nation_name', 'insured_home_district_name','insured_salary_from_name', 'insured_home_ssq_name', 'insured_home_province_name', 'insured_home_city_name', 'insured_home_district_name', 'insured_contact_ssq_name', 'insured_contact_province_name', 'insured_contact_city_name', 'insured_contact_district_name']
             for (var i in index.assured) {
                 if (assufieldFilter.indexOf(i) === -1) {
                     insured[i] = index.assured[i]
@@ -806,6 +806,7 @@
                 success: function (res) {
                     if (res.code) {
                         plus.storage.setItem('zhaos_ids',JSON.stringify(res.data));
+                        index.getItem('zhaos_ids', 'ids');
 //                        showPopu('insurance-sign.html', 'zs-insurance-sign', "bottom",res.data.policy_id);
                         online_ins(res.data.policy_id)
                     } else {
@@ -832,29 +833,41 @@
                 },
                 timeout: 20000,
                 success: function (res) {
-                    if (res.data.flag === 'Y') {
-                        if(res.data.isRulePass === 'Y'){
-                            var sumPrem = res.data.sumPrem
-                            if (parseInt(sumPrem) != parseInt(totalfee)) {
-                                mui.toast('保费不一致！', {duration: 'long', type: 'div'})
-                                return false
-                            } else {
-                                mui.toast('保存成功，核保中', {duration: 'long', type: 'div'})
-                                upload_img(war_id)
-                            }
-                        } else {
-                            mui.toast(JSON.stringify(res.data.uwNotPassProblem), {duration: 'long', type: 'div'})
-                            return false
-                        }
-                    } else if (res.data.flag === 'N') {
-                        plus.nativeUI.closeWaiting();
-                        index.loading = false;
-                        mui.toast(JSON.stringify(res.data.message), {duration: 'long', type: 'div'})
-                        return false
-                    } else {
+                    if (!res.code) {
                         plus.nativeUI.closeWaiting();
                         index.loading = false;
                         mui.toast(res.msg || '网络出错，请稍后再试', {
+                            duration: 'long',
+                            type: 'div'
+                        })
+                        return false
+                    } else if (res.data) {
+                        if (res.data.flag === 'Y') {
+                            if (res.data.isRulePass === 'Y') {
+                                var sumPrem = res.data.sumPrem
+                                if (parseInt(sumPrem) != parseInt(totalfee)) {
+                                    plus.nativeUI.closeWaiting();
+                                    index.loading = false;
+                                    mui.toast('保费不一致！', {duration: 'long', type: 'div'})
+                                    return false
+                                } else {
+                                    mui.toast('保存成功，核保中', {duration: 'long', type: 'div'})
+                                    upload_img(war_id)
+                                }
+                            } else {
+                                mui.toast(JSON.stringify(res.data.uwNotPassProblem), {duration: 'long', type: 'div'})
+                                return false
+                            }
+                        } else if (res.data.flag === 'N') {
+                            plus.nativeUI.closeWaiting();
+                            index.loading = false;
+                            mui.toast(JSON.stringify(res.data.message), {duration: 'long', type: 'div'})
+                            return false
+                        }
+                    } else {
+                        plus.nativeUI.closeWaiting();
+                        index.loading = false;
+                        mui.toast('网络出错，请稍后再试', {
                             duration: 'long',
                             type: 'div'
                         })
@@ -877,30 +890,38 @@
                 },
                 timeout: 10000,
                 success: function (res) {
-                    if (res.data.flag === 'Y') {
-                        if (res.data.isUWPass === 'Y') {
-                            mui.toast('自核通过', {duration: 'short', type: 'div'})
-                            showPopu('insurance-sign.html', 'zs-insurance-sign', "bottom", {
-                                id: id,
-                                ispass: true,
-                                appSignAddress: res.data.appSignAddress,
-                                insuredSignAddress: res.data.insuredSignAddress ? res.data.insuredSignAddress : ''
-                            });
-                        } else if (res.data.isUWPass === 'N') {
-                            mui.toast('进入人工核保', {duration: 'long', type: 'div'})
-                            showPopu('insurance-sign.html', 'zs-insurance-sign', "bottom", {
-                                id: id,
-                                ispass: false,
-                                appSignAddress: res.data.appSignAddress,
-                                insuredSignAddress: res.data.insuredSignAddress ? res.data.insuredSignAddress : ''
-                            });
-                        }
-                    } else if (res.data.flag === 'N') {
-                        mui.toast(res.data.message, {duration: 'long', type: 'div'})
+                    if (!res.code) {
+                        mui.toast(res.msg || '网络出错，请稍后再试', {
+                            duration: 'long',
+                            type: 'div'
+                        })
                         return false
                     } else {
-                        mui.toast(res.data.message, {duration: 'long', type: 'div'})
-                        return false
+                        if (res.data.flag === 'Y') {
+                            if (res.data.isUWPass === 'Y') {
+                                mui.toast('自核通过', {duration: 'short', type: 'div'})
+                                showPopu('insurance-sign.html', 'zs-insurance-sign', "bottom", {
+                                    id: id,
+                                    ispass: true,
+                                    appSignAddress: res.data.appSignAddress,
+                                    insuredSignAddress: res.data.insuredSignAddress ? res.data.insuredSignAddress : ''
+                                });
+                            } else if (res.data.isUWPass === 'N') {
+                                mui.toast('进入人工核保', {duration: 'long', type: 'div'})
+                                showPopu('insurance-sign.html', 'zs-insurance-sign', "bottom", {
+                                    id: id,
+                                    ispass: false,
+                                    appSignAddress: res.data.appSignAddress,
+                                    insuredSignAddress: res.data.insuredSignAddress ? res.data.insuredSignAddress : ''
+                                });
+                            }
+                        } else if (res.data.flag === 'N') {
+                            mui.toast(res.data.message, {duration: 'long', type: 'div'})
+                            return false
+                        } else {
+                            mui.toast(res.data.message, {duration: 'long', type: 'div'})
+                            return false
+                        }
                     }
                 }
             });

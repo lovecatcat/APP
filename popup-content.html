@@ -194,7 +194,7 @@
 				isHide: '' , //要弹哪个框
 				formID: '', //来自哪个页面
 				goIns: false, //是不是在线投保
-				gonIns_genre: [272, 276, 340, 348, 370, 16217, 264,354,16201], //目前只有恒大才能去在线投保
+				gonIns_genre: [272, 276, 340, 348, 370, 16217, 264,354,16201,16113], //目前只有恒大才能去在线投保
 				goIns_data: ''
 			},
 			methods: {
@@ -248,7 +248,13 @@
 							url: 'paehis/pa-healthinfo.html',
 							show: animateObj.aniDetal
 						})
-					}else if(modal.gonIns_genre.indexOf(genre) > -1 && (genre == 354 || genre == 16201)){
+					}else if(modal.gonIns_genre.indexOf(genre) > -1 && genre == 16113){
+                        mui.openWindow({
+                            id: 'zs_insurance-index',
+                            url: 'zs_ins/insurance-index.html',
+                            show: animateObj.aniDetal
+                        })
+                    }else if(modal.gonIns_genre.indexOf(genre) > -1 && (genre == 354 || genre == 16201)){
                         mui.openWindow({
                             id: 'gh_insurance-index',
                             url: 'gh_ins/insurance-index.html',

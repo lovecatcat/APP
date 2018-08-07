@@ -377,6 +377,8 @@ var checkAppl = function (appl) {
         toast_text = '请选择投保人国籍'
     } else if (!appl.holder_company) {
         toast_text = '请填写投保人工作单位'
+    } else if (!appl.holder_salary_from) {
+        toast_text = '投保人收入来源不能为空'
     } else if (!checkEarnings(1, appl.holder_salary_avg)) {
         return false
     } else if (!checkHeight('投保人', appl.holder_height)) {
@@ -465,6 +467,8 @@ var checkAssured = function (assu) {
         return false
     } else if (!assu.temp_insured_job_code) {
         toast_text = '被保人职业不能为空'
+    } else if (!assu.insured_salary_from) {
+        toast_text = '被保人收入来源不能为空'
     } else if (!checkEarnings(2, assu.insured_salary_avg)) {
         return false
     } else if (!assu.insured_marriage) {
@@ -580,33 +584,35 @@ var AssuSameApplAddress = function (assu,appl) {
     assu.insured_home_zip = appl.holder_home_zip //居住地【邮编】
 };
 //被保人为本人
-var RSChanged = function(assu,applicant) {
-    if(assu.rel_holder_insured ===ISASSURED){
-        assu.insured_name= applicant.holder_name //姓名
-        assu.insured_ID_type= applicant.holder_ID_type //证件类型
-        assu.insured_ID_type_name= applicant.holder_ID_type_name //证件类型名
-        assu.insured_ID_no= applicant.holder_ID_no //证件号码
-        assu.insured_birthday= applicant.holder_birthday //出生日期
-        assu.insured_ID_expire_end= applicant.holder_ID_expire_end //证件有效期
-        assu.insured_gender= applicant.holder_gender //性别  1男  2女
-        assu.insured_mobile= applicant.holder_mobile//手机号
-        assu.insured_email= applicant.holder_email//邮箱
-        assu.insured_height= applicant.holder_height//身高
-        assu.insured_weight= applicant.holder_weight//体重
-        assu.insured_nation= applicant.holder_nation//国籍
-        assu.insured_nation_name= applicant.holder_nation_name//国籍
-        assu.insured_company= applicant.holder_company//工作单位
-        assu.insured_salary_avg= applicant.holder_salary_avg//年收入
-        assu.addr_type= true//是否所有地址同投保人
-        assu.insured_has_SSID= applicant.holder_has_SSID//是否有社保
-        assu.insured_marriage= applicant.holder_marriage//婚姻状况
-        assu.insured_job_code= applicant.holder_job_code//职业
-        assu.insured_job_cate= applicant.holder_job_cate//职业分类
-        assu.temp_insured_job_code= applicant.temp_holder_job_code//职业代码
-        assu.insured_job_name= applicant.holder_job_name//职业名称
-        assu.insured_isTaxResidents= applicant.holder_isTaxResidents
+var RSChanged = function (assu, applicant) {
+    if (assu.rel_holder_insured === ISASSURED) {
+        assu.insured_name = applicant.holder_name //姓名
+        assu.insured_ID_type = applicant.holder_ID_type //证件类型
+        assu.insured_ID_type_name = applicant.holder_ID_type_name //证件类型名
+        assu.insured_ID_no = applicant.holder_ID_no //证件号码
+        assu.insured_birthday = applicant.holder_birthday //出生日期
+        assu.insured_ID_expire_end = applicant.holder_ID_expire_end //证件有效期
+        assu.insured_gender = applicant.holder_gender //性别  1男  2女
+        assu.insured_mobile = applicant.holder_mobile//手机号
+        assu.insured_email = applicant.holder_email//邮箱
+        assu.insured_height = applicant.holder_height//身高
+        assu.insured_weight = applicant.holder_weight//体重
+        assu.insured_nation = applicant.holder_nation//国籍
+        assu.insured_nation_name = applicant.holder_nation_name//国籍
+        assu.insured_company = applicant.holder_company//工作单位
+        assu.insured_salary_avg = applicant.holder_salary_avg//年收入
+        assu.insured_salary_from = applicant.holder_salary_from//收入来源
+        assu.insured_salary_from_name = applicant.holder_salary_from_name//收入来源名称
+        assu.addr_type = true//是否所有地址同投保人
+        assu.insured_has_SSID = applicant.holder_has_SSID//是否有社保
+        assu.insured_marriage = applicant.holder_marriage//婚姻状况
+        assu.insured_job_code = applicant.holder_job_code//职业
+        assu.insured_job_cate = applicant.holder_job_cate//职业分类
+        assu.temp_insured_job_code = applicant.temp_holder_job_code//职业代码
+        assu.insured_job_name = applicant.holder_job_name//职业名称
+        assu.insured_isTaxResidents = applicant.holder_isTaxResidents
     } else {
-        if(applicant.holder_ID_no === assu.insured_ID_no && assu.insured_ID_type === applicant.holder_ID_type){
+        if (applicant.holder_ID_no === assu.insured_ID_no && assu.insured_ID_type === applicant.holder_ID_type) {
             mui.toast('被保人非本人时证件号不能与投保人相同', {duration: 'short', type: 'div'});
             return false
         }

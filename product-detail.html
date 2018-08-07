@@ -53,6 +53,10 @@
                      v-else-if="info.company_id===2&&info.online_insure&&userinfo.login_mk==1">
                     我要投保
                 </div>
+                <div class="BL-foot-btn-sign a-link" data-wid="zs_insurance-index" href="zs_ins/insurance-index.html"
+                     v-else-if="info.company_id===85&&info.online_insure&&userinfo.login_mk==1">
+                    我要投保
+                </div>
                 <div class="BL-foot-btn-sign" @tap="toastMsg" v-else>
                     我要投保
                 </div>

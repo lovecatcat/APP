@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="css/mui.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/module.css" rel="stylesheet" />
+    <link href="css/news.css" rel="stylesheet" />
+    <script src="js/config.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+</head>
+
+<body class="BL-bg-f2f">
+    <header id="Js-header" class="BL-bg-fff">
+        <div class="BL-mod-headbar BL-mod-headbar-pos">
+            <a class="mui-action-back mui-icon-left-nav BL-icon BL-icon-left"></a>
+            <h1 class="BL-title">月刊汇总</h1>
+        </div>
+    </header>
+
+    <div id="Js-content" class="mui-content BL-rel">
+        <div class="mui-content mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <ul class="mui-table-view BL-mar-t-1" v-if="list&&list.length>0">
+                    <li v-for="item in list" class="mui-table-view-cell train-month-list-item">
+                        <a href="javascript:;" class="mui-navigate-right" @tap="OpenMonthDetail(item.month)">
+                            <div class="train-month-list-l">
+                                <p class='list-top-txt'>{{ item.month }}</p>
+                            </div>
+                            <div class="train-month-list-r BL-txt-r">
+                                <p class="list-top-txt BL-col-999">课程合计：{{ item.count }}</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/mui.picker.js"></script>
+<script src="js/mui.dtpicker.js"></script>
+<script src="js/mui.pullToRefresh.js"></script>
+<script src="js/mui.pullToRefresh.material.js"></script>
+<script src="js/vue.min.js"></script>
+<script src="js/Date.js"></script>
+<script type="text/javascript">
+    mui.init();
+    var train = new Vue({
+        el: '#Js-content',
+        data: {
+            list: [],
+            page: 0,
+            row: 10
+        },
+        methods: {
+            OpenMonthDetail: function (month) {
+                //触发详情页面的monthDetail事件
+                mui.fire(plus.webview.getWebviewById('train_month_detail'),'monthDetail',{
+                    'month': month
+                });
+                //打开详情页面
+                mui.openWindow({
+                    url: 'train-month-detail.html',
+                    id:'train_month_detail',
+                    show:animateObj.aniDetal,
+                    extras:{
+                        month: month
+                    }
+                });
+            }
+        }
+    });
+
+    (function($){
+        // 阻尼系数
+        var deceleration = mui.os.ios ? 0.003 : 0.0009;
+        $('#Js-content .mui-scroll-wrapper').scroll({
+            bounce: true,
+            indicators: false, //是否显示滚动条
+            deceleration: deceleration
+        });
+
+        $.plusReady(function() {
+            statusbar();
+            var winH = window.innerHeight;
+            var titHeight = document.querySelector('#Js-header').offsetHeight;
+            document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+            var self;
+
+            var getMonthlist = function(e) {
+                train.page++
+                luckyAjax({
+                    data: {
+                        server: 'videoLearn.learnGroupByMonth',
+                        data: JSON.stringify({
+                            page: train.page,
+                            row: train.row
+                        })
+                    },
+                    success: function (res) {
+                        if(res.code == 1) {
+                            if (train.page >= res.data.page) {
+                                self.endPullUpToRefresh(true);
+                            } else {
+                                self.endPullUpToRefresh(false);
+                            }
+                            if (e) {
+                                train.list = res.data.list;
+                            } else {
+                                var list = res.data.list;
+                                mui.each(list, function (index, item) {
+                                    train.list.push(item);
+                                });
+                            }
+                        } else {
+                            mui.toast(res.msg, {duration: 'long', type: 'div'})
+                        }
+                    },
+                });
+            }
+
+            //循环初始化上拉加载。
+            $('#Js-content .mui-scroll').pullToRefresh({
+                up: { // 上拉加载更多
+                    auto: true, // 自动上拉一次
+                    contentrefresh: '正在加载...',
+                    contentnomore:'没有更多数据了',// 可选，请求完毕若没有更多数据时显示的提醒内容；
+                    callback: function() {
+                        self = this;
+                        getMonthlist()
+                    }
+                }
+            });
+        });
+    }(mui));
+</script>
+
+</html>

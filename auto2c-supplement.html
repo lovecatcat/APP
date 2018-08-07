@@ -24,7 +24,7 @@
 				<li class="fItem BL-ub BL-ub-f1">
 					<label class="form-list-label">车架号</label>
 					<div class="form-list-control">
-						<input type="text" placeholder="请输入" v-model.lazy="car.frameNo">
+						<input type="text" placeholder="请输入" v-model.lazy="car.frameNo" @change="checkFrameNo(car.frameNo)">
 					</div>
 					<div class="form-list-icon" v-show="car.frameNo!=''">
 						<span class="mui-icon mui-icon-clear" @click="car.frameNo=''"></span>
@@ -140,17 +140,14 @@
                 brand: {}, // 车型信息
                 modelName: ''        // 品牌名称
 			},
-			created: function(){
-                this.$watch("car.frameNo", function(val) {
-                    // 校验
-                    if (val.length !== 17) {
+			methods: {
+                checkFrameNo: function (val) {
+					if (val.length !== 17) {
                         mui.toast('请输入17位正确的车架号', {duration: 'short', type: 'div'});
                         return
                     }
                     this.queryFrame()
-				})
-			},
-			methods: {
+                },
                 openBrands: function () {
                     //打开新窗口
                     mui.openWindow({
@@ -253,6 +250,12 @@
             auto.car = JSON.parse(plus.storage.getItem('car'))
             // 获取本地的保单信息
             auto.bus = JSON.parse(plus.storage.getItem('bus'))
+			// 获取本地的品牌型号信息
+            auto.brand = JSON.parse(plus.storage.getItem('brand'))
+			if (auto.brand) {
+                auto.car.seatCount = auto.brand.seat
+                auto.modelName = ([auto.brand.brandName,auto.brand.vehicleFgwName,auto.brand.parentVehName].join(' ')).trim() //品牌名称
+			}
 
             //日期选择
             mui('.date').each(function (i, d) {
@@ -293,6 +296,14 @@
                 auto.modelName = ([auto.brand.brandName,auto.brand.vehicleFgwName,auto.brand.parentVehName].join(' ')).trim() //品牌名称
 				// 保存在本地
                 plus.storage.setItem('brand',JSON.stringify(auto.brand));
+            });
+
+            window.addEventListener('uploadSupplement', function (e) {
+                auto.car = JSON.parse(plus.storage.getItem('car'))
+                auto.brand = JSON.parse(plus.storage.getItem('brand'))
+
+                auto.car.seatCount = auto.brand.seat
+                auto.modelName = ([auto.brand.brandName,auto.brand.vehicleFgwName,auto.brand.parentVehName].join(' ')).trim() //品牌名称
             });
 		})
 	</script>

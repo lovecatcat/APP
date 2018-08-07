@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="css/mui.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/module.css" rel="stylesheet" />
+    <link href="css/member.css" rel="stylesheet" />
+    <link href="css/news.css" rel="stylesheet" />
+    <script src="js/config.js" type="text/javascript"></script>
+</head>
+<body class="BL-bg-f2f">
+<header id="Js-header" class="BL-bg-fff">
+    <div class="BL-mod-headbar BL-mod-headbar-pos">
+        <h1 class="BL-title">云课堂</h1>
+        <a class="BL-icon BL-icon-search" id="Js-openSearch"></a>
+    </div>
+</header>
+<div id="Js-content" class="mui-content BL-rel" style="background: #9BCCF9">
+    <div class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <component v-bind:is="item"
+                       v-for="(item,index) in arr"
+                       :e_data="init[index]">
+            </component>
+            <!-- 月刊入口 -->
+            <div class="train-month-magazine" id="month_magazine"></div>
+        </div>
+    </div>
+</div>
+<!-- 动态组件之公用 -->
+<template id="COMMON">
+    <div class="BL-pad-lr-1_5">
+        <!-- 每日一课 -->
+        <div class="train-category">
+            <div class="train-category-header">
+                <div class="category-title">{{ e_data.name }}</div>
+            </div>
+            <div class="train-category-body" v-if="e_data.style === 1&&e_data.child.type == 'content'">
+                <ul class="mui-table-view train-list-cell">
+                    <li v-if="e_data.child.list" class="nItem BL-mar-b-1_5" v-for="(item,index) in e_data.child.list">
+                        <div class="BL-ub BL-ub-f1" @click="$parent.OpenLessonDetail(item.media_type,item.id)">
+                            <div class="img">
+                                <img :src="item.img | setImg"/>
+                            </div>
+                            <div class="context BL-ub BL-ub-ver BL-ub-f1">
+                                <h1 class="tit">
+                                    <span class="tit-badg" v-if="item.media_type == 1" :class="{'tit-badg-tv': item.media_type == 1}">视频</span>
+                                    <span class="tit-badg" v-if="item.media_type == 2" :class="{'tit-badg-ad': item.media_type == 2}">音频</span>
+                                    {{ item.title }}
+                                </h1>
+                                <div class="remarks BL-ub BL-ub-ac">
+                                    <i class="ico-remarks" :class="{'ico-picture': item.media_type == 0,'ico-tv': item.media_type == 1,'ico-ad': item.media_type == 2}"></i>
+                                    <span>{{ item.play_count }}</span>
+                                    <span>{{ item.date }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="train-category-body mui-row" v-if="e_data.style === 2&&e_data.child.type == 'category'">
+                <div v-if="e_data.child.list" class="train-category-block mui-col-xs-4" v-for="(item,index) in e_data.child.list" @click="$parent.OpenLessonList(e_data.id,item.id,item.name,e_data.style)">
+                    {{ item.name }}
+                </div>
+            </div>
+            <div class="train-category-footer" @click="$parent.OpenLessonList(e_data.id,'',e_data.name,e_data.style)">
+                查看更多 <span class="mui-icon mui-icon-arrowright"></span>
+            </div>
+        </div>
+    </div>
+</template>
+<!-- 动态组件之晋升之路 -->
+<template id="JJKS">
+    <div class="BL-pad-lr-1_5">
+        <div class="train-category">
+            <div class="train-category-header">
+                <div class="category-title">{{ e_data.name }}</div>
+            </div>
+            <div class="train-category-body mui-row train-exam-row">
+                <div v-if="e_data.child.list" class="mui-col-xs-6" v-for="(item,index) in e_data.child.list">
+                    <div class="BL-ub BL-ub-f1 train-exam" @click="$parent.OpenExamList(index,e_data.child.list,item.id,item.name)">
+                        <div class="order block-exam">{{ index+1 }}</div>
+                        <div class="context BL-ub BL-ub-ver BL-ub-f1">
+                            <div class="BL-ub BL-ub-ac lock">
+                                <i :class="{'ico-lock': item.is_pass == 0, 'ico-unlock': item.is_pass == 1}"></i>
+                            </div>
+                            <div class="text">{{ item.name }}考试</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+</body>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/interval-dtpicker.js" type="text/javascript"></script>
+<script src="js/mui.pullToRefresh.js"></script>
+<script src="js/mui.pullToRefresh.material.js"></script>
+<script src="js/Date.js"></script>
+<script src="js/vue.min.js"></script>
+<script type="text/javascript">
+    mui.init();
+    //Vue过滤器
+    Vue.filter('setImg', function(val) {
+        return config.domain + val
+    });
+    Vue.filter('setTime', function(timestamp) {
+        var time = new Date(timestamp*1000)   // 时间戳转成日期
+        var timeFormat = time.Format('yyyy-MM-dd')
+        return timeFormat
+    });
+    // 公用样式模板
+    Vue.component('COMMON', {
+        template: '#COMMON',
+        props: {
+            e_data: {
+                type: Object,
+                required: true
+            }
+        }
+    });
+    // 晋升之路样式模板
+    Vue.component('JJKS', {
+        template: '#JJKS',
+        props: {
+            e_data: {
+                type: Object,
+                required: true
+            }
+        }
+    });
+
+    var train = new Vue({
+        el: '#Js-content',
+        data: {
+            userinfo: '', // 用户个人信息
+            arr : [],
+            init: null
+        },
+        methods: {
+            // 打开课程列表页面 cate_id 二级种类ID
+            // type 区分每日一课1or云课堂2
+            OpenLessonList: function (pid, cate_id, name, type) {
+                if (type == 2)  {
+                    if (this.userinfo.login_mk == -2) {
+                        var btnArray = ['确定', '取消'];
+                        mui.confirm('请先完善个人信息，立即前往？', '', btnArray, function (e) {
+                            if (e.index == 0) {
+                                mui.openWindow({
+                                    url: 'member-register.html',
+                                    id: 'member_register',
+                                    show: animateObj.aniDetal
+                                })
+                            }
+                        })
+                        return false;
+                    } else if (this.userinfo.login_mk == -1) {
+                        mui.toast('账号审核中，请联系管理员', {duration: 'short', type: 'div'})
+                        return false;
+                    }
+                }
+                mui.openWindow({
+                    url: 'train-list.html',
+                    id: 'train_list',
+                    show: animateObj.aniDetal,
+                    extras:{
+                        pid: pid,
+                        cate_id: cate_id,
+                        name: name,
+                        type: type
+                    }
+                })
+            },
+            // 打开课程详情页面
+            OpenLessonDetail: function (type,wid) {
+                var href = '', id = '';
+
+                if (type == 0) {
+                    href = 'train-article.html'
+                    id = 'train_article'
+                } else if (type == 1) {
+                    href = 'train-video.html'
+                    id = 'train_video'
+                } else if (type == 2) {
+                    href = 'train-audio.html'
+                    id = 'train_audio'
+                }
+
+                // 课程详情ID保存在本地
+                plus.storage.setItem('LessonInfo', JSON.stringify({id: wid}));
+
+                //打开新窗口
+                mui.openWindow({
+                    url: href,
+                    id: id,
+                    show: animateObj.aniDetal
+                });
+            },
+            // 打开阶段课程 index: 下标, gradeArr: 阶段数组，grade: 阶段ID, name:阶段名称,
+            OpenExamList: function (index, gradeArr, grade, name) {
+                if (this.userinfo.login_mk == -2) {
+                    var btnArray = ['确定', '取消'];
+                    mui.confirm('请先完善个人信息，立即前往？', '', btnArray, function (e) {
+                        if (e.index == 0) {
+                            mui.openWindow({
+                                url: 'member-register.html',
+                                id: 'member_register',
+                                show: animateObj.aniDetal
+                            })
+                        }
+                    })
+                    return false;
+                } else if (this.userinfo.login_mk == -1) {
+                    mui.toast('账号审核中，请联系管理员', {duration: 'short', type: 'div'})
+                    return false;
+                }
+
+            	if (index != 0) {
+            		for(var i=index; i--; i>0) {
+            			if(gradeArr[i].is_pass == 0) {
+            				mui.alert('请先完成'+gradeArr[i].name, '提示');
+            				return false
+            			}
+            		}
+            	}
+                mui.openWindow({
+                    url: 'train-exam-list.html',
+                    id: 'train_exam_list',
+                    show: animateObj.aniDetal,
+                    extras:{
+                        grade: grade,
+                        name: name
+                    }
+                })
+            }
+        }
+    });
+
+    mui.plusReady(function() {
+        function init() {
+            statusbar();
+            var winH = window.innerHeight;
+            var titHeight = document.querySelector('#Js-header').offsetHeight;
+            document.querySelector('#Js-content').style.height = winH - titHeight + 'px';
+
+            mui('.mui-scroll-wrapper').scroll({
+                scrollY: true, //是否竖向滚动
+                scrollX: false, //是否横向滚动
+                startX: 0, //初始化时滚动至x
+                startY: 0, //初始化时滚动至y
+                indicators: false, //是否显示滚动条
+                deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
+                bounce: true //是否启用回弹
+            });
+
+            var userinfo = plus.storage.getItem('userinfo') ? JSON.parse(plus.storage.getItem('userinfo')) : '';
+            train.userinfo = userinfo;
+        }
+
+        var loadTrain = function () {
+            luckyAjax({
+                data: {
+                    server: 'videoLearn.homePage'
+                },
+                success: function (res) {
+                	console.log(JSON.stringify(res))
+                    if (res.code == 1) {
+                        var data = res.data
+                        train.init = res.data
+                        mui.each(data, function (index, item) {
+                            train.arr.push(item.code)
+                        });
+
+                        // 初始化，修复动态数据加载后页面不能滚动问题
+                        init()
+                    } else {
+                        mui.toast(res.msg, {duration: 'long', type: 'div'})
+                    }
+                }
+            });
+        }
+        // 获取首页数据
+        loadTrain()
+
+        // 月刊入口
+        document.getElementById("month_magazine").addEventListener("tap", function() {
+            // 进入月刊列表页
+            mui.openWindow({
+                url: 'train-month-list.html',
+                id: 'train_month_list',
+                show: animateObj.aniDetal
+            })
+        });
+        // 搜索
+        document.getElementById("Js-openSearch").addEventListener("tap", function() {
+            //打开新窗口
+            mui.openWindow({
+                id: "train_search",
+                url: "train-search.html",
+                show: animateObj.aniDetal,
+                extras:{
+                    cate_id: 0
+                }
+            });
+        });
+
+        // 监听事件--更新当前页数据
+        window.addEventListener('reloadTrain', function (e) {
+            mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
+        	train.arr = []
+            loadTrain()
+        });
+    });
+</script>
+</html>

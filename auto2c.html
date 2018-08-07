@@ -138,7 +138,7 @@
                     },
                     // 险种信息（查询到车辆信息及车型信息跳转到计算保费页面）
                     insList: {
-                        commercial: false,
+                        commercial: true,
                         forcepremium: true,
                         biBeginDate: new Date().addDays(1).Format('yyyy-MM-dd'),   // 商业险起期
                         ciBeginDate: new Date().addDays(1).Format('yyyy-MM-dd'),
@@ -289,6 +289,13 @@
 														// 险种信息保存本地
                                                         plus.storage.setItem('insList',JSON.stringify(auto.insList));
 													}
+
+                                                    mui.fire(plus.webview.getWebviewById('auto2c_quotes'),'updateQuotes',{
+                                                        list: auto.insList,
+                                                        car: auto.car,
+                                                        brand: brand
+                                                    });
+
                                                     mui.openWindow({
                                                         url: 'auto2c-quotes.html',
                                                         id: 'auto2c_quotes',

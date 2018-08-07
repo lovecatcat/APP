@@ -49,6 +49,11 @@
 	                            			{{item.title}}
 	                            		</th>
 	                            	</template>
+	                            	<template v-else-if="formID == '16211'">
+	                            		<th style="min-width: 300px;" v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄' && index < 29">
+	                            			{{item.title}}
+	                            		</th>
+	                            	</template>
 	                            	<template v-else>
 	                            		<th style="min-width: 300px;" v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄'">
 	                            			{{item.title}}
@@ -94,6 +99,11 @@
                             		<template v-else-if="formID == '311'  && status">
                             			<th style="min-width: 300px;">祝寿保险金</th>
 	                            	</template>
+                            		<template v-else-if="formID == '16211'  && status">
+                            			<th style="min-width: 300px;">万能账户</th>
+                            			<th style="min-width: 300px;">身故总利益</th>
+                            			<th style="min-width: 300px;">生存总利益</th>
+	                            	</template>
 	                            </tr>
                             </thead>
                 		</table>
@@ -127,6 +137,12 @@
 	                            		<template v-else-if="formID == '16217'">
 		                            		<td class="table-td-hide" 
 			                            		v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄' && index < 23">
+		                            			{{item.title}}
+		                            		</td>
+		                            	</template>
+	                            		<template v-else-if="formID == '16211'">
+		                            		<td class="table-td-hide" 
+			                            		v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄' && index < 29">
 		                            			{{item.title}}
 		                            		</td>
 		                            	</template>
@@ -173,6 +189,11 @@
 		                            	</template>
 		                            	<template v-else-if="formID == '311'  && status">
 	                            			<td class="table-td-hide" >祝寿保险金</td>
+		                            	</template>
+		                            	<template v-else-if="formID == '16211'  && status">
+	                            			<th class="table-td-hide">万能账户</th>
+	                            			<th class="table-td-hide">身故总利益</th>
+	                            			<th class="table-td-hide">生存总利益</th>
 		                            	</template>
 		                            </tr>
 	                            
@@ -436,6 +457,68 @@
 		                            		</td>
 		                            		 
 	                            		</template>
+	                            		<template v-else-if="formID == '16211'">
+	                            			<!--招盈金生-->
+	                            			<td v-for="(data, i) in item" v-if="i != nl && i < 29">
+		                            			<template v-if="i != njbf">
+		                            				{{data | ToFixed}}
+		                            			</template>
+		                            			<template v-else-if="i == njbf && index <= pay_year">
+		                            				{{data | ToFixed}}
+		                            			</template>
+		                            			<template v-else-if="i == njbf && index > pay_year">
+		                            				0
+		                            			</template>
+		                            		</td>
+		                            		<td v-if="levelNum == 'min'">
+		                            			{{item[30] | ToFixed}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'mid'">
+		                            			{{item[29] | ToFixed}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'max'">
+		                            			{{item[32] | ToFixed}}
+		                            		</td>
+		                            		<td v-if="levelNum == 'min'">
+		                            			{{item[35] | ToFixed}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'mid'">
+		                            			{{item[37] | ToFixed}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'max'">
+		                            			{{item[38] | ToFixed}}
+		                            		</td>
+		                            		<td v-if="levelNum == 'min'">
+		                            			{{item[40] | ToFixed}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'mid'">
+		                            			{{item[36] | ToFixed}}
+		                            		</td>
+		                            		<td v-else-if="levelNum == 'max'">
+		                            			{{item[39] | ToFixed}}
+		                            		</td>
+	                            		</template>
+	                            		<template v-else-if="formID == '16230'">
+	                            			<!--富德生命倍健康重大疾病保险(基本部分+可选部分)-->
+	                            			<td v-for="(data, i) in item" v-if="i != nl && i != 5 && i != 8">
+		                            			<template v-if="i != njbf">
+		                            				{{data | ToFixed}}
+		                            			</template>
+		                            			<template v-else-if="i == njbf && index <= pay_year">
+		                            				{{data | ToFixed}}
+		                            			</template>
+		                            			<template v-else-if="i == njbf && index > pay_year">
+		                            				0
+		                            			</template>
+		                            		</td>
+		                            		<td>
+		                            			{{item[5] , children[index][6] | capitalize}}
+		                            		</td>
+		                            		<td>
+		                            			{{item[8] , children[index][9] | capitalize}}
+		                            		</td>
+		                            		 
+	                            		</template>	
 	                            	</tr>
 	                            
 	                            </tbody>
@@ -529,13 +612,14 @@
 				childrenDescribes: {},
 				pay_year: '',
 				safe_year: '',
+				money: '',
 				levelNum : '',
 				indeLv: '',
 				behalfLevelNum: [348, 370, 16217], //有中高低
-				behalfTable: [256, 354, 16201, 16197, 370, 347, 272, 340, 16217, 16221, 311], //主险利益演示表和附加险有关系的
-				//国华康运一生a,国华康运金生,国华少儿,鑫丰盈年金保险，万年红,信泰千万人生，恒久健康，万年青，万年福,复星联合康乐B
-				behalfChildren: [87, 355, 16202, 16198, 373, 404, 367, 16216, 16222, 1191], //主险利益演示表和附加险有关系的
-				//国华康运一生附加年金，国华康运金生养老年金  ,国华少儿年金,鑫丰盈养老年金，万年红,信泰千万人生，恒大养老年金，复星联合康乐B轻症
+				behalfTable: [256, 354, 16201, 16197, 370, 347, 272, 340, 16217, 16221, 311, 16211, 16230], //主险利益演示表和附加险有关系的
+				//国华康运一生a,国华康运金生,国华少儿,鑫丰盈年金保险，万年红,信泰千万人生，恒久健康，万年青，万年福,复星联合康乐B，招商招盈金生
+				behalfChildren: [87, 355, 16202, 16198, 373, 404, 367, 16216, 16222, 1191, 16232, 16227], //主险利益演示表和附加险有关系的
+				//国华康运一生附加年金，国华康运金生养老年金  ,国华少儿年金,鑫丰盈养老年金，万年红,信泰千万人生，恒大养老年金，复星联合康乐B轻症，招商招盈金生招管家
 				status: false,//和附加险有没有关系
 				nl : null, //年龄index
 				njbf: null, //保费index
@@ -579,6 +663,7 @@
 			modal.formID = data.formID
 			modal.pay_year = data.pay_year;
 			modal.safe_year = data.safe_year
+			modal.money = data.money
 			modal.levelNum = data.levelNum
 			modal.flag = data.flag
 			
@@ -602,6 +687,7 @@
 				modal.safe_year = data.safe_year
 			}
 			// 判断是不是需要附加险，是分别赋值，不是只赋值主险
+			var flag16232 = 0
 			if(modal.behalfTable.indexOf(Number(modal.formID)) > -1){
 				var describes = {}
 				mui.each(data.list.main.describes, function(index, item){
@@ -614,11 +700,12 @@
 				mui.each(data.list.children, function(index, item){
 					if(modal.behalfChildren.indexOf(Number(index)) > -1){
 						modal.status = true
+						flag16232 = item.flag
 						modal.children = data.list.children[index].list
 						modal.childrenDescribes = data.list.children[index].describes
 					}
 				})
-//				alert(JSON.stringify(	modal.childrenDescribes))
+//				alert(JSON.stringify(	modal.children))
 //				alert(JSON.stringify(modal.mainDescribes ))
 			}else{
 				var describes = {}
@@ -629,7 +716,6 @@
 				})
 				modal.main = data.list.list
 				modal.mainDescribes = describes
-				
 			}
 			var njy,
                 nje,
@@ -719,6 +805,9 @@
                     ret.year_fee = 100;
                     ret.flag = 75;
                 	ret.base_money = 0;
+                }else if(modal.formID == '16211') {
+                	ret.year_fee = flag16232;
+                	ret.base_money = modal.money;
                 }
                 // 是否存在资金规划队列领取金额，存在即合并覆盖
 	            if (exparam) {
@@ -749,7 +838,7 @@
 						}
 					});
 			}
-			if(modal.formID == '370' || modal.formID == '16217'){
+			if(modal.formID == '370' || modal.formID == '16217' || modal.formID == '16211'){
 				//万年红
 //				njy = modal.main[11][njy]
 //				nje = modal.main[104-manData.assu_age][nje];

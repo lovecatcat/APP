@@ -118,6 +118,9 @@
 										<a data-wid="zs_insurance-index" href="zs_ins/insurance-index.html" class="fd-btn a-link" v-show="item.company_id===85&&item.online_insure">
 											快速投保
 										</a>
+										<a @tap="xtIns()" class="fd-btn" v-show="item.company_id===12&&item.online_insure">
+											快速投保
+										</a>
 									</div>
 								</div>
 							</div>
@@ -138,6 +141,7 @@
 <script type="text/javascript">
     mui.init();
     var self;
+    var user_id;
     var product = new Vue({
         el: '#Js-content',
         data: {
@@ -173,7 +177,19 @@
                     loaddata(1,true);
                 }
             }
-        }
+        },
+        methods: {
+			xtIns: function(){
+				mui.openWindow({
+					id: 'XT_ins',
+					url: 'XT_ins.html',
+					show: animateObj.aniDetal,
+					extras:{
+						video_url:  config.domain + '/xtins/XT_ins.html?user_id='+user_id
+					}
+				});
+				}
+			}
     });
 
     (function ($) {
@@ -190,6 +206,7 @@
             var titHeight = document.querySelector('#Js-header').offsetHeight;
             var divHeight = document.querySelector('#Js-productFilter').offsetHeight;
             document.querySelector('#Js-productList').style.height = winH - titHeight - divHeight + 'px';
+            user_id = JSON.parse(plus.storage.getItem("userinfo")).id;
 
             //循环初始化所有下拉刷新，上拉加载。
             $('#Js-productList .mui-scroll').pullToRefresh({

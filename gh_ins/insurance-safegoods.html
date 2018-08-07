@@ -832,14 +832,14 @@
 										vm.insurance.period_money = ''
 
 									}
-									mui.toast(data.resultMsg, {
+									mui.toast(data.resultMsg+'(国华)', {
 										duration: 'short',
 										type: 'div'
 									});
 									return false;
 								}
 							} else {
-								mui.toast(res.msg ? res.msg : '网络繁忙，请稍后再试', {
+								mui.toast(res.msg ? res.msg : '网络繁忙，请稍后再试(保联)', {
 									duration: 'short',
 									type: 'div'
 								});

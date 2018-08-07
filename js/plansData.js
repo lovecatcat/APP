@@ -5,7 +5,7 @@
 	var clause_data = []; //条框数据
 	var totalMoney = 0; //总保费
 	var describes = {}; //保险利益
-	var hd = [272, 276, 340, 348, 370, 16217, 264, 354, 16201];//有在线投保的
+	var hd = [272, 276, 340, 348, 370, 16217, 264, 354, 16201, 332, 347];//有在线投保的
 	var zs = [16211, 16113, 16213, 16139,16120,16219,16137,16119,16139,16212,16214,16215];//招商
 	var groupList = function(data, pl_id) {
 
@@ -26,20 +26,6 @@
 			listMain[item.title] = main.list[1][index]
 		})
 		describes[0] = describes1
-//		alert(JSON.stringify(listMain))
-//		if(parent_id == 349) {
-//			safe_year = '至100周岁'
-//		} else if(parent_id == 16197) {
-//			safe_year = '至105周岁'
-//		} else if(parent_id == 16201) {
-//			safe_year = '至25周岁'
-//		} else if(parent_id == 336 || parent_id == 335) {
-//			safe_year = content.safe_year == 0 ? '终身' : '至70周岁';
-//		} else if(parent_id == 16221) {
-//			safe_year = content.safe_year == 0 ? '终身' : '至'+String(content.safe_year).substring(0,2)+'周岁';
-//		} else {
-//			safe_year = content.safe_year == 0 ? '终身' : content.safe_year;
-//		}
 		console.log(content.safe_year)
 		if(content.safe_year == 0) {
 			safe_year = '终身'
@@ -168,6 +154,11 @@
 					}else if(!pl_id && index == '16198'){
 						//工银鑫丰盈只有在有附加年金才有资金规划
 						aloneDetail.haveDesign16197 = true
+					}else if(!pl_id && index == '16232'){
+						//招盈金生只有在有附加年金才有资金规划
+						aloneDetail.haveLevel = true
+						aloneDetail.haveDesign16211 = true
+						
 					}
 					var list = {}
 					var describes2 = tml.describes
@@ -531,6 +522,12 @@
 							children_pay_year = "趸交"; 
 							children_year_fee = list["年缴保费"];
 							break;
+						case '16232':
+							//招管家年金保险 （万能型）"
+							children_base_money = '—';
+							children_safe_year = "终身";
+							children_pay_year = "趸交"; 
+							break;
 						case '1191':
 							//附加康健人生提前给付重大疾病保险
 							children_base_money = content.base_money;
@@ -556,6 +553,12 @@
 						case '16229': //长城附加吉康人生两全保险
 							children_base_money = content.base_money;
 							children_safe_year = content.safe_year == 0 ? '终身' : '至'+String(content.safe_year).substring(0,2)+'周岁';
+							children_pay_year = pay_year; 
+							children_year_fee = list["年缴保费"];
+							break;
+						case '16227': //富康附加倍健康两全保险
+							children_base_money = year_fee * pay_year;
+							children_safe_year = '至'+String(list["保险期间"]).substring(0,2)+'周岁';
 							children_pay_year = pay_year; 
 							children_year_fee = list["年缴保费"];
 							break;

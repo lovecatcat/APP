@@ -186,6 +186,15 @@
                         </div>
                     </div>
                     <div class="input-item">
+                        <label class="">收入来源</label>
+                        <div class="input-wrap box-f-1">
+                            <div class="input" id="annual_source" :data-value="assured.insured_salary_from">
+                                {{assured.insured_salary_from_name}}
+                            </div>
+                            <div class="ins-down-icon"></div>
+                        </div>
+                    </div>
+                    <div class="input-item">
                         <label class="">年收入(万元)</label>
                         <div class="input-wrap box-f-1">
                             <input type="number" v-model.trim="assured.insured_salary_avg"
@@ -363,6 +372,8 @@
                     insured_nation_name: '请选择',//国籍
                     insured_company: '',//工作单位
                     insured_salary_avg: '',//年收入
+                    insured_salary_from: '',//收入来源
+                    insured_salary_from_name: '请选择',//收入来源名称
 
                     addr_type: false,//地址同投保人
                     insured_home_province: '',//居住地【省】
@@ -503,6 +514,17 @@
                 astypeChange('被保人');
             })
         })
+        //收入来源选择
+        var annual = new mui.PopPicker();
+        annual.setData(init.annual_source);
+        document.querySelector('#annual_source').addEventListener('tap', function () {
+            document.activeElement.blur();
+            annual.show(function (items) {
+                assu.assured.insured_salary_from = items[0].value;
+                assu.assured.insured_salary_from_name = items[0].text;
+            })
+        })
+
         //国籍选择
         var nationtype = new mui.PopPicker();
         nationtype.setData(init.nation);

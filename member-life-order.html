@@ -184,7 +184,7 @@
             btnShow: function (index, item) {
                 switch (index) {
                     case 1: //继续录入 恒大 招商
-                        if ((item.supplier_id == 19 && item.state != 5 && (!item.pay_status || item.pay_status == '0')) || (item.supplier_id == 85 && (item.extend_items.update_img != '1')) || (item.supplier_id == 2 && (item.progress < 1 || item.state == 4))) {
+                        if ((item.supplier_id == 19 && item.state != 5 && (!item.pay_status || item.pay_status == '0')) || (item.supplier_id == 85 && item.state != 5 && (item.extend_items.update_img != '1')) || (item.supplier_id == 2 && (item.progress < 1 || item.state == 4))) {
                             return true
                         }
                         break
@@ -229,34 +229,35 @@
                     },
                     timeout: 10000,
                     success: function (res) {
-                        if (res.data.flag === 'Y') {
-                            if (res.data.isIssue === 'Y') {
-                                mui.toast('承保成功', {duration: 'long', type: 'div'});
-                                setTimeout(function () {
-                                    loaddata(2, true);
-                                    setTimeout(function () {
-                                        mui.openWindow({
-                                            id: 'member_warranty_manage',
-                                            url: 'member-warranty-manage.html',
-                                            show: animateObj.aniDetal
-                                        });
-                                    },400)
-                                },300)
-                            } else {
-                                mui.toast(res.data.issueNotPassReason, {duration: 'long', type: 'div'});
-                                return false
-                            }
-                        } else if (res.data.flag === 'N') {
-                            mui.toast(res.data.message, {duration: 'long', type: 'div'});
-                            return false
-                        } else if (res.code === 0) {
-                            mui.toast(res.msg, {duration: 'long', type: 'div'})
+                        if (!res.code) {
+                            mui.toast(res.msg || '网络出错，请稍后再试', {duration: 'long', type: 'div'})
                             return false
                         } else {
-                            mui.toast('网络出错，请稍后再试', {duration: 'long', type: 'div'})
-                            return false
+                            if (res.data.flag === 'Y') {
+                                if (res.data.isIssue === 'Y') {
+                                    mui.toast('承保成功', {duration: 'long', type: 'div'});
+                                    setTimeout(function () {
+                                        loaddata(2, true);
+                                        setTimeout(function () {
+                                            mui.openWindow({
+                                                id: 'member_warranty_manage',
+                                                url: 'member-warranty-manage.html',
+                                                show: animateObj.aniDetal
+                                            });
+                                        }, 400)
+                                    }, 300)
+                                } else {
+                                    mui.toast(res.data.issueNotPassReason, {duration: 'long', type: 'div'});
+                                    return false
+                                }
+                            } else if (res.data.flag === 'N') {
+                                mui.toast(res.data.message, {duration: 'long', type: 'div'});
+                                return false
+                            } else {
+                                mui.toast('网络出错，请稍后再试', {duration: 'long', type: 'div'})
+                                return false
+                            }
                         }
-
                     }
                 })
             },
@@ -274,27 +275,32 @@
                     },
                     timeout: 30000,
                     success: function (res) {
-                        if (res.data.flag === 'Y') {
-                            if (res.data.state === '700001') {
-                                mui.toast('支付中', {duration: 'long', type: 'div'})
-                            } else if (res.data.state === 'E8001') {
-                                mui.toast('支付失败，请重新支付', {duration: 'long', type: 'div'})
-                            } else if (res.data.state === 'S0000') {
-                                mui.toast('支付成功', {duration: 'long', type: 'div'})
-                                plus.webview.currentWebview().reload()
-                            } else {
-                                mui.toast(res.msg, {duration: 'long', type: 'div'})
-                                return false
-                            }
-                        } else if (res.data.flag === 'N') {
-                            mui.toast('接口调用失败', {duration: 'long', type: 'div'})
+                        if (!res.code) {
+                            mui.toast(res.msg || '网络出错，请稍后再试', {duration: 'long', type: 'div'})
                             return false
                         } else {
-                            mui.toast('网络出错，请稍后再试', {
-                                duration: 'long',
-                                type: 'div'
-                            })
-                            return false
+                            if (res.data.flag === 'Y') {
+                                if (res.data.state === '700001') {
+                                    mui.toast('支付中', {duration: 'long', type: 'div'})
+                                } else if (res.data.state === 'E8001') {
+                                    mui.toast('支付失败，请重新支付', {duration: 'long', type: 'div'})
+                                } else if (res.data.state === 'S0000') {
+                                    mui.toast('支付成功', {duration: 'long', type: 'div'})
+                                    plus.webview.currentWebview().reload()
+                                } else {
+                                    mui.toast(res.msg, {duration: 'long', type: 'div'})
+                                    return false
+                                }
+                            } else if (res.data.flag === 'N') {
+                                mui.toast('接口调用失败', {duration: 'long', type: 'div'})
+                                return false
+                            } else {
+                                mui.toast('网络出错，请稍后再试', {
+                                    duration: 'long',
+                                    type: 'div'
+                                })
+                                return false
+                            }
                         }
                     }
                 });

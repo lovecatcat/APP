@@ -67,6 +67,10 @@
                                         <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_job_code_text}}</div>
                                     </div>
                                     <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">收入来源</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_salary_from_text}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
                                         <label class="flex-1 ins-font-sm BL-col-999">年收入(万元)</label>
                                         <div class="flex-2 ins-font-sm">{{orderinfo.insData.holder_salary_avg}}</div>
                                     </div>
@@ -113,7 +117,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="mui-table-view-cell mui-collapse" v-if="orderinfo.insured.rel_insured_holder != ISASSURED">
+                        <li class="mui-table-view-cell mui-collapse" v-if="orderinfo.insured.rel_holder_insured != ISASSURED">
                             <a class="mui-navigate-right info-collapse" href="#">被保人信息</a>
                             <div class="mui-collapse-content">
                                 <div class="form-wrap margin-t_875">
@@ -156,6 +160,10 @@
                                     <div class="flex-n BL-pad-a1">
                                         <label class="flex-1 ins-font-sm BL-col-999">职业</label>
                                         <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_job_code_text}}</div>
+                                    </div>
+                                    <div class="flex-n BL-pad-a1">
+                                        <label class="flex-1 ins-font-sm BL-col-999">收入来源</label>
+                                        <div class="flex-2 ins-font-sm">{{orderinfo.insured.insured_salary_from_text}}</div>
                                     </div>
                                     <div class="flex-n BL-pad-a1">
                                         <label class="flex-1 ins-font-sm BL-col-999">年收入(万元)</label>
@@ -781,12 +789,15 @@
                 timeout: 30000,
                 success: function (res) {
                     if (res.data.flag === 'Y') {
-                    	if (res.data.state  == 'S0000' || res.data.state == '700001') {
+                        if (res.data.state == 'S0000') {
                             ins_pay()
-                    	} else {
-                    		mui.toast(res.data.error, {duration: 'long', type: 'div'})
+                        } else if (res.data.state == '700001') {
+                            mui.toast(res.msg, {duration: 'long', type: 'div'})
                             return false
-                    	}
+                        } else {
+                            mui.toast(res.data.error, {duration: 'long', type: 'div'})
+                            return false
+                        }
                     } else if (res.data.flag === 'N') {
                         mui.toast(res.data.message, {duration: 'long', type: 'div'})
                         return false

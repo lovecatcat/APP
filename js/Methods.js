@@ -700,7 +700,34 @@ var methods = {
 				} else if(mainPayYear === 30 && assuAge > 40 && mainSafeYear === 999) {
 					toastText = '保至终身30年交被保人年龄不能大于40周岁'
 				} 
-				break	
+				break
+				//富德人寿
+			case 'CNDD_MN1'://富德生命倍健康重大疾病保险
+				if([1, 3, 5].indexOf(mainPayYear) > -1 && assuAge > 60) {
+					toastText = (mainPayYear === 1 ? '趸交' : mainPayYear + '年交') + '被保人年龄不能大于60周岁'
+				} else if([10, 15].indexOf(mainPayYear) > -1 && assuAge > 50) {
+					toastText = mainPayYear + '年交被保人年龄不能大于50周岁'
+				} else if([19, 20].indexOf(mainPayYear) > -1 && assuAge > 45) {
+					toastText = mainPayYear + '年交被保人年龄不能大于45周岁'
+				}
+				break
+			case 'CNDD_MN1-1'://富德生命倍健康重大疾病保险
+				if(!this.flag[safeid]) {
+					toastText = '请先选择保障年限'
+				} else if(assuAge > 25 && this.flag['CNDD_MN1-1'] === 1) {
+					toastText = '保至55周岁被保人年龄不能大于25周岁'
+				} else if(assuAge > 35 && this.flag['CNDD_MN1-1'] === 2) {
+					toastText = '保至66周岁被保人年龄不能大于35周岁'
+				} else if(assuAge > 45 && this.flag['CNDD_MN1-1'] === 3) {
+					toastText = '保至77周岁被保人年龄不能大于45周岁'
+				} else if([1, 3, 5].indexOf(mainPayYear) > -1 && assuAge > 60 && this.flag['CNDD_MN1-1'] === 4) {
+					toastText = '保至88周岁' + (mainPayYear === 1 ? '趸交' : mainPayYear + '年交') + '被保人年龄不能大于60周岁'
+				} else if([10, 15].indexOf(mainPayYear) > -1 && assuAge > 50 && this.flag['CNDD_MN1-1'] === 4) {
+					toastText = '保至88周岁' + mainPayYear + '年交被保人年龄不能大于50周岁'
+				} else if([19, 20].indexOf(mainPayYear) > -1 && assuAge > 45 && this.flag['CNDD_MN1-1'] === 4) {
+					toastText = '保至88周岁' + mainPayYear + '年交被保人年龄不能大于45周岁'
+				}
+				break
 		}
 
 		if(toastText) {
@@ -963,6 +990,21 @@ var methods = {
 					toastText = '保额需为1万元整数倍'
 				}
 				break
+				//富德人寿
+			case 'CNDD_MN1'://富德生命倍健康重大疾病保险
+			case 'CNDD_MN1-1'://富德生命倍健康重大疾病保险
+				if(money < 10000) {
+					toastText = '最低基本保额为1万元'
+				} else if(money % 1000 !== 0) {
+					toastText = '保额需为1千元整数倍'
+				}else if(money > 500000 && assuAge < 10) {
+					toastText = '被保险人小于等于9周岁，最高保额为50万元'
+				}else if(money < 300000 && this.insurance.pay_year === 19) {
+                    toastText = '19年交最低基本保额为30万元'
+				}else if(money >= 300000 && this.insurance.pay_year === 20) {
+                    toastText = '20年交基本保额不能大于30万元'
+				}
+				break
 
 		}
 		if(toastText) {
@@ -1009,6 +1051,15 @@ var methods = {
 				} else if(periodMoney < 5000 && this.mainPayYear === 10) {
 					toastText = '10交年缴保费必须大于5千元'
 				}
+				break
+				//富德人寿
+			case 'CNDD_MN1'://富德生命倍健康重大疾病保险
+			case 'CNDD_MN1-1'://富德生命倍健康重大疾病保险
+				if(periodMoney < 6000 && this.mainPayYear === 1) {
+					toastText = '趸交最低6000元'
+				} else if(periodMoney < 600) {
+					toastText = '期交最低600元'
+				} 
 				break
 		}
 		if(toastText) {
@@ -1278,7 +1329,7 @@ var methods = {
 						}
 						break
 					case '1011': // 招商仁和附加投保人豁免保险费定期寿险
-					case '1011': // 招商仁和附加豁免保险费重大疾病保险
+					case '1012': // 招商仁和附加豁免保险费重大疾病保险
 					case '10523': // 长城附加投保人豁免保险费重大疾病保险
 						if(this.samePerson) {
 							toastText = '投被保人为同人时不可附加该险种'
@@ -1477,6 +1528,7 @@ var methods = {
 		this.cache.pay_moneyRSC = ''
 		this.cache.pay_moneyRSD = ''
 		this.cache.derate_money12E20010 = ''
+		this.cache.derate_money1023 = ''
 		this.cache.derate_money1167V1 = ''
 		//		if (this.Addons) {
 		//        for (var i in this.Addons[safeid]) {
@@ -1741,6 +1793,18 @@ var methods = {
 					toastText = '被保人年龄不能大于60周岁'
 				}
 				break
+			case '1023': // 招盈金生增加招管家万能账户
+				if(toastText) break
+				if(this.cache.derate_money1023 === '') {
+					toastText = '年缴保费不能为空'
+				} else if(this.cache.derate_money1023 === 0) {
+					toastText = '年缴保费不能为0'
+				} else if(this.cache.derate_money1023 % 100 !== 0) {
+					toastText = '年缴保费为100元整数倍'
+				} else if(this.cache.derate_money1023 > (this.insurance.period_money * mainPayYear * 2)) {
+					toastText = '不得超过主险累计总保费的 2 倍'
+				}
+				break	
             //长城
             case '10523': // 长城附加投保人豁免保险费重大疾病保险
 				if(mainPayYear === 3 && applAge > 60) {
@@ -2269,9 +2333,34 @@ var methods = {
 	// 校验附加险保费
 	checkExtraFee: function(safeid) {
 		var name = this.Addons[safeid].name
+		var mainSafeYear = this.mainSafeYear
+		var mainPayYear = this.mainPayYear
+		var toastText = null
 		if(!this.addonRes[safeid]) {
 			mui.toast('请先计算【' + name + '】')
 			return false;
+		}
+		var pr_money = this.addonRes[safeid]['年缴保费']
+		switch (safeid) {
+			case 'CNED_ON0': // 长城附加吉康两全保险
+				if(pr_money < 2500 && mainPayYear == 1) {
+                    toastText = '趸交最低2500元'
+                }else if (pr_money < 900 && mainPayYear == 3) {
+                	toastText = '3年交最低900元'
+                }else if (pr_money < 600 && mainPayYear == 5) {
+                	toastText = '5年交最低600元'
+                }else if (pr_money < 400 && mainPayYear == 10) {
+                	toastText = '10年交最低400元'
+                }else if (pr_money < 300) {
+                	toastText = '15/19/20年最低交300元'
+                }
+                break
+		}
+		if(toastText) {
+			this.$delete(this.addonRes, safeid)
+			mui.toast('【' + name + '】' + toastText)
+			this.$forceUpdate()
+			return false
 		}
 		return true
 	},
@@ -2363,7 +2452,7 @@ var methods = {
 			alias: null
 		}
 		// 添加特殊参数
-		var filterSafeid = ['31A00050', '12D00080', "HB030", 'DAR', 'LA073', '1003', 'LA078', 'LA075', 'LA080']
+		var filterSafeid = ['31A00050', '12D00080', "HB030", 'DAR', 'LA073', '1003', 'LA078', 'LA075', 'LA080', '1020']
 		if(filterSafeid.indexOf(safeid) > -1) {
 			data.assume_rate = '0';
 			data.sa_one = '0';
@@ -2795,6 +2884,15 @@ var methods = {
 		} else if(safeid === '1016') {
 			// 招商仁和仁医保费用补偿医疗保险
 			data.flag = this.flag[safeid]
+		} else if(safeid === '1020') {
+			// 招商招盈今生
+			data.year_fee = this.addonsSelected['1023'] && this.cache.derate_money1023 ? this.cache.derate_money1023 : 0
+		} else if(safeid === '1023') { // 招盈金生增加招管家万能账户
+			data.pay_year = 1
+			data.safe_year = 0
+			data.derate_money = this.cache.derate_money1023
+			data.flag = this.cache.derate_money1023
+			data.year_fee = this.cache.derate_money1023
 		} else if(safeid === 'NHFA' || safeid === 'NHGA' || safeid === '110029' ) {
 //			爱心保智选医疗保险
 //			爱心保卓越医疗保险
@@ -2859,7 +2957,21 @@ var methods = {
 			}else if(this.mainSafeYear === 88){
 				data.flag = 3
 			}
-		} 
+		} else if (safeid === 'CNDD_MN1') {
+//			富德生命倍健康重大疾病保险
+			data.tbnj = 0
+			data.safe_year = this.mainSafeYear === 999 ? 0 : this.mainSafeYear + '00'
+		}else if (safeid === 'CNDD_MN1-1') {
+//			富德生命倍健康重大疾病保险(基本部分+可选部分)
+			data.tbnj = 0
+			data.flag = this.flag[safeid]
+		}else if (safeid === 'CNED_ON0') {
+//			富德生命附加倍健康两全保险
+			data.tbnj = 0
+			data.pay_year = this.mainPayYear
+            data.safe_year = 55 + (this.flag['CNDD_MN1-1']-1)*11 + '00'
+            data.base_money = this.insurance.period_money * this.mainPayYear
+		}
 
 		if(isMain) {
 			this.mainInsData = data
@@ -2912,7 +3024,7 @@ var methods = {
 					} else {
 						vm.insurance.money = data[j]
 					}
-					if(safeid !== 'A66' && safeid !== '110020') {
+					if(safeid !== 'A66' && safeid !== '110020' && safeid !== '1020') {
 						vm.resetAddon()
 					}
 					vm.checkMainFee(safeid)
@@ -2954,7 +3066,7 @@ var methods = {
 						vm.fxljys110020.mzmoney = vm.addonRes[safeid]['门诊总保费']
 					}
 					vm.$forceUpdate()
-
+					
 					var list = {
 						name: res.name,
 						safe_id: safeid,
@@ -2967,7 +3079,12 @@ var methods = {
 					}
 					if(safeid == 'JER') {
 						list.safe_year = vm.mainSafeYear
+					}else if(safeid == '1023') {
+						vm.uploading = false
+						vm.calMoney(true)
 					}
+					vm.checkExtraFee(safeid)
+					
 					if(list.period_money == 0) {
 						mui.toast('超出费率表计算范围，无法投保')
 						vm.addonRes[safeid] = ''

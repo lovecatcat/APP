@@ -21,9 +21,11 @@ var aloneDetail = new Vue({
 		fx: [335, 336, 337, 16220, 16221],
 		zs: [16211, 16113, 16213, 16139],
 		cc: [311, 16224, 16228],
-		behalfTable: [256, 347, 354, 370, 16197, 16201, 272, 340, 16217, 16221, 311], //主险利益演示表和附加险有关系的
+		fd: [16226, 16230],
+		behalfTable: [256, 347, 354, 370, 16197, 16201, 272, 340, 16217, 16221, 311, 16211, 16230], //主险利益演示表和附加险有关系的
 		haveDesign: [348, 370, 347, 16197, 16217],
 		haveDesign16197: false,
+		haveDesign16211: false,
 		haveLevel: false, //有中高低的
 		levelNum: {},
 		manual_content: {},
@@ -117,6 +119,7 @@ var aloneDetail = new Vue({
 				list: list,
 				pay_year: aloneDetail.list.pay_year,
 				safe_year: aloneDetail.list.safe_year,
+				money: aloneDetail.list.base_money,
 				levelNum: this.levelNum[this.pl_id],
 				manData: manData,
 				design: design,
@@ -207,6 +210,7 @@ var aloneDetail = new Vue({
 			aloneDetail.levelNum[aloneDetail.pl_id] = aloneDetail.levelNum[aloneDetail.pl_id] ? aloneDetail.levelNum[aloneDetail.pl_id] : 'mid'
 			aloneDetail.haveLevel = false
 			aloneDetail.haveDesign16197 = false
+			aloneDetail.haveDesign16211 = false
 			aloneDetail.green_server = false
 			aloneDetail.$forceUpdate()
 			groupList(data)

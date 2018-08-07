@@ -61,7 +61,8 @@
 								&& insurance.safe_id !== 'NHFA'
 								&& insurance.safe_id !== 'NHGA' 
 								&& insurance.safe_id !== '110029'
-								&& insurance.safe_id !== '00108'">
+								&& insurance.safe_id !== '00108'
+								&& insurance.safe_id !== 'CNDD_MN1-1'">
 							<input slot="input" v-model.number="insurance.money" type="number" placeholder="请填写基本保险金额（元）" @change="resetFee()">
 							<div slot="icon" @tap="insurance.money = ''" v-show="insurance.money != ''" class="form-clear-icon">
 								<span class="mui-icon mui-icon-clear"></span>
@@ -124,6 +125,23 @@
 					        </button>
 					        </app-select>
 					        <app-input label="基本保额">
+								<input slot="input" v-model.number.lazy="insurance.money" type="number" placeholder="请填写基本保险金额（元）" @change="resetFee()">
+								<div slot="icon" @tap="insurance.money = ''" v-show="insurance.money != ''" class="form-clear-icon">
+									<span class="mui-icon mui-icon-clear"></span>
+								</div>
+							</app-input>
+						</template>
+						<template v-else-if="insurance.safe_id == 'CNDD_MN1-1'">
+							<!--招商仁和仁安无忧意外伤害保险-->
+							<app-select label="附加倍健康两全保险期间">
+								<button slot="button" v-for="num in 4" 
+									class="ins-btn xs-btn" 
+									:class="{'blue': num == flag[insurance.safe_id]}" 
+									:disabled="num == flag[insurance.safe_id]" @tap="flagChanged(insurance.safe_id, num)">
+					             	{{55 + (num -1)*11}}周岁
+					        </button>
+					        </app-select>
+							<app-input label="基本保额">
 								<input slot="input" v-model.number.lazy="insurance.money" type="number" placeholder="请填写基本保险金额（元）" @change="resetFee()">
 								<div slot="icon" @tap="insurance.money = ''" v-show="insurance.money != ''" class="form-clear-icon">
 									<span class="mui-icon mui-icon-clear"></span>
@@ -1833,6 +1851,38 @@
 							</div>
 						</template>
 						<!--招商仁和仁医保费用补偿医疗保险-->
+						<!-- 招盈金生增加招管家万能账户 -->
+						<template v-if="item.code==='1023' && addonsSelected[item.code]">
+							<div class="form-wrap form-bgc-eee">
+								<template v-if="addonRes[item.code]">
+									<div class="input-item">
+										<label class="">保险期间(年)</label>
+										<div class="input-wrap box-f-1">
+											<button slot="button" class="ins-btn xs-btn blue">终身</button>
+										</div>
+									</div>
+									<div class="input-item">
+										<label class="">缴费年限(年)</label>
+										<div class="input-wrap box-f-1">
+											<button slot="button" class="ins-btn xs-btn blue">1年</button>
+										</div>
+									</div>
+								</template>
+								<div class="input-item">
+									<label class="">年缴保费(元)</label>
+									<div class="BL-ub BL-ub-pj BL-ub-f1">
+										<div class="input-wrap BL-ub-f1">
+											<input v-model.number="cache.derate_money1023" type="number" placeholder="请填写年缴保费（元）">
+											<div slot="icon" @tap="cache.derate_money1023 = ''" v-show="cache.derate_money1023 != ''" class="form-clear-icon">
+												<span class="mui-icon mui-icon-clear"></span>
+											</div>
+										</div>
+										<div class="right-btn orange" @tap="calMoney(false, item.code)">点击计算</div>
+									</div>
+								</div>
+							</div>
+						</template>
+						<!-- 招盈金生增加招管家万能账户 -->
 						<!--招商仁和-->
 						<!--长城人寿-->
 						<!--附加康健人生提前给付重大疾病保险-->
@@ -1911,7 +1961,6 @@
 										 >
 						             	{{num}}周岁
 						        	</button>
-
 								</app-select>
 								<app-select label="领取年龄(年)" v-else-if="item.code === '10101' && mainSafeYear !== 999">
 									<button slot="button" class="ins-btn xs-btn blue" disabled>
@@ -1952,6 +2001,41 @@
 						</template>
 						<!--长城附加意外伤害保险-->
 						<!--长城人寿-->
+						<!--富德人寿-->
+						<!--富德生命附加倍健康两全保险-->
+						<template v-if="item.code === 'CNED_ON0' && addonsSelected[item.code]">
+							<div class="form-wrap form-bgc-eee">
+								<app-input label="保险金额">
+									<button slot="button" class="ins-btn xs-btn blue" disabled>
+						             	{{insurance.period_money * mainPayYear}}
+						        	</button>
+								</app-input>
+								<app-input label="保险期间(年)">
+									<button slot="button" class="ins-btn xs-btn blue" disabled>
+						             	{{55 + (flag['CNDD_MN1-1']-1)*11}}周岁
+						        	</button>
+								</app-input>
+								<app-input label="缴费年限(年)">
+									<button slot="button" class="ins-btn xs-btn blue" disabled>
+						             	{{mainPayYear}}年交
+						        	</button>
+								</app-input>
+
+								<div class="input-item">
+									<label class="">年缴保费(元)</label>
+									<div class="BL-ub BL-ub-pj BL-ub-f1">
+										<div class="input-wrap BL-ub-f1">
+											<div class="input BL-bg-fff">
+												<span v-if="addonRes[item.code]">
+							{{addonRes[item.code]['年缴保费']}}
+						</span>&nbsp; </div>
+										</div>
+										<div class="right-btn orange" @tap="calMoney(false, item.code)">点击计算</div>
+									</div>
+								</div>
+							</div>
+						</template>
+						<!--富德人寿-->
 					</div>
 				</template>
 
@@ -2041,6 +2125,7 @@
 					base_money60703: '',
 					base_money60602: '',
 					base_money10101: '',
+					base_money1023: '',
 				},
 				mainPayYear: '',
 				mainSafeYear: '',

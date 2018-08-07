@@ -175,11 +175,11 @@
                                         }
                                     });
                                 } else {
-                                    mui.toast(res.msg, {duration: 'long', type: 'div'})
+                                    mui.toast(res.msg||'未生成电子保单，无法回执', {duration: 'long', type: 'div'})
                                     return false
                                 }
                             } else {
-                                mui.toast(res.msg, {duration: 'long', type: 'div'})
+                                mui.toast(res.msg||'服务器出错了', {duration: 'long', type: 'div'})
                                 return false
                             }
                         }

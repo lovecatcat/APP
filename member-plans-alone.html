@@ -34,6 +34,7 @@
 					<div v-else-if="fx.indexOf(Number(list.genre)) > -1" @tap="company(list.genre)">复星联合</div>
 					<div v-else-if="zs.indexOf(Number(list.genre)) > -1" @tap="company(list.genre)">招商仁和</div>
 					<div v-else-if="cc.indexOf(Number(list.genre)) > -1" @tap="company(list.genre)">长城人寿</div>
+					<div v-else-if="fd.indexOf(Number(list.genre)) > -1" @tap="company(list.genre)">富德生命</div>
 					<div @tap="clause">条款详情</div>
 					<div @tap="company_green(list.genre)" v-if="green_server">绿通服务</div>
 				</div>
@@ -133,7 +134,7 @@
 				<!--保险利益-->
 			
 				<!--资金规划-->
-				<div class="plans-detail-box BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff" v-if="haveDesign.indexOf(Number(list.genre)) > -1 || haveDesign16197">
+				<div class="plans-detail-box BL-pad-lr-1 BL-pad-tb-1 BL-radiu-a_5  BL-bg-fff" v-if="haveDesign.indexOf(Number(list.genre)) > -1 || haveDesign16197 || haveDesign16211">
 					<!--v-if="list.genre == '19385' || list.genre == '377' || list.genre == '404'"-->
 					<div class="BL-title">资金规划</div>
 					<div class="plans-detail-design-button BL-mar-b-2 BL-ub BL-ub-pc" v-if="haveLevel || list.genre == 348">

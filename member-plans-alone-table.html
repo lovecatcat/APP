@@ -54,6 +54,16 @@
 	                            			{{item.title}}
 	                            		</th>
 	                            	</template>
+	                            	<template v-else-if="formID == '16228' && status">
+	                            		<th style="min-width: 300px;" v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄' && index != 6 && index != 9">
+	                            			{{item.title}}
+	                            		</th>
+	                            	</template>
+	                            	<template v-else-if="formID == '16228'">
+	                            		<th style="min-width: 300px;" v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄'">
+	                            			{{item.title}}
+	                            		</th>
+	                            	</template>
 	                            	<template v-else>
 	                            		<th style="min-width: 300px;" v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄'">
 	                            			{{item.title}}
@@ -104,6 +114,10 @@
                             			<th style="min-width: 300px;">身故总利益</th>
                             			<th style="min-width: 300px;">生存总利益</th>
 	                            	</template>
+                            		<template v-else-if="formID == '16228'  && status">
+                            			<th style="min-width: 300px;">现金价值</th>
+                            			<th style="min-width: 300px;">身故总利益</th>
+	                            	</template>
 	                            </tr>
                             </thead>
                 		</table>
@@ -145,6 +159,12 @@
 			                            		v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄' && index < 29">
 		                            			{{item.title}}
 		                            		</td>
+		                            	</template>
+		                            	<template v-else-if="formID == '16228'">
+		                            		<td  class="table-td-hide" 
+		                            			v-for="(item, index) in mainDescribes" :key="index" v-if="item.title != '被保险人年龄' && index != 6 && index != 9">
+		                            			{{item.title}}
+		                            		</td >
 		                            	</template>
 		                            	<template v-else>
 		                            		<td class="table-td-hide" 
@@ -194,6 +214,10 @@
 	                            			<th class="table-td-hide">万能账户</th>
 	                            			<th class="table-td-hide">身故总利益</th>
 	                            			<th class="table-td-hide">生存总利益</th>
+		                            	</template>
+		                            	<template v-else-if="formID == '16228'  && status">
+	                            			<th class="table-td-hide">现金价值</th>
+	                            			<th class="table-td-hide">身故总利益</th>
 		                            	</template>
 		                            </tr>
 	                            
@@ -500,7 +524,7 @@
 	                            		</template>
 	                            		<template v-else-if="formID == '16230'">
 	                            			<!--富德生命倍健康重大疾病保险(基本部分+可选部分)-->
-	                            			<td v-for="(data, i) in item" v-if="i != nl && i != 5 && i != 8">
+	                            			<td v-for="(data, i) in item" v-if="i != nl && i != 5 && i != 7 && i != 8">
 		                            			<template v-if="i != njbf">
 		                            				{{data | ToFixed}}
 		                            			</template>
@@ -514,8 +538,32 @@
 		                            		<td>
 		                            			{{item[5] , children[index][6] | capitalize}}
 		                            		</td>
-		                            		<td>
+		                            		<td v-if="item[7]">
+		                            			{{item[7] , children[index][9] | capitalize}}
+		                            		</td>
+		                            		<td v-if="item[8]">
 		                            			{{item[8] , children[index][9] | capitalize}}
+		                            		</td>
+		                            		 
+	                            		</template>	
+	                            		<template v-else-if="formID == '16228'">
+	                            			<!--长城人寿吉康人生重大疾病保险-->
+	                            			<td v-for="(data, i) in item" v-if="i != nl && i != 6 && i != 9">
+		                            			<template v-if="i != njbf">
+		                            				{{data | ToFixed}}
+		                            			</template>
+		                            			<template v-else-if="i == njbf && index <= pay_year">
+		                            				{{data | ToFixed}}
+		                            			</template>
+		                            			<template v-else-if="i == njbf && index > pay_year">
+		                            				0
+		                            			</template>
+		                            		</td>
+		                            		<td>
+		                            			{{item[6] , children[index][5] | capitalize}}
+		                            		</td>
+		                            		<td>
+		                            			{{item[9] , children[index][6] | capitalize}}
 		                            		</td>
 		                            		 
 	                            		</template>	
@@ -616,10 +664,10 @@
 				levelNum : '',
 				indeLv: '',
 				behalfLevelNum: [348, 370, 16217], //有中高低
-				behalfTable: [256, 354, 16201, 16197, 370, 347, 272, 340, 16217, 16221, 311, 16211, 16230], //主险利益演示表和附加险有关系的
-				//国华康运一生a,国华康运金生,国华少儿,鑫丰盈年金保险，万年红,信泰千万人生，恒久健康，万年青，万年福,复星联合康乐B，招商招盈金生
-				behalfChildren: [87, 355, 16202, 16198, 373, 404, 367, 16216, 16222, 1191, 16232, 16227], //主险利益演示表和附加险有关系的
-				//国华康运一生附加年金，国华康运金生养老年金  ,国华少儿年金,鑫丰盈养老年金，万年红,信泰千万人生，恒大养老年金，复星联合康乐B轻症，招商招盈金生招管家
+				behalfTable: [256, 354, 16201, 16197, 370, 347, 272, 340, 16217, 16221, 311, 16211, 16230, 16228], //主险利益演示表和附加险有关系的
+				//国华康运一生a,国华康运金生,国华少儿,鑫丰盈年金保险，万年红,信泰千万人生，恒久健康，万年青，万年福,复星联合康乐B，招商招盈金生,长城吉康人生
+				behalfChildren: [87, 355, 16202, 16198, 373, 404, 367, 16216, 16222, 1191, 16232, 16227, 16229], //主险利益演示表和附加险有关系的
+				//国华康运一生附加年金，国华康运金生养老年金  ,国华少儿年金,鑫丰盈养老年金，万年红,信泰千万人生，恒大养老年金，复星联合康乐B轻症，招商招盈金生招管家，长城吉康人生两全
 				status: false,//和附加险有没有关系
 				nl : null, //年龄index
 				njbf: null, //保费index
